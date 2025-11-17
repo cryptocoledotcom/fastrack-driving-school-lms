@@ -14,16 +14,29 @@ import {
 } from 'firebase/firestore';
 import { db } from '../config/firebase';
 
-const PROGRESS_COLLECTION = 'progress';
+// Updated to match your Firestore structure: users/{userId}/userProgress/progress
+const getUserProgressRef = (userId) => {
+  return doc(db, 'users', userId, 'userProgress', 'progress');
+};
 
 // Get user's progress for a specific course
 export const getProgress = async (userId, courseId) => {
   try {
-    const progressRef = doc(db, PROGRESS_COLLECTION, `${userId}_${courseId}`);
+    const progressRef = getUserProgressRef(userId);
     const progressDoc = await getDoc(progressRef);
     
     if (!progressDoc.exists()) {
       // Return default progress if none exists
+      return {
+        userId,
+        courses: {}
+      };
+    }
+    
+    const progressData = progressDoc.data();
+    const courseProgress = progressData.courses?.[courseId];
+    
+    if (!courseProgress) {
       return {
         userId,
         courseId,
@@ -42,8 +55,9 @@ export const getProgress = async (userId, courseId) => {
     }
     
     return {
-      id: progressDoc.id,
-      ...progressDoc.data()
+      userId,
+      courseId,
+      ...courseProgress
     };
   } catch (error) {
     console.error('Error fetching progress:', error);
@@ -54,16 +68,16 @@ export const getProgress = async (userId, courseId) => {
 // Save or update user progress
 export const saveProgress = async (userId, courseId, progressData) => {
   try {
-    const progressRef = doc(db, PROGRESS_COLLECTION, `${userId}_${courseId}`);
+    const progressRef = getUserProgressRef(userId);
     const data = {
-      userId,
-      courseId,
-      ...progressData,
-      updatedAt: new Date().toISOString()
+      [`courses.${courseId}`]: {
+        ...progressData,
+        updatedAt: new Date().toISOString()
+      }
     };
     
     await setDoc(progressRef, data, { merge: true });
-    return data;
+    return progressData;
   } catch (error) {
     console.error('Error saving progress:', error);
     throw error;
@@ -73,10 +87,12 @@ export const saveProgress = async (userId, courseId, progressData) => {
 // Update specific progress fields
 export const updateProgress = async (userId, courseId, updates) => {
   try {
-    const progressRef = doc(db, PROGRESS_COLLECTION, `${userId}_${courseId}`);
+    const progressRef = getUserProgressRef(userId);
     const updateData = {
-      ...updates,
-      updatedAt: new Date().toISOString()
+      [`courses.${courseId}`]: {
+        ...updates,
+        updatedAt: new Date().toISOString()
+      }
     };
     
     await updateDoc(progressRef, updateData);
@@ -145,10 +161,23 @@ export const markModuleComplete = async (userId, courseId, moduleId) => {
   }
 };
 
-// Enroll user in course
+// Enroll user in course - creates entry in users/{userId}/courses/{courseId}
 export const enrollInCourse = async (userId, courseId, courseData) => {
   try {
-    return await saveProgress(userId, courseId, {
+    // Create entry in users/{userId}/courses/{courseId}
+    const userCourseRef = doc(db, 'users', userId, 'courses', courseId);
+    const enrollmentData = {
+      courseId,
+      courseName: courseData.title || '',
+      enrolled: true,
+      enrolledAt: new Date().toISOString(),
+      status: 'active'
+    };
+    
+    await setDoc(userCourseRef, enrollmentData);
+    
+    // Initialize progress in users/{userId}/userProgress/progress
+    await saveProgress(userId, courseId, {
       enrolled: true,
       enrolledAt: new Date().toISOString(),
       totalLessons: courseData.totalLessons || 0,
@@ -157,30 +186,27 @@ export const enrollInCourse = async (userId, courseId, courseData) => {
       completedModules: 0,
       overallProgress: 0,
       lessonProgress: {},
-      moduleProgress: {}
+      moduleProgress: {},
+      timeSpent: 0
     });
+    
+    return enrollmentData;
   } catch (error) {
     console.error('Error enrolling in course:', error);
     throw error;
   }
 };
 
-// Get all user's enrolled courses
+// Get all user's enrolled courses from users/{userId}/courses subcollection
 export const getUserEnrolledCourses = async (userId) => {
   try {
-    const progressRef = collection(db, PROGRESS_COLLECTION);
-    const q = query(
-      progressRef,
-      where('userId', '==', userId),
-      where('enrolled', '==', true),
-      orderBy('enrolledAt', 'desc')
-    );
-    const querySnapshot = await getDocs(q);
+    const userCoursesRef = collection(db, 'users', userId, 'courses');
+    const querySnapshot = await getDocs(userCoursesRef);
     
     const enrolledCourses = [];
     querySnapshot.forEach((doc) => {
       enrolledCourses.push({
-        id: doc.id,
+        courseId: doc.id,
         ...doc.data()
       });
     });
@@ -232,6 +258,7 @@ export const updateLessonProgress = async (userId, courseId, lessonId, progressD
     };
     
     return await saveProgress(userId, courseId, {
+      ...progress,
       lessonProgress,
       lastAccessedAt: new Date().toISOString()
     });
@@ -244,32 +271,51 @@ export const updateLessonProgress = async (userId, courseId, lessonId, progressD
 // Get user's overall statistics
 export const getUserStats = async (userId) => {
   try {
-    const progressRef = collection(db, PROGRESS_COLLECTION);
-    const q = query(progressRef, where('userId', '==', userId));
-    const querySnapshot = await getDocs(q);
+    const progressRef = getUserProgressRef(userId);
+    const progressDoc = await getDoc(progressRef);
     
-    let totalCourses = 0;
+    if (!progressDoc.exists()) {
+      return {
+        totalCourses: 0,
+        enrolledCourses: 0,
+        completedCourses: 0,
+        inProgressCourses: 0,
+        totalLessonsCompleted: 0,
+        totalTimeSpent: 0,
+        completionRate: 0
+      };
+    }
+    
+    const progressData = progressDoc.data();
+    const courses = progressData.courses || {};
+    
     let enrolledCourses = 0;
     let completedCourses = 0;
+    let inProgressCourses = 0;
     let totalLessonsCompleted = 0;
     let totalTimeSpent = 0;
     
-    querySnapshot.forEach((doc) => {
-      const data = doc.data();
-      totalCourses++;
-      if (data.enrolled) enrolledCourses++;
-      if (data.overallProgress === 100) completedCourses++;
-      totalLessonsCompleted += data.completedLessons || 0;
-      totalTimeSpent += data.timeSpent || 0;
+    Object.values(courses).forEach((course) => {
+      if (course.enrolled) {
+        enrolledCourses++;
+        if (course.overallProgress === 100) {
+          completedCourses++;
+        } else if (course.overallProgress > 0) {
+          inProgressCourses++;
+        }
+        totalLessonsCompleted += course.completedLessons || 0;
+        totalTimeSpent += course.timeSpent || 0;
+      }
     });
     
     return {
-      totalCourses,
+      totalCourses: enrolledCourses,
       enrolledCourses,
       completedCourses,
+      inProgressCourses,
       totalLessonsCompleted,
       totalTimeSpent,
-      averageProgress: enrolledCourses > 0 
+      completionRate: enrolledCourses > 0 
         ? Math.round((completedCourses / enrolledCourses) * 100)
         : 0
     };

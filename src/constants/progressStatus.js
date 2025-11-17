@@ -128,7 +128,7 @@ export const getStatusFromPercentage = (percentage) => {
   return PROGRESS_STATUS.IN_PROGRESS;
 };
 
-export default {
+const progressStatus = {
   PROGRESS_STATUS,
   STATUS_CONFIG,
   getStatusConfig,
@@ -143,3 +143,5 @@ export default {
   calculateProgressPercentage,
   getStatusFromPercentage
 };
+
+export default progressStatus;

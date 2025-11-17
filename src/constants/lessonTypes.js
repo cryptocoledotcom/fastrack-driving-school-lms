@@ -131,7 +131,7 @@ export const getPassingScore = (type) => {
   return config && config.passingScore ? config.passingScore : 0;
 };
 
-export default {
+const lessonTypes = {
   LESSON_TYPES,
   LESSON_TYPE_CONFIG,
   getLessonTypeConfig,
@@ -140,3 +140,5 @@ export default {
   getMaxAttempts,
   getPassingScore
 };
+
+export default lessonTypes;

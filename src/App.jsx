@@ -31,6 +31,7 @@ import DashboardPage from './pages/Dashboard/DashboardPage';
 import MyCoursesPage from './pages/MyCourses/MyCoursesPage';
 import CourseDetailPage from './pages/CourseDetail/CourseDetailPage';
 import LessonPage from './pages/Lesson/LessonPage';
+import CoursePlayerPage from './pages/CoursePlayer/CoursePlayerPage';
 import ProgressPage from './pages/Progress/ProgressPage';
 import ProfilePage from './pages/Profile/ProfilePage';
 import SettingsPage from './pages/Settings/SettingsPage';
@@ -135,6 +136,12 @@ function App() {
                     <DashboardLayout>
                       <LessonPage />
                     </DashboardLayout>
+                  </ProtectedRoute>
+                } />
+                
+                <Route path="/course-player/:courseId" element={
+                  <ProtectedRoute>
+                    <CoursePlayerPage />
                   </ProtectedRoute>
                 } />
                 

@@ -1,19 +1,200 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 import Card from '../../components/common/Card/Card';
 import Button from '../../components/common/Button/Button';
+import Badge from '../../components/common/Badge/Badge';
+import ProgressBar from '../../components/common/ProgressBar/ProgressBar';
+import LoadingSpinner from '../../components/common/LoadingSpinner/LoadingSpinner';
+import ErrorMessage from '../../components/common/ErrorMessage/ErrorMessage';
+import SuccessMessage from '../../components/common/SuccessMessage/SuccessMessage';
+import { getCourseById } from '../../api/courseServices';
+import { getModules } from '../../api/moduleServices';
+import { enrollInCourse, getProgress } from '../../api/progressServices';
 import styles from './CourseDetailPage.module.css';
 
 const CourseDetailPage = () => {
   const { courseId } = useParams();
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  const [course, setCourse] = useState(null);
+  const [modules, setModules] = useState([]);
+  const [progress, setProgress] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [enrolling, setEnrolling] = useState(false);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+
+  useEffect(() => {
+    loadCourseData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [courseId, user]);
+
+  const loadCourseData = async () => {
+    try {
+      setLoading(true);
+      setError('');
+
+      // Load course details
+      const courseData = await getCourseById(courseId);
+      setCourse(courseData);
+
+      // Load modules
+      const modulesData = await getModules(courseId);
+      setModules(modulesData);
+
+      // Load user progress if logged in
+      if (user) {
+        const progressData = await getProgress(user.uid, courseId);
+        setProgress(progressData);
+      }
+
+    } catch (err) {
+      console.error('Error loading course:', err);
+      setError('Failed to load course details');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleEnroll = async () => {
+    if (!user) {
+      navigate('/login');
+      return;
+    }
+
+    try {
+      setEnrolling(true);
+      setError('');
+      setSuccess('');
+
+      await enrollInCourse(user.uid, courseId, course);
+      setSuccess('Successfully enrolled in course!');
+
+      // Reload progress
+      const progressData = await getProgress(user.uid, courseId);
+      setProgress(progressData);
+
+      // Redirect to course player after 2 seconds
+      setTimeout(() => {
+        navigate(`/course-player/${courseId}`);
+      }, 2000);
+
+    } catch (err) {
+      console.error('Error enrolling:', err);
+      setError('Failed to enroll in course. Please try again.');
+    } finally {
+      setEnrolling(false);
+    }
+  };
+
+  const handleStartLearning = () => {
+    navigate(`/course-player/${courseId}`);
+  };
+
+  if (loading) {
+    return <LoadingSpinner fullScreen text="Loading course..." />;
+  }
+
+  if (!course) {
+    return (
+      <div className={styles.errorContainer}>
+        <ErrorMessage message="Course not found" />
+        <Button onClick={() => navigate(-1)}>Go Back</Button>
+      </div>
+    );
+  }
+
+  const isEnrolled = progress?.enrolled || false;
 
   return (
     <div className={styles.courseDetailPage}>
-      <h1 className={styles.title}>Course Details</h1>
-      <Card padding="large">
-        <p>Course ID: {courseId}</p>
-        <Button variant="primary">Start Learning</Button>
-      </Card>
+      {error && <ErrorMessage message={error} onDismiss={() => setError('')} />}
+      {success && <SuccessMessage message={success} onDismiss={() => setSuccess('')} />}
+
+      {/* Course Header */}
+      <div className={styles.header}>
+        <div className={styles.headerContent}>
+          <div className={styles.breadcrumb}>
+            <Button variant="ghost" size="small" onClick={() => navigate(-1)}>
+              ← Back to Courses
+            </Button>
+          </div>
+          <h1 className={styles.title}>{course.title}</h1>
+          <p className={styles.description}>{course.description}</p>
+          
+          <div className={styles.metadata}>
+            <Badge variant="primary">{course.level || 'Beginner'}</Badge>
+            <span className={styles.metaItem}>📚 {modules.length} Modules</span>
+            <span className={styles.metaItem}>📖 {course.totalLessons || 0} Lessons</span>
+            <span className={styles.metaItem}>⏱️ {course.duration || 0} hours</span>
+          </div>
+
+          {isEnrolled && progress && (
+            <div className={styles.progressSection}>
+              <h3>Your Progress</h3>
+              <ProgressBar progress={progress.overallProgress || 0} />
+              <p>{progress.completedLessons || 0} of {progress.totalLessons || 0} lessons completed</p>
+            </div>
+          )}
+
+          <div className={styles.actions}>
+            {isEnrolled ? (
+              <Button variant="primary" size="large" onClick={handleStartLearning}>
+                Continue Learning
+              </Button>
+            ) : (
+              <Button 
+                variant="primary" 
+                size="large" 
+                onClick={handleEnroll}
+                loading={enrolling}
+              >
+                Enroll Now
+              </Button>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Course Content */}
+      <div className={styles.content}>
+        <Card padding="large">
+          <h2 className={styles.sectionTitle}>What You'll Learn</h2>
+          <ul className={styles.learningPoints}>
+            <li>Safe driving techniques and best practices</li>
+            <li>Traffic rules and road signs</li>
+            <li>Defensive driving strategies</li>
+            <li>Vehicle control and handling</li>
+            <li>Parking and maneuvering skills</li>
+          </ul>
+        </Card>
+
+        <Card padding="large">
+          <h2 className={styles.sectionTitle}>Course Modules</h2>
+          <div className={styles.modulesList}>
+            {modules.map((module, index) => (
+              <div key={module.id} className={styles.moduleItem}>
+                <div className={styles.moduleNumber}>{index + 1}</div>
+                <div className={styles.moduleInfo}>
+                  <h3>{module.title}</h3>
+                  <p>{module.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Card>
+
+        <Card padding="large">
+          <h2 className={styles.sectionTitle}>Requirements</h2>
+          <ul className={styles.requirements}>
+            <li>Valid learner's permit or driver's license</li>
+            <li>Basic understanding of traffic rules</li>
+            <li>Commitment to complete all modules</li>
+          </ul>
+        </Card>
+      </div>
     </div>
   );
 };

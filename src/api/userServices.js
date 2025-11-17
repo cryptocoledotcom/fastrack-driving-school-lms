@@ -53,6 +53,37 @@ export const updateProfile = async (userId, updates) => {
   }
 };
 
+// Update user settings (including dark mode)
+export const updateUserSettings = async (userId, settings) => {
+  try {
+    const userRef = doc(db, USERS_COLLECTION, userId);
+    await updateDoc(userRef, {
+      settings: settings,
+      updatedAt: new Date().toISOString()
+    });
+    
+    return await getUser(userId);
+  } catch (error) {
+    console.error('Error updating settings:', error);
+    throw error;
+  }
+};
+
+// Get user settings
+export const getUserSettings = async (userId) => {
+  try {
+    const user = await getUser(userId);
+    return user.settings || {
+      darkMode: false,
+      notifications: true,
+      emailNotifications: true
+    };
+  } catch (error) {
+    console.error('Error fetching settings:', error);
+    throw error;
+  }
+};
+
 // Get user statistics
 export const getUserStats = async (userId) => {
   try {
@@ -214,7 +245,9 @@ const userServices = {
   updateUserPreferences,
   getUserRecentActivity,
   isUsernameAvailable,
-  getUserByUsername
+  getUserByUsername,
+  updateUserSettings,
+  getUserSettings
 };
 
 export default userServices;
