@@ -41,3 +41,6 @@ firestore-debug.log
 
 # Optional eslint cache
 .eslintcache
+
+# Firebase service account keys
+*adminsdk*.json
