@@ -1,0 +1,47 @@
+/* NotificationModal Component Styles */
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  text-align: center;
+}
+
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.iconWrapper svg {
+  width: 3rem;
+  height: 3rem;
+}
+
+.iconSuccess {
+  color: #10B981;
+}
+
+.iconWarning {
+  color: #F59E0B;
+}
+
+.iconError {
+  color: #EF4444;
+}
+
+.iconInfo {
+  color: #3B82F6;
+}
+
+.message {
+  margin: 0;
+  font-size: 1rem;
+  color: #374151;
+  line-height: 1.5;
+}
+
+.actions {
+  width: 100%;
+}

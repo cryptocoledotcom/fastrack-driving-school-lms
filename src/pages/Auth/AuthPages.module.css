@@ -1,0 +1,56 @@
+/* Auth Pages Styles */
+
+.authPage {
+  width: 100%;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1F2937;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: #6B7280;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.forgotLink {
+  text-align: right;
+  font-size: 0.875rem;
+  color: #3B82F6;
+  text-decoration: none;
+  margin-top: -0.5rem;
+}
+
+.forgotLink:hover {
+  text-decoration: underline;
+}
+
+.switchText {
+  text-align: center;
+  font-size: 0.875rem;
+  color: #6B7280;
+  margin-top: 1.5rem;
+}
+
+.switchLink {
+  color: #3B82F6;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.switchLink:hover {
+  text-decoration: underline;
+}

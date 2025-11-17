@@ -1,0 +1,91 @@
+/* Checkbox Component Styles */
+
+.checkboxWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+}
+
+.checkbox {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: relative;
+  height: 1.25rem;
+  width: 1.25rem;
+  background-color: white;
+  border: 2px solid #D1D5DB;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.checkboxLabel:hover .checkmark {
+  border-color: #3B82F6;
+}
+
+.checkbox:checked ~ .checkmark {
+  background-color: #3B82F6;
+  border-color: #3B82F6;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.checkbox:checked ~ .checkmark:after {
+  display: block;
+}
+
+.checkbox:focus ~ .checkmark {
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.checkbox.disabled ~ .checkmark {
+  background-color: #F3F4F6;
+  border-color: #D1D5DB;
+  cursor: not-allowed;
+}
+
+.checkbox.disabled ~ .labelText {
+  color: #9CA3AF;
+  cursor: not-allowed;
+}
+
+.checkbox.error ~ .checkmark {
+  border-color: #EF4444;
+}
+
+.labelText {
+  font-size: 0.875rem;
+  color: #374151;
+}
+
+.errorText {
+  font-size: 0.875rem;
+  color: #EF4444;
+  margin-left: 2rem;
+}

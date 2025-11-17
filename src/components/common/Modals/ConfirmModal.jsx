@@ -1,0 +1,59 @@
+// ConfirmModal Component
+// Confirmation dialog (Yes/No actions)
+
+import React from 'react';
+import BaseModal from './BaseModal';
+import Button from '../Button/Button';
+import styles from './ConfirmModal.module.css';
+
+const ConfirmModal = ({
+  isOpen,
+  onClose,
+  onConfirm,
+  title = 'Confirm Action',
+  message,
+  confirmText = 'Confirm',
+  cancelText = 'Cancel',
+  variant = 'primary',
+  loading = false
+}) => {
+  const handleConfirm = () => {
+    onConfirm();
+    if (!loading) {
+      onClose();
+    }
+  };
+
+  return (
+    <BaseModal
+      isOpen={isOpen}
+      onClose={onClose}
+      title={title}
+      size="small"
+      closeOnOverlayClick={!loading}
+      closeOnEscape={!loading}
+    >
+      <div className={styles.content}>
+        <p className={styles.message}>{message}</p>
+        <div className={styles.actions}>
+          <Button
+            variant="outline"
+            onClick={onClose}
+            disabled={loading}
+          >
+            {cancelText}
+          </Button>
+          <Button
+            variant={variant}
+            onClick={handleConfirm}
+            loading={loading}
+          >
+            {confirmText}
+          </Button>
+        </div>
+      </div>
+    </BaseModal>
+  );
+};
+
+export default ConfirmModal;
