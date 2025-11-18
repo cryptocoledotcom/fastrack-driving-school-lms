@@ -102,6 +102,20 @@ const HomePage = () => {
         </div>
       </section>
 
+      {/* Homepage Video Section */}
+      <section className={styles.homepageVideoSection}>
+        <div className={styles.container}>
+          <video
+            src="/assets/videos/homepage-video.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+            className={styles.homepageVideo}
+          />
+        </div>
+      </section>
+
       {/* Features Section */}
       <section className={styles.features}>
         <div className={styles.container}>
