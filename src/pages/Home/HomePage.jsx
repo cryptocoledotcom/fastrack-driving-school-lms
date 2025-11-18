@@ -75,6 +75,19 @@ const HomePage = () => {
         </div>
       </section>
 
+      {/* Logo Video Section */}
+      <section className={styles.logoVideoSection}>
+        <div className={styles.container}>
+          <video src="/assets/videos/homepage-logo-video.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+            className={styles.logoVideo}
+          />
+        </div>
+      </section>
+
       {/* Stats Section */}
       <section className={styles.stats}>
         <div className={styles.container}>

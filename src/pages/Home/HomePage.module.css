@@ -43,6 +43,22 @@
   flex-wrap: wrap;
 }
 
+/* Logo Video Section */
+.logoVideoSection {
+  padding: 6rem 2rem;
+  background: #white;
+  color: white;
+  text-align: center;
+}
+
+.logoVideo {
+  width: 100%;
+  max-width: 800px; /* Adjust this to your preferred max size */
+  height: auto;
+  border-radius: 8px; /* Optional: for rounded corners */
+}
+
+
 /* Stats Section */
 .stats {
   padding: 4rem 2rem;
