@@ -10,16 +10,18 @@ const CoursesPage = () => {
         <p className={styles.subtitle}>Choose from our comprehensive driving courses</p>
         <div className={styles.grid}>
           <Card hoverable>
-            <h3>Beginner's Course</h3>
-            <p>Perfect for first-time drivers</p>
+            <h3>Fastrack Online</h3>
+            <p>24hr. Online Course.</p>
+            <p>Work at your own pace.</p>
           </Card>
           <Card hoverable>
-            <h3>Advanced Driving</h3>
-            <p>Enhance your driving skills</p>
+            <h3>Fastrack Behind the Wheel</h3>
+            <p>8hrs. of One on One Driving Lessons</p>
           </Card>
           <Card hoverable>
-            <h3>Defensive Driving</h3>
-            <p>Learn safe driving techniques</p>
+            <h3>Fastrack Complete</h3>
+            <p>A combination of both online and behind the wheel lessons.</p>
+            <p>For a significant discount of course fees, you can choose to take both courses together.</p>
           </Card>
         </div>
       </div>
