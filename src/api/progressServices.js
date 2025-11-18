@@ -14,6 +14,8 @@ import {
 } from 'firebase/firestore';
 import { db } from '../config/firebase';
 
+const PROGRESS_COLLECTION = 'userProgress';
+
 // Updated to match your Firestore structure: users/{userId}/userProgress/progress
 const getUserProgressRef = (userId) => {
   return doc(db, 'users', userId, 'userProgress', 'progress');

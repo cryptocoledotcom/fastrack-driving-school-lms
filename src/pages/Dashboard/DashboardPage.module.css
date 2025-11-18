@@ -1,7 +1,9 @@
 /* DashboardPage Styles */
 
 .dashboard {
-  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
 }
 
 .header {
@@ -11,18 +13,19 @@
 .title {
   font-size: 2rem;
   font-weight: 700;
-  color: #1F2937;
-  margin-bottom: 0.5rem;
+  color: #111827;
+  margin: 0 0 0.5rem 0;
 }
 
 .subtitle {
   font-size: 1rem;
-  color: #6B7280;
+  color: #6b7280;
+  margin: 0;
 }
 
 .statsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 1.5rem;
   margin-bottom: 3rem;
 }
@@ -31,10 +34,12 @@
   display: flex;
   align-items: center;
   gap: 1rem;
+  padding: 1rem;
 }
 
 .statIcon {
   font-size: 2.5rem;
+  flex-shrink: 0;
 }
 
 .statContent {
@@ -44,12 +49,16 @@
 .statValue {
   font-size: 2rem;
   font-weight: 700;
-  color: #1F2937;
+  color: #111827;
+  line-height: 1;
+  margin-bottom: 0.25rem;
 }
 
 .statLabel {
   font-size: 0.875rem;
-  color: #6B7280;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .section {
@@ -66,40 +75,100 @@
 .sectionTitle {
   font-size: 1.5rem;
   font-weight: 600;
-  color: #1F2937;
+  color: #111827;
+  margin: 0;
 }
 
-.coursesGrid {
+.enrollmentsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1.5rem;
-}
-
-.courseTitle {
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: #1F2937;
-  margin-bottom: 0.5rem;
-}
-
-.courseDescription {
-  font-size: 0.875rem;
-  color: #6B7280;
-  margin-bottom: 1rem;
 }
 
 .emptyState {
   text-align: center;
-  color: #6B7280;
+  padding: 3rem 2rem;
+}
+
+.emptyIcon {
+  font-size: 4rem;
   margin-bottom: 1rem;
 }
 
+.emptyState h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #111827;
+  margin: 0 0 0.5rem 0;
+}
+
+.emptyState p {
+  font-size: 1rem;
+  color: #6b7280;
+  margin: 0 0 1.5rem 0;
+}
+
+.actionsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+
+.actionCard {
+  display: block;
+  padding: 1.5rem;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s;
+}
+
+.actionCard:hover {
+  transform: translateY(-2px);
+}
+
+.actionIcon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.actionCard h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #111827;
+  margin: 0 0 0.5rem 0;
+}
+
+.actionCard p {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin: 0;
+}
+
 @media (max-width: 768px) {
-  .statsGrid {
-    grid-template-columns: 1fr;
+  .dashboard {
+    padding: 1rem;
   }
 
-  .coursesGrid {
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .statCard {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .sectionHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .actionsGrid {
     grid-template-columns: 1fr;
   }
 }

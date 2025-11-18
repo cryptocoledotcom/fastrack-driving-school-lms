@@ -2,39 +2,87 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { useCourse } from '../../context/CourseContext';
 import Card from '../../components/common/Card/Card';
 import Button from '../../components/common/Button/Button';
-import ProgressBar from '../../components/common/ProgressBar/ProgressBar';
 import LoadingSpinner from '../../components/common/LoadingSpinner/LoadingSpinner';
+import EnrollmentCard from '../../components/payment/EnrollmentCard';
 import { PROTECTED_ROUTES } from '../../constants/routes';
 import { getUserStats } from '../../api/userServices';
+import { getUserEnrollments } from '../../api/enrollmentServices';
+import { getCourseById } from '../../api/courseServices';
+import { COURSE_IDS } from '../../constants/courses';
 import styles from './DashboardPage.module.css';
 
 const DashboardPage = () => {
   const { user, getUserFullName } = useAuth();
-  const { getEnrolledCourses } = useCourse();
   const [stats, setStats] = useState(null);
+  const [enrollments, setEnrollments] = useState([]);
+  const [courses, setCourses] = useState({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchStats = async () => {
-      if (user) {
-        try {
-          const userStats = await getUserStats(user.uid);
-          setStats(userStats);
-        } catch (error) {
-          console.error('Error fetching stats:', error);
-        } finally {
-          setLoading(false);
-        }
-      }
-    };
-
-    fetchStats();
+    fetchDashboardData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
-  const enrolledCourses = getEnrolledCourses();
+  const fetchDashboardData = async () => {
+    if (!user) return;
+
+    try {
+      setLoading(true);
+
+      // Fetch user stats
+      const userStats = await getUserStats(user.uid);
+      setStats(userStats);
+
+      // Fetch enrollments
+      const userEnrollments = await getUserEnrollments(user.uid);
+      setEnrollments(userEnrollments);
+
+      // Fetch course details for each enrollment
+      const courseData = {};
+      for (const enrollment of userEnrollments) {
+        try {
+          // For predefined courses, use static data
+          if (enrollment.courseId === COURSE_IDS.ONLINE) {
+            courseData[enrollment.courseId] = {
+              id: COURSE_IDS.ONLINE,
+              title: 'Fastrack Online',
+              description: '24-hour online driving course'
+            };
+          } else if (enrollment.courseId === COURSE_IDS.BEHIND_WHEEL) {
+            courseData[enrollment.courseId] = {
+              id: COURSE_IDS.BEHIND_WHEEL,
+              title: 'Fastrack Behind the Wheel',
+              description: '8-hour in-person instruction'
+            };
+          } else if (enrollment.courseId === COURSE_IDS.COMPLETE) {
+            courseData[enrollment.courseId] = {
+              id: COURSE_IDS.COMPLETE,
+              title: 'Fastrack Complete',
+              description: 'Complete package (Online + Behind-the-Wheel)'
+            };
+          } else {
+            // Try to fetch from Firestore
+            const course = await getCourseById(enrollment.courseId);
+            courseData[enrollment.courseId] = course;
+          }
+        } catch (error) {
+          console.error(`Error fetching course ${enrollment.courseId}:`, error);
+        }
+      }
+      setCourses(courseData);
+    } catch (error) {
+      console.error('Error fetching dashboard data:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handlePaymentSuccess = () => {
+    // Reload dashboard data after successful payment
+    fetchDashboardData();
+  };
 
   if (loading) {
     return <LoadingSpinner fullScreen text="Loading dashboard..." />;
@@ -91,29 +139,76 @@ const DashboardPage = () => {
       <section className={styles.section}>
         <div className={styles.sectionHeader}>
           <h2 className={styles.sectionTitle}>My Courses</h2>
-          <Link to={PROTECTED_ROUTES.MY_COURSES}>
-            <Button variant="outline" size="small">View All</Button>
-          </Link>
+          {enrollments.length === 0 && (
+            <Link to="/courses">
+              <Button variant="primary" size="small">Browse Courses</Button>
+            </Link>
+          )}
         </div>
-        {enrolledCourses.length > 0 ? (
-          <div className={styles.coursesGrid}>
-            {enrolledCourses.slice(0, 3).map((course) => (
-              <Card key={course.id} hoverable clickable>
-                <h3 className={styles.courseTitle}>{course.title}</h3>
-                <p className={styles.courseDescription}>{course.description}</p>
-                <ProgressBar progress={course.progress || 0} />
-              </Card>
-            ))}
+        
+        {enrollments.length > 0 ? (
+          <div className={styles.enrollmentsGrid}>
+            {enrollments
+              .filter(enrollment => !enrollment.isComponentOfBundle) // Hide component courses
+              .map((enrollment) => (
+                <EnrollmentCard
+                  key={enrollment.id}
+                  enrollment={enrollment}
+                  course={courses[enrollment.courseId]}
+                  onPaymentSuccess={handlePaymentSuccess}
+                />
+              ))}
           </div>
         ) : (
           <Card>
-            <p className={styles.emptyState}>You haven't enrolled in any courses yet.</p>
-            <Link to="/courses">
-              <Button variant="primary">Browse Courses</Button>
-            </Link>
+            <div className={styles.emptyState}>
+              <div className={styles.emptyIcon}>📚</div>
+              <h3>No courses yet</h3>
+              <p>You haven't enrolled in any courses yet. Browse our courses to get started!</p>
+              <Link to="/courses">
+                <Button variant="primary">Browse Courses</Button>
+              </Link>
+            </div>
           </Card>
         )}
       </section>
+
+      {/* Quick Actions */}
+      {enrollments.length > 0 && (
+        <section className={styles.section}>
+          <h2 className={styles.sectionTitle}>Quick Actions</h2>
+          <div className={styles.actionsGrid}>
+            <Card hoverable clickable>
+              <Link to={PROTECTED_ROUTES.MY_COURSES} className={styles.actionCard}>
+                <div className={styles.actionIcon}>📖</div>
+                <h3>View All Courses</h3>
+                <p>See all your enrolled courses</p>
+              </Link>
+            </Card>
+            <Card hoverable clickable>
+              <Link to={PROTECTED_ROUTES.PROGRESS} className={styles.actionCard}>
+                <div className={styles.actionIcon}>📊</div>
+                <h3>Track Progress</h3>
+                <p>Monitor your learning progress</p>
+              </Link>
+            </Card>
+            <Card hoverable clickable>
+              <Link to={PROTECTED_ROUTES.CERTIFICATES} className={styles.actionCard}>
+                <div className={styles.actionIcon}>🏆</div>
+                <h3>Certificates</h3>
+                <p>View your earned certificates</p>
+              </Link>
+            </Card>
+            <Card hoverable clickable>
+              <Link to={PROTECTED_ROUTES.PROFILE} className={styles.actionCard}>
+                <div className={styles.actionIcon}>👤</div>
+                <h3>Profile Settings</h3>
+                <p>Update your profile information</p>
+              </Link>
+            </Card>
+          </div>
+        </section>
+      )}
     </div>
   );
 };
