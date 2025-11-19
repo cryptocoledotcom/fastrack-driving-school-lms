@@ -8,7 +8,7 @@ import Card from '../../components/common/Card/Card';
 import Button from '../../components/common/Button/Button';
 import LoadingSpinner from '../../components/common/LoadingSpinner/LoadingSpinner';
 import PaymentModal from '../../components/payment/PaymentModal';
-import { getCourseById } from '../../api/courseServices'; // eslint-disable-line no-unused-vars
+import { getCourses } from '../../api/courseServices'; // Remove eslint-disable comment
 import { 
   createEnrollment, 
   createCompletePackageEnrollment,
@@ -32,11 +32,16 @@ const CoursesPage = () => {
   }, [user]);
 
   const loadCourses = async () => {
-    try {
-      setLoading(true);
-      
-      // Load course data
-      const coursesData = [
+  try {
+    setLoading(true);
+    
+    // Load course data from Firestore
+    const coursesData = await getCourses();
+    
+    // If no courses in database, use fallback data
+    if (coursesData.length === 0) {
+      console.warn('No courses found in database, using fallback data');
+      const fallbackCourses = [
         {
           id: COURSE_IDS.ONLINE,
           title: 'Fastrack Online',
@@ -83,8 +88,10 @@ const CoursesPage = () => {
           popular: true
         }
       ];
-
+      setCourses(fallbackCourses);
+    } else {
       setCourses(coursesData);
+    }
 
       // Load user enrollments if logged in
       if (user) {

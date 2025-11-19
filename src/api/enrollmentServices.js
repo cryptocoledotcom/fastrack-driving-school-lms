@@ -1,5 +1,5 @@
 // Enrollment Services
-// Handles course enrollment operations
+// Handles course enrollment operations using users/{userId}/courses/{courseId} subcollection
 
 import {
   collection,
@@ -23,22 +23,19 @@ import {
   ADMIN_CONFIG
 } from '../constants/courses';
 
-const ENROLLMENTS_COLLECTION = 'enrollments';
-const COURSES_COLLECTION = 'courses'; // eslint-disable-line no-unused-vars
-
 /**
- * Create enrollment record for a course
+ * Create enrollment record for a course in users/{userId}/courses/{courseId}
  */
 export const createEnrollment = async (userId, courseId, userEmail = '') => {
   try {
-    const enrollmentId = `${userId}_${courseId}`;
-    const enrollmentRef = doc(db, ENROLLMENTS_COLLECTION, enrollmentId);
+    // Reference to users/{userId}/courses/{courseId}
+    const enrollmentRef = doc(db, 'users', userId, 'courses', courseId);
     
     // Check if enrollment already exists
     const existingEnrollment = await getDoc(enrollmentRef);
     if (existingEnrollment.exists()) {
       return {
-        id: enrollmentId,
+        id: courseId,
         ...existingEnrollment.data()
       };
     }
@@ -75,7 +72,7 @@ export const createEnrollment = async (userId, courseId, userEmail = '') => {
     await setDoc(enrollmentRef, enrollmentData);
 
     return {
-      id: enrollmentId,
+      id: courseId,
       ...enrollmentData
     };
   } catch (error) {
@@ -93,8 +90,7 @@ export const createCompletePackageEnrollment = async (userId, userEmail = '') =>
     const isAdmin = ADMIN_CONFIG.AUTO_ENROLL_EMAILS.includes(userEmail.toLowerCase());
 
     // Create enrollment for Complete Package
-    const completeEnrollmentId = `${userId}_${COURSE_IDS.COMPLETE}`;
-    const completeEnrollmentRef = doc(db, ENROLLMENTS_COLLECTION, completeEnrollmentId);
+    const completeEnrollmentRef = doc(db, 'users', userId, 'courses', COURSE_IDS.COMPLETE);
     
     const completePricing = COURSE_PRICING[COURSE_IDS.COMPLETE];
     
@@ -122,8 +118,7 @@ export const createCompletePackageEnrollment = async (userId, userEmail = '') =>
     batch.set(completeEnrollmentRef, completeEnrollmentData);
 
     // Create enrollment for Online Course (component)
-    const onlineEnrollmentId = `${userId}_${COURSE_IDS.ONLINE}`;
-    const onlineEnrollmentRef = doc(db, ENROLLMENTS_COLLECTION, onlineEnrollmentId);
+    const onlineEnrollmentRef = doc(db, 'users', userId, 'courses', COURSE_IDS.ONLINE);
     
     const onlineEnrollmentData = {
       userId,
@@ -135,7 +130,7 @@ export const createCompletePackageEnrollment = async (userId, userEmail = '') =>
       totalAmount: 0, // Part of bundle
       amountPaid: 0,
       amountDue: 0,
-      parentEnrollmentId: completeEnrollmentId,
+      parentEnrollmentId: COURSE_IDS.COMPLETE,
       isComponentOfBundle: true,
       progress: 0,
       lastAccessedAt: null,
@@ -148,8 +143,7 @@ export const createCompletePackageEnrollment = async (userId, userEmail = '') =>
     batch.set(onlineEnrollmentRef, onlineEnrollmentData);
 
     // Create enrollment for Behind-the-Wheel Course (component)
-    const btwEnrollmentId = `${userId}_${COURSE_IDS.BEHIND_WHEEL}`;
-    const btwEnrollmentRef = doc(db, ENROLLMENTS_COLLECTION, btwEnrollmentId);
+    const btwEnrollmentRef = doc(db, 'users', userId, 'courses', COURSE_IDS.BEHIND_WHEEL);
     
     const btwEnrollmentData = {
       userId,
@@ -161,7 +155,7 @@ export const createCompletePackageEnrollment = async (userId, userEmail = '') =>
       totalAmount: 0, // Part of bundle
       amountPaid: 0,
       amountDue: 0,
-      parentEnrollmentId: completeEnrollmentId,
+      parentEnrollmentId: COURSE_IDS.COMPLETE,
       isComponentOfBundle: true,
       certificateGenerated: false,
       progress: 0,
@@ -177,9 +171,9 @@ export const createCompletePackageEnrollment = async (userId, userEmail = '') =>
     await batch.commit();
 
     return {
-      completePackage: { id: completeEnrollmentId, ...completeEnrollmentData },
-      online: { id: onlineEnrollmentId, ...onlineEnrollmentData },
-      behindWheel: { id: btwEnrollmentId, ...btwEnrollmentData }
+      completePackage: { id: COURSE_IDS.COMPLETE, ...completeEnrollmentData },
+      online: { id: COURSE_IDS.ONLINE, ...onlineEnrollmentData },
+      behindWheel: { id: COURSE_IDS.BEHIND_WHEEL, ...btwEnrollmentData }
     };
   } catch (error) {
     console.error('Error creating complete package enrollment:', error);
@@ -188,12 +182,11 @@ export const createCompletePackageEnrollment = async (userId, userEmail = '') =>
 };
 
 /**
- * Get user's enrollment for a specific course
+ * Get user's enrollment for a specific course from users/{userId}/courses/{courseId}
  */
 export const getEnrollment = async (userId, courseId) => {
   try {
-    const enrollmentId = `${userId}_${courseId}`;
-    const enrollmentRef = doc(db, ENROLLMENTS_COLLECTION, enrollmentId);
+    const enrollmentRef = doc(db, 'users', userId, 'courses', courseId);
     const enrollmentDoc = await getDoc(enrollmentRef);
 
     if (!enrollmentDoc.exists()) {
@@ -211,13 +204,12 @@ export const getEnrollment = async (userId, courseId) => {
 };
 
 /**
- * Get all enrollments for a user
+ * Get all enrollments for a user from users/{userId}/courses subcollection
  */
 export const getUserEnrollments = async (userId) => {
   try {
-    const enrollmentsRef = collection(db, ENROLLMENTS_COLLECTION);
-    const q = query(enrollmentsRef, where('userId', '==', userId));
-    const querySnapshot = await getDocs(q);
+    const enrollmentsRef = collection(db, 'users', userId, 'courses');
+    const querySnapshot = await getDocs(enrollmentsRef);
 
     const enrollments = [];
     querySnapshot.forEach((doc) => {
@@ -239,8 +231,7 @@ export const getUserEnrollments = async (userId) => {
  */
 export const updateEnrollmentAfterPayment = async (userId, courseId, paymentAmount, paymentType = 'upfront') => {
   try {
-    const enrollmentId = `${userId}_${courseId}`;
-    const enrollmentRef = doc(db, ENROLLMENTS_COLLECTION, enrollmentId);
+    const enrollmentRef = doc(db, 'users', userId, 'courses', courseId);
     const enrollmentDoc = await getDoc(enrollmentRef);
 
     if (!enrollmentDoc.exists()) {
@@ -286,8 +277,7 @@ export const updateEnrollmentAfterPayment = async (userId, courseId, paymentAmou
         updates.remainingAmount = COURSE_PRICING[COURSE_IDS.COMPLETE].remaining;
         
         // Update online course component enrollment
-        const onlineEnrollmentId = `${userId}_${COURSE_IDS.ONLINE}`;
-        const onlineEnrollmentRef = doc(db, ENROLLMENTS_COLLECTION, onlineEnrollmentId);
+        const onlineEnrollmentRef = doc(db, 'users', userId, 'courses', COURSE_IDS.ONLINE);
         await updateDoc(onlineEnrollmentRef, {
           accessStatus: ACCESS_STATUS.UNLOCKED,
           status: ENROLLMENT_STATUS.ACTIVE,
@@ -295,8 +285,7 @@ export const updateEnrollmentAfterPayment = async (userId, courseId, paymentAmou
         });
       } else if (paymentType === 'remaining' && newAmountPaid >= enrollment.totalAmount) {
         // Unlock behind-the-wheel component
-        const btwEnrollmentId = `${userId}_${COURSE_IDS.BEHIND_WHEEL}`;
-        const btwEnrollmentRef = doc(db, ENROLLMENTS_COLLECTION, btwEnrollmentId);
+        const btwEnrollmentRef = doc(db, 'users', userId, 'courses', COURSE_IDS.BEHIND_WHEEL);
         await updateDoc(btwEnrollmentRef, {
           accessStatus: ACCESS_STATUS.UNLOCKED,
           status: ENROLLMENT_STATUS.ACTIVE,
@@ -308,7 +297,7 @@ export const updateEnrollmentAfterPayment = async (userId, courseId, paymentAmou
     await updateDoc(enrollmentRef, updates);
 
     return {
-      id: enrollmentId,
+      id: courseId,
       ...enrollment,
       ...updates
     };
@@ -323,8 +312,7 @@ export const updateEnrollmentAfterPayment = async (userId, courseId, paymentAmou
  */
 export const updateCertificateStatus = async (userId, courseId, certificateGenerated = true) => {
   try {
-    const enrollmentId = `${userId}_${courseId}`;
-    const enrollmentRef = doc(db, ENROLLMENTS_COLLECTION, enrollmentId);
+    const enrollmentRef = doc(db, 'users', userId, 'courses', courseId);
 
     const updates = {
       certificateGenerated,

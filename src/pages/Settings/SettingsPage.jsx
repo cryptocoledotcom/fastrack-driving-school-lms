@@ -8,8 +8,15 @@ import Checkbox from '../../components/common/Checkbox/Checkbox';
 import ErrorMessage from '../../components/common/ErrorMessage/ErrorMessage';
 import SuccessMessage from '../../components/common/SuccessMessage/SuccessMessage';
 import LoadingSpinner from '../../components/common/LoadingSpinner/LoadingSpinner';
-import { updateProfile, getUserSettings, updateUserSettings } from '../../api/userServices';
-import { getSecurityQuestions, setSecurityQuestions, getAvailableSecurityQuestions } from '../../api/securityServices';
+import { 
+  updateProfile, 
+  getUserSettings, 
+  updateUserSettings 
+} from '../../api/userServices';
+import { 
+  getSecurityProfile, 
+  setSecurityQuestions 
+} from '../../api/securityServices';
 import styles from './SettingsPage.module.css';
 
 const SettingsPage = () => {
@@ -38,7 +45,21 @@ const SettingsPage = () => {
     { questionId: '', answer: '' },
     { questionId: '', answer: '' }
   ]);
-  const [availableQuestions, setAvailableQuestions] = useState([]);
+  const [availableQuestions] = useState([
+    { id: 'q1', text: 'What was your first pet\'s name?' },
+    { id: 'q2', text: 'What was the name of your elementary school?' },
+    { id: 'q3', text: 'What city were you born in?' },
+    { id: 'q4', text: 'What is your mother\'s maiden name?' },
+    { id: 'q5', text: 'What was the make of your first car?' },
+    { id: 'q6', text: 'What is your favorite book?' },
+    { id: 'q7', text: 'What is the name of your favorite teacher?' },
+    { id: 'q8', text: 'What was the first concert you attended?' },
+    { id: 'q9', text: 'What is your favorite movie?' },
+    {
+      id: 'q10',
+      text: 'What is the name of the street you grew up on?',
+    },
+  ]);
   
   // UI state
   const [loading, setLoading] = useState(true);
@@ -80,16 +101,13 @@ const SettingsPage = () => {
       }
       
       // Load security questions
-      const securityData = await getSecurityQuestions(user.uid);
+      const securityData = await getSecurityProfile(user.uid);
       if (securityData && securityData.questions) {
         setSecurityQuestionsState(securityData.questions.map(q => ({
           questionId: q.id,
           answer: '' // Don't show existing answers for security
         })));
       }
-      
-      // Load available questions
-      setAvailableQuestions(getAvailableSecurityQuestions());
       
     } catch (err) {
       console.error('Error loading user data:', err);

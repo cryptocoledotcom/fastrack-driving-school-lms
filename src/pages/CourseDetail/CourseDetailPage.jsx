@@ -10,7 +10,8 @@ import ErrorMessage from '../../components/common/ErrorMessage/ErrorMessage';
 import SuccessMessage from '../../components/common/SuccessMessage/SuccessMessage';
 import { getCourseById } from '../../api/courseServices';
 import { getModules } from '../../api/moduleServices';
-import { enrollInCourse, getProgress } from '../../api/progressServices';
+import { getProgress } from '../../api/progressServices';
+import { createEnrollment, getEnrollment } from '../../api/enrollmentServices';
 import styles from './CourseDetailPage.module.css';
 
 const CourseDetailPage = () => {
@@ -69,7 +70,8 @@ const CourseDetailPage = () => {
       setError('');
       setSuccess('');
 
-      await enrollInCourse(user.uid, courseId, course);
+      // Create enrollment in users/{userId}/courses/{courseId}
+         await createEnrollment(user.uid, courseId, user.email);
       setSuccess('Successfully enrolled in course!');
 
       // Reload progress

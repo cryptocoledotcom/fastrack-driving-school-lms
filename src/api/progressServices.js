@@ -163,62 +163,8 @@ export const markModuleComplete = async (userId, courseId, moduleId) => {
   }
 };
 
-// Enroll user in course - creates entry in users/{userId}/courses/{courseId}
-export const enrollInCourse = async (userId, courseId, courseData) => {
-  try {
-    // Create entry in users/{userId}/courses/{courseId}
-    const userCourseRef = doc(db, 'users', userId, 'courses', courseId);
-    const enrollmentData = {
-      courseId,
-      courseName: courseData.title || '',
-      enrolled: true,
-      enrolledAt: new Date().toISOString(),
-      status: 'active'
-    };
-    
-    await setDoc(userCourseRef, enrollmentData);
-    
-    // Initialize progress in users/{userId}/userProgress/progress
-    await saveProgress(userId, courseId, {
-      enrolled: true,
-      enrolledAt: new Date().toISOString(),
-      totalLessons: courseData.totalLessons || 0,
-      totalModules: courseData.totalModules || 0,
-      completedLessons: 0,
-      completedModules: 0,
-      overallProgress: 0,
-      lessonProgress: {},
-      moduleProgress: {},
-      timeSpent: 0
-    });
-    
-    return enrollmentData;
-  } catch (error) {
-    console.error('Error enrolling in course:', error);
-    throw error;
-  }
-};
-
-// Get all user's enrolled courses from users/{userId}/courses subcollection
-export const getUserEnrolledCourses = async (userId) => {
-  try {
-    const userCoursesRef = collection(db, 'users', userId, 'courses');
-    const querySnapshot = await getDocs(userCoursesRef);
-    
-    const enrolledCourses = [];
-    querySnapshot.forEach((doc) => {
-      enrolledCourses.push({
-        courseId: doc.id,
-        ...doc.data()
-      });
-    });
-    
-    return enrolledCourses;
-  } catch (error) {
-    console.error('Error fetching enrolled courses:', error);
-    throw error;
-  }
-};
+// Note: enrollInCourse and getUserEnrolledCourses have been moved to enrollmentServices.js
+// to maintain clear separation between enrollment management and progress tracking
 
 // Get user's completed courses
 export const getUserCompletedCourses = async (userId) => {
@@ -333,8 +279,6 @@ const progressServices = {
   updateProgress,
   markLessonComplete,
   markModuleComplete,
-  enrollInCourse,
-  getUserEnrolledCourses,
   getUserCompletedCourses,
   updateLessonProgress,
   getUserStats
