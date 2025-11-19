@@ -38,21 +38,23 @@ const MyCoursesPage = () => {
         enrollments.map(async (enrollment) => {
           try {
             // Get course details from courses collection
-            const courseDetails = await getCourseById(enrollment.courseId);
+            const courseDetails = await getCourseById(enrollment.courseId || enrollment.id);
             
             // Get progress from users/{userId}/userProgress/progress
-            const progress = await getProgress(user.uid, enrollment.courseId);
+            const progress = await getProgress(user.uid, enrollment.courseId || enrollment.id);
 
             return {
-              ...courseDetails,
-              enrollment,
-              progress: progress.overallProgress || 0,
-              completedLessons: progress.completedLessons || 0,
-              totalLessons: progress.totalLessons || 0,
-              lastAccessedAt: progress.lastAccessedAt
+              course: {
+                ...courseDetails,
+                progress: progress.overallProgress || 0,
+                completedLessons: progress.completedLessons || 0,
+                totalLessons: progress.totalLessons || 0,
+              },
+              enrollment: enrollment, // Pass the original enrollment object
+              lastAccessedAt: progress.lastAccessedAt,
             };
           } catch (err) {
-            console.error(`Error loading course ${enrollment.courseId}:`, err);
+            console.error(`Error loading course ${enrollment.id}:`, err);
             return null;
           }
         })
@@ -71,6 +73,8 @@ const MyCoursesPage = () => {
   };
 
   const handleCourseClick = (courseId) => {
+    // Always navigate using the definitive courseId from the enrollment record
+    // to ensure consistency across the application.
     navigate(`/course-player/${courseId}`);
   };
 
@@ -92,19 +96,19 @@ const MyCoursesPage = () => {
       <div className={styles.grid}>
         {enrolledCourses.length > 0 ? (
           enrolledCourses.map((course) => (
-            <Card key={course.id} hoverable onClick={() => handleCourseClick(course.id)}>
+            <Card key={course.enrollment.id} hoverable onClick={() => handleCourseClick(course.enrollment.courseId)}>
               <div className={styles.courseCard}>
-                <h3 className={styles.courseTitle}>{course.title}</h3>
-                <p className={styles.courseDescription}>{course.description}</p>
+                <h3 className={styles.courseTitle}>{course.course.title}</h3>
+                <p className={styles.courseDescription}>{course.course.description}</p>
                 
                 <div className={styles.progressSection}>
                   <div className={styles.progressHeader}>
                     <span>Progress</span>
-                    <span className={styles.progressPercent}>{course.progress}%</span>
+                    <span className={styles.progressPercent}>{course.course.progress}%</span>
                   </div>
-                  <ProgressBar progress={course.progress || 0} />
+                  <ProgressBar progress={course.course.progress || 0} />
                   <p className={styles.lessonsCompleted}>
-                    {course.completedLessons} of {course.totalLessons} lessons completed
+                    {course.course.completedLessons} of {course.course.totalLessons} lessons completed
                   </p>
                 </div>
 

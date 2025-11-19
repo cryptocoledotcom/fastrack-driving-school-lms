@@ -1,66 +1,40 @@
 // Progress Services
 // User progress tracking operations
 
-import { 
-  collection, 
+import {
+  collection,
   doc, 
   getDoc, 
-  getDocs, 
+  getDocs,
   setDoc, 
-  updateDoc,
-  query,
-  where,
-  orderBy
+  updateDoc
 } from 'firebase/firestore';
 import { db } from '../config/firebase';
 
-const PROGRESS_COLLECTION = 'userProgress';
-
-// Updated to match your Firestore structure: users/{userId}/userProgress/progress
-const getUserProgressRef = (userId) => {
-  return doc(db, 'users', userId, 'userProgress', 'progress');
+// Corrected to point to the per-course progress document
+const getCourseProgressRef = (userId, courseId) => {
+  return doc(db, 'users', userId, 'courses', courseId, 'progress', 'progress');
 };
 
 // Get user's progress for a specific course
 export const getProgress = async (userId, courseId) => {
   try {
-    const progressRef = getUserProgressRef(userId);
+    const progressRef = getCourseProgressRef(userId, courseId);
     const progressDoc = await getDoc(progressRef);
-    
+
     if (!progressDoc.exists()) {
       // Return default progress if none exists
       return {
-        userId,
-        courses: {}
-      };
-    }
-    
-    const progressData = progressDoc.data();
-    const courseProgress = progressData.courses?.[courseId];
-    
-    if (!courseProgress) {
-      return {
-        userId,
-        courseId,
-        enrolled: false,
+        overallProgress: 0,
         completedLessons: 0,
         totalLessons: 0,
-        completedModules: 0,
-        totalModules: 0,
-        overallProgress: 0,
-        lastAccessedAt: null,
-        enrolledAt: null,
-        completedAt: null,
         lessonProgress: {},
         moduleProgress: {}
       };
     }
-    
-    return {
-      userId,
-      courseId,
-      ...courseProgress
-    };
+
+    // The entire document is the progress for this course
+    return progressDoc.data();
   } catch (error) {
     console.error('Error fetching progress:', error);
     throw error;
@@ -70,15 +44,10 @@ export const getProgress = async (userId, courseId) => {
 // Save or update user progress
 export const saveProgress = async (userId, courseId, progressData) => {
   try {
-    const progressRef = getUserProgressRef(userId);
-    const data = {
-      [`courses.${courseId}`]: {
-        ...progressData,
-        updatedAt: new Date().toISOString()
-      }
-    };
-    
-    await setDoc(progressRef, data, { merge: true });
+    const progressRef = getCourseProgressRef(userId, courseId);
+
+    // Use setDoc with merge to create or update the course-specific progress
+    await setDoc(progressRef, progressData, { merge: true });
     return progressData;
   } catch (error) {
     console.error('Error saving progress:', error);
@@ -89,15 +58,8 @@ export const saveProgress = async (userId, courseId, progressData) => {
 // Update specific progress fields
 export const updateProgress = async (userId, courseId, updates) => {
   try {
-    const progressRef = getUserProgressRef(userId);
-    const updateData = {
-      [`courses.${courseId}`]: {
-        ...updates,
-        updatedAt: new Date().toISOString()
-      }
-    };
-    
-    await updateDoc(progressRef, updateData);
+    const progressRef = getCourseProgressRef(userId, courseId);
+    await updateDoc(progressRef, updates);
     return await getProgress(userId, courseId);
   } catch (error) {
     console.error('Error updating progress:', error);
@@ -122,7 +84,7 @@ export const markLessonComplete = async (userId, courseId, lessonId) => {
     ).length;
     
     const overallProgress = progress.totalLessons > 0 
-      ? Math.round((completedLessons / progress.totalLessons) * 100)
+      ? Math.round((completedLessons / (progress.totalLessons || 1)) * 100)
       : 0;
     
     return await saveProgress(userId, courseId, {
@@ -166,33 +128,6 @@ export const markModuleComplete = async (userId, courseId, moduleId) => {
 // Note: enrollInCourse and getUserEnrolledCourses have been moved to enrollmentServices.js
 // to maintain clear separation between enrollment management and progress tracking
 
-// Get user's completed courses
-export const getUserCompletedCourses = async (userId) => {
-  try {
-    const progressRef = collection(db, PROGRESS_COLLECTION);
-    const q = query(
-      progressRef,
-      where('userId', '==', userId),
-      where('overallProgress', '==', 100),
-      orderBy('completedAt', 'desc')
-    );
-    const querySnapshot = await getDocs(q);
-    
-    const completedCourses = [];
-    querySnapshot.forEach((doc) => {
-      completedCourses.push({
-        id: doc.id,
-        ...doc.data()
-      });
-    });
-    
-    return completedCourses;
-  } catch (error) {
-    console.error('Error fetching completed courses:', error);
-    throw error;
-  }
-};
-
 // Update lesson progress (for video watching, quiz attempts, etc.)
 export const updateLessonProgress = async (userId, courseId, lessonId, progressData) => {
   try {
@@ -206,7 +141,6 @@ export const updateLessonProgress = async (userId, courseId, lessonId, progressD
     };
     
     return await saveProgress(userId, courseId, {
-      ...progress,
       lessonProgress,
       lastAccessedAt: new Date().toISOString()
     });
@@ -219,24 +153,20 @@ export const updateLessonProgress = async (userId, courseId, lessonId, progressD
 // Get user's overall statistics
 export const getUserStats = async (userId) => {
   try {
-    const progressRef = getUserProgressRef(userId);
-    const progressDoc = await getDoc(progressRef);
-    
-    if (!progressDoc.exists()) {
+    const enrollmentsRef = collection(db, 'users', userId, 'courses');
+    const enrollmentsSnapshot = await getDocs(enrollmentsRef);
+
+    if (enrollmentsSnapshot.empty) {
       return {
-        totalCourses: 0,
         enrolledCourses: 0,
         completedCourses: 0,
         inProgressCourses: 0,
-        totalLessonsCompleted: 0,
-        totalTimeSpent: 0,
         completionRate: 0
       };
     }
-    
-    const progressData = progressDoc.data();
-    const courses = progressData.courses || {};
-    
+
+    const courses = enrollmentsSnapshot.docs.map(doc => doc.data());
+
     let enrolledCourses = 0;
     let completedCourses = 0;
     let inProgressCourses = 0;
@@ -244,20 +174,18 @@ export const getUserStats = async (userId) => {
     let totalTimeSpent = 0;
     
     Object.values(courses).forEach((course) => {
-      if (course.enrolled) {
+      // Filter out sub-courses of bundles from stats
+      if (!course.isComponentOfBundle) {
         enrolledCourses++;
-        if (course.overallProgress === 100) {
+        if (course.progress === 100) {
           completedCourses++;
-        } else if (course.overallProgress > 0) {
+        } else if (course.progress > 0) {
           inProgressCourses++;
         }
-        totalLessonsCompleted += course.completedLessons || 0;
-        totalTimeSpent += course.timeSpent || 0;
       }
     });
     
     return {
-      totalCourses: enrolledCourses,
       enrolledCourses,
       completedCourses,
       inProgressCourses,
@@ -279,7 +207,6 @@ const progressServices = {
   updateProgress,
   markLessonComplete,
   markModuleComplete,
-  getUserCompletedCourses,
   updateLessonProgress,
   getUserStats
 };

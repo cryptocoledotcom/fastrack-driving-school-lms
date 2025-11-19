@@ -72,7 +72,7 @@ export const createEnrollment = async (userId, courseId, userEmail = '') => {
     await setDoc(enrollmentRef, enrollmentData);
 
     return {
-      id: courseId,
+      id: enrollmentRef.id,
       ...enrollmentData
     };
   } catch (error) {
@@ -297,7 +297,7 @@ export const updateEnrollmentAfterPayment = async (userId, courseId, paymentAmou
     await updateDoc(enrollmentRef, updates);
 
     return {
-      id: courseId,
+      id: enrollmentRef.id,
       ...enrollment,
       ...updates
     };

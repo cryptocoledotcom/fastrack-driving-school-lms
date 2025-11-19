@@ -10,14 +10,13 @@ import { PROTECTED_ROUTES } from '../../constants/routes';
 import { getUserStats } from '../../api/userServices';
 import { getUserEnrollments } from '../../api/enrollmentServices';
 import { getCourseById } from '../../api/courseServices';
-import { COURSE_IDS } from '../../constants/courses';
+import { getProgress } from '../../api/progressServices'; 
 import styles from './DashboardPage.module.css';
 
 const DashboardPage = () => {
   const { user, getUserFullName } = useAuth();
   const [stats, setStats] = useState(null);
   const [enrollments, setEnrollments] = useState([]);
-  const [courses, setCourses] = useState({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -36,42 +35,44 @@ const DashboardPage = () => {
       setStats(userStats);
 
       // Fetch enrollments
-      const userEnrollments = await getUserEnrollments(user.uid);
-      setEnrollments(userEnrollments);
+      const enrollments = await getUserEnrollments(user.uid);
 
-      // Fetch course details for each enrollment
-      const courseData = {};
-      for (const enrollment of userEnrollments) {
-        try {
-          // For predefined courses, use static data
-          if (enrollment.courseId === COURSE_IDS.ONLINE) {
-            courseData[enrollment.courseId] = {
-              id: COURSE_IDS.ONLINE,
-              title: 'Fastrack Online',
-              description: '24-hour online driving course'
-            };
-          } else if (enrollment.courseId === COURSE_IDS.BEHIND_WHEEL) {
-            courseData[enrollment.courseId] = {
-              id: COURSE_IDS.BEHIND_WHEEL,
-              title: 'Fastrack Behind the Wheel',
-              description: '8-hour in-person instruction'
-            };
-          } else if (enrollment.courseId === COURSE_IDS.COMPLETE) {
-            courseData[enrollment.courseId] = {
-              id: COURSE_IDS.COMPLETE,
-              title: 'Fastrack Complete',
-              description: 'Complete package (Online + Behind-the-Wheel)'
-            };
-          } else {
-            // Try to fetch from Firestore
-            const course = await getCourseById(enrollment.courseId);
-            courseData[enrollment.courseId] = course;
+      // Fetch course details and progress for each enrollment
+      const enrollmentsWithDetails = await Promise.all(
+        enrollments.map(async (enrollment) => {
+          const courseId = enrollment.courseId || enrollment.id;
+          if (!courseId) {
+            console.error('Skipping an enrollment because it is missing a courseId or id:', enrollment);
+            return null;
           }
-        } catch (error) {
-          console.error(`Error fetching course ${enrollment.courseId}:`, error);
-        }
-      }
-      setCourses(courseData);
+
+          try {
+            const courseDetails = await getCourseById(courseId);
+            const progress = await getProgress(user.uid, courseId);
+            // Create a clear separation between course data and enrollment data
+            return {
+              enrollment: enrollment, // The original enrollment record
+              course: { // The details of the course itself
+                ...courseDetails,
+                progress: progress.overallProgress || 0,
+                completedLessons: progress.completedLessons || 0,
+                totalLessons: progress.totalLessons || 0,
+              }
+            };
+          } catch (error) {
+            console.error(`Error loading details for course ${courseId}:`, error);
+            return {
+              enrollment: enrollment,
+              course: { id: courseId, title: 'Course not found', isMissing: true }
+            };
+          }
+        })
+      );
+      
+      // Filter out any failed course loads if necessary, or handle them in the UI
+      const validEnrollments = enrollmentsWithDetails.filter(e => e !== null);
+      setEnrollments(validEnrollments);
+      
     } catch (error) {
       console.error('Error fetching dashboard data:', error);
     } finally {
@@ -149,12 +150,12 @@ const DashboardPage = () => {
         {enrollments.length > 0 ? (
           <div className={styles.enrollmentsGrid}>
             {enrollments
-              .filter(enrollment => !enrollment.isComponentOfBundle) // Hide component courses
+              .filter(enrollment => !enrollment.enrollment.isComponentOfBundle) // Hide component courses
               .map((enrollment) => (
                 <EnrollmentCard
-                  key={enrollment.id}
-                  enrollment={enrollment}
-                  course={courses[enrollment.courseId]}
+                  key={enrollment.enrollment.id}
+                  enrollment={enrollment.enrollment}
+                  course={enrollment.course}
                   onPaymentSuccess={handlePaymentSuccess}
                 />
               ))}

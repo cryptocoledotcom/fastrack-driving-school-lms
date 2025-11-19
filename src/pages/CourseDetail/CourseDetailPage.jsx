@@ -108,7 +108,7 @@ const CourseDetailPage = () => {
     );
   }
 
-  const isEnrolled = progress?.enrolled || false;
+  const isEnrolled = progress?.totalLessons > 0;
 
   return (
     <div className={styles.courseDetailPage}>

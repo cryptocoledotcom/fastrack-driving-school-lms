@@ -11,6 +11,7 @@ import {
   getDocs
 } from 'firebase/firestore';
 import { db } from '../config/firebase';
+export { getUserStats } from './progressServices';
 
 const USERS_COLLECTION = 'users';
 
@@ -80,50 +81,6 @@ export const getUserSettings = async (userId) => {
     };
   } catch (error) {
     console.error('Error fetching settings:', error);
-    throw error;
-  }
-};
-
-// Get user statistics
-export const getUserStats = async (userId) => {
-  try {
-    // Get user's progress data
-    const progressRef = collection(db, 'progress');
-    const q = query(progressRef, where('userId', '==', userId));
-    const progressSnapshot = await getDocs(q);
-    
-    let enrolledCourses = 0;
-    let completedCourses = 0;
-    let totalLessonsCompleted = 0;
-    let totalTimeSpent = 0;
-    let inProgressCourses = 0;
-    
-    progressSnapshot.forEach((doc) => {
-      const data = doc.data();
-      if (data.enrolled) {
-        enrolledCourses++;
-        if (data.overallProgress === 100) {
-          completedCourses++;
-        } else if (data.overallProgress > 0) {
-          inProgressCourses++;
-        }
-        totalLessonsCompleted += data.completedLessons || 0;
-        totalTimeSpent += data.timeSpent || 0;
-      }
-    });
-    
-    return {
-      enrolledCourses,
-      completedCourses,
-      inProgressCourses,
-      totalLessonsCompleted,
-      totalTimeSpent,
-      completionRate: enrolledCourses > 0 
-        ? Math.round((completedCourses / enrolledCourses) * 100)
-        : 0
-    };
-  } catch (error) {
-    console.error('Error fetching user stats:', error);
     throw error;
   }
 };
@@ -240,7 +197,6 @@ export const getUserByUsername = async (username) => {
 const userServices = {
   getUser,
   updateProfile,
-  getUserStats,
   getUserCertificates,
   updateUserPreferences,
   getUserRecentActivity,

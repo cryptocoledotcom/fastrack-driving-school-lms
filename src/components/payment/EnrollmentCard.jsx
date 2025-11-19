@@ -129,9 +129,9 @@ const EnrollmentCard = ({ enrollment, course, onPaymentSuccess }) => {
             <div className={styles.progressSection}>
               <div className={styles.progressHeader}>
                 <span className={styles.label}>Progress</span>
-                <span className={styles.value}>{enrollment.progress || 0}%</span>
+                <span className={styles.value}>{course.progress || 0}%</span>
               </div>
-              <ProgressBar progress={enrollment.progress || 0} />
+              <ProgressBar progress={course.progress || 0} />
             </div>
           )}
 

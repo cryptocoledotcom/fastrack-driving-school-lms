@@ -1,56 +1,47 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Helper function to check if user is authenticated
-    function isAuthenticated() {
-      return request.auth != null;
+
+    // --- User Data Rules ---
+    // Users can read and write to their own user document and all sub-collections
+    // (like 'courses' for enrollments and 'userProgress').
+    // They cannot access data belonging to other users.
+    match /users/{userId}/{document=**} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
     }
     
-    // Helper function to check if user owns the document
-    function isOwner(userId) {
-      return isAuthenticated() && request.auth.uid == userId;
-    }
-    
-    // Users collection
-    match /users/{userId} {
-      allow read: if isAuthenticated();
-      allow write: if isOwner(userId);
-    }
-    
-    // Courses collection - public read, admin write
+    // --- Public Content Rules ---
+    // Any authenticated user can read course, module, and lesson content.
+    // Only admins or instructors can create, update, or delete them.
     match /courses/{courseId} {
-      allow read: if true;
-      allow write: if isAuthenticated() && 
+      allow read: if request.auth != null;
+      allow write: if request.auth != null && 
         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role in ['admin', 'instructor'];
     }
     
-    // Modules collection - public read, admin write
     match /modules/{moduleId} {
-      allow read: if true;
-      allow write: if isAuthenticated() && 
+      allow read: if request.auth != null;
+      allow write: if request.auth != null && 
         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role in ['admin', 'instructor'];
     }
     
-    // Lessons collection - public read, admin write
     match /lessons/{lessonId} {
-      allow read: if true;
-      allow write: if isAuthenticated() && 
+      allow read: if request.auth != null;
+      allow write: if request.auth != null && 
         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role in ['admin', 'instructor'];
     }
     
-    // Progress collection - users can only access their own progress
-    match /progress/{progressId} {
-      allow read: if isAuthenticated() && 
-        resource.data.userId == request.auth.uid;
-      allow write: if isAuthenticated() && 
-        request.resource.data.userId == request.auth.uid;
+    // --- Admin-Only Rules ---
+    // Example for a collection only admins can access.
+    match /admin-data/{docId} {
+      allow read, write: if request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
     }
     
     // Certificates collection - users can only access their own certificates
     match /certificates/{certificateId} {
-      allow read: if isAuthenticated() && 
+      allow read: if request.auth != null && 
         resource.data.userId == request.auth.uid;
-      allow write: if isAuthenticated() && 
+      allow write: if request.auth != null && 
         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role in ['admin', 'instructor'];
     }
   }
