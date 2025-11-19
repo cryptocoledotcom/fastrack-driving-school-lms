@@ -212,11 +212,11 @@ const CoursesPage = () => {
                 <div className={styles.priceSection}>
                   {course.originalPrice && (
                     <span className={styles.originalPrice}>
-                      ${(course.originalPrice / 100).toFixed(2)}
+                      ${course.originalPrice.toFixed(2)}
                     </span>
                   )}
                   <span className={styles.price}>
-                    ${(course.price / 100).toFixed(2)}
+                    ${course.price.toFixed(2)}
                   </span>
                   {course.discount && (
                     <span className={styles.savings}>
