@@ -305,17 +305,51 @@ const CoursePlayerPage = () => {
               Resume Timer
             </Button>
           )}
-          <Button
-            variant="ghost"
-            size="small"
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-          >
-            {sidebarOpen ? '→' : '←'}
-          </Button>
         </div>
       </div>
 
       <div className={styles.playerContainer}>
+        {/* Sidebar */}
+        <div className={`${styles.sidebar} ${!sidebarOpen ? styles.sidebarCollapsed : ''}`}>
+          <div className={styles.sidebarContent}>
+            <div className={styles.sidebarHeader}>
+              <h3>Course Content</h3>
+              <ProgressBar progress={progress?.overallProgress || 0} size="small" />
+            </div>
+            <div className={styles.modulesList}>
+              {modules.map((module) => (
+                <Card key={module.id} className={styles.moduleCard}>
+                  <div className={styles.moduleHeader} onClick={() => handleModuleSelect(module)}>
+                    <h4>{module.title}</h4>
+                    <ProgressBar progress={getModuleProgress(module.id)} size="small" />
+                  </div>
+                  {currentModule?.id === module.id && (
+                    <div className={styles.lessonsList}>
+                      {lessons.map((lesson) => (
+                        <div
+                          key={lesson.id}
+                          className={`${styles.lessonItem} ${currentLesson?.id === lesson.id ? styles.activeLesson : ''}`}
+                          onClick={() => handleLessonSelect(lesson)}
+                        >
+                          <span className={styles.lessonIcon}>{isLessonCompleted(lesson.id) ? '✅' : '⭕'}</span>
+                          <span className={styles.lessonName}>{lesson.title}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </Card>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Collapse Handle */}
+        <div className={styles.collapseHandle} onClick={() => setSidebarOpen(!sidebarOpen)}>
+          <div className={styles.collapseIcon}>
+            {sidebarOpen ? '‹' : '›'}
+          </div>
+        </div>
+
         {/* Main Content */}
         <div className={styles.mainContent}>
           {currentLesson && (
@@ -342,49 +376,6 @@ const CoursePlayerPage = () => {
             </div>
           )}
         </div>
-
-        {/* Sidebar */}
-        {sidebarOpen && (
-          <div className={styles.sidebar}>
-            <div className={styles.sidebarHeader}>
-              <h3>Course Content</h3>
-              <ProgressBar progress={progress?.overallProgress || 0} size="small" />
-            </div>
-
-            <div className={styles.modulesList}>
-              {modules.map((module) => (
-                <Card key={module.id} className={styles.moduleCard}>
-                  <div
-                    className={styles.moduleHeader}
-                    onClick={() => handleModuleSelect(module)}
-                  >
-                    <h4>{module.title}</h4>
-                    <ProgressBar progress={getModuleProgress(module.id)} size="small" />
-                  </div>
-
-                  {currentModule?.id === module.id && (
-                    <div className={styles.lessonsList}>
-                      {lessons.map((lesson) => (
-                        <div
-                          key={lesson.id}
-                          className={`${styles.lessonItem} ${
-                            currentLesson?.id === lesson.id ? styles.activeLesson : ''
-                          }`}
-                          onClick={() => handleLessonSelect(lesson)}
-                        >
-                          <span className={styles.lessonIcon}>
-                            {isLessonCompleted(lesson.id) ? '✅' : '⭕'}
-                          </span>
-                          <span className={styles.lessonName}>{lesson.title}</span>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </Card>
-              ))}
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );
