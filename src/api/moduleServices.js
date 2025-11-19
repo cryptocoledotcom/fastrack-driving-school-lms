@@ -10,8 +10,7 @@ import {
   updateDoc, 
   deleteDoc,
   query,
-  where,
-  orderBy
+  where
 } from 'firebase/firestore';
 import { db } from '../config/firebase';
 
@@ -23,8 +22,7 @@ export const getModules = async (courseId) => {
     const modulesRef = collection(db, MODULES_COLLECTION);
     const q = query(
       modulesRef,
-      where('courseId', '==', courseId),
-      orderBy('order', 'asc')
+      where('courseId', '==', courseId)
     );
     const querySnapshot = await getDocs(q);
     
@@ -36,6 +34,7 @@ export const getModules = async (courseId) => {
       });
     });
     
+    modules.sort((a, b) => (a.order || 0) - (b.order || 0));
     return modules;
   } catch (error) {
     console.error('Error fetching modules:', error);

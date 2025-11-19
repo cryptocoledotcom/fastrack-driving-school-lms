@@ -8,8 +8,6 @@ import {
   getDocs,
   setDoc,
   updateDoc,
-  query,
-  where,
   serverTimestamp,
   writeBatch
 } from 'firebase/firestore';

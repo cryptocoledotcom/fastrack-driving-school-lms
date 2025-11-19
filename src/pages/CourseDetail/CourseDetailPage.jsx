@@ -11,7 +11,7 @@ import SuccessMessage from '../../components/common/SuccessMessage/SuccessMessag
 import { getCourseById } from '../../api/courseServices';
 import { getModules } from '../../api/moduleServices';
 import { getProgress } from '../../api/progressServices';
-import { createEnrollment, getEnrollment } from '../../api/enrollmentServices';
+import { createEnrollment } from '../../api/enrollmentServices';
 import styles from './CourseDetailPage.module.css';
 
 const CourseDetailPage = () => {
@@ -162,16 +162,16 @@ const CourseDetailPage = () => {
 
       {/* Course Content */}
       <div className={styles.content}>
-        <Card padding="large">
-          <h2 className={styles.sectionTitle}>What You'll Learn</h2>
-          <ul className={styles.learningPoints}>
-            <li>Safe driving techniques and best practices</li>
-            <li>Traffic rules and road signs</li>
-            <li>Defensive driving strategies</li>
-            <li>Vehicle control and handling</li>
-            <li>Parking and maneuvering skills</li>
-          </ul>
-        </Card>
+        {course?.learningPoints && course.learningPoints.length > 0 && (
+          <Card padding="large">
+            <h2 className={styles.sectionTitle}>What You'll Learn</h2>
+            <ul className={styles.learningPoints}>
+              {course.learningPoints.map((point, index) => (
+                <li key={index}>{point}</li>
+              ))}
+            </ul>
+          </Card>
+        )}
 
         <Card padding="large">
           <h2 className={styles.sectionTitle}>Course Modules</h2>
@@ -188,14 +188,16 @@ const CourseDetailPage = () => {
           </div>
         </Card>
 
-        <Card padding="large">
-          <h2 className={styles.sectionTitle}>Requirements</h2>
-          <ul className={styles.requirements}>
-            <li>Valid learner's permit or driver's license</li>
-            <li>Basic understanding of traffic rules</li>
-            <li>Commitment to complete all modules</li>
-          </ul>
-        </Card>
+        {course?.requirements && course.requirements.length > 0 && (
+          <Card padding="large">
+            <h2 className={styles.sectionTitle}>Requirements</h2>
+            <ul className={styles.requirements}>
+              {course.requirements.map((req, index) => (
+                <li key={index}>{req}</li>
+              ))}
+            </ul>
+          </Card>
+        )}
       </div>
     </div>
   );

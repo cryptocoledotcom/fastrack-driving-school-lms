@@ -82,12 +82,8 @@ const EnrollmentCard = ({ enrollment, course, onPaymentSuccess }) => {
   };
 
   const handleAccessCourse = () => {
-    if (enrollment.courseId === COURSE_IDS.ONLINE || 
-        (enrollment.courseId === COURSE_IDS.COMPLETE && enrollment.amountPaid > 0)) {
+    if (enrollment.courseId === COURSE_IDS.ONLINE) {
       navigate(`/course-player/${COURSE_IDS.ONLINE}`);
-    } else if (enrollment.courseId === COURSE_IDS.BEHIND_WHEEL) {
-      // Navigate to scheduling page
-      navigate('/schedule-lesson');
     }
   };
 
@@ -157,14 +153,21 @@ const EnrollmentCard = ({ enrollment, course, onPaymentSuccess }) => {
             </Button>
           )}
           
-          {canAccessCourse && (
+          {canAccessCourse && enrollment.courseId === COURSE_IDS.ONLINE && (
             <Button
               variant={needsPayment ? 'outline' : 'primary'}
               onClick={handleAccessCourse}
             >
-              {enrollment.courseId === COURSE_IDS.BEHIND_WHEEL 
-                ? 'Schedule Lesson' 
-                : 'Continue Course'}
+              Continue Course
+            </Button>
+          )}
+
+          {canAccessCourse && enrollment.courseId !== COURSE_IDS.ONLINE && (
+            <Button
+              variant="outline"
+              disabled
+            >
+              Coming Soon
             </Button>
           )}
 

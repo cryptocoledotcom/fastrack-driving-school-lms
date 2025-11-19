@@ -86,7 +86,17 @@ const CoursePlayerPage = () => {
       setCourse(courseData);
 
       // Load modules
-      const modulesData = await getModules(courseId);
+      let modulesData = await getModules(courseId);
+      
+      // Sort modules based on course's moduleOrder if it exists
+      if (courseData?.moduleOrder && Array.isArray(courseData.moduleOrder)) {
+        modulesData = modulesData.sort((a, b) => {
+          const indexA = courseData.moduleOrder.indexOf(a.id);
+          const indexB = courseData.moduleOrder.indexOf(b.id);
+          return indexA - indexB;
+        });
+      }
+      
       setModules(modulesData);
 
       // Load progress
@@ -110,7 +120,18 @@ const CoursePlayerPage = () => {
 
   const loadLessons = async (moduleId) => {
     try {
-      const lessonsData = await getLessons(courseId, moduleId);
+      let lessonsData = await getLessons(courseId, moduleId);
+      
+      // Sort lessons based on module's lessonOrder if it exists
+      const module = modules.find(m => m.id === moduleId);
+      if (module?.lessonOrder && Array.isArray(module.lessonOrder)) {
+        lessonsData = lessonsData.sort((a, b) => {
+          const indexA = module.lessonOrder.indexOf(a.id);
+          const indexB = module.lessonOrder.indexOf(b.id);
+          return indexA - indexB;
+        });
+      }
+      
       setLessons(lessonsData);
       
       if (lessonsData.length > 0 && !currentLesson) {

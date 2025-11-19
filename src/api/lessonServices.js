@@ -10,8 +10,7 @@ import {
   updateDoc, 
   deleteDoc,
   query,
-  where,
-  orderBy
+  where
 } from 'firebase/firestore';
 import { db } from '../config/firebase';
 
@@ -24,8 +23,7 @@ export const getLessons = async (courseId, moduleId) => {
     const q = query(
       lessonsRef,
       where('courseId', '==', courseId),
-      where('moduleId', '==', moduleId),
-      orderBy('order', 'asc')
+      where('moduleId', '==', moduleId)
     );
     const querySnapshot = await getDocs(q);
     
@@ -37,6 +35,7 @@ export const getLessons = async (courseId, moduleId) => {
       });
     });
     
+    lessons.sort((a, b) => (a.order || 0) - (b.order || 0));
     return lessons;
   } catch (error) {
     console.error('Error fetching lessons:', error);
@@ -70,8 +69,7 @@ export const getAllCourseLessons = async (courseId) => {
     const lessonsRef = collection(db, LESSONS_COLLECTION);
     const q = query(
       lessonsRef,
-      where('courseId', '==', courseId),
-      orderBy('order', 'asc')
+      where('courseId', '==', courseId)
     );
     const querySnapshot = await getDocs(q);
     
@@ -83,6 +81,7 @@ export const getAllCourseLessons = async (courseId) => {
       });
     });
     
+    lessons.sort((a, b) => (a.order || 0) - (b.order || 0));
     return lessons;
   } catch (error) {
     console.error('Error fetching course lessons:', error);
@@ -185,22 +184,27 @@ export const getNextLesson = async (currentLessonId) => {
     const lessonsRef = collection(db, LESSONS_COLLECTION);
     const q = query(
       lessonsRef,
-      where('moduleId', '==', currentLesson.moduleId),
-      where('order', '>', currentLesson.order),
-      orderBy('order', 'asc')
+      where('moduleId', '==', currentLesson.moduleId)
     );
     
     const querySnapshot = await getDocs(q);
     
-    if (querySnapshot.empty) {
+    const lessons = [];
+    querySnapshot.forEach((doc) => {
+      if ((doc.data().order || 0) > (currentLesson.order || 0)) {
+        lessons.push({
+          id: doc.id,
+          ...doc.data()
+        });
+      }
+    });
+    
+    if (lessons.length === 0) {
       return null;
     }
     
-    const nextLessonDoc = querySnapshot.docs[0];
-    return {
-      id: nextLessonDoc.id,
-      ...nextLessonDoc.data()
-    };
+    lessons.sort((a, b) => (a.order || 0) - (b.order || 0));
+    return lessons[0];
   } catch (error) {
     console.error('Error getting next lesson:', error);
     throw error;
@@ -214,22 +218,27 @@ export const getPreviousLesson = async (currentLessonId) => {
     const lessonsRef = collection(db, LESSONS_COLLECTION);
     const q = query(
       lessonsRef,
-      where('moduleId', '==', currentLesson.moduleId),
-      where('order', '<', currentLesson.order),
-      orderBy('order', 'desc')
+      where('moduleId', '==', currentLesson.moduleId)
     );
     
     const querySnapshot = await getDocs(q);
     
-    if (querySnapshot.empty) {
+    const lessons = [];
+    querySnapshot.forEach((doc) => {
+      if ((doc.data().order || 0) < (currentLesson.order || 0)) {
+        lessons.push({
+          id: doc.id,
+          ...doc.data()
+        });
+      }
+    });
+    
+    if (lessons.length === 0) {
       return null;
     }
     
-    const prevLessonDoc = querySnapshot.docs[0];
-    return {
-      id: prevLessonDoc.id,
-      ...prevLessonDoc.data()
-    };
+    lessons.sort((a, b) => (b.order || 0) - (a.order || 0));
+    return lessons[0];
   } catch (error) {
     console.error('Error getting previous lesson:', error);
     throw error;

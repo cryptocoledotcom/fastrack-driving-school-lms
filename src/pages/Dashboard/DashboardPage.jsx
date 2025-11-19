@@ -1,13 +1,13 @@
 // DashboardPage Component
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import Card from '../../components/common/Card/Card';
 import Button from '../../components/common/Button/Button';
 import LoadingSpinner from '../../components/common/LoadingSpinner/LoadingSpinner';
 import EnrollmentCard from '../../components/payment/EnrollmentCard';
 import { PROTECTED_ROUTES } from '../../constants/routes';
-import { getUserStats } from '../../api/userServices';
+import { COURSE_IDS } from '../../constants/courses';
 import { getUserEnrollments } from '../../api/enrollmentServices';
 import { getCourseById } from '../../api/courseServices';
 import { getProgress } from '../../api/progressServices'; 
@@ -15,7 +15,7 @@ import styles from './DashboardPage.module.css';
 
 const DashboardPage = () => {
   const { user, getUserFullName } = useAuth();
-  const [stats, setStats] = useState(null);
+  const navigate = useNavigate();
   const [enrollments, setEnrollments] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -29,10 +29,6 @@ const DashboardPage = () => {
 
     try {
       setLoading(true);
-
-      // Fetch user stats
-      const userStats = await getUserStats(user.uid);
-      setStats(userStats);
 
       // Fetch enrollments
       const enrollments = await getUserEnrollments(user.uid);
@@ -49,6 +45,10 @@ const DashboardPage = () => {
           try {
             const courseDetails = await getCourseById(courseId);
             const progress = await getProgress(user.uid, courseId);
+            // Ensure courseId is on the enrollment object
+            if (!enrollment.courseId) {
+              enrollment.courseId = courseId;
+            }
             // Create a clear separation between course data and enrollment data
             return {
               enrollment: enrollment, // The original enrollment record
@@ -85,6 +85,10 @@ const DashboardPage = () => {
     fetchDashboardData();
   };
 
+  const handleContinueCourse = (courseId) => {
+    navigate(`/course-player/${courseId}`);
+  };
+
   if (loading) {
     return <LoadingSpinner fullScreen text="Loading dashboard..." />;
   }
@@ -98,42 +102,6 @@ const DashboardPage = () => {
 
       {/* Stats Cards */}
       <div className={styles.statsGrid}>
-        <Card>
-          <div className={styles.statCard}>
-            <div className={styles.statIcon}>📚</div>
-            <div className={styles.statContent}>
-              <div className={styles.statValue}>{stats?.enrolledCourses || 0}</div>
-              <div className={styles.statLabel}>Enrolled Courses</div>
-            </div>
-          </div>
-        </Card>
-        <Card>
-          <div className={styles.statCard}>
-            <div className={styles.statIcon}>✅</div>
-            <div className={styles.statContent}>
-              <div className={styles.statValue}>{stats?.completedCourses || 0}</div>
-              <div className={styles.statLabel}>Completed</div>
-            </div>
-          </div>
-        </Card>
-        <Card>
-          <div className={styles.statCard}>
-            <div className={styles.statIcon}>📈</div>
-            <div className={styles.statContent}>
-              <div className={styles.statValue}>{stats?.inProgressCourses || 0}</div>
-              <div className={styles.statLabel}>In Progress</div>
-            </div>
-          </div>
-        </Card>
-        <Card>
-          <div className={styles.statCard}>
-            <div className={styles.statIcon}>🎓</div>
-            <div className={styles.statContent}>
-              <div className={styles.statValue}>{stats?.completionRate || 0}%</div>
-              <div className={styles.statLabel}>Completion Rate</div>
-            </div>
-          </div>
-        </Card>
       </div>
 
       {/* My Courses */}
@@ -157,6 +125,8 @@ const DashboardPage = () => {
                   enrollment={enrollment.enrollment}
                   course={enrollment.course}
                   onPaymentSuccess={handlePaymentSuccess}
+                  onContinueCourse={handleContinueCourse}
+                  isActionable={enrollment.enrollment.courseId !== COURSE_IDS.BEHIND_WHEEL}
                 />
               ))}
           </div>

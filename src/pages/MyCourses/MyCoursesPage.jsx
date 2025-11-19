@@ -10,6 +10,7 @@ import { getUserEnrollments } from '../../api/enrollmentServices';
 import { getCourseById } from '../../api/courseServices';
 import { getProgress } from '../../api/progressServices';
 import styles from './MyCoursesPage.module.css';
+import { COURSE_IDS } from '../../constants/courses';
 
 const MyCoursesPage = () => {
   const { user } = useAuth();
@@ -73,9 +74,9 @@ const MyCoursesPage = () => {
   };
 
   const handleCourseClick = (courseId) => {
-    // Always navigate using the definitive courseId from the enrollment record
-    // to ensure consistency across the application.
-    navigate(`/course-player/${courseId}`);
+    if (courseId === COURSE_IDS.ONLINE) {
+      navigate(`/course-player/${COURSE_IDS.ONLINE}`);
+    }
   };
 
   if (loading) {
@@ -96,7 +97,7 @@ const MyCoursesPage = () => {
       <div className={styles.grid}>
         {enrolledCourses.length > 0 ? (
           enrolledCourses.map((course) => (
-            <Card key={course.enrollment.id} hoverable onClick={() => handleCourseClick(course.enrollment.courseId)}>
+            <Card key={course.enrollment.id} hoverable>
               <div className={styles.courseCard}>
                 <h3 className={styles.courseTitle}>{course.course.title}</h3>
                 <p className={styles.courseDescription}>{course.course.description}</p>
@@ -113,9 +114,23 @@ const MyCoursesPage = () => {
                 </div>
 
                 <div className={styles.courseFooter}>
-                  <Button variant="primary" size="small">
-                    Continue Learning
-                  </Button>
+                  {course.enrollment.id === COURSE_IDS.ONLINE ? (
+                    <Button
+                      variant="primary"
+                      size="small"
+                      onClick={() => handleCourseClick(course.enrollment.id)}
+                    >
+                      Continue Learning
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="outline"
+                      size="small"
+                      disabled
+                    >
+                      Coming Soon
+                    </Button>
+                  )}
                   {course.lastAccessedAt && (
                     <span className={styles.lastAccessed}>
                       Last accessed: {new Date(course.lastAccessedAt).toLocaleDateString()}

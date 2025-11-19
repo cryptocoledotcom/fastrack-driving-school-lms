@@ -32,66 +32,11 @@ const CoursesPage = () => {
   }, [user]);
 
   const loadCourses = async () => {
-  try {
-    setLoading(true);
-    
-    // Load course data from Firestore
-    const coursesData = await getCourses();
-    
-    // If no courses in database, use fallback data
-    if (coursesData.length === 0) {
-      console.warn('No courses found in database, using fallback data');
-      const fallbackCourses = [
-        {
-          id: COURSE_IDS.ONLINE,
-          title: 'Fastrack Online',
-          description: '24-hour online driving course. Get your Ohio Driver\'s Permit Online! Work at your own pace with our fully certified BMV program.',
-          price: COURSE_PRICING[COURSE_IDS.ONLINE].total,
-          features: [
-            '24 hours of online instruction',
-            'BMV certified curriculum',
-            'Self-paced learning',
-            'Instant access after payment',
-            'Certificate upon completion'
-          ],
-          type: 'online'
-        },
-        {
-          id: COURSE_IDS.BEHIND_WHEEL,
-          title: 'Fastrack Behind the Wheel',
-          description: '8 hours of one-on-one driving instruction with a certified instructor.',
-          price: COURSE_PRICING[COURSE_IDS.BEHIND_WHEEL].total,
-          features: [
-            '8 hours of in-person instruction',
-            'One-on-one with certified instructor',
-            'Flexible scheduling',
-            'Real-world driving experience',
-            'Certificate upon completion'
-          ],
-          type: 'in-person'
-        },
-        {
-          id: COURSE_IDS.COMPLETE,
-          title: 'Fastrack Complete',
-          description: 'Complete package combining both online and behind-the-wheel courses at a discounted rate.',
-          price: COURSE_PRICING[COURSE_IDS.COMPLETE].total,
-          originalPrice: COURSE_PRICING[COURSE_IDS.COMPLETE].originalPrice,
-          discount: COURSE_PRICING[COURSE_IDS.COMPLETE].discount,
-          features: [
-            'All Online Course features',
-            'All Behind-the-Wheel features',
-            `Save $${COURSE_PRICING[COURSE_IDS.COMPLETE].discount}!`,
-            'Split payment option',
-            'Complete driver education'
-          ],
-          type: 'bundle',
-          popular: true
-        }
-      ];
-      setCourses(fallbackCourses);
-    } else {
+    try {
+      setLoading(true);
+      
+      const coursesData = await getCourses();
       setCourses(coursesData);
-    }
 
       // Load user enrollments if logged in
       if (user) {
