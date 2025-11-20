@@ -4,7 +4,7 @@ import Card from '../../components/common/Card/Card';
 import Input from '../../components/common/Input/Input';
 import Select from '../../components/common/Select/Select';
 import Button from '../../components/common/Button/Button';
-import Checkbox from '../../components/common/Checkbox/Checkbox';
+import { ToggleSwitch } from '../../components/common/ToggleSwitch/ToggleSwitch';
 import ErrorMessage from '../../components/common/ErrorMessage/ErrorMessage';
 import SuccessMessage from '../../components/common/SuccessMessage/SuccessMessage';
 import LoadingSpinner from '../../components/common/LoadingSpinner/LoadingSpinner';
@@ -329,9 +329,9 @@ const SettingsPage = () => {
                 <h3>Dark Mode</h3>
                 <p>Enable dark theme for better viewing in low light</p>
               </div>
-              <Checkbox
+              <ToggleSwitch
                 checked={settings.darkMode}
-                onChange={(e) => handleSettingChange('darkMode', e.target.checked)}
+                onChange={() => handleSettingChange('darkMode', !settings.darkMode)}
               />
             </div>
             <div className={styles.preferenceItem}>
@@ -339,9 +339,9 @@ const SettingsPage = () => {
                 <h3>Notifications</h3>
                 <p>Receive in-app notifications</p>
               </div>
-              <Checkbox
+              <ToggleSwitch
                 checked={settings.notifications}
-                onChange={(e) => handleSettingChange('notifications', e.target.checked)}
+                onChange={() => handleSettingChange('notifications', !settings.notifications)}
               />
             </div>
             <div className={styles.preferenceItem}>
@@ -349,9 +349,9 @@ const SettingsPage = () => {
                 <h3>Email Notifications</h3>
                 <p>Receive email updates about your courses</p>
               </div>
-              <Checkbox
+              <ToggleSwitch
                 checked={settings.emailNotifications}
-                onChange={(e) => handleSettingChange('emailNotifications', e.target.checked)}
+                onChange={() => handleSettingChange('emailNotifications', !settings.emailNotifications)}
               />
             </div>
           </div>

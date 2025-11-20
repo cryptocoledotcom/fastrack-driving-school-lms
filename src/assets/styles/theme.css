@@ -79,10 +79,8 @@
    We will use this set of variables in two places:
    1. When the OS requests dark mode.
    2. When the class .dark-mode is present.
+   Light Mode (Default) is already set in Section 2.
 */
-:root {
-  /* Light Mode (Default) is already set in Section 2 */
-}
 
 /* Define the dark values in a reusable mixin concept */
 /* We apply these values if:
