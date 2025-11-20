@@ -10,7 +10,7 @@ import { getErrorMessage } from '../../constants/errorMessages';
 import styles from './AuthPages.module.css';
 
 const RegisterPage = () => {
-  const { register } = useAuth();
+  const { register, loginWithGoogle } = useAuth();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     displayName: '',
@@ -20,6 +20,7 @@ const RegisterPage = () => {
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -44,6 +45,19 @@ const RegisterPage = () => {
       setError(getErrorMessage(err));
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    setError('');
+    setGoogleLoading(true);
+    try {
+      await loginWithGoogle();
+      navigate(PROTECTED_ROUTES.DASHBOARD);
+    } catch (err) {
+      setError(getErrorMessage(err));
+    } finally {
+      setGoogleLoading(false);
     }
   };
 
@@ -102,6 +116,17 @@ const RegisterPage = () => {
           Sign In
         </Link>
       </p>
+
+      <div className={styles.divider}>OR</div>
+
+      <Button
+        onClick={handleGoogleLogin}
+        style={{ backgroundColor: 'var(--color-primary-700)' }}
+        fullWidth
+        loading={googleLoading}
+      >
+        Sign Up with Google
+      </Button>
     </div>
   );
 };
