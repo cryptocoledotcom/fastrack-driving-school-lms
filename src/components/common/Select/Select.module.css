@@ -13,23 +13,23 @@
 .label {
   font-size: 0.875rem;
   font-weight: 600;
-  color: #374151;
+  color: var(--text-main);
   display: flex;
   align-items: center;
   gap: 0.25rem;
 }
 
 .required {
-  color: #EF4444;
+  color: var(--color-error-500);
 }
 
 .select {
   padding: 0.75rem 1rem;
   font-size: 1rem;
   line-height: 1.5;
-  color: #1F2937;
-  background-color: white;
-  border: 1px solid #D1D5DB;
+  color: var(--text-main);
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-strong);
   border-radius: 8px;
   transition: all 0.2s ease;
   font-family: inherit;
@@ -44,22 +44,22 @@
 
 .select:focus {
   outline: none;
-  border-color: #3B82F6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  border-color: var(--brand-action);
+  box-shadow: 0 0 0 3px rgba(43, 184, 212, 0.1);
 }
 
 .select.error {
-  border-color: #EF4444;
+  border-color: var(--color-error-500);
 }
 
 .select.error:focus {
-  border-color: #EF4444;
+  border-color: var(--color-error-500);
   box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
 }
 
 .select.disabled {
-  background-color: #F3F4F6;
-  color: #9CA3AF;
+  background-color: var(--color-gray-100);
+  color: var(--text-muted);
   cursor: not-allowed;
 }
 
@@ -69,7 +69,7 @@
 
 .errorText {
   font-size: 0.875rem;
-  color: #EF4444;
+  color: var(--color-error-500);
   display: flex;
   align-items: center;
   gap: 0.25rem;
@@ -77,5 +77,5 @@
 
 .helperText {
   font-size: 0.875rem;
-  color: #6B7280;
+  color: var(--text-muted);
 }

@@ -20,25 +20,25 @@
 }
 
 .iconSuccess {
-  color: #10B981;
+  color: var(--color-success-500);
 }
 
 .iconWarning {
-  color: #F59E0B;
+  color: var(--color-warning-500);
 }
 
 .iconError {
-  color: #EF4444;
+  color: var(--color-error-500);
 }
 
 .iconInfo {
-  color: #3B82F6;
+  color: var(--color-info-500);
 }
 
 .message {
   margin: 0;
   font-size: 1rem;
-  color: #374151;
+  color: var(--text-main);
   line-height: 1.5;
 }
 

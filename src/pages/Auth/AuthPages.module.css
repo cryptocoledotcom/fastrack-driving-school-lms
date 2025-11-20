@@ -7,14 +7,14 @@
 .title {
   font-size: 2rem;
   font-weight: 700;
-  color: #1F2937;
+  color: var(--text-main);
   margin-bottom: 0.5rem;
   text-align: center;
 }
 
 .subtitle {
   font-size: 1rem;
-  color: #6B7280;
+  color: var(--text-muted);
   margin-bottom: 2rem;
   text-align: center;
 }
@@ -29,7 +29,7 @@
 .forgotLink {
   text-align: right;
   font-size: 0.875rem;
-  color: #3B82F6;
+  color: var(--brand-action);
   text-decoration: none;
   margin-top: -0.5rem;
 }
@@ -41,12 +41,12 @@
 .switchText {
   text-align: center;
   font-size: 0.875rem;
-  color: #6B7280;
+  color: var(--text-muted);
   margin-top: 1.5rem;
 }
 
 .switchLink {
-  color: #3B82F6;
+  color: var(--brand-action);
   font-weight: 600;
   text-decoration: none;
 }

@@ -18,7 +18,7 @@
 .icon {
   width: 1.5rem;
   height: 1.5rem;
-  color: #059669;
+  color: var(--color-success-500);
 }
 
 .content {
@@ -47,7 +47,7 @@
   border: none;
   cursor: pointer;
   padding: 0.25rem;
-  color: #059669;
+  color: var(--color-success-500);
   transition: color 0.2s ease;
 }
 

@@ -19,7 +19,7 @@
 
 .button:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+  box-shadow: 0 0 0 3px rgba(43, 184, 212, 0.3);
 }
 
 /* Sizes */
@@ -43,14 +43,14 @@
 
 /* Variants */
 .primary {
-  background-color: #2bb8d4;
-  color: white;
+  background-color: var(--brand-action);
+  color: var(--color-white);
 }
 
 .primary:hover:not(:disabled) {
-  background-color: #198cb8;
+  background-color: var(--color-secondary-600);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+  box-shadow: 0 4px 12px rgba(43, 184, 212, 0.4);
 }
 
 .primary:active:not(:disabled) {
@@ -58,31 +58,31 @@
 }
 
 .secondary {
-  background-color: #6B7280;
-  color: white;
+  background-color: var(--color-gray-500);
+  color: var(--color-white);
 }
 
 .secondary:hover:not(:disabled) {
-  background-color: #4B5563;
+  background-color: var(--color-gray-600);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(107, 114, 128, 0.4);
+  box-shadow: 0 4px 12px rgba(100, 116, 139, 0.4);
 }
 
 .outline {
   background-color: transparent;
-  color: #2bb8d4;
-  border: 2px solid #2bb8d4;
+  color: var(--brand-action);
+  border: 2px solid var(--brand-action);
 }
 
 .outline:hover:not(:disabled) {
-  background-color: #5f3388;
-  color: white;
+  background-color: var(--brand-primary);
+  color: var(--color-white);
   transform: translateY(-2px);
 }
 
 .danger {
-  background-color: #EF4444;
-  color: white;
+  background-color: var(--color-error-500);
+  color: var(--color-white);
 }
 
 .danger:hover:not(:disabled) {
@@ -92,8 +92,8 @@
 }
 
 .success {
-  background-color: #10B981;
-  color: white;
+  background-color: var(--color-success-500);
+  color: var(--color-white);
 }
 
 .success:hover:not(:disabled) {
@@ -104,11 +104,11 @@
 
 .ghost {
   background-color: transparent;
-  color: #3B82F6;
+  color: var(--brand-action);
 }
 
 .ghost:hover:not(:disabled) {
-  background-color: rgba(59, 130, 246, 0.1);
+  background-color: rgba(43, 184, 212, 0.1);
 }
 
 /* States */

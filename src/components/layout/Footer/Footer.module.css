@@ -1,8 +1,8 @@
 /* Footer Component Styles */
 
 .footer {
-  background-color: #1a0f26;
-  color: #D1D5DB;
+  background-color: var(--bg-footer);
+  color: var(--text-on-dark);
   padding: 3rem 0 1rem;
   margin-top: auto;
 }
@@ -27,7 +27,7 @@
 }
 
 .sectionTitle {
-  color: white;
+  color: var(--color-white);
   font-size: 1.125rem;
   font-weight: 600;
   margin: 0;
@@ -49,14 +49,14 @@
 }
 
 .link {
-  color: #D1D5DB;
+  color: var(--text-on-dark);
   text-decoration: none;
   font-size: 0.875rem;
   transition: color 0.2s ease;
 }
 
 .link:hover {
-  color: #3B82F6;
+  color: var(--brand-action);
 }
 
 .contactList {
@@ -71,7 +71,7 @@
 
 .bottom {
   padding-top: 2rem;
-  border-top: 1px solid #374151;
+  border-top: 1px solid var(--border-strong);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -90,14 +90,14 @@
 }
 
 .socialLink {
-  color: #D1D5DB;
+  color: var(--text-on-dark);
   text-decoration: none;
   font-size: 0.875rem;
   transition: color 0.2s ease;
 }
 
 .socialLink:hover {
-  color: #3B82F6;
+  color: var(--brand-action);
 }
 
 /* Responsive */

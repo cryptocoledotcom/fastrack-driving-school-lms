@@ -14,7 +14,7 @@
 .main {
   flex: 1;
   padding: 2rem;
-  background-color: #F9FAFB;
+  background-color: var(--bg-body);
   overflow-y: auto;
 }
 

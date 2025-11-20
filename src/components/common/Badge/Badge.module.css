@@ -27,13 +27,13 @@
 
 /* Variants */
 .default {
-  background-color: #E5E7EB;
-  color: #374151;
+  background-color: var(--color-gray-200);
+  color: var(--text-main);
 }
 
 .primary {
-  background-color: #DBEAFE;
-  color: #1E40AF;
+  background-color: var(--color-primary-100);
+  color: var(--color-primary-700);
 }
 
 .success {
@@ -62,13 +62,13 @@
 }
 
 .inProgress {
-  background-color: #DBEAFE;
-  color: #1E40AF;
+  background-color: var(--color-secondary-100);
+  color: var(--color-secondary-700);
 }
 
 .locked {
-  background-color: #F3F4F6;
-  color: #6B7280;
+  background-color: var(--color-gray-100);
+  color: var(--color-gray-500);
 }
 
 .notStarted {

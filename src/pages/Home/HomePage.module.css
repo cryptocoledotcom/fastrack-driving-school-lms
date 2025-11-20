@@ -12,8 +12,8 @@
 
 /* Hero Section */
 .hero {
-  background: linear-gradient(135deg, #5F3388 0%, #8d21c4 100%);
-  color: white;
+  background: linear-gradient(135deg, var(--color-primary-700) 0%, var(--color-primary-800) 100%);
+  color: var(--color-white);
   padding: 6rem 2rem;
   text-align: center;
 }
@@ -28,12 +28,14 @@
   font-weight: 700;
   margin-bottom: 1.5rem;
   line-height: 1.2;
+  color: var(--color-white);
 }
 
 .heroSubtitle {
   font-size: 1.25rem;
   margin-bottom: 2rem;
   opacity: 0.95;
+  color: var(--color-white);
 }
 
 .heroButtons {
@@ -46,31 +48,31 @@
 /* Logo Video Section */
 .logoVideoSection {
   padding: 6rem 2rem;
-  background: white;
-  color: white;
+  background: var(--bg-surface);
+  color: var(--text-main);
   text-align: center;
 }
 
 .logoVideo {
   width: 100%;
-  max-width: 800px; /* Adjust this to your preferred max size */
+  max-width: 800px;
   height: auto;
-  border-radius: 8px; /* Optional: for rounded corners */
+  border-radius: 8px;
 }
 
 /* Homepage Video Section */
 .homepageVideoSection {
   padding: 6rem 2rem;
-  background-color: #F9FAFB; /* Light gray background */
+  background-color: var(--bg-body);
   text-align: center;
 }
 
 .homepageVideo {
   width: 100%;
-  max-width: 1024px; /* A bit wider for variety */
+  max-width: 1024px;
   height: auto;
   border-radius: 8px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Optional shadow */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
 /* Show video controls on hover */
@@ -86,7 +88,7 @@
 /* Stats Section */
 .stats {
   padding: 4rem 2rem;
-  background-color: #F9FAFB;
+  background-color: var(--bg-body);
 }
 
 .statsGrid {
@@ -102,13 +104,13 @@
 .statValue {
   font-size: 2.5rem;
   font-weight: 700;
-  color: #3B82F6;
+  color: var(--brand-action);
   margin-bottom: 0.5rem;
 }
 
 .statLabel {
   font-size: 1rem;
-  color: #6B7280;
+  color: var(--text-muted);
 }
 
 /* Features Section */
@@ -121,13 +123,13 @@
   font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: 1rem;
-  color: #1F2937;
+  color: var(--text-main);
 }
 
 .sectionSubtitle {
   text-align: center;
   font-size: 1.125rem;
-  color: #6B7280;
+  color: var(--text-muted);
   margin-bottom: 3rem;
 }
 
@@ -146,20 +148,20 @@
   font-size: 1.25rem;
   font-weight: 600;
   margin-bottom: 0.75rem;
-  color: #1F2937;
+  color: var(--text-main);
 }
 
 .featureDescription {
   font-size: 0.875rem;
-  color: #6B7280;
+  color: var(--text-muted);
   line-height: 1.6;
 }
 
 /* CTA Section */
 .cta {
   padding: 6rem 2rem;
-  background: linear-gradient(135deg, #5F3388 0%, #8d21c4 100%);
-  color: white;
+  background: linear-gradient(135deg, var(--color-primary-700) 0%, var(--color-primary-800) 100%);
+  color: var(--color-white);
   text-align: center;
 }
 
@@ -167,12 +169,14 @@
   font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: 1rem;
+  color: var(--color-white);
 }
 
 .ctaSubtitle {
   font-size: 1.125rem;
   margin-bottom: 2rem;
   opacity: 0.95;
+  color: var(--color-white);
 }
 
 /* Responsive */

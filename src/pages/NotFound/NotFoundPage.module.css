@@ -4,6 +4,7 @@
   justify-content: center;
   min-height: 60vh;
   padding: 2rem;
+  background-color: var(--bg-body);
 }
 
 .content {
@@ -14,19 +15,19 @@
 .title {
   font-size: 6rem;
   font-weight: 700;
-  color: #3B82F6;
+  color: var(--brand-action);
   margin-bottom: 1rem;
 }
 
 .subtitle {
   font-size: 2rem;
   font-weight: 600;
-  color: #1F2937;
+  color: var(--text-main);
   margin-bottom: 1rem;
 }
 
 .text {
   font-size: 1.125rem;
-  color: #6B7280;
+  color: var(--text-muted);
   margin-bottom: 2rem;
 }

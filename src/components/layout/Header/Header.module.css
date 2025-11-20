@@ -1,7 +1,7 @@
 /* Header Component Styles */
 
 .header {
-  background-color: white;
+  background-color: var(--bg-surface);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
@@ -28,7 +28,7 @@
 .logoText {
   font-size: 1.25rem;
   font-weight: 700;
-  color: #3B82F6;
+  color: var(--brand-primary);
 }
 
 .nav {
@@ -41,13 +41,13 @@
 
 .navLink {
   text-decoration: none;
-  color: #374151;
+  color: var(--text-main);
   font-weight: 500;
   transition: color 0.2s ease;
 }
 
 .navLink:hover {
-  color: #3B82F6;
+  color: var(--brand-action);
 }
 
 .authSection {
@@ -64,7 +64,7 @@
 
 .userName {
   font-size: 0.875rem;
-  color: #374151;
+  color: var(--text-main);
   font-weight: 500;
 }
 
@@ -74,7 +74,7 @@
   border: none;
   cursor: pointer;
   padding: 0.5rem;
-  color: #374151;
+  color: var(--text-main);
 }
 
 .mobileMenuButton svg {
@@ -86,15 +86,15 @@
   display: none;
   flex-direction: column;
   padding: 1rem 2rem;
-  border-top: 1px solid #E5E7EB;
+  border-top: 1px solid var(--border-light);
 }
 
 .mobileNavLink {
   padding: 0.75rem 0;
   text-decoration: none;
-  color: #374151;
+  color: var(--text-main);
   font-weight: 500;
-  border-bottom: 1px solid #F3F4F6;
+  border-bottom: 1px solid var(--border-light);
   background: none;
   border-left: none;
   border-right: none;
@@ -106,7 +106,7 @@
 }
 
 .mobileNavLink:hover {
-  color: #3B82F6;
+  color: var(--brand-action);
 }
 
 /* Responsive */

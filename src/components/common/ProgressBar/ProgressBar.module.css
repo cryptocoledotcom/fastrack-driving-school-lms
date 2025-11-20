@@ -6,7 +6,7 @@
 
 .track {
   width: 100%;
-  background-color: #E5E7EB;
+  background-color: var(--border-light);
   border-radius: 9999px;
   overflow: hidden;
   position: relative;
@@ -63,7 +63,7 @@
 
 /* Colors */
 .primary {
-  background-color: #3B82F6;
+  background-color: var(--brand-action);
 }
 
 .primary.animated {
@@ -80,7 +80,7 @@
 }
 
 .success {
-  background-color: #10B981;
+  background-color: var(--color-success-500);
 }
 
 .success.animated {
@@ -97,7 +97,7 @@
 }
 
 .warning {
-  background-color: #F59E0B;
+  background-color: var(--color-warning-500);
 }
 
 .warning.animated {
@@ -114,7 +114,7 @@
 }
 
 .danger {
-  background-color: #EF4444;
+  background-color: var(--color-error-500);
 }
 
 .danger.animated {
@@ -131,7 +131,7 @@
 }
 
 .label {
-  color: white;
+  color: var(--color-white);
   font-weight: 600;
   white-space: nowrap;
 }

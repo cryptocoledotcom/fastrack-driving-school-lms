@@ -95,9 +95,13 @@ const SettingsPage = () => {
       const userSettings = await getUserSettings(user.uid);
       setSettings(userSettings);
       
-      // Apply dark mode
+      // Apply theme
       if (userSettings.darkMode) {
         document.body.classList.add('dark-mode');
+        document.body.classList.remove('light-mode');
+      } else {
+        document.body.classList.remove('dark-mode');
+        document.body.classList.add('light-mode');
       }
       
       // Load security questions
@@ -149,12 +153,14 @@ const SettingsPage = () => {
       
       await updateUserSettings(user.uid, newSettings);
       
-      // Apply dark mode immediately
+      // Apply theme immediately
       if (settingName === 'darkMode') {
         if (value) {
           document.body.classList.add('dark-mode');
+          document.body.classList.remove('light-mode');
         } else {
           document.body.classList.remove('dark-mode');
+          document.body.classList.add('light-mode');
         }
       }
       
