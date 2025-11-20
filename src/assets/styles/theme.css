@@ -72,29 +72,66 @@
 }
 
 /* ========================================= */
-/* 3. DARK MODE OVERRIDES                    */
+/* 3. DARK MODE LOGIC                        */
 /* ========================================= */
-@media (prefers-color-scheme: dark) {
-  :root {
-    /* Flip Backgrounds to Dark Slate */
-    --bg-body: var(--color-gray-900);    /* #0F172A */
-    --bg-surface: var(--color-gray-800); /* #1E293B (Lighter than body so cards "lift" up) */
-    --bg-footer: var(--color-gray-950);  /* #020617 (Darkest anchor) */
 
-    /* Flip Text to White/Light Gray */
+/* This defines the dark variables.
+   We will use this set of variables in two places:
+   1. When the OS requests dark mode.
+   2. When the class .dark-mode is present.
+*/
+:root {
+  /* Light Mode (Default) is already set in Section 2 */
+}
+
+/* Define the dark values in a reusable mixin concept */
+/* We apply these values if:
+   1. The user has the .dark-mode class (Manual Override)
+   2. OR: The user has NO manual class, but prefers dark scheme (System Default)
+*/
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light-mode) {
+    --bg-body: var(--color-gray-900);
+    --bg-surface: var(--color-gray-800);
+    --bg-footer: var(--color-gray-950);
+
     --text-main: var(--color-gray-100);
     --text-muted: var(--color-gray-400);
-    --text-on-dark: var(--color-gray-100); /* Stays light */
+    --text-on-dark: var(--color-gray-100);
 
-    /* Darken Borders */
     --border-light: var(--color-gray-800);
     --border-strong: var(--color-gray-700);
 
-    /* Adjust Brand Colors for Legibility */
-    /* In dark mode, Purple 700 is too dark to read. We swap to Purple 400/500 */
     --brand-primary: var(--color-primary-400); 
-    
-    /* Teal 500 pops perfectly on dark, so we keep it */
     --brand-action: var(--color-secondary-500); 
   }
+}
+
+/* FORCE DARK MODE (Triggered by your Settings Page) */
+body.dark-mode {
+    --bg-body: var(--color-gray-900);
+    --bg-surface: var(--color-gray-800);
+    --bg-footer: var(--color-gray-950);
+
+    --text-main: var(--color-gray-100);
+    --text-muted: var(--color-gray-400);
+    --text-on-dark: var(--color-gray-100);
+
+    --border-light: var(--color-gray-800);
+    --border-strong: var(--color-gray-700);
+
+    --brand-primary: var(--color-primary-400); 
+    --brand-action: var(--color-secondary-500); 
+}
+
+/* FORCE LIGHT MODE (Optional: If user wants Light Mode while on a Dark OS) */
+body.light-mode {
+    --bg-body: var(--color-gray-50);
+    --bg-surface: var(--color-white);
+    --bg-footer: var(--color-gray-900);
+
+    --text-main: var(--color-gray-900);
+    /* ... restore other light variables if needed, 
+       usually not required if you default to light */
 }

@@ -18,8 +18,10 @@ body {
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   line-height: 1.6;
-  color: #1F2937;
-  background-color: #FFFFFF;
+  /* CHANGED: Now uses your Semantic Variables */
+  color: var(--text-main);
+  background-color: var(--bg-body);
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth dark mode toggle */
 }
 
 code {
@@ -32,43 +34,31 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
   line-height: 1.2;
   margin-bottom: 0.5rem;
+  /* CHANGED: Ensures headers are legible in both modes */
+  color: var(--text-main); 
 }
 
-h1 {
-  font-size: 2.5rem;
-}
-
-h2 {
-  font-size: 2rem;
-}
-
-h3 {
-  font-size: 1.75rem;
-}
-
-h4 {
-  font-size: 1.5rem;
-}
-
-h5 {
-  font-size: 1.25rem;
-}
-
-h6 {
-  font-size: 1rem;
-}
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.75rem; }
+h4 { font-size: 1.5rem; }
+h5 { font-size: 1.25rem; }
+h6 { font-size: 1rem; }
 
 p {
   margin-bottom: 1rem;
 }
 
 a {
-  color: #3B82F6;
+  /* CHANGED: Uses your Teal Brand Action color */
+  color: var(--brand-action);
   text-decoration: none;
+  transition: opacity 0.2s ease;
 }
 
 a:hover {
   text-decoration: underline;
+  opacity: 0.8;
 }
 
 /* Lists */
@@ -92,67 +82,60 @@ button {
 
 button:disabled {
   cursor: not-allowed;
+  opacity: 0.6;
 }
 
 /* Forms */
 input, textarea, select {
   font-family: inherit;
   font-size: inherit;
+  /* CHANGED: Inputs now adapt to dark mode automatically */
+  background-color: var(--bg-surface);
+  color: var(--text-main);
+  border: 1px solid var(--border-strong);
+  padding: 0.5rem; /* Added slightly for better tap targets */
+  border-radius: 4px; /* Optional: Softens the look */
 }
 
-/* Scrollbar */
+input::placeholder, textarea::placeholder {
+  color: var(--text-muted);
+}
+
+/* Scrollbar (Updated to match Slate Gray theme) */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #F3F4F6;
+  background: var(--bg-body);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #D1D5DB;
+  background: var(--color-gray-400);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #9CA3AF;
+  background: var(--color-gray-500);
 }
 
-/* Selection */
+/* Selection (Updated to match Royal Purple Theme) */
 ::selection {
-  background-color: #DBEAFE;
-  color: #1E40AF;
+  /* Using Purple 200 bg and Purple 900 text for high contrast */
+  background-color: var(--color-primary-200);
+  color: var(--color-primary-900);
 }
 
-/* Focus Visible */
+/* Focus Visible (Updated to match Teal Brand) */
 :focus-visible {
-  outline: 2px solid #3B82F6;
+  outline: 2px solid var(--brand-action);
   outline-offset: 2px;
 }
 
-/* Dark Mode */
-body.dark-mode {
-  background-color: #1F2937;
-  color: #F3F4F6;
-}
-
-body.dark-mode input,
-body.dark-mode textarea,
-body.dark-mode select {
-  background-color: #374151;
-  color: #F3F4F6;
-  border-color: #4B5563;
-}
-
-body.dark-mode input::placeholder,
-body.dark-mode textarea::placeholder {
-  color: #9CA3AF;
-}
-
-body.dark-mode button {
-  color: #F3F4F6;
-}
+/* NOTE: "Dark Mode" section removed. 
+   The variables in theme.css handle this logic automatically now.
+*/
 
 /* Utility Classes */
 .container {
@@ -161,18 +144,11 @@ body.dark-mode button {
   padding: 0 2rem;
 }
 
-.text-center {
-  text-align: center;
-}
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
 
-.text-left {
-  text-align: left;
-}
-
-.text-right {
-  text-align: right;
-}
-
+/* Margins & Padding */
 .mt-1 { margin-top: 0.5rem; }
 .mt-2 { margin-top: 1rem; }
 .mt-3 { margin-top: 1.5rem; }
@@ -190,23 +166,9 @@ body.dark-mode button {
 
 /* Responsive Typography */
 @media (max-width: 768px) {
-  html {
-    font-size: 14px;
-  }
-
-  h1 {
-    font-size: 2rem;
-  }
-
-  h2 {
-    font-size: 1.75rem;
-  }
-
-  h3 {
-    font-size: 1.5rem;
-  }
-
-  h4 {
-    font-size: 1.25rem;
-  }
+  html { font-size: 14px; }
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.75rem; }
+  h3 { font-size: 1.5rem; }
+  h4 { font-size: 1.25rem; }
 }
