@@ -33,6 +33,17 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Apply theme based on preference
+  const applyTheme = (isDarkMode) => {
+    if (isDarkMode) {
+      document.body.classList.add('dark-mode');
+      document.body.classList.remove('light-mode');
+    } else {
+      document.body.classList.remove('dark-mode');
+      document.body.classList.add('light-mode');
+    }
+  };
+
   // Fetch user profile from Firestore
   const fetchUserProfile = async (uid) => {
     try {
@@ -75,9 +86,19 @@ export const AuthProvider = ({ children }) => {
         setUser(firebaseUser);
         const profile = await fetchUserProfile(firebaseUser.uid);
         setUserProfile(profile);
+        
+        // Apply theme from user settings
+        const settings = profile?.settings || {
+          darkMode: false,
+          notifications: true,
+          emailNotifications: true
+        };
+        applyTheme(settings.darkMode);
       } else {
         setUser(null);
         setUserProfile(null);
+        // Default to light mode for unauthenticated users
+        applyTheme(false);
       }
       setLoading(false);
     });

@@ -4,10 +4,12 @@ const admin = require('firebase-admin');
 const serviceAccount = require('./firebase-adminsdk-fbsvc-79244e2480.json');
 const databaseURL = 'https://fastrack-driving-school-lms.firebaseio.com';
 
+console.log
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: databaseURL
 });
+console.log
 
 const db = admin.firestore();
 
