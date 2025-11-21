@@ -10,7 +10,7 @@ import { getUserEnrollments } from '../../api/enrollmentServices';
 import { getCourseById } from '../../api/courseServices';
 import { getProgress } from '../../api/progressServices';
 import styles from './MyCoursesPage.module.css';
-import { COURSE_IDS } from '../../constants/courses';
+import { COURSE_IDS, ACCESS_STATUS, ENROLLMENT_STATUS } from '../../constants/courses';
 
 const MyCoursesPage = () => {
   const { user } = useAuth();
@@ -32,7 +32,9 @@ const MyCoursesPage = () => {
       setError('');
 
       // Get user's enrollments from users/{userId}/courses
-      const enrollments = await getUserEnrollments(user.uid);
+      const allEnrollments = await getUserEnrollments(user.uid);
+      // Only include ACTIVE enrollments (paid/unlocked)
+      const enrollments = allEnrollments.filter(e => e.status === ENROLLMENT_STATUS.ACTIVE);
 
       // Fetch course details and progress for each enrollment
       const coursesWithDetails = await Promise.all(
@@ -73,8 +75,13 @@ const MyCoursesPage = () => {
     }
   };
 
-  const handleCourseClick = (courseId) => {
-    if (courseId === COURSE_IDS.ONLINE) {
+  const handleCourseClick = (enrollment) => {
+    if (enrollment.accessStatus !== ACCESS_STATUS.UNLOCKED) {
+      navigate('/dashboard', { state: { message: 'Please complete payment before accessing this course.' } });
+      return;
+    }
+    
+    if (enrollment.courseId === COURSE_IDS.ONLINE) {
       navigate(`/course-player/${COURSE_IDS.ONLINE}`);
     }
   };
@@ -102,6 +109,13 @@ const MyCoursesPage = () => {
                 <h3 className={styles.courseTitle}>{course.course.title}</h3>
                 <p className={styles.courseDescription}>{course.course.description}</p>
                 
+                {/* Payment Status Badge */}
+                {course.enrollment.accessStatus !== ACCESS_STATUS.UNLOCKED && (
+                  <div className={styles.lockedBanner}>
+                    🔒 Purchase Required - Please visit Dashboard to complete payment
+                  </div>
+                )}
+                
                 <div className={styles.progressSection}>
                   <div className={styles.progressHeader}>
                     <span>Progress</span>
@@ -114,13 +128,21 @@ const MyCoursesPage = () => {
                 </div>
 
                 <div className={styles.courseFooter}>
-                  {course.enrollment.id === COURSE_IDS.ONLINE ? (
+                  {course.enrollment.accessStatus === ACCESS_STATUS.UNLOCKED && course.enrollment.id === COURSE_IDS.ONLINE ? (
                     <Button
                       variant="primary"
                       size="small"
-                      onClick={() => handleCourseClick(course.enrollment.id)}
+                      onClick={() => handleCourseClick(course.enrollment)}
                     >
                       Continue Learning
+                    </Button>
+                  ) : course.enrollment.id === COURSE_IDS.ONLINE ? (
+                    <Button
+                      variant="secondary"
+                      size="small"
+                      onClick={() => navigate('/dashboard')}
+                    >
+                      Complete Payment on Dashboard
                     </Button>
                   ) : (
                     <Button

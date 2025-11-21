@@ -191,9 +191,13 @@ export const getEnrollment = async (userId, courseId) => {
       return null;
     }
 
+    const data = enrollmentDoc.data();
     return {
       id: enrollmentDoc.id,
-      ...enrollmentDoc.data()
+      ...data,
+      totalAmount: Number(data.totalAmount ?? 0),
+      amountPaid: Number(data.amountPaid ?? 0),
+      amountDue: Number(data.amountDue ?? 0),
     };
   } catch (error) {
     console.error('Error fetching enrollment:', error);
@@ -211,10 +215,17 @@ export const getUserEnrollments = async (userId) => {
 
     const enrollments = [];
     querySnapshot.forEach((doc) => {
-      enrollments.push({
+      const data = doc.data();
+      
+      const enrollment = {
         id: doc.id,
-        ...doc.data()
-      });
+        ...data,
+        totalAmount: Number(data.totalAmount ?? 0),
+        amountPaid: Number(data.amountPaid ?? 0),
+        amountDue: Number(data.amountDue ?? 0),
+      };
+      
+      enrollments.push(enrollment);
     });
 
     return enrollments;
@@ -414,15 +425,365 @@ export const autoEnrollAdmin = async (userId, userEmail) => {
   }
 };
 
+/**
+ * Reset enrollment to pending payment state (for testing)
+ */
+export const resetEnrollmentToPending = async (userId, courseId) => {
+  try {
+    const enrollmentRef = doc(db, 'users', userId, 'courses', courseId);
+    const enrollmentDoc = await getDoc(enrollmentRef);
+
+    if (!enrollmentDoc.exists()) {
+      throw new Error('Enrollment not found');
+    }
+
+    const enrollment = enrollmentDoc.data();
+    const pricing = COURSE_PRICING[courseId];
+
+    if (!pricing) {
+      throw new Error('Invalid course ID');
+    }
+
+    const updates = {
+      status: ENROLLMENT_STATUS.PENDING_PAYMENT,
+      paymentStatus: PAYMENT_STATUS.PENDING,
+      accessStatus: ACCESS_STATUS.LOCKED,
+      amountPaid: 0,
+      amountDue: pricing.upfront || pricing.total,
+      certificateGenerated: false,
+      updatedAt: serverTimestamp()
+    };
+
+    await updateDoc(enrollmentRef, updates);
+
+    const result = {
+      id: enrollmentRef.id,
+      ...enrollment,
+      ...updates,
+      totalAmount: Number(enrollment.totalAmount ?? 0),
+      amountPaid: Number(updates.amountPaid ?? (enrollment.amountPaid ?? 0)),
+      amountDue: Number(updates.amountDue ?? (enrollment.amountDue ?? 0)),
+    };
+    return result;
+  } catch (error) {
+    console.error('Error resetting enrollment:', error);
+    throw error;
+  }
+};
+
+/**
+ * Reset all enrollments for a user to pending payment state
+ */
+export const resetUserEnrollmentsToPending = async (userId) => {
+  try {
+    const userCoursesRef = collection(db, 'users', userId, 'courses');
+    const coursesSnapshot = await getDocs(userCoursesRef);
+
+    const resetEnrollments = [];
+
+    for (const courseDoc of coursesSnapshot.docs) {
+      const courseId = courseDoc.id;
+      const resetEnrollment = await resetEnrollmentToPending(userId, courseId);
+      resetEnrollments.push(resetEnrollment);
+    }
+
+    return resetEnrollments;
+  } catch (error) {
+    console.error('Error resetting user enrollments:', error);
+    throw error;
+  }
+};
+
+/**
+ * Get all users with enrollments (for admin)
+ */
+export const getAllUsersWithEnrollments = async () => {
+  try {
+    const usersRef = collection(db, 'users');
+    const usersSnapshot = await getDocs(usersRef);
+
+    const usersWithEnrollments = [];
+
+    for (const userDoc of usersSnapshot.docs) {
+      const userId = userDoc.id;
+      const userData = userDoc.data();
+      
+      const enrollments = await getUserEnrollments(userId);
+      
+      if (enrollments.length > 0) {
+        usersWithEnrollments.push({
+          userId,
+          email: userData.email,
+          displayName: userData.displayName || '',
+          enrollments
+        });
+      }
+    }
+
+    return usersWithEnrollments;
+  } catch (error) {
+    console.error('Error fetching users with enrollments:', error);
+    throw error;
+  }
+};
+
+/**
+ * Create enrollment after successful payment
+ * Enrollment is created in ACTIVE/COMPLETED/UNLOCKED state
+ */
+export const createPaidEnrollment = async (userId, courseId, paidAmount, userEmail = '') => {
+  try {
+    const pricing = COURSE_PRICING[courseId];
+    if (!pricing) {
+      throw new Error('Invalid course ID');
+    }
+
+    if (courseId === COURSE_IDS.COMPLETE) {
+      return await createPaidCompletePackageEnrollment(userId, paidAmount, userEmail);
+    }
+
+    const enrollmentRef = doc(db, 'users', userId, 'courses', courseId);
+    
+    const enrollmentData = {
+      userId,
+      courseId,
+      enrollmentDate: serverTimestamp(),
+      status: ENROLLMENT_STATUS.ACTIVE,
+      paymentStatus: PAYMENT_STATUS.COMPLETED,
+      accessStatus: ACCESS_STATUS.UNLOCKED,
+      totalAmount: pricing.total,
+      amountPaid: Number(paidAmount),
+      amountDue: Math.max(0, pricing.total - Number(paidAmount)),
+      upfrontAmount: pricing.upfront,
+      remainingAmount: Math.max(0, pricing.remaining - (Number(paidAmount) - pricing.upfront)),
+      certificateGenerated: false,
+      progress: 0,
+      lastAccessedAt: null,
+      completedAt: null,
+      createdAt: serverTimestamp(),
+      updatedAt: serverTimestamp()
+    };
+
+    await setDoc(enrollmentRef, enrollmentData);
+
+    return {
+      id: enrollmentRef.id,
+      ...enrollmentData
+    };
+  } catch (error) {
+    console.error('Error creating paid enrollment:', error);
+    throw error;
+  }
+};
+
+/**
+ * Create Complete Package enrollment after successful payment
+ */
+export const createPaidCompletePackageEnrollment = async (userId, paidAmount, userEmail = '') => {
+  try {
+    const batch = writeBatch(db);
+    const completePricing = COURSE_PRICING[COURSE_IDS.COMPLETE];
+
+    // Create enrollment for Complete Package
+    const completeEnrollmentRef = doc(db, 'users', userId, 'courses', COURSE_IDS.COMPLETE);
+    
+    const completeEnrollmentData = {
+      userId,
+      courseId: COURSE_IDS.COMPLETE,
+      enrollmentDate: serverTimestamp(),
+      status: ENROLLMENT_STATUS.ACTIVE,
+      paymentStatus: PAYMENT_STATUS.COMPLETED,
+      accessStatus: ACCESS_STATUS.UNLOCKED,
+      totalAmount: completePricing.total,
+      amountPaid: Number(paidAmount),
+      amountDue: Math.max(0, completePricing.total - Number(paidAmount)),
+      upfrontAmount: completePricing.upfront,
+      remainingAmount: Math.max(0, completePricing.remaining - (Number(paidAmount) - completePricing.upfront)),
+      certificateGenerated: false,
+      progress: 0,
+      lastAccessedAt: null,
+      completedAt: null,
+      createdAt: serverTimestamp(),
+      updatedAt: serverTimestamp()
+    };
+
+    batch.set(completeEnrollmentRef, completeEnrollmentData);
+
+    // Create enrollment for Online Course (component) - unlocked via parent
+    const onlineEnrollmentRef = doc(db, 'users', userId, 'courses', COURSE_IDS.ONLINE);
+    
+    const onlineEnrollmentData = {
+      userId,
+      courseId: COURSE_IDS.ONLINE,
+      enrollmentDate: serverTimestamp(),
+      status: ENROLLMENT_STATUS.ACTIVE,
+      paymentStatus: PAYMENT_STATUS.COMPLETED,
+      accessStatus: ACCESS_STATUS.UNLOCKED,
+      totalAmount: 0,
+      amountPaid: 0,
+      amountDue: 0,
+      parentEnrollmentId: COURSE_IDS.COMPLETE,
+      isComponentOfBundle: true,
+      progress: 0,
+      lastAccessedAt: null,
+      completedAt: null,
+      createdAt: serverTimestamp(),
+      updatedAt: serverTimestamp()
+    };
+
+    batch.set(onlineEnrollmentRef, onlineEnrollmentData);
+
+    // Create enrollment for Behind-the-Wheel Course (component) - unlocked via parent
+    const btwEnrollmentRef = doc(db, 'users', userId, 'courses', COURSE_IDS.BEHIND_WHEEL);
+    
+    const btwEnrollmentData = {
+      userId,
+      courseId: COURSE_IDS.BEHIND_WHEEL,
+      enrollmentDate: serverTimestamp(),
+      status: ENROLLMENT_STATUS.ACTIVE,
+      paymentStatus: PAYMENT_STATUS.COMPLETED,
+      accessStatus: ACCESS_STATUS.UNLOCKED,
+      totalAmount: 0,
+      amountPaid: 0,
+      amountDue: 0,
+      parentEnrollmentId: COURSE_IDS.COMPLETE,
+      isComponentOfBundle: true,
+      certificateGenerated: false,
+      progress: 0,
+      lastAccessedAt: null,
+      completedAt: null,
+      createdAt: serverTimestamp(),
+      updatedAt: serverTimestamp()
+    };
+
+    batch.set(btwEnrollmentRef, btwEnrollmentData);
+
+    await batch.commit();
+
+    return {
+      completePackage: { id: COURSE_IDS.COMPLETE, ...completeEnrollmentData },
+      online: { id: COURSE_IDS.ONLINE, ...onlineEnrollmentData },
+      behindWheel: { id: COURSE_IDS.BEHIND_WHEEL, ...btwEnrollmentData }
+    };
+  } catch (error) {
+    console.error('Error creating paid complete package enrollment:', error);
+    throw error;
+  }
+};
+
+/**
+ * Create Complete Package enrollment with split payment
+ * $99.99 now for online, $450 remaining for behind-wheel after certificate
+ */
+export const createPaidCompletePackageSplit = async (userId, upfrontAmount, userEmail = '') => {
+  try {
+    const batch = writeBatch(db);
+    const completePricing = COURSE_PRICING[COURSE_IDS.COMPLETE];
+
+    // Create enrollment for Complete Package
+    const completeEnrollmentRef = doc(db, 'users', userId, 'courses', COURSE_IDS.COMPLETE);
+    
+    const completeEnrollmentData = {
+      userId,
+      courseId: COURSE_IDS.COMPLETE,
+      enrollmentDate: serverTimestamp(),
+      status: ENROLLMENT_STATUS.ACTIVE,
+      paymentStatus: PAYMENT_STATUS.PARTIAL,
+      accessStatus: ACCESS_STATUS.UNLOCKED,
+      totalAmount: completePricing.total,
+      amountPaid: Number(upfrontAmount),
+      amountDue: 450, // Remaining balance
+      upfrontAmount: completePricing.upfront,
+      remainingAmount: 450,
+      paymentPlan: 'split',
+      splitPaymentStatus: 'awaiting_certificate', // Awaiting online certificate completion
+      certificateGenerated: false,
+      progress: 0,
+      lastAccessedAt: null,
+      completedAt: null,
+      createdAt: serverTimestamp(),
+      updatedAt: serverTimestamp()
+    };
+
+    batch.set(completeEnrollmentRef, completeEnrollmentData);
+
+    // Create enrollment for Online Course (component) - UNLOCKED for payment
+    const onlineEnrollmentRef = doc(db, 'users', userId, 'courses', COURSE_IDS.ONLINE);
+    
+    const onlineEnrollmentData = {
+      userId,
+      courseId: COURSE_IDS.ONLINE,
+      enrollmentDate: serverTimestamp(),
+      status: ENROLLMENT_STATUS.ACTIVE,
+      paymentStatus: PAYMENT_STATUS.COMPLETED,
+      accessStatus: ACCESS_STATUS.UNLOCKED,
+      totalAmount: 0,
+      amountPaid: 0,
+      amountDue: 0,
+      parentEnrollmentId: COURSE_IDS.COMPLETE,
+      isComponentOfBundle: true,
+      progress: 0,
+      lastAccessedAt: null,
+      completedAt: null,
+      createdAt: serverTimestamp(),
+      updatedAt: serverTimestamp()
+    };
+
+    batch.set(onlineEnrollmentRef, onlineEnrollmentData);
+
+    // Create enrollment for Behind-the-Wheel Course (component) - LOCKED until payment
+    const btwEnrollmentRef = doc(db, 'users', userId, 'courses', COURSE_IDS.BEHIND_WHEEL);
+    
+    const btwEnrollmentData = {
+      userId,
+      courseId: COURSE_IDS.BEHIND_WHEEL,
+      enrollmentDate: serverTimestamp(),
+      status: ENROLLMENT_STATUS.PENDING_PAYMENT,
+      paymentStatus: PAYMENT_STATUS.PENDING,
+      accessStatus: ACCESS_STATUS.LOCKED,
+      totalAmount: 450, // Remaining balance
+      amountPaid: 0,
+      amountDue: 450,
+      parentEnrollmentId: COURSE_IDS.COMPLETE,
+      isComponentOfBundle: true,
+      certificateGenerated: false,
+      progress: 0,
+      lastAccessedAt: null,
+      completedAt: null,
+      createdAt: serverTimestamp(),
+      updatedAt: serverTimestamp()
+    };
+
+    batch.set(btwEnrollmentRef, btwEnrollmentData);
+
+    await batch.commit();
+
+    return {
+      completePackage: { id: COURSE_IDS.COMPLETE, ...completeEnrollmentData },
+      online: { id: COURSE_IDS.ONLINE, ...onlineEnrollmentData },
+      behindWheel: { id: COURSE_IDS.BEHIND_WHEEL, ...btwEnrollmentData }
+    };
+  } catch (error) {
+    console.error('Error creating split payment complete package enrollment:', error);
+    throw error;
+  }
+};
+
 const enrollmentServices = {
   createEnrollment,
   createCompletePackageEnrollment,
+  createPaidEnrollment,
+  createPaidCompletePackageEnrollment,
+  createPaidCompletePackageSplit,
   getEnrollment,
   getUserEnrollments,
   updateEnrollmentAfterPayment,
   updateCertificateStatus,
   checkCourseAccess,
-  autoEnrollAdmin
+  autoEnrollAdmin,
+  resetEnrollmentToPending,
+  resetUserEnrollmentsToPending,
+  getAllUsersWithEnrollments
 };
 
 export default enrollmentServices;

@@ -8,13 +8,9 @@ import Card from '../../components/common/Card/Card';
 import Button from '../../components/common/Button/Button';
 import LoadingSpinner from '../../components/common/LoadingSpinner/LoadingSpinner';
 import PaymentModal from '../../components/payment/PaymentModal';
-import { getCourses } from '../../api/courseServices'; // Remove eslint-disable comment
-import { 
-  createEnrollment, 
-  createCompletePackageEnrollment,
-  getEnrollment 
-} from '../../api/enrollmentServices';
-import { COURSE_IDS, COURSE_PRICING } from '../../constants/courses';
+import { getCourses } from '../../api/courseServices';
+import { getEnrollment } from '../../api/enrollmentServices';
+import { COURSE_IDS, COURSE_PRICING, ENROLLMENT_STATUS } from '../../constants/courses';
 import styles from './CoursesPage.module.css';
 
 const CoursesPage = () => {
@@ -43,7 +39,8 @@ const CoursesPage = () => {
         const enrollmentData = {};
         for (const course of coursesData) {
           const enrollment = await getEnrollment(user.uid, course.id);
-          if (enrollment) {
+          // Only count ACTIVE enrollments (paid/unlocked)
+          if (enrollment && enrollment.status === ENROLLMENT_STATUS.ACTIVE) {
             enrollmentData[course.id] = enrollment;
           }
         }
@@ -62,54 +59,29 @@ const CoursesPage = () => {
       return;
     }
 
-    try {
-      const pricing = COURSE_PRICING[courseId];
-      
-      // Check if already enrolled
-      if (enrollments[courseId]) {
-        navigate('/dashboard');
-        return;
-      }
-
-      // If course requires upfront payment, show payment modal
-      if (pricing.upfront > 0) {
-        setSelectedCourse(courseId);
-        setShowPaymentModal(true);
-      } else {
-        // Create enrollment without payment (Behind-the-Wheel only)
-        if (courseId === COURSE_IDS.COMPLETE) {
-          await createCompletePackageEnrollment(user.uid, userProfile?.email);
-        } else {
-          await createEnrollment(user.uid, courseId, userProfile?.email);
-        }
-        
-        // Reload enrollments
-        await loadCourses();
-        navigate('/dashboard');
-      }
-    } catch (error) {
-      console.error('Error enrolling in course:', error);
-      alert('Failed to enroll in course. Please try again.');
+    // Check if already enrolled
+    if (enrollments[courseId]) {
+      navigate('/dashboard');
+      return;
     }
+
+    // Show payment modal regardless (payment is required for enrollment)
+    setSelectedCourse(courseId);
+    setShowPaymentModal(true);
   };
 
   const handlePaymentSuccess = async (paymentData) => {
     try {
-      // Create enrollment after successful payment
-      if (paymentData.courseId === COURSE_IDS.COMPLETE) {
-        await createCompletePackageEnrollment(user.uid, userProfile?.email);
+      const { createPaidEnrollment, createPaidCompletePackageSplit } = await import('../../api/enrollmentServices');
+      
+      // For Complete Package, check if split payment
+      if (paymentData.courseId === COURSE_IDS.COMPLETE && paymentData.paymentOption === 'split') {
+        // Split payment: $99.99 now, remaining $450 after certificate
+        await createPaidCompletePackageSplit(user.uid, paymentData.amount, userProfile?.email);
       } else {
-        await createEnrollment(user.uid, paymentData.courseId, userProfile?.email);
+        // Single payment (or other courses)
+        await createPaidEnrollment(user.uid, paymentData.courseId, paymentData.amount, userProfile?.email);
       }
-
-      // Update enrollment with payment
-      const { updateEnrollmentAfterPayment } = await import('../../api/enrollmentServices');
-      await updateEnrollmentAfterPayment(
-        user.uid,
-        paymentData.courseId,
-        paymentData.amount,
-        'upfront'
-      );
 
       // Reload and navigate to dashboard
       await loadCourses();
@@ -129,11 +101,8 @@ const CoursesPage = () => {
       return 'View in Dashboard';
     }
 
-    if (course.price === 0 || COURSE_PRICING[course.id].upfront === 0) {
-      return 'Enroll Now';
-    }
-
-    return `Enroll - $${(course.price / 100).toFixed(2)}`;
+    const pricing = COURSE_PRICING[course.id];
+    return `Enroll - $${(pricing.upfront).toFixed(2)}`;
   };
 
   if (loading) {

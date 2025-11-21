@@ -3,11 +3,13 @@
 
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { PROTECTED_ROUTES } from '../../../constants/routes';
+import { useAuth } from '../../../context/AuthContext';
+import { PROTECTED_ROUTES, ADMIN_ROUTES } from '../../../constants/routes';
 import styles from './Sidebar.module.css';
 
 const Sidebar = () => {
   const location = useLocation();
+  const { isAdmin } = useAuth();
 
   const navItems = [
     {
@@ -39,7 +41,12 @@ const Sidebar = () => {
       path: PROTECTED_ROUTES.SETTINGS,
       label: 'Settings',
       icon: '⚙️'
-    }
+    },
+    ...(isAdmin ? [{
+      path: ADMIN_ROUTES.ADMIN_DASHBOARD,
+      label: 'Admin Panel',
+      icon: '🔧'
+    }] : [])
   ];
 
   const isActive = (path) => {

@@ -11,6 +11,7 @@ import { ModalProvider } from './context/ModalContext';
 // Route Guards
 import ProtectedRoute from './components/guards/ProtectedRoute';
 import PublicRoute from './components/guards/PublicRoute';
+import RoleBasedRoute from './components/guards/RoleBasedRoute';
 
 // Layouts
 import MainLayout from './components/layout/MainLayout';
@@ -37,11 +38,15 @@ import ProfilePage from './pages/Profile/ProfilePage';
 import SettingsPage from './pages/Settings/SettingsPage';
 import CertificatesPage from './pages/Certificates/CertificatesPage';
 
+// Admin Pages
+import AdminPage from './pages/Admin/AdminPage';
+
 // 404 Page
 import NotFoundPage from './pages/NotFound/NotFoundPage';
 
 // Routes
-import { PUBLIC_ROUTES, PROTECTED_ROUTES } from './constants/routes';
+import { PUBLIC_ROUTES, PROTECTED_ROUTES, ADMIN_ROUTES } from './constants/routes';
+import { USER_ROLES } from './constants/userRoles';
 
 // Styles
 import './assets/styles/global.css';
@@ -173,6 +178,17 @@ function App() {
                   <ProtectedRoute>
                     <DashboardLayout>
                       <CertificatesPage />
+                    </DashboardLayout>
+                  </ProtectedRoute>
+                } />
+
+                {/* Admin Routes */}
+                <Route path={ADMIN_ROUTES.ADMIN_DASHBOARD} element={
+                  <ProtectedRoute>
+                    <DashboardLayout>
+                      <RoleBasedRoute allowedRoles={[USER_ROLES.ADMIN, USER_ROLES.SUPER_ADMIN]}>
+                        <AdminPage />
+                      </RoleBasedRoute>
                     </DashboardLayout>
                   </ProtectedRoute>
                 } />

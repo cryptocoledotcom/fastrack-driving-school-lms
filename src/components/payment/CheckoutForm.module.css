@@ -1,7 +1,7 @@
 /* CheckoutForm Styles */
 
 .checkoutForm {
-  max-width: 500px;
+  max-width: 600px;
   margin: 0 auto;
   padding: 2rem;
   background: white;
@@ -20,11 +20,73 @@
   color: #333;
 }
 
+.courseName {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin: 0.25rem 0;
+}
+
 .amount {
   font-size: 1.25rem;
   font-weight: 600;
   color: #2563eb;
-  margin: 0;
+  margin: 0.5rem 0 0 0;
+}
+
+.billingSection {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.billingSection h4,
+.cardSection h4 {
+  margin: 0 0 1rem 0;
+  font-size: 1rem;
+  color: #374151;
+}
+
+.formGroup {
+  margin-bottom: 1rem;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #374151;
+  font-size: 0.875rem;
+}
+
+.formGroup input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+
+.formGroup input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.formGroup input:disabled {
+  background-color: #f3f4f6;
+  cursor: not-allowed;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+}
+
+.cardSection {
+  margin-bottom: 1.5rem;
 }
 
 .cardElement {
@@ -92,6 +154,68 @@
   color: #6b7280;
 }
 
+.paymentOptions {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.optionGroup {
+  margin-bottom: 1rem;
+}
+
+.optionGroup:last-child {
+  margin-bottom: 0;
+}
+
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.option input[type="radio"] {
+  margin-top: 0.25rem;
+  cursor: pointer;
+  accent-color: #2563eb;
+}
+
+.option input[type="radio"]:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.optionContent {
+  flex: 1;
+}
+
+.optionTitle {
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.25rem;
+}
+
+.optionDetails {
+  font-size: 0.875rem;
+  color: #6b7280;
+  line-height: 1.5;
+}
+
+.option:hover {
+  border-color: #2563eb;
+  background-color: #f0f9ff;
+}
+
+.option.selected {
+  border-color: #2563eb;
+  background-color: #f0f9ff;
+}
+
 @media (max-width: 640px) {
   .checkoutForm {
     padding: 1.5rem;
@@ -99,5 +223,9 @@
 
   .actions {
     flex-direction: column;
+  }
+
+  .formRow {
+    grid-template-columns: 1fr;
   }
 }

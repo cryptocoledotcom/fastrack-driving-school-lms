@@ -32,11 +32,11 @@ const EnrollmentCard = ({ enrollment, course, onPaymentSuccess }) => {
   const getPaymentButtonText = () => {
     if (enrollment.courseId === COURSE_IDS.COMPLETE) {
       if (enrollment.amountPaid === 0) {
-        return `Pay Initial $${(enrollment.amountDue / 100).toFixed(2)}`;
+        return `Pay Initial $${enrollment.amountDue.toFixed(2)}`;
       }
-      return `Pay Remaining $${(enrollment.amountDue / 100).toFixed(2)}`;
+      return `Pay Remaining $${enrollment.amountDue.toFixed(2)}`;
     }
-    return `Pay $${(enrollment.amountDue / 100).toFixed(2)}`;
+    return `Pay $${enrollment.amountDue.toFixed(2)}`;
   };
 
   const getStatusBadge = () => {
@@ -106,16 +106,16 @@ const EnrollmentCard = ({ enrollment, course, onPaymentSuccess }) => {
           <div className={styles.paymentInfo}>
             <div className={styles.infoRow}>
               <span className={styles.label}>Total Amount:</span>
-              <span className={styles.value}>${(enrollment.totalAmount / 100).toFixed(2)}</span>
+              <span className={styles.value}>${enrollment.totalAmount.toFixed(2)}</span>
             </div>
             <div className={styles.infoRow}>
               <span className={styles.label}>Amount Paid:</span>
-              <span className={styles.value}>${(enrollment.amountPaid / 100).toFixed(2)}</span>
+              <span className={styles.value}>${enrollment.amountPaid.toFixed(2)}</span>
             </div>
             {enrollment.amountDue > 0 && (
               <div className={`${styles.infoRow} ${styles.highlight}`}>
                 <span className={styles.label}>Amount Due:</span>
-                <span className={styles.value}>${(enrollment.amountDue / 100).toFixed(2)}</span>
+                <span className={styles.value}>${enrollment.amountDue.toFixed(2)}</span>
               </div>
             )}
           </div>

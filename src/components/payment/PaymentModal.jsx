@@ -4,7 +4,9 @@
 import React from 'react';
 import { Elements } from '@stripe/react-stripe-js';
 import { stripePromise } from '../../config/stripe';
+import { COURSE_IDS } from '../../constants/courses';
 import CheckoutForm from './CheckoutForm';
+import CompletePackageCheckoutForm from './CompletePackageCheckoutForm';
 import styles from './PaymentModal.module.css';
 
 const PaymentModal = ({ 
@@ -29,6 +31,8 @@ const PaymentModal = ({
     console.error('Payment error:', error);
   };
 
+  const isCompletePackage = courseId === COURSE_IDS.COMPLETE;
+
   return (
     <div className={styles.modalOverlay} onClick={onClose}>
       <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
@@ -36,23 +40,32 @@ const PaymentModal = ({
           ×
         </button>
         
-        <div className={styles.modalHeader}>
-          <h2>Complete Your Payment</h2>
-          <p className={styles.courseName}>{courseName}</p>
-          <p className={styles.paymentTypeLabel}>
-            {paymentType === 'upfront' ? 'Initial Payment' : 'Remaining Balance'}
-          </p>
-        </div>
+        {!isCompletePackage && (
+          <div className={styles.modalHeader}>
+            <h2>Complete Your Payment</h2>
+            <p className={styles.courseName}>{courseName}</p>
+          </div>
+        )}
 
         <Elements stripe={stripePromise}>
-          <CheckoutForm
-            amount={amount}
-            courseId={courseId}
-            paymentType={paymentType}
-            onSuccess={handleSuccess}
-            onError={handleError}
-            onCancel={onClose}
-          />
+          {isCompletePackage ? (
+            <CompletePackageCheckoutForm
+              courseId={courseId}
+              onSuccess={handleSuccess}
+              onError={handleError}
+              onCancel={onClose}
+            />
+          ) : (
+            <CheckoutForm
+              amount={amount}
+              courseId={courseId}
+              courseName={courseName}
+              paymentType={paymentType}
+              onSuccess={handleSuccess}
+              onError={handleError}
+              onCancel={onClose}
+            />
+          )}
         </Elements>
       </div>
     </div>

@@ -15,27 +15,27 @@ export const COURSE_TYPES = {
 
 export const COURSE_PRICING = {
   [COURSE_IDS.ONLINE]: {
-    total: 99,
-    upfront: 99,
+    total: 99.99,
+    upfront: 99.99,
     remaining: 0,
     currency: 'usd',
     description: '24-hour online driving course'
   },
   [COURSE_IDS.BEHIND_WHEEL]: {
-    total: 499,
-    upfront: 0,
-    remaining: 499,
+    total: 499.99,
+    upfront: 499.99,
+    remaining: 0,
     currency: 'usd',
     description: '8-hour in-person instruction'
   },
   [COURSE_IDS.COMPLETE]: {
-    total: 549,
-    upfront: 99,
+    total: 549.99,
+    upfront: 99.99,
     remaining: 450,
     currency: 'usd',
     description: 'Complete package (Online + Behind-the-Wheel)',
-    discount: 49, // Saved from $598
-    originalPrice: 598
+    discount: 50, // Save ~$50 vs purchasing separately ($99.99 + $499.99)
+    originalPrice: 599.98
   }
 };
 

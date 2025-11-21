@@ -7,7 +7,7 @@ import Button from '../../components/common/Button/Button';
 import LoadingSpinner from '../../components/common/LoadingSpinner/LoadingSpinner';
 import EnrollmentCard from '../../components/payment/EnrollmentCard';
 import { PROTECTED_ROUTES } from '../../constants/routes';
-import { COURSE_IDS } from '../../constants/courses';
+import { COURSE_IDS, ENROLLMENT_STATUS } from '../../constants/courses';
 import { getUserEnrollments } from '../../api/enrollmentServices';
 import { getCourseById } from '../../api/courseServices';
 import { getProgress } from '../../api/progressServices'; 
@@ -31,7 +31,9 @@ const DashboardPage = () => {
       setLoading(true);
 
       // Fetch enrollments
-      const enrollments = await getUserEnrollments(user.uid);
+      const allEnrollments = await getUserEnrollments(user.uid);
+      // Only include ACTIVE enrollments (paid/unlocked)
+      const enrollments = allEnrollments.filter(e => e.status === ENROLLMENT_STATUS.ACTIVE);
 
       // Fetch course details and progress for each enrollment
       const enrollmentsWithDetails = await Promise.all(

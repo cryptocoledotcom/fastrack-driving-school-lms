@@ -1,24 +1,20 @@
-// CheckoutForm Component
-// Stripe payment form for processing payments
-
 import React, { useState } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import Button from '../common/Button/Button';
 import styles from './CheckoutForm.module.css';
 
-const CheckoutForm = ({ 
-  amount, 
-  courseId, 
-  paymentType,
-  courseName,
+const CompletePackageCheckoutForm = ({ 
   onSuccess, 
   onError,
-  onCancel 
+  onCancel,
+  courseId
 }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [processing, setProcessing] = useState(false);
   const [error, setError] = useState(null);
+  const [paymentOption, setPaymentOption] = useState('split');
+  
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -106,12 +102,15 @@ const CheckoutForm = ({
       
       await new Promise(resolve => setTimeout(resolve, 2000));
 
+      const amount = paymentOption === 'split' ? 99.99 : 549.99;
+
       if (onSuccess) {
         onSuccess({
           paymentMethodId: paymentMethod.id,
           amount,
           courseId,
-          paymentType,
+          paymentType: paymentOption === 'split' ? 'split' : 'full',
+          paymentOption,
           billingDetails: formData
         });
       }
@@ -143,9 +142,53 @@ const CheckoutForm = ({
   return (
     <form onSubmit={handleSubmit} className={styles.checkoutForm}>
       <div className={styles.formHeader}>
-        <h3>Complete Your Payment</h3>
-        {courseName && <p className={styles.courseName}>{courseName}</p>}
-        <p className={styles.amount}>Amount: ${amount.toFixed(2)}</p>
+        <h3>Complete Your Enrollment</h3>
+        <p className={styles.subtitle}>Fastrack Complete Package</p>
+      </div>
+
+      {/* Payment Options */}
+      <div className={styles.paymentOptions}>
+        <div className={styles.optionGroup}>
+          <label className={`${styles.option} ${paymentOption === 'split' ? styles.selected : ''}`}>
+            <input
+              type="radio"
+              name="paymentOption"
+              value="split"
+              checked={paymentOption === 'split'}
+              onChange={(e) => setPaymentOption(e.target.value)}
+              disabled={processing}
+            />
+            <div className={styles.optionContent}>
+              <div className={styles.optionTitle}>Split Payment</div>
+              <div className={styles.optionDetails}>
+                Pay <strong>$99.99 now</strong> to start the online course
+                <br />
+                <small>Pay remaining $450 after course completion & certificate</small>
+              </div>
+            </div>
+          </label>
+        </div>
+
+        <div className={styles.optionGroup}>
+          <label className={`${styles.option} ${paymentOption === 'full' ? styles.selected : ''}`}>
+            <input
+              type="radio"
+              name="paymentOption"
+              value="full"
+              checked={paymentOption === 'full'}
+              onChange={(e) => setPaymentOption(e.target.value)}
+              disabled={processing}
+            />
+            <div className={styles.optionContent}>
+              <div className={styles.optionTitle}>Pay in Full</div>
+              <div className={styles.optionDetails}>
+                Pay <strong>$549.99 now</strong> for immediate access to online course
+                <br />
+                <small>Behind-the-wheel unlocks after online certificate</small>
+              </div>
+            </div>
+          </label>
+        </div>
       </div>
 
       {/* Billing Information */}
@@ -284,7 +327,7 @@ const CheckoutForm = ({
           variant="primary"
           disabled={!stripe || processing}
         >
-          {processing ? 'Processing...' : `Pay $${amount.toFixed(2)}`}
+          {processing ? 'Processing...' : `Pay $${(paymentOption === 'split' ? 99.99 : 549.99).toFixed(2)}`}
         </Button>
       </div>
 
@@ -296,4 +339,4 @@ const CheckoutForm = ({
   );
 };
 
-export default CheckoutForm;
+export default CompletePackageCheckoutForm;
