@@ -769,12 +769,47 @@ export const createPaidCompletePackageSplit = async (userId, upfrontAmount, user
   }
 };
 
+export const payRemainingBalance = async (userId, courseId, amountPaid, userEmail = '') => {
+  try {
+    const enrollmentRef = doc(db, 'users', userId, 'courses', courseId);
+    const enrollmentDoc = await getDoc(enrollmentRef);
+
+    if (!enrollmentDoc.exists()) {
+      throw new Error('Enrollment not found');
+    }
+
+    const enrollment = enrollmentDoc.data();
+    const newAmountPaid = Number(enrollment.amountPaid || 0) + Number(amountPaid);
+    const newAmountDue = Math.max(0, Number(enrollment.amountDue || 0) - Number(amountPaid));
+
+    const updates = {
+      amountPaid: newAmountPaid,
+      amountDue: newAmountDue,
+      paymentStatus: newAmountDue === 0 ? PAYMENT_STATUS.COMPLETED : PAYMENT_STATUS.PARTIAL,
+      accessStatus: newAmountDue === 0 ? ACCESS_STATUS.UNLOCKED : ACCESS_STATUS.LOCKED,
+      updatedAt: serverTimestamp()
+    };
+
+    if (newAmountDue === 0) {
+      updates.status = ENROLLMENT_STATUS.ACTIVE;
+    }
+
+    await updateDoc(enrollmentRef, updates);
+
+    return updates;
+  } catch (error) {
+    console.error('Error paying remaining balance:', error);
+    throw error;
+  }
+};
+
 const enrollmentServices = {
   createEnrollment,
   createCompletePackageEnrollment,
   createPaidEnrollment,
   createPaidCompletePackageEnrollment,
   createPaidCompletePackageSplit,
+  payRemainingBalance,
   getEnrollment,
   getUserEnrollments,
   updateEnrollmentAfterPayment,

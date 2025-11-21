@@ -6,7 +6,6 @@ import LoadingSpinner from '../../components/common/LoadingSpinner/LoadingSpinne
 import Input from '../../components/common/Input/Input';
 import ErrorMessage from '../../components/common/ErrorMessage/ErrorMessage';
 import SuccessMessage from '../../components/common/SuccessMessage/SuccessMessage';
-import SchedulingManagement from '../../components/admin/SchedulingManagement';
 import { 
   getAllUsersWithEnrollments,
   resetEnrollmentToPending,
@@ -158,12 +157,6 @@ const AdminPage = () => {
             Enrollment Management
           </button>
           <button
-            className={`${styles.tab} ${activeTab === 'scheduling' ? styles.activeTab : ''}`}
-            onClick={() => setActiveTab('scheduling')}
-          >
-            Lesson Scheduling
-          </button>
-          <button
             className={`${styles.tab} ${activeTab === 'analytics' ? styles.activeTab : ''}`}
             onClick={() => setActiveTab('analytics')}
           >
@@ -262,14 +255,6 @@ const AdminPage = () => {
                   ))
                 )}
               </div>
-            </Card>
-          </div>
-        )}
-
-        {activeTab === 'scheduling' && (
-          <div className={styles.schedulingTab}>
-            <Card padding="large">
-              <SchedulingManagement />
             </Card>
           </div>
         )}

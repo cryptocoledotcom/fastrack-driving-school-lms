@@ -7,6 +7,7 @@ import { stripePromise } from '../../config/stripe';
 import { COURSE_IDS } from '../../constants/courses';
 import CheckoutForm from './CheckoutForm';
 import CompletePackageCheckoutForm from './CompletePackageCheckoutForm';
+import RemainingPaymentCheckoutForm from './RemainingPaymentCheckoutForm';
 import styles from './PaymentModal.module.css';
 
 const PaymentModal = ({ 
@@ -32,6 +33,7 @@ const PaymentModal = ({
   };
 
   const isCompletePackage = courseId === COURSE_IDS.COMPLETE;
+  const isRemainingPayment = paymentType === 'remaining_balance';
 
   return (
     <div className={styles.modalOverlay} onClick={onClose}>
@@ -40,7 +42,7 @@ const PaymentModal = ({
           ×
         </button>
         
-        {!isCompletePackage && (
+        {!isCompletePackage && !isRemainingPayment && (
           <div className={styles.modalHeader}>
             <h2>Complete Your Payment</h2>
             <p className={styles.courseName}>{courseName}</p>
@@ -51,6 +53,14 @@ const PaymentModal = ({
           {isCompletePackage ? (
             <CompletePackageCheckoutForm
               courseId={courseId}
+              onSuccess={handleSuccess}
+              onError={handleError}
+              onCancel={onClose}
+            />
+          ) : isRemainingPayment ? (
+            <RemainingPaymentCheckoutForm
+              courseId={courseId}
+              courseName={courseName}
               onSuccess={handleSuccess}
               onError={handleError}
               onCancel={onClose}

@@ -6,9 +6,11 @@ import Button from '../../components/common/Button/Button';
 import ProgressBar from '../../components/common/ProgressBar/ProgressBar';
 import LoadingSpinner from '../../components/common/LoadingSpinner/LoadingSpinner';
 import ErrorMessage from '../../components/common/ErrorMessage/ErrorMessage';
-import { getUserEnrollments } from '../../api/enrollmentServices';
+import { getUserEnrollments, getEnrollment } from '../../api/enrollmentServices';
 import { getCourseById } from '../../api/courseServices';
 import { getProgress } from '../../api/progressServices';
+import PaymentModal from '../../components/payment/PaymentModal';
+import LessonBooking from '../../components/scheduling/LessonBooking';
 import styles from './MyCoursesPage.module.css';
 import { COURSE_IDS, ACCESS_STATUS, ENROLLMENT_STATUS } from '../../constants/courses';
 
@@ -18,6 +20,9 @@ const MyCoursesPage = () => {
   const [enrolledCourses, setEnrolledCourses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [showBookingModal, setShowBookingModal] = useState(false);
+  const [onlineEnrollment, setOnlineEnrollment] = useState(null);
 
   useEffect(() => {
     if (user) {
@@ -86,6 +91,27 @@ const MyCoursesPage = () => {
     }
   };
 
+  const handlePayRemainingBalance = async () => {
+    try {
+      const enrollment = await getEnrollment(user.uid, COURSE_IDS.ONLINE);
+      setOnlineEnrollment(enrollment);
+      setShowPaymentModal(true);
+    } catch (err) {
+      console.error('Error loading enrollment:', err);
+      setError('Failed to load enrollment data');
+    }
+  };
+
+  const handlePaymentSuccess = async () => {
+    setShowPaymentModal(false);
+    window.location.reload();
+  };
+
+  const handleBookingSuccess = async () => {
+    setShowBookingModal(false);
+    window.location.reload();
+  };
+
   if (loading) {
     return <LoadingSpinner fullScreen text="Loading your courses..." />;
   }
@@ -128,22 +154,50 @@ const MyCoursesPage = () => {
                 </div>
 
                 <div className={styles.courseFooter}>
-                  {course.enrollment.accessStatus === ACCESS_STATUS.UNLOCKED && course.enrollment.id === COURSE_IDS.ONLINE ? (
-                    <Button
-                      variant="primary"
-                      size="small"
-                      onClick={() => handleCourseClick(course.enrollment)}
-                    >
-                      Continue Learning
-                    </Button>
-                  ) : course.enrollment.id === COURSE_IDS.ONLINE ? (
-                    <Button
-                      variant="secondary"
-                      size="small"
-                      onClick={() => navigate('/dashboard')}
-                    >
-                      Complete Payment on Dashboard
-                    </Button>
+                  {course.enrollment.id === COURSE_IDS.ONLINE ? (
+                    course.enrollment.accessStatus === ACCESS_STATUS.UNLOCKED ? (
+                      <Button
+                        variant="primary"
+                        size="small"
+                        onClick={() => handleCourseClick(course.enrollment)}
+                      >
+                        Continue Learning
+                      </Button>
+                    ) : (
+                      <Button
+                        variant="secondary"
+                        size="small"
+                        onClick={() => navigate('/dashboard')}
+                      >
+                        Complete Payment on Dashboard
+                      </Button>
+                    )
+                  ) : course.enrollment.id === COURSE_IDS.BEHIND_WHEEL ? (
+                    course.enrollment.certificateGenerated && course.enrollment.paymentStatus === 'completed' ? (
+                      <Button
+                        variant="primary"
+                        size="small"
+                        onClick={() => setShowBookingModal(true)}
+                      >
+                        Schedule Lesson
+                      </Button>
+                    ) : course.enrollment.certificateGenerated ? (
+                      <Button
+                        variant="primary"
+                        size="small"
+                        onClick={handlePayRemainingBalance}
+                      >
+                        Pay $450
+                      </Button>
+                    ) : (
+                      <Button
+                        variant="outline"
+                        size="small"
+                        disabled
+                      >
+                        Awaiting Certificate
+                      </Button>
+                    )
                   ) : (
                     <Button
                       variant="outline"
@@ -171,6 +225,32 @@ const MyCoursesPage = () => {
           </div>
         )}
       </div>
+
+      <PaymentModal
+        isOpen={showPaymentModal}
+        onClose={() => setShowPaymentModal(false)}
+        courseId={COURSE_IDS.BEHIND_WHEEL}
+        courseName="Behind-the-Wheel Course"
+        paymentType="remaining_balance"
+        onSuccess={handlePaymentSuccess}
+      />
+
+      {showBookingModal && (
+        <div className={styles.modalOverlay} onClick={() => setShowBookingModal(false)}>
+          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+            <button
+              className={styles.closeButton}
+              onClick={() => setShowBookingModal(false)}
+            >
+              ×
+            </button>
+            <LessonBooking
+              onSuccess={handleBookingSuccess}
+              onCancel={() => setShowBookingModal(false)}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

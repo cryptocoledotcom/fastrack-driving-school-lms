@@ -60,6 +60,7 @@
 
 /* Enrollment Management Tab */
 .enrollmentTab,
+.schedulingTab,
 .analyticsTab {
   animation: fadeIn 0.3s ease;
 }

@@ -1,0 +1,176 @@
+.schedulingManagement {
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.header h2 {
+  margin: 0;
+  color: #2E5266;
+  font-size: 1.5rem;
+}
+
+.formCard {
+  margin-bottom: 2rem;
+  background: #f9f9f9;
+}
+
+.formCard h3 {
+  margin-top: 0;
+  color: #2E5266;
+  font-size: 1.25rem;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.formActions {
+  display: flex;
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+.slotsList {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 3rem 1rem !important;
+  color: #999;
+}
+
+.emptyState p {
+  margin: 0.5rem 0;
+}
+
+.slotCard {
+  padding: 1.5rem !important;
+  border: 1px solid #e0e0e0;
+}
+
+.slotHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.slotDateTime {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.date {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #2E5266;
+}
+
+.time {
+  font-size: 0.95rem;
+  color: #667eea;
+  font-weight: 600;
+}
+
+.status {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.available {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.full {
+  background: #ffebee;
+  color: #c62828;
+}
+
+.slotDetails {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.detail {
+  display: flex;
+  gap: 0.75rem;
+  font-size: 0.95rem;
+}
+
+.label {
+  font-weight: 600;
+  color: #999;
+  min-width: 80px;
+}
+
+.slotActions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .header h2 {
+    font-size: 1.25rem;
+  }
+
+  .formRow {
+    grid-template-columns: 1fr;
+  }
+
+  .slotHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .slotDetails {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .slotActions {
+    width: 100%;
+  }
+
+  .slotActions button {
+    flex: 1;
+  }
+}
