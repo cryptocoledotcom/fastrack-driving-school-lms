@@ -19,7 +19,8 @@ export const PROTECTED_ROUTES = {
   PROGRESS: '/dashboard/progress',
   PROFILE: '/dashboard/profile',
   SETTINGS: '/dashboard/settings',
-  CERTIFICATES: '/dashboard/certificates'
+  CERTIFICATES: '/dashboard/certificates',
+  PAYMENT_SUCCESS: '/payment-success'
 };
 
 export const ADMIN_ROUTES = {

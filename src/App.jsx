@@ -37,6 +37,7 @@ import ProgressPage from './pages/Progress/ProgressPage';
 import ProfilePage from './pages/Profile/ProfilePage';
 import SettingsPage from './pages/Settings/SettingsPage';
 import CertificatesPage from './pages/Certificates/CertificatesPage';
+import PaymentSuccessPage from './pages/PaymentSuccess/PaymentSuccessPage';
 
 // Admin Pages
 import AdminPage from './pages/Admin/AdminPage';
@@ -179,6 +180,12 @@ function App() {
                     <DashboardLayout>
                       <CertificatesPage />
                     </DashboardLayout>
+                  </ProtectedRoute>
+                } />
+
+                <Route path={PROTECTED_ROUTES.PAYMENT_SUCCESS} element={
+                  <ProtectedRoute>
+                    <PaymentSuccessPage />
                   </ProtectedRoute>
                 } />
 

@@ -1,0 +1,220 @@
+.successContainer {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-secondary-light) 100%);
+}
+
+.successCard {
+  background: var(--color-background);
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+}
+
+.successIcon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 20px;
+  background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: slideDown 0.6s ease-out;
+}
+
+.successIcon svg {
+  width: 40px;
+  height: 40px;
+  color: white;
+  stroke-width: 3;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin: 20px 0;
+  animation: slideDown 0.8s ease-out;
+}
+
+.message {
+  font-size: 16px;
+  color: var(--color-text-secondary);
+  margin: 20px 0;
+  line-height: 1.6;
+}
+
+.courseName {
+  margin-top: 12px;
+  padding: 12px;
+  background: var(--color-background-secondary);
+  border-left: 4px solid var(--color-primary);
+  border-radius: 4px;
+}
+
+.paymentDetails {
+  background: var(--color-background-secondary);
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+  text-align: left;
+}
+
+.paymentDetails h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0 0 16px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.detailRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+.detailRow:last-child {
+  border-bottom: none;
+}
+
+.detailRow strong {
+  color: var(--color-text-primary);
+  font-weight: 600;
+}
+
+.statusBadge {
+  display: inline-block;
+  padding: 4px 12px;
+  background: #E8F5E9;
+  color: #2E7D32;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.nextSteps {
+  text-align: left;
+  background: var(--color-background-secondary);
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+}
+
+.nextSteps h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0 0 12px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.nextSteps ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nextSteps li {
+  padding: 8px 0 8px 24px;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  position: relative;
+  line-height: 1.5;
+}
+
+.nextSteps li:before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #4CAF50;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 30px 0 20px 0;
+}
+
+.actions button {
+  width: 100%;
+}
+
+.receipt {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  margin: 0;
+  font-style: italic;
+}
+
+/* Dark Mode Support */
+:global(.dark-mode) .successContainer {
+  background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-secondary-dark) 100%);
+}
+
+:global(.dark-mode) .statusBadge {
+  background: rgba(76, 175, 80, 0.2);
+  color: #81C784;
+}
+
+/* Mobile Responsive */
+@media (max-width: 600px) {
+  .successCard {
+    padding: 30px 20px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .successIcon {
+    width: 70px;
+    height: 70px;
+  }
+
+  .successIcon svg {
+    width: 35px;
+    height: 35px;
+  }
+
+  .paymentDetails,
+  .nextSteps {
+    padding: 16px;
+  }
+
+  .message {
+    font-size: 14px;
+  }
+
+  .detailRow,
+  .nextSteps li {
+    font-size: 13px;
+  }
+}

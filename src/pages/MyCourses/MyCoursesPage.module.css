@@ -1,6 +1,6 @@
-.myCoursesPage {
+.container {
   width: 100%;
-  background-color: var(--bg-body);
+  background-color: var(--color-background);
   padding: 2rem 1.5rem;
   min-height: 100vh;
 }
@@ -9,17 +9,225 @@
   margin-bottom: 2rem;
 }
 
-.title {
-  font-size: 2rem;
+.header h1 {
+  font-size: 2.5rem;
   font-weight: 700;
-  margin-bottom: 0.5rem;
-  color: var(--text-main);
+  margin: 0 0 0.5rem 0;
+  color: var(--color-text-primary);
 }
 
-.subtitle {
+.header p {
   font-size: 1rem;
-  color: var(--text-muted);
+  color: var(--color-text-secondary);
   margin: 0;
+}
+
+.coursesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 24px;
+  margin-bottom: 2rem;
+}
+
+.courseCard {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.courseCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.thumbnail {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  background-color: var(--color-background-secondary);
+}
+
+.cardContent {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.cardHeader h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0;
+  flex-grow: 1;
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.badgePaid {
+  background-color: rgba(76, 175, 80, 0.15);
+  color: #2E7D32;
+}
+
+.badgePartial {
+  background-color: rgba(255, 152, 0, 0.15);
+  color: #E65100;
+}
+
+.badgePending {
+  background-color: rgba(244, 67, 54, 0.15);
+  color: #C62828;
+}
+
+.description {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  margin: 0 0 1rem 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.progressSection {
+  margin: 1rem 0;
+  padding: 1rem;
+  background-color: var(--color-background-secondary);
+  border-radius: 8px;
+}
+
+.progressLabel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 0.875rem;
+}
+
+.progressLabel span:first-child {
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.percentage {
+  color: var(--color-text-primary);
+  font-weight: 700;
+}
+
+.lessonInfo {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  margin: 8px 0 0 0;
+}
+
+.paymentInfo {
+  margin: 1rem 0;
+  padding: 0.75rem;
+  background-color: rgba(244, 67, 54, 0.1);
+  border-left: 3px solid #F44336;
+  border-radius: 4px;
+}
+
+.paymentInfo p {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--color-text-primary);
+}
+
+.paymentInfo strong {
+  color: #F44336;
+}
+
+.actionButton {
+  margin-top: auto;
+  width: 100%;
+}
+
+.actionButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background-color: var(--color-background-secondary);
+  color: var(--color-text-secondary);
+}
+
+.emptyCard {
+  text-align: center;
+  padding: 3rem;
+}
+
+.emptyContent {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.emptyContent h2 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0 0 0.5rem 0;
+}
+
+.emptyContent p {
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  margin: 0 0 1.5rem 0;
+}
+
+/* Dark Mode Support */
+:global(.dark-mode) .courseCard {
+  background-color: var(--color-background-secondary);
+}
+
+:global(.dark-mode) .cardContent {
+  background-color: var(--color-background-secondary);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .coursesGrid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1.5rem 1rem;
+  }
+
+  .header h1 {
+    font-size: 1.75rem;
+  }
+
+  .coursesGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .cardContent {
+    padding: 1rem;
+  }
+
+  .cardHeader h3 {
+    font-size: 1rem;
+  }
 }
 
 .grid {

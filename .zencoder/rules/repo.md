@@ -7,208 +7,152 @@ alwaysApply: true
 
 ## Summary
 
-A production-ready Learning Management System (LMS) built with React 18+ and Firebase for managing driving school education. The system features comprehensive course management, user authentication with role-based access control, progress tracking, and certificate generation. The frontend is a single-page React application with responsive design, supporting students, instructors, and administrators.
+A production-ready Learning Management System (LMS) built with React 18+ and Firebase for managing driving school education. Implements comprehensive course management, Stripe payment processing with split payment arrangements, lesson booking/scheduling for behind-the-wheel training, certificate generation, admin panel, and role-based access control. Full-stack application with React frontend and Firebase Cloud Functions backend.
 
 ## Structure
 
 ```
 fastrack-driving-school-lms/
-├── public/                      # Static assets and HTML
-│   ├── index.html
-│   ├── manifest.json
-│   └── robots.txt
-├── src/                         # Main source code
-│   ├── api/                     # Firebase API service functions
+├── functions/                   # Firebase Cloud Functions (Backend)
+│   ├── index.js                # Payment & certificate processing functions
+│   └── package.json            # Node.js 20 dependencies
+├── public/                      # Static assets
+├── src/                         # React Frontend
+│   ├── api/                     # Service modules (10 services)
 │   │   ├── authServices.js
 │   │   ├── courseServices.js
+│   │   ├── enrollmentServices.js     # NEW: Split payment enrollment
+│   │   ├── paymentServices.js        # NEW: Stripe integration
+│   │   ├── schedulingServices.js     # NEW: Lesson booking
 │   │   ├── lessonServices.js
 │   │   ├── moduleServices.js
 │   │   ├── progressServices.js
 │   │   ├── userServices.js
 │   │   └── securityServices.js
-│   ├── assets/                  # Images, icons, and global styles
-│   ├── components/              # Reusable UI components
-│   │   ├── common/              # Button, Card, Input, Modal, etc.
-│   │   ├── layout/              # MainLayout, DashboardLayout, AuthLayout
-│   │   └── guards/              # ProtectedRoute, PublicRoute, RoleBasedRoute
-│   ├── config/                  # Firebase and environment configuration
-│   ├── constants/               # App constants and configurations
-│   ├── context/                 # React Context providers (CourseContext, TimerContext)
-│   ├── pages/                   # Page components (13 main pages)
-│   ├── App.jsx                  # Main application component
-│   └── index.js                 # Application entry point
-├── package.json                 # Dependency configuration
-├── seed.js                      # Database seeding script
-├── README.md                    # Project documentation
-├── SETUP_GUIDE.md              # Setup instructions
-└── PROJECT_SUMMARY.md          # Project overview
+│   ├── components/
+│   │   ├── admin/              # NEW: Admin dashboard components
+│   │   ├── payment/            # NEW: Payment forms & modals
+│   │   ├── scheduling/         # NEW: Lesson booking components
+│   │   ├── common/             # Reusable UI components
+│   │   ├── layout/             # Page layouts
+│   │   └── guards/             # Route guards
+│   ├── pages/                  # 18 page components
+│   │   ├── Admin/              # NEW: Admin panel
+│   │   ├── Certificate/        # NEW: Certificate generation
+│   │   ├── Courses/
+│   │   ├── CoursePlayer/
+│   │   ├── Dashboard/
+│   │   └── ... (other pages)
+│   └── config/, constants/, context/
+├── package.json                # Frontend dependencies
+└── (config files and docs)
 ```
-
-**Main Components**:
-- **13 Page Components**: Home, Dashboard, Courses, MyCourses, CourseDetail, CoursePlayer, Lesson, Progress, Certificates, Profile, Settings, Contact, About, NotFound, Plus Auth pages (Login, Register, ForgotPassword)
-- **Layout Components**: Three distinct layouts for public, authenticated dashboard, and authentication pages
-- **API Services**: Seven service modules for authentication, courses, lessons, modules, progress, users, and security
-- **UI Components**: 15+ reusable components including modals, buttons, forms, progress bars, and notifications
-- **Context Providers**: CourseContext and TimerContext for state management
 
 ## Language & Runtime
 
-**Language**: JavaScript (ES6+) with JSX
-**Frontend Framework**: React 18.2.0
-**Runtime**: Node.js 14+ (npm)
-**Build Tool**: React Scripts 5.0.1
-**Routing**: React Router v6.20.0
+**Frontend**:
+- **Language**: JavaScript (ES6+) with JSX
+- **Framework**: React 18.2.0
+- **Build Tool**: React Scripts 5.0.1
+- **Routing**: React Router v6.20.0
+- **Payment**: Stripe (@stripe/react-stripe-js 5.4.0)
+
+**Backend**:
+- **Runtime**: Node.js 20
+- **Firebase Functions**: v4.5.0
+- **Firebase Admin**: v12.0.0 (functions), v13.6.0 (frontend)
+- **Stripe**: v14.0.0
 
 ## Dependencies
 
-**Main Dependencies**:
-- `react@^18.2.0` - UI library and component framework
-- `react-dom@^18.2.0` - React DOM rendering
-- `react-router-dom@^6.20.0` - Client-side routing and navigation
-- `firebase@^10.7.1` - Firebase SDK for frontend (Authentication, Firestore, Storage)
-- `firebase-admin@^13.6.0` - Firebase Admin SDK for backend operations
-- `react-scripts@5.0.1` - Build scripts and configuration for Create React App
+**Main Frontend**:
+- `react@^18.2.0` - UI framework
+- `react-router-dom@^6.20.0` - Routing
+- `firebase@^10.7.1` - Auth, Firestore, Storage
+- `@stripe/react-stripe-js@^5.4.0` - Payment processing
+
+**Backend (Cloud Functions)**:
+- `firebase-functions@^4.5.0` - Function runtime
+- `firebase-admin@^12.0.0` - Admin SDK
+- `stripe@^14.0.0` - Payment processing
 
 ## Build & Installation
 
-**Installation**:
+**Frontend**:
 ```bash
 npm install
+npm start          # Development server at localhost:3000
+npm run build      # Production build
 ```
 
-**Development Server**:
+**Cloud Functions**:
 ```bash
-npm start
+cd functions
+npm install
+npm run serve      # Local emulator
+npm run deploy     # Deploy to Firebase
 ```
-Starts development server at `http://localhost:3000` with hot reloading.
-
-**Production Build**:
-```bash
-npm run build
-```
-Creates optimized production build in `build/` directory.
-
-**Available Scripts**:
-- `npm start` - Run development server
-- `npm test` - Run test suite (React Scripts)
-- `npm run build` - Build for production
-- `npm run eject` - Eject from Create React App (irreversible)
 
 ## Main Files & Resources
 
-**Entry Points**:
-- `src/index.js` - Application bootstrap and root render
-- `src/App.jsx` - Main application component with routing configuration
+**Frontend Entry**:
+- `src/index.js` - Bootstrap application
+- `src/App.jsx` - Routing and layout
 
-**Configuration Files**:
-- `src/config/firebase.js` - Firebase initialization and configuration
-- `src/config/environment.js` - Environment-specific settings
-- `src/constants/appConfig.js` - Application configuration constants
-- `src/constants/routes.js` - Route definitions and paths
-- `package.json` - Project metadata and dependency declarations
+**API Services** (10 modules in `src/api/`):
+- `enrollmentServices.js` - Enrollment with split payments ($99 upfront, $450 balance)
+- `paymentServices.js` - Stripe integration and payment status tracking
+- `schedulingServices.js` - Lesson booking and time slot management
+- `authServices.js`, `courseServices.js`, `lessonServices.js`, `progressServices.js`, `userServices.js`, `moduleServices.js`, `securityServices.js`
 
-**API Services** (in `src/api/`):
-- `authServices.js` - Authentication operations (login, register, logout, password reset)
-- `courseServices.js` - Course CRUD operations and enrollment
-- `lessonServices.js` - Lesson management and retrieval
-- `moduleServices.js` - Module operations within courses
-- `progressServices.js` - Student progress tracking and updates
-- `userServices.js` - User profile and preference management
-- `securityServices.js` - Security and authorization checks
+**Cloud Functions** (`functions/index.js`):
+- `createCheckoutSession` - Stripe checkout for split/full payments
+- `createPaymentIntent` - Direct payment processing
+- `stripeWebhook` - Webhook handler for payment events
+- `generateCertificate` - Certificate PDF generation
 
-**Key Constants** (in `src/constants/`):
-- `userRoles.js` - Role definitions (Student, Instructor, Admin)
-- `lessonTypes.js` - Lesson type constants
-- `progressStatus.js` - Progress tracking status constants
-- `validationRules.js` - Form validation rules
-- `errorMessages.js` - Application error messages
-- `successMessages.js` - Success notification messages
+**Pages** (18 total):
+- `Admin/AdminPage.jsx` - Admin dashboard (user management, payments, scheduling)
+- `Certificate/CertificateGenerationPage.jsx` - Certificate generation interface
+- `Courses/`, `CoursePlayer/`, `Dashboard/`, `MyCourses/`, `Profile/`, `Settings/`, plus Auth pages
 
-## Project Statistics
+## Key Features
 
-- **Total Components**: 30+
-- **Page Components**: 13 main pages + 3 auth pages
-- **Reusable UI Components**: 15+
-- **API Service Modules**: 7
-- **Context Providers**: 2
-- **Lines of Code**: 5,000+
-- **Files Created**: 100+
+**Payment System**:
+- Stripe integration with split payment option ($99 upfront + $450 remaining)
+- Multiple payment types: upfront, split, remaining balance
+- Complete payment flow tracking and audit logging
 
-## Features Implemented
+**Lesson Scheduling** (Behind-the-Wheel):
+- Time slot creation and availability management
+- Student lesson booking with conflict detection
+- Admin scheduling interface with booking history
+- Automated confirmation and reminder workflow
 
-**Authentication & Authorization**:
-- Email/Password authentication
-- Google OAuth integration
-- Password reset functionality
-- Role-based access control (Student, Instructor, Admin)
+**Certificate Generation**:
+- Auto-trigger after full payment and lesson completion
+- PDF generation via Cloud Functions
+- Download and archive management in MyCourses
+
+**Admin Panel**:
+- User management and role assignment
+- Payment monitoring and split payment tracking
+- Lesson scheduling administration
+- Enrollment and course access control
+
+**Authentication**:
+- Email/password and Google OAuth
+- Role-based access (Student, Instructor, Admin)
 - Protected routes with guards
-
-**Course Management**:
-- Course browsing and discovery
-- Course enrollment with progress tracking
-- Module and lesson organization
-- Multiple lesson types (video, reading, quiz, test, practical)
-- Course search and filtering
-
-**User Dashboard & Profiles**:
-- Personalized dashboard with statistics
-- Enrolled courses overview
-- User profile customization
-- Preference management
-
-**Progress & Learning Tracking**:
-- Real-time progress monitoring
-- Lesson completion tracking
-- Module completion metrics
-- Session time tracking
-- Daily learning time statistics
-- Overall course progress percentage
-
-**Additional Features**:
-- Certificate generation and download
-- Responsive design for all screen sizes
-- Toast notifications and modal system
-- Loading states and error handling
-- Accessible components with ARIA labels
 
 ## Environment Configuration
 
-The application uses environment variables for Firebase configuration. Create a `.env` file in the root directory with:
-
+**.env** file (Firebase + Stripe):
 ```
-REACT_APP_FIREBASE_API_KEY=your_api_key
-REACT_APP_FIREBASE_AUTH_DOMAIN=your_auth_domain
-REACT_APP_FIREBASE_PROJECT_ID=your_project_id
-REACT_APP_FIREBASE_STORAGE_BUCKET=your_storage_bucket
-REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
-REACT_APP_FIREBASE_APP_ID=your_app_id
+REACT_APP_FIREBASE_API_KEY=...
+REACT_APP_FIREBASE_PROJECT_ID=...
+REACT_APP_STRIPE_PUBLIC_KEY=...
 ```
 
-## Styling
-
-- **CSS Methodology**: CSS Modules for component-scoped styling
-- **Global Styles**: Located in `src/assets/styles/`
-- **Theme**: Centralized theme and animation definitions
-- **Responsive Design**: Mobile-first approach with CSS Grid and Flexbox
-
-## State Management
-
-- **Primary Method**: React Context API with custom hooks
-- **Context Providers**: 
-  - `CourseContext` - Course and enrollment state
-  - `TimerContext` - Session and learning time tracking
-
-## Development Workflow
-
-**Getting Started**:
-1. Clone repository
-2. Run `npm install` to install dependencies
-3. Configure Firebase credentials in `.env` file
-4. Run `npm start` to start development server
-5. Open `http://localhost:3000` in browser
-
-**Development Server Features**:
-- Hot module reloading
-- Source maps for debugging
-- Console error overlay
-- Fast refresh capability
+**Firestore Security Rules**: `firestore.rules`
+**Indexes**: `firestore.indexes.json`
