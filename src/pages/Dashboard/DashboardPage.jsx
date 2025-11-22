@@ -1,6 +1,8 @@
 // DashboardPage Component
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { collection, onSnapshot } from 'firebase/firestore';
+import { db } from '../../config/firebase';
 import { useAuth } from '../../context/AuthContext';
 import Card from '../../components/common/Card/Card';
 import Button from '../../components/common/Button/Button';
@@ -8,7 +10,6 @@ import LoadingSpinner from '../../components/common/LoadingSpinner/LoadingSpinne
 import EnrollmentCard from '../../components/payment/EnrollmentCard';
 import { PROTECTED_ROUTES } from '../../constants/routes';
 import { COURSE_IDS, ENROLLMENT_STATUS } from '../../constants/courses';
-import { getUserEnrollments } from '../../api/enrollmentServices';
 import { getCourseById } from '../../api/courseServices';
 import { getProgress } from '../../api/progressServices'; 
 import styles from './DashboardPage.module.css';
@@ -20,72 +21,73 @@ const DashboardPage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchDashboardData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
-
-  const fetchDashboardData = async () => {
     if (!user) return;
 
-    try {
-      setLoading(true);
+    setLoading(true);
 
-      // Fetch enrollments
-      const allEnrollments = await getUserEnrollments(user.uid);
-      // Only include ACTIVE enrollments (paid/unlocked)
-      const enrollments = allEnrollments.filter(e => e.status === ENROLLMENT_STATUS.ACTIVE);
+    const coursesRef = collection(db, 'users', user.uid, 'courses');
+    
+    const unsubscribe = onSnapshot(
+      coursesRef,
+      async (snapshot) => {
+        try {
+          const allEnrollments = snapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+          }));
 
-      // Fetch course details and progress for each enrollment
-      const enrollmentsWithDetails = await Promise.all(
-        enrollments.map(async (enrollment) => {
-          const courseId = enrollment.courseId || enrollment.id;
-          if (!courseId) {
-            console.error('Skipping an enrollment because it is missing a courseId or id:', enrollment);
-            return null;
-          }
+          const enrollments = allEnrollments.filter(e => e.status === ENROLLMENT_STATUS.ACTIVE);
 
-          try {
-            const courseDetails = await getCourseById(courseId);
-            const progress = await getProgress(user.uid, courseId);
-            // Ensure courseId is on the enrollment object
-            if (!enrollment.courseId) {
-              enrollment.courseId = courseId;
-            }
-            // Create a clear separation between course data and enrollment data
-            return {
-              enrollment: enrollment, // The original enrollment record
-              course: { // The details of the course itself
-                ...courseDetails,
-                progress: progress.overallProgress || 0,
-                completedLessons: progress.completedLessons || 0,
-                totalLessons: progress.totalLessons || 0,
+          const enrollmentsWithDetails = await Promise.all(
+            enrollments.map(async (enrollment) => {
+              const courseId = enrollment.courseId || enrollment.id;
+              if (!courseId) {
+                console.error('Skipping enrollment with missing courseId:', enrollment);
+                return null;
               }
-            };
-          } catch (error) {
-            console.error(`Error loading details for course ${courseId}:`, error);
-            return {
-              enrollment: enrollment,
-              course: { id: courseId, title: 'Course not found', isMissing: true }
-            };
-          }
-        })
-      );
-      
-      // Filter out any failed course loads if necessary, or handle them in the UI
-      const validEnrollments = enrollmentsWithDetails.filter(e => e !== null);
-      setEnrollments(validEnrollments);
-      
-    } catch (error) {
-      console.error('Error fetching dashboard data:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
-  const handlePaymentSuccess = () => {
-    // Reload dashboard data after successful payment
-    fetchDashboardData();
-  };
+              try {
+                const courseDetails = await getCourseById(courseId);
+                const progress = await getProgress(user.uid, courseId);
+                if (!enrollment.courseId) {
+                  enrollment.courseId = courseId;
+                }
+                return {
+                  enrollment: enrollment,
+                  course: {
+                    ...courseDetails,
+                    progress: progress.overallProgress || 0,
+                    completedLessons: progress.completedLessons || 0,
+                    totalLessons: progress.totalLessons || 0,
+                  }
+                };
+              } catch (error) {
+                console.error(`Error loading details for course ${courseId}:`, error);
+                return {
+                  enrollment: enrollment,
+                  course: { id: courseId, title: 'Course not found', isMissing: true }
+                };
+              }
+            })
+          );
+
+          const validEnrollments = enrollmentsWithDetails.filter(e => e !== null);
+          setEnrollments(validEnrollments);
+          setLoading(false);
+        } catch (error) {
+          console.error('Error processing enrollment snapshot:', error);
+          setLoading(false);
+        }
+      },
+      (error) => {
+        console.error('Error setting up enrollment listener:', error);
+        setLoading(false);
+      }
+    );
+
+    return () => unsubscribe();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   const handleContinueCourse = (courseId) => {
     navigate(`/course-player/${courseId}`);
@@ -126,7 +128,6 @@ const DashboardPage = () => {
                   key={enrollment.enrollment.id}
                   enrollment={enrollment.enrollment}
                   course={enrollment.course}
-                  onPaymentSuccess={handlePaymentSuccess}
                   onContinueCourse={handleContinueCourse}
                   isActionable={enrollment.enrollment.courseId !== COURSE_IDS.BEHIND_WHEEL}
                 />

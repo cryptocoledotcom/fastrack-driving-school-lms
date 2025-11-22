@@ -6,7 +6,6 @@ import ErrorMessage from '../common/ErrorMessage/ErrorMessage';
 import SuccessMessage from '../common/SuccessMessage/SuccessMessage';
 import Input from '../common/Input/Input';
 import { payRemainingBalance } from '../../api/enrollmentServices';
-import { COURSE_IDS, PAYMENT_STATUS } from '../../constants/courses';
 import styles from './CheckoutForm.module.css';
 
 const RemainingPaymentCheckoutForm = ({
@@ -14,11 +13,19 @@ const RemainingPaymentCheckoutForm = ({
   onError,
   onCancel,
   courseId,
+  enrollment,
   courseName
 }) => {
   const stripe = useStripe();
   const elements = useElements();
   const { user } = useAuth();
+
+  const getTargetCourseId = () => {
+    if (enrollment?.parentEnrollmentId) {
+      return enrollment.parentEnrollmentId;
+    }
+    return courseId;
+  };
   
   const [isProcessing, setIsProcessing] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -34,7 +41,6 @@ const RemainingPaymentCheckoutForm = ({
   });
   
   const REMAINING_AMOUNT = 450;
-  const AMOUNT_IN_CENTS = REMAINING_AMOUNT * 100;
 
   const validateForm = () => {
     const errors = [];
@@ -99,50 +105,35 @@ const RemainingPaymentCheckoutForm = ({
         throw new Error(paymentMethodResult.error.message);
       }
 
-      const paymentResponse = await fetch('/api/process-payment', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          paymentMethodId: paymentMethodResult.paymentMethod.id,
-          amount: AMOUNT_IN_CENTS,
-          currency: 'usd',
-          description: `Remaining payment for ${courseName || courseId}`,
-          receiptEmail: formData.email,
-          metadata: {
-            userId: user.uid,
-            courseId: courseId,
-            paymentType: 'remaining_balance',
-            userEmail: formData.email
-          }
-        })
-      });
+      const targetCourseId = getTargetCourseId();
+      
+      // Update parent enrollment
+      await payRemainingBalance(
+        user.uid,
+        targetCourseId,
+        REMAINING_AMOUNT,
+        formData.email
+      );
 
-      if (!paymentResponse.ok) {
-        throw new Error('Payment processing failed');
-      }
-
-      const paymentData = await paymentResponse.json();
-
-      if (paymentData.success) {
+      // Also update the current course enrollment if it's a component of a bundle
+      if (enrollment?.parentEnrollmentId && courseId !== targetCourseId) {
         await payRemainingBalance(
           user.uid,
           courseId,
           REMAINING_AMOUNT,
           formData.email
         );
+      }
 
-        setSuccessMessage('Payment successful! Your course is now unlocked.');
-        
-        if (onSuccess) {
-          onSuccess({
-            amount: REMAINING_AMOUNT,
-            paymentMethodId: paymentMethodResult.paymentMethod.id,
-            courseId,
-            paymentType: 'remaining_balance'
-          });
-        }
-      } else {
-        throw new Error(paymentData.message || 'Payment failed');
+      setSuccessMessage('Payment successful! Your course is now unlocked.');
+      
+      if (onSuccess) {
+        onSuccess({
+          amount: REMAINING_AMOUNT,
+          paymentMethodId: paymentMethodResult.paymentMethod.id,
+          courseId,
+          paymentType: 'remaining_balance'
+        });
       }
     } catch (error) {
       console.error('Payment error:', error);

@@ -8,7 +8,7 @@ import SuccessMessage from '../common/SuccessMessage/SuccessMessage';
 import { getAvailableTimeSlots, bookTimeSlot } from '../../api/schedulingServices';
 import styles from './LessonBooking.module.css';
 
-const LessonBooking = ({ onSuccess, onCancel }) => {
+const LessonBooking = ({ onSuccess, onClose }) => {
   const { user } = useAuth();
   
   const [loading, setLoading] = useState(true);
@@ -21,6 +21,7 @@ const LessonBooking = ({ onSuccess, onCancel }) => {
 
   useEffect(() => {
     loadAvailableSlots();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [calendarDate]);
 
   const loadAvailableSlots = async () => {
@@ -49,21 +50,24 @@ const LessonBooking = ({ onSuccess, onCancel }) => {
     }
   };
 
-  const handleBookSlot = async (slot) => {
-    if (!user) return;
+  const handleSelectSlot = (slot) => {
+    setSelectedSlot(slot);
+  };
+
+  const handleConfirmAndBook = async () => {
+    if (!user || !selectedSlot) return;
 
     try {
       setBooking(true);
       setError('');
 
-      await bookTimeSlot(user.uid, slot.id, user.email);
+      await bookTimeSlot(user.uid, selectedSlot.id, user.email);
 
       setSuccess('Lesson booked successfully!');
-      setSelectedSlot(slot);
 
       setTimeout(() => {
         if (onSuccess) {
-          onSuccess(slot);
+          onSuccess(selectedSlot);
         }
       }, 2000);
     } catch (err) {
@@ -176,12 +180,11 @@ const LessonBooking = ({ onSuccess, onCancel }) => {
                     <Button
                       variant={selectedSlot?.id === slot.id ? 'primary' : 'outline'}
                       size="small"
-                      onClick={() => handleBookSlot(slot)}
-                      loading={booking}
-                      disabled={booking || slot.bookedBy.length >= (slot.capacity || 1)}
+                      onClick={() => handleSelectSlot(slot)}
+                      disabled={slot.bookedBy.length >= (slot.capacity || 1)}
                       className={styles.bookButton}
                     >
-                      {selectedSlot?.id === slot.id ? '✓ Booked' : 'Book Lesson'}
+                      {selectedSlot?.id === slot.id ? '✓ Selected' : 'Select'}
                     </Button>
                   </div>
                 </Card>
@@ -192,9 +195,19 @@ const LessonBooking = ({ onSuccess, onCancel }) => {
 
         {!success && (
           <div className={styles.actions}>
+            {selectedSlot && (
+              <Button
+                variant="primary"
+                onClick={handleConfirmAndBook}
+                disabled={booking}
+                fullWidth
+              >
+                Confirm and Book Lesson
+              </Button>
+            )}
             <Button
-              variant="outline"
-              onClick={onCancel}
+              variant="danger"
+              onClick={onClose}
               fullWidth
             >
               Cancel

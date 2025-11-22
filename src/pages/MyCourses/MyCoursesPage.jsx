@@ -9,7 +9,10 @@ import ErrorMessage from '../../components/common/ErrorMessage/ErrorMessage';
 import { getUserEnrollments } from '../../api/enrollmentServices';
 import { getCourseById } from '../../api/courseServices';
 import { getProgress } from '../../api/progressServices';
+import { Elements } from '@stripe/react-stripe-js';
+import { stripePromise } from '../../config/stripe';
 import PaymentModal from '../../components/payment/PaymentModal';
+import RemainingPaymentCheckoutForm from '../../components/payment/RemainingPaymentCheckoutForm';
 import LessonBooking from '../../components/scheduling/LessonBooking';
 import styles from './MyCoursesPage.module.css';
 import { COURSE_IDS, COURSE_TYPES, PAYMENT_STATUS } from '../../constants/courses';
@@ -21,6 +24,7 @@ const MyCoursesPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [showRemainingPaymentModal, setShowRemainingPaymentModal] = useState(false);
   const [showBookingModal, setShowBookingModal] = useState(false);
   const [selectedCourseForPayment, setSelectedCourseForPayment] = useState(null);
   const [selectedCourseForBooking, setSelectedCourseForBooking] = useState(null);
@@ -89,10 +93,6 @@ const MyCoursesPage = () => {
     return course?.category || 'unknown';
   };
 
-  const isBundleCourse = (course) => {
-    return course?.category === COURSE_TYPES.BUNDLE && course?.includeCourses;
-  };
-
   const handleViewCourse = (courseId) => {
     navigate(`/course-player/${courseId}`);
   };
@@ -103,7 +103,7 @@ const MyCoursesPage = () => {
 
   const handlePayRemainingBalance = (course, enrollment) => {
     setSelectedCourseForPayment({ course, enrollment });
-    setShowPaymentModal(true);
+    setShowRemainingPaymentModal(true);
   };
 
   const handlePaymentSuccess = () => {
@@ -126,42 +126,39 @@ const MyCoursesPage = () => {
 
   const getButtonLabel = (course, enrollment) => {
     const courseType = getCourseType(course);
-    const isBundled = isBundleCourse(course);
 
     if (courseType === COURSE_TYPES.ONLINE) {
       return 'View Course';
     }
 
     if (courseType === COURSE_TYPES.IN_PERSON) {
-      if (enrollment.paymentStatus === PAYMENT_STATUS.COMPLETED) {
-        return 'Schedule Driving Lesson';
-      }
-      return `Pay Remaining $${enrollment.amountDue?.toFixed(2) || '0.00'}`;
-    }
-
-    if (isBundled) {
+      const isComponentOfBundle = enrollment?.isComponentOfBundle;
       const onlineCertGenerated = certificateStatus[COURSE_IDS.ONLINE];
 
-      if (!onlineCertGenerated) {
+      if (isComponentOfBundle && !onlineCertGenerated) {
         return 'Complete the Online Course';
       }
 
-      if (enrollment.paymentStatus !== PAYMENT_STATUS.COMPLETED) {
-        return `Pay Remaining $${enrollment.amountDue?.toFixed(2) || '0.00'}`;
+      if (enrollment.paymentStatus === PAYMENT_STATUS.COMPLETED) {
+        return 'Schedule Driving Lesson';
       }
 
-      return 'Schedule Driving Lesson';
+      return `Pay Remaining $${enrollment.amountDue?.toFixed(2) || '0.00'}`;
     }
 
     return 'View Course';
   };
 
   const getButtonDisabled = (course, enrollment) => {
-    const isBundled = isBundleCourse(course);
+    const courseType = getCourseType(course);
 
-    if (isBundled && enrollment?.courseId === COURSE_IDS.BEHIND_WHEEL) {
+    if (courseType === COURSE_TYPES.IN_PERSON) {
+      const isComponentOfBundle = enrollment?.isComponentOfBundle;
       const onlineCertGenerated = certificateStatus[COURSE_IDS.ONLINE];
-      return !onlineCertGenerated;
+      
+      if (isComponentOfBundle && !onlineCertGenerated) {
+        return true;
+      }
     }
 
     return false;
@@ -169,7 +166,6 @@ const MyCoursesPage = () => {
 
   const handleButtonClick = (course, enrollment) => {
     const courseType = getCourseType(course);
-    const isBundled = isBundleCourse(course);
 
     if (courseType === COURSE_TYPES.ONLINE) {
       handleViewCourse(course.id);
@@ -177,29 +173,19 @@ const MyCoursesPage = () => {
     }
 
     if (courseType === COURSE_TYPES.IN_PERSON) {
+      const isComponentOfBundle = enrollment?.isComponentOfBundle;
+      const onlineCertGenerated = certificateStatus[COURSE_IDS.ONLINE];
+
+      if (isComponentOfBundle && !onlineCertGenerated) {
+        return;
+      }
+
       if (enrollment.paymentStatus === PAYMENT_STATUS.COMPLETED) {
         setSelectedCourseForBooking(course);
         handleScheduleLesson();
       } else {
-        handlePayRemainingBalance(course, enrollment);
-      }
-      return;
-    }
-
-    if (isBundled) {
-      if (enrollment?.courseId === COURSE_IDS.ONLINE) {
-        handleViewCourse(course.id);
-      } else if (enrollment?.courseId === COURSE_IDS.BEHIND_WHEEL) {
-        const onlineCertGenerated = certificateStatus[COURSE_IDS.ONLINE];
-        if (!onlineCertGenerated) {
-          return;
-        }
-        if (enrollment.paymentStatus !== PAYMENT_STATUS.COMPLETED) {
-          handlePayRemainingBalance(course, enrollment);
-        } else {
-          setSelectedCourseForBooking(course);
-          handleScheduleLesson();
-        }
+        setSelectedCourseForPayment({ course, enrollment });
+        setShowRemainingPaymentModal(true);
       }
       return;
     }
@@ -235,7 +221,9 @@ const MyCoursesPage = () => {
         </Card>
       ) : (
         <div className={styles.coursesGrid}>
-          {enrolledCourses.map((item) => (
+          {enrolledCourses
+            .filter(item => item.course.category !== COURSE_TYPES.BUNDLE)
+            .map((item) => (
             <CourseCard
               key={item.course.id}
               course={item.course}
@@ -268,6 +256,68 @@ const MyCoursesPage = () => {
         />
       )}
 
+      {showRemainingPaymentModal && selectedCourseForPayment && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 1000
+        }}>
+          <div style={{
+            backgroundColor: 'white',
+            borderRadius: '8px',
+            padding: '40px',
+            maxWidth: '600px',
+            width: '90%',
+            maxHeight: '90vh',
+            overflowY: 'auto',
+            position: 'relative'
+          }}>
+            <button
+              onClick={() => {
+                setShowRemainingPaymentModal(false);
+                setSelectedCourseForPayment(null);
+              }}
+              style={{
+                position: 'absolute',
+                top: '10px',
+                right: '10px',
+                border: 'none',
+                background: 'none',
+                fontSize: '24px',
+                cursor: 'pointer'
+              }}
+            >
+              ×
+            </button>
+            <Elements stripe={stripePromise}>
+              <RemainingPaymentCheckoutForm
+                courseId={selectedCourseForPayment.course.id}
+                enrollment={selectedCourseForPayment.enrollment}
+                courseName={selectedCourseForPayment.course.title}
+                onSuccess={() => {
+                  setShowRemainingPaymentModal(false);
+                  setSelectedCourseForPayment(null);
+                  setTimeout(() => {
+                    loadEnrolledCourses();
+                  }, 1000);
+                }}
+                onCancel={() => {
+                  setShowRemainingPaymentModal(false);
+                  setSelectedCourseForPayment(null);
+                }}
+              />
+            </Elements>
+          </div>
+        </div>
+      )}
+
       {showBookingModal && selectedCourseForBooking && (
         <LessonBooking
           courseId={selectedCourseForBooking.id}
@@ -289,8 +339,25 @@ const CourseCard = ({
   onButtonClick,
   getButtonLabel,
   getButtonDisabled,
-  onlineCertGenerated
+  onlineCertGenerated,
+  onPayRemaining
 }) => {
+  const getCourseType = (courseObj) => {
+    return courseObj?.category || 'unknown';
+  };
+
+  const shouldShowPayRemainingButton = () => {
+    const courseType = getCourseType(course);
+    const isComponentOfBundle = enrollment?.isComponentOfBundle;
+    return (
+      courseType === COURSE_TYPES.IN_PERSON &&
+      enrollment.amountDue > 0 &&
+      enrollment.paymentStatus !== PAYMENT_STATUS.COMPLETED &&
+      isComponentOfBundle &&
+      !onlineCertGenerated
+    );
+  };
+
   const getStatusBadge = () => {
     if (!enrollment) return null;
 
@@ -342,6 +409,16 @@ const CourseCard = ({
           <div className={styles.paymentInfo}>
             <p>Remaining Balance: <strong>${enrollment.amountDue.toFixed(2)}</strong></p>
           </div>
+        )}
+
+        {shouldShowPayRemainingButton() && (
+          <Button
+            variant="primary"
+            onClick={onPayRemaining}
+            className={styles.actionButton}
+          >
+            Pay the Remaining Balance
+          </Button>
         )}
 
         <Button
