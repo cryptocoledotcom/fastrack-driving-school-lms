@@ -8,6 +8,7 @@ import Card from '../../components/common/Card/Card';
 import Button from '../../components/common/Button/Button';
 import LoadingSpinner from '../../components/common/LoadingSpinner/LoadingSpinner';
 import EnrollmentCard from '../../components/payment/EnrollmentCard';
+import UpcomingLessons from '../../components/scheduling/UpcomingLessons';
 import { PROTECTED_ROUTES } from '../../constants/routes';
 import { COURSE_IDS, ENROLLMENT_STATUS } from '../../constants/courses';
 import { getCourseById } from '../../api/courseServices';
@@ -146,6 +147,11 @@ const DashboardPage = () => {
           </Card>
         )}
       </section>
+
+      {/* Upcoming Lessons */}
+      {enrollments.length > 0 && (
+        <UpcomingLessons />
+      )}
 
       {/* Quick Actions */}
       {enrollments.length > 0 && (

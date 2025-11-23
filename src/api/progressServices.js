@@ -6,14 +6,69 @@ import {
   doc, 
   getDoc, 
   getDocs,
-  updateDoc
+  updateDoc,
+  setDoc
 } from 'firebase/firestore';
 import { db } from '../config/firebase';
+import {
+  logLessonCompletion,
+  logModuleCompletion
+} from './complianceServices';
 
 // Reference to user's main progress document
 // Path: users/{userId}/userProgress/progress
 const getUserProgressRef = (userId) => {
   return doc(db, 'users', userId, 'userProgress', 'progress');
+};
+
+// Initialize progress for a course on first access
+export const initializeProgress = async (userId, courseId, totalLessons = 0) => {
+  try {
+    const progressRef = getUserProgressRef(userId);
+    const progressDoc = await getDoc(progressRef);
+
+    let existingData = {};
+    if (progressDoc.exists()) {
+      existingData = progressDoc.data();
+    }
+
+    // Only initialize if this course progress doesn't exist yet
+    if (!existingData[courseId]) {
+      const courseProgress = {
+        overallProgress: 0,
+        completedLessons: 0,
+        totalLessons: totalLessons,
+        lessonProgress: {},
+        moduleProgress: {},
+        lastAccessedAt: new Date().toISOString(),
+        createdAt: new Date().toISOString(),
+        enrolled: true
+      };
+
+      // Merge with existing data
+      const mergedData = { ...existingData, [courseId]: courseProgress };
+
+      // Use setDoc with merge to create or update the document
+      await setDoc(progressRef, mergedData, { merge: true });
+      
+      return courseProgress;
+    } else {
+      // Course already initialized, just update lastAccessedAt
+      const updatedProgress = {
+        ...existingData[courseId],
+        lastAccessedAt: new Date().toISOString()
+      };
+      
+      await updateDoc(progressRef, {
+        [courseId]: updatedProgress
+      });
+      
+      return updatedProgress;
+    }
+  } catch (error) {
+    console.error('Error initializing progress:', error);
+    throw error;
+  }
 };
 
 // Get user's progress for a specific course
@@ -118,6 +173,60 @@ export const markLessonComplete = async (userId, courseId, lessonId) => {
   }
 };
 
+// Mark lesson as complete with compliance logging
+export const markLessonCompleteWithCompliance = async (
+  userId,
+  courseId,
+  lessonId,
+  complianceData = {}
+) => {
+  try {
+    const progress = await getProgress(userId, courseId);
+    const lessonProgress = progress.lessonProgress || {};
+    
+    lessonProgress[lessonId] = {
+      completed: true,
+      completedAt: new Date().toISOString(),
+      attempts: (lessonProgress[lessonId]?.attempts || 0) + 1
+    };
+    
+    const completedLessons = Object.keys(lessonProgress).filter(
+      id => lessonProgress[id].completed
+    ).length;
+    
+    const overallProgress = progress.totalLessons > 0 
+      ? Math.round((completedLessons / (progress.totalLessons || 1)) * 100)
+      : 0;
+    
+    const progressResult = await saveProgress(userId, courseId, {
+      lessonProgress,
+      completedLessons,
+      overallProgress,
+      lastAccessedAt: new Date().toISOString()
+    });
+
+    if (complianceData.sessionId) {
+      try {
+        await logLessonCompletion(complianceData.sessionId, {
+          lessonId,
+          lessonTitle: complianceData.lessonTitle,
+          moduleId: complianceData.moduleId,
+          moduleTitle: complianceData.moduleTitle,
+          sessionTime: complianceData.sessionTime || 0,
+          videoProgress: complianceData.videoProgress || null
+        });
+      } catch (complianceError) {
+        console.error('Error logging lesson completion to compliance:', complianceError);
+      }
+    }
+
+    return progressResult;
+  } catch (error) {
+    console.error('Error marking lesson complete with compliance:', error);
+    throw error;
+  }
+};
+
 // Mark module as complete
 export const markModuleComplete = async (userId, courseId, moduleId) => {
   try {
@@ -140,6 +249,52 @@ export const markModuleComplete = async (userId, courseId, moduleId) => {
     });
   } catch (error) {
     console.error('Error marking module complete:', error);
+    throw error;
+  }
+};
+
+// Mark module as complete with compliance logging
+export const markModuleCompleteWithCompliance = async (
+  userId,
+  courseId,
+  moduleId,
+  complianceData = {}
+) => {
+  try {
+    const progress = await getProgress(userId, courseId);
+    const moduleProgress = progress.moduleProgress || {};
+    
+    moduleProgress[moduleId] = {
+      completed: true,
+      completedAt: new Date().toISOString()
+    };
+    
+    const completedModules = Object.keys(moduleProgress).filter(
+      id => moduleProgress[id].completed
+    ).length;
+    
+    const progressResult = await saveProgress(userId, courseId, {
+      moduleProgress,
+      completedModules,
+      lastAccessedAt: new Date().toISOString()
+    });
+
+    if (complianceData.sessionId) {
+      try {
+        await logModuleCompletion(complianceData.sessionId, {
+          moduleId,
+          moduleTitle: complianceData.moduleTitle,
+          lessonsCompleted: complianceData.lessonsCompleted || 0,
+          sessionTime: complianceData.sessionTime || 0
+        });
+      } catch (complianceError) {
+        console.error('Error logging module completion to compliance:', complianceError);
+      }
+    }
+
+    return progressResult;
+  } catch (error) {
+    console.error('Error marking module complete with compliance:', error);
     throw error;
   }
 };
@@ -237,11 +392,14 @@ export const getUserStats = async (userId) => {
 };
 
 const progressServices = {
+  initializeProgress,
   getProgress,
   saveProgress,
   updateProgress,
   markLessonComplete,
+  markLessonCompleteWithCompliance,
   markModuleComplete,
+  markModuleCompleteWithCompliance,
   updateLessonProgress,
   getUserStats
 };

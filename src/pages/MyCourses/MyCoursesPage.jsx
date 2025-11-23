@@ -14,6 +14,8 @@ import { stripePromise } from '../../config/stripe';
 import PaymentModal from '../../components/payment/PaymentModal';
 import RemainingPaymentCheckoutForm from '../../components/payment/RemainingPaymentCheckoutForm';
 import LessonBooking from '../../components/scheduling/LessonBooking';
+import UpcomingLessons from '../../components/scheduling/UpcomingLessons';
+import { getUserBookings } from '../../api/schedulingServices';
 import styles from './MyCoursesPage.module.css';
 import { COURSE_IDS, COURSE_TYPES, PAYMENT_STATUS } from '../../constants/courses';
 
@@ -29,6 +31,7 @@ const MyCoursesPage = () => {
   const [selectedCourseForPayment, setSelectedCourseForPayment] = useState(null);
   const [selectedCourseForBooking, setSelectedCourseForBooking] = useState(null);
   const [certificateStatus, setCertificateStatus] = useState({});
+  const [hasExistingBooking, setHasExistingBooking] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -71,6 +74,13 @@ const MyCoursesPage = () => {
       setEnrolledCourses(validCourses);
 
       checkCertificateStatus(validCourses);
+      
+      const bookings = await getUserBookings(user.uid);
+      const futureBookings = bookings.filter(booking => {
+        const bookingDate = new Date(`${booking.date}T${booking.startTime}`);
+        return bookingDate >= new Date();
+      });
+      setHasExistingBooking(futureBookings.length > 0);
     } catch (err) {
       console.error('Error loading enrolled courses:', err);
       setError('Failed to load your courses. Please try again.');
@@ -140,6 +150,9 @@ const MyCoursesPage = () => {
       }
 
       if (enrollment.paymentStatus === PAYMENT_STATUS.COMPLETED) {
+        if (hasExistingBooking) {
+          return 'Lesson Already Scheduled';
+        }
         return 'Schedule Driving Lesson';
       }
 
@@ -157,6 +170,10 @@ const MyCoursesPage = () => {
       const onlineCertGenerated = certificateStatus[COURSE_IDS.ONLINE];
       
       if (isComponentOfBundle && !onlineCertGenerated) {
+        return true;
+      }
+
+      if (enrollment.paymentStatus === PAYMENT_STATUS.COMPLETED && hasExistingBooking) {
         return true;
       }
     }
@@ -241,6 +258,12 @@ const MyCoursesPage = () => {
             />
           ))}
         </div>
+      )}
+
+      {enrolledCourses.length > 0 && (
+        <UpcomingLessons 
+          onBookingsChange={(hasBooking) => setHasExistingBooking(hasBooking)}
+        />
       )}
 
       {showPaymentModal && selectedCourseForPayment && (
@@ -426,7 +449,7 @@ const CourseCard = ({
           disabled={getButtonDisabled()}
           onClick={onButtonClick}
           className={styles.actionButton}
-          title={getButtonDisabled() ? 'Complete the online course first' : ''}
+          title={getButtonDisabled() ? (getButtonLabel() === 'Lesson Already Scheduled' ? 'You already have a scheduled lesson. Cancel it to schedule another.' : 'Complete the online course first') : ''}
         >
           {getButtonLabel()}
         </Button>

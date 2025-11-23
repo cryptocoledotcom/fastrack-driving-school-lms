@@ -230,9 +230,9 @@ const AdminPage = () => {
                                     </span>
                                   </div>
                                   <div className={styles.enrollmentDetails}>
-                                    <p>Total: ${(enrollment.totalAmount / 100).toFixed(2)}</p>
-                                    <p>Paid: ${(enrollment.amountPaid / 100).toFixed(2)}</p>
-                                    <p>Due: ${(enrollment.amountDue / 100).toFixed(2)}</p>
+                                    <p>Total: ${enrollment.totalAmount.toFixed(2)}</p>
+                                    <p>Paid: ${enrollment.amountPaid.toFixed(2)}</p>
+                                    <p>Due: ${enrollment.amountDue.toFixed(2)}</p>
                                   </div>
                                 </div>
                                 <Button

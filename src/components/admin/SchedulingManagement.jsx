@@ -11,10 +11,12 @@ import {
   updateTimeSlot,
   deleteTimeSlot
 } from '../../api/schedulingServices';
+import { getUser } from '../../api/userServices';
 import styles from './SchedulingManagement.module.css';
 
 const SchedulingManagement = () => {
   const [slots, setSlots] = useState([]);
+  const [slotsWithUserNames, setSlotsWithUserNames] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -40,6 +42,34 @@ const SchedulingManagement = () => {
       setError('');
       const timeslots = await getTimeSlots();
       setSlots(timeslots);
+
+      const slotsWithNames = await Promise.all(
+        timeslots.map(async (slot) => {
+          const bookedWithNames = await Promise.all(
+            (slot.bookedBy || []).map(async (booking) => {
+              try {
+                const user = await getUser(booking.userId);
+                return {
+                  ...booking,
+                  userName: user?.fullName || user?.displayName || booking.userEmail
+                };
+              } catch (err) {
+                console.error(`Error fetching user ${booking.userId}:`, err);
+                return {
+                  ...booking,
+                  userName: booking.userEmail
+                };
+              }
+            })
+          );
+          return {
+            ...slot,
+            bookedBy: bookedWithNames
+          };
+        })
+      );
+
+      setSlotsWithUserNames(slotsWithNames);
     } catch (err) {
       console.error('Error loading time slots:', err);
       setError('Failed to load time slots');
@@ -236,7 +266,7 @@ const SchedulingManagement = () => {
             <p>Click "Add New Time Slot" to create available lesson times.</p>
           </Card>
         ) : (
-          slots.map(slot => (
+          slotsWithUserNames.map(slot => (
             <Card key={slot.id} className={styles.slotCard}>
               <div className={styles.slotHeader}>
                 <div className={styles.slotDateTime}>
@@ -277,6 +307,18 @@ const SchedulingManagement = () => {
                   <span className={styles.label}>Booked:</span>
                   <span>{slot.bookedBy?.length || 0} / {slot.capacity}</span>
                 </div>
+                {slot.bookedBy && slot.bookedBy.length > 0 && (
+                  <div className={styles.detail}>
+                    <span className={styles.label}>Students:</span>
+                    <div className={styles.bookedStudents}>
+                      {slot.bookedBy.map((booking, idx) => (
+                        <span key={idx} className={styles.studentName}>
+                          {booking.userName}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
                 {slot.notes && (
                   <div className={styles.detail}>
                     <span className={styles.label}>Notes:</span>

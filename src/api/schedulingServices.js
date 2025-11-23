@@ -125,7 +125,7 @@ export const bookTimeSlot = async (userId, slotId, userEmail) => {
     const booking = {
       userId,
       userEmail,
-      bookedAt: serverTimestamp()
+      bookedAt: new Date().toISOString()
     };
 
     bookedBy.push(booking);

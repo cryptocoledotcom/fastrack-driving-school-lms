@@ -1,0 +1,116 @@
+.pvqContent {
+  padding: 1rem 0;
+}
+
+.warningBanner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #fef3c7;
+  border-left: 4px solid #f59e0b;
+  border-radius: 0.25rem;
+  margin-bottom: 2rem;
+}
+
+.warningBanner .icon {
+  width: 24px;
+  height: 24px;
+  color: #f59e0b;
+  flex-shrink: 0;
+}
+
+.warningBanner p {
+  margin: 0;
+  color: #78350f;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.questionSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.questionLabel {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1f2937;
+  line-height: 1.5;
+}
+
+.answerInput {
+  font-size: 1rem;
+  padding: 0.75rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 0.375rem;
+  transition: all 0.2s ease;
+}
+
+.answerInput:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.answerInput:disabled {
+  background-color: #f3f4f6;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.errorMessage {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background-color: #fee2e2;
+  border-left: 4px solid #ef4444;
+  border-radius: 0.25rem;
+  color: #7f1d1d;
+  font-size: 0.95rem;
+}
+
+.errorMessage svg {
+  width: 20px;
+  height: 20px;
+  color: #ef4444;
+  flex-shrink: 0;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.actions button {
+  min-height: 44px;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.note {
+  font-size: 0.85rem;
+  color: #6b7280;
+  text-align: center;
+  margin: 0;
+  line-height: 1.4;
+}
+
+@media (min-width: 640px) {
+  .actions {
+    flex-direction: row;
+  }
+
+  .actions button {
+    flex: 1;
+  }
+}

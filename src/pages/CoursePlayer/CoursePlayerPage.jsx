@@ -5,20 +5,22 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useTimer } from '../../context/TimerContext';
+import { TimerProvider } from '../../context/TimerContext';
 import Card from '../../components/common/Card/Card';
 import Button from '../../components/common/Button/Button';
 import ProgressBar from '../../components/common/ProgressBar/ProgressBar';
 import Badge from '../../components/common/Badge/Badge';
 import LoadingSpinner from '../../components/common/LoadingSpinner/LoadingSpinner';
 import ErrorMessage from '../../components/common/ErrorMessage/ErrorMessage';
+import PVQModal from '../../components/common/Modals/PVQModal';
 import { getCourseById } from '../../api/courseServices';
 import { getModules } from '../../api/moduleServices';
 import { getLessons } from '../../api/lessonServices';
-import { getProgress, markLessonComplete, updateLessonProgress } from '../../api/progressServices';
+import { initializeProgress, getProgress, markLessonCompleteWithCompliance, updateLessonProgress } from '../../api/progressServices';
 import { LESSON_TYPES } from '../../constants/lessonTypes';
 import styles from './CoursePlayerPage.module.css';
 
-const CoursePlayerPage = () => {
+const CoursePlayerPageContent = () => {
   const { courseId } = useParams();
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -29,7 +31,19 @@ const CoursePlayerPage = () => {
     resumeTimer,
     isActive,
     isPaused,
-    getFormattedSessionTime
+    isLockedOut,
+    isBreakMandatory,
+    getFormattedSessionTime,
+    updateVideoProgress,
+    trackLessonAccess,
+    showPVQModal,
+    currentPVQQuestion,
+    pvqSubmitting,
+    pvqError,
+    handlePVQSubmit,
+    closePVQModal,
+    currentSessionId,
+    sessionTime
   } = useTimer();
 
   // State
@@ -42,10 +56,27 @@ const CoursePlayerPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [showBreakModal, setShowBreakModal] = useState(false);
   
   // Video tracking
   const videoRef = useRef(null);
   const progressSaveInterval = useRef(null);
+
+  // Check for daily lockout and show error
+  useEffect(() => {
+    if (isLockedOut) {
+      setError('You have reached the 4-hour daily limit. Please try again tomorrow.');
+      stopTimer();
+    }
+  }, [isLockedOut]);
+
+  // Show break modal when mandatory break is needed
+  useEffect(() => {
+    if (isBreakMandatory && isActive) {
+      setShowBreakModal(true);
+      pauseTimer();
+    }
+  }, [isBreakMandatory, isActive, pauseTimer]);
 
   useEffect(() => {
     loadCourseData();
@@ -98,6 +129,16 @@ const CoursePlayerPage = () => {
       }
       
       setModules(modulesData);
+
+      // Calculate total lessons for all modules
+      let totalLessons = 0;
+      for (const module of modulesData) {
+        const moduleLessons = await getLessons(courseId, module.id);
+        totalLessons += moduleLessons.length;
+      }
+
+      // Initialize progress on first access
+      await initializeProgress(user.uid, courseId, totalLessons);
 
       // Load progress
       const progressData = await getProgress(user.uid, courseId);
@@ -171,7 +212,25 @@ const CoursePlayerPage = () => {
     if (!currentLesson || !user) return;
 
     try {
-      await markLessonComplete(user.uid, courseId, currentLesson.id);
+      await markLessonCompleteWithCompliance(
+        user.uid,
+        courseId,
+        currentLesson.id,
+        {
+          sessionId: currentSessionId,
+          lessonTitle: currentLesson.title,
+          moduleId: currentModule.id,
+          moduleTitle: currentModule.title,
+          sessionTime,
+          videoProgress: currentLesson.type === LESSON_TYPES.VIDEO && videoRef.current 
+            ? {
+                currentTime: videoRef.current.currentTime,
+                duration: videoRef.current.duration,
+                percentWatched: (videoRef.current.currentTime / videoRef.current.duration) * 100
+              }
+            : null
+        }
+      );
       
       // Reload progress
       const updatedProgress = await getProgress(user.uid, courseId);
@@ -203,7 +262,8 @@ const CoursePlayerPage = () => {
   };
 
   const handleLessonSelect = (lesson) => {
-    saveCurrentProgress(); // Save before switching
+    saveCurrentProgress();
+    trackLessonAccess(lesson.id);
     setCurrentLesson(lesson);
   };
 
@@ -238,6 +298,15 @@ const CoursePlayerPage = () => {
               className={styles.video}
               src={currentLesson.videoUrl}
               onEnded={handleLessonComplete}
+              onTimeUpdate={() => {
+                if (videoRef.current) {
+                  updateVideoProgress(
+                    videoRef.current.currentTime,
+                    videoRef.current.duration,
+                    (videoRef.current.currentTime / videoRef.current.duration) * 100
+                  );
+                }
+              }}
             >
               Your browser does not support the video tag.
             </video>
@@ -377,7 +446,84 @@ const CoursePlayerPage = () => {
           )}
         </div>
       </div>
+
+      {/* Mandatory Break Modal */}
+      {showBreakModal && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.7)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 2000
+        }}>
+          <Card style={{
+            maxWidth: '500px',
+            width: '90%',
+            padding: '2rem',
+            textAlign: 'center'
+          }}>
+            <h2>⏸️ Mandatory Break Required</h2>
+            <p style={{ fontSize: '1.1rem', marginBottom: '1rem' }}>
+              You've been studying for 2 hours. State law requires a 10-minute break.
+            </p>
+            <p style={{ color: '#666', marginBottom: '2rem' }}>
+              Please take a break and return ready to continue learning.
+            </p>
+            <Button
+              variant="primary"
+              onClick={() => {
+                setShowBreakModal(false);
+              }}
+            >
+              I'm Taking a Break
+            </Button>
+          </Card>
+        </div>
+      )}
+
+      {/* PVQ Modal */}
+      <PVQModal
+        isOpen={showPVQModal}
+        onClose={closePVQModal}
+        pvqQuestion={currentPVQQuestion}
+        onSubmit={handlePVQSubmit}
+        isSubmitting={pvqSubmitting}
+        error={pvqError}
+      />
     </div>
+  );
+};
+
+// Wrapper component with TimerProvider
+const CoursePlayerPage = () => {
+  const { courseId } = useParams();
+  const [ipAddress, setIpAddress] = useState('');
+
+  // Fetch IP address from backend or API
+  useEffect(() => {
+    const fetchIpAddress = async () => {
+      try {
+        const response = await fetch('https://api.ipify.org?format=json');
+        const data = await response.json();
+        setIpAddress(data.ip);
+      } catch (err) {
+        console.error('Error fetching IP address:', err);
+        setIpAddress('unknown');
+      }
+    };
+
+    fetchIpAddress();
+  }, []);
+
+  return (
+    <TimerProvider courseId={courseId} lessonId={null} ipAddress={ipAddress}>
+      <CoursePlayerPageContent />
+    </TimerProvider>
   );
 };
 

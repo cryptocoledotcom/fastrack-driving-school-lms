@@ -129,10 +129,32 @@
   font-size: 0.95rem;
 }
 
+.detail:has(.bookedStudents) {
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
 .label {
   font-weight: 600;
   color: #999;
   min-width: 80px;
+}
+
+.bookedStudents {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-left: 0.5rem;
+}
+
+.studentName {
+  display: inline-block;
+  padding: 0.5rem 0.75rem;
+  background-color: #e3f2fd;
+  color: #1976d2;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  max-width: fit-content;
 }
 
 .slotActions {
