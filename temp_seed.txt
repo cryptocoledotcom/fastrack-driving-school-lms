@@ -395,21 +395,12 @@ const lessonsData = {
 
 const coursesData = {
     "fastrack-online": {
-        "id": "fastrack-online",
         "title": "Fastrack Online Driving Course",
         "description": "Get Your Ohio Driver's Permit Online! Our 24-hour online classroom course is fully certified by the Ohio Bureau of Motor Vehicles (BMV) and is the perfect starting point for new drivers. We've designed our program to ensure you don't just complete the hours—you truly learn the material. Ready to get behind the wheel? Enroll now and start your journey with a solid foundation!",
-        "category": "online",
-        "price": 99.99,
+        "courseType": "online",
+        "price": 99,
         "order": 1,
-        "popular": false,
-        "featured": true,
-        "thumbnail": "",
-        "features": [
-            "24-hour BMV certified online course",
-            "Comprehensive driving theory",
-            "Accessible anytime, anywhere",
-            "Certificate upon completion"
-        ],
+        "thumbnailUrl": "",
         "moduleOrder": [
             "module-intro",
             "module-1",
@@ -425,49 +416,7 @@ const coursesData = {
             "module-10",
             "module-review-6-10",
             "module-final-test"
-        ],
-        "createdAt": new Date().toISOString(),
-        "updatedAt": new Date().toISOString()
-    },
-    "fastrack-behind-the-wheel": {
-        "id": "fastrack-behind-the-wheel",
-        "title": "Fastrack Behind-the-Wheel Training",
-        "description": "Master real-world driving skills with our professional instructors. Our 8-hour behind-the-wheel training program provides hands-on experience in various driving conditions. Build confidence and develop safe driving habits with certified instructors guiding you every mile.",
-        "category": "in-person",
-        "price": 499.99,
-        "order": 2,
-        "popular": false,
-        "featured": true,
-        "thumbnail": "",
-        "features": [
-            "8 hours of professional instruction",
-            "One-on-one training with certified instructors",
-            "Real-world driving experience",
-            "Flexible scheduling"
-        ],
-        "createdAt": new Date().toISOString(),
-        "updatedAt": new Date().toISOString()
-    },
-    "fastrack-complete": {
-        "id": "fastrack-complete",
-        "title": "Fastrack Complete Package",
-        "description": "The ultimate driving education bundle! Combine our comprehensive 24-hour online course with 8 hours of professional behind-the-wheel training. Get everything you need to become a confident, safe driver. Save $50 compared to purchasing courses separately!",
-        "category": "bundle",
-        "price": 549.99,
-        "originalPrice": 599.98,
-        "discount": 50,
-        "order": 3,
-        "popular": true,
-        "featured": true,
-        "thumbnail": "",
-        "features": [
-            "24-hour online course + 8-hour behind-the-wheel",
-            "Complete driver education",
-            "Flexible payment options",
-            "Save $50 on bundle"
-        ],
-        "createdAt": new Date().toISOString(),
-        "updatedAt": new Date().toISOString()
+        ]
     }
 };
 

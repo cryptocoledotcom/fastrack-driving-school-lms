@@ -38,10 +38,14 @@ const CoursesPage = () => {
       if (user) {
         const enrollmentData = {};
         for (const course of coursesData) {
-          const enrollment = await getEnrollment(user.uid, course.id);
-          // Only count ACTIVE enrollments (paid/unlocked)
-          if (enrollment && enrollment.status === ENROLLMENT_STATUS.ACTIVE) {
-            enrollmentData[course.id] = enrollment;
+          try {
+            const enrollment = await getEnrollment(user.uid, course.id);
+            // Fetch all enrollments (not just ACTIVE) to check enrollment status
+            if (enrollment) {
+              enrollmentData[course.id] = enrollment;
+            }
+          } catch (enrollmentError) {
+            console.warn(`Failed to fetch enrollment for course ${course.id}:`, enrollmentError);
           }
         }
         setEnrollments(enrollmentData);
@@ -53,19 +57,43 @@ const CoursesPage = () => {
     }
   };
 
+  const isEnrolled = (courseId) => {
+    return enrollments[courseId] ? true : false;
+  };
+
+  const isButtonDisabled = (courseId) => {
+    // Check if user has any conflicting enrollment
+    const hasOnline = enrollments[COURSE_IDS.ONLINE];
+    const hasBehindWheel = enrollments[COURSE_IDS.BEHIND_WHEEL];
+    const hasComplete = enrollments[COURSE_IDS.COMPLETE];
+
+    // If user has Complete package, all courses are "enrolled"
+    if (hasComplete) return true;
+
+    // If user has Online AND trying to enroll in Behind-Wheel or vice versa
+    if ((hasOnline || hasBehindWheel) && courseId === COURSE_IDS.COMPLETE) {
+      return true;
+    }
+
+    // If user already has this course, it's not disabled but rather enrolled
+    if (enrollments[courseId]) return false;
+
+    return false;
+  };
+
   const handleEnroll = async (courseId) => {
     if (!user) {
       navigate('/login', { state: { from: '/courses' } });
       return;
     }
 
-    // Check if already enrolled
-    if (enrollments[courseId]) {
+    // Check if already enrolled or disabled
+    if (isEnrolled(courseId) || isButtonDisabled(courseId)) {
       navigate('/dashboard');
       return;
     }
 
-    // Show payment modal regardless (payment is required for enrollment)
+    // Show payment modal
     setSelectedCourse(courseId);
     setShowPaymentModal(true);
   };
@@ -97,8 +125,12 @@ const CoursesPage = () => {
       return 'Sign In to Enroll';
     }
 
-    if (enrollments[course.id]) {
+    if (isEnrolled(course.id)) {
       return 'View in Dashboard';
+    }
+
+    if (isButtonDisabled(course.id)) {
+      return 'Already Enrolled';
     }
 
     const pricing = COURSE_PRICING[course.id];
@@ -155,7 +187,7 @@ const CoursesPage = () => {
                   ))}
                 </ul>
 
-                {enrollments[course.id] && (
+                {isEnrolled(course.id) && (
                   <div className={styles.enrolledBadge}>
                     ✓ Enrolled
                   </div>
@@ -164,6 +196,7 @@ const CoursesPage = () => {
                 <Button
                   variant={course.popular ? 'primary' : 'outline'}
                   onClick={() => handleEnroll(course.id)}
+                  disabled={isButtonDisabled(course.id)}
                   className={styles.enrollButton}
                 >
                   {getButtonText(course)}
