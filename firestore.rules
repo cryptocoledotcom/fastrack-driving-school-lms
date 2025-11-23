@@ -73,9 +73,57 @@ service cloud.firestore {
       allow write: if request.auth != null;
     }
 
+    // --- Compliance Data Protection (Immutable Audit Trail) ---
+    // Compliance logs: write-once, never delete or modify
+    match /complianceLogs/{logId} {
+      allow read: if request.auth != null && (resource.data.userId == request.auth.uid || isAdmin());
+      allow create: if request.auth != null;
+      allow update, delete: if false;
+    }
+
+    // Quiz attempts: write-once, never delete or modify
+    match /quizAttempts/{attemptId} {
+      allow read: if request.auth != null && (resource.data.userId == request.auth.uid || isAdmin());
+      allow create: if request.auth != null;
+      allow update, delete: if false;
+    }
+
+    // Identity verifications (PVQ): write-once, never delete or modify
+    match /identityVerifications/{verificationId} {
+      allow read: if request.auth != null && (resource.data.userId == request.auth.uid || isAdmin());
+      allow create: if request.auth != null;
+      allow update, delete: if false;
+    }
+
+    // Certificates: enhanced protection - created by Cloud Function, immutable after issuance
+    match /certificates/{certificateId} {
+      allow read: if request.auth != null && (resource.data.userId == request.auth.uid || isAdmin());
+      allow create: if request.auth != null;
+      allow update: if false;
+      allow delete: if false;
+    }
+
+    // --- Compliance Session Records ---
+    // Compliance sessions: write-once, tracks session lifecycle
+    match /complianceSessions/{sessionId} {
+      allow read: if request.auth != null && (resource.data.userId == request.auth.uid || isAdmin());
+      allow create: if request.auth != null;
+      allow update: if false;
+      allow delete: if false;
+    }
+
     // Catch-all rule for any other collections
     match /{document=**} {
       allow read, write: if request.auth != null;
     }
   }
+}
+
+// --- Helper Functions ---
+function isAdmin() {
+  return request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+}
+
+function isInstructor() {
+  return request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'instructor';
 }

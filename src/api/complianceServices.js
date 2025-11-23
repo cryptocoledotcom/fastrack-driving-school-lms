@@ -260,6 +260,74 @@ export const logIdentityVerification = async (userId, courseId, pvqData) => {
   }
 };
 
+export const logQuizAttempt = async (sessionId, quizAttemptData) => {
+  try {
+    const sessionRef = doc(db, COMPLIANCE_LOGS_COLLECTION, sessionId);
+    const sessionDoc = await getDoc(sessionRef);
+
+    if (sessionDoc.exists()) {
+      const quizAttempts = sessionDoc.data().quizAttempts || [];
+      quizAttempts.push({
+        type: 'quiz_attempt',
+        quizId: quizAttemptData.quizId,
+        quizTitle: quizAttemptData.quizTitle,
+        isFinalExam: quizAttemptData.isFinalExam || false,
+        attemptNumber: quizAttemptData.attemptNumber || 1,
+        score: quizAttemptData.score || 0,
+        passed: quizAttemptData.passed || false,
+        correctAnswers: quizAttemptData.correctAnswers || 0,
+        totalQuestions: quizAttemptData.totalQuestions || 0,
+        timeSpent: quizAttemptData.timeSpent || 0,
+        startTime: quizAttemptData.startTime || new Date().toISOString(),
+        completedAt: quizAttemptData.completedAt || new Date().toISOString(),
+        timestamp: new Date().toISOString()
+      });
+
+      await updateDoc(sessionRef, { quizAttempts });
+    }
+  } catch (error) {
+    console.error('Error logging quiz attempt:', error);
+    throw error;
+  }
+};
+
+export const getTotalSessionTime = async (userId, courseId) => {
+  try {
+    const logsRef = collection(db, COMPLIANCE_LOGS_COLLECTION);
+    const q = query(
+      logsRef,
+      where('userId', '==', userId),
+      where('courseId', '==', courseId),
+      where('status', '==', 'completed')
+    );
+
+    const snapshot = await getDocs(q);
+    let totalSeconds = 0;
+
+    snapshot.forEach(doc => {
+      const data = doc.data();
+      if (data.duration) {
+        totalSeconds += data.duration;
+      }
+    });
+
+    return totalSeconds;
+  } catch (error) {
+    console.error('Error getting total session time:', error);
+    return 0;
+  }
+};
+
+export const getTotalSessionTimeInMinutes = async (userId, courseId) => {
+  try {
+    const totalSeconds = await getTotalSessionTime(userId, courseId);
+    return Math.floor(totalSeconds / 60);
+  } catch (error) {
+    console.error('Error getting total session time in minutes:', error);
+    return 0;
+  }
+};
+
 const complianceServices = {
   createComplianceSession,
   updateComplianceSession,
@@ -271,7 +339,10 @@ const complianceServices = {
   logBreakEnd,
   logLessonCompletion,
   logModuleCompletion,
-  logIdentityVerification
+  logIdentityVerification,
+  logQuizAttempt,
+  getTotalSessionTime,
+  getTotalSessionTimeInMinutes
 };
 
 export default complianceServices;
