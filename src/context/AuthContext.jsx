@@ -84,7 +84,16 @@ export const AuthProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       if (firebaseUser) {
         setUser(firebaseUser);
-        const profile = await fetchUserProfile(firebaseUser.uid);
+        let profile = await fetchUserProfile(firebaseUser.uid);
+        
+        // If profile doesn't exist, create it with default role
+        if (!profile) {
+          profile = await createUserProfile(firebaseUser.uid, {
+            email: firebaseUser.email,
+            displayName: firebaseUser.displayName || ''
+          });
+        }
+        
         setUserProfile(profile);
         
         // Apply theme from user settings
@@ -111,7 +120,16 @@ export const AuthProvider = ({ children }) => {
     try {
       setError(null);
       const result = await signInWithEmailAndPassword(auth, email, password);
-      const profile = await fetchUserProfile(result.user.uid);
+      let profile = await fetchUserProfile(result.user.uid);
+      
+      // If profile doesn't exist, create it
+      if (!profile) {
+        profile = await createUserProfile(result.user.uid, {
+          email: result.user.email,
+          displayName: result.user.displayName || ''
+        });
+      }
+      
       setUserProfile(profile);
       return result.user;
     } catch (err) {

@@ -194,6 +194,19 @@ export const getUserByUsername = async (username) => {
   }
 };
 
+export const updateUserRole = async (userId, role) => {
+  try {
+    const userRef = doc(db, 'users', userId);
+    await updateDoc(userRef, {
+      role,
+      updatedAt: new Date().toISOString()
+    });
+  } catch (error) {
+    console.error('Error updating user role:', error);
+    throw error;
+  }
+};
+
 const userServices = {
   getUser,
   updateProfile,
@@ -203,7 +216,8 @@ const userServices = {
   isUsernameAvailable,
   getUserByUsername,
   updateUserSettings,
-  getUserSettings
+  getUserSettings,
+  updateUserRole
 };
 
 export default userServices;

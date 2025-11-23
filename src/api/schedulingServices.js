@@ -16,7 +16,7 @@ import { COURSE_IDS } from '../constants/courses';
 
 export const createTimeSlot = async (timeSlotData) => {
   try {
-    const slotRef = doc(collection(db, 'admin', 'settings', 'timeSlots', 'slots'));
+    const slotRef = doc(collection(db, 'timeSlots'));
     
     const slot = {
       ...timeSlotData,
@@ -40,7 +40,7 @@ export const createTimeSlot = async (timeSlotData) => {
 
 export const getTimeSlots = async (filters = {}) => {
   try {
-    const slotsRef = collection(db, 'admin', 'settings', 'timeSlots', 'slots');
+    const slotsRef = collection(db, 'timeSlots');
     
     let q = slotsRef;
     if (filters.date) {
@@ -74,12 +74,10 @@ export const getTimeSlots = async (filters = {}) => {
 
 export const getAvailableTimeSlots = async (startDate, endDate) => {
   try {
-    const slotsRef = collection(db, 'admin', 'settings', 'timeSlots', 'slots');
+    const slotsRef = collection(db, 'timeSlots');
     const q = query(
       slotsRef,
-      where('isAvailable', '==', true),
-      orderBy('date'),
-      orderBy('startTime')
+      where('isAvailable', '==', true)
     );
 
     const querySnapshot = await getDocs(q);
@@ -97,7 +95,11 @@ export const getAvailableTimeSlots = async (startDate, endDate) => {
       }
     });
 
-    return slots;
+    return slots.sort((a, b) => {
+      const dateA = new Date(`${a.date} ${a.startTime}`);
+      const dateB = new Date(`${b.date} ${b.startTime}`);
+      return dateA - dateB;
+    });
   } catch (error) {
     console.error('Error fetching available time slots:', error);
     throw error;
@@ -106,7 +108,7 @@ export const getAvailableTimeSlots = async (startDate, endDate) => {
 
 export const bookTimeSlot = async (userId, slotId, userEmail) => {
   try {
-    const slotRef = doc(db, 'admin', 'settings', 'timeSlots', 'slots', slotId);
+    const slotRef = doc(db, 'timeSlots', slotId);
     const slotDoc = await getDoc(slotRef);
 
     if (!slotDoc.exists()) {
@@ -192,7 +194,7 @@ export const cancelBooking = async (userId, lessonId, slotId) => {
     const lessonRef = doc(db, 'users', userId, 'lessons', lessonId);
     await deleteDoc(lessonRef);
 
-    const slotRef = doc(db, 'admin', 'settings', 'timeSlots', 'slots', slotId);
+    const slotRef = doc(db, 'timeSlots', slotId);
     const slotDoc = await getDoc(slotRef);
 
     if (slotDoc.exists()) {
@@ -215,7 +217,7 @@ export const cancelBooking = async (userId, lessonId, slotId) => {
 
 export const updateTimeSlot = async (slotId, updates) => {
   try {
-    const slotRef = doc(db, 'admin', 'settings', 'timeSlots', 'slots', slotId);
+    const slotRef = doc(db, 'timeSlots', slotId);
     
     await updateDoc(slotRef, {
       ...updates,
@@ -235,7 +237,7 @@ export const updateTimeSlot = async (slotId, updates) => {
 
 export const deleteTimeSlot = async (slotId) => {
   try {
-    const slotRef = doc(db, 'admin', 'settings', 'timeSlots', 'slots', slotId);
+    const slotRef = doc(db, 'timeSlots', slotId);
     await deleteDoc(slotRef);
     return { success: true };
   } catch (error) {

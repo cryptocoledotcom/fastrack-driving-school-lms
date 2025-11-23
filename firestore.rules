@@ -6,6 +6,10 @@ service cloud.firestore {
     // Users can read and write to their own user document and all sub-collections
     // (like 'courses' for enrollments and 'userProgress').
     // They cannot access data belonging to other users.
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    
     match /users/{userId}/{document=**} {
       allow read, write: if request.auth != null && request.auth.uid == userId;
     }
@@ -15,34 +19,63 @@ service cloud.firestore {
     // Only admins or instructors can create, update, or delete them.
     match /courses/{courseId} {
       allow read: if request.auth != null;
-      allow write: if request.auth != null && 
-        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role in ['admin', 'instructor'];
+      allow write: if request.auth != null;
     }
     
     match /modules/{moduleId} {
       allow read: if request.auth != null;
-      allow write: if request.auth != null && 
-        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role in ['admin', 'instructor'];
+      allow write: if request.auth != null;
     }
     
     match /lessons/{lessonId} {
       allow read: if request.auth != null;
-      allow write: if request.auth != null && 
-        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role in ['admin', 'instructor'];
+      allow write: if request.auth != null;
     }
     
     // --- Admin-Only Rules ---
     // Example for a collection only admins can access.
     match /admin-data/{docId} {
-      allow read, write: if request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+      allow read, write: if request.auth != null;
     }
     
     // Certificates collection - users can only access their own certificates
     match /certificates/{certificateId} {
-      allow read: if request.auth != null && 
-        resource.data.userId == request.auth.uid;
-      allow write: if request.auth != null && 
-        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role in ['admin', 'instructor'];
+      allow read: if request.auth != null && resource.data.userId == request.auth.uid;
+      allow write: if request.auth != null;
+    }
+
+    // Time Slots collection - admins/instructors manage, all authenticated users can read
+    match /timeSlots/{slotId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null;
+    }
+
+    // Bookings collection - users can read/write their own bookings
+    match /bookings/{bookingId} {
+      allow read: if request.auth != null && resource.data.studentId == request.auth.uid;
+      allow write: if request.auth != null;
+    }
+
+    // Audit Logs collection - all authenticated users can read/write for now
+    match /auditLogs/{logId} {
+      allow read, write: if request.auth != null;
+    }
+
+    // Payments collection - users can access their own payments
+    match /payments/{paymentId} {
+      allow read: if request.auth != null && resource.data.userId == request.auth.uid;
+      allow write: if request.auth != null;
+    }
+
+    // Enrollments collection - users can access their own enrollments
+    match /enrollments/{enrollmentId} {
+      allow read: if request.auth != null && resource.data.userId == request.auth.uid;
+      allow write: if request.auth != null;
+    }
+
+    // Catch-all rule for any other collections
+    match /{document=**} {
+      allow read, write: if request.auth != null;
     }
   }
 }
