@@ -7,6 +7,7 @@ import Input from '../../components/common/Input/Input';
 import ErrorMessage from '../../components/common/ErrorMessage/ErrorMessage';
 import SuccessMessage from '../../components/common/SuccessMessage/SuccessMessage';
 import SchedulingManagement from '../../components/admin/SchedulingManagement';
+import ComplianceReporting from '../../components/admin/ComplianceReporting';
 import { 
   getAllUsersWithEnrollments,
   resetEnrollmentToPending,
@@ -169,6 +170,13 @@ const AdminPage = () => {
           >
             Analytics
           </button>
+
+          <button
+            className={`${styles.tab} ${activeTab === 'compliance-reporting' ? styles.activeTab : ''}`}
+            onClick={() => setActiveTab('compliance-reporting')}
+          >
+            Compliance Reports
+          </button>
         </div>
 
         {activeTab === 'enrollment-management' && (
@@ -326,6 +334,10 @@ const AdminPage = () => {
               </div>
             </Card>
           </div>
+        )}
+
+        {activeTab === 'compliance-reporting' && (
+          <ComplianceReporting />
         )}
       </div>
     </div>

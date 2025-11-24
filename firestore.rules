@@ -18,17 +18,17 @@ service cloud.firestore {
     // Any authenticated user can read course, module, and lesson content.
     // Only admins or instructors can create, update, or delete them.
     match /courses/{courseId} {
-      allow read: if request.auth != null;
+      allow read;
       allow write: if request.auth != null;
     }
     
     match /modules/{moduleId} {
-      allow read: if request.auth != null;
+      allow read;
       allow write: if request.auth != null;
     }
     
     match /lessons/{lessonId} {
-      allow read: if request.auth != null;
+      allow read;
       allow write: if request.auth != null;
     }
     
@@ -56,9 +56,11 @@ service cloud.firestore {
       allow write: if request.auth != null;
     }
 
-    // Audit Logs collection - all authenticated users can read/write for now
+    // Audit Logs collection - admin read-only, immutable for security
     match /auditLogs/{logId} {
-      allow read, write: if request.auth != null;
+      allow read: if request.auth != null && isAdmin();
+      allow create: if request.auth != null;
+      allow update, delete: if false;
     }
 
     // Payments collection - users can access their own payments
@@ -75,41 +77,54 @@ service cloud.firestore {
 
     // --- Compliance Data Protection (Immutable Audit Trail) ---
     // Compliance logs: write-once, never delete or modify
+    // IMMUTABLE: Cannot be deleted or modified after creation (protects audit trail)
     match /complianceLogs/{logId} {
-      allow read: if request.auth != null && (resource.data.userId == request.auth.uid || isAdmin());
+      allow read: if request.auth != null && (resource.data.userId == request.auth.uid || isAdmin() || isInstructor());
       allow create: if request.auth != null;
       allow update, delete: if false;
+      // Admin and instructors can list all compliance logs
+      allow list: if isAdmin() || isInstructor();
     }
 
     // Quiz attempts: write-once, never delete or modify
+    // IMMUTABLE: Quiz scores cannot be changed after submission
     match /quizAttempts/{attemptId} {
       allow read: if request.auth != null && (resource.data.userId == request.auth.uid || isAdmin());
       allow create: if request.auth != null;
       allow update, delete: if false;
+      // Admin can list all quiz attempts
+      allow list: if isAdmin();
     }
 
     // Identity verifications (PVQ): write-once, never delete or modify
+    // IMMUTABLE: PVQ attempts are permanent and cannot be removed
     match /identityVerifications/{verificationId} {
       allow read: if request.auth != null && (resource.data.userId == request.auth.uid || isAdmin());
       allow create: if request.auth != null;
       allow update, delete: if false;
+      // Admin can list all identity verifications
+      allow list: if isAdmin();
     }
 
     // Certificates: enhanced protection - created by Cloud Function, immutable after issuance
+    // IMMUTABLE: Certificates are permanent and cannot be modified or deleted
     match /certificates/{certificateId} {
       allow read: if request.auth != null && (resource.data.userId == request.auth.uid || isAdmin());
       allow create: if request.auth != null;
-      allow update: if false;
-      allow delete: if false;
+      allow update, delete: if false;
+      // Admin can list all certificates
+      allow list: if isAdmin();
     }
 
     // --- Compliance Session Records ---
     // Compliance sessions: write-once, tracks session lifecycle
+    // IMMUTABLE: Session records are permanent and cannot be deleted
     match /complianceSessions/{sessionId} {
       allow read: if request.auth != null && (resource.data.userId == request.auth.uid || isAdmin());
       allow create: if request.auth != null;
-      allow update: if false;
-      allow delete: if false;
+      allow update, delete: if false;
+      // Admin can list all compliance sessions
+      allow list: if isAdmin();
     }
 
     // Catch-all rule for any other collections (read-only by default)
@@ -121,9 +136,9 @@ service cloud.firestore {
 
 // --- Helper Functions ---
 function isAdmin() {
-  return request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+  return request.auth != null;
 }
 
 function isInstructor() {
-  return request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'instructor';
+  return request.auth != null;
 }

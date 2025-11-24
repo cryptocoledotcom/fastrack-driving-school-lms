@@ -631,4 +631,172 @@ exports.auditComplianceAccess = onCall(async (data, context) => {
         });
         throw new Error(`Failed to audit compliance access: ${error.message}`);
     }
+    
+exports.generateComplianceReport = onCall(async (data, context) => {
+  if (!context.auth) throw new Error('Authentication required');
+  const { exportType = 'course', courseId, studentId, studentName, format = 'json' } = data;
+  
+  if (!['csv', 'json', 'pdf'].includes(format)) throw new Error('Format must be csv, json, or pdf');
+  
+  try {
+    let complianceData;
+    
+    if (exportType === 'student') {
+      if (!studentId && !studentName) throw new Error('studentId or studentName is required');
+      const uid = studentId || await getStudentIdByName(studentName);
+      complianceData = await getComplianceDataForStudent(uid, courseId);
+    } else {
+      if (!courseId) throw new Error('courseId is required for course-wide export');
+      complianceData = await getComplianceDataForCourse(courseId);
+    }
+    
+    if (!complianceData || complianceData.length === 0) throw new Error('No compliance data found');
+    
+    let reportContent, fileName, contentType;
+    if (format === 'csv') {
+      reportContent = convertToCSV(complianceData);
+      fileName = 'compliance-report-' + courseId + '-' + Date.now() + '.csv';
+      contentType = 'text/csv';
+    } else if (format === 'pdf') {
+      reportContent = await convertToPDF(complianceData, courseId);
+      fileName = 'compliance-report-' + courseId + '-' + Date.now() + '.pdf';
+      contentType = 'application/pdf';
+    } else {
+      reportContent = JSON.stringify(complianceData, null, 2);
+      fileName = 'compliance-report-' + courseId + '-' + Date.now() + '.json';
+      contentType = 'application/json';
+    }
+    
+    const bucket = admin.storage().bucket();
+    const file = bucket.file('compliance-reports/' + fileName);
+    await file.save(reportContent, { contentType });
+    
+    await logAuditEvent(context.auth.uid, 'create', 'compliance_report', fileName, 'success', { exportType, courseId, studentId, studentName, format });
+    
+    const [signedUrl] = await file.getSignedUrl({
+      version: 'v4',
+      action: 'read',
+      expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
+    });
+    
+    return { success: true, reportId: fileName, fileName, format, downloadUrl: signedUrl, generatedAt: new Date().toISOString(), recordCount: complianceData.length };
+  } catch (error) {
+    console.error('Error generating compliance report:', error);
+    await logAuditEvent(context.auth.uid, 'create', 'compliance_report', 'compliance_report_export', 'failure', { error: error.message, exportType, courseId, studentId, studentName });
+    throw error;
+  }
+});
+
+async function getStudentIdByName(studentName) {
+  const usersSnapshot = await admin.firestore().collection('users').where('displayName', '==', studentName).get();
+  if (usersSnapshot.empty) {
+    const emailSnapshot = await admin.firestore().collection('users').where('email', '==', studentName).get();
+    if (emailSnapshot.empty) throw new Error('Student not found by name or email');
+    return emailSnapshot.docs[0].id;
+  }
+  return usersSnapshot.docs[0].id;
+}
+
+async function getComplianceDataForStudent(userId, courseId) {
+  const user = await admin.firestore().collection('users').doc(userId).get();
+  if (!user.exists) throw new Error('User not found');
+  const sessionData = await getStudentSessionHistory(userId, courseId);
+  const quizData = await getStudentQuizAttempts(userId, courseId);
+  const pvqData = await getStudentPVQRecords(userId, courseId);
+  const certificateData = await getStudentCertificate(userId, courseId);
+  const totalMinutes = sessionData.reduce((sum, s) => sum + (s.durationMinutes || 0), 0);
+  
+  return [{
+    studentId: userId,
+    studentName: user.data().displayName || user.data().email,
+    studentEmail: user.data().email,
+    courseId,
+    sessions: { totalSessions: sessionData.length, totalMinutes: totalMinutes, minMet: totalMinutes >= 1440 },
+    quizzes: { totalAttempts: quizData.all.length, finalExamPassed: quizData.finalExam.some(q => q.passed) },
+    pvq: { totalAttempts: pvqData.length, correctAnswers: pvqData.filter(p => p.passed).length },
+    certificate: certificateData ? { certificateNumber: certificateData.certificateNumber, issuedAt: certificateData.issuedAt } : null,
+    generatedAt: new Date().toISOString()
+  }];
+}
+
+async function getComplianceDataForCourse(courseId) {
+  const enrollments = await admin.firestore().collection('enrollments').where('courseId', '==', courseId).get();
+  const reports = [];
+  for (const enrollment of enrollments.docs) {
+    try {
+      const studentReports = await getComplianceDataForStudent(enrollment.data().userId, courseId);
+      reports.push(...studentReports);
+    } catch (err) { console.warn('Error:', err.message); }
+  }
+  return reports;
+}
+
+async function getStudentSessionHistory(userId, courseId) {
+  const sessions = await admin.firestore().collection('complianceLogs').where('userId', '==', userId).where('courseId', '==', courseId).where('status', '==', 'completed').get();
+  return sessions.docs.map(doc => {
+    const d = doc.data();
+    return { sessionId: doc.id, startTime: d.startTime, endTime: d.endTime, durationSeconds: d.duration || 0, durationMinutes: Math.round((d.duration || 0) / 60) };
+  });
+}
+
+async function getStudentQuizAttempts(userId, courseId) {
+  const attempts = await admin.firestore().collection('quizAttempts').where('userId', '==', userId).where('courseId', '==', courseId).get();
+  const all = attempts.docs.map(d => d.data());
+  return { all, modules: all.filter(a => !a.isFinalExam), finalExam: all.filter(a => a.isFinalExam) };
+}
+
+async function getStudentPVQRecords(userId, courseId) {
+  const pvqs = await admin.firestore().collection('identityVerifications').where('userId', '==', userId).where('courseId', '==', courseId).get();
+  return pvqs.docs.map(doc => {
+    const d = doc.data();
+    return { pvqId: doc.id, passed: d.studentAnswer === d.correctAnswer, attemptedAt: d.attemptedAt };
+  });
+}
+
+async function getStudentCertificate(userId, courseId) {
+  const certs = await admin.firestore().collection('certificates').where('userId', '==', userId).where('courseId', '==', courseId).limit(1).get();
+  return certs.empty ? null : certs.docs[0].data();
+}
+
+function convertToCSV(data) {
+  if (!data || data.length === 0) return '';
+  const headers = 'studentId,studentName,studentEmail,courseId,totalSessions,totalMinutes,finalExamPassed,pvqCorrect,certificateIssued';
+  const rows = data.map(r => [r.studentId, r.studentName, r.studentEmail, r.courseId, r.sessions.totalSessions, r.sessions.totalMinutes, r.quizzes.finalExamPassed ? 'Yes' : 'No', r.pvq.correctAnswers, r.certificate ? 'Yes' : 'No'].join(','));
+  return [headers, ...rows].join('\n');
+}
+
+async function convertToPDF(data, courseId) {
+  const PDFDocument = require('pdfkit');
+  const buffers = [];
+  return new Promise((resolve, reject) => {
+    const doc = new PDFDocument();
+    doc.on('data', chunk => buffers.push(chunk));
+    doc.on('end', () => resolve(Buffer.concat(buffers)));
+    doc.on('error', reject);
+    doc.fontSize(16).text('Compliance Report', { align: 'center' });
+    doc.fontSize(10).text('Course: ' + courseId, { align: 'center' });
+    doc.fontSize(10).text('Generated: ' + new Date().toISOString(), { align: 'center' });
+    doc.moveDown();
+    data.forEach((record, index) => {
+      if (index > 0) doc.addPage();
+      doc.fontSize(12).text('Student: ' + record.studentName);
+      doc.fontSize(9).text('Email: ' + record.studentEmail);
+      doc.fontSize(9).text('ID: ' + record.studentId);
+      doc.moveDown();
+      doc.fontSize(10).text('Sessions: ' + record.sessions.totalSessions);
+      doc.fontSize(9).text('Total Time: ' + record.sessions.totalMinutes + ' minutes');
+      doc.fontSize(9).text('24-Hour Req Met: ' + (record.sessions.minMet ? 'YES' : 'NO'));
+      doc.moveDown();
+      doc.fontSize(10).text('Quiz Attempts: ' + record.quizzes.totalAttempts);
+      doc.fontSize(9).text('Final Exam Passed: ' + (record.quizzes.finalExamPassed ? 'YES' : 'NO'));
+      doc.moveDown();
+      doc.fontSize(10).text('PVQ Attempts: ' + record.pvq.totalAttempts);
+      doc.fontSize(9).text('Correct Answers: ' + record.pvq.correctAnswers);
+      doc.moveDown();
+      doc.fontSize(10).text('Certificate: ' + (record.certificate ? record.certificate.certificateNumber : 'Not Issued'));
+    });
+    doc.end();
+  });
+}
+
 });

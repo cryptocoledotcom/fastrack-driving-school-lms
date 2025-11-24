@@ -3,278 +3,242 @@ description: Repository Information Overview
 alwaysApply: true
 ---
 
-# Fastrack Driving School LMS Information
+# Fastrack Driving School LMS - Repository Information
 
 ## Summary
 
-Production-ready Learning Management System built with React 18+ and Firebase for managing driving school education. Implements comprehensive course management, Stripe payment processing with flexible split payment options ($99 upfront + $450 remaining), lesson booking/scheduling for behind-the-wheel training, certificate generation, admin panel, and role-based access control. Full-stack application with React frontend and Firebase Cloud Functions backend.
+Fastrack is a comprehensive Learning Management System (LMS) for driving school education. It features a React-based frontend with a Firebase backend, enabling course enrollment, payment processing, lesson management, progress tracking, time tracking, and certificate generation with DMV compliance support.
 
-## Structure
+## Repository Structure
 
-```
-fastrack-driving-school-lms/
-├── functions/                   # Firebase Cloud Functions (Backend)
-│   ├── index.js                # Payment & certificate processing
-│   └── package.json            # Node.js 20 dependencies
-├── public/                      # Static assets
-│   ├── assets/
-│   ├── index.html
-│   └── manifest.json
-├── src/                         # React Frontend
-│   ├── api/                     # Service modules (10 services)
-│   │   ├── authServices.js      # Auth operations
-│   │   ├── courseServices.js    # Course CRUD & search
-│   │   ├── enrollmentServices.js     # Split payment enrollment
-│   │   ├── lessonServices.js    # Lesson content
-│   │   ├── moduleServices.js    # Module management
-│   │   ├── paymentServices.js   # Stripe integration
-│   │   ├── progressServices.js  # Progress tracking
-│   │   ├── schedulingServices.js     # Lesson booking
-│   │   ├── securityServices.js  # Permissions & audit
-│   │   └── userServices.js      # User profiles
-│   ├── components/              # React components
-│   │   ├── admin/              # Admin dashboard
-│   │   ├── payment/            # Payment forms
-│   │   ├── scheduling/         # Booking components
-│   │   ├── common/             # Reusable UI
-│   │   ├── layout/             # Layouts
-│   │   └── guards/             # Route protection
-│   ├── pages/                  # 18 page components
-│   │   ├── Admin/, Auth/, Certificate/, Certificates/
-│   │   ├── CourseDetail/, CoursePlayer/, Courses/
-│   │   ├── Dashboard/, Home/, Lesson/, MyCourses/
-│   │   ├── Profile/, Progress/, Settings/, PaymentSuccess/
-│   │   ├── Contact/, About/, NotFound/
-│   ├── config/, constants/, context/, hooks/, utils/
-│   ├── App.jsx
-│   └── index.js
-├── package.json                # Frontend dependencies
-├── firebase.json               # Firebase config
-├── firestore.rules             # Security rules
-├── firestore.indexes.json
-└── seed.js                     # Database seeding
-```
+**Main Directories**:
+- **src/**: React frontend application with pages, components, services, context, and utilities
+- **functions/**: Firebase Cloud Functions backend with payment processing and certificate generation
+- **public/**: Static assets (HTML, manifest, robots.txt)
+- **.zencoder/**: Documentation and rules for development
+- **Root**: Configuration files (Firebase, ESLint, environment files)
 
-## Language & Runtime
+**Architecture**: Multi-tier system with React SPA frontend, Firebase Firestore database, and serverless backend functions.
 
-**Frontend**:
-- **Language**: JavaScript (ES6+) with JSX
-- **Framework**: React 18.2.0
-- **Build Tool**: React Scripts 5.0.1
-- **Routing**: React Router v6.20.0
-- **State Management**: React Context API
-- **Payment**: @stripe/react-stripe-js 5.4.0
-- **Database Client**: Firebase 10.7.1
+## Projects
 
-**Backend**:
-- **Runtime**: Node.js 20
-- **Cloud Functions**: firebase-functions 4.5.0
-- **Admin SDK**: firebase-admin 12.0.0
-- **Payment Processor**: Stripe 14.0.0
+### Frontend - React 18+ Application
 
-## Dependencies
+**Configuration File**: `package.json` (root)
 
-**Main Frontend**:
-- `react@^18.2.0` - UI framework
-- `react-router-dom@^6.20.0` - Routing
-- `react-dom@^18.2.0` - DOM rendering
-- `firebase@^10.7.1` - Auth, Firestore, Storage
-- `@stripe/react-stripe-js@^5.4.0` - Payment UI
-- `react-scripts@5.0.1` - Build and test tools
+#### Language & Runtime
+**Language**: JavaScript/JSX
+**Version**: Node.js 22.20.0, npm 10.9.3
+**Build System**: Create React App (react-scripts 5.0.1)
+**Package Manager**: npm
 
-**Backend (Cloud Functions)**:
-- `firebase-functions@^4.5.0` - Function runtime
-- `firebase-admin@^12.0.0` - Admin SDK
-- `stripe@^14.0.0` - Payment processing
+#### Dependencies
 
-**Dev Dependencies**:
-- `firebase-functions-test@^3.1.0` - Function testing
-- ESLint configuration for both frontend and backend
+**Main Dependencies**:
+- **react** (^18.2.0): UI library for building components
+- **react-dom** (^18.2.0): DOM rendering for React
+- **react-router-dom** (^6.20.0): Client-side routing and navigation
+- **firebase** (^10.7.1): Firebase SDK for authentication, Firestore, Storage
+- **firebase-admin** (^13.6.0): Firebase Admin SDK for backend operations
+- **@stripe/react-stripe-js** (^5.4.0): Stripe payment integration
 
-## Build & Installation
+**Development Dependencies**:
+- **react-scripts** (5.0.1): Build scripts and webpack configuration
 
-**Frontend Installation & Development**:
+#### Build & Installation
+
 ```bash
 npm install
-npm start          # Development server (localhost:3000)
-npm run build      # Production build
-npm test           # Run tests
+npm start              # Start development server (http://localhost:3000)
+npm run build          # Build for production
+npm test               # Run tests
+npm run eject          # Eject from Create React App
 ```
 
-**Cloud Functions Deployment**:
+#### Main Structure
+
+**Pages** (20 components): Home, Dashboard, Courses, MyCourses, CourseDetail, CoursePlayer, Admin, Certificates, Profile, Settings, PaymentSuccess, NotFound, and more
+
+**Components**:
+- **common/**: Button, Card, Input, Select, Modal, ProgressBar, Badge, LoadingSpinner, Tooltip
+- **layout/**: MainLayout, DashboardLayout, AuthLayout, Header, Sidebar, Footer
+- **guards/**: ProtectedRoute, RoleBasedRoute, PublicRoute
+- **payment/**: CheckoutForm, PaymentModal, EnrollmentCard
+- **scheduling/**: LessonBooking, UpcomingLessons
+- **admin/**: SchedulingManagement and admin-specific utilities
+
+**Services** (13 modules):
+- **authServices.js**: Authentication (login, register, logout, OAuth)
+- **courseServices.js**: Course CRUD and retrieval
+- **enrollmentServices.js**: Enrollment lifecycle and payment states
+- **paymentServices.js**: Stripe integration and payment tracking
+- **lessonServices.js**, **moduleServices.js**, **progressServices.js**: Lesson and progress management
+- **schedulingServices.js**: Time slot management and booking
+- **userServices.js**, **quizServices.js**, **pvqServices.js**: User and assessment management
+- **complianceServices.js**: DMV compliance and audit logging
+- **securityServices.js**: Authorization and access control
+
+**Context** (4 providers):
+- **AuthContext**: Authentication state and user data
+- **CourseContext**: Course selections and enrollments
+- **TimerContext**: Session and daily learning time tracking
+- **ModalContext**: Global modal management
+
+---
+
+### Firebase Cloud Functions (Node.js 20)
+
+**Configuration File**: `functions/package.json`
+
+#### Language & Runtime
+**Language**: JavaScript
+**Node.js Version**: 20
+**Package Manager**: npm
+**Main Entry**: `functions/index.js` (22.81 KB)
+
+#### Dependencies
+
+**Main Dependencies**:
+- **firebase-functions** (^4.5.0): Firebase Cloud Functions runtime
+- **firebase-admin** (^12.0.0): Firebase Admin SDK for database operations
+- **@google-cloud/logging** (^10.0.0): Cloud Logging integration for audit trails
+- **stripe** (^14.0.0): Stripe API client for payment processing
+
+**Development Dependencies**:
+- **firebase-functions-test** (^3.1.0): Testing utilities for Cloud Functions
+
+**Development Tool**:
+- **ESLint** (.eslintrc.js): Code linting and quality checks
+
+#### Build & Installation
+
 ```bash
-cd functions
-npm install
-npm run serve      # Local emulator
-npm run deploy     # Deploy to Firebase
-npm run logs       # View function logs
+npm run lint              # Run ESLint checks (predeploy hook)
+npm run serve             # Start Firebase emulator (functions only)
+npm run shell             # Interactive Firebase functions shell
+npm run start             # Start shell
+npm run deploy            # Deploy to Firebase
+npm run logs              # View live function logs
 ```
 
-## Main Files & Resources
+#### Main Functions
 
-**Frontend Entry Points**:
-- `src/index.js` - Bootstrap React app
-- `src/App.jsx` - Main routing and layout (7.49 KB)
-
-**API Services** (10 modules in `src/api/`, 10 service files):
-- `authServices.js` - Email/password auth, Google OAuth, password reset
-- `userServices.js` - User profiles, preferences, role management
-- `courseServices.js` - Course CRUD, search, filtering, modules
-- `lessonServices.js` - Lesson content, video, reading, quiz, test
-- `moduleServices.js` - Module management and ordering
-- `enrollmentServices.js` - Enrollment states, split payment tracking ($99 + $450)
-- `paymentServices.js` - Stripe payment operations, payment tracking
-- `progressServices.js` - Progress calculation, time tracking, completion
-- `schedulingServices.js` - Behind-the-wheel time slots, student bookings
-- `securityServices.js` - Access verification, role checks, audit logging
-
-**Cloud Functions** (`functions/index.js`, 15.16 KB):
-- `createCheckoutSession()` - Stripe checkout for split/full payments
-- `createPaymentIntent()` - Direct payment processing
-- `stripeWebhook()` - Webhook handler for payment events (payment_intent.succeeded, failed, etc.)
-- `generateCertificate()` - Certificate generation after full payment
-- Helper functions: `handleCheckoutSessionCompleted`, `handlePaymentIntentSucceeded`, `handlePaymentIntentFailed`, `updateEnrollmentAfterPayment`
-
-**Page Components** (18 total in `src/pages/`):
-- **Auth**: LoginPage, RegisterPage, ForgotPasswordPage
-- **Courses**: Courses (browse), CourseDetail (info), CoursePlayer (learning interface)
-- **Dashboard**: Dashboard, Home, About, Contact
-- **User**: Profile (edit info), Settings (preferences, dark mode, notifications)
-- **Learning**: Lesson (individual lessons), Progress (tracking), MyCourses (enrolled)
-- **Management**: Admin (admin panel), Certificate, Certificates (download)
-- **Payment**: PaymentSuccess (confirmation)
-- **Errors**: NotFound
-
-**Configuration Files**:
-- `firebase.json` - Firebase project config
-- `firestore.rules` - Firestore security rules (1.97 KB)
-- `firestore.indexes.json` - Composite indexes
-- `.env` - Environment variables (Firebase keys, Stripe keys)
-
-## Key Features
-
-**Payment System**:
-- Full upfront payment ($549)
-- Split payment ($99 upfront + $450 remaining balance)
-- Remaining balance payment option
-- Stripe integration with secure checkout
-- Payment webhook processing with automatic status updates
-- PCI-DSS compliance (Stripe handles card data)
-- Transaction audit trail and receipts
-
-**Enrollment Management**:
-- Enrollment states: PENDING, PARTIALLY_PAID, ACTIVE, COMPLETED, SUSPENDED
-- Automatic enrollment to Complete Package (covers online + behind-the-wheel)
-- Payment history tracking
-- Status transitions based on payment completion
-- Course access unlocking at different payment stages
-
-**Lesson Scheduling (Behind-the-Wheel)**:
-- Admin time slot creation with batch capabilities
-- Student booking interface with conflict detection
-- Instructor assignment and load balancing
-- Automated confirmation and reminder emails
-- Cancellation handling with rescheduling
-- Calendar view and time picker
+**Payment Processing**:
+- `createCheckoutSession()`: Stripe checkout session creation
+- `createPaymentIntent()`: Payment intent for split/remaining payments
+- `stripeWebhook()`: Webhook handler for Stripe events
 
 **Certificate Generation**:
-- Auto-trigger after full payment and course completion
-- PDF generation via Cloud Functions
-- Certificate numbering and archival
-- Download and storage in MyCourses
-- Triggers remaining balance payment completion
+- `generateCertificate(userId, courseId)`: PDF certificate creation and upload
 
-**Admin Panel**:
-- User management (create, edit, role assignment, deactivate)
-- Payment monitoring and split payment tracking
-- Lesson scheduling administration and booking oversight
-- Enrollment and course access control
-- Audit logging of administrative actions
-- System health monitoring
+**Audit Logging**:
+- `logAuditEvent()`: Helper function for audit trail logging
+- `auditComplianceAccess()`: Callable function for compliance access tracking
 
-**Authentication & Access Control**:
-- Email/password registration and login
-- Google OAuth single sign-on
-- Password reset via email
-- Email verification workflow
-- Role-based access control (Student, Instructor, Admin)
-- Protected routes and route guards
-- Session management
+#### Configuration
+**Firebase Config**: `firebase.json`
+- Firestore location: us-east5
+- Rules file: `firestore.rules`
+- Predeploy: ESLint validation before deployment
+- Ignores: node_modules, .git, logs
 
-**User Experience**:
-- Dark mode with system detection and manual toggle
-- Responsive design (mobile, tablet, desktop)
-- Progress tracking with completion percentages
-- Time tracking (session and daily aggregation)
-- Toast notifications and modal dialogs
-- Keyboard navigation and accessibility features
-- WCAG AA color contrast compliance
+---
 
-**Search & Filtering**:
-- Course search by name and description
-- Multi-criteria filtering (difficulty, duration, price, instructor)
-- Sorting (popularity, newest, price)
-- Admin filtering for enrollments, payments, users, time slots
+## Firestore Database & Rules
 
-## Testing
+**Database Location**: us-east5  
+**Rules File**: `firestore.rules` (5.55 KB)  
+**Indexes**: `firestore.indexes.json`
 
-**Frontend Testing**:
-- Test framework: Jest (via React Scripts)
-- Configuration: ESLint in `src/` directory
-- Run command: `npm test`
-- Test naming: Standard `.test.js` and `.spec.js` files
+### Collections
 
-**Backend Testing**:
-- Framework: `firebase-functions-test@^3.1.0`
-- Configuration: `functions/.eslintrc.js`
-- Linting: `npm run lint` (functions)
+- **users**: User profiles (uid, email, role, displayName)
+- **courses**: Course metadata (title, description, modules, lessons)
+- **modules**: Course organization and progression
+- **lessons**: Individual lesson content (video, reading, quiz, test)
+- **enrollments**: User enrollment state with payment tracking
+- **payments**: Payment transaction records with Stripe metadata
+- **timeSlots**: Behind-the-wheel lesson scheduling
+- **progress**: User lesson completion and learning time
+- **certificates**: Generated certificate metadata
+- **auditLogs**: Immutable compliance audit trail (Phase 2)
+- **complianceLogs**: Compliance verification records (Phase 2)
+- **quizAttempts**, **identityVerifications**, **complianceSessions**: Compliance data (Phase 2)
+
+### Security Rules
+
+- **Users**: Read own data, admins read all
+- **Courses/Modules/Lessons**: Read all, write restricted to admins/instructors
+- **Enrollments/Progress**: Users access own data, admins read all
+- **Audit Collections**: Admin-read-only with immutability enforcement
+- **Role-Based Access**: STUDENT, INSTRUCTOR, ADMIN role hierarchy
+
+---
+
+## Build & Deployment
+
+### Local Development
+
+```bash
+npm install                    # Install frontend dependencies
+cd functions && npm install    # Install function dependencies
+npm start                      # Start frontend dev server (port 3000)
+cd functions && npm run serve  # Start emulator in separate terminal
+```
+
+### Production Deployment
+
+```bash
+firebase deploy --only firestore:rules    # Deploy Firestore rules
+firebase deploy --only functions          # Deploy Cloud Functions
+npm run build                             # Build optimized frontend
+firebase deploy --only hosting            # Deploy static frontend
+```
+
+### Pre-deployment Validation
+
+```bash
+firebase deploy --dry-run                 # Validate deployment
+cd functions && npm run lint              # ESLint checks
+node -c functions/index.js                # Syntax validation
+```
+
+---
 
 ## Environment Configuration
 
-**.env File**:
-```
-REACT_APP_FIREBASE_API_KEY=your_api_key
-REACT_APP_FIREBASE_AUTH_DOMAIN=your_auth_domain
-REACT_APP_FIREBASE_PROJECT_ID=your_project_id
-REACT_APP_FIREBASE_STORAGE_BUCKET=your_storage_bucket
-REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
-REACT_APP_FIREBASE_APP_ID=your_app_id
-REACT_APP_STRIPE_PUBLIC_KEY=your_stripe_public_key
-```
+**Environment Variables** (`.env`):
+- REACT_APP_FIREBASE_API_KEY
+- REACT_APP_FIREBASE_AUTH_DOMAIN
+- REACT_APP_FIREBASE_PROJECT_ID
+- REACT_APP_FIREBASE_STORAGE_BUCKET
+- REACT_APP_FIREBASE_MESSAGING_SENDER_ID
+- REACT_APP_FIREBASE_APP_ID
 
-**Cloud Functions Secrets**:
-- `STRIPE_SECRET_KEY` - Stripe API secret (managed via Firebase Secret Manager)
+---
 
-**Firestore Collections**:
-- `users` - User profiles and preferences
-- `courses` - Course information and metadata
-- `modules` - Course modules with ordering
-- `lessons` - Individual lessons with content
-- `progress` - Student progress tracking
-- `enrollments` - Enrollment records with payment status
-- `payments` - Payment transactions and history
-- `certificates` - Generated certificates
-- `timeSlots` - Behind-the-wheel lesson time slots
-- `bookings` - Student lesson bookings
-- `auditLogs` - Administrative action tracking
+## Key Features
 
-## Deployment
+- **Authentication**: Email/password and Google OAuth via Firebase Auth
+- **Course Management**: Browse, enroll, track progress in courses
+- **Lesson System**: Video, reading, quiz, test, practical lesson types
+- **Progress Tracking**: Real-time monitoring with statistics
+- **Time Tracking**: Session and daily learning time for behind-the-wheel lessons
+- **Payment Processing**: Stripe integration with split payment support ($99 initial, $450 remaining)
+- **Certificate Generation**: PDF generation and download after course completion
+- **User Roles**: Student, Instructor, Admin with role-based access control
+- **Scheduling**: Time slot management for behind-the-wheel instruction
+- **Compliance**: DMV audit logging and immutable compliance records (Phase 2)
 
-**Frontend**:
-- Build: `npm run build`
-- Deploy to Firebase Hosting: `firebase deploy --only hosting`
+---
 
-**Backend**:
-- Deploy Cloud Functions: `firebase deploy --only functions`
-- Emulator for local testing: `npm run serve` (in functions directory)
-- Secret setup: `firebase functions:config:set stripe.secret_key=...`
+## Technology Stack Summary
 
-## Documentation
-
-- **README.md** - Project overview and setup guide
-- **FEATURES.md** - Comprehensive feature documentation (17.79 KB)
-- **API.md** - Service module API documentation (18.31 KB)
-- **ARCHITECTURE.md** - System architecture and design (10.9 KB)
-- **IMPLEMENTATION_SUMMARY.md** - Recent implementation details (11.16 KB)
-- **SETUP_GUIDE.md** - Installation and configuration steps (6.94 KB)
-- **PROJECT_SUMMARY.md** - Project specifications (9.39 KB)
+**Frontend**: React 18, React Router 6, Firebase SDK, Stripe.js, CSS Modules  
+**Backend**: Firebase Cloud Functions (Node.js 20), Firebase Admin SDK, Google Cloud Logging  
+**Database**: Firestore (NoSQL)  
+**Authentication**: Firebase Authentication (Email, Google OAuth)  
+**Storage**: Firebase Cloud Storage (certificates, media)  
+**Payment**: Stripe API  
+**Deployment**: Firebase Hosting, Cloud Functions  
+**Code Quality**: ESLint, react-scripts build optimization
