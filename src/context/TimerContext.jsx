@@ -371,15 +371,20 @@ export const TimerProvider = ({ children, courseId, lessonId, ipAddress }) => {
             setIsBreakMandatory(true);
           }
 
-          // Check for 4-hour daily limit
-          if (prevTotal + 1 >= MAX_DAILY_HOURS) {
+          return newSessionTime;
+        });
+
+        // Check for 4-hour daily limit
+        setTotalTime(prevTotal => {
+          const newTotalTime = prevTotal + 1;
+          if (newTotalTime >= MAX_DAILY_HOURS) {
             setIsLockedOut(true);
             setIsActive(false);
             setIsPaused(false);
           }
-
-          return newSessionTime;
+          return newTotalTime;
         });
+
         setLastActivityTime(Date.now());
       }, 1000);
     } else {

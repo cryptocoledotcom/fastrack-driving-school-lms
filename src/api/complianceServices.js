@@ -80,9 +80,7 @@ export const getDailyTime = async (userId, courseId) => {
     const q = query(
       logsRef,
       where('userId', '==', userId),
-      where('courseId', '==', courseId),
-      where('status', '==', 'completed'),
-      where('startTime', '>=', todayISO)
+      where('courseId', '==', courseId)
     );
 
     const snapshot = await getDocs(q);
@@ -90,7 +88,7 @@ export const getDailyTime = async (userId, courseId) => {
 
     snapshot.forEach(doc => {
       const data = doc.data();
-      if (data.duration) {
+      if (data.status === 'completed' && data.startTime >= todayISO && data.duration) {
         totalSeconds += data.duration;
       }
     });
@@ -118,8 +116,7 @@ export const getSessionHistory = async (userId, courseId, limit = 50) => {
     const q = query(
       logsRef,
       where('userId', '==', userId),
-      where('courseId', '==', courseId),
-      orderBy('startTime', 'desc')
+      where('courseId', '==', courseId)
     );
 
     const snapshot = await getDocs(q);
@@ -132,6 +129,7 @@ export const getSessionHistory = async (userId, courseId, limit = 50) => {
       });
     });
 
+    sessions.sort((a, b) => new Date(b.startTime) - new Date(a.startTime));
     return sessions.slice(0, limit);
   } catch (error) {
     console.error('Error getting session history:', error);
