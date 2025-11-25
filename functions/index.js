@@ -5,6 +5,7 @@
  */
 
 // 1. CHANGE IMPORTS: Use the new v2 modules for the Callable and HTTPS functions
+const admin = require('firebase-admin');
 const { initializeApp } = require('firebase-admin/app');
 const { getFirestore } = require('firebase-admin/firestore');
 const { onCall, onRequest } = require('firebase-functions/v2/https');
@@ -12,6 +13,11 @@ const { onCall, onRequest } = require('firebase-functions/v2/https');
 const { defineSecret } = require('firebase-functions/params');
 // Cloud Logging for audit trail
 const { Logging } = require('@google-cloud/logging');
+// CORS support for HTTP requests
+const cors = require('cors')({
+  origin: true,
+  credentials: true,
+});
 
 // 2. DEFINE SECRET: Declare the secret key from Secret Manager
 const STRIPE_SECRET_KEY_SECRET = defineSecret("STRIPE_SECRET_KEY");
@@ -38,6 +44,11 @@ const stripe = require('stripe');
 async function logAuditEvent(userId, action, resource, resourceId, status, metadata = {}) {
   try {
     const timestamp = new Date().toISOString();
+    
+    const cleanedMetadata = Object.fromEntries(
+      Object.entries(metadata).filter(([_, value]) => value !== undefined)
+    );
+    
     const auditEntry = {
       userId,
       action,
@@ -45,7 +56,7 @@ async function logAuditEvent(userId, action, resource, resourceId, status, metad
       resourceId,
       status,
       timestamp,
-      metadata,
+      metadata: cleanedMetadata,
       cloudFunction: true
     };
 
@@ -59,7 +70,7 @@ async function logAuditEvent(userId, action, resource, resourceId, status, metad
       resource,
       resourceId,
       status,
-      metadata
+      metadata: cleanedMetadata
     });
     
     await log.write(logEntry);
@@ -631,10 +642,23 @@ exports.auditComplianceAccess = onCall(async (data, context) => {
         });
         throw new Error(`Failed to audit compliance access: ${error.message}`);
     }
-    
-exports.generateComplianceReport = onCall(async (data, context) => {
-  if (!context.auth) throw new Error('Authentication required');
-  const { exportType = 'course', courseId, studentId, studentName, format = 'json' } = data;
+});
+
+exports.generateComplianceReport = onCall({ enforceAppCheck: false }, async (data, context) => {
+  console.log('generateComplianceReport called - v6');
+  
+  let userId;
+  if (context && context.auth && context.auth.uid) {
+    userId = context.auth.uid;
+  } else if (data && data.auth && data.auth.uid) {
+    userId = data.auth.uid;
+  } else {
+    throw new Error('Authentication required');
+  }
+  console.log('Using userId:', userId);
+  const actualData = data.data || data;
+  const { exportType = 'course', courseId, studentId, studentName, format = 'json' } = actualData;
+  console.log('Parsed parameters:', { exportType, courseId, studentId, studentName, format });
   
   if (!['csv', 'json', 'pdf'].includes(format)) throw new Error('Format must be csv, json, or pdf');
   
@@ -642,15 +666,23 @@ exports.generateComplianceReport = onCall(async (data, context) => {
     let complianceData;
     
     if (exportType === 'student') {
+      console.log('Processing student export');
       if (!studentId && !studentName) throw new Error('studentId or studentName is required');
       const uid = studentId || await getStudentIdByName(studentName);
+      console.log('Got student uid:', uid);
       complianceData = await getComplianceDataForStudent(uid, courseId);
+      console.log('Got compliance data for student, records:', complianceData.length);
     } else {
+      console.log('Processing course export with courseId:', courseId);
       if (!courseId) throw new Error('courseId is required for course-wide export');
       complianceData = await getComplianceDataForCourse(courseId);
+      console.log('Got compliance data for course:', complianceData.length, 'records');
     }
     
-    if (!complianceData || complianceData.length === 0) throw new Error('No compliance data found');
+    if (!complianceData || complianceData.length === 0) {
+      console.warn('No compliance data found for export');
+      complianceData = [];
+    }
     
     let reportContent, fileName, contentType;
     if (format === 'csv') {
@@ -667,22 +699,27 @@ exports.generateComplianceReport = onCall(async (data, context) => {
       contentType = 'application/json';
     }
     
-    const bucket = admin.storage().bucket();
+    const fileContent = Buffer.isBuffer(reportContent) ? reportContent : Buffer.from(reportContent);
+    const dataUrl = `data:${contentType};base64,${fileContent.toString('base64')}`;
+    
+    const bucket = admin.storage().bucket('fastrack-driving-school-lms-default');
     const file = bucket.file('compliance-reports/' + fileName);
     await file.save(reportContent, { contentType });
     
-    await logAuditEvent(context.auth.uid, 'create', 'compliance_report', fileName, 'success', { exportType, courseId, studentId, studentName, format });
+    if (userId) {
+      await logAuditEvent(userId, 'create', 'compliance_report', fileName, 'success', { exportType, courseId, studentId, studentName, format });
+    }
     
-    const [signedUrl] = await file.getSignedUrl({
-      version: 'v4',
-      action: 'read',
-      expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
-    });
-    
-    return { success: true, reportId: fileName, fileName, format, downloadUrl: signedUrl, generatedAt: new Date().toISOString(), recordCount: complianceData.length };
+    return { success: true, reportId: fileName, fileName, format, downloadUrl: dataUrl, generatedAt: new Date().toISOString(), recordCount: complianceData.length };
   } catch (error) {
     console.error('Error generating compliance report:', error);
-    await logAuditEvent(context.auth.uid, 'create', 'compliance_report', 'compliance_report_export', 'failure', { error: error.message, exportType, courseId, studentId, studentName });
+    if (userId) {
+      try {
+        await logAuditEvent(userId, 'create', 'compliance_report', 'compliance_report_export', 'failure', { error: error.message, exportType, courseId, studentId, studentName });
+      } catch (auditError) {
+        console.error('Failed to log audit event:', auditError);
+      }
+    }
     throw error;
   }
 });
@@ -698,12 +735,37 @@ async function getStudentIdByName(studentName) {
 }
 
 async function getComplianceDataForStudent(userId, courseId) {
+  console.log('Getting compliance data for student:', userId, 'course:', courseId);
   const user = await admin.firestore().collection('users').doc(userId).get();
   if (!user.exists) throw new Error('User not found');
+  
   const sessionData = await getStudentSessionHistory(userId, courseId);
+  console.log('Got session data:', sessionData.length);
+  if (sessionData.length === 0) {
+    console.log('No sessions. Checking all complianceLogs for this user...');
+    const allLogs = await admin.firestore().collection('complianceLogs').where('userId', '==', userId).get();
+    console.log('Total complianceLogs for user:', allLogs.docs.length);
+    if (allLogs.docs.length > 0) {
+      console.log('Sample complianceLog:', JSON.stringify(allLogs.docs[0].data(), null, 2));
+    }
+  }
+  
   const quizData = await getStudentQuizAttempts(userId, courseId);
+  console.log('Got quiz data:', quizData.all.length);
+  if (quizData.all.length === 0) {
+    const allQuizzes = await admin.firestore().collection('quizAttempts').where('userId', '==', userId).get();
+    console.log('Total quizAttempts for user:', allQuizzes.docs.length);
+  }
+  
   const pvqData = await getStudentPVQRecords(userId, courseId);
+  console.log('Got pvq data:', pvqData.length);
+  if (pvqData.length === 0) {
+    const allPVQ = await admin.firestore().collection('identityVerifications').where('userId', '==', userId).get();
+    console.log('Total identityVerifications for user:', allPVQ.docs.length);
+  }
+  
   const certificateData = await getStudentCertificate(userId, courseId);
+  console.log('Got certificate data');
   const totalMinutes = sessionData.reduce((sum, s) => sum + (s.durationMinutes || 0), 0);
   
   return [{
@@ -720,14 +782,34 @@ async function getComplianceDataForStudent(userId, courseId) {
 }
 
 async function getComplianceDataForCourse(courseId) {
-  const enrollments = await admin.firestore().collection('enrollments').where('courseId', '==', courseId).get();
+  console.log('Getting compliance data for course:', courseId);
+  
+  // Query all users and check their courses subcollection for this courseId
+  const users = await admin.firestore().collection('users').get();
+  console.log('Total users in system:', users.docs.length);
+  
   const reports = [];
-  for (const enrollment of enrollments.docs) {
+  for (const userDoc of users.docs) {
     try {
-      const studentReports = await getComplianceDataForStudent(enrollment.data().userId, courseId);
-      reports.push(...studentReports);
-    } catch (err) { console.warn('Error:', err.message); }
+      // Check if user has this course enrolled at users/{userId}/courses/{courseId}
+      const courseEnrollment = await admin.firestore()
+        .collection('users')
+        .doc(userDoc.id)
+        .collection('courses')
+        .doc(courseId)
+        .get();
+      
+      if (courseEnrollment.exists) {
+        console.log('Found enrollment for user:', userDoc.id, 'in course:', courseId);
+        const studentReports = await getComplianceDataForStudent(userDoc.id, courseId);
+        reports.push(...studentReports);
+      }
+    } catch (err) { 
+      console.warn('Error processing user:', userDoc.id, err.message); 
+    }
   }
+  
+  console.log('Total students found for course:', reports.length);
   return reports;
 }
 
@@ -798,5 +880,3 @@ async function convertToPDF(data, courseId) {
     doc.end();
   });
 }
-
-});

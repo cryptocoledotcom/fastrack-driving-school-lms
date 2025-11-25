@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { getFunctions, httpsCallable } from 'firebase/functions';
+import app from '../../config/firebase';
 import Button from '../common/Button/Button';
 import Input from '../common/Input/Input';
 import ErrorMessage from '../common/ErrorMessage/ErrorMessage';
@@ -22,7 +23,7 @@ const ComplianceReporting = () => {
       setError('');
       setSuccess('');
 
-      const functions = getFunctions();
+      const functions = getFunctions(app, 'us-central1');
       const generateReport = httpsCallable(functions, 'generateComplianceReport');
 
       const payload = {
@@ -34,6 +35,13 @@ const ComplianceReporting = () => {
           ...(studentName && { studentName })
         }),
       };
+
+      console.log('ComplianceReporting state at export:');
+      console.log('  exportType:', exportType);
+      console.log('  courseId:', courseId);
+      console.log('  studentId:', studentId);
+      console.log('  studentName:', studentName);
+      console.log('  Final payload:', JSON.stringify(payload));
 
       const response = await generateReport(payload);
       const { downloadUrl, fileName } = response.data;
