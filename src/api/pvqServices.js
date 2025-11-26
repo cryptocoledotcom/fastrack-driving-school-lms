@@ -9,6 +9,9 @@ import {
   getDoc
 } from 'firebase/firestore';
 import { db } from '../config/firebase';
+import { executeService } from './base/ServiceWrapper';
+import { ValidationError, PVQError } from './errors/ApiError';
+import { validateUserId, validateCourseId, validatePVQData } from './validators/validators';
 
 const PVQ_COLLECTION = 'pvqQuestions';
 const VERIFICATION_COLLECTION = 'identityVerifications';
@@ -77,7 +80,7 @@ const defaultPVQQuestions = [
 ];
 
 export const getPVQQuestions = async () => {
-  try {
+  return executeService(async () => {
     const questionsRef = collection(db, PVQ_COLLECTION);
     const q = query(questionsRef, where('active', '==', true));
     const snapshot = await getDocs(q);
@@ -95,28 +98,29 @@ export const getPVQQuestions = async () => {
     });
 
     return questions;
-  } catch (error) {
-    console.error('Error getting PVQ questions:', error);
-    return defaultPVQQuestions;
-  }
+  }, 'getPVQQuestions');
 };
 
 export const getRandomPVQQuestion = async () => {
-  try {
+  return executeService(async () => {
     const questions = await getPVQQuestions();
     if (questions.length === 0) {
       return null;
     }
     const randomIndex = Math.floor(Math.random() * questions.length);
     return questions[randomIndex];
-  } catch (error) {
-    console.error('Error getting random PVQ question:', error);
-    return null;
-  }
+  }, 'getRandomPVQQuestion');
 };
 
 export const logIdentityVerification = async (userId, courseId, sessionId, pvqData) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    validateCourseId(courseId);
+    validatePVQData(pvqData);
+    if (!sessionId || typeof sessionId !== 'string') {
+      throw new ValidationError('Session ID is required');
+    }
+    
     const verificationRef = collection(db, VERIFICATION_COLLECTION);
     const docRef = await addDoc(verificationRef, {
       userId,
@@ -134,14 +138,17 @@ export const logIdentityVerification = async (userId, courseId, sessionId, pvqDa
     });
 
     return docRef.id;
-  } catch (error) {
-    console.error('Error logging identity verification:', error);
-    throw error;
-  }
+  }, 'logIdentityVerification');
 };
 
 export const getVerificationHistory = async (userId, courseId, limit = 50) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    validateCourseId(courseId);
+    if (typeof limit !== 'number' || limit <= 0) {
+      throw new ValidationError('Limit must be a positive number');
+    }
+    
     const verificationRef = collection(db, VERIFICATION_COLLECTION);
     const q = query(
       verificationRef,
@@ -160,14 +167,17 @@ export const getVerificationHistory = async (userId, courseId, limit = 50) => {
     });
 
     return verifications.slice(-limit);
-  } catch (error) {
-    console.error('Error getting verification history:', error);
-    return [];
-  }
+  }, 'getVerificationHistory');
 };
 
 export const getUserAnsweredPVQ = async (userId, courseId, questionId) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    validateCourseId(courseId);
+    if (!questionId || typeof questionId !== 'string') {
+      throw new ValidationError('Question ID is required');
+    }
+    
     const verificationRef = collection(db, VERIFICATION_COLLECTION);
     const q = query(
       verificationRef,
@@ -178,14 +188,20 @@ export const getUserAnsweredPVQ = async (userId, courseId, questionId) => {
 
     const snapshot = await getDocs(q);
     return !snapshot.empty;
-  } catch (error) {
-    console.error('Error checking if PVQ was answered:', error);
-    return false;
-  }
+  }, 'getUserAnsweredPVQ');
 };
 
 export const validatePVQAnswer = async (userId, courseId, questionId, userAnswer) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    validateCourseId(courseId);
+    if (!questionId || typeof questionId !== 'string') {
+      throw new ValidationError('Question ID is required');
+    }
+    if (!userAnswer || typeof userAnswer !== 'string') {
+      throw new ValidationError('User answer is required');
+    }
+    
     const verificationRef = collection(db, VERIFICATION_COLLECTION);
     const q = query(
       verificationRef,
@@ -212,10 +228,7 @@ export const validatePVQAnswer = async (userId, courseId, questionId, userAnswer
       valid: isValid,
       message: isValid ? 'Answer verified' : 'Incorrect answer. Please try again.'
     };
-  } catch (error) {
-    console.error('Error validating PVQ answer:', error);
-    return { valid: false, message: 'Error validating answer' };
-  }
+  }, 'validatePVQAnswer');
 };
 
 const pvqServices = {
