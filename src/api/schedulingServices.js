@@ -13,9 +13,14 @@ import {
 } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import { COURSE_IDS } from '../constants/courses';
+import { executeService } from './base/ServiceWrapper';
+import { ValidationError, SchedulingError } from './errors/ApiError';
+import { validateUserId, validateTimeSlotData } from './validators/validators';
 
 export const createTimeSlot = async (timeSlotData) => {
-  try {
+  return executeService(async () => {
+    validateTimeSlotData(timeSlotData);
+    
     const slotRef = doc(collection(db, 'timeSlots'));
     
     const slot = {
@@ -32,14 +37,15 @@ export const createTimeSlot = async (timeSlotData) => {
       id: slotRef.id,
       ...slot
     };
-  } catch (error) {
-    console.error('Error creating time slot:', error);
-    throw error;
-  }
+  }, 'createTimeSlot');
 };
 
 export const getTimeSlots = async (filters = {}) => {
-  try {
+  return executeService(async () => {
+    if (typeof filters !== 'object' || filters === null) {
+      throw new ValidationError('Filters must be an object');
+    }
+    
     const slotsRef = collection(db, 'timeSlots');
     
     let q = slotsRef;
@@ -66,14 +72,18 @@ export const getTimeSlots = async (filters = {}) => {
       const timeB = new Date(`${b.date} ${b.startTime}`);
       return timeA - timeB;
     });
-  } catch (error) {
-    console.error('Error fetching time slots:', error);
-    throw error;
-  }
+  }, 'getTimeSlots');
 };
 
 export const getAvailableTimeSlots = async (startDate, endDate) => {
-  try {
+  return executeService(async () => {
+    if (!(startDate instanceof Date)) {
+      throw new ValidationError('Start date must be a Date object');
+    }
+    if (!(endDate instanceof Date)) {
+      throw new ValidationError('End date must be a Date object');
+    }
+    
     const slotsRef = collection(db, 'timeSlots');
     const q = query(
       slotsRef,
@@ -100,26 +110,31 @@ export const getAvailableTimeSlots = async (startDate, endDate) => {
       const dateB = new Date(`${b.date} ${b.startTime}`);
       return dateA - dateB;
     });
-  } catch (error) {
-    console.error('Error fetching available time slots:', error);
-    throw error;
-  }
+  }, 'getAvailableTimeSlots');
 };
 
 export const bookTimeSlot = async (userId, slotId, userEmail) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    if (!slotId || typeof slotId !== 'string') {
+      throw new ValidationError('Slot ID is required');
+    }
+    if (!userEmail || typeof userEmail !== 'string' || !userEmail.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+      throw new ValidationError('User email must be valid format');
+    }
+    
     const slotRef = doc(db, 'timeSlots', slotId);
     const slotDoc = await getDoc(slotRef);
 
     if (!slotDoc.exists()) {
-      throw new Error('Time slot not found');
+      throw new SchedulingError('Time slot not found');
     }
 
     const slotData = slotDoc.data();
     const bookedBy = slotData.bookedBy || [];
 
     if (bookedBy.some(booking => booking.userId === userId)) {
-      throw new Error('You have already booked this time slot');
+      throw new SchedulingError('You have already booked this time slot');
     }
 
     const booking = {
@@ -159,14 +174,13 @@ export const bookTimeSlot = async (userId, slotId, userEmail) => {
       booking,
       slot: slotData
     };
-  } catch (error) {
-    console.error('Error booking time slot:', error);
-    throw error;
-  }
+  }, 'bookTimeSlot');
 };
 
 export const getUserBookings = async (userId) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    
     const lessonsRef = collection(db, 'users', userId, 'lessons');
     const querySnapshot = await getDocs(lessonsRef);
     
@@ -183,14 +197,19 @@ export const getUserBookings = async (userId) => {
       const timeB = new Date(`${b.date} ${b.startTime}`);
       return timeA - timeB;
     });
-  } catch (error) {
-    console.error('Error fetching user bookings:', error);
-    throw error;
-  }
+  }, 'getUserBookings');
 };
 
 export const cancelBooking = async (userId, lessonId, slotId) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    if (!lessonId || typeof lessonId !== 'string') {
+      throw new ValidationError('Lesson ID is required');
+    }
+    if (!slotId || typeof slotId !== 'string') {
+      throw new ValidationError('Slot ID is required');
+    }
+    
     const lessonRef = doc(db, 'users', userId, 'lessons', lessonId);
     await deleteDoc(lessonRef);
 
@@ -209,14 +228,18 @@ export const cancelBooking = async (userId, lessonId, slotId) => {
     }
 
     return { success: true };
-  } catch (error) {
-    console.error('Error canceling booking:', error);
-    throw error;
-  }
+  }, 'cancelBooking');
 };
 
 export const updateTimeSlot = async (slotId, updates) => {
-  try {
+  return executeService(async () => {
+    if (!slotId || typeof slotId !== 'string') {
+      throw new ValidationError('Slot ID is required');
+    }
+    if (typeof updates !== 'object' || !updates) {
+      throw new ValidationError('Updates must be a valid object');
+    }
+    
     const slotRef = doc(db, 'timeSlots', slotId);
     
     await updateDoc(slotRef, {
@@ -229,21 +252,19 @@ export const updateTimeSlot = async (slotId, updates) => {
       id: slotDoc.id,
       ...slotDoc.data()
     };
-  } catch (error) {
-    console.error('Error updating time slot:', error);
-    throw error;
-  }
+  }, 'updateTimeSlot');
 };
 
 export const deleteTimeSlot = async (slotId) => {
-  try {
+  return executeService(async () => {
+    if (!slotId || typeof slotId !== 'string') {
+      throw new ValidationError('Slot ID is required');
+    }
+    
     const slotRef = doc(db, 'timeSlots', slotId);
     await deleteDoc(slotRef);
     return { success: true };
-  } catch (error) {
-    console.error('Error deleting time slot:', error);
-    throw error;
-  }
+  }, 'deleteTimeSlot');
 };
 
 const schedulingServices = {
