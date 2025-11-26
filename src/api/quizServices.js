@@ -12,12 +12,21 @@ import {
   serverTimestamp
 } from 'firebase/firestore';
 import { db } from '../config/firebase';
+import { executeService } from './base/ServiceWrapper';
+import { ValidationError, QuizError } from './errors/ApiError';
+import { validateUserId, validateCourseId, validateQuizAttemptData } from './validators/validators';
 
 const QUIZ_ATTEMPTS_COLLECTION = 'quizAttempts';
 const QUIZ_COLLECTION = 'quizzes';
 
 export const createQuizAttempt = async (userId, courseId, quizData) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    validateCourseId(courseId);
+    if (typeof quizData !== 'object' || !quizData) {
+      throw new ValidationError('Quiz data must be a valid object');
+    }
+    
     const docRef = await addDoc(collection(db, QUIZ_ATTEMPTS_COLLECTION), {
       userId,
       courseId,
@@ -33,32 +42,40 @@ export const createQuizAttempt = async (userId, courseId, quizData) => {
     });
 
     return docRef.id;
-  } catch (error) {
-    console.error('Error creating quiz attempt:', error);
-    throw error;
-  }
+  }, 'createQuizAttempt');
 };
 
 export const updateQuizAttempt = async (attemptId, attemptData) => {
-  try {
+  return executeService(async () => {
+    if (!attemptId || typeof attemptId !== 'string') {
+      throw new ValidationError('Attempt ID is required');
+    }
+    if (typeof attemptData !== 'object' || !attemptData) {
+      throw new ValidationError('Attempt data must be a valid object');
+    }
+    
     const attemptRef = doc(db, QUIZ_ATTEMPTS_COLLECTION, attemptId);
     await updateDoc(attemptRef, {
       ...attemptData,
       updatedAt: new Date().toISOString()
     });
-  } catch (error) {
-    console.error('Error updating quiz attempt:', error);
-    throw error;
-  }
+  }, 'updateQuizAttempt');
 };
 
 export const submitQuizAttempt = async (attemptId, submissionData) => {
-  try {
+  return executeService(async () => {
+    if (!attemptId || typeof attemptId !== 'string') {
+      throw new ValidationError('Attempt ID is required');
+    }
+    if (typeof submissionData !== 'object' || !submissionData) {
+      throw new ValidationError('Submission data must be a valid object');
+    }
+    
     const attemptRef = doc(db, QUIZ_ATTEMPTS_COLLECTION, attemptId);
     const attemptDoc = await getDoc(attemptRef);
 
     if (!attemptDoc.exists()) {
-      throw new Error('Quiz attempt not found');
+      throw new QuizError('Quiz attempt not found');
     }
 
     const answers = submissionData.answers || {};
@@ -88,14 +105,14 @@ export const submitQuizAttempt = async (attemptId, submissionData) => {
       correctAnswers,
       totalQuestions
     };
-  } catch (error) {
-    console.error('Error submitting quiz attempt:', error);
-    throw error;
-  }
+  }, 'submitQuizAttempt');
 };
 
 export const getQuizAttempts = async (userId, courseId, quizId = null) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    validateCourseId(courseId);
+    
     const attemptsRef = collection(db, QUIZ_ATTEMPTS_COLLECTION);
     let q;
 
@@ -127,14 +144,14 @@ export const getQuizAttempts = async (userId, courseId, quizId = null) => {
     });
 
     return attempts;
-  } catch (error) {
-    console.error('Error getting quiz attempts:', error);
-    return [];
-  }
+  }, 'getQuizAttempts');
 };
 
 export const getAttemptCount = async (userId, courseId, quizId = null, isFinalExam = false) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    validateCourseId(courseId);
+    
     const attempts = await getQuizAttempts(userId, courseId, quizId);
     
     let filteredAttempts = attempts;
@@ -145,14 +162,14 @@ export const getAttemptCount = async (userId, courseId, quizId = null, isFinalEx
     }
 
     return filteredAttempts.length;
-  } catch (error) {
-    console.error('Error getting attempt count:', error);
-    return 0;
-  }
+  }, 'getAttemptCount');
 };
 
 export const getLastAttemptData = async (userId, courseId, quizId = null) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    validateCourseId(courseId);
+    
     const attempts = await getQuizAttempts(userId, courseId, quizId);
     
     if (attempts.length === 0) {
@@ -160,14 +177,14 @@ export const getLastAttemptData = async (userId, courseId, quizId = null) => {
     }
 
     return attempts[0];
-  } catch (error) {
-    console.error('Error getting last attempt data:', error);
-    return null;
-  }
+  }, 'getLastAttemptData');
 };
 
 export const getQuizScore = async (userId, courseId, quizId = null) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    validateCourseId(courseId);
+    
     const lastAttempt = await getLastAttemptData(userId, courseId, quizId);
 
     if (!lastAttempt) {
@@ -182,28 +199,29 @@ export const getQuizScore = async (userId, courseId, quizId = null) => {
       correctAnswers: lastAttempt.correctAnswers || 0,
       totalQuestions: lastAttempt.totalQuestions || 0
     };
-  } catch (error) {
-    console.error('Error getting quiz score:', error);
-    return { score: 0, passed: false, attempts: 0 };
-  }
+  }, 'getQuizScore');
 };
 
 export const markQuizPassed = async (attemptId) => {
-  try {
+  return executeService(async () => {
+    if (!attemptId || typeof attemptId !== 'string') {
+      throw new ValidationError('Attempt ID is required');
+    }
+    
     const attemptRef = doc(db, QUIZ_ATTEMPTS_COLLECTION, attemptId);
     await updateDoc(attemptRef, {
       passed: true,
       status: 'passed',
       updatedAt: new Date().toISOString()
     });
-  } catch (error) {
-    console.error('Error marking quiz as passed:', error);
-    throw error;
-  }
+  }, 'markQuizPassed');
 };
 
 export const getFinalExamStatus = async (userId, courseId) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    validateCourseId(courseId);
+    
     const attemptsRef = collection(db, QUIZ_ATTEMPTS_COLLECTION);
     const q = query(
       attemptsRef,
@@ -248,19 +266,14 @@ export const getFinalExamStatus = async (userId, courseId) => {
         date: a.completedAt
       }))
     };
-  } catch (error) {
-    console.error('Error getting final exam status:', error);
-    return {
-      attemptCount: 0,
-      passed: false,
-      lastScore: 0,
-      canRetake: true
-    };
-  }
+  }, 'getFinalExamStatus');
 };
 
 export const canRetakeQuiz = async (userId, courseId, quizId, isFinalExam = false) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    validateCourseId(courseId);
+    
     const MAX_ATTEMPTS = 3;
     const attemptCount = await getAttemptCount(userId, courseId, quizId, isFinalExam);
 
@@ -274,14 +287,17 @@ export const canRetakeQuiz = async (userId, courseId, quizId, isFinalExam = fals
     }
 
     return true;
-  } catch (error) {
-    console.error('Error checking if quiz can be retaken:', error);
-    return false;
-  }
+  }, 'canRetakeQuiz');
 };
 
 export const getQuizAttemptHistory = async (userId, courseId, limit = 100) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    validateCourseId(courseId);
+    if (typeof limit !== 'number' || limit <= 0) {
+      throw new ValidationError('Limit must be a positive number');
+    }
+    
     const attemptsRef = collection(db, QUIZ_ATTEMPTS_COLLECTION);
     const q = query(
       attemptsRef,
@@ -301,10 +317,7 @@ export const getQuizAttemptHistory = async (userId, courseId, limit = 100) => {
     });
 
     return attempts.slice(0, limit);
-  } catch (error) {
-    console.error('Error getting quiz attempt history:', error);
-    return [];
-  }
+  }, 'getQuizAttemptHistory');
 };
 
 const quizServices = {
