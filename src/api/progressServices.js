@@ -14,6 +14,9 @@ import {
   logLessonCompletion,
   logModuleCompletion
 } from './complianceServices';
+import { executeService } from './base/ServiceWrapper';
+import { ValidationError, ProgressError } from './errors/ApiError';
+import { validateUserId, validateCourseId, validateLessonId, validateModuleId } from './validators/validators';
 
 // Reference to user's main progress document
 // Path: users/{userId}/userProgress/progress
@@ -23,7 +26,13 @@ const getUserProgressRef = (userId) => {
 
 // Initialize progress for a course on first access
 export const initializeProgress = async (userId, courseId, totalLessons = 0) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    validateCourseId(courseId);
+    if (typeof totalLessons !== 'number' || totalLessons < 0) {
+      throw new ValidationError('Total lessons must be a non-negative number');
+    }
+    
     const progressRef = getUserProgressRef(userId);
     const progressDoc = await getDoc(progressRef);
 
@@ -32,7 +41,6 @@ export const initializeProgress = async (userId, courseId, totalLessons = 0) => 
       existingData = progressDoc.data();
     }
 
-    // Only initialize if this course progress doesn't exist yet
     if (!existingData[courseId]) {
       const courseProgress = {
         overallProgress: 0,
@@ -45,15 +53,11 @@ export const initializeProgress = async (userId, courseId, totalLessons = 0) => 
         enrolled: true
       };
 
-      // Merge with existing data
       const mergedData = { ...existingData, [courseId]: courseProgress };
-
-      // Use setDoc with merge to create or update the document
       await setDoc(progressRef, mergedData, { merge: true });
       
       return courseProgress;
     } else {
-      // Course already initialized, just update lastAccessedAt
       const updatedProgress = {
         ...existingData[courseId],
         lastAccessedAt: new Date().toISOString()
@@ -65,20 +69,19 @@ export const initializeProgress = async (userId, courseId, totalLessons = 0) => 
       
       return updatedProgress;
     }
-  } catch (error) {
-    console.error('Error initializing progress:', error);
-    throw error;
-  }
+  }, 'initializeProgress');
 };
 
 // Get user's progress for a specific course
 export const getProgress = async (userId, courseId) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    validateCourseId(courseId);
+    
     const progressRef = getUserProgressRef(userId);
     const progressDoc = await getDoc(progressRef);
 
     if (!progressDoc.exists()) {
-      // Return default progress if none exists
       return {
         overallProgress: 0,
         completedLessons: 0,
@@ -87,7 +90,6 @@ export const getProgress = async (userId, courseId) => {
       };
     }
 
-    // Get the specific course progress from the document
     const courseProgress = progressDoc.data()[courseId];
     
     if (!courseProgress) {
@@ -100,34 +102,38 @@ export const getProgress = async (userId, courseId) => {
     }
 
     return courseProgress;
-  } catch (error) {
-    console.error('Error fetching progress:', error);
-    throw error;
-  }
+  }, 'getProgress');
 };
 
 // Save or update user progress for a specific course
 export const saveProgress = async (userId, courseId, progressData) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    validateCourseId(courseId);
+    if (typeof progressData !== 'object' || !progressData) {
+      throw new ValidationError('Progress data must be a valid object');
+    }
+    
     const progressRef = getUserProgressRef(userId);
 
-    // Update the specific course field within the progress document
     await updateDoc(progressRef, {
       [courseId]: progressData
     });
     return progressData;
-  } catch (error) {
-    console.error('Error saving progress:', error);
-    throw error;
-  }
+  }, 'saveProgress');
 };
 
 // Update specific progress fields for a course
 export const updateProgress = async (userId, courseId, updates) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    validateCourseId(courseId);
+    if (typeof updates !== 'object' || !updates) {
+      throw new ValidationError('Updates must be a valid object');
+    }
+    
     const progressRef = getUserProgressRef(userId);
     
-    // Get current progress and merge updates
     const currentProgress = await getProgress(userId, courseId);
     const mergedProgress = { ...currentProgress, ...updates };
     
@@ -135,15 +141,16 @@ export const updateProgress = async (userId, courseId, updates) => {
       [courseId]: mergedProgress
     });
     return mergedProgress;
-  } catch (error) {
-    console.error('Error updating progress:', error);
-    throw error;
-  }
+  }, 'updateProgress');
 };
 
 // Mark lesson as complete
 export const markLessonComplete = async (userId, courseId, lessonId) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    validateCourseId(courseId);
+    validateLessonId(lessonId);
+    
     const progress = await getProgress(userId, courseId);
     const lessonProgress = progress.lessonProgress || {};
     
@@ -167,10 +174,7 @@ export const markLessonComplete = async (userId, courseId, lessonId) => {
       overallProgress,
       lastAccessedAt: new Date().toISOString()
     });
-  } catch (error) {
-    console.error('Error marking lesson complete:', error);
-    throw error;
-  }
+  }, 'markLessonComplete');
 };
 
 // Mark lesson as complete with compliance logging
@@ -180,7 +184,14 @@ export const markLessonCompleteWithCompliance = async (
   lessonId,
   complianceData = {}
 ) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    validateCourseId(courseId);
+    validateLessonId(lessonId);
+    if (typeof complianceData !== 'object' || complianceData === null) {
+      throw new ValidationError('Compliance data must be an object');
+    }
+    
     const progress = await getProgress(userId, courseId);
     const lessonProgress = progress.lessonProgress || {};
     
@@ -216,20 +227,21 @@ export const markLessonCompleteWithCompliance = async (
           videoProgress: complianceData.videoProgress || null
         });
       } catch (complianceError) {
-        console.error('Error logging lesson completion to compliance:', complianceError);
+        // Suppress compliance error - progress still saved
       }
     }
 
     return progressResult;
-  } catch (error) {
-    console.error('Error marking lesson complete with compliance:', error);
-    throw error;
-  }
+  }, 'markLessonCompleteWithCompliance');
 };
 
 // Mark module as complete
 export const markModuleComplete = async (userId, courseId, moduleId) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    validateCourseId(courseId);
+    validateModuleId(moduleId);
+    
     const progress = await getProgress(userId, courseId);
     const moduleProgress = progress.moduleProgress || {};
     
@@ -247,10 +259,7 @@ export const markModuleComplete = async (userId, courseId, moduleId) => {
       completedModules,
       lastAccessedAt: new Date().toISOString()
     });
-  } catch (error) {
-    console.error('Error marking module complete:', error);
-    throw error;
-  }
+  }, 'markModuleComplete');
 };
 
 // Mark module as complete with compliance logging
@@ -260,7 +269,14 @@ export const markModuleCompleteWithCompliance = async (
   moduleId,
   complianceData = {}
 ) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    validateCourseId(courseId);
+    validateModuleId(moduleId);
+    if (typeof complianceData !== 'object' || complianceData === null) {
+      throw new ValidationError('Compliance data must be an object');
+    }
+    
     const progress = await getProgress(userId, courseId);
     const moduleProgress = progress.moduleProgress || {};
     
@@ -288,15 +304,12 @@ export const markModuleCompleteWithCompliance = async (
           sessionTime: complianceData.sessionTime || 0
         });
       } catch (complianceError) {
-        console.error('Error logging module completion to compliance:', complianceError);
+        // Suppress compliance error - progress still saved
       }
     }
 
     return progressResult;
-  } catch (error) {
-    console.error('Error marking module complete with compliance:', error);
-    throw error;
-  }
+  }, 'markModuleCompleteWithCompliance');
 };
 
 // Note: enrollInCourse and getUserEnrolledCourses have been moved to enrollmentServices.js
@@ -304,7 +317,14 @@ export const markModuleCompleteWithCompliance = async (
 
 // Update lesson progress (for video watching, quiz attempts, etc.)
 export const updateLessonProgress = async (userId, courseId, lessonId, progressData) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    validateCourseId(courseId);
+    validateLessonId(lessonId);
+    if (typeof progressData !== 'object' || !progressData) {
+      throw new ValidationError('Progress data must be a valid object');
+    }
+    
     const progress = await getProgress(userId, courseId);
     const lessonProgress = progress.lessonProgress || {};
     
@@ -318,15 +338,14 @@ export const updateLessonProgress = async (userId, courseId, lessonId, progressD
       lessonProgress,
       lastAccessedAt: new Date().toISOString()
     });
-  } catch (error) {
-    console.error('Error updating lesson progress:', error);
-    throw error;
-  }
+  }, 'updateLessonProgress');
 };
 
 // Get user's overall statistics
 export const getUserStats = async (userId) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    
     const enrollmentsRef = collection(db, 'users', userId, 'courses');
     const enrollmentsSnapshot = await getDocs(enrollmentsRef);
 
@@ -344,7 +363,6 @@ export const getUserStats = async (userId) => {
       ...doc.data()
     }));
 
-    // Get all progress data from the main progress document
     let enrolledCourses = 0;
     let completedCourses = 0;
     let inProgressCourses = 0;
@@ -355,11 +373,9 @@ export const getUserStats = async (userId) => {
       const progressData = progressDoc.exists() ? progressDoc.data() : {};
 
       for (const enrollment of enrollments) {
-        // Filter out sub-courses of bundles from stats
         if (!enrollment.isComponentOfBundle) {
           enrolledCourses++;
           
-          // Get progress from the centralized progress document
           const courseProgress = progressData[enrollment.id];
           
           if (courseProgress) {
@@ -374,7 +390,7 @@ export const getUserStats = async (userId) => {
         }
       }
     } catch (err) {
-      console.error('Error fetching progress data:', err);
+      // Progress data fetch error - continue with available data
     }
     
     return {
@@ -385,10 +401,7 @@ export const getUserStats = async (userId) => {
         ? Math.round((completedCourses / enrolledCourses) * 100)
         : 0
     };
-  } catch (error) {
-    console.error('Error fetching user stats:', error);
-    throw error;
-  }
+  }, 'getUserStats');
 };
 
 const progressServices = {
