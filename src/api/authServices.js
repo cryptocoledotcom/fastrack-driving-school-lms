@@ -12,87 +12,82 @@ import {
   reauthenticateWithCredential
 } from 'firebase/auth';
 import { auth } from '../config/firebase';
+import { executeService } from './base/ServiceWrapper';
+import { validateEmail, validatePassword } from './validators/validators';
+import { AuthError, ValidationError } from './errors/ApiError';
 
 // Login with email and password
 export const login = async (email, password) => {
-  try {
+  return executeService(async () => {
+    validateEmail(email);
+    validatePassword(password);
+    
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     return userCredential.user;
-  } catch (error) {
-    console.error('Login error:', error);
-    throw error;
-  }
+  }, 'login');
 };
 
 // Register new user
 export const register = async (email, password) => {
-  try {
+  return executeService(async () => {
+    validateEmail(email);
+    validatePassword(password);
+    
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     return userCredential.user;
-  } catch (error) {
-    console.error('Registration error:', error);
-    throw error;
-  }
+  }, 'register');
 };
 
 // Logout current user
 export const logout = async () => {
-  try {
+  return executeService(async () => {
     await signOut(auth);
-  } catch (error) {
-    console.error('Logout error:', error);
-    throw error;
-  }
+  }, 'logout');
 };
 
 // Send password reset email
 export const resetPassword = async (email) => {
-  try {
+  return executeService(async () => {
+    validateEmail(email);
+    
     await sendPasswordResetEmail(auth, email);
-  } catch (error) {
-    console.error('Password reset error:', error);
-    throw error;
-  }
+  }, 'resetPassword');
 };
 
 // Change user password (requires recent authentication)
 export const changePassword = async (currentPassword, newPassword) => {
-  try {
+  return executeService(async () => {
+    validatePassword(currentPassword);
+    validatePassword(newPassword);
+    
     const user = auth.currentUser;
     if (!user || !user.email) {
-      throw new Error('No user logged in');
+      throw new AuthError('No user logged in');
     }
 
-    // Reauthenticate user
     const credential = EmailAuthProvider.credential(user.email, currentPassword);
     await reauthenticateWithCredential(user, credential);
 
-    // Update password
     await updatePassword(user, newPassword);
-  } catch (error) {
-    console.error('Change password error:', error);
-    throw error;
-  }
+  }, 'changePassword');
 };
 
 // Change user email (requires recent authentication)
 export const changeEmail = async (currentPassword, newEmail) => {
-  try {
+  return executeService(async () => {
+    validatePassword(currentPassword);
+    validateEmail(newEmail);
+    
     const user = auth.currentUser;
     if (!user || !user.email) {
-      throw new Error('No user logged in');
+      throw new AuthError('No user logged in');
     }
 
-    // Reauthenticate user
     const credential = EmailAuthProvider.credential(user.email, currentPassword);
     await reauthenticateWithCredential(user, credential);
 
-    // Update email
     await updateEmail(user, newEmail);
-  } catch (error) {
-    console.error('Change email error:', error);
-    throw error;
-  }
+  }, 'changeEmail');
 };
 
 // Get current user
