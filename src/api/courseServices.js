@@ -15,12 +15,15 @@ import {
   limit
 } from 'firebase/firestore';
 import { db } from '../config/firebase';
+import { executeService } from './base/ServiceWrapper';
+import { validateCourseId } from './validators/validators';
+import { CourseError, ValidationError } from './errors/ApiError';
 
 const COURSES_COLLECTION = 'courses';
 
 // Get all courses
 export const getCourses = async () => {
-  try {
+  return executeService(async () => {
     const coursesRef = collection(db, COURSES_COLLECTION);
     const q = query(coursesRef, orderBy('createdAt', 'desc'));
     const querySnapshot = await getDocs(q);
@@ -34,35 +37,35 @@ export const getCourses = async () => {
     });
     
     return courses;
-  } catch (error) {
-    console.error('Error fetching courses:', error);
-    throw error;
-  }
+  }, 'getCourses');
 };
 
 // Get course by ID
 export const getCourseById = async (courseId) => {
-  try {
+  return executeService(async () => {
+    validateCourseId(courseId);
+    
     const courseRef = doc(db, COURSES_COLLECTION, courseId);
     const courseDoc = await getDoc(courseRef);
     
     if (!courseDoc.exists()) {
-      throw new Error('Course not found');
+      throw new CourseError('Course not found', courseId);
     }
     
     return {
       id: courseDoc.id,
       ...courseDoc.data()
     };
-  } catch (error) {
-    console.error('Error fetching course:', error);
-    throw error;
-  }
+  }, 'getCourseById');
 };
 
 // Get featured courses
 export const getFeaturedCourses = async (limitCount = 6) => {
-  try {
+  return executeService(async () => {
+    if (typeof limitCount !== 'number' || limitCount <= 0) {
+      throw new ValidationError('limitCount must be a positive number');
+    }
+
     const coursesRef = collection(db, COURSES_COLLECTION);
     const q = query(
       coursesRef, 
@@ -81,15 +84,16 @@ export const getFeaturedCourses = async (limitCount = 6) => {
     });
     
     return courses;
-  } catch (error) {
-    console.error('Error fetching featured courses:', error);
-    throw error;
-  }
+  }, 'getFeaturedCourses');
 };
 
 // Get courses by category
 export const getCoursesByCategory = async (category) => {
-  try {
+  return executeService(async () => {
+    if (!category || typeof category !== 'string') {
+      throw new ValidationError('category must be a non-empty string');
+    }
+
     const coursesRef = collection(db, COURSES_COLLECTION);
     const q = query(
       coursesRef,
@@ -107,15 +111,22 @@ export const getCoursesByCategory = async (category) => {
     });
     
     return courses;
-  } catch (error) {
-    console.error('Error fetching courses by category:', error);
-    throw error;
-  }
+  }, 'getCoursesByCategory');
 };
 
 // Create new course
 export const createCourse = async (courseData) => {
-  try {
+  return executeService(async () => {
+    if (!courseData || typeof courseData !== 'object') {
+      throw new ValidationError('courseData must be a non-empty object');
+    }
+    if (!courseData.title || typeof courseData.title !== 'string') {
+      throw new ValidationError('courseData.title must be a non-empty string');
+    }
+    if (!courseData.description || typeof courseData.description !== 'string') {
+      throw new ValidationError('courseData.description must be a non-empty string');
+    }
+
     const coursesRef = collection(db, COURSES_COLLECTION);
     const newCourse = {
       ...courseData,
@@ -128,15 +139,17 @@ export const createCourse = async (courseData) => {
       id: docRef.id,
       ...newCourse
     };
-  } catch (error) {
-    console.error('Error creating course:', error);
-    throw error;
-  }
+  }, 'createCourse');
 };
 
 // Update course
 export const updateCourse = async (courseId, updates) => {
-  try {
+  return executeService(async () => {
+    validateCourseId(courseId);
+    if (!updates || typeof updates !== 'object') {
+      throw new ValidationError('updates must be a non-empty object');
+    }
+
     const courseRef = doc(db, COURSES_COLLECTION, courseId);
     const updateData = {
       ...updates,
@@ -145,28 +158,27 @@ export const updateCourse = async (courseId, updates) => {
     
     await updateDoc(courseRef, updateData);
     
-    // Return updated course
     return await getCourseById(courseId);
-  } catch (error) {
-    console.error('Error updating course:', error);
-    throw error;
-  }
+  }, 'updateCourse');
 };
 
 // Delete course
 export const deleteCourse = async (courseId) => {
-  try {
+  return executeService(async () => {
+    validateCourseId(courseId);
+    
     const courseRef = doc(db, COURSES_COLLECTION, courseId);
     await deleteDoc(courseRef);
-  } catch (error) {
-    console.error('Error deleting course:', error);
-    throw error;
-  }
+  }, 'deleteCourse');
 };
 
 // Search courses
 export const searchCourses = async (searchTerm) => {
-  try {
+  return executeService(async () => {
+    if (!searchTerm || typeof searchTerm !== 'string') {
+      throw new ValidationError('searchTerm must be a non-empty string');
+    }
+
     const coursesRef = collection(db, COURSES_COLLECTION);
     const querySnapshot = await getDocs(coursesRef);
     
@@ -184,20 +196,19 @@ export const searchCourses = async (searchTerm) => {
     });
     
     return courses;
-  } catch (error) {
-    console.error('Error searching courses:', error);
-    throw error;
-  }
+  }, 'searchCourses');
 };
 
 // Get course statistics
 export const getCourseStats = async (courseId) => {
-  try {
+  return executeService(async () => {
+    validateCourseId(courseId);
+    
     const courseRef = doc(db, COURSES_COLLECTION, courseId);
     const courseDoc = await getDoc(courseRef);
     
     if (!courseDoc.exists()) {
-      throw new Error('Course not found');
+      throw new CourseError('Course not found', courseId);
     }
     
     const courseData = courseDoc.data();
@@ -208,10 +219,7 @@ export const getCourseStats = async (courseId) => {
       totalReviews: courseData.totalReviews || 0,
       completionRate: courseData.completionRate || 0
     };
-  } catch (error) {
-    console.error('Error fetching course stats:', error);
-    throw error;
-  }
+  }, 'getCourseStats');
 };
 
 const courseServices = {
