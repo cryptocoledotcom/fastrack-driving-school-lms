@@ -6,10 +6,12 @@ import {
   updateDoc,
   getDocs,
   query,
-  where,
-  orderBy
+  where
 } from 'firebase/firestore';
 import { db } from '../config/firebase';
+import { executeService } from './base/ServiceWrapper';
+import { validateUserId, validateCourseId } from './validators/validators';
+import { ComplianceError, ValidationError } from './errors/ApiError';
 
 const COMPLIANCE_LOGS_COLLECTION = 'complianceLogs';
 const MAX_DAILY_HOURS = 4 * 3600;
@@ -17,7 +19,13 @@ const BREAK_REQUIRED_AFTER = 2 * 3600;
 const MIN_BREAK_DURATION = 10 * 60;
 
 export const createComplianceSession = async (userId, courseId, data) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    validateCourseId(courseId);
+    if (!data || typeof data !== 'object') {
+      throw new ValidationError('data must be a non-empty object');
+    }
+
     const sessionRef = doc(collection(db, COMPLIANCE_LOGS_COLLECTION));
     const sessionData = {
       userId,
@@ -32,27 +40,35 @@ export const createComplianceSession = async (userId, courseId, data) => {
 
     await setDoc(sessionRef, sessionData);
     return sessionRef.id;
-  } catch (error) {
-    console.error('Error creating compliance session:', error);
-    throw error;
-  }
+  }, 'createComplianceSession');
 };
 
 export const updateComplianceSession = async (sessionId, updates) => {
-  try {
+  return executeService(async () => {
+    if (!sessionId || typeof sessionId !== 'string') {
+      throw new ValidationError('sessionId must be a non-empty string');
+    }
+    if (!updates || typeof updates !== 'object') {
+      throw new ValidationError('updates must be a non-empty object');
+    }
+
     const sessionRef = doc(db, COMPLIANCE_LOGS_COLLECTION, sessionId);
     await updateDoc(sessionRef, {
       ...updates,
       lastUpdated: new Date().toISOString()
     });
-  } catch (error) {
-    console.error('Error updating compliance session:', error);
-    throw error;
-  }
+  }, 'updateComplianceSession');
 };
 
 export const closeComplianceSession = async (sessionId, sessionData) => {
-  try {
+  return executeService(async () => {
+    if (!sessionId || typeof sessionId !== 'string') {
+      throw new ValidationError('sessionId must be a non-empty string');
+    }
+    if (!sessionData || typeof sessionData !== 'object') {
+      throw new ValidationError('sessionData must be a non-empty object');
+    }
+
     const sessionRef = doc(db, COMPLIANCE_LOGS_COLLECTION, sessionId);
     await updateDoc(sessionRef, {
       endTime: new Date().toISOString(),
@@ -64,14 +80,14 @@ export const closeComplianceSession = async (sessionId, sessionData) => {
       status: 'completed',
       closedAt: new Date().toISOString()
     });
-  } catch (error) {
-    console.error('Error closing compliance session:', error);
-    throw error;
-  }
+  }, 'closeComplianceSession');
 };
 
 export const getDailyTime = async (userId, courseId) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    validateCourseId(courseId);
+
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     const todayISO = today.toISOString();
@@ -94,24 +110,27 @@ export const getDailyTime = async (userId, courseId) => {
     });
 
     return totalSeconds;
-  } catch (error) {
-    console.error('Error getting daily time:', error);
-    return 0;
-  }
+  }, 'getDailyTime');
 };
 
 export const checkDailyHourLockout = async (userId, courseId) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    validateCourseId(courseId);
+
     const dailyTime = await getDailyTime(userId, courseId);
     return dailyTime >= MAX_DAILY_HOURS;
-  } catch (error) {
-    console.error('Error checking daily hour lockout:', error);
-    return false;
-  }
+  }, 'checkDailyHourLockout');
 };
 
 export const getSessionHistory = async (userId, courseId, limit = 50) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    validateCourseId(courseId);
+    if (typeof limit !== 'number' || limit <= 0) {
+      throw new ValidationError('limit must be a positive number');
+    }
+
     const logsRef = collection(db, COMPLIANCE_LOGS_COLLECTION);
     const q = query(
       logsRef,
@@ -131,14 +150,18 @@ export const getSessionHistory = async (userId, courseId, limit = 50) => {
 
     sessions.sort((a, b) => new Date(b.startTime) - new Date(a.startTime));
     return sessions.slice(0, limit);
-  } catch (error) {
-    console.error('Error getting session history:', error);
-    throw error;
-  }
+  }, 'getSessionHistory');
 };
 
 export const logBreak = async (sessionId, breakData) => {
-  try {
+  return executeService(async () => {
+    if (!sessionId || typeof sessionId !== 'string') {
+      throw new ValidationError('sessionId must be a non-empty string');
+    }
+    if (!breakData || typeof breakData !== 'object') {
+      throw new ValidationError('breakData must be a non-empty object');
+    }
+
     const sessionRef = doc(db, COMPLIANCE_LOGS_COLLECTION, sessionId);
     const sessionDoc = await getDoc(sessionRef);
 
@@ -153,14 +176,18 @@ export const logBreak = async (sessionId, breakData) => {
 
       await updateDoc(sessionRef, { breaks });
     }
-  } catch (error) {
-    console.error('Error logging break:', error);
-    throw error;
-  }
+  }, 'logBreak');
 };
 
 export const logBreakEnd = async (sessionId, actualDurationSeconds) => {
-  try {
+  return executeService(async () => {
+    if (!sessionId || typeof sessionId !== 'string') {
+      throw new ValidationError('sessionId must be a non-empty string');
+    }
+    if (typeof actualDurationSeconds !== 'number' || actualDurationSeconds < 0) {
+      throw new ValidationError('actualDurationSeconds must be a non-negative number');
+    }
+
     const sessionRef = doc(db, COMPLIANCE_LOGS_COLLECTION, sessionId);
     const sessionDoc = await getDoc(sessionRef);
 
@@ -179,14 +206,18 @@ export const logBreakEnd = async (sessionId, actualDurationSeconds) => {
 
       await updateDoc(sessionRef, { breaks });
     }
-  } catch (error) {
-    console.error('Error logging break end:', error);
-    throw error;
-  }
+  }, 'logBreakEnd');
 };
 
 export const logLessonCompletion = async (sessionId, lessonCompletionData) => {
-  try {
+  return executeService(async () => {
+    if (!sessionId || typeof sessionId !== 'string') {
+      throw new ValidationError('sessionId must be a non-empty string');
+    }
+    if (!lessonCompletionData || typeof lessonCompletionData !== 'object') {
+      throw new ValidationError('lessonCompletionData must be a non-empty object');
+    }
+
     const sessionRef = doc(db, COMPLIANCE_LOGS_COLLECTION, sessionId);
     const sessionDoc = await getDoc(sessionRef);
 
@@ -206,14 +237,18 @@ export const logLessonCompletion = async (sessionId, lessonCompletionData) => {
 
       await updateDoc(sessionRef, { completionEvents });
     }
-  } catch (error) {
-    console.error('Error logging lesson completion:', error);
-    throw error;
-  }
+  }, 'logLessonCompletion');
 };
 
 export const logModuleCompletion = async (sessionId, moduleCompletionData) => {
-  try {
+  return executeService(async () => {
+    if (!sessionId || typeof sessionId !== 'string') {
+      throw new ValidationError('sessionId must be a non-empty string');
+    }
+    if (!moduleCompletionData || typeof moduleCompletionData !== 'object') {
+      throw new ValidationError('moduleCompletionData must be a non-empty object');
+    }
+
     const sessionRef = doc(db, COMPLIANCE_LOGS_COLLECTION, sessionId);
     const sessionDoc = await getDoc(sessionRef);
 
@@ -231,14 +266,17 @@ export const logModuleCompletion = async (sessionId, moduleCompletionData) => {
 
       await updateDoc(sessionRef, { completionEvents });
     }
-  } catch (error) {
-    console.error('Error logging module completion:', error);
-    throw error;
-  }
+  }, 'logModuleCompletion');
 };
 
 export const logIdentityVerification = async (userId, courseId, pvqData) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    validateCourseId(courseId);
+    if (!pvqData || typeof pvqData !== 'object') {
+      throw new ValidationError('pvqData must be a non-empty object');
+    }
+
     const verificationRef = doc(collection(db, 'identityVerifications'));
     await setDoc(verificationRef, {
       userId,
@@ -252,14 +290,18 @@ export const logIdentityVerification = async (userId, courseId, pvqData) => {
     });
 
     return verificationRef.id;
-  } catch (error) {
-    console.error('Error logging identity verification:', error);
-    throw error;
-  }
+  }, 'logIdentityVerification');
 };
 
 export const logQuizAttempt = async (sessionId, quizAttemptData) => {
-  try {
+  return executeService(async () => {
+    if (!sessionId || typeof sessionId !== 'string') {
+      throw new ValidationError('sessionId must be a non-empty string');
+    }
+    if (!quizAttemptData || typeof quizAttemptData !== 'object') {
+      throw new ValidationError('quizAttemptData must be a non-empty object');
+    }
+
     const sessionRef = doc(db, COMPLIANCE_LOGS_COLLECTION, sessionId);
     const sessionDoc = await getDoc(sessionRef);
 
@@ -283,14 +325,14 @@ export const logQuizAttempt = async (sessionId, quizAttemptData) => {
 
       await updateDoc(sessionRef, { quizAttempts });
     }
-  } catch (error) {
-    console.error('Error logging quiz attempt:', error);
-    throw error;
-  }
+  }, 'logQuizAttempt');
 };
 
 export const getTotalSessionTime = async (userId, courseId) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    validateCourseId(courseId);
+
     const logsRef = collection(db, COMPLIANCE_LOGS_COLLECTION);
     const q = query(
       logsRef,
@@ -310,20 +352,17 @@ export const getTotalSessionTime = async (userId, courseId) => {
     });
 
     return totalSeconds;
-  } catch (error) {
-    console.error('Error getting total session time:', error);
-    return 0;
-  }
+  }, 'getTotalSessionTime');
 };
 
 export const getTotalSessionTimeInMinutes = async (userId, courseId) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    validateCourseId(courseId);
+
     const totalSeconds = await getTotalSessionTime(userId, courseId);
     return Math.floor(totalSeconds / 60);
-  } catch (error) {
-    console.error('Error getting total session time in minutes:', error);
-    return 0;
-  }
+  }, 'getTotalSessionTimeInMinutes');
 };
 
 const complianceServices = {
