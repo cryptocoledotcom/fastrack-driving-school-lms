@@ -13,12 +13,18 @@ import {
   where
 } from 'firebase/firestore';
 import { db } from '../config/firebase';
+import { executeService } from './base/ServiceWrapper';
+import { ValidationError, LessonError } from './errors/ApiError';
+import { validateCourseId, validateModuleId, validateLessonId, validateUserId } from './validators/validators';
 
 const LESSONS_COLLECTION = 'lessons';
 
 // Get all lessons for a module
 export const getLessons = async (courseId, moduleId) => {
-  try {
+  return executeService(async () => {
+    validateCourseId(courseId);
+    validateModuleId(moduleId);
+    
     const lessonsRef = collection(db, LESSONS_COLLECTION);
     const q = query(
       lessonsRef,
@@ -37,35 +43,33 @@ export const getLessons = async (courseId, moduleId) => {
     
     lessons.sort((a, b) => (a.order || 0) - (b.order || 0));
     return lessons;
-  } catch (error) {
-    console.error('Error fetching lessons:', error);
-    throw error;
-  }
+  }, 'getLessons');
 };
 
 // Get lesson by ID
 export const getLessonById = async (lessonId) => {
-  try {
+  return executeService(async () => {
+    validateLessonId(lessonId);
+    
     const lessonRef = doc(db, LESSONS_COLLECTION, lessonId);
     const lessonDoc = await getDoc(lessonRef);
     
     if (!lessonDoc.exists()) {
-      throw new Error('Lesson not found');
+      throw new LessonError('Lesson not found');
     }
     
     return {
       id: lessonDoc.id,
       ...lessonDoc.data()
     };
-  } catch (error) {
-    console.error('Error fetching lesson:', error);
-    throw error;
-  }
+  }, 'getLessonById');
 };
 
 // Get all lessons for a course
 export const getAllCourseLessons = async (courseId) => {
-  try {
+  return executeService(async () => {
+    validateCourseId(courseId);
+    
     const lessonsRef = collection(db, LESSONS_COLLECTION);
     const q = query(
       lessonsRef,
@@ -83,15 +87,16 @@ export const getAllCourseLessons = async (courseId) => {
     
     lessons.sort((a, b) => (a.order || 0) - (b.order || 0));
     return lessons;
-  } catch (error) {
-    console.error('Error fetching course lessons:', error);
-    throw error;
-  }
+  }, 'getAllCourseLessons');
 };
 
 // Create new lesson
 export const createLesson = async (lessonData) => {
-  try {
+  return executeService(async () => {
+    if (typeof lessonData !== 'object' || !lessonData) {
+      throw new ValidationError('Lesson data must be a valid object');
+    }
+    
     const lessonsRef = collection(db, LESSONS_COLLECTION);
     const newLesson = {
       ...lessonData,
@@ -104,15 +109,17 @@ export const createLesson = async (lessonData) => {
       id: docRef.id,
       ...newLesson
     };
-  } catch (error) {
-    console.error('Error creating lesson:', error);
-    throw error;
-  }
+  }, 'createLesson');
 };
 
 // Update lesson
 export const updateLesson = async (lessonId, updates) => {
-  try {
+  return executeService(async () => {
+    validateLessonId(lessonId);
+    if (typeof updates !== 'object' || !updates) {
+      throw new ValidationError('Updates must be a valid object');
+    }
+    
     const lessonRef = doc(db, LESSONS_COLLECTION, lessonId);
     const updateData = {
       ...updates,
@@ -121,28 +128,27 @@ export const updateLesson = async (lessonId, updates) => {
     
     await updateDoc(lessonRef, updateData);
     
-    // Return updated lesson
     return await getLessonById(lessonId);
-  } catch (error) {
-    console.error('Error updating lesson:', error);
-    throw error;
-  }
+  }, 'updateLesson');
 };
 
 // Delete lesson
 export const deleteLesson = async (lessonId) => {
-  try {
+  return executeService(async () => {
+    validateLessonId(lessonId);
+    
     const lessonRef = doc(db, LESSONS_COLLECTION, lessonId);
     await deleteDoc(lessonRef);
-  } catch (error) {
-    console.error('Error deleting lesson:', error);
-    throw error;
-  }
+  }, 'deleteLesson');
 };
 
 // Mark lesson as complete for user
 export const markComplete = async (userId, lessonId, courseId) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    validateLessonId(lessonId);
+    validateCourseId(courseId);
+    
     const progressRef = collection(db, 'progress');
     const progressData = {
       userId,
@@ -153,15 +159,17 @@ export const markComplete = async (userId, lessonId, courseId) => {
     };
     
     await addDoc(progressRef, progressData);
-  } catch (error) {
-    console.error('Error marking lesson complete:', error);
-    throw error;
-  }
+  }, 'markComplete');
 };
 
 // Reorder lessons
 export const reorderLessons = async (moduleId, lessonOrders) => {
-  try {
+  return executeService(async () => {
+    validateModuleId(moduleId);
+    if (!Array.isArray(lessonOrders)) {
+      throw new ValidationError('Lesson orders must be an array');
+    }
+    
     const updatePromises = lessonOrders.map(({ lessonId, order }) => {
       const lessonRef = doc(db, LESSONS_COLLECTION, lessonId);
       return updateDoc(lessonRef, { 
@@ -171,15 +179,14 @@ export const reorderLessons = async (moduleId, lessonOrders) => {
     });
     
     await Promise.all(updatePromises);
-  } catch (error) {
-    console.error('Error reordering lessons:', error);
-    throw error;
-  }
+  }, 'reorderLessons');
 };
 
 // Get next lesson
 export const getNextLesson = async (currentLessonId) => {
-  try {
+  return executeService(async () => {
+    validateLessonId(currentLessonId);
+    
     const currentLesson = await getLessonById(currentLessonId);
     const lessonsRef = collection(db, LESSONS_COLLECTION);
     const q = query(
@@ -205,15 +212,14 @@ export const getNextLesson = async (currentLessonId) => {
     
     lessons.sort((a, b) => (a.order || 0) - (b.order || 0));
     return lessons[0];
-  } catch (error) {
-    console.error('Error getting next lesson:', error);
-    throw error;
-  }
+  }, 'getNextLesson');
 };
 
 // Get previous lesson
 export const getPreviousLesson = async (currentLessonId) => {
-  try {
+  return executeService(async () => {
+    validateLessonId(currentLessonId);
+    
     const currentLesson = await getLessonById(currentLessonId);
     const lessonsRef = collection(db, LESSONS_COLLECTION);
     const q = query(
@@ -239,10 +245,7 @@ export const getPreviousLesson = async (currentLessonId) => {
     
     lessons.sort((a, b) => (b.order || 0) - (a.order || 0));
     return lessons[0];
-  } catch (error) {
-    console.error('Error getting previous lesson:', error);
-    throw error;
-  }
+  }, 'getPreviousLesson');
 };
 
 const lessonServices = {

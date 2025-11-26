@@ -12,6 +12,18 @@ export const validateCourseId = (courseId) => {
   }
 };
 
+export const validateModuleId = (moduleId) => {
+  if (!moduleId || typeof moduleId !== 'string' || moduleId.trim().length === 0) {
+    throw new ValidationError('Module ID is required and must be a non-empty string');
+  }
+};
+
+export const validateLessonId = (lessonId) => {
+  if (!lessonId || typeof lessonId !== 'string' || lessonId.trim().length === 0) {
+    throw new ValidationError('Lesson ID is required and must be a non-empty string');
+  }
+};
+
 export const validateEmail = (email) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(email)) {
