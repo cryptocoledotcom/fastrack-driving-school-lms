@@ -13,12 +13,17 @@ import {
   where
 } from 'firebase/firestore';
 import { db } from '../config/firebase';
+import { executeService } from './base/ServiceWrapper';
+import { ValidationError, ModuleError } from './errors/ApiError';
+import { validateCourseId, validateModuleId } from './validators/validators';
 
 const MODULES_COLLECTION = 'modules';
 
 // Get all modules for a course
 export const getModules = async (courseId) => {
-  try {
+  return executeService(async () => {
+    validateCourseId(courseId);
+    
     const modulesRef = collection(db, MODULES_COLLECTION);
     const q = query(
       modulesRef,
@@ -36,35 +41,35 @@ export const getModules = async (courseId) => {
     
     modules.sort((a, b) => (a.order || 0) - (b.order || 0));
     return modules;
-  } catch (error) {
-    console.error('Error fetching modules:', error);
-    throw error;
-  }
+  }, 'getModules');
 };
 
 // Get module by ID
 export const getModuleById = async (moduleId) => {
-  try {
+  return executeService(async () => {
+    validateModuleId(moduleId);
+    
     const moduleRef = doc(db, MODULES_COLLECTION, moduleId);
     const moduleDoc = await getDoc(moduleRef);
     
     if (!moduleDoc.exists()) {
-      throw new Error('Module not found');
+      throw new ModuleError('Module not found');
     }
     
     return {
       id: moduleDoc.id,
       ...moduleDoc.data()
     };
-  } catch (error) {
-    console.error('Error fetching module:', error);
-    throw error;
-  }
+  }, 'getModuleById');
 };
 
 // Create new module
 export const createModule = async (moduleData) => {
-  try {
+  return executeService(async () => {
+    if (typeof moduleData !== 'object' || !moduleData) {
+      throw new ValidationError('Module data must be a valid object');
+    }
+    
     const modulesRef = collection(db, MODULES_COLLECTION);
     const newModule = {
       ...moduleData,
@@ -77,15 +82,17 @@ export const createModule = async (moduleData) => {
       id: docRef.id,
       ...newModule
     };
-  } catch (error) {
-    console.error('Error creating module:', error);
-    throw error;
-  }
+  }, 'createModule');
 };
 
 // Update module
 export const updateModule = async (moduleId, updates) => {
-  try {
+  return executeService(async () => {
+    validateModuleId(moduleId);
+    if (typeof updates !== 'object' || !updates) {
+      throw new ValidationError('Updates must be a valid object');
+    }
+    
     const moduleRef = doc(db, MODULES_COLLECTION, moduleId);
     const updateData = {
       ...updates,
@@ -94,28 +101,28 @@ export const updateModule = async (moduleId, updates) => {
     
     await updateDoc(moduleRef, updateData);
     
-    // Return updated module
     return await getModuleById(moduleId);
-  } catch (error) {
-    console.error('Error updating module:', error);
-    throw error;
-  }
+  }, 'updateModule');
 };
 
 // Delete module
 export const deleteModule = async (moduleId) => {
-  try {
+  return executeService(async () => {
+    validateModuleId(moduleId);
+    
     const moduleRef = doc(db, MODULES_COLLECTION, moduleId);
     await deleteDoc(moduleRef);
-  } catch (error) {
-    console.error('Error deleting module:', error);
-    throw error;
-  }
+  }, 'deleteModule');
 };
 
 // Reorder modules
 export const reorderModules = async (courseId, moduleOrders) => {
-  try {
+  return executeService(async () => {
+    validateCourseId(courseId);
+    if (!Array.isArray(moduleOrders)) {
+      throw new ValidationError('Module orders must be an array');
+    }
+    
     const updatePromises = moduleOrders.map(({ moduleId, order }) => {
       const moduleRef = doc(db, MODULES_COLLECTION, moduleId);
       return updateDoc(moduleRef, { 
@@ -125,18 +132,16 @@ export const reorderModules = async (courseId, moduleOrders) => {
     });
     
     await Promise.all(updatePromises);
-  } catch (error) {
-    console.error('Error reordering modules:', error);
-    throw error;
-  }
+  }, 'reorderModules');
 };
 
 // Get module with lessons count
 export const getModuleWithStats = async (moduleId) => {
-  try {
+  return executeService(async () => {
+    validateModuleId(moduleId);
+    
     const module = await getModuleById(moduleId);
     
-    // Get lessons count for this module
     const lessonsRef = collection(db, 'lessons');
     const q = query(lessonsRef, where('moduleId', '==', moduleId));
     const lessonsSnapshot = await getDocs(q);
@@ -145,10 +150,7 @@ export const getModuleWithStats = async (moduleId) => {
       ...module,
       lessonsCount: lessonsSnapshot.size
     };
-  } catch (error) {
-    console.error('Error fetching module with stats:', error);
-    throw error;
-  }
+  }, 'getModuleWithStats');
 };
 
 const moduleServices = {
