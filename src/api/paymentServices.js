@@ -15,6 +15,9 @@ import {
 } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import { PAYMENT_STATUS } from '../constants/courses';
+import { executeService } from './base/ServiceWrapper';
+import { ValidationError, PaymentError } from './errors/ApiError';
+import { validateUserId, validateCourseId, validatePaymentData } from './validators/validators';
 
 const PAYMENTS_COLLECTION = 'payments';
 
@@ -23,14 +26,14 @@ const PAYMENTS_COLLECTION = 'payments';
  * This is a placeholder - actual implementation requires Cloud Function
  */
 export const createPaymentIntent = async (userId, courseId, amount, paymentType = 'upfront') => {
-  try {
-    // In production, this should call a Cloud Function that creates a Stripe Payment Intent
-    // For now, we'll create a payment record
+  return executeService(async () => {
+    validatePaymentData(userId, courseId, amount, paymentType);
+    
     const paymentData = {
       userId,
       courseId,
       amount,
-      paymentType, // 'upfront' or 'remaining'
+      paymentType,
       status: PAYMENT_STATUS.PENDING,
       currency: 'usd',
       createdAt: serverTimestamp(),
@@ -43,20 +46,21 @@ export const createPaymentIntent = async (userId, courseId, amount, paymentType 
     return {
       id: paymentDoc.id,
       ...paymentData,
-      // In production, this would include clientSecret from Stripe
       clientSecret: `pi_test_${paymentDoc.id}`
     };
-  } catch (error) {
-    console.error('Error creating payment intent:', error);
-    throw error;
-  }
+  }, 'createPaymentIntent');
 };
 
 /**
  * Create checkout session for Stripe
  */
 export const createCheckoutSession = async (userId, courseId, amount, paymentType, userEmail) => {
-  try {
+  return executeService(async () => {
+    validatePaymentData(userId, courseId, amount, paymentType);
+    if (!userEmail || typeof userEmail !== 'string' || !userEmail.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+      throw new ValidationError('User email must be valid format');
+    }
+    
     const paymentData = {
       userId,
       courseId,
@@ -72,24 +76,29 @@ export const createCheckoutSession = async (userId, courseId, amount, paymentTyp
     const paymentsRef = collection(db, PAYMENTS_COLLECTION);
     const paymentDoc = await addDoc(paymentsRef, paymentData);
 
-    // In production, call Cloud Function to create Stripe Checkout Session
-    // For now, return mock data
     return {
       id: paymentDoc.id,
       sessionId: `cs_test_${paymentDoc.id}`,
       ...paymentData
     };
-  } catch (error) {
-    console.error('Error creating checkout session:', error);
-    throw error;
-  }
+  }, 'createCheckoutSession');
 };
 
 /**
  * Update payment status
  */
 export const updatePaymentStatus = async (paymentId, status, metadata = {}) => {
-  try {
+  return executeService(async () => {
+    if (!paymentId || typeof paymentId !== 'string') {
+      throw new ValidationError('Payment ID is required');
+    }
+    if (!status || typeof status !== 'string') {
+      throw new ValidationError('Payment status is required');
+    }
+    if (typeof metadata !== 'object' || metadata === null) {
+      throw new ValidationError('Metadata must be an object');
+    }
+    
     const paymentRef = doc(db, PAYMENTS_COLLECTION, paymentId);
     
     const updates = {
@@ -107,39 +116,39 @@ export const updatePaymentStatus = async (paymentId, status, metadata = {}) => {
     await updateDoc(paymentRef, updates);
 
     return updates;
-  } catch (error) {
-    console.error('Error updating payment status:', error);
-    throw error;
-  }
+  }, 'updatePaymentStatus');
 };
 
 /**
  * Get payment by ID
  */
 export const getPayment = async (paymentId) => {
-  try {
+  return executeService(async () => {
+    if (!paymentId || typeof paymentId !== 'string') {
+      throw new ValidationError('Payment ID is required');
+    }
+    
     const paymentRef = doc(db, PAYMENTS_COLLECTION, paymentId);
     const paymentDoc = await getDoc(paymentRef);
 
     if (!paymentDoc.exists()) {
-      throw new Error('Payment not found');
+      throw new PaymentError('Payment not found');
     }
 
     return {
       id: paymentDoc.id,
       ...paymentDoc.data()
     };
-  } catch (error) {
-    console.error('Error fetching payment:', error);
-    throw error;
-  }
+  }, 'getPayment');
 };
 
 /**
  * Get user's payment history
  */
 export const getUserPayments = async (userId) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    
     const paymentsRef = collection(db, PAYMENTS_COLLECTION);
     const q = query(
       paymentsRef,
@@ -157,17 +166,17 @@ export const getUserPayments = async (userId) => {
     });
 
     return payments;
-  } catch (error) {
-    console.error('Error fetching user payments:', error);
-    throw error;
-  }
+  }, 'getUserPayments');
 };
 
 /**
  * Get payments for a specific course enrollment
  */
 export const getCoursePayments = async (userId, courseId) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    validateCourseId(courseId);
+    
     const paymentsRef = collection(db, PAYMENTS_COLLECTION);
     const q = query(
       paymentsRef,
@@ -186,21 +195,22 @@ export const getCoursePayments = async (userId, courseId) => {
     });
 
     return payments;
-  } catch (error) {
-    console.error('Error fetching course payments:', error);
-    throw error;
-  }
+  }, 'getCoursePayments');
 };
 
 /**
  * Process successful payment (called by webhook or after payment confirmation)
  */
 export const processSuccessfulPayment = async (paymentId, stripePaymentIntentId = null) => {
-  try {
+  return executeService(async () => {
+    if (!paymentId || typeof paymentId !== 'string') {
+      throw new ValidationError('Payment ID is required');
+    }
+    
     const payment = await getPayment(paymentId);
     
     if (payment.status === PAYMENT_STATUS.COMPLETED) {
-      return payment; // Already processed
+      return payment;
     }
 
     const updates = {
@@ -219,17 +229,21 @@ export const processSuccessfulPayment = async (paymentId, stripePaymentIntentId 
       ...payment,
       ...updates
     };
-  } catch (error) {
-    console.error('Error processing successful payment:', error);
-    throw error;
-  }
+  }, 'processSuccessfulPayment');
 };
 
 /**
  * Handle payment failure
  */
 export const handlePaymentFailure = async (paymentId, errorMessage = '') => {
-  try {
+  return executeService(async () => {
+    if (!paymentId || typeof paymentId !== 'string') {
+      throw new ValidationError('Payment ID is required');
+    }
+    if (typeof errorMessage !== 'string') {
+      throw new ValidationError('Error message must be a string');
+    }
+    
     const updates = {
       status: PAYMENT_STATUS.FAILED,
       errorMessage,
@@ -240,17 +254,17 @@ export const handlePaymentFailure = async (paymentId, errorMessage = '') => {
     await updatePaymentStatus(paymentId, PAYMENT_STATUS.FAILED, updates);
 
     return updates;
-  } catch (error) {
-    console.error('Error handling payment failure:', error);
-    throw error;
-  }
+  }, 'handlePaymentFailure');
 };
 
 /**
  * Calculate total amount paid for a course
  */
 export const calculateTotalPaid = async (userId, courseId) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    validateCourseId(courseId);
+    
     const payments = await getCoursePayments(userId, courseId);
     
     const totalPaid = payments
@@ -258,10 +272,7 @@ export const calculateTotalPaid = async (userId, courseId) => {
       .reduce((sum, payment) => sum + payment.amount, 0);
 
     return totalPaid;
-  } catch (error) {
-    console.error('Error calculating total paid:', error);
-    throw error;
-  }
+  }, 'calculateTotalPaid');
 };
 
 const paymentServices = {
