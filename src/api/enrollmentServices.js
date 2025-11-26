@@ -12,6 +12,9 @@ import {
   writeBatch
 } from 'firebase/firestore';
 import { db } from '../config/firebase';
+import { executeService } from './base/ServiceWrapper';
+import { validateUserId, validateCourseId } from './validators/validators';
+import { EnrollmentError, ValidationError } from './errors/ApiError';
 import { 
   COURSE_IDS, 
   COURSE_PRICING, 
@@ -25,11 +28,15 @@ import {
  * Create enrollment record for a course in users/{userId}/courses/{courseId}
  */
 export const createEnrollment = async (userId, courseId, userEmail = '') => {
-  try {
-    // Reference to users/{userId}/courses/{courseId}
+  return executeService(async () => {
+    validateUserId(userId);
+    validateCourseId(courseId);
+    if (typeof userEmail !== 'string') {
+      throw new ValidationError('userEmail must be a string');
+    }
+
     const enrollmentRef = doc(db, 'users', userId, 'courses', courseId);
     
-    // Check if enrollment already exists
     const existingEnrollment = await getDoc(enrollmentRef);
     if (existingEnrollment.exists()) {
       return {
@@ -40,10 +47,9 @@ export const createEnrollment = async (userId, courseId, userEmail = '') => {
 
     const pricing = COURSE_PRICING[courseId];
     if (!pricing) {
-      throw new Error('Invalid course ID');
+      throw new EnrollmentError('Invalid course ID', courseId);
     }
 
-    // Check if user is admin (auto-enroll with full access)
     const isAdmin = ADMIN_CONFIG.AUTO_ENROLL_EMAILS.includes(userEmail.toLowerCase());
 
     const enrollmentData = {
@@ -73,23 +79,23 @@ export const createEnrollment = async (userId, courseId, userEmail = '') => {
       id: enrollmentRef.id,
       ...enrollmentData
     };
-  } catch (error) {
-    console.error('Error creating enrollment:', error);
-    throw error;
-  }
+  }, 'createEnrollment');
 };
 
 /**
  * Create enrollments for Complete Package (both courses)
  */
 export const createCompletePackageEnrollment = async (userId, userEmail = '') => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    if (typeof userEmail !== 'string') {
+      throw new ValidationError('userEmail must be a string');
+    }
+
     const batch = writeBatch(db);
     const isAdmin = ADMIN_CONFIG.AUTO_ENROLL_EMAILS.includes(userEmail.toLowerCase());
 
-    // Create enrollment for Complete Package
     const completeEnrollmentRef = doc(db, 'users', userId, 'courses', COURSE_IDS.COMPLETE);
-    
     const completePricing = COURSE_PRICING[COURSE_IDS.COMPLETE];
     
     const completeEnrollmentData = {
@@ -115,9 +121,7 @@ export const createCompletePackageEnrollment = async (userId, userEmail = '') =>
 
     batch.set(completeEnrollmentRef, completeEnrollmentData);
 
-    // Create enrollment for Online Course (component)
     const onlineEnrollmentRef = doc(db, 'users', userId, 'courses', COURSE_IDS.ONLINE);
-    
     const onlineEnrollmentData = {
       userId,
       courseId: COURSE_IDS.ONLINE,
@@ -125,7 +129,7 @@ export const createCompletePackageEnrollment = async (userId, userEmail = '') =>
       status: isAdmin ? ENROLLMENT_STATUS.ACTIVE : ENROLLMENT_STATUS.PENDING_PAYMENT,
       paymentStatus: isAdmin ? PAYMENT_STATUS.COMPLETED : PAYMENT_STATUS.PENDING,
       accessStatus: isAdmin ? ACCESS_STATUS.UNLOCKED : ACCESS_STATUS.LOCKED,
-      totalAmount: 0, // Part of bundle
+      totalAmount: 0,
       amountPaid: 0,
       amountDue: 0,
       parentEnrollmentId: COURSE_IDS.COMPLETE,
@@ -141,9 +145,7 @@ export const createCompletePackageEnrollment = async (userId, userEmail = '') =>
 
     batch.set(onlineEnrollmentRef, onlineEnrollmentData);
 
-    // Create enrollment for Behind-the-Wheel Course (component)
     const btwEnrollmentRef = doc(db, 'users', userId, 'courses', COURSE_IDS.BEHIND_WHEEL);
-    
     const btwEnrollmentData = {
       userId,
       courseId: COURSE_IDS.BEHIND_WHEEL,
@@ -151,7 +153,7 @@ export const createCompletePackageEnrollment = async (userId, userEmail = '') =>
       status: isAdmin ? ENROLLMENT_STATUS.ACTIVE : ENROLLMENT_STATUS.PENDING_PAYMENT,
       paymentStatus: isAdmin ? PAYMENT_STATUS.COMPLETED : PAYMENT_STATUS.PENDING,
       accessStatus: isAdmin ? ACCESS_STATUS.UNLOCKED : ACCESS_STATUS.LOCKED,
-      totalAmount: 0, // Part of bundle
+      totalAmount: 0,
       amountPaid: 0,
       amountDue: 0,
       parentEnrollmentId: COURSE_IDS.COMPLETE,
@@ -166,7 +168,6 @@ export const createCompletePackageEnrollment = async (userId, userEmail = '') =>
     };
 
     batch.set(btwEnrollmentRef, btwEnrollmentData);
-
     await batch.commit();
 
     return {
@@ -174,17 +175,17 @@ export const createCompletePackageEnrollment = async (userId, userEmail = '') =>
       online: { id: COURSE_IDS.ONLINE, ...onlineEnrollmentData },
       behindWheel: { id: COURSE_IDS.BEHIND_WHEEL, ...btwEnrollmentData }
     };
-  } catch (error) {
-    console.error('Error creating complete package enrollment:', error);
-    throw error;
-  }
+  }, 'createCompletePackageEnrollment');
 };
 
 /**
  * Get user's enrollment for a specific course from users/{userId}/courses/{courseId}
  */
 export const getEnrollment = async (userId, courseId) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    validateCourseId(courseId);
+
     const enrollmentRef = doc(db, 'users', userId, 'courses', courseId);
     const enrollmentDoc = await getDoc(enrollmentRef);
 
@@ -200,17 +201,16 @@ export const getEnrollment = async (userId, courseId) => {
       amountPaid: Number(data.amountPaid ?? 0),
       amountDue: Number(data.amountDue ?? 0),
     };
-  } catch (error) {
-    console.error('Error fetching enrollment:', error);
-    throw error;
-  }
+  }, 'getEnrollment');
 };
 
 /**
  * Get all enrollments for a user from users/{userId}/courses subcollection
  */
 export const getUserEnrollments = async (userId) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+
     const enrollmentsRef = collection(db, 'users', userId, 'courses');
     const querySnapshot = await getDocs(enrollmentsRef);
 
@@ -230,22 +230,28 @@ export const getUserEnrollments = async (userId) => {
     });
 
     return enrollments;
-  } catch (error) {
-    console.error('Error fetching user enrollments:', error);
-    throw error;
-  }
+  }, 'getUserEnrollments');
 };
 
 /**
  * Update enrollment after payment
  */
 export const updateEnrollmentAfterPayment = async (userId, courseId, paymentAmount, paymentType = 'upfront') => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    validateCourseId(courseId);
+    if (typeof paymentAmount !== 'number' || paymentAmount <= 0) {
+      throw new ValidationError('paymentAmount must be a positive number');
+    }
+    if (typeof paymentType !== 'string') {
+      throw new ValidationError('paymentType must be a string');
+    }
+
     const enrollmentRef = doc(db, 'users', userId, 'courses', courseId);
     const enrollmentDoc = await getDoc(enrollmentRef);
 
     if (!enrollmentDoc.exists()) {
-      throw new Error('Enrollment not found');
+      throw new EnrollmentError('Enrollment not found', courseId);
     }
 
     const enrollment = enrollmentDoc.data();
@@ -258,7 +264,6 @@ export const updateEnrollmentAfterPayment = async (userId, courseId, paymentAmou
       updatedAt: serverTimestamp()
     };
 
-    // Determine payment status
     if (newAmountPaid >= enrollment.totalAmount) {
       updates.paymentStatus = PAYMENT_STATUS.COMPLETED;
       updates.status = ENROLLMENT_STATUS.ACTIVE;
@@ -266,27 +271,21 @@ export const updateEnrollmentAfterPayment = async (userId, courseId, paymentAmou
       updates.paymentStatus = PAYMENT_STATUS.PARTIAL;
     }
 
-    // Handle course-specific logic
     if (courseId === COURSE_IDS.ONLINE) {
-      // Online course: unlock access after upfront payment
       if (paymentType === 'upfront' && paymentAmount >= COURSE_PRICING[COURSE_IDS.ONLINE].upfront) {
         updates.accessStatus = ACCESS_STATUS.UNLOCKED;
         updates.status = ENROLLMENT_STATUS.ACTIVE;
       }
     } else if (courseId === COURSE_IDS.BEHIND_WHEEL) {
-      // Behind-the-wheel: unlock after certificate and payment
       if (enrollment.certificateGenerated && newAmountPaid >= enrollment.totalAmount) {
         updates.accessStatus = ACCESS_STATUS.UNLOCKED;
         updates.status = ENROLLMENT_STATUS.ACTIVE;
       }
     } else if (courseId === COURSE_IDS.COMPLETE) {
-      // Complete package: handle split payment
       if (paymentType === 'upfront' && paymentAmount >= COURSE_PRICING[COURSE_IDS.COMPLETE].upfront) {
-        // Unlock online course component
         updates.accessStatus = ACCESS_STATUS.UNLOCKED;
         updates.remainingAmount = COURSE_PRICING[COURSE_IDS.COMPLETE].remaining;
         
-        // Update online course component enrollment
         const onlineEnrollmentRef = doc(db, 'users', userId, 'courses', COURSE_IDS.ONLINE);
         await updateDoc(onlineEnrollmentRef, {
           accessStatus: ACCESS_STATUS.UNLOCKED,
@@ -294,7 +293,6 @@ export const updateEnrollmentAfterPayment = async (userId, courseId, paymentAmou
           updatedAt: serverTimestamp()
         });
       } else if (paymentType === 'remaining' && newAmountPaid >= enrollment.totalAmount) {
-        // Unlock behind-the-wheel component
         const btwEnrollmentRef = doc(db, 'users', userId, 'courses', COURSE_IDS.BEHIND_WHEEL);
         await updateDoc(btwEnrollmentRef, {
           accessStatus: ACCESS_STATUS.UNLOCKED,
@@ -311,17 +309,20 @@ export const updateEnrollmentAfterPayment = async (userId, courseId, paymentAmou
       ...enrollment,
       ...updates
     };
-  } catch (error) {
-    console.error('Error updating enrollment after payment:', error);
-    throw error;
-  }
+  }, 'updateEnrollmentAfterPayment');
 };
 
 /**
  * Update certificate generation status
  */
 export const updateCertificateStatus = async (userId, courseId, certificateGenerated = true) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    validateCourseId(courseId);
+    if (typeof certificateGenerated !== 'boolean') {
+      throw new ValidationError('certificateGenerated must be a boolean');
+    }
+
     const enrollmentRef = doc(db, 'users', userId, 'courses', courseId);
 
     const updates = {
@@ -330,12 +331,10 @@ export const updateCertificateStatus = async (userId, courseId, certificateGener
       updatedAt: serverTimestamp()
     };
 
-    // For behind-the-wheel course, update access status
     if (courseId === COURSE_IDS.BEHIND_WHEEL && certificateGenerated) {
       const enrollmentDoc = await getDoc(enrollmentRef);
       if (enrollmentDoc.exists()) {
         const enrollment = enrollmentDoc.data();
-        // Only unlock if payment is complete
         if (enrollment.paymentStatus === PAYMENT_STATUS.COMPLETED) {
           updates.accessStatus = ACCESS_STATUS.UNLOCKED;
         } else {
@@ -347,17 +346,17 @@ export const updateCertificateStatus = async (userId, courseId, certificateGener
     await updateDoc(enrollmentRef, updates);
 
     return updates;
-  } catch (error) {
-    console.error('Error updating certificate status:', error);
-    throw error;
-  }
+  }, 'updateCertificateStatus');
 };
 
 /**
  * Check if user has access to a course
  */
 export const checkCourseAccess = async (userId, courseId) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    validateCourseId(courseId);
+
     const enrollment = await getEnrollment(userId, courseId);
     
     if (!enrollment) {
@@ -396,53 +395,54 @@ export const checkCourseAccess = async (userId, courseId) => {
       reason: 'unknown',
       enrollment
     };
-  } catch (error) {
-    console.error('Error checking course access:', error);
-    throw error;
-  }
+  }, 'checkCourseAccess');
 };
 
 /**
  * Auto-enroll admin users in all courses
  */
 export const autoEnrollAdmin = async (userId, userEmail) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    if (!userEmail || typeof userEmail !== 'string') {
+      throw new ValidationError('userEmail must be a non-empty string');
+    }
+
     if (!ADMIN_CONFIG.AUTO_ENROLL_EMAILS.includes(userEmail.toLowerCase())) {
       return null;
     }
 
     const enrollments = [];
 
-    // Enroll in all courses
     for (const courseId of Object.values(COURSE_IDS)) {
       const enrollment = await createEnrollment(userId, courseId, userEmail);
       enrollments.push(enrollment);
     }
 
     return enrollments;
-  } catch (error) {
-    console.error('Error auto-enrolling admin:', error);
-    throw error;
-  }
+  }, 'autoEnrollAdmin');
 };
 
 /**
  * Reset enrollment to pending payment state (for testing)
  */
 export const resetEnrollmentToPending = async (userId, courseId) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    validateCourseId(courseId);
+
     const enrollmentRef = doc(db, 'users', userId, 'courses', courseId);
     const enrollmentDoc = await getDoc(enrollmentRef);
 
     if (!enrollmentDoc.exists()) {
-      throw new Error('Enrollment not found');
+      throw new EnrollmentError('Enrollment not found', courseId);
     }
 
     const enrollment = enrollmentDoc.data();
     const pricing = COURSE_PRICING[courseId];
 
     if (!pricing) {
-      throw new Error('Invalid course ID');
+      throw new EnrollmentError('Invalid course ID', courseId);
     }
 
     const updates = {
@@ -466,17 +466,16 @@ export const resetEnrollmentToPending = async (userId, courseId) => {
       amountDue: Number(updates.amountDue ?? (enrollment.amountDue ?? 0)),
     };
     return result;
-  } catch (error) {
-    console.error('Error resetting enrollment:', error);
-    throw error;
-  }
+  }, 'resetEnrollmentToPending');
 };
 
 /**
  * Reset all enrollments for a user to pending payment state
  */
 export const resetUserEnrollmentsToPending = async (userId) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+
     const userCoursesRef = collection(db, 'users', userId, 'courses');
     const coursesSnapshot = await getDocs(userCoursesRef);
 
@@ -489,17 +488,14 @@ export const resetUserEnrollmentsToPending = async (userId) => {
     }
 
     return resetEnrollments;
-  } catch (error) {
-    console.error('Error resetting user enrollments:', error);
-    throw error;
-  }
+  }, 'resetUserEnrollmentsToPending')
 };
 
 /**
  * Get all users with enrollments (for admin)
  */
 export const getAllUsersWithEnrollments = async () => {
-  try {
+  return executeService(async () => {
     const usersRef = collection(db, 'users');
     const usersSnapshot = await getDocs(usersRef);
 
@@ -522,10 +518,7 @@ export const getAllUsersWithEnrollments = async () => {
     }
 
     return usersWithEnrollments;
-  } catch (error) {
-    console.error('Error fetching users with enrollments:', error);
-    throw error;
-  }
+  }, 'getAllUsersWithEnrollments')
 };
 
 /**
@@ -533,7 +526,7 @@ export const getAllUsersWithEnrollments = async () => {
  * Enrollment is created in ACTIVE/COMPLETED/UNLOCKED state
  */
 export const createPaidEnrollment = async (userId, courseId, paidAmount, userEmail = '') => {
-  try {
+  return executeService(async () => {
     const pricing = COURSE_PRICING[courseId];
     if (!pricing) {
       throw new Error('Invalid course ID');
@@ -571,17 +564,14 @@ export const createPaidEnrollment = async (userId, courseId, paidAmount, userEma
       id: enrollmentRef.id,
       ...enrollmentData
     };
-  } catch (error) {
-    console.error('Error creating paid enrollment:', error);
-    throw error;
-  }
+  }, 'createPaidEnrollment')
 };
 
 /**
  * Create Complete Package enrollment after successful payment
  */
 export const createPaidCompletePackageEnrollment = async (userId, paidAmount, userEmail = '') => {
-  try {
+  return executeService(async () => {
     const batch = writeBatch(db);
     const completePricing = COURSE_PRICING[COURSE_IDS.COMPLETE];
 
@@ -667,10 +657,7 @@ export const createPaidCompletePackageEnrollment = async (userId, paidAmount, us
       online: { id: COURSE_IDS.ONLINE, ...onlineEnrollmentData },
       behindWheel: { id: COURSE_IDS.BEHIND_WHEEL, ...btwEnrollmentData }
     };
-  } catch (error) {
-    console.error('Error creating paid complete package enrollment:', error);
-    throw error;
-  }
+  }, 'createPaidCompletePackageEnrollment')
 };
 
 /**
@@ -678,7 +665,7 @@ export const createPaidCompletePackageEnrollment = async (userId, paidAmount, us
  * $99.99 now for online, $450 remaining for behind-wheel after certificate
  */
 export const createPaidCompletePackageSplit = async (userId, upfrontAmount, userEmail = '') => {
-  try {
+  return executeService(async () => {
     const batch = writeBatch(db);
     const completePricing = COURSE_PRICING[COURSE_IDS.COMPLETE];
 
@@ -766,19 +753,22 @@ export const createPaidCompletePackageSplit = async (userId, upfrontAmount, user
       online: { id: COURSE_IDS.ONLINE, ...onlineEnrollmentData },
       behindWheel: { id: COURSE_IDS.BEHIND_WHEEL, ...btwEnrollmentData }
     };
-  } catch (error) {
-    console.error('Error creating split payment complete package enrollment:', error);
-    throw error;
-  }
+  }, 'createPaidCompletePackageSplit')
 };
 
 export const payRemainingBalance = async (userId, courseId, amountPaid, userEmail = '') => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    validateCourseId(courseId);
+    if (typeof amountPaid !== 'number' || amountPaid <= 0) {
+      throw new ValidationError('amountPaid must be a positive number');
+    }
+
     const enrollmentRef = doc(db, 'users', userId, 'courses', courseId);
     const enrollmentDoc = await getDoc(enrollmentRef);
 
     if (!enrollmentDoc.exists()) {
-      throw new Error('Enrollment not found');
+      throw new EnrollmentError('Enrollment not found', courseId);
     }
 
     const enrollment = enrollmentDoc.data();
@@ -800,10 +790,7 @@ export const payRemainingBalance = async (userId, courseId, amountPaid, userEmai
     await updateDoc(enrollmentRef, updates);
 
     return updates;
-  } catch (error) {
-    console.error('Error paying remaining balance:', error);
-    throw error;
-  }
+  }, 'payRemainingBalance');
 };
 
 const enrollmentServices = {

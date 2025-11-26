@@ -1,0 +1,400 @@
+Lines 426-827 (remaining functions):
+426: /**
+427:  * Reset enrollment to pending payment state (for testing)
+428:  */
+429: export const resetEnrollmentToPending = async (userId, courseId) => {
+430:   try {
+431:     const enrollmentRef = doc(db, 'users', userId, 'courses', courseId);
+432:     const enrollmentDoc = await getDoc(enrollmentRef);
+433: 
+434:     if (!enrollmentDoc.exists()) {
+435:       throw new Error('Enrollment not found');
+436:     }
+437: 
+438:     const enrollment = enrollmentDoc.data();
+439:     const pricing = COURSE_PRICING[courseId];
+440: 
+441:     if (!pricing) {
+442:       throw new Error('Invalid course ID');
+443:     }
+444: 
+445:     const updates = {
+446:       status: ENROLLMENT_STATUS.PENDING_PAYMENT,
+447:       paymentStatus: PAYMENT_STATUS.PENDING,
+448:       accessStatus: ACCESS_STATUS.LOCKED,
+449:       amountPaid: 0,
+450:       amountDue: pricing.upfront || pricing.total,
+451:       certificateGenerated: false,
+452:       updatedAt: serverTimestamp()
+453:     };
+454: 
+455:     await updateDoc(enrollmentRef, updates);
+456: 
+457:     const result = {
+458:       id: enrollmentRef.id,
+459:       ...enrollment,
+460:       ...updates,
+461:       totalAmount: Number(enrollment.totalAmount ?? 0),
+462:       amountPaid: Number(updates.amountPaid ?? (enrollment.amountPaid ?? 0)),
+463:       amountDue: Number(updates.amountDue ?? (enrollment.amountDue ?? 0)),
+464:     };
+465:     return result;
+466:   } catch (error) {
+467:     console.error('Error resetting enrollment:', error);
+468:     throw error;
+469:   }
+470: };
+471: 
+472: /**
+473:  * Reset all enrollments for a user to pending payment state
+474:  */
+475: export const resetUserEnrollmentsToPending = async (userId) => {
+476:   try {
+477:     const userCoursesRef = collection(db, 'users', userId, 'courses');
+478:     const coursesSnapshot = await getDocs(userCoursesRef);
+479: 
+480:     const resetEnrollments = [];
+481: 
+482:     for (const courseDoc of coursesSnapshot.docs) {
+483:       const courseId = courseDoc.id;
+484:       const resetEnrollment = await resetEnrollmentToPending(userId, courseId);
+485:       resetEnrollments.push(resetEnrollment);
+486:     }
+487: 
+488:     return resetEnrollments;
+489:   } catch (error) {
+490:     console.error('Error resetting user enrollments:', error);
+491:     throw error;
+492:   }
+493: };
+494: 
+495: /**
+496:  * Get all users with enrollments (for admin)
+497:  */
+498: export const getAllUsersWithEnrollments = async () => {
+499:   try {
+500:     const usersRef = collection(db, 'users');
+501:     const usersSnapshot = await getDocs(usersRef);
+502: 
+503:     const usersWithEnrollments = [];
+504: 
+505:     for (const userDoc of usersSnapshot.docs) {
+506:       const userId = userDoc.id;
+507:       const userData = userDoc.data();
+508:       
+509:       const enrollments = await getUserEnrollments(userId);
+510:       
+511:       if (enrollments.length > 0) {
+512:         usersWithEnrollments.push({
+513:           userId,
+514:           email: userData.email,
+515:           displayName: userData.displayName || '',
+516:           enrollments
+517:         });
+518:       }
+519:     }
+520: 
+521:     return usersWithEnrollments;
+522:   } catch (error) {
+523:     console.error('Error fetching users with enrollments:', error);
+524:     throw error;
+525:   }
+526: };
+527: 
+528: /**
+529:  * Create enrollment after successful payment
+530:  * Enrollment is created in ACTIVE/COMPLETED/UNLOCKED state
+531:  */
+532: export const createPaidEnrollment = async (userId, courseId, paidAmount, userEmail = '') => {
+533:   try {
+534:     const pricing = COURSE_PRICING[courseId];
+535:     if (!pricing) {
+536:       throw new Error('Invalid course ID');
+537:     }
+538: 
+539:     if (courseId === COURSE_IDS.COMPLETE) {
+540:       return await createPaidCompletePackageEnrollment(userId, paidAmount, userEmail);
+541:     }
+542: 
+543:     const enrollmentRef = doc(db, 'users', userId, 'courses', courseId);
+544:     
+545:     const enrollmentData = {
+546:       userId,
+547:       courseId,
+548:       enrollmentDate: serverTimestamp(),
+549:       status: ENROLLMENT_STATUS.ACTIVE,
+550:       paymentStatus: PAYMENT_STATUS.COMPLETED,
+551:       accessStatus: ACCESS_STATUS.UNLOCKED,
+552:       totalAmount: pricing.total,
+553:       amountPaid: Number(paidAmount),
+554:       amountDue: Math.max(0, pricing.total - Number(paidAmount)),
+555:       upfrontAmount: pricing.upfront,
+556:       remainingAmount: Math.max(0, pricing.remaining - (Number(paidAmount) - pricing.upfront)),
+557:       certificateGenerated: false,
+558:       progress: 0,
+559:       lastAccessedAt: null,
+560:       completedAt: null,
+561:       createdAt: serverTimestamp(),
+562:       updatedAt: serverTimestamp()
+563:     };
+564: 
+565:     await setDoc(enrollmentRef, enrollmentData);
+566: 
+567:     return {
+568:       id: enrollmentRef.id,
+569:       ...enrollmentData
+570:     };
+571:   } catch (error) {
+572:     console.error('Error creating paid enrollment:', error);
+573:     throw error;
+574:   }
+575: };
+576: 
+577: /**
+578:  * Create Complete Package enrollment after successful payment
+579:  */
+580: export const createPaidCompletePackageEnrollment = async (userId, paidAmount, userEmail = '') => {
+581:   try {
+582:     const batch = writeBatch(db);
+583:     const completePricing = COURSE_PRICING[COURSE_IDS.COMPLETE];
+584: 
+585:     // Create enrollment for Complete Package
+586:     const completeEnrollmentRef = doc(db, 'users', userId, 'courses', COURSE_IDS.COMPLETE);
+587:     
+588:     const completeEnrollmentData = {
+589:       userId,
+590:       courseId: COURSE_IDS.COMPLETE,
+591:       enrollmentDate: serverTimestamp(),
+592:       status: ENROLLMENT_STATUS.ACTIVE,
+593:       paymentStatus: PAYMENT_STATUS.COMPLETED,
+594:       accessStatus: ACCESS_STATUS.UNLOCKED,
+595:       totalAmount: completePricing.total,
+596:       amountPaid: Number(paidAmount),
+597:       amountDue: Math.max(0, completePricing.total - Number(paidAmount)),
+598:       upfrontAmount: completePricing.upfront,
+599:       remainingAmount: Math.max(0, completePricing.remaining - (Number(paidAmount) - completePricing.upfront)),
+600:       certificateGenerated: false,
+601:       progress: 0,
+602:       lastAccessedAt: null,
+603:       completedAt: null,
+604:       createdAt: serverTimestamp(),
+605:       updatedAt: serverTimestamp()
+606:     };
+607: 
+608:     batch.set(completeEnrollmentRef, completeEnrollmentData);
+609: 
+610:     // Create enrollment for Online Course (component) - unlocked via parent
+611:     const onlineEnrollmentRef = doc(db, 'users', userId, 'courses', COURSE_IDS.ONLINE);
+612:     
+613:     const onlineEnrollmentData = {
+614:       userId,
+615:       courseId: COURSE_IDS.ONLINE,
+616:       enrollmentDate: serverTimestamp(),
+617:       status: ENROLLMENT_STATUS.ACTIVE,
+618:       paymentStatus: PAYMENT_STATUS.COMPLETED,
+619:       accessStatus: ACCESS_STATUS.UNLOCKED,
+620:       totalAmount: 0,
+621:       amountPaid: 0,
+622:       amountDue: 0,
+623:       parentEnrollmentId: COURSE_IDS.COMPLETE,
+624:       isComponentOfBundle: true,
+625:       certificateGenerated: false,
+626:       progress: 0,
+627:       lastAccessedAt: null,
+628:       completedAt: null,
+629:       createdAt: serverTimestamp(),
+630:       updatedAt: serverTimestamp()
+631:     };
+632: 
+633:     batch.set(onlineEnrollmentRef, onlineEnrollmentData);
+634: 
+635:     // Create enrollment for Behind-the-Wheel Course (component) - unlocked via parent
+636:     const btwEnrollmentRef = doc(db, 'users', userId, 'courses', COURSE_IDS.BEHIND_WHEEL);
+637:     
+638:     const btwEnrollmentData = {
+639:       userId,
+640:       courseId: COURSE_IDS.BEHIND_WHEEL,
+641:       enrollmentDate: serverTimestamp(),
+642:       status: ENROLLMENT_STATUS.ACTIVE,
+643:       paymentStatus: PAYMENT_STATUS.COMPLETED,
+644:       accessStatus: ACCESS_STATUS.UNLOCKED,
+645:       totalAmount: 0,
+646:       amountPaid: 0,
+647:       amountDue: 0,
+648:       parentEnrollmentId: COURSE_IDS.COMPLETE,
+649:       isComponentOfBundle: true,
+650:       certificateGenerated: false,
+651:       progress: 0,
+652:       lastAccessedAt: null,
+653:       completedAt: null,
+654:       createdAt: serverTimestamp(),
+655:       updatedAt: serverTimestamp()
+656:     };
+657: 
+658:     batch.set(btwEnrollmentRef, btwEnrollmentData);
+659: 
+660:     await batch.commit();
+661: 
+662:     return {
+663:       completePackage: { id: COURSE_IDS.COMPLETE, ...completeEnrollmentData },
+664:       online: { id: COURSE_IDS.ONLINE, ...onlineEnrollmentData },
+665:       behindWheel: { id: COURSE_IDS.BEHIND_WHEEL, ...btwEnrollmentData }
+666:     };
+667:   } catch (error) {
+668:     console.error('Error creating paid complete package enrollment:', error);
+669:     throw error;
+670:   }
+671: };
+672: 
+673: /**
+674:  * Create Complete Package enrollment with split payment
+675:  * $99.99 now for online, $450 remaining for behind-wheel after certificate
+676:  */
+677: export const createPaidCompletePackageSplit = async (userId, upfrontAmount, userEmail = '') => {
+678:   try {
+679:     const batch = writeBatch(db);
+680:     const completePricing = COURSE_PRICING[COURSE_IDS.COMPLETE];
+681: 
+682:     // Create enrollment for Complete Package
+683:     const completeEnrollmentRef = doc(db, 'users', userId, 'courses', COURSE_IDS.COMPLETE);
+684:     
+685:     const completeEnrollmentData = {
+686:       userId,
+687:       courseId: COURSE_IDS.COMPLETE,
+688:       enrollmentDate: serverTimestamp(),
+689:       status: ENROLLMENT_STATUS.ACTIVE,
+690:       paymentStatus: PAYMENT_STATUS.PARTIAL,
+691:       accessStatus: ACCESS_STATUS.UNLOCKED,
+692:       totalAmount: completePricing.total,
+693:       amountPaid: Number(upfrontAmount),
+694:       amountDue: 450, // Remaining balance
+695:       upfrontAmount: completePricing.upfront,
+696:       remainingAmount: 450,
+697:       paymentPlan: 'split',
+698:       splitPaymentStatus: 'awaiting_certificate', // Awaiting online certificate completion
+699:       certificateGenerated: false,
+700:       progress: 0,
+701:       lastAccessedAt: null,
+702:       completedAt: null,
+703:       createdAt: serverTimestamp(),
+704:       updatedAt: serverTimestamp()
+705:     };
+706: 
+707:     batch.set(completeEnrollmentRef, completeEnrollmentData);
+708: 
+709:     // Create enrollment for Online Course (component) - UNLOCKED for payment
+710:     const onlineEnrollmentRef = doc(db, 'users', userId, 'courses', COURSE_IDS.ONLINE);
+711:     
+712:     const onlineEnrollmentData = {
+713:       userId,
+714:       courseId: COURSE_IDS.ONLINE,
+715:       enrollmentDate: serverTimestamp(),
+716:       status: ENROLLMENT_STATUS.ACTIVE,
+717:       paymentStatus: PAYMENT_STATUS.COMPLETED,
+718:       accessStatus: ACCESS_STATUS.UNLOCKED,
+719:       totalAmount: 0,
+720:       amountPaid: 0,
+721:       amountDue: 0,
+722:       parentEnrollmentId: COURSE_IDS.COMPLETE,
+723:       isComponentOfBundle: true,
+724:       certificateGenerated: false,
+725:       progress: 0,
+726:       lastAccessedAt: null,
+727:       completedAt: null,
+728:       createdAt: serverTimestamp(),
+729:       updatedAt: serverTimestamp()
+730:     };
+731: 
+732:     batch.set(onlineEnrollmentRef, onlineEnrollmentData);
+733: 
+734:     // Create enrollment for Behind-the-Wheel Course (component) - LOCKED until payment
+735:     const btwEnrollmentRef = doc(db, 'users', userId, 'courses', COURSE_IDS.BEHIND_WHEEL);
+736:     
+737:     const btwEnrollmentData = {
+738:       userId,
+739:       courseId: COURSE_IDS.BEHIND_WHEEL,
+740:       enrollmentDate: serverTimestamp(),
+741:       status: ENROLLMENT_STATUS.PENDING_PAYMENT,
+742:       paymentStatus: PAYMENT_STATUS.PENDING,
+743:       accessStatus: ACCESS_STATUS.LOCKED,
+744:       totalAmount: 450, // Remaining balance
+745:       amountPaid: 0,
+746:       amountDue: 450,
+747:       parentEnrollmentId: COURSE_IDS.COMPLETE,
+748:       isComponentOfBundle: true,
+749:       certificateGenerated: false,
+750:       progress: 0,
+751:       lastAccessedAt: null,
+752:       completedAt: null,
+753:       createdAt: serverTimestamp(),
+754:       updatedAt: serverTimestamp()
+755:     };
+756: 
+757:     batch.set(btwEnrollmentRef, btwEnrollmentData);
+758: 
+759:     await batch.commit();
+760: 
+761:     return {
+762:       completePackage: { id: COURSE_IDS.COMPLETE, ...completeEnrollmentData },
+763:       online: { id: COURSE_IDS.ONLINE, ...onlineEnrollmentData },
+764:       behindWheel: { id: COURSE_IDS.BEHIND_WHEEL, ...btwEnrollmentData }
+765:     };
+766:   } catch (error) {
+767:     console.error('Error creating split payment complete package enrollment:', error);
+768:     throw error;
+769:   }
+770: };
+771: 
+772: export const payRemainingBalance = async (userId, courseId, amountPaid, userEmail = '') => {
+773:   try {
+774:     const enrollmentRef = doc(db, 'users', userId, 'courses', courseId);
+775:     const enrollmentDoc = await getDoc(enrollmentRef);
+776: 
+777:     if (!enrollmentDoc.exists()) {
+778:       throw new Error('Enrollment not found');
+779:     }
+780: 
+781:     const enrollment = enrollmentDoc.data();
+782:     const newAmountPaid = Number(enrollment.amountPaid || 0) + Number(amountPaid);
+783:     const newAmountDue = Math.max(0, Number(enrollment.amountDue || 0) - Number(amountPaid));
+784: 
+785:     const updates = {
+786:       amountPaid: newAmountPaid,
+787:       amountDue: newAmountDue,
+788:       paymentStatus: newAmountDue === 0 ? PAYMENT_STATUS.COMPLETED : PAYMENT_STATUS.PARTIAL,
+789:       accessStatus: newAmountDue === 0 ? ACCESS_STATUS.UNLOCKED : ACCESS_STATUS.LOCKED,
+790:       updatedAt: serverTimestamp()
+791:     };
+792: 
+793:     if (newAmountDue === 0) {
+794:       updates.status = ENROLLMENT_STATUS.ACTIVE;
+795:     }
+796: 
+797:     await updateDoc(enrollmentRef, updates);
+798: 
+799:     return updates;
+800:   } catch (error) {
+801:     console.error('Error paying remaining balance:', error);
+802:     throw error;
+803:   }
+804: };
+805: 
+806: const enrollmentServices = {
+807:   createEnrollment,
+808:   createCompletePackageEnrollment,
+809:   createPaidEnrollment,
+810:   createPaidCompletePackageEnrollment,
+811:   createPaidCompletePackageSplit,
+812:   payRemainingBalance,
+813:   getEnrollment,
+814:   getUserEnrollments,
+815:   updateEnrollmentAfterPayment,
+816:   updateCertificateStatus,
+817:   checkCourseAccess,
+818:   autoEnrollAdmin,
+819:   resetEnrollmentToPending,
+820:   resetUserEnrollmentsToPending,
+821:   getAllUsersWithEnrollments
+822: };
+823: 
+824: export default enrollmentServices;
