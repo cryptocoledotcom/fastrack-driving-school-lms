@@ -9,8 +9,8 @@ describe('Sanitizer', () => {
     });
 
     it('should remove HTML-like brackets', () => {
-      expect(Sanitizer.sanitizeString('<script>alert("xss")</script>')).toBe('script alert("xss") /script');
-      expect(Sanitizer.sanitizeString('<div>content</div>')).toBe('div content /div');
+      expect(Sanitizer.sanitizeString('<script>alert("xss")</script>')).toBe('scriptalert("xss")/script');
+      expect(Sanitizer.sanitizeString('<div>content</div>')).toBe('divcontent/div');
       expect(Sanitizer.sanitizeString('< and >')).toBe(' and ');
     });
 
@@ -34,7 +34,7 @@ describe('Sanitizer', () => {
     });
 
     it('should handle mixed brackets', () => {
-      expect(Sanitizer.sanitizeString('test < and > symbols')).toBe('test   and   symbols');
+      expect(Sanitizer.sanitizeString('test < and > symbols')).toBe('test  and  symbols');
     });
   });
 

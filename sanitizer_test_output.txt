@@ -1,0 +1,317 @@
+
+> fastrack-driving-school-lms@1.0.0 test
+> react-scripts test sanitizer --watchAll=false
+
+FAIL src/api/validators/__tests__/sanitizer.test.js
+  Sanitizer
+    sanitizeString()
+      √ should trim whitespace (1 ms)
+      √ should remove HTML-like brackets
+      √ should preserve normal text
+      √ should return non-string values unchanged (1 ms)
+      √ should handle empty strings
+      √ should handle mixed brackets
+    sanitizeObject()
+      × should sanitize string values in object (3 ms)
+      × should handle nested objects (1 ms)
+      √ should handle arrays of strings (1 ms)
+      √ should preserve non-string values
+      √ should return non-object values unchanged (1 ms)
+      √ should handle empty objects
+      √ should not modify original object
+    sanitizeArray()
+      × should sanitize strings in array (1 ms)
+      √ should handle nested arrays
+      × should handle objects in arrays
+      √ should preserve non-string values
+      √ should return non-array values unchanged
+      √ should handle empty arrays
+    sanitizeEmail()
+      √ should sanitize and lowercase email
+      × should remove HTML brackets
+      √ should handle standard emails (3 ms)
+    sanitizeUrl()
+      √ should sanitize standard URLs
+      √ should reject javascript: protocol (3 ms)
+      √ should reject data: protocol with scripts (1 ms)
+      √ should allow safe data: URLs
+      √ should throw if not a string (1 ms)
+      √ should handle relative URLs
+      √ should remove HTML brackets from URL
+    sanitizeHtml()
+      √ should remove script tags
+      √ should remove style tags
+      √ should remove all HTML tags (1 ms)
+      √ should handle self-closing tags
+      √ should return non-string unchanged
+      √ should handle HTML entities
+    escapeHtml()
+      √ should escape HTML special characters
+      √ should escape full HTML string
+      √ should preserve normal text
+      √ should return non-string unchanged
+      √ should handle mixed content
+    sanitizeAlphanumeric()
+      × should remove special characters by default (1 ms)
+      √ should preserve allowed special characters
+      √ should preserve alphanumerics and spaces
+      √ should trim whitespace
+      √ should return non-string unchanged
+      √ should handle empty strings
+    sanitizeForDatabase()
+      × should combine sanitization and escaping (1 ms)
+      √ should handle HTML special characters
+      √ should be safe for storage (1 ms)
+    sanitizeUsername()
+      √ should allow alphanumeric, dash, and underscore
+      × should remove other special characters
+      √ should lowercase is preserved (not lowercased)
+      √ should trim whitespace
+      √ should return non-string unchanged
+    sanitizePhoneNumber()
+      × should allow digits, spaces, hyphens, parentheses
+      √ should remove other characters
+      × should trim whitespace
+      √ should return non-string unchanged
+    Security scenarios
+      √ should protect against XSS via object injection (1 ms)
+      √ should protect against SQL injection via strings
+      × should protect against attribute injection
+      √ should handle unicode bypass attempts
+
+  ● Sanitizer › sanitizeObject() › should sanitize string values in object
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "script alert /script"
+    Received: "scriptalert/script"
+
+    [0m [90m 44 |[39m       [36mconst[39m sanitized [33m=[39m [33mSanitizer[39m[33m.[39msanitizeObject(obj)[33m;[39m
+     [90m 45 |[39m
+    [31m[1m>[22m[39m[90m 46 |[39m       expect(sanitized[33m.[39mname)[33m.[39mtoBe([32m'script alert /script'[39m)[33m;[39m
+     [90m    |[39m                              [31m[1m^[22m[39m
+     [90m 47 |[39m     })[33m;[39m
+     [90m 48 |[39m
+     [90m 49 |[39m     it([32m'should handle nested objects'[39m[33m,[39m () [33m=>[39m {[0m
+
+      at Object.<anonymous> (src/api/validators/__tests__/sanitizer.test.js:46:30)
+      at TestScheduler.scheduleTests (node_modules/@jest/core/build/TestScheduler.js:333:13)
+      at runJest (node_modules/@jest/core/build/runJest.js:404:19)
+      at _run10000 (node_modules/@jest/core/build/cli/index.js:320:7)
+      at runCLI (node_modules/@jest/core/build/cli/index.js:173:3)
+
+  ● Sanitizer › sanitizeObject() › should handle nested objects
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "dangerous bio /dangerous"
+    Received: "dangerousbio/dangerous"
+
+    [0m [90m 60 |[39m
+     [90m 61 |[39m       expect(sanitized[33m.[39muser[33m.[39mname)[33m.[39mtoBe([32m'test'[39m)[33m;[39m
+    [31m[1m>[22m[39m[90m 62 |[39m       expect(sanitized[33m.[39muser[33m.[39mprofile[33m.[39mbio)[33m.[39mtoBe([32m'dangerous bio /dangerous'[39m)[33m;[39m
+     [90m    |[39m                                          [31m[1m^[22m[39m
+     [90m 63 |[39m     })[33m;[39m
+     [90m 64 |[39m
+     [90m 65 |[39m     it([32m'should handle arrays of strings'[39m[33m,[39m () [33m=>[39m {[0m
+
+      at Object.<anonymous> (src/api/validators/__tests__/sanitizer.test.js:62:42)
+      at TestScheduler.scheduleTests (node_modules/@jest/core/build/TestScheduler.js:333:13)
+      at runJest (node_modules/@jest/core/build/runJest.js:404:19)
+      at _run10000 (node_modules/@jest/core/build/cli/index.js:320:7)
+      at runCLI (node_modules/@jest/core/build/cli/index.js:173:3)
+
+  ● Sanitizer › sanitizeArray() › should sanitize strings in array
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "script alert /script"
+    Received: "scriptalert/script"
+
+    [0m [90m 117 |[39m
+     [90m 118 |[39m       expect(sanitized[[35m0[39m])[33m.[39mtoBe([32m'test'[39m)[33m;[39m
+    [31m[1m>[22m[39m[90m 119 |[39m       expect(sanitized[[35m1[39m])[33m.[39mtoBe([32m'script alert /script'[39m)[33m;[39m
+     [90m     |[39m                            [31m[1m^[22m[39m
+     [90m 120 |[39m       expect(sanitized[[35m2[39m])[33m.[39mtoBe([32m'normal'[39m)[33m;[39m
+     [90m 121 |[39m     })[33m;[39m
+     [90m 122 |[39m[0m
+
+      at Object.<anonymous> (src/api/validators/__tests__/sanitizer.test.js:119:28)
+      at TestScheduler.scheduleTests (node_modules/@jest/core/build/TestScheduler.js:333:13)
+      at runJest (node_modules/@jest/core/build/runJest.js:404:19)
+      at _run10000 (node_modules/@jest/core/build/cli/index.js:320:7)
+      at runCLI (node_modules/@jest/core/build/cli/index.js:173:3)
+
+  ● Sanitizer › sanitizeArray() › should handle objects in arrays
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "script alert /script"
+    Received: "scriptalert/script"
+
+    [0m [90m 139 |[39m
+     [90m 140 |[39m       expect(sanitized[[35m0[39m][33m.[39mname)[33m.[39mtoBe([32m'test'[39m)[33m;[39m
+    [31m[1m>[22m[39m[90m 141 |[39m       expect(sanitized[[35m1[39m][33m.[39mvalue)[33m.[39mtoBe([32m'script alert /script'[39m)[33m;[39m
+     [90m     |[39m                                  [31m[1m^[22m[39m
+     [90m 142 |[39m     })[33m;[39m
+     [90m 143 |[39m
+     [90m 144 |[39m     it([32m'should preserve non-string values'[39m[33m,[39m () [33m=>[39m {[0m
+
+      at Object.<anonymous> (src/api/validators/__tests__/sanitizer.test.js:141:34)
+      at TestScheduler.scheduleTests (node_modules/@jest/core/build/TestScheduler.js:333:13)
+      at runJest (node_modules/@jest/core/build/runJest.js:404:19)
+      at _run10000 (node_modules/@jest/core/build/cli/index.js:320:7)
+      at runCLI (node_modules/@jest/core/build/cli/index.js:173:3)
+
+  ● Sanitizer › sanitizeEmail() › should remove HTML brackets
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "script alert /script@example.com"
+    Received: "scriptalert/script@example.com"
+
+    [0m [90m 170 |[39m
+     [90m 171 |[39m     it([32m'should remove HTML brackets'[39m[33m,[39m () [33m=>[39m {
+    [31m[1m>[22m[39m[90m 172 |[39m       expect([33mSanitizer[39m[33m.[39msanitizeEmail([32m'<script>alert</script>@example.com'[39m))[33m.[39mtoBe([32m'script alert /script@example.com'[39m)[33m;[39m
+     [90m     |[39m                                                                             [31m[1m^[22m[39m
+     [90m 173 |[39m     })[33m;[39m
+     [90m 174 |[39m
+     [90m 175 |[39m     it([32m'should handle standard emails'[39m[33m,[39m () [33m=>[39m {[0m
+
+      at Object.<anonymous> (src/api/validators/__tests__/sanitizer.test.js:172:77)
+      at TestScheduler.scheduleTests (node_modules/@jest/core/build/TestScheduler.js:333:13)
+      at runJest (node_modules/@jest/core/build/runJest.js:404:19)
+      at _run10000 (node_modules/@jest/core/build/cli/index.js:320:7)
+      at runCLI (node_modules/@jest/core/build/cli/index.js:173:3)
+
+  ● Sanitizer › sanitizeAlphanumeric() › should remove special characters by default
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "helloworld com"
+    Received: "helloworldcom"
+
+    [0m [90m 305 |[39m   describe([32m'sanitizeAlphanumeric()'[39m[33m,[39m () [33m=>[39m {
+     [90m 306 |[39m     it([32m'should remove special characters by default'[39m[33m,[39m () [33m=>[39m {
+    [31m[1m>[22m[39m[90m 307 |[39m       expect([33mSanitizer[39m[33m.[39msanitizeAlphanumeric([32m'hello@world.com'[39m))[33m.[39mtoBe([32m'helloworld com'[39m)[33m;[39m
+     [90m     |[39m                                                                 [31m[1m^[22m[39m
+     [90m 308 |[39m       expect([33mSanitizer[39m[33m.[39msanitizeAlphanumeric([32m'test!@#$%'[39m))[33m.[39mtoBe([32m'test'[39m)[33m;[39m
+     [90m 309 |[39m     })[33m;[39m
+     [90m 310 |[39m[0m
+
+      at Object.<anonymous> (src/api/validators/__tests__/sanitizer.test.js:307:65)
+      at TestScheduler.scheduleTests (node_modules/@jest/core/build/TestScheduler.js:333:13)
+      at runJest (node_modules/@jest/core/build/runJest.js:404:19)
+      at _run10000 (node_modules/@jest/core/build/cli/index.js:320:7)
+      at runCLI (node_modules/@jest/core/build/cli/index.js:173:3)
+
+  ● Sanitizer › sanitizeForDatabase() › should combine sanitization and escaping
+
+    expect(received).toContain(expected) // indexOf
+
+    Expected substring: "&lt;"
+    Received string:    "scriptalert(&quot;xss&quot;)&#x2F;script"
+
+    [0m [90m 340 |[39m       expect(sanitized)[33m.[39mnot[33m.[39mtoContain([32m'<'[39m)[33m;[39m
+     [90m 341 |[39m       expect(sanitized)[33m.[39mnot[33m.[39mtoContain([32m'>'[39m)[33m;[39m
+    [31m[1m>[22m[39m[90m 342 |[39m       expect(sanitized)[33m.[39mtoContain([32m'&lt;'[39m)[33m;[39m
+     [90m     |[39m                         [31m[1m^[22m[39m
+     [90m 343 |[39m       expect(sanitized)[33m.[39mtoContain([32m'&gt;'[39m)[33m;[39m
+     [90m 344 |[39m     })[33m;[39m
+     [90m 345 |[39m[0m
+
+      at Object.<anonymous> (src/api/validators/__tests__/sanitizer.test.js:342:25)
+      at TestScheduler.scheduleTests (node_modules/@jest/core/build/TestScheduler.js:333:13)
+      at runJest (node_modules/@jest/core/build/runJest.js:404:19)
+      at _run10000 (node_modules/@jest/core/build/cli/index.js:320:7)
+      at runCLI (node_modules/@jest/core/build/cli/index.js:173:3)
+
+  ● Sanitizer › sanitizeUsername() › should remove other special characters
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "johndoeexample"
+    Received: "john.doe@example"
+
+    [0m [90m 372 |[39m
+     [90m 373 |[39m     it([32m'should remove other special characters'[39m[33m,[39m () [33m=>[39m {
+    [31m[1m>[22m[39m[90m 374 |[39m       expect([33mSanitizer[39m[33m.[39msanitizeUsername([32m'john.doe@example'[39m))[33m.[39mtoBe([32m'johndoeexample'[39m)[33m;[39m
+     [90m     |[39m                                                              [31m[1m^[22m[39m
+     [90m 375 |[39m       expect([33mSanitizer[39m[33m.[39msanitizeUsername([32m'john#doe$'[39m))[33m.[39mtoBe([32m'johndoe'[39m)[33m;[39m
+     [90m 376 |[39m     })[33m;[39m
+     [90m 377 |[39m[0m
+
+      at Object.<anonymous> (src/api/validators/__tests__/sanitizer.test.js:374:62)
+      at TestScheduler.scheduleTests (node_modules/@jest/core/build/TestScheduler.js:333:13)
+      at runJest (node_modules/@jest/core/build/runJest.js:404:19)
+      at _run10000 (node_modules/@jest/core/build/cli/index.js:320:7)
+      at runCLI (node_modules/@jest/core/build/cli/index.js:173:3)
+
+  ● Sanitizer › sanitizePhoneNumber() › should allow digits, spaces, hyphens, parentheses
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "(555) 123-4567"
+    Received: "(555) 1234567"
+
+    [0m [90m 391 |[39m   describe([32m'sanitizePhoneNumber()'[39m[33m,[39m () [33m=>[39m {
+     [90m 392 |[39m     it([32m'should allow digits, spaces, hyphens, parentheses'[39m[33m,[39m () [33m=>[39m {
+    [31m[1m>[22m[39m[90m 393 |[39m       expect([33mSanitizer[39m[33m.[39msanitizePhoneNumber([32m'(555) 123-4567'[39m))[33m.[39mtoBe([32m'(555) 123-4567'[39m)[33m;[39m
+     [90m     |[39m                                                               [31m[1m^[22m[39m
+     [90m 394 |[39m       expect([33mSanitizer[39m[33m.[39msanitizePhoneNumber([32m'555-123-4567'[39m))[33m.[39mtoBe([32m'555-123-4567'[39m)[33m;[39m
+     [90m 395 |[39m       expect([33mSanitizer[39m[33m.[39msanitizePhoneNumber([32m'+1 555 123 4567'[39m))[33m.[39mtoBe([32m'1 555 123 4567'[39m)[33m;[39m
+     [90m 396 |[39m     })[33m;[39m[0m
+
+      at Object.<anonymous> (src/api/validators/__tests__/sanitizer.test.js:393:63)
+      at TestScheduler.scheduleTests (node_modules/@jest/core/build/TestScheduler.js:333:13)
+      at runJest (node_modules/@jest/core/build/runJest.js:404:19)
+      at _run10000 (node_modules/@jest/core/build/cli/index.js:320:7)
+      at runCLI (node_modules/@jest/core/build/cli/index.js:173:3)
+
+  ● Sanitizer › sanitizePhoneNumber() › should trim whitespace
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "(555) 123-4567"
+    Received: "(555) 1234567"
+
+    [0m [90m 402 |[39m
+     [90m 403 |[39m     it([32m'should trim whitespace'[39m[33m,[39m () [33m=>[39m {
+    [31m[1m>[22m[39m[90m 404 |[39m       expect([33mSanitizer[39m[33m.[39msanitizePhoneNumber([32m'  (555) 123-4567  '[39m))[33m.[39mtoBe([32m'(555) 123-4567'[39m)[33m;[39m
+     [90m     |[39m                                                                   [31m[1m^[22m[39m
+     [90m 405 |[39m     })[33m;[39m
+     [90m 406 |[39m
+     [90m 407 |[39m     it([32m'should return non-string unchanged'[39m[33m,[39m () [33m=>[39m {[0m
+
+      at Object.<anonymous> (src/api/validators/__tests__/sanitizer.test.js:404:67)
+      at TestScheduler.scheduleTests (node_modules/@jest/core/build/TestScheduler.js:333:13)
+      at runJest (node_modules/@jest/core/build/runJest.js:404:19)
+      at _run10000 (node_modules/@jest/core/build/cli/index.js:320:7)
+      at runCLI (node_modules/@jest/core/build/cli/index.js:173:3)
+
+  ● Sanitizer › Security scenarios › should protect against attribute injection
+
+    expect(received).not.toContain(expected) // indexOf
+
+    Expected substring: not "onmouseover"
+    Received string:        "&quot; onmouseover=&quot;alert(&#39;xss&#39;)&quot;"
+
+    [0m [90m 436 |[39m       [36mconst[39m escaped [33m=[39m [33mSanitizer[39m[33m.[39mescapeHtml(input)[33m;[39m
+     [90m 437 |[39m
+    [31m[1m>[22m[39m[90m 438 |[39m       expect(escaped)[33m.[39mnot[33m.[39mtoContain([32m'onmouseover'[39m)[33m;[39m
+     [90m     |[39m                           [31m[1m^[22m[39m
+     [90m 439 |[39m       expect(escaped)[33m.[39mtoContain([32m'&quot;'[39m)[33m;[39m
+     [90m 440 |[39m     })[33m;[39m
+     [90m 441 |[39m[0m
+
+      at Object.<anonymous> (src/api/validators/__tests__/sanitizer.test.js:438:27)
+      at TestScheduler.scheduleTests (node_modules/@jest/core/build/TestScheduler.js:333:13)
+      at runJest (node_modules/@jest/core/build/runJest.js:404:19)
+      at _run10000 (node_modules/@jest/core/build/cli/index.js:320:7)
+      at runCLI (node_modules/@jest/core/build/cli/index.js:173:3)
+
+Test Suites: 1 failed, 1 total
+Tests:       11 failed, 51 passed, 62 total
+Snapshots:   0 total
+Time:        1.321 s
+Ran all test suites matching /sanitizer/i.
