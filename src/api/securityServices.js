@@ -97,7 +97,15 @@ export const updateSecurityQuestions = async (userId, updates) => {
  * Note: In production, this should hash the provided answer and compare
  */
 export const verifySecurityAnswer = async (userId, questionNumber, providedAnswer) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    if (typeof questionNumber !== 'number' || questionNumber < 1 || questionNumber > 3) {
+      throw new ValidationError('Question number must be between 1 and 3');
+    }
+    if (typeof providedAnswer !== 'string' || !providedAnswer.trim()) {
+      throw new ValidationError('Provided answer must be a non-empty string');
+    }
+    
     const securityProfile = await getSecurityProfile(userId);
     
     if (!securityProfile) {
@@ -110,7 +118,6 @@ export const verifySecurityAnswer = async (userId, questionNumber, providedAnswe
     const answerKey = `answer${questionNumber}`;
     const storedAnswer = securityProfile[answerKey];
 
-    // In production, both should be hashed and compared
     const isMatch = storedAnswer && 
                    storedAnswer.toLowerCase().trim() === providedAnswer.toLowerCase().trim();
 
@@ -118,55 +125,52 @@ export const verifySecurityAnswer = async (userId, questionNumber, providedAnswe
       verified: isMatch,
       message: isMatch ? 'Answer verified' : 'Incorrect answer'
     };
-  } catch (error) {
-    console.error('Error verifying security answer:', error);
-    throw error;
-  }
+  }, 'verifySecurityAnswer');
 };
 
 /**
  * Check if user has security questions set
  */
 export const hasSecurityQuestions = async (userId) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
     const securityProfile = await getSecurityProfile(userId);
     return securityProfile !== null && 
            securityProfile.question1 && 
            securityProfile.answer1;
-  } catch (error) {
-    console.error('Error checking security questions:', error);
-    return false;
-  }
+  }, 'hasSecurityQuestions');
 };
 
 /**
  * Get security questions (without answers) for password recovery
  */
 export const getSecurityQuestionsForRecovery = async (userId) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
     const securityProfile = await getSecurityProfile(userId);
     
     if (!securityProfile) {
       return null;
     }
 
-    // Return only questions, not answers
     return {
       question1: securityProfile.question1,
       question2: securityProfile.question2,
       question3: securityProfile.question3
     };
-  } catch (error) {
-    console.error('Error fetching security questions for recovery:', error);
-    throw error;
-  }
+  }, 'getSecurityQuestionsForRecovery');
 };
 
 /**
  * Verify multiple security answers for password recovery
  */
 export const verifySecurityAnswers = async (userId, answers) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    if (typeof answers !== 'object' || !answers) {
+      throw new ValidationError('Answers must be a valid object');
+    }
+    
     const securityProfile = await getSecurityProfile(userId);
     
     if (!securityProfile) {
@@ -203,10 +207,7 @@ export const verifySecurityAnswers = async (userId, answers) => {
         ? 'Security verification successful' 
         : `Need at least ${requiredCorrect} correct answers`
     };
-  } catch (error) {
-    console.error('Error verifying security answers:', error);
-    throw error;
-  }
+  }, 'verifySecurityAnswers');
 };
 
 const securityServices = {

@@ -122,6 +122,13 @@ export class SecurityError extends ApiError {
   }
 }
 
+export class UserError extends ApiError {
+  constructor(message, userId = null) {
+    super('USER_ERROR', message);
+    this.userId = userId;
+  }
+}
+
 export const mapFirebaseError = (error) => {
   const errorMap = {
     'auth/user-not-found': new AuthError('User not found'),

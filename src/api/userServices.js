@@ -11,33 +11,37 @@ import {
   getDocs
 } from 'firebase/firestore';
 import { db } from '../config/firebase';
+import { executeService } from './base/ServiceWrapper';
+import { ValidationError, NotFoundError, UserError } from './errors/ApiError';
+import { validateUserId, validateEmail } from './validators/validators';
 export { getUserStats } from './progressServices';
 
 const USERS_COLLECTION = 'users';
 
-// Get user profile by ID
 export const getUser = async (userId) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
     const userRef = doc(db, USERS_COLLECTION, userId);
     const userDoc = await getDoc(userRef);
     
     if (!userDoc.exists()) {
-      throw new Error('User not found');
+      throw new NotFoundError('User', userId);
     }
     
     return {
       id: userDoc.id,
       ...userDoc.data()
     };
-  } catch (error) {
-    console.error('Error fetching user:', error);
-    throw error;
-  }
+  }, 'getUser');
 };
 
-// Update user profile
 export const updateProfile = async (userId, updates) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    if (typeof updates !== 'object' || !updates) {
+      throw new ValidationError('Updates must be a valid object');
+    }
+    
     const userRef = doc(db, USERS_COLLECTION, userId);
     const updateData = {
       ...updates,
@@ -46,17 +50,17 @@ export const updateProfile = async (userId, updates) => {
     
     await updateDoc(userRef, updateData);
     
-    // Return updated user
     return await getUser(userId);
-  } catch (error) {
-    console.error('Error updating profile:', error);
-    throw error;
-  }
+  }, 'updateProfile');
 };
 
-// Update user settings (including dark mode)
 export const updateUserSettings = async (userId, settings) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    if (typeof settings !== 'object' || !settings) {
+      throw new ValidationError('Settings must be a valid object');
+    }
+    
     const userRef = doc(db, USERS_COLLECTION, userId);
     await updateDoc(userRef, {
       settings: settings,
@@ -64,30 +68,24 @@ export const updateUserSettings = async (userId, settings) => {
     });
     
     return await getUser(userId);
-  } catch (error) {
-    console.error('Error updating settings:', error);
-    throw error;
-  }
+  }, 'updateUserSettings');
 };
 
-// Get user settings
 export const getUserSettings = async (userId) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
     const user = await getUser(userId);
     return user.settings || {
       darkMode: false,
       notifications: true,
       emailNotifications: true
     };
-  } catch (error) {
-    console.error('Error fetching settings:', error);
-    throw error;
-  }
+  }, 'getUserSettings');
 };
 
-// Get user's certificates
 export const getUserCertificates = async (userId) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
     const certificatesRef = collection(db, 'certificates');
     const q = query(certificatesRef, where('userId', '==', userId));
     const querySnapshot = await getDocs(q);
@@ -101,15 +99,16 @@ export const getUserCertificates = async (userId) => {
     });
     
     return certificates;
-  } catch (error) {
-    console.error('Error fetching certificates:', error);
-    throw error;
-  }
+  }, 'getUserCertificates');
 };
 
-// Update user preferences
 export const updateUserPreferences = async (userId, preferences) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    if (typeof preferences !== 'object' || !preferences) {
+      throw new ValidationError('Preferences must be a valid object');
+    }
+    
     const userRef = doc(db, USERS_COLLECTION, userId);
     await updateDoc(userRef, {
       preferences: preferences,
@@ -117,15 +116,16 @@ export const updateUserPreferences = async (userId, preferences) => {
     });
     
     return await getUser(userId);
-  } catch (error) {
-    console.error('Error updating preferences:', error);
-    throw error;
-  }
+  }, 'updateUserPreferences');
 };
 
-// Get user's recent activity
 export const getUserRecentActivity = async (userId, limit = 10) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    if (typeof limit !== 'number' || limit < 1) {
+      throw new ValidationError('Limit must be a positive number');
+    }
+    
     const progressRef = collection(db, 'progress');
     const q = query(
       progressRef,
@@ -146,41 +146,40 @@ export const getUserRecentActivity = async (userId, limit = 10) => {
       }
     });
     
-    // Sort by last accessed and limit
     activities.sort((a, b) => 
       new Date(b.lastAccessedAt) - new Date(a.lastAccessedAt)
     );
     
     return activities.slice(0, limit);
-  } catch (error) {
-    console.error('Error fetching recent activity:', error);
-    throw error;
-  }
+  }, 'getUserRecentActivity');
 };
 
-// Check if username is available
 export const isUsernameAvailable = async (username) => {
-  try {
+  return executeService(async () => {
+    if (typeof username !== 'string' || !username.trim()) {
+      throw new ValidationError('Username must be a non-empty string');
+    }
+    
     const usersRef = collection(db, USERS_COLLECTION);
     const q = query(usersRef, where('username', '==', username));
     const querySnapshot = await getDocs(q);
     
     return querySnapshot.empty;
-  } catch (error) {
-    console.error('Error checking username:', error);
-    throw error;
-  }
+  }, 'isUsernameAvailable');
 };
 
-// Get user by username
 export const getUserByUsername = async (username) => {
-  try {
+  return executeService(async () => {
+    if (typeof username !== 'string' || !username.trim()) {
+      throw new ValidationError('Username must be a non-empty string');
+    }
+    
     const usersRef = collection(db, USERS_COLLECTION);
     const q = query(usersRef, where('username', '==', username));
     const querySnapshot = await getDocs(q);
     
     if (querySnapshot.empty) {
-      throw new Error('User not found');
+      throw new NotFoundError('User with username', username);
     }
     
     const userDoc = querySnapshot.docs[0];
@@ -188,23 +187,24 @@ export const getUserByUsername = async (username) => {
       id: userDoc.id,
       ...userDoc.data()
     };
-  } catch (error) {
-    console.error('Error fetching user by username:', error);
-    throw error;
-  }
+  }, 'getUserByUsername');
 };
 
 export const updateUserRole = async (userId, role) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    if (typeof role !== 'string' || !role.trim()) {
+      throw new ValidationError('Role must be a non-empty string');
+    }
+    
     const userRef = doc(db, 'users', userId);
     await updateDoc(userRef, {
       role,
       updatedAt: new Date().toISOString()
     });
-  } catch (error) {
-    console.error('Error updating user role:', error);
-    throw error;
-  }
+    
+    return await getUser(userId);
+  }, 'updateUserRole');
 };
 
 const userServices = {
