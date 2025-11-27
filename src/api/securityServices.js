@@ -9,12 +9,17 @@ import {
   serverTimestamp
 } from 'firebase/firestore';
 import { db } from '../config/firebase';
+import { executeService } from './base/ServiceWrapper';
+import { ValidationError, SecurityError } from './errors/ApiError';
+import { validateUserId } from './validators/validators';
 
 /**
  * Get user's security profile from users/{userId}/securityProfile/questions
  */
 export const getSecurityProfile = async (userId) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    
     const securityRef = doc(db, 'users', userId, 'securityProfile', 'questions');
     const securityDoc = await getDoc(securityRef);
 
@@ -25,10 +30,7 @@ export const getSecurityProfile = async (userId) => {
     return {
       ...securityDoc.data()
     };
-  } catch (error) {
-    console.error('Error fetching security profile:', error);
-    throw error;
-  }
+  }, 'getSecurityProfile');
 };
 
 /**
@@ -36,16 +38,21 @@ export const getSecurityProfile = async (userId) => {
  * Note: In production, answers should be hashed on the server side
  */
 export const setSecurityQuestions = async (userId, securityData) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    if (typeof securityData !== 'object' || !securityData) {
+      throw new ValidationError('Security data must be a valid object');
+    }
+    
     const securityRef = doc(db, 'users', userId, 'securityProfile', 'questions');
     
     const data = {
       question1: securityData.question1 || '',
-      answer1: securityData.answer1 || '', // Should be hashed in production
+      answer1: securityData.answer1 || '',
       question2: securityData.question2 || '',
-      answer2: securityData.answer2 || '', // Should be hashed in production
+      answer2: securityData.answer2 || '',
       question3: securityData.question3 || '',
-      answer3: securityData.answer3 || '', // Should be hashed in production
+      answer3: securityData.answer3 || '',
       createdAt: serverTimestamp(),
       updatedAt: serverTimestamp()
     };
@@ -56,17 +63,19 @@ export const setSecurityQuestions = async (userId, securityData) => {
       success: true,
       message: 'Security questions set successfully'
     };
-  } catch (error) {
-    console.error('Error setting security questions:', error);
-    throw error;
-  }
+  }, 'setSecurityQuestions');
 };
 
 /**
  * Update security questions
  */
 export const updateSecurityQuestions = async (userId, updates) => {
-  try {
+  return executeService(async () => {
+    validateUserId(userId);
+    if (typeof updates !== 'object' || !updates) {
+      throw new ValidationError('Updates must be a valid object');
+    }
+    
     const securityRef = doc(db, 'users', userId, 'securityProfile', 'questions');
     
     const updateData = {
@@ -80,10 +89,7 @@ export const updateSecurityQuestions = async (userId, updates) => {
       success: true,
       message: 'Security questions updated successfully'
     };
-  } catch (error) {
-    console.error('Error updating security questions:', error);
-    throw error;
-  }
+  }, 'updateSecurityQuestions');
 };
 
 /**

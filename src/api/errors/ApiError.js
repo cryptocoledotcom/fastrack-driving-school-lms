@@ -115,6 +115,13 @@ export class SchedulingError extends ApiError {
   }
 }
 
+export class SecurityError extends ApiError {
+  constructor(message, userId = null) {
+    super('SECURITY_ERROR', message);
+    this.userId = userId;
+  }
+}
+
 export const mapFirebaseError = (error) => {
   const errorMap = {
     'auth/user-not-found': new AuthError('User not found'),
