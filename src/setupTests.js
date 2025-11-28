@@ -7,3 +7,8 @@ if (typeof global.TextEncoder === 'undefined') {
 if (typeof global.crypto === 'undefined') {
   global.crypto = require('crypto').webcrypto;
 }
+
+if (typeof global.ReadableStream === 'undefined') {
+  const { Readable } = require('stream');
+  global.ReadableStream = Readable;
+}

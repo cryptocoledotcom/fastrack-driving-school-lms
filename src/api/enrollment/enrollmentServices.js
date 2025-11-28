@@ -2,6 +2,7 @@ import { doc, serverTimestamp, writeBatch } from 'firebase/firestore';
 import { db } from '../../config/firebase.js';
 import { EnrollmentError, ValidationError } from '../errors/ApiError.js';
 import ServiceBase from '../base/ServiceBase.js';
+import { getFirestoreTimestamps } from '../utils/timestampHelper.js';
 import { 
   COURSE_IDS, 
   COURSE_PRICING, 
@@ -55,8 +56,7 @@ class EnrollmentService extends ServiceBase {
         lastAccessedAt: null,
         completedAt: null,
         isAdminEnrollment: isAdmin,
-        createdAt: serverTimestamp(),
-        updatedAt: serverTimestamp()
+        ...getFirestoreTimestamps()
       };
 
       await this.setDoc(`users/${userId}/courses`, courseId, enrollmentData);
@@ -102,8 +102,7 @@ class EnrollmentService extends ServiceBase {
         lastAccessedAt: null,
         completedAt: null,
         isAdminEnrollment: isAdmin,
-        createdAt: serverTimestamp(),
-        updatedAt: serverTimestamp()
+        ...getFirestoreTimestamps()
       };
 
       batch.set(completeEnrollmentRef, completeEnrollmentData);
@@ -126,8 +125,7 @@ class EnrollmentService extends ServiceBase {
         lastAccessedAt: null,
         completedAt: null,
         isAdminEnrollment: isAdmin,
-        createdAt: serverTimestamp(),
-        updatedAt: serverTimestamp()
+        ...getFirestoreTimestamps()
       };
 
       batch.set(onlineEnrollmentRef, onlineEnrollmentData);
@@ -150,8 +148,7 @@ class EnrollmentService extends ServiceBase {
         lastAccessedAt: null,
         completedAt: null,
         isAdminEnrollment: isAdmin,
-        createdAt: serverTimestamp(),
-        updatedAt: serverTimestamp()
+        ...getFirestoreTimestamps()
       };
 
       batch.set(btwEnrollmentRef, btwEnrollmentData);
@@ -425,8 +422,7 @@ class EnrollmentService extends ServiceBase {
         progress: 0,
         lastAccessedAt: null,
         completedAt: null,
-        createdAt: serverTimestamp(),
-        updatedAt: serverTimestamp()
+        ...getFirestoreTimestamps()
       };
 
       await this.setDoc(`users/${userId}/courses`, courseId, enrollmentData);
@@ -469,8 +465,7 @@ class EnrollmentService extends ServiceBase {
         progress: 0,
         lastAccessedAt: null,
         completedAt: null,
-        createdAt: serverTimestamp(),
-        updatedAt: serverTimestamp()
+        ...getFirestoreTimestamps()
       };
 
       batch.set(completeEnrollmentRef, completeEnrollmentData);
@@ -492,8 +487,7 @@ class EnrollmentService extends ServiceBase {
         progress: 0,
         lastAccessedAt: null,
         completedAt: null,
-        createdAt: serverTimestamp(),
-        updatedAt: serverTimestamp()
+        ...getFirestoreTimestamps()
       };
 
       batch.set(onlineEnrollmentRef, onlineEnrollmentData);
@@ -515,8 +509,7 @@ class EnrollmentService extends ServiceBase {
         progress: 0,
         lastAccessedAt: null,
         completedAt: null,
-        createdAt: serverTimestamp(),
-        updatedAt: serverTimestamp()
+        ...getFirestoreTimestamps()
       };
 
       batch.set(btwEnrollmentRef, btwEnrollmentData);
@@ -563,8 +556,7 @@ class EnrollmentService extends ServiceBase {
         progress: 0,
         lastAccessedAt: null,
         completedAt: null,
-        createdAt: serverTimestamp(),
-        updatedAt: serverTimestamp()
+        ...getFirestoreTimestamps()
       };
 
       batch.set(completeEnrollmentRef, completeEnrollmentData);
@@ -586,8 +578,7 @@ class EnrollmentService extends ServiceBase {
         progress: 0,
         lastAccessedAt: null,
         completedAt: null,
-        createdAt: serverTimestamp(),
-        updatedAt: serverTimestamp()
+        ...getFirestoreTimestamps()
       };
 
       batch.set(onlineEnrollmentRef, onlineEnrollmentData);
@@ -609,8 +600,7 @@ class EnrollmentService extends ServiceBase {
         progress: 0,
         lastAccessedAt: null,
         completedAt: null,
-        createdAt: serverTimestamp(),
-        updatedAt: serverTimestamp()
+        ...getFirestoreTimestamps()
       };
 
       batch.set(btwEnrollmentRef, btwEnrollmentData);
