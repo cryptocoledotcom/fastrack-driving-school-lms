@@ -14,7 +14,7 @@ class Sanitizer {
 
     return str
       .trim()
-      .replace(/[<>]/g, ''); // Remove HTML-like brackets
+      .replace(/[<>]/g, '');
   }
 
   /**
@@ -115,9 +115,9 @@ class Sanitizer {
     }
 
     return html
-      .replace(/<script[^>]*>.*?<\/script>/gi, '') // Remove script tags
-      .replace(/<style[^>]*>.*?<\/style>/gi, '') // Remove style tags
-      .replace(/<[^>]+>/g, '') // Remove all HTML tags
+      .replace(/<script[^>]*>.*?<\/script>/gi, '')
+      .replace(/<style[^>]*>.*?<\/style>/gi, '')
+      .replace(/<[^>]+>/g, '')
       .trim();
   }
 
@@ -154,7 +154,8 @@ class Sanitizer {
       return str;
     }
 
-    const allowedChars = `a-zA-Z0-9 ${allowedSpecial.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`;
+    const escapedAllowed = allowedSpecial.replace(/[-.*+?^${}()|[\]\\]/g, '\\$&');
+    const allowedChars = `a-zA-Z0-9 ${escapedAllowed}`;
     const regex = new RegExp(`[^${allowedChars}]`, 'g');
 
     return str.replace(regex, '').trim();
