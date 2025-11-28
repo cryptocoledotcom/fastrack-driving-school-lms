@@ -1,16 +1,14 @@
 import {
   collection,
-  doc,
   getDocs,
   query,
   where,
   addDoc,
-  serverTimestamp,
-  getDoc
+  serverTimestamp
 } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import { executeService } from './base/ServiceWrapper';
-import { ValidationError, PVQError } from './errors/ApiError';
+import { ValidationError } from './errors/ApiError';
 import { validateUserId, validateCourseId, validatePVQData } from './validators/validators';
 
 const PVQ_COLLECTION = 'pvqQuestions';

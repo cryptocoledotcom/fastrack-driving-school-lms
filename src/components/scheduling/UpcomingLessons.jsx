@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { getUserBookings, cancelBooking } from '../../api/schedulingServices';
 import Card from '../common/Card/Card';
@@ -11,13 +11,7 @@ const UpcomingLessons = ({ onBookingsChange } = {}) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  useEffect(() => {
-    if (user) {
-      loadBookings();
-    }
-  }, [user]);
-
-  const loadBookings = async () => {
+  const loadBookings = useCallback(async () => {
     try {
       setLoading(true);
       setError('');
@@ -38,7 +32,13 @@ const UpcomingLessons = ({ onBookingsChange } = {}) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [onBookingsChange, user]);
+
+  useEffect(() => {
+    if (user) {
+      loadBookings();
+    }
+  }, [user, loadBookings]);
 
   const handleCancelBooking = async (lessonId, slotId) => {
     if (window.confirm('Are you sure you want to cancel this lesson?')) {

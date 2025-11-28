@@ -5,7 +5,7 @@ import Card from '../../components/common/Card/Card';
 import Button from '../../components/common/Button/Button';
 import LoadingSpinner from '../../components/common/LoadingSpinner/LoadingSpinner';
 import SuccessMessage from '../../components/common/SuccessMessage/SuccessMessage';
-import { getEnrollment, updateCertificateStatus } from '../../api/enrollmentServices';
+import enrollmentServices from '../../api/enrollmentServices';
 import { COURSE_IDS, ENROLLMENT_STATUS } from '../../constants/courses';
 import styles from './CertificateGenerationPage.module.css';
 
@@ -27,7 +27,7 @@ const CertificateGenerationPage = () => {
   const loadEnrollmentData = async () => {
     try {
       setLoading(true);
-      const onlineEnrollment = await getEnrollment(user.uid, COURSE_IDS.ONLINE);
+      const onlineEnrollment = await enrollmentServices.getEnrollment(user.uid, COURSE_IDS.ONLINE);
       
       if (!onlineEnrollment) {
         setError('No enrollment found for online course');
@@ -61,7 +61,7 @@ const CertificateGenerationPage = () => {
       setGenerating(true);
       setError('');
 
-      await updateCertificateStatus(user.uid, COURSE_IDS.ONLINE, true);
+      await enrollmentServices.updateCertificateStatus(user.uid, COURSE_IDS.ONLINE, true);
 
       setSuccess('Certificate generated successfully!');
       

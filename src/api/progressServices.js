@@ -15,7 +15,7 @@ import {
   logModuleCompletion
 } from './complianceServices';
 import { executeService } from './base/ServiceWrapper';
-import { ValidationError, ProgressError } from './errors/ApiError';
+import { ValidationError } from './errors/ApiError';
 import { validateUserId, validateCourseId, validateLessonId, validateModuleId } from './validators/validators';
 
 // Reference to user's main progress document

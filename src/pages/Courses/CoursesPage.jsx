@@ -9,8 +9,8 @@ import Button from '../../components/common/Button/Button';
 import LoadingSpinner from '../../components/common/LoadingSpinner/LoadingSpinner';
 import PaymentModal from '../../components/payment/PaymentModal';
 import { getCourses } from '../../api/courseServices';
-import { getEnrollment } from '../../api/enrollmentServices';
-import { COURSE_IDS, COURSE_PRICING, ENROLLMENT_STATUS } from '../../constants/courses';
+import enrollmentServices from '../../api/enrollmentServices';
+import { COURSE_IDS, COURSE_PRICING } from '../../constants/courses';
 import styles from './CoursesPage.module.css';
 
 const CoursesPage = () => {
@@ -39,7 +39,7 @@ const CoursesPage = () => {
         const enrollmentData = {};
         for (const course of coursesData) {
           try {
-            const enrollment = await getEnrollment(user.uid, course.id);
+            const enrollment = await enrollmentServices.getEnrollment(user.uid, course.id);
             // Fetch all enrollments (not just ACTIVE) to check enrollment status
             if (enrollment) {
               enrollmentData[course.id] = enrollment;
@@ -100,15 +100,16 @@ const CoursesPage = () => {
 
   const handlePaymentSuccess = async (paymentData) => {
     try {
-      const { createPaidEnrollment, createPaidCompletePackageSplit } = await import('../../api/enrollmentServices');
+      const enrollmentServicesModule = await import('../../api/enrollmentServices');
+      const enrollmentSvc = enrollmentServicesModule.default;
       
       // For Complete Package, check if split payment
       if (paymentData.courseId === COURSE_IDS.COMPLETE && paymentData.paymentOption === 'split') {
         // Split payment: $99.99 now, remaining $450 after certificate
-        await createPaidCompletePackageSplit(user.uid, paymentData.amount, userProfile?.email);
+        await enrollmentSvc.createPaidCompletePackageSplit(user.uid, paymentData.amount, userProfile?.email);
       } else {
         // Single payment (or other courses)
-        await createPaidEnrollment(user.uid, paymentData.courseId, paymentData.amount, userProfile?.email);
+        await enrollmentSvc.createPaidEnrollment(user.uid, paymentData.courseId, paymentData.amount, userProfile?.email);
       }
 
       // Reload and navigate to dashboard

@@ -54,12 +54,17 @@ class ServiceBase {
       let queryRef = null;
       
       if (typeof collectionPath === 'string') {
-        queryRef = getDocs(doc(db, collectionPath).parent || collection(db, collectionPath));
+        const segments = collectionPath.split('/');
+        if (segments.length % 2 === 1) {
+          queryRef = collection(db, collectionPath);
+        } else {
+          queryRef = doc(db, collectionPath).parent;
+        }
       } else {
-        queryRef = getDocs(collectionPath);
+        queryRef = collectionPath;
       }
 
-      const querySnapshot = await queryRef;
+      const querySnapshot = await getDocs(queryRef);
       let docs = querySnapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data()

@@ -6,7 +6,7 @@ import Button from '../../components/common/Button/Button';
 import ProgressBar from '../../components/common/ProgressBar/ProgressBar';
 import LoadingSpinner from '../../components/common/LoadingSpinner/LoadingSpinner';
 import ErrorMessage from '../../components/common/ErrorMessage/ErrorMessage';
-import { getUserEnrollments } from '../../api/enrollmentServices';
+import enrollmentServices from '../../api/enrollmentServices';
 import { getCourseById } from '../../api/courseServices';
 import { getProgress } from '../../api/progressServices';
 import { Elements } from '@stripe/react-stripe-js';
@@ -45,7 +45,7 @@ const MyCoursesPage = () => {
       setLoading(true);
       setError('');
 
-      const allEnrollments = await getUserEnrollments(user.uid);
+      const allEnrollments = await enrollmentServices.getUserEnrollments(user.uid);
 
       const coursesWithDetails = await Promise.all(
         allEnrollments.map(async (enrollment) => {

@@ -10,7 +10,7 @@ import {
 } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import { executeService } from './base/ServiceWrapper';
-import { ValidationError, SecurityError } from './errors/ApiError';
+import { ValidationError } from './errors/ApiError';
 import { validateUserId } from './validators/validators';
 
 /**

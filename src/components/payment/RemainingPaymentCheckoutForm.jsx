@@ -5,7 +5,7 @@ import Button from '../common/Button/Button';
 import ErrorMessage from '../common/ErrorMessage/ErrorMessage';
 import SuccessMessage from '../common/SuccessMessage/SuccessMessage';
 import Input from '../common/Input/Input';
-import { payRemainingBalance } from '../../api/enrollmentServices';
+import enrollmentServices from '../../api/enrollmentServices';
 import styles from './CheckoutForm.module.css';
 
 const RemainingPaymentCheckoutForm = ({
@@ -108,7 +108,7 @@ const RemainingPaymentCheckoutForm = ({
       const targetCourseId = getTargetCourseId();
       
       // Update parent enrollment
-      await payRemainingBalance(
+      await enrollmentServices.payRemainingBalance(
         user.uid,
         targetCourseId,
         REMAINING_AMOUNT,
@@ -117,7 +117,7 @@ const RemainingPaymentCheckoutForm = ({
 
       // Also update the current course enrollment if it's a component of a bundle
       if (enrollment?.parentEnrollmentId && courseId !== targetCourseId) {
-        await payRemainingBalance(
+        await enrollmentServices.payRemainingBalance(
           user.uid,
           courseId,
           REMAINING_AMOUNT,

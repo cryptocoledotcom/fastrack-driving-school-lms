@@ -24,7 +24,6 @@ class EnrollmentService extends ServiceBase {
         throw new ValidationError('userEmail must be a string');
       }
 
-      const enrollmentRef = doc(db, 'users', userId, 'courses', courseId);
       const existingEnrollment = await this.getDoc(`users/${userId}/courses`, courseId);
       
       if (existingEnrollment) {
@@ -409,7 +408,6 @@ class EnrollmentService extends ServiceBase {
         throw new EnrollmentError('Invalid course ID', courseId);
       }
 
-      const enrollmentRef = doc(db, 'users', userId, 'courses', courseId);
       const enrollmentData = {
         userId,
         courseId,
@@ -668,22 +666,5 @@ class EnrollmentService extends ServiceBase {
   }
 }
 
-export default new EnrollmentService();
-
-export const {
-  createEnrollment,
-  createCompletePackageEnrollment,
-  createPaidEnrollment,
-  createPaidCompletePackageEnrollment,
-  createPaidCompletePackageSplit,
-  payRemainingBalance,
-  getEnrollment,
-  getUserEnrollments,
-  updateEnrollmentAfterPayment,
-  updateCertificateStatus,
-  checkCourseAccess,
-  autoEnrollAdmin,
-  resetEnrollmentToPending,
-  resetUserEnrollmentsToPending,
-  getAllUsersWithEnrollments
-} = new EnrollmentService();
+const enrollmentServices = new EnrollmentService();
+export default enrollmentServices;

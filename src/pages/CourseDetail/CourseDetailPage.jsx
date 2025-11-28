@@ -11,7 +11,7 @@ import SuccessMessage from '../../components/common/SuccessMessage/SuccessMessag
 import { getCourseById } from '../../api/courseServices';
 import { getModules } from '../../api/moduleServices';
 import { getProgress } from '../../api/progressServices';
-import { createEnrollment } from '../../api/enrollmentServices';
+import enrollmentServices from '../../api/enrollmentServices';
 import styles from './CourseDetailPage.module.css';
 
 const CourseDetailPage = () => {
@@ -71,7 +71,7 @@ const CourseDetailPage = () => {
       setSuccess('');
 
       // Create enrollment in users/{userId}/courses/{courseId}
-         await createEnrollment(user.uid, courseId, user.email);
+      await enrollmentServices.createEnrollment(user.uid, courseId, user.email);
       setSuccess('Successfully enrolled in course!');
 
       // Reload progress

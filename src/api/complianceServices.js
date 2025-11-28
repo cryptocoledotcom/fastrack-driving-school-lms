@@ -11,11 +11,10 @@ import {
 import { db } from '../config/firebase';
 import { executeService } from './base/ServiceWrapper';
 import { validateUserId, validateCourseId } from './validators/validators';
-import { ComplianceError, ValidationError } from './errors/ApiError';
+import { ValidationError } from './errors/ApiError';
 
 const COMPLIANCE_LOGS_COLLECTION = 'complianceLogs';
 const MAX_DAILY_HOURS = 4 * 3600;
-const BREAK_REQUIRED_AFTER = 2 * 3600;
 const MIN_BREAK_DURATION = 10 * 60;
 
 export const createComplianceSession = async (userId, courseId, data) => {

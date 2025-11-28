@@ -8,11 +8,7 @@ import ErrorMessage from '../../components/common/ErrorMessage/ErrorMessage';
 import SuccessMessage from '../../components/common/SuccessMessage/SuccessMessage';
 import SchedulingManagement from '../../components/admin/SchedulingManagement';
 import ComplianceReporting from '../../components/admin/ComplianceReporting';
-import { 
-  getAllUsersWithEnrollments,
-  resetEnrollmentToPending,
-  resetUserEnrollmentsToPending
-} from '../../api/enrollmentServices';
+import enrollmentServices from '../../api/enrollmentServices';
 import { COURSE_IDS } from '../../constants/courses';
 import styles from './AdminPage.module.css';
 
@@ -35,7 +31,7 @@ const AdminPage = () => {
     try {
       setLoading(true);
       setError('');
-      const usersData = await getAllUsersWithEnrollments();
+      const usersData = await enrollmentServices.getAllUsersWithEnrollments();
       setUsers(usersData);
     } catch (err) {
       console.error('Error loading users:', err);
@@ -52,7 +48,7 @@ const AdminPage = () => {
       setError('');
       setSuccess('');
 
-      await resetEnrollmentToPending(userId, courseId);
+      await enrollmentServices.resetEnrollmentToPending(userId, courseId);
       
       setSuccess(`Reset enrollment for ${courseId} successfully!`);
       await loadUsers();
@@ -73,7 +69,7 @@ const AdminPage = () => {
         setError('');
         setSuccess('');
 
-        await resetUserEnrollmentsToPending(userId);
+        await enrollmentServices.resetUserEnrollmentsToPending(userId);
         
         setSuccess(`Reset all enrollments for ${userName} successfully!`);
         await loadUsers();

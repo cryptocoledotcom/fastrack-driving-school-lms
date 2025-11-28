@@ -3,7 +3,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import Button from '../../components/common/Button/Button';
 import LoadingSpinner from '../../components/common/LoadingSpinner/LoadingSpinner';
-import { getEnrollment } from '../../api/enrollmentServices';
+import enrollmentServices from '../../api/enrollmentServices';
 import { getCourseById } from '../../api/courseServices';
 import styles from './PaymentSuccessPage.module.css';
 
@@ -27,7 +27,7 @@ const PaymentSuccessPage = () => {
 
         const [course, enrollment] = await Promise.all([
           getCourseById(courseId),
-          getEnrollment(user.uid, courseId)
+          enrollmentServices.getEnrollment(user.uid, courseId)
         ]);
 
         setCourseData(course);

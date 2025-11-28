@@ -68,6 +68,7 @@ const CoursePlayerPageContent = () => {
       setError('You have reached the 4-hour daily limit. Please try again tomorrow.');
       stopTimer();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLockedOut]);
 
   // Show break modal when mandatory break is needed

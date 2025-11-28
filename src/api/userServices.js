@@ -12,8 +12,8 @@ import {
 } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import { executeService } from './base/ServiceWrapper';
-import { ValidationError, NotFoundError, UserError } from './errors/ApiError';
-import { validateUserId, validateEmail } from './validators/validators';
+import { ValidationError, NotFoundError } from './errors/ApiError';
+import { validateUserId } from './validators/validators';
 export { getUserStats } from './progressServices';
 
 const USERS_COLLECTION = 'users';
