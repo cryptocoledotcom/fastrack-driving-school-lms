@@ -121,10 +121,10 @@ export const enrollUserInAllCourses = async (userId, userEmail) => {
   try {
     console.log(`Enrolling user ${userEmail} in all courses...`);
 
-    const { createEnrollment } = await import('../api/enrollmentServices');
+    const { default: enrollmentServices } = await import('../api/enrollment/enrollmentServices');
 
     for (const courseId of Object.values(COURSE_IDS)) {
-      await createEnrollment(userId, courseId, userEmail);
+      await enrollmentServices.createEnrollment(userId, courseId, userEmail);
       console.log(`✓ Enrolled in: ${courseId}`);
     }
 

@@ -100,7 +100,7 @@ const CoursesPage = () => {
 
   const handlePaymentSuccess = async (paymentData) => {
     try {
-      const enrollmentServicesModule = await import('../../api/enrollmentServices');
+      const enrollmentServicesModule = await import('../../api/enrollment/enrollmentServices');
       const enrollmentSvc = enrollmentServicesModule.default;
       
       // For Complete Package, check if split payment

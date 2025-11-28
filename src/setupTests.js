@@ -1,0 +1,9 @@
+if (typeof global.TextEncoder === 'undefined') {
+  const { TextEncoder, TextDecoder } = require('util');
+  global.TextEncoder = TextEncoder;
+  global.TextDecoder = TextDecoder;
+}
+
+if (typeof global.crypto === 'undefined') {
+  global.crypto = require('crypto').webcrypto;
+}
