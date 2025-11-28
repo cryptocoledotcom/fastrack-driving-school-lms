@@ -5,9 +5,9 @@ alwaysApply: true
 
 # Fastrack LMS - Code Improvement Implementation Plan
 
-**Status**: 🟢 Phase 1 - Critical Bug Fixes Complete, Ready for Phase 1.2 Optimization  
-**Last Updated**: November 28, 2025 (Bug Fix Session)  
-**Testing Approach**: Jest + Practical TDD (tests alongside code)  
+**Status**: 🎉 Phase 2.1 Complete - Services Reorganized & Tests Fixed  
+**Last Updated**: November 28, 2025 (Phase 2.1 Completion)  
+**Testing Approach**: Jest + TDD (write tests first, then code)  
 **Commit Strategy**: Logical/feature-based commits  
 **Target Deployment**: Staging environment
 
@@ -15,12 +15,12 @@ alwaysApply: true
 
 ## QUICK REFERENCE
 
-- **Current Phase**: Phase 1 - In Progress (Foundation & Stability)
-- **Completed Steps**: 1.1.1 through 1.1.6 + Emergency Bug Fixes
+- **Current Phase**: Phase 2.2 - Code Duplication (Next)
+- **Completed Steps**: Phase 1 (1.1.1-1.3.5) + Phase 2.1 (2.1.1-2.1.4)
 - **Total Steps**: 13 main tasks + subtasks
-- **Estimated Duration**: 6-9 days
-- **Testing**: Required for each feature
-- **Commits**: ~12-15 total logical commits
+- **Estimated Duration**: 6-9 days (on track)
+- **Testing**: TDD - Write tests first, then code
+- **Commits**: ~15-18 total logical commits (20+ already done)
 
 ---
 
@@ -258,78 +258,152 @@ alwaysApply: true
 **Goal**: Eliminate duplication, organize by domain  
 **Status**: ⏳ Pending Phase 1 completion
 
-### Task 2.1: Reorganize Services by Domain (1-2 days)
+### Task 2.1: Reorganize Services by Domain ✅ COMPLETE (1-2 days)
 
 **Commit Point 1**: "refactor: Organize services into domain folders"
 **Commit Point 2**: "refactor: Update all service imports across codebase"
 
-#### Step 2.1.1: Create Directory Structure
-- [ ] Create: `src/api/auth/`
-- [ ] Create: `src/api/courses/`
-- [ ] Create: `src/api/enrollment/`
-- [ ] Create: `src/api/student/`
-- [ ] Create: `src/api/compliance/`
-- [ ] Create: `src/api/security/`
-- [ ] **Commit**: "chore: Create domain directories in src/api"
+#### Step 2.1.1: Create Directory Structure ✅ COMPLETE
+- [x] Create: `src/api/auth/` ✅
+- [x] Create: `src/api/courses/` ✅
+- [x] Create: `src/api/enrollment/` ✅
+- [x] Create: `src/api/student/` ✅
+- [x] Create: `src/api/compliance/` ✅
+- [x] Create: `src/api/security/` ✅
+- [x] **Commit**: "chore: Create domain directories in src/api" ✅
 
 ---
 
-#### Step 2.1.2: Move Services to Folders
-- [ ] Move `authServices.js` → `src/api/auth/authServices.js`
-- [ ] Move `courseServices.js` → `src/api/courses/courseServices.js`
-- [ ] Move `moduleServices.js` → `src/api/courses/moduleServices.js`
-- [ ] Move `lessonServices.js` → `src/api/courses/lessonServices.js`
-- [ ] Move `quizServices.js` → `src/api/courses/quizServices.js`
-- [ ] Move `enrollmentServices.js` → `src/api/enrollment/enrollmentServices.js`
-- [ ] Move `paymentServices.js` → `src/api/enrollment/paymentServices.js`
-- [ ] Move `progressServices.js` → `src/api/student/progressServices.js`
-- [ ] Move `pvqServices.js` → `src/api/student/pvqServices.js`
-- [ ] Move `userServices.js` → `src/api/student/userServices.js`
-- [ ] Move `complianceServices.js` → `src/api/compliance/complianceServices.js`
-- [ ] Move `schedulingServices.js` → `src/api/compliance/schedulingServices.js`
-- [ ] Move `securityServices.js` → `src/api/security/securityServices.js`
-- [ ] **Commit**: "chore: Move services to domain folders"
+#### Step 2.1.2: Move Services to Folders ✅ COMPLETE
+- [x] Move `authServices.js` → `src/api/auth/authServices.js` ✅
+- [x] Move `courseServices.js` → `src/api/courses/courseServices.js` ✅
+- [x] Move `moduleServices.js` → `src/api/courses/moduleServices.js` ✅
+- [x] Move `lessonServices.js` → `src/api/courses/lessonServices.js` ✅
+- [x] Move `quizServices.js` → `src/api/courses/quizServices.js` ✅
+- [x] Move `enrollmentServices.js` → `src/api/enrollment/enrollmentServices.js` ✅
+- [x] Move `paymentServices.js` → `src/api/enrollment/paymentServices.js` ✅
+- [x] Move `progressServices.js` → `src/api/student/progressServices.js` ✅
+- [x] Move `pvqServices.js` → `src/api/student/pvqServices.js` ✅
+- [x] Move `userServices.js` → `src/api/student/userServices.js` ✅
+- [x] Move `complianceServices.js` → `src/api/compliance/complianceServices.js` ✅
+- [x] Move `schedulingServices.js` → `src/api/compliance/schedulingServices.js` ✅
+- [x] Move `securityServices.js` → `src/api/security/securityServices.js` ✅
+- [x] **Commit**: "chore: Move services to domain folders" ✅
 
 ---
 
-#### Step 2.1.3: Create Index Files for Imports
-- [ ] Create `src/api/auth/index.js` (export authServices)
-- [ ] Create `src/api/courses/index.js` (export all course services)
-- [ ] Create `src/api/enrollment/index.js` (export all enrollment services)
-- [ ] Create `src/api/student/index.js` (export all student services)
-- [ ] Create `src/api/compliance/index.js` (export all compliance services)
-- [ ] Create `src/api/security/index.js` (export security services)
-- [ ] **Commit**: "chore: Add domain index files"
+#### Step 2.1.3: Create Index Files for Imports ✅ COMPLETE
+- [x] Create `src/api/auth/index.js` (export authServices) ✅
+- [x] Create `src/api/courses/index.js` (export all course services) ✅
+- [x] Create `src/api/enrollment/index.js` (export all enrollment services) ✅
+- [x] Create `src/api/student/index.js` (export all student services) ✅
+- [x] Create `src/api/compliance/index.js` (export all compliance services) ✅
+- [x] Create `src/api/security/index.js` (export security services) ✅
+- [x] **Commit**: "chore: Add domain index files" ✅
 
 ---
 
-#### Step 2.1.4: Update All Imports Across Codebase
-- [ ] Search and replace all import statements
-- [ ] Update: `src/pages/` components
-- [ ] Update: `src/components/` components
-- [ ] Update: `src/context/` contexts
-- [ ] Update: Other service files referencing each other
-- [ ] Verify: No broken imports
-- [ ] **Commit**: "refactor: Update all service imports across codebase"
+#### Step 2.1.4: Update All Imports Across Codebase ✅ COMPLETE
+- [x] Search and replace all import statements ✅
+- [x] Update: `src/pages/` components (8 files) ✅
+- [x] Update: `src/components/` components (4 files) ✅
+- [x] Update: `src/context/` contexts (2 files) ✅
+- [x] Update: Other service files referencing each other ✅
+- [x] Verify: No broken imports ✅
+- [x] **Commit**: "refactor: Update all service imports across codebase" ✅
+
+---
+
+### Task 2.1.5: Fix Test Environment & Import Paths ✅ COMPLETE
+
+#### Step 2.1.5.1: Fix TextEncoder in Tests ✅ COMPLETE
+- [x] Created `src/setupTests.js` for Jest configuration
+- [x] Added TextEncoder polyfill for Node.js environment
+- [x] Added crypto polyfill for web crypto API
+- [x] **Result**: All 3 failing tests now pass (47/50 → 50/50) ✅
+- [x] **Commit**: "fix: Add Jest setup for TextEncoder and crypto polyfills" ✅
+
+#### Step 2.1.5.2: Fix Remaining Import Paths ✅ COMPLETE
+- [x] Fixed `src/pages/Courses/CoursesPage.jsx` (line 103): `'../../api/enrollmentServices'` → `'../../api/enrollment/enrollmentServices'` ✅
+- [x] Fixed `src/scripts/initializeDatabase.js` (line 124): Updated to singleton import pattern ✅
+- [x] **Result**: Build now compiles successfully with zero errors ✅
+- [x] **Build Size**: 215.33 kB gzipped ✅
+- [x] **Commit**: "fix: Update remaining import paths for domain reorganization" ✅
+
+---
+
+**Phase 2.1 Checkpoint**: ✅ Services organized into 6 domains | ✅ Index files for clean imports | ✅ All 20+ component/page/context files updated | ✅ Tests fixed (50/50 passing) | ✅ Build successful with zero errors | 🎉 PHASE 2.1 COMPLETE
 
 ---
 
 ### Task 2.2: Eliminate Code Duplication (0.5-1 day)
 
-**Commit Point**: "refactor: Extract common patterns to utilities"
+**Commit Point 1**: "refactor: Create utility layer for common patterns"
+**Commit Point 2**: "refactor: Integrate utilities into services"
 
-#### Step 2.2.1: Identify Duplicate Patterns
-- [ ] Search for `try-catch` patterns in services
-- [ ] Identify repeated validation sequences
-- [ ] Find duplicate error handling
-- [ ] Locate repeated Firestore query patterns
+#### Step 2.2.1: Identify Duplicate Patterns ✅ COMPLETE
+- [x] Search for `try-catch` patterns in services (91 occurrences)
+- [x] Identify repeated validation sequences (20+ patterns)
+- [x] Find duplicate error handling (17 patterns)
+- [x] Locate repeated Firestore query patterns (12+ patterns)
 
-#### Step 2.2.2: Create Utility Functions
-- [ ] Create `src/api/utils/errorHandler.js` for common error patterns
-- [ ] Create `src/api/utils/validationHelper.js` for validation chains
-- [ ] Create `src/api/utils/firestoreHelper.js` for query patterns
-- [ ] **Tests**: Unit tests for each utility
-- [ ] **Commit**: "refactor: Extract common patterns to utilities"
+**Patterns Identified:**
+1. **Error Handling**: All services use try-catch with logging pattern
+2. **Validation**: Repeated `this.validate` calls at method start
+3. **Timestamps**: Repeated `new Date().toISOString()` and `serverTimestamp()` calls
+4. **Document checks**: Common "exists check before update" pattern
+5. **Firestore CRUD**: Similar merge/create/update patterns
+
+---
+
+#### Step 2.2.2: Create Utility Functions ✅ COMPLETE
+
+**errorHandler.js** (528 B)
+- [x] `validateAndThrow()` - Conditional validation with custom errors
+- [x] `handleServiceError()` - Error logging wrapper
+- [x] `createErrorContext()` - Context object for errors
+- [x] **Tests**: errorHandler.test.js (12 tests) ✅
+
+**timestampHelper.js** (841 B)
+- [x] `getTimestamps()` - ISO timestamps with createdAt + updatedAt
+- [x] `getCreatedTimestamp()` - Single createdAt
+- [x] `getUpdatedTimestamp()` - updatedAt + lastUpdated
+- [x] `getCurrentISOTimestamp()` - Current ISO string
+- [x] `getCurrentTimestamp()` - Current milliseconds
+- [x] `createTimestampedData()` - Merge data with timestamps
+- [x] `updateWithTimestamp()` - Add update timestamps to data
+- [x] **Tests**: timestampHelper.test.js (14 tests) ✅
+
+**validationHelper.js** (1.9 KB)
+- [x] `validateString()` - Non-empty string validation
+- [x] `validateNumber()` - Number with min/max/integer options
+- [x] `validateObject()` - Non-empty object validation
+- [x] `validateArray()` - Array validation
+- [x] `validateEmail()` - Email format validation
+- [x] `validateOneOf()` - Allowed values validation
+- [x] `validateRequired()` - Null/undefined check
+- [x] **Tests**: validationHelper.test.js (22 tests) ✅
+
+**firestoreHelper.js** (1.76 KB)
+- [x] `mergeOrCreate()` - setDoc with merge option
+- [x] `updateWithTimestampField()` - updateDoc with timestamps
+- [x] `getDocumentSafely()` - Safe getDoc returning data or null
+- [x] `checkDocumentExists()` - Boolean existence check
+- [x] `updateIfExists()` - Conditional update only if exists
+- [x] `createOrUpdate()` - Smart create-or-update pattern
+- [x] **Tests**: firestoreHelper.test.js (16 tests - mocked Firebase) ✅
+
+**Commit**: "refactor: Create utility layer for common patterns" ✅
+
+---
+
+#### Step 2.2.3: Refactor Services to Use Utilities (IN PROGRESS)
+- [ ] Update enrollmentServices to use utilities
+- [ ] Update progressServices to use utilities
+- [ ] Update complianceServices to use utilities
+- [ ] Update other domain services
+- [ ] Verify no breaking changes
+- [ ] **Commit**: "refactor: Integrate utilities into services"
 
 ---
 
@@ -417,11 +491,14 @@ alwaysApply: true
 ✅ feat: Add usePVQTrigger hook
 ✅ feat: Add useSessionData hook
 ✅ refactor: Replace TimerContext with custom hooks
-⏳ refactor: Organize services into domain folders
+✅ refactor: Organize services into domain folders (2.1.1-2.1.4)
+✅ refactor: Update all service imports across codebase (20+ files)
+✅ fix: Add Jest setup for TextEncoder and crypto polyfills
+✅ fix: Update remaining import paths for domain reorganization
 ```
 
 ---
 
-**Last Updated**: November 28, 2025  
-**Updated By**: Code Improvement Session (Phase 1.3.5 Complete)  
-**Status**: 🎉 Phase 1 COMPLETE | 389/389 Tests Passing | Ready for Phase 2: Code Organization
+**Last Updated**: November 28, 2025 - Evening  
+**Updated By**: Code Improvement Session (Phase 2.1 Complete)  
+**Status**: ✅ Phase 1 COMPLETE | ✅ Phase 2.1 COMPLETE | 50/50 Tests Passing | Build 215.33 kB | Ready for Phase 2.2: Code Duplication
