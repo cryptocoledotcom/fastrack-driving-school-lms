@@ -20,7 +20,8 @@ class EnrollmentService extends ServiceBase {
     try {
       this.validate.validateUserId(userId);
       this.validate.validateCourseId(courseId);
-      if (typeof userEmail !== 'string') {
+      
+      if (userEmail && typeof userEmail !== 'string') {
         throw new ValidationError('userEmail must be a string');
       }
 
@@ -35,7 +36,7 @@ class EnrollmentService extends ServiceBase {
         throw new EnrollmentError('Invalid course ID', courseId);
       }
 
-      const isAdmin = ADMIN_CONFIG.AUTO_ENROLL_EMAILS.includes(userEmail.toLowerCase());
+      const isAdmin = userEmail ? ADMIN_CONFIG.AUTO_ENROLL_EMAILS.includes(userEmail.toLowerCase()) : false;
 
       const enrollmentData = {
         userId,
