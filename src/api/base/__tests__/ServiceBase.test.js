@@ -42,6 +42,7 @@ jest.mock('../../validators/validators.js', () => ({
 }));
 
 jest.mock('firebase/firestore', () => ({
+  collection: jest.fn(),
   writeBatch: jest.fn(),
   doc: jest.fn(),
   getDoc: jest.fn(),

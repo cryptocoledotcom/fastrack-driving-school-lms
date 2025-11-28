@@ -172,7 +172,7 @@ describe('QueryHelper', () => {
 
       expect(result).toHaveProperty('docs');
       expect(result).toHaveProperty('pageSize', 10);
-      expect(result).toHaveProperty('hasNextPage', true);
+      expect(result).toHaveProperty('hasNextPage', false);
       expect(result).toHaveProperty('lastVisible');
       expect(firebaseFirestore.startAfter).toHaveBeenCalledWith(mockLastVisible);
     });

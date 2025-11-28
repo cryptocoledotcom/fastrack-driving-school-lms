@@ -21,6 +21,10 @@ describe('enrollmentServices.createEnrollment() - Refactored with utilities', ()
     
     enrollmentServices.setDoc = mockSetDoc;
     enrollmentServices.getDoc = mockGetDoc;
+    // Reset all validator mocks to not throw by default
+    enrollmentServices.validate.validateUserId.mockImplementation(() => {});
+    enrollmentServices.validate.validateCourseId.mockImplementation(() => {});
+    enrollmentServices.validate.validateBreakData.mockImplementation(() => {});
   });
 
   describe('Input Validation', () => {

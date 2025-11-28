@@ -191,7 +191,7 @@ describe('useBreakManagement Hook', () => {
       const content = fs.readFileSync(path.join(__dirname, 'useBreakManagement.js'), 'utf8');
 
       expect(content).toContain('isBreakDue');
-      expect(content).toContain(BREAK_REQUIRED_AFTER.toString());
+      expect(content).toContain('2 * 3600');
     });
   });
 
@@ -202,7 +202,7 @@ describe('useBreakManagement Hook', () => {
       const content = fs.readFileSync(path.join(__dirname, 'useBreakManagement.js'), 'utf8');
 
       expect(content).toContain('MIN_BREAK_DURATION');
-      expect(content).toContain('600');
+      expect(content).toContain('10 * 60');
     });
 
     it('should check if minimum break is met', () => {
@@ -247,7 +247,7 @@ describe('useBreakManagement Hook', () => {
       const content = fs.readFileSync(path.join(__dirname, 'useBreakManagement.js'), 'utf8');
 
       expect(content).toContain('breakHistory');
-      expect(content).toContain('push');
+      expect(content).toContain('[...prev');
     });
 
     it('should include break duration in history', () => {
