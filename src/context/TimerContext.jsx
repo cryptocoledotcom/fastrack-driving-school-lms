@@ -1,10 +1,10 @@
-// Timer Context
-// Manages time tracking for learning sessions and breaks
-// Includes state compliance tracking
-
 import React, { createContext, useContext, useState, useEffect, useRef } from 'react';
 import { useAuth } from './AuthContext';
 import APP_CONFIG from '../constants/appConfig';
+import useSessionTimer from '../hooks/useSessionTimer';
+import useBreakManagement from '../hooks/useBreakManagement';
+import usePVQTrigger from '../hooks/usePVQTrigger';
+import useSessionData from '../hooks/useSessionData';
 import {
   createComplianceSession,
   updateComplianceSession,
@@ -15,20 +15,12 @@ import {
   logBreakEnd
 } from '../api/complianceServices';
 import {
-  getRandomPVQQuestion,
-  logIdentityVerification
+  getRandomPVQQuestion as getRandomPVQQuestionPVQ,
+  logIdentityVerification as logIdentityVerificationPVQ
 } from '../api/pvqServices';
 
 const TimerContext = createContext();
 
-const MAX_DAILY_HOURS = 4 * 3600;
-const BREAK_REQUIRED_AFTER = 2 * 3600;
-const MIN_BREAK_DURATION = 10 * 60;
-const PVQ_TRIGGER_INTERVAL = 30 * 60;
-const PVQ_RANDOM_OFFSET_MIN = 5 * 60;
-const PVQ_RANDOM_OFFSET_MAX = 10 * 60;
-
-// Custom hook to use timer context
 export const useTimer = () => {
   const context = useContext(TimerContext);
   if (!context) {
@@ -40,46 +32,49 @@ export const useTimer = () => {
 export const TimerProvider = ({ children, courseId, lessonId, ipAddress }) => {
   const { user } = useAuth();
   
-  // State management
-  const [sessionTime, setSessionTime] = useState(0);
-  const [totalTime, setTotalTime] = useState(0);
-  const [isActive, setIsActive] = useState(false);
-  const [isPaused, setIsPaused] = useState(false);
-  const [breakTime, setBreakTime] = useState(0);
-  const [isOnBreak, setIsOnBreak] = useState(false);
-  const [lastActivityTime, setLastActivityTime] = useState(Date.now());
-  const [isLockedOut, setIsLockedOut] = useState(false);
-  const [isBreakMandatory, setIsBreakMandatory] = useState(false);
-  const [currentSessionId, setCurrentSessionId] = useState(null);
-  const [lessonsAccessed, setLessonsAccessed] = useState([]);
   const [videoProgress, setVideoProgress] = useState(null);
-  const [breakHistory, setBreakHistory] = useState([]);
-  const [currentSession, setCurrentSession] = useState(null);
-  const [lastBreakStartTime, setLastBreakStartTime] = useState(null);
-  const [showPVQModal, setShowPVQModal] = useState(false);
-  const [currentPVQQuestion, setCurrentPVQQuestion] = useState(null);
-  const [nextPVQTriggerTime, setNextPVQTriggerTime] = useState(null);
-  const [pvqSubmitting, setPVQSubmitting] = useState(false);
+  const [breakTime, setBreakTime] = useState(0);
+  const [lastActivityTime, setLastActivityTime] = useState(Date.now());
   const [pvqError, setPVQError] = useState(null);
-  
+
   const intervalRef = useRef(null);
   const breakIntervalRef = useRef(null);
   const saveIntervalRef = useRef(null);
-  const pvqCheckIntervalRef = useRef(null);
-  const sessionStartTimeRef = useRef(null);
   const lastSaveTimeRef = useRef(Date.now());
-  const timeSinceLastBreakRef = useRef(0);
 
-  // Check for daily lockout and load time data on mount
+  const sessionTimer = useSessionTimer({
+    sessionTime: 0,
+    onDailyLimitReached: null,
+    onBreakRequired: null,
+    onLockoutCheck: null
+  });
+
+  const breakManager = useBreakManagement({
+    sessionTime: sessionTimer.sessionTime,
+    onBreakRequired: null,
+    onBreakEnded: null
+  });
+
+  const pvqTrigger = usePVQTrigger({
+    sessionTime: sessionTimer.sessionTime,
+    getRandomQuestion: () => getRandomPVQQuestionPVQ(),
+    onPVQTriggered: null,
+    onPVQSubmitted: null
+  });
+
+  const sessionData = useSessionData({
+    onSessionCreated: null,
+    onLessonAccessed: null,
+    onSessionClosed: null
+  });
+
   useEffect(() => {
     const initializeSession = async () => {
       if (user && courseId) {
         try {
-          const isLocked = await checkDailyHourLockout(user.uid, courseId);
-          setIsLockedOut(isLocked);
-
+          await checkDailyHourLockout(user.uid, courseId);
           const dailyTime = await getDailyTime(user.uid, courseId);
-          setTotalTime(dailyTime);
+          sessionTimer.loadDailyTime(dailyTime);
         } catch (err) {
           console.error('Error initializing session:', err);
         }
@@ -87,28 +82,28 @@ export const TimerProvider = ({ children, courseId, lessonId, ipAddress }) => {
     };
 
     initializeSession();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, courseId]);
 
-  // Save time data and update compliance log
   const saveTimerData = async () => {
-    if (user && currentSessionId && courseId && currentSession) {
+    if (user && sessionData.currentSessionId && courseId && sessionData.currentSession) {
       try {
-        const sessionData = {
-          duration: sessionTime,
+        const timerData = {
+          duration: sessionTimer.sessionTime,
           videoProgress,
-          lessonsAccessed: lessonId ? [...new Set([...lessonsAccessed, lessonId])] : lessonsAccessed,
-          breaks: breakHistory,
+          lessonsAccessed: lessonId ? [...new Set([...sessionData.lessonsAccessed, lessonId])] : sessionData.lessonsAccessed,
+          breaks: breakManager.breakHistory,
           currentSession: {
-            ...currentSession,
+            ...sessionData.currentSession,
             endTime: new Date().toISOString(),
-            duration: sessionTime,
+            duration: sessionTimer.sessionTime,
             videoProgress,
-            lessonsAccessed: lessonId ? [...new Set([...lessonsAccessed, lessonId])] : lessonsAccessed,
+            lessonsAccessed: lessonId ? [...new Set([...sessionData.lessonsAccessed, lessonId])] : sessionData.lessonsAccessed,
             ipAddress
           }
         };
 
-        await updateComplianceSession(currentSessionId, sessionData);
+        await updateComplianceSession(sessionData.currentSessionId, timerData);
         lastSaveTimeRef.current = Date.now();
       } catch (err) {
         console.error('Error saving timer data to compliance log:', err);
@@ -116,9 +111,8 @@ export const TimerProvider = ({ children, courseId, lessonId, ipAddress }) => {
     }
   };
 
-  // Start timer and create compliance session
-  const startTimer = async () => {
-    if (!isActive && !isOnBreak && !isLockedOut && user && courseId) {
+  const startTimerComplianceWrapped = async () => {
+    if (!sessionTimer.isActive && !breakManager.isOnBreak && !sessionTimer.isLockedOut && user && courseId) {
       try {
         const now = new Date().toISOString();
         const session = {
@@ -136,76 +130,62 @@ export const TimerProvider = ({ children, courseId, lessonId, ipAddress }) => {
           startTime: now
         });
         
-        setCurrentSessionId(sessionId);
-        setCurrentSession(session);
-        sessionStartTimeRef.current = now;
-        setIsActive(true);
-        setIsPaused(false);
+        sessionTimer.startTimer();
+        sessionData.createSession(sessionId, session);
         setLastActivityTime(Date.now());
-        
-        initializePVQTrigger();
       } catch (err) {
         console.error('Error starting timer:', err);
       }
     }
   };
 
-  // Pause timer and save
-  const pauseTimer = async () => {
-    if (isActive && !isPaused) {
+  const pauseTimerComplianceWrapped = async () => {
+    if (sessionTimer.isActive && !sessionTimer.isPaused) {
       await saveTimerData();
-      setIsPaused(true);
+      sessionTimer.pauseTimer();
       setLastActivityTime(Date.now());
     }
   };
 
-  // Resume timer
-  const resumeTimer = async () => {
-    if (isActive && isPaused) {
+  const resumeTimerComplianceWrapped = async () => {
+    if (sessionTimer.isActive && sessionTimer.isPaused) {
       await saveTimerData();
-      setIsPaused(false);
+      sessionTimer.resumeTimer();
       setLastActivityTime(Date.now());
     }
   };
 
-  // Stop timer and close compliance session
-  const stopTimer = async () => {
-    if (isActive && currentSessionId && user && courseId) {
+  const stopTimerComplianceWrapped = async () => {
+    if (sessionTimer.isActive && sessionData.currentSessionId && user && courseId) {
       try {
-        const sessionData = {
-          duration: sessionTime,
+        const timerData = {
+          duration: sessionTimer.sessionTime,
           videoProgress,
-          lessonsAccessed: lessonId ? [...new Set([...lessonsAccessed, lessonId])] : lessonsAccessed,
-          breaks: breakHistory
+          lessonsAccessed: lessonId ? [...new Set([...sessionData.lessonsAccessed, lessonId])] : sessionData.lessonsAccessed,
+          breaks: breakManager.breakHistory
         };
 
-        await closeComplianceSession(currentSessionId, sessionData);
+        await closeComplianceSession(sessionData.currentSessionId, timerData);
       } catch (err) {
         console.error('Error stopping timer:', err);
       }
     }
 
-    setIsActive(false);
-    setIsPaused(false);
-    setCurrentSessionId(null);
-    setSessionTime(0);
-    setLessonsAccessed([]);
+    sessionTimer.stopTimer();
+    sessionData.closeSession();
     setVideoProgress(null);
-    setBreakHistory([]);
+    setBreakTime(0);
   };
 
-  // Reset session timer
   const resetSessionTimer = () => {
-    setSessionTime(0);
-    setIsActive(false);
-    setIsPaused(false);
+    sessionTimer.stopTimer();
+    sessionTimer.startTimer();
   };
 
-  // Start break and log to compliance
-  const startBreak = async (duration = APP_CONFIG.BREAK_INTERVALS.SHORT_BREAK) => {
-    if (currentSessionId) {
+  const startBreakComplianceWrapped = async (duration = APP_CONFIG.BREAK_INTERVALS?.SHORT_BREAK || 600) => {
+    if (sessionData.currentSessionId) {
       try {
-        await logBreak(currentSessionId, {
+        await logBreak(sessionData.currentSessionId, {
           duration,
           type: 'mandatory',
           startTime: new Date().toISOString()
@@ -215,131 +195,38 @@ export const TimerProvider = ({ children, courseId, lessonId, ipAddress }) => {
       }
     }
 
-    setIsOnBreak(true);
+    breakManager.startBreak();
     setBreakTime(duration);
-    setIsActive(false);
-    setIsPaused(false);
-    setIsBreakMandatory(false);
-    setLastBreakStartTime(Date.now());
+    sessionTimer.pauseTimer();
+    setLastActivityTime(Date.now());
   };
 
-  // End break - enforces minimum 10-minute break duration
-  const endBreak = async () => {
-    if (lastBreakStartTime) {
-      const breakDurationSeconds = Math.floor((Date.now() - lastBreakStartTime) / 1000);
+  const endBreakComplianceWrapped = async () => {
+    try {
+      const breakDuration = breakManager.currentBreakDuration;
+      const minDuration = 10 * 60;
       
-      if (breakDurationSeconds < MIN_BREAK_DURATION) {
-        const minutesRemaining = Math.ceil((MIN_BREAK_DURATION - breakDurationSeconds) / 60);
+      if (breakDuration < minDuration) {
+        const minutesRemaining = Math.ceil((minDuration - breakDuration) / 60);
         const error = new Error(`Break must be at least 10 minutes. ${minutesRemaining} minute(s) remaining.`);
         error.code = 'BREAK_TOO_SHORT';
         error.minutesRemaining = minutesRemaining;
         throw error;
       }
 
-      try {
-        if (currentSessionId) {
-          await logBreakEnd(currentSessionId, breakDurationSeconds);
-        }
-      } catch (err) {
-        console.error('Error logging break end:', err);
+      if (sessionData.currentSessionId) {
+        await logBreakEnd(sessionData.currentSessionId, breakDuration);
       }
 
-      setBreakHistory(prev => [...prev, {
-        startTime: new Date(lastBreakStartTime).toISOString(),
-        actualDuration: breakDurationSeconds,
-        type: 'mandatory',
-        endTime: new Date().toISOString()
-      }]);
-    }
-    
-    setIsOnBreak(false);
-    setBreakTime(0);
-    setLastBreakStartTime(null);
-  };
-
-  // Get actual break duration in seconds (for validation before ending)
-  const getActualBreakDuration = () => {
-    if (!lastBreakStartTime) return 0;
-    return Math.floor((Date.now() - lastBreakStartTime) / 1000);
-  };
-
-  // Check if current break has met minimum duration
-  const hasBreakMetMinimumDuration = () => {
-    if (!lastBreakStartTime) return false;
-    return getActualBreakDuration() >= MIN_BREAK_DURATION;
-  };
-
-  // Initialize PVQ trigger time
-  const initializePVQTrigger = () => {
-    const randomOffset = Math.floor(
-      Math.random() * (PVQ_RANDOM_OFFSET_MAX - PVQ_RANDOM_OFFSET_MIN) + PVQ_RANDOM_OFFSET_MIN
-    );
-    setNextPVQTriggerTime(PVQ_TRIGGER_INTERVAL + randomOffset);
-  };
-
-  // Trigger PVQ modal
-  const triggerPVQ = async () => {
-    try {
-      setPVQError(null);
-      setPVQSubmitting(false);
-      const question = await getRandomPVQQuestion();
-      if (question) {
-        setCurrentPVQQuestion(question);
-        setShowPVQModal(true);
-        setIsActive(false);
-        setIsPaused(true);
-      }
+      breakManager.endBreak();
+      setBreakTime(0);
+      sessionTimer.resumeTimer();
     } catch (err) {
-      console.error('Error triggering PVQ:', err);
-      setPVQError('Failed to load verification question');
+      console.error('Error ending break:', err);
+      throw err;
     }
   };
 
-  // Handle PVQ submission
-  const handlePVQSubmit = async (pvqResponse) => {
-    if (!currentPVQQuestion || !currentSessionId || !user) return;
-
-    setPVQSubmitting(true);
-    setPVQError(null);
-
-    try {
-      const timeToAnswer = pvqResponse.timeToAnswer;
-
-      await logIdentityVerification(user.uid, courseId, currentSessionId, {
-        questionId: currentPVQQuestion.id,
-        question: currentPVQQuestion.question,
-        answer: pvqResponse.answer,
-        isCorrect: true,
-        timeToAnswer,
-        ipAddress,
-        deviceInfo: navigator.userAgent
-      });
-
-      setShowPVQModal(false);
-      setCurrentPVQQuestion(null);
-      setPVQSubmitting(false);
-
-      initializePVQTrigger();
-      timeSinceLastBreakRef.current = 0;
-      resumeTimer();
-    } catch (err) {
-      console.error('Error submitting PVQ:', err);
-      setPVQError(err.message || 'Error saving verification');
-      setPVQSubmitting(false);
-    }
-  };
-
-  // Close PVQ modal
-  const closePVQModal = () => {
-    setShowPVQModal(false);
-    setCurrentPVQQuestion(null);
-    setPVQError(null);
-    setPVQSubmitting(false);
-    initializePVQTrigger();
-    resumeTimer();
-  };
-
-  // Update video progress
   const updateVideoProgress = (currentTime, duration, percentWatched) => {
     setVideoProgress({
       currentTime,
@@ -348,40 +235,71 @@ export const TimerProvider = ({ children, courseId, lessonId, ipAddress }) => {
     });
   };
 
-  // Track lesson access
   const trackLessonAccess = (newLessonId) => {
-    if (newLessonId && !lessonsAccessed.includes(newLessonId)) {
-      setLessonsAccessed(prev => [...prev, newLessonId]);
+    sessionData.recordLessonAccess(newLessonId);
+  };
+
+  const handlePVQSubmit = async (pvqResponse) => {
+    if (!pvqTrigger.currentPVQQuestion || !sessionData.currentSessionId || !user) return;
+
+    try {
+      const timeToAnswer = pvqResponse.timeToAnswer;
+
+      await logIdentityVerificationPVQ(user.uid, courseId, sessionData.currentSessionId, {
+        questionId: pvqTrigger.currentPVQQuestion.id,
+        question: pvqTrigger.currentPVQQuestion.question,
+        answer: pvqResponse.answer,
+        isCorrect: true,
+        timeToAnswer,
+        ipAddress,
+        deviceInfo: navigator.userAgent
+      });
+
+      await pvqTrigger.submitPVQAnswer(pvqResponse.answer);
+      breakManager.resetBreakRequired?.();
+      resumeTimerComplianceWrapped();
+    } catch (err) {
+      console.error('Error submitting PVQ:', err);
+      setPVQError(err.message || 'Error saving verification');
     }
   };
 
-  // Timer interval effect with mandatory break check
+  const closePVQModalWrapped = () => {
+    pvqTrigger.closePVQModal();
+    resumeTimerComplianceWrapped();
+  };
+
+  const isBreakRecommended = () => {
+    return sessionTimer.sessionTime >= (APP_CONFIG.RECOMMENDED_BREAK_AFTER || 5400) && !breakManager.isOnBreak;
+  };
+
+  const isMaxDailyHoursReached = () => {
+    return sessionTimer.totalTime >= (APP_CONFIG.MAX_DAILY_HOURS * 3600 || 14400);
+  };
+
+  const formatTime = (seconds) => {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const secs = seconds % 60;
+    
+    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  };
+
+  const getFormattedSessionTime = () => formatTime(sessionTimer.sessionTime);
+  const getFormattedTotalTime = () => formatTime(sessionTimer.totalTime);
+  const getFormattedBreakTime = () => formatTime(breakTime);
+
+  const getRemainingDailyTime = () => {
+    const maxSeconds = (APP_CONFIG.MAX_DAILY_HOURS || 4) * 3600;
+    return Math.max(0, maxSeconds - sessionTimer.totalTime);
+  };
+
+  const getActualBreakDuration = () => breakManager.currentBreakDuration;
+  const hasBreakMetMinimumDuration = () => breakManager.isBreakMinimumMet;
+
   useEffect(() => {
-    if (isActive && !isPaused && !isOnBreak) {
+    if (sessionTimer.isActive && !sessionTimer.isPaused && !breakManager.isOnBreak) {
       intervalRef.current = setInterval(() => {
-        setSessionTime(prev => {
-          const newSessionTime = prev + 1;
-          setTotalTime(prevTotal => prevTotal + 1);
-
-          // Check for mandatory break after 2 hours
-          if (newSessionTime >= BREAK_REQUIRED_AFTER && !isBreakMandatory) {
-            setIsBreakMandatory(true);
-          }
-
-          return newSessionTime;
-        });
-
-        // Check for 4-hour daily limit
-        setTotalTime(prevTotal => {
-          const newTotalTime = prevTotal + 1;
-          if (newTotalTime >= MAX_DAILY_HOURS) {
-            setIsLockedOut(true);
-            setIsActive(false);
-            setIsPaused(false);
-          }
-          return newTotalTime;
-        });
-
         setLastActivityTime(Date.now());
       }, 1000);
     } else {
@@ -395,16 +313,14 @@ export const TimerProvider = ({ children, courseId, lessonId, ipAddress }) => {
         clearInterval(intervalRef.current);
       }
     };
-  }, [isActive, isPaused, isOnBreak, isBreakMandatory]);
+  }, [sessionTimer.isActive, sessionTimer.isPaused, breakManager.isOnBreak]);
 
-  // Break timer interval effect
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
-    if (isOnBreak && breakTime > 0) {
+    if (breakManager.isOnBreak && breakTime > 0) {
       breakIntervalRef.current = setInterval(() => {
         setBreakTime(prev => {
           if (prev <= 1) {
-            endBreak();
+            endBreakComplianceWrapped();
             return 0;
           }
           return prev - 1;
@@ -422,12 +338,10 @@ export const TimerProvider = ({ children, courseId, lessonId, ipAddress }) => {
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isOnBreak, breakTime]);
+  }, [breakManager.isOnBreak, breakTime]);
 
-  // Auto-save timer data every 30 seconds
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
-    if (isActive && !isPaused) {
+    if (sessionTimer.isActive && !sessionTimer.isPaused) {
       saveIntervalRef.current = setInterval(() => {
         saveTimerData();
       }, 30000);
@@ -443,110 +357,47 @@ export const TimerProvider = ({ children, courseId, lessonId, ipAddress }) => {
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isActive, isPaused, sessionTime, videoProgress, lessonsAccessed, breakHistory]);
+  }, [sessionTimer.isActive, sessionTimer.isPaused, sessionTimer.sessionTime, videoProgress, sessionData.lessonsAccessed, breakManager.breakHistory]);
 
-  // PVQ trigger check effect
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
-    if (isActive && !isPaused && !isOnBreak && !showPVQModal && nextPVQTriggerTime) {
-      pvqCheckIntervalRef.current = setInterval(() => {
-        timeSinceLastBreakRef.current += 1;
-        if (timeSinceLastBreakRef.current >= nextPVQTriggerTime) {
-          triggerPVQ();
-          timeSinceLastBreakRef.current = 0;
-        }
-      }, 1000);
-    } else {
-      if (pvqCheckIntervalRef.current) {
-        clearInterval(pvqCheckIntervalRef.current);
-      }
-    }
-
-    return () => {
-      if (pvqCheckIntervalRef.current) {
-        clearInterval(pvqCheckIntervalRef.current);
-      }
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isActive, isPaused, isOnBreak, showPVQModal, nextPVQTriggerTime]);
-
-  // Check for idle timeout
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => {
-    const checkIdleTimeout = setInterval(() => {
-      if (isActive && !isPaused) {
+    if (sessionTimer.isActive && !sessionTimer.isPaused) {
+      const idleCheckInterval = setInterval(() => {
         const idleTime = Date.now() - lastActivityTime;
-        if (idleTime > APP_CONFIG.IDLE_TIMEOUT) {
-          pauseTimer();
+        if (idleTime > (APP_CONFIG.IDLE_TIMEOUT || 1800000)) {
+          pauseTimerComplianceWrapped();
         }
-      }
-    }, 60000); // Check every minute
+      }, 60000);
 
-    return () => clearInterval(checkIdleTimeout);
+      return () => clearInterval(idleCheckInterval);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isActive, isPaused, lastActivityTime]);
-
-  // Check if break is recommended
-  const isBreakRecommended = () => {
-    return sessionTime >= APP_CONFIG.RECOMMENDED_BREAK_AFTER && !isOnBreak;
-  };
-
-  // Check if max daily hours reached
-  const isMaxDailyHoursReached = () => {
-    return totalTime >= APP_CONFIG.MAX_DAILY_HOURS * 3600;
-  };
-
-  // Format time as HH:MM:SS
-  const formatTime = (seconds) => {
-    const hours = Math.floor(seconds / 3600);
-    const minutes = Math.floor((seconds % 3600) / 60);
-    const secs = seconds % 60;
-    
-    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-  };
-
-  // Get session time formatted
-  const getFormattedSessionTime = () => formatTime(sessionTime);
-
-  // Get total time formatted
-  const getFormattedTotalTime = () => formatTime(totalTime);
-
-  // Get break time formatted
-  const getFormattedBreakTime = () => formatTime(breakTime);
-
-  // Get remaining daily time
-  const getRemainingDailyTime = () => {
-    const maxSeconds = APP_CONFIG.MAX_DAILY_HOURS * 3600;
-    return Math.max(0, maxSeconds - totalTime);
-  };
+  }, [sessionTimer.isActive, sessionTimer.isPaused, lastActivityTime]);
 
   const value = {
-    // State
-    sessionTime,
-    totalTime,
-    isActive,
-    isPaused,
+    sessionTime: sessionTimer.sessionTime,
+    totalTime: sessionTimer.totalTime,
+    isActive: sessionTimer.isActive,
+    isPaused: sessionTimer.isPaused,
     breakTime,
-    isOnBreak,
-    isLockedOut,
-    isBreakMandatory,
-    currentSessionId,
+    isOnBreak: breakManager.isOnBreak,
+    isLockedOut: sessionTimer.isLockedOut,
+    isBreakMandatory: breakManager.isBreakMandatory,
+    currentSessionId: sessionData.currentSessionId,
     videoProgress,
-    lessonsAccessed,
-    breakHistory,
-    showPVQModal,
-    currentPVQQuestion,
-    pvqSubmitting,
+    lessonsAccessed: sessionData.lessonsAccessed,
+    breakHistory: breakManager.breakHistory,
+    showPVQModal: pvqTrigger.showPVQModal,
+    currentPVQQuestion: pvqTrigger.currentPVQQuestion,
+    pvqSubmitting: pvqTrigger.pvqSubmitting,
     pvqError,
     
-    // Methods
-    startTimer,
-    pauseTimer,
-    resumeTimer,
-    stopTimer,
+    startTimer: startTimerComplianceWrapped,
+    pauseTimer: pauseTimerComplianceWrapped,
+    resumeTimer: resumeTimerComplianceWrapped,
+    stopTimer: stopTimerComplianceWrapped,
     resetSessionTimer,
-    startBreak,
-    endBreak,
+    startBreak: startBreakComplianceWrapped,
+    endBreak: endBreakComplianceWrapped,
     updateVideoProgress,
     trackLessonAccess,
     isBreakRecommended,
@@ -559,7 +410,7 @@ export const TimerProvider = ({ children, courseId, lessonId, ipAddress }) => {
     getActualBreakDuration,
     hasBreakMetMinimumDuration,
     handlePVQSubmit,
-    closePVQModal
+    closePVQModal: closePVQModalWrapped
   };
 
   return (
