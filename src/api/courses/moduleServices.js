@@ -16,6 +16,7 @@ import { db } from '../../config/firebase';
 import { executeService } from '../base/ServiceWrapper';
 import { ValidationError, ModuleError } from '../errors/ApiError';
 import { validateCourseId, validateModuleId } from '../validators/validators';
+import { getTimestamps, getUpdatedTimestamp } from '../utils/timestampHelper.js';
 
 const MODULES_COLLECTION = 'modules';
 
@@ -73,8 +74,7 @@ export const createModule = async (moduleData) => {
     const modulesRef = collection(db, MODULES_COLLECTION);
     const newModule = {
       ...moduleData,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString()
+      ...getTimestamps()
     };
     
     const docRef = await addDoc(modulesRef, newModule);
@@ -96,7 +96,7 @@ export const updateModule = async (moduleId, updates) => {
     const moduleRef = doc(db, MODULES_COLLECTION, moduleId);
     const updateData = {
       ...updates,
-      updatedAt: new Date().toISOString()
+      ...getUpdatedTimestamp()
     };
     
     await updateDoc(moduleRef, updateData);
@@ -127,7 +127,7 @@ export const reorderModules = async (courseId, moduleOrders) => {
       const moduleRef = doc(db, MODULES_COLLECTION, moduleId);
       return updateDoc(moduleRef, { 
         order,
-        updatedAt: new Date().toISOString()
+        ...getUpdatedTimestamp()
       });
     });
     

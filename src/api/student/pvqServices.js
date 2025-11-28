@@ -10,6 +10,7 @@ import { db } from '../../config/firebase';
 import { executeService } from '../base/ServiceWrapper';
 import { ValidationError } from '../errors/ApiError';
 import { validateUserId, validateCourseId, validatePVQData } from '../validators/validators';
+import { getCreatedTimestamp } from '../utils/timestampHelper.js';
 
 const PVQ_COLLECTION = 'pvqQuestions';
 const VERIFICATION_COLLECTION = 'identityVerifications';
@@ -132,7 +133,7 @@ export const logIdentityVerification = async (userId, courseId, sessionId, pvqDa
       ipAddress: pvqData.ipAddress,
       deviceInfo: pvqData.deviceInfo || null,
       timestamp: serverTimestamp(),
-      createdAt: new Date().toISOString()
+      ...getCreatedTimestamp()
     });
 
     return docRef.id;

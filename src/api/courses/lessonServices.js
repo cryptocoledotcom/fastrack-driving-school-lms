@@ -16,6 +16,7 @@ import { db } from '../../config/firebase';
 import { executeService } from '../base/ServiceWrapper';
 import { ValidationError, LessonError } from '../errors/ApiError';
 import { validateCourseId, validateModuleId, validateLessonId, validateUserId } from '../validators/validators';
+import { getTimestamps, getUpdatedTimestamp, getCreatedTimestamp } from '../utils/timestampHelper.js';
 
 const LESSONS_COLLECTION = 'lessons';
 
@@ -100,8 +101,7 @@ export const createLesson = async (lessonData) => {
     const lessonsRef = collection(db, LESSONS_COLLECTION);
     const newLesson = {
       ...lessonData,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString()
+      ...getTimestamps()
     };
     
     const docRef = await addDoc(lessonsRef, newLesson);
@@ -123,7 +123,7 @@ export const updateLesson = async (lessonId, updates) => {
     const lessonRef = doc(db, LESSONS_COLLECTION, lessonId);
     const updateData = {
       ...updates,
-      updatedAt: new Date().toISOString()
+      ...getUpdatedTimestamp()
     };
     
     await updateDoc(lessonRef, updateData);
@@ -155,7 +155,7 @@ export const markComplete = async (userId, lessonId, courseId) => {
       lessonId,
       courseId,
       completed: true,
-      completedAt: new Date().toISOString()
+      ...getCreatedTimestamp()
     };
     
     await addDoc(progressRef, progressData);
@@ -174,7 +174,7 @@ export const reorderLessons = async (moduleId, lessonOrders) => {
       const lessonRef = doc(db, LESSONS_COLLECTION, lessonId);
       return updateDoc(lessonRef, { 
         order,
-        updatedAt: new Date().toISOString()
+        ...getUpdatedTimestamp()
       });
     });
     

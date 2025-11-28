@@ -12,10 +12,8 @@ import { db } from '../../config/firebase';
 import { executeService } from '../base/ServiceWrapper';
 import { ValidationError } from '../errors/ApiError';
 import { validateUserId } from '../validators/validators';
+import { getFirestoreTimestamps } from '../utils/timestampHelper.js';
 
-/**
- * Get user's security profile from users/{userId}/securityProfile/questions
- */
 export const getSecurityProfile = async (userId) => {
   return executeService(async () => {
     validateUserId(userId);
@@ -33,10 +31,6 @@ export const getSecurityProfile = async (userId) => {
   }, 'getSecurityProfile');
 };
 
-/**
- * Set security questions and answers
- * Note: In production, answers should be hashed on the server side
- */
 export const setSecurityQuestions = async (userId, securityData) => {
   return executeService(async () => {
     validateUserId(userId);
@@ -53,8 +47,7 @@ export const setSecurityQuestions = async (userId, securityData) => {
       answer2: securityData.answer2 || '',
       question3: securityData.question3 || '',
       answer3: securityData.answer3 || '',
-      createdAt: serverTimestamp(),
-      updatedAt: serverTimestamp()
+      ...getFirestoreTimestamps()
     };
 
     await setDoc(securityRef, data);
@@ -66,9 +59,6 @@ export const setSecurityQuestions = async (userId, securityData) => {
   }, 'setSecurityQuestions');
 };
 
-/**
- * Update security questions
- */
 export const updateSecurityQuestions = async (userId, updates) => {
   return executeService(async () => {
     validateUserId(userId);
@@ -92,10 +82,6 @@ export const updateSecurityQuestions = async (userId, updates) => {
   }, 'updateSecurityQuestions');
 };
 
-/**
- * Verify security answer
- * Note: In production, this should hash the provided answer and compare
- */
 export const verifySecurityAnswer = async (userId, questionNumber, providedAnswer) => {
   return executeService(async () => {
     validateUserId(userId);
@@ -128,9 +114,6 @@ export const verifySecurityAnswer = async (userId, questionNumber, providedAnswe
   }, 'verifySecurityAnswer');
 };
 
-/**
- * Check if user has security questions set
- */
 export const hasSecurityQuestions = async (userId) => {
   return executeService(async () => {
     validateUserId(userId);
@@ -141,9 +124,6 @@ export const hasSecurityQuestions = async (userId) => {
   }, 'hasSecurityQuestions');
 };
 
-/**
- * Get security questions (without answers) for password recovery
- */
 export const getSecurityQuestionsForRecovery = async (userId) => {
   return executeService(async () => {
     validateUserId(userId);
@@ -161,9 +141,6 @@ export const getSecurityQuestionsForRecovery = async (userId) => {
   }, 'getSecurityQuestionsForRecovery');
 };
 
-/**
- * Verify multiple security answers for password recovery
- */
 export const verifySecurityAnswers = async (userId, answers) => {
   return executeService(async () => {
     validateUserId(userId);
@@ -181,16 +158,14 @@ export const verifySecurityAnswers = async (userId, answers) => {
     }
 
     let correctAnswers = 0;
-    const requiredCorrect = 2; // Require at least 2 correct answers
+    const requiredCorrect = 2;
 
-    // Check each provided answer
     for (let i = 1; i <= 3; i++) {
       const answerKey = `answer${i}`;
       const providedAnswer = answers[`answer${i}`];
       const storedAnswer = securityProfile[answerKey];
 
       if (providedAnswer && storedAnswer) {
-        // In production, both should be hashed and compared
         if (storedAnswer.toLowerCase().trim() === providedAnswer.toLowerCase().trim()) {
           correctAnswers++;
         }

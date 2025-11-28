@@ -15,6 +15,7 @@ import { COURSE_IDS } from '../../constants/courses';
 import { executeService } from '../base/ServiceWrapper';
 import { ValidationError, SchedulingError } from '../errors/ApiError';
 import { validateUserId, validateTimeSlotData } from '../validators/validators';
+import { getFirestoreTimestamps } from '../utils/timestampHelper.js';
 
 export const createTimeSlot = async (timeSlotData) => {
   return executeService(async () => {
@@ -26,8 +27,7 @@ export const createTimeSlot = async (timeSlotData) => {
       ...timeSlotData,
       isAvailable: true,
       bookedBy: [],
-      createdAt: serverTimestamp(),
-      updatedAt: serverTimestamp()
+      ...getFirestoreTimestamps()
     };
 
     await setDoc(slotRef, slot);
@@ -164,8 +164,7 @@ export const bookTimeSlot = async (userId, slotId, userEmail) => {
       instructor: slotData.instructor || 'TBD',
       status: 'scheduled',
       courseId: COURSE_IDS.BEHIND_WHEEL,
-      createdAt: serverTimestamp(),
-      updatedAt: serverTimestamp()
+      ...getFirestoreTimestamps()
     });
 
     return {

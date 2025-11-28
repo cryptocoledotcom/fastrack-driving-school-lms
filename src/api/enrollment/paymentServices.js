@@ -18,13 +18,10 @@ import { PAYMENT_STATUS } from '../../constants/courses';
 import { executeService } from '../base/ServiceWrapper';
 import { ValidationError, PaymentError } from '../errors/ApiError';
 import { validateUserId, validateCourseId, validatePaymentData } from '../validators/validators';
+import { getFirestoreTimestamps } from '../utils/timestampHelper.js';
 
 const PAYMENTS_COLLECTION = 'payments';
 
-/**
- * Create payment intent (to be called from Cloud Function)
- * This is a placeholder - actual implementation requires Cloud Function
- */
 export const createPaymentIntent = async (userId, courseId, amount, paymentType = 'upfront') => {
   return executeService(async () => {
     validatePaymentData(userId, courseId, amount, paymentType);
@@ -36,8 +33,7 @@ export const createPaymentIntent = async (userId, courseId, amount, paymentType 
       paymentType,
       status: PAYMENT_STATUS.PENDING,
       currency: 'usd',
-      createdAt: serverTimestamp(),
-      updatedAt: serverTimestamp()
+      ...getFirestoreTimestamps()
     };
 
     const paymentsRef = collection(db, PAYMENTS_COLLECTION);
@@ -51,9 +47,6 @@ export const createPaymentIntent = async (userId, courseId, amount, paymentType 
   }, 'createPaymentIntent');
 };
 
-/**
- * Create checkout session for Stripe
- */
 export const createCheckoutSession = async (userId, courseId, amount, paymentType, userEmail) => {
   return executeService(async () => {
     validatePaymentData(userId, courseId, amount, paymentType);
@@ -69,8 +62,7 @@ export const createCheckoutSession = async (userId, courseId, amount, paymentTyp
       userEmail,
       status: PAYMENT_STATUS.PENDING,
       currency: 'usd',
-      createdAt: serverTimestamp(),
-      updatedAt: serverTimestamp()
+      ...getFirestoreTimestamps()
     };
 
     const paymentsRef = collection(db, PAYMENTS_COLLECTION);
@@ -84,9 +76,6 @@ export const createCheckoutSession = async (userId, courseId, amount, paymentTyp
   }, 'createCheckoutSession');
 };
 
-/**
- * Update payment status
- */
 export const updatePaymentStatus = async (paymentId, status, metadata = {}) => {
   return executeService(async () => {
     if (!paymentId || typeof paymentId !== 'string') {
@@ -119,9 +108,6 @@ export const updatePaymentStatus = async (paymentId, status, metadata = {}) => {
   }, 'updatePaymentStatus');
 };
 
-/**
- * Get payment by ID
- */
 export const getPayment = async (paymentId) => {
   return executeService(async () => {
     if (!paymentId || typeof paymentId !== 'string') {
@@ -142,9 +128,6 @@ export const getPayment = async (paymentId) => {
   }, 'getPayment');
 };
 
-/**
- * Get user's payment history
- */
 export const getUserPayments = async (userId) => {
   return executeService(async () => {
     validateUserId(userId);
@@ -169,9 +152,6 @@ export const getUserPayments = async (userId) => {
   }, 'getUserPayments');
 };
 
-/**
- * Get payments for a specific course enrollment
- */
 export const getCoursePayments = async (userId, courseId) => {
   return executeService(async () => {
     validateUserId(userId);
@@ -198,9 +178,6 @@ export const getCoursePayments = async (userId, courseId) => {
   }, 'getCoursePayments');
 };
 
-/**
- * Process successful payment (called by webhook or after payment confirmation)
- */
 export const processSuccessfulPayment = async (paymentId, stripePaymentIntentId = null) => {
   return executeService(async () => {
     if (!paymentId || typeof paymentId !== 'string') {
@@ -232,9 +209,6 @@ export const processSuccessfulPayment = async (paymentId, stripePaymentIntentId 
   }, 'processSuccessfulPayment');
 };
 
-/**
- * Handle payment failure
- */
 export const handlePaymentFailure = async (paymentId, errorMessage = '') => {
   return executeService(async () => {
     if (!paymentId || typeof paymentId !== 'string') {
@@ -257,9 +231,6 @@ export const handlePaymentFailure = async (paymentId, errorMessage = '') => {
   }, 'handlePaymentFailure');
 };
 
-/**
- * Calculate total amount paid for a course
- */
 export const calculateTotalPaid = async (userId, courseId) => {
   return executeService(async () => {
     validateUserId(userId);

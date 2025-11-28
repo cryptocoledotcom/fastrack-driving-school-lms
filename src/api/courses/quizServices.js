@@ -15,6 +15,7 @@ import { db } from '../../config/firebase';
 import { executeService } from '../base/ServiceWrapper';
 import { ValidationError, QuizError } from '../errors/ApiError';
 import { validateUserId, validateCourseId, validateQuizAttemptData } from '../validators/validators';
+import { getCreatedTimestamp, getUpdatedTimestamp, getCurrentISOTimestamp } from '../utils/timestampHelper.js';
 
 const QUIZ_ATTEMPTS_COLLECTION = 'quizAttempts';
 const QUIZ_COLLECTION = 'quizzes';
@@ -33,12 +34,12 @@ export const createQuizAttempt = async (userId, courseId, quizData) => {
       quizId: quizData.quizId,
       quizTitle: quizData.quizTitle,
       isFinalExam: quizData.isFinalExam || false,
-      startedAt: new Date().toISOString(),
+      startedAt: getCurrentISOTimestamp(),
       startedTimestamp: Date.now(),
       sessionId: quizData.sessionId || null,
       ipAddress: quizData.ipAddress || null,
       deviceInfo: quizData.deviceInfo || null,
-      createdAt: new Date().toISOString()
+      ...getCreatedTimestamp()
     });
 
     return docRef.id;
@@ -57,7 +58,7 @@ export const updateQuizAttempt = async (attemptId, attemptData) => {
     const attemptRef = doc(db, QUIZ_ATTEMPTS_COLLECTION, attemptId);
     await updateDoc(attemptRef, {
       ...attemptData,
-      updatedAt: new Date().toISOString()
+      ...getUpdatedTimestamp()
     });
   }, 'updateQuizAttempt');
 };
@@ -91,11 +92,11 @@ export const submitQuizAttempt = async (attemptId, submissionData) => {
       correctAnswers,
       score,
       passed,
-      completedAt: new Date().toISOString(),
+      completedAt: getCurrentISOTimestamp(),
       completedTimestamp: Date.now(),
       timeSpent: submissionData.timeSpent || 0,
       status: 'completed',
-      updatedAt: new Date().toISOString()
+      ...getUpdatedTimestamp()
     });
 
     return {
@@ -212,7 +213,7 @@ export const markQuizPassed = async (attemptId) => {
     await updateDoc(attemptRef, {
       passed: true,
       status: 'passed',
-      updatedAt: new Date().toISOString()
+      ...getUpdatedTimestamp()
     });
   }, 'markQuizPassed');
 };

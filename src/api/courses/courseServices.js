@@ -18,6 +18,7 @@ import { db } from '../../config/firebase';
 import { executeService } from '../base/ServiceWrapper';
 import { validateCourseId } from '../validators/validators';
 import { CourseError, ValidationError } from '../errors/ApiError';
+import { getTimestamps, getUpdatedTimestamp } from '../utils/timestampHelper.js';
 
 const COURSES_COLLECTION = 'courses';
 
@@ -130,8 +131,7 @@ export const createCourse = async (courseData) => {
     const coursesRef = collection(db, COURSES_COLLECTION);
     const newCourse = {
       ...courseData,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString()
+      ...getTimestamps()
     };
     
     const docRef = await addDoc(coursesRef, newCourse);
@@ -153,7 +153,7 @@ export const updateCourse = async (courseId, updates) => {
     const courseRef = doc(db, COURSES_COLLECTION, courseId);
     const updateData = {
       ...updates,
-      updatedAt: new Date().toISOString()
+      ...getUpdatedTimestamp()
     };
     
     await updateDoc(courseRef, updateData);

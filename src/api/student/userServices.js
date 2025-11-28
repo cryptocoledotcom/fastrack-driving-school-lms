@@ -14,6 +14,7 @@ import { db } from '../../config/firebase';
 import { executeService } from '../base/ServiceWrapper';
 import { ValidationError, NotFoundError } from '../errors/ApiError';
 import { validateUserId } from '../validators/validators';
+import { getUpdatedTimestamp } from '../utils/timestampHelper.js';
 export { getUserStats } from './progressServices';
 
 const USERS_COLLECTION = 'users';
@@ -45,7 +46,7 @@ export const updateProfile = async (userId, updates) => {
     const userRef = doc(db, USERS_COLLECTION, userId);
     const updateData = {
       ...updates,
-      updatedAt: new Date().toISOString()
+      ...getUpdatedTimestamp()
     };
     
     await updateDoc(userRef, updateData);
@@ -64,7 +65,7 @@ export const updateUserSettings = async (userId, settings) => {
     const userRef = doc(db, USERS_COLLECTION, userId);
     await updateDoc(userRef, {
       settings: settings,
-      updatedAt: new Date().toISOString()
+      ...getUpdatedTimestamp()
     });
     
     return await getUser(userId);
@@ -112,7 +113,7 @@ export const updateUserPreferences = async (userId, preferences) => {
     const userRef = doc(db, USERS_COLLECTION, userId);
     await updateDoc(userRef, {
       preferences: preferences,
-      updatedAt: new Date().toISOString()
+      ...getUpdatedTimestamp()
     });
     
     return await getUser(userId);
@@ -200,7 +201,7 @@ export const updateUserRole = async (userId, role) => {
     const userRef = doc(db, 'users', userId);
     await updateDoc(userRef, {
       role,
-      updatedAt: new Date().toISOString()
+      ...getUpdatedTimestamp()
     });
     
     return await getUser(userId);
