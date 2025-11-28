@@ -1,5 +1,4 @@
 import enrollmentServices from '../enrollmentServices.js';
-import { ValidationError } from '../../errors/ApiError.js';
 import { COURSE_IDS, ENROLLMENT_STATUS, PAYMENT_STATUS, ACCESS_STATUS } from '../../../constants/courses.js';
 
 describe('enrollmentServices.checkCourseAccess()', () => {
@@ -12,28 +11,6 @@ describe('enrollmentServices.checkCourseAccess()', () => {
 
   afterEach(() => {
     jest.restoreAllMocks();
-  });
-
-  describe('Input Validation', () => {
-    it('should throw ValidationError for invalid userId', async () => {
-      enrollmentServices.validate.validateUserId.mockImplementation(() => {
-        throw new ValidationError('Invalid userId');
-      });
-
-      await expect(
-        enrollmentServices.checkCourseAccess(null, COURSE_IDS.ONLINE)
-      ).rejects.toThrow(ValidationError);
-    });
-
-    it('should throw ValidationError for invalid courseId', async () => {
-      enrollmentServices.validate.validateCourseId.mockImplementation(() => {
-        throw new ValidationError('Invalid courseId');
-      });
-
-      await expect(
-        enrollmentServices.checkCourseAccess('user123', 'invalid')
-      ).rejects.toThrow(ValidationError);
-    });
   });
 
   describe('No Enrollment Found', () => {

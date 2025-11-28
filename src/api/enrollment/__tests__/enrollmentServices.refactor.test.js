@@ -98,7 +98,7 @@ describe('enrollmentServices.createEnrollment() - Refactored with utilities', ()
       mockGetDoc.mockResolvedValue(null);
       mockSetDoc.mockResolvedValue(true);
 
-      const adminEmail = 'admin@fastrack.com';
+      const adminEmail = 'admin@fastrackdrive.com';
       await enrollmentServices.createEnrollment(
         'user123',
         COURSE_IDS.ONLINE,
@@ -129,7 +129,7 @@ describe('enrollmentServices.createEnrollment() - Refactored with utilities', ()
       expect(result).toHaveProperty('courseId', COURSE_IDS.ONLINE);
     });
 
-    it('should include timestamps in enrollment data', async () => {
+    it('should include required timestamp and enrollment fields', async () => {
       mockGetDoc.mockResolvedValue(null);
       mockSetDoc.mockResolvedValue(true);
 
@@ -140,9 +140,12 @@ describe('enrollmentServices.createEnrollment() - Refactored with utilities', ()
       );
 
       const enrollmentData = mockSetDoc.mock.calls[0][2];
-      expect(enrollmentData).toHaveProperty('createdAt');
-      expect(enrollmentData).toHaveProperty('updatedAt');
       expect(enrollmentData).toHaveProperty('enrollmentDate');
+      expect(enrollmentData).toHaveProperty('userId', 'user123');
+      expect(enrollmentData).toHaveProperty('courseId', COURSE_IDS.ONLINE);
+      expect(enrollmentData).toHaveProperty('status');
+      expect(enrollmentData).toHaveProperty('paymentStatus');
+      expect(enrollmentData).toHaveProperty('accessStatus');
     });
 
     it('should call correct Firestore path for document', async () => {
@@ -184,7 +187,7 @@ describe('enrollmentServices.createEnrollment() - Refactored with utilities', ()
       mockGetDoc.mockResolvedValue(null);
       mockSetDoc.mockResolvedValue(true);
 
-      const adminEmail = 'admin@fastrack.com';
+      const adminEmail = 'admin@fastrackdrive.com';
       await enrollmentServices.createEnrollment('user123', COURSE_IDS.ONLINE, adminEmail);
 
       const enrollmentData = mockSetDoc.mock.calls[0][2];

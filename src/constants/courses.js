@@ -34,7 +34,7 @@ export const COURSE_PRICING = {
     remaining: 450,
     currency: 'usd',
     description: 'Complete package (Online + Behind-the-Wheel)',
-    discount: 50, // Save ~$50 vs purchasing separately ($99.99 + $499.99)
+    discount: 50,
     originalPrice: 599.98
   }
 };
@@ -61,12 +61,11 @@ export const ACCESS_STATUS = {
   PENDING_CERTIFICATE: 'pending_certificate'
 };
 
-// Admin configuration
 export const ADMIN_CONFIG = {
-  // Add admin email(s) that should be auto-enrolled in all courses
   AUTO_ENROLL_EMAILS: [
-    'admin@fastrackdrivingschool.com', 'colebowersock@gmail.com', 'cole@fastrackdrive.com',
-    // Add more admin emails here
+    'colebowersock@gmail.com',
+    'cole@fastrackdrive.com',
+    'admin@fastrackdrive.com'
   ]
 };
 
