@@ -30,7 +30,7 @@ export const validateNumber = (value, fieldName, options = {}) => {
 };
 
 export const validateObject = (value, fieldName) => {
-  if (!value || typeof value !== 'object' || Array.isArray(value)) {
+  if (!value || typeof value !== 'object' || Array.isArray(value) || Object.keys(value).length === 0) {
     throw new ValidationError(`${fieldName} must be a non-empty object`);
   }
   return value;
