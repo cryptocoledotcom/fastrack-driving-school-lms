@@ -5,7 +5,7 @@ import Button from '../common/Button/Button';
 import LoadingSpinner from '../common/LoadingSpinner/LoadingSpinner';
 import ErrorMessage from '../common/ErrorMessage/ErrorMessage';
 import SuccessMessage from '../common/SuccessMessage/SuccessMessage';
-import { getAvailableTimeSlots, bookTimeSlot } from '../../api/schedulingServices';
+import { getAvailableTimeSlots, bookTimeSlot } from '../../api/compliance/schedulingServices';
 import styles from './LessonBooking.module.css';
 
 const LessonBooking = ({ onSuccess, onClose }) => {

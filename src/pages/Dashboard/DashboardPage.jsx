@@ -11,8 +11,8 @@ import EnrollmentCard from '../../components/payment/EnrollmentCard';
 import UpcomingLessons from '../../components/scheduling/UpcomingLessons';
 import { PROTECTED_ROUTES } from '../../constants/routes';
 import { COURSE_IDS, ENROLLMENT_STATUS } from '../../constants/courses';
-import { getCourseById } from '../../api/courseServices';
-import { getProgress } from '../../api/progressServices'; 
+import { getCourseById } from '../../api/courses/courseServices';
+import { getProgress } from '../../api/student/progressServices'; 
 import styles from './DashboardPage.module.css';
 
 const DashboardPage = () => {

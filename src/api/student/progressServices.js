@@ -9,14 +9,14 @@ import {
   updateDoc,
   setDoc
 } from 'firebase/firestore';
-import { db } from '../config/firebase';
+import { db } from '../../config/firebase';
 import {
   logLessonCompletion,
   logModuleCompletion
-} from './complianceServices';
-import { executeService } from './base/ServiceWrapper';
-import { ValidationError } from './errors/ApiError';
-import { validateUserId, validateCourseId, validateLessonId, validateModuleId } from './validators/validators';
+} from '../compliance/complianceServices';
+import { executeService } from '../base/ServiceWrapper';
+import { ValidationError } from '../errors/ApiError';
+import { validateUserId, validateCourseId, validateLessonId, validateModuleId } from '../validators/validators';
 
 // Reference to user's main progress document
 // Path: users/{userId}/userProgress/progress

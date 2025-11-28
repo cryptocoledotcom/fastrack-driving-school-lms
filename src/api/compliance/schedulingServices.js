@@ -10,11 +10,11 @@ import {
   where,
   serverTimestamp
 } from 'firebase/firestore';
-import { db } from '../config/firebase';
-import { COURSE_IDS } from '../constants/courses';
-import { executeService } from './base/ServiceWrapper';
-import { ValidationError, SchedulingError } from './errors/ApiError';
-import { validateUserId, validateTimeSlotData } from './validators/validators';
+import { db } from '../../config/firebase';
+import { COURSE_IDS } from '../../constants/courses';
+import { executeService } from '../base/ServiceWrapper';
+import { ValidationError, SchedulingError } from '../errors/ApiError';
+import { validateUserId, validateTimeSlotData } from '../validators/validators';
 
 export const createTimeSlot = async (timeSlotData) => {
   return executeService(async () => {

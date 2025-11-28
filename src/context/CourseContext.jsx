@@ -3,10 +3,10 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useAuth } from './AuthContext';
-import { getCourses, getCourseById } from '../api/courseServices';
-import { getModules } from '../api/moduleServices';
-import { getLessons } from '../api/lessonServices';
-import { getProgress } from '../api/progressServices';
+import { getCourses, getCourseById } from '../api/courses/courseServices';
+import { getModules } from '../api/courses/moduleServices';
+import { getLessons } from '../api/courses/lessonServices';
+import { getProgress } from '../api/student/progressServices';
 
 const CourseContext = createContext();
 

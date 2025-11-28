@@ -14,10 +14,10 @@ import {
   orderBy,
   limit
 } from 'firebase/firestore';
-import { db } from '../config/firebase';
-import { executeService } from './base/ServiceWrapper';
-import { validateCourseId } from './validators/validators';
-import { CourseError, ValidationError } from './errors/ApiError';
+import { db } from '../../config/firebase';
+import { executeService } from '../base/ServiceWrapper';
+import { validateCourseId } from '../validators/validators';
+import { CourseError, ValidationError } from '../errors/ApiError';
 
 const COURSES_COLLECTION = 'courses';
 

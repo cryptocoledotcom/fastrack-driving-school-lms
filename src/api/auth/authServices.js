@@ -11,10 +11,10 @@ import {
   EmailAuthProvider,
   reauthenticateWithCredential
 } from 'firebase/auth';
-import { auth } from '../config/firebase';
-import { executeService } from './base/ServiceWrapper';
-import { validateEmail, validatePassword } from './validators/validators';
-import { AuthError, ValidationError } from './errors/ApiError';
+import { auth } from '../../config/firebase';
+import { executeService } from '../base/ServiceWrapper';
+import { validateEmail, validatePassword } from '../validators/validators';
+import { AuthError, ValidationError } from '../errors/ApiError';
 
 // Login with email and password
 export const login = async (email, password) => {

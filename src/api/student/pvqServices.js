@@ -6,10 +6,10 @@ import {
   addDoc,
   serverTimestamp
 } from 'firebase/firestore';
-import { db } from '../config/firebase';
-import { executeService } from './base/ServiceWrapper';
-import { ValidationError } from './errors/ApiError';
-import { validateUserId, validateCourseId, validatePVQData } from './validators/validators';
+import { db } from '../../config/firebase';
+import { executeService } from '../base/ServiceWrapper';
+import { ValidationError } from '../errors/ApiError';
+import { validateUserId, validateCourseId, validatePVQData } from '../validators/validators';
 
 const PVQ_COLLECTION = 'pvqQuestions';
 const VERIFICATION_COLLECTION = 'identityVerifications';

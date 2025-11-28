@@ -11,10 +11,10 @@ import {
   addDoc,
   serverTimestamp
 } from 'firebase/firestore';
-import { db } from '../config/firebase';
-import { executeService } from './base/ServiceWrapper';
-import { ValidationError, QuizError } from './errors/ApiError';
-import { validateUserId, validateCourseId, validateQuizAttemptData } from './validators/validators';
+import { db } from '../../config/firebase';
+import { executeService } from '../base/ServiceWrapper';
+import { ValidationError, QuizError } from '../errors/ApiError';
+import { validateUserId, validateCourseId, validateQuizAttemptData } from '../validators/validators';
 
 const QUIZ_ATTEMPTS_COLLECTION = 'quizAttempts';
 const QUIZ_COLLECTION = 'quizzes';

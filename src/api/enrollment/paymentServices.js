@@ -13,11 +13,11 @@ import {
   orderBy,
   serverTimestamp
 } from 'firebase/firestore';
-import { db } from '../config/firebase';
-import { PAYMENT_STATUS } from '../constants/courses';
-import { executeService } from './base/ServiceWrapper';
-import { ValidationError, PaymentError } from './errors/ApiError';
-import { validateUserId, validateCourseId, validatePaymentData } from './validators/validators';
+import { db } from '../../config/firebase';
+import { PAYMENT_STATUS } from '../../constants/courses';
+import { executeService } from '../base/ServiceWrapper';
+import { ValidationError, PaymentError } from '../errors/ApiError';
+import { validateUserId, validateCourseId, validatePaymentData } from '../validators/validators';
 
 const PAYMENTS_COLLECTION = 'payments';
 

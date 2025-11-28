@@ -8,10 +8,10 @@ import {
   updateDoc,
   serverTimestamp
 } from 'firebase/firestore';
-import { db } from '../config/firebase';
-import { executeService } from './base/ServiceWrapper';
-import { ValidationError } from './errors/ApiError';
-import { validateUserId } from './validators/validators';
+import { db } from '../../config/firebase';
+import { executeService } from '../base/ServiceWrapper';
+import { ValidationError } from '../errors/ApiError';
+import { validateUserId } from '../validators/validators';
 
 /**
  * Get user's security profile from users/{userId}/securityProfile/questions

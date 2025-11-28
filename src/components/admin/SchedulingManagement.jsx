@@ -10,8 +10,8 @@ import {
   getTimeSlots,
   updateTimeSlot,
   deleteTimeSlot
-} from '../../api/schedulingServices';
-import { getUser } from '../../api/userServices';
+} from '../../api/compliance/schedulingServices';
+import { getUser } from '../../api/student/userServices';
 import styles from './SchedulingManagement.module.css';
 
 const SchedulingManagement = () => {

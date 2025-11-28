@@ -1,7 +1,7 @@
-import ServiceBase from './base/ServiceBase.js';
 import { doc, serverTimestamp, writeBatch } from 'firebase/firestore';
-import { db } from '../config/firebase.js';
-import { EnrollmentError, ValidationError } from './errors/ApiError.js';
+import { db } from '../../config/firebase.js';
+import { EnrollmentError, ValidationError } from '../errors/ApiError.js';
+import ServiceBase from '../base/ServiceBase.js';
 import { 
   COURSE_IDS, 
   COURSE_PRICING, 
@@ -9,7 +9,7 @@ import {
   PAYMENT_STATUS,
   ACCESS_STATUS,
   ADMIN_CONFIG
-} from '../constants/courses.js';
+} from '../../constants/courses.js';
 
 class EnrollmentService extends ServiceBase {
   constructor() {

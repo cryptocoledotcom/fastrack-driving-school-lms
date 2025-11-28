@@ -8,10 +8,10 @@ import {
   query,
   where
 } from 'firebase/firestore';
-import { db } from '../config/firebase';
-import { executeService } from './base/ServiceWrapper';
-import { validateUserId, validateCourseId } from './validators/validators';
-import { ValidationError } from './errors/ApiError';
+import { db } from '../../config/firebase';
+import { executeService } from '../base/ServiceWrapper';
+import { validateUserId, validateCourseId } from '../validators/validators';
+import { ValidationError } from '../errors/ApiError';
 
 const COMPLIANCE_LOGS_COLLECTION = 'complianceLogs';
 const MAX_DAILY_HOURS = 4 * 3600;

@@ -13,11 +13,11 @@ import {
   checkDailyHourLockout,
   logBreak,
   logBreakEnd
-} from '../api/complianceServices';
+} from '../api/compliance/complianceServices';
 import {
   getRandomPVQQuestion as getRandomPVQQuestionPVQ,
   logIdentityVerification as logIdentityVerificationPVQ
-} from '../api/pvqServices';
+} from '../api/student/pvqServices';
 
 const TimerContext = createContext();
 

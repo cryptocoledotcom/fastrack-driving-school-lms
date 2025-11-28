@@ -8,7 +8,7 @@ import ErrorMessage from '../../components/common/ErrorMessage/ErrorMessage';
 import SuccessMessage from '../../components/common/SuccessMessage/SuccessMessage';
 import SchedulingManagement from '../../components/admin/SchedulingManagement';
 import ComplianceReporting from '../../components/admin/ComplianceReporting';
-import enrollmentServices from '../../api/enrollmentServices';
+import enrollmentServices from '../../api/enrollment/enrollmentServices';
 import { COURSE_IDS } from '../../constants/courses';
 import styles from './AdminPage.module.css';
 

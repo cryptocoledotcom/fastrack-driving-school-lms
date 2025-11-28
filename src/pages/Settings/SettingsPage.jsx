@@ -12,11 +12,11 @@ import {
   updateProfile, 
   getUserSettings, 
   updateUserSettings 
-} from '../../api/userServices';
+} from '../../api/student/userServices';
 import { 
   getSecurityProfile, 
   setSecurityQuestions 
-} from '../../api/securityServices';
+} from '../../api/security/securityServices';
 import styles from './SettingsPage.module.css';
 
 const SettingsPage = () => {

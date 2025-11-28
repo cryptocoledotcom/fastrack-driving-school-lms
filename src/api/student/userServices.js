@@ -10,10 +10,10 @@ import {
   where,
   getDocs
 } from 'firebase/firestore';
-import { db } from '../config/firebase';
-import { executeService } from './base/ServiceWrapper';
-import { ValidationError, NotFoundError } from './errors/ApiError';
-import { validateUserId } from './validators/validators';
+import { db } from '../../config/firebase';
+import { executeService } from '../base/ServiceWrapper';
+import { ValidationError, NotFoundError } from '../errors/ApiError';
+import { validateUserId } from '../validators/validators';
 export { getUserStats } from './progressServices';
 
 const USERS_COLLECTION = 'users';

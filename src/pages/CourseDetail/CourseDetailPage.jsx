@@ -8,10 +8,10 @@ import ProgressBar from '../../components/common/ProgressBar/ProgressBar';
 import LoadingSpinner from '../../components/common/LoadingSpinner/LoadingSpinner';
 import ErrorMessage from '../../components/common/ErrorMessage/ErrorMessage';
 import SuccessMessage from '../../components/common/SuccessMessage/SuccessMessage';
-import { getCourseById } from '../../api/courseServices';
-import { getModules } from '../../api/moduleServices';
-import { getProgress } from '../../api/progressServices';
-import enrollmentServices from '../../api/enrollmentServices';
+import { getCourseById } from '../../api/courses/courseServices';
+import { getModules } from '../../api/courses/moduleServices';
+import { getProgress } from '../../api/student/progressServices';
+import enrollmentServices from '../../api/enrollment/enrollmentServices';
 import styles from './CourseDetailPage.module.css';
 
 const CourseDetailPage = () => {

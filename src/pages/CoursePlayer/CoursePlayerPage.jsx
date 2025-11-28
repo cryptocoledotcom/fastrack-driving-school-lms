@@ -13,10 +13,10 @@ import Badge from '../../components/common/Badge/Badge';
 import LoadingSpinner from '../../components/common/LoadingSpinner/LoadingSpinner';
 import ErrorMessage from '../../components/common/ErrorMessage/ErrorMessage';
 import PVQModal from '../../components/common/Modals/PVQModal';
-import { getCourseById } from '../../api/courseServices';
-import { getModules } from '../../api/moduleServices';
-import { getLessons } from '../../api/lessonServices';
-import { initializeProgress, getProgress, markLessonCompleteWithCompliance, updateLessonProgress } from '../../api/progressServices';
+import { getCourseById } from '../../api/courses/courseServices';
+import { getModules } from '../../api/courses/moduleServices';
+import { getLessons } from '../../api/courses/lessonServices';
+import { initializeProgress, getProgress, markLessonCompleteWithCompliance, updateLessonProgress } from '../../api/student/progressServices';
 import { LESSON_TYPES } from '../../constants/lessonTypes';
 import styles from './CoursePlayerPage.module.css';
 

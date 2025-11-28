@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { getUserBookings, cancelBooking } from '../../api/schedulingServices';
+import { getUserBookings, cancelBooking } from '../../api/compliance/schedulingServices';
 import Card from '../common/Card/Card';
 import Button from '../common/Button/Button';
 import styles from './UpcomingLessons.module.css';

@@ -12,10 +12,10 @@ import {
   query,
   where
 } from 'firebase/firestore';
-import { db } from '../config/firebase';
-import { executeService } from './base/ServiceWrapper';
-import { ValidationError, ModuleError } from './errors/ApiError';
-import { validateCourseId, validateModuleId } from './validators/validators';
+import { db } from '../../config/firebase';
+import { executeService } from '../base/ServiceWrapper';
+import { ValidationError, ModuleError } from '../errors/ApiError';
+import { validateCourseId, validateModuleId } from '../validators/validators';
 
 const MODULES_COLLECTION = 'modules';
 

@@ -3,8 +3,8 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import Button from '../../components/common/Button/Button';
 import LoadingSpinner from '../../components/common/LoadingSpinner/LoadingSpinner';
-import enrollmentServices from '../../api/enrollmentServices';
-import { getCourseById } from '../../api/courseServices';
+import enrollmentServices from '../../api/enrollment/enrollmentServices';
+import { getCourseById } from '../../api/courses/courseServices';
 import styles from './PaymentSuccessPage.module.css';
 
 const PaymentSuccessPage = () => {
