@@ -110,16 +110,21 @@ export const saveProgress = async (userId, courseId, progressData) => {
   return executeService(async () => {
     validateUserId(userId);
     validateCourseId(courseId);
-    if (typeof progressData !== 'object' || !progressData) {
+    
+    if (!progressData || typeof progressData !== 'object') {
       throw new ValidationError('Progress data must be a valid object');
     }
     
     const progressRef = getUserProgressRef(userId);
+    const timestampedData = {
+      ...progressData,
+      updatedAt: new Date().toISOString()
+    };
 
     await updateDoc(progressRef, {
-      [courseId]: progressData
+      [courseId]: timestampedData
     });
-    return progressData;
+    return timestampedData;
   }, 'saveProgress');
 };
 
@@ -135,7 +140,11 @@ export const updateProgress = async (userId, courseId, updates) => {
     const progressRef = getUserProgressRef(userId);
     
     const currentProgress = await getProgress(userId, courseId);
-    const mergedProgress = { ...currentProgress, ...updates };
+    const mergedProgress = { 
+      ...currentProgress, 
+      ...updates,
+      updatedAt: new Date().toISOString()
+    };
     
     await updateDoc(progressRef, {
       [courseId]: mergedProgress
@@ -153,10 +162,11 @@ export const markLessonComplete = async (userId, courseId, lessonId) => {
     
     const progress = await getProgress(userId, courseId);
     const lessonProgress = progress.lessonProgress || {};
+    const now = new Date().toISOString();
     
     lessonProgress[lessonId] = {
       completed: true,
-      completedAt: new Date().toISOString(),
+      completedAt: now,
       attempts: (lessonProgress[lessonId]?.attempts || 0) + 1
     };
     
@@ -172,7 +182,7 @@ export const markLessonComplete = async (userId, courseId, lessonId) => {
       lessonProgress,
       completedLessons,
       overallProgress,
-      lastAccessedAt: new Date().toISOString()
+      lastAccessedAt: now
     });
   }, 'markLessonComplete');
 };
@@ -194,10 +204,11 @@ export const markLessonCompleteWithCompliance = async (
     
     const progress = await getProgress(userId, courseId);
     const lessonProgress = progress.lessonProgress || {};
+    const now = new Date().toISOString();
     
     lessonProgress[lessonId] = {
       completed: true,
-      completedAt: new Date().toISOString(),
+      completedAt: now,
       attempts: (lessonProgress[lessonId]?.attempts || 0) + 1
     };
     
@@ -213,7 +224,7 @@ export const markLessonCompleteWithCompliance = async (
       lessonProgress,
       completedLessons,
       overallProgress,
-      lastAccessedAt: new Date().toISOString()
+      lastAccessedAt: now
     });
 
     if (complianceData.sessionId) {

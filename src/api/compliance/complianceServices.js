@@ -51,10 +51,12 @@ export const updateComplianceSession = async (sessionId, updates) => {
       throw new ValidationError('updates must be a non-empty object');
     }
 
+    const now = new Date().toISOString();
     const sessionRef = doc(db, COMPLIANCE_LOGS_COLLECTION, sessionId);
     await updateDoc(sessionRef, {
       ...updates,
-      lastUpdated: new Date().toISOString()
+      lastUpdated: now,
+      updatedAt: now
     });
   }, 'updateComplianceSession');
 };
@@ -68,16 +70,19 @@ export const closeComplianceSession = async (sessionId, sessionData) => {
       throw new ValidationError('sessionData must be a non-empty object');
     }
 
+    const now = new Date().toISOString();
+    const timestamp = Date.now();
     const sessionRef = doc(db, COMPLIANCE_LOGS_COLLECTION, sessionId);
     await updateDoc(sessionRef, {
-      endTime: new Date().toISOString(),
-      endTimestamp: Date.now(),
+      endTime: now,
+      endTimestamp: timestamp,
       duration: sessionData.duration,
       videoProgress: sessionData.videoProgress || null,
       lessonsAccessed: sessionData.lessonsAccessed || [],
       breaks: sessionData.breaks || [],
       status: 'completed',
-      closedAt: new Date().toISOString()
+      closedAt: now,
+      updatedAt: now
     });
   }, 'closeComplianceSession');
 };
@@ -161,19 +166,20 @@ export const logBreak = async (sessionId, breakData) => {
       throw new ValidationError('breakData must be a non-empty object');
     }
 
+    const now = new Date().toISOString();
     const sessionRef = doc(db, COMPLIANCE_LOGS_COLLECTION, sessionId);
     const sessionDoc = await getDoc(sessionRef);
 
     if (sessionDoc.exists()) {
       const breaks = sessionDoc.data().breaks || [];
       breaks.push({
-        startTime: breakData.startTime || new Date().toISOString(),
+        startTime: breakData.startTime || now,
         scheduledDuration: breakData.duration,
         type: breakData.type || 'mandatory',
         status: 'initiated'
       });
 
-      await updateDoc(sessionRef, { breaks });
+      await updateDoc(sessionRef, { breaks, updatedAt: now });
     }
   }, 'logBreak');
 };
@@ -187,6 +193,7 @@ export const logBreakEnd = async (sessionId, actualDurationSeconds) => {
       throw new ValidationError('actualDurationSeconds must be a non-negative number');
     }
 
+    const now = new Date().toISOString();
     const sessionRef = doc(db, COMPLIANCE_LOGS_COLLECTION, sessionId);
     const sessionDoc = await getDoc(sessionRef);
 
@@ -195,7 +202,7 @@ export const logBreakEnd = async (sessionId, actualDurationSeconds) => {
       if (breaks.length > 0) {
         const lastBreak = breaks[breaks.length - 1];
         lastBreak.actualDuration = actualDurationSeconds;
-        lastBreak.endTime = new Date().toISOString();
+        lastBreak.endTime = now;
         lastBreak.status = 'completed';
         
         if (actualDurationSeconds < MIN_BREAK_DURATION) {
