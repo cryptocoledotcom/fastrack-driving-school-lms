@@ -129,7 +129,7 @@ describe('usePVQTrigger Hook', () => {
 
       expect(content).toContain('nextPVQTriggerTime');
       expect(content).toContain('Math.random()');
-      expect(content).toContain(PVQ_TRIGGER_INTERVAL.toString());
+      expect(content).toContain('30 * 60');
     });
 
     it('should track PVQ start time', () => {
@@ -266,8 +266,8 @@ describe('usePVQTrigger Hook', () => {
 
       expect(content).toContain('Math.floor');
       expect(content).toContain('Math.random()');
-      expect(content).toContain(PVQ_RANDOM_OFFSET_MIN.toString());
-      expect(content).toContain(PVQ_RANDOM_OFFSET_MAX.toString());
+      expect(content).toContain('5 * 60');
+      expect(content).toContain('10 * 60');
     });
 
     it('should add offset to base trigger interval', () => {

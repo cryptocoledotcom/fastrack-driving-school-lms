@@ -430,7 +430,8 @@ describe('QueryHelper', () => {
 
       await QueryHelper.paginate('products', 10, filters);
 
-      expect(firebaseFirestore.where).toHaveBeenCalledTimes(3);
+      // where is called 6 times: 3 times for main query, 3 times for count query
+      expect(firebaseFirestore.where).toHaveBeenCalledTimes(6);
     });
 
     it('should handle pagination chain: first -> next -> next', async () => {
@@ -439,24 +440,28 @@ describe('QueryHelper', () => {
       firebaseFirestore.limit.mockReturnValue('limitConstraint');
       firebaseFirestore.startAfter.mockReturnValue('startAfterConstraint');
 
-      const mockDoc1 = { id: 'doc1', data: () => ({}) };
-      const mockDoc2 = { id: 'doc2', data: () => ({}) };
-      const mockDoc3 = { id: 'doc3', data: () => ({}) };
+      const mockDocs = Array.from({ length: 25 }, (_, i) => ({
+        id: `doc${i + 1}`,
+        data: () => ({})
+      }));
 
       firebaseFirestore.getCountFromServer.mockResolvedValue({
-        data: () => ({ count: 30 })
+        data: () => ({ count: 25 })
       });
 
+      // First page: return 10 documents
       firebaseFirestore.getDocs.mockResolvedValueOnce({
-        docs: [mockDoc1]
+        docs: mockDocs.slice(0, 10)
       });
 
+      // Second page: return 10 documents
       firebaseFirestore.getDocs.mockResolvedValueOnce({
-        docs: [mockDoc2]
+        docs: mockDocs.slice(10, 20)
       });
 
+      // Third page: return 5 documents (less than pageSize, so hasNextPage = false)
       firebaseFirestore.getDocs.mockResolvedValueOnce({
-        docs: [mockDoc3]
+        docs: mockDocs.slice(20, 25)
       });
 
       const page1 = await QueryHelper.paginate('courses', 10);
@@ -467,6 +472,7 @@ describe('QueryHelper', () => {
 
       const page3 = await QueryHelper.getNextPage('courses', page2.lastVisible, 10);
       expect(page3).toBeDefined();
+      expect(page3.hasNextPage).toBe(false);
     });
   });
 });

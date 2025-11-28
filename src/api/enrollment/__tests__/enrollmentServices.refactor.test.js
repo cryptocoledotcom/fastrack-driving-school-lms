@@ -79,7 +79,7 @@ describe('enrollmentServices.createEnrollment() - Refactored with utilities', ()
       mockGetDoc.mockResolvedValue(null);
       mockSetDoc.mockResolvedValue(true);
 
-      const result = await enrollmentServices.createEnrollment(
+      await enrollmentServices.createEnrollment(
         'user123',
         COURSE_IDS.ONLINE,
         'regular@example.com'

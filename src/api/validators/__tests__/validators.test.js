@@ -268,6 +268,7 @@ describe('Validators', () => {
       const breakData = {
         userId: 'user123',
         sessionId: 'session123',
+        breakType: 'mandatory',
         startTime: new Date().toISOString(),
         duration: 600
       };

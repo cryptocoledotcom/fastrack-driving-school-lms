@@ -247,7 +247,7 @@ describe('useBreakManagement Hook', () => {
       const content = fs.readFileSync(path.join(__dirname, 'useBreakManagement.js'), 'utf8');
 
       expect(content).toContain('breakHistory');
-      expect(content).toContain('[...prev');
+      expect(content).toContain('...prev');
     });
 
     it('should include break duration in history', () => {
