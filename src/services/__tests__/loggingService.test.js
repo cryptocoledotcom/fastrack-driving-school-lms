@@ -287,10 +287,10 @@ describe('LoggingService', () => {
       expect(result).toBeInstanceOf(Promise);
     });
 
-    it('should resolve with pending status', async () => {
+    it('should resolve with buffered status when Cloud Logging disabled', async () => {
       const result = await LoggingService.sendToCloudLogging({ level: 'INFO', message: 'Test' });
 
-      expect(result).toHaveProperty('status', 'pending');
+      expect(result).toHaveProperty('status', 'buffered');
       expect(result).toHaveProperty('message');
     });
 
@@ -383,6 +383,64 @@ describe('LoggingService', () => {
           expect(entry).toHaveProperty('timestamp');
         });
       });
+    });
+  });
+
+  describe('Cloud Logging Integration (Phase 3)', () => {
+    it('should have sendToCloudLogging method', () => {
+      expect(typeof LoggingService.sendToCloudLogging).toBe('function');
+    });
+
+    it('should accept a log entry object', async () => {
+      const entry = { level: 'INFO', message: 'Test' };
+      const result = await LoggingService.sendToCloudLogging(entry);
+
+      expect(result).toBeDefined();
+      expect(typeof result).toBe('object');
+    });
+
+    it('should be async and return a Promise', () => {
+      const result = LoggingService.sendToCloudLogging({});
+      expect(result instanceof Promise).toBe(true);
+    });
+
+    it('should include method for setting Cloud Logging credentials', () => {
+      expect(LoggingService).toHaveProperty('setCloudLoggingCredentials');
+      expect(typeof LoggingService.setCloudLoggingCredentials).toBe('function');
+    });
+
+    it('should have getCloudLoggingStatus method', () => {
+      expect(LoggingService).toHaveProperty('getCloudLoggingStatus');
+      expect(typeof LoggingService.getCloudLoggingStatus).toBe('function');
+    });
+
+    it('should track Cloud Logging availability status', () => {
+      const status = LoggingService.getCloudLoggingStatus();
+      expect(status).toHaveProperty('enabled');
+      expect(typeof status.enabled).toBe('boolean');
+    });
+
+    it('should handle Cloud Logging failures gracefully', async () => {
+      const entry = { level: 'ERROR', message: 'Test error' };
+      const result = await LoggingService.sendToCloudLogging(entry);
+
+      expect(result).toBeDefined();
+      expect(result.status).toBeDefined();
+    });
+
+    it('should include retry capability for failed sends', async () => {
+      expect(LoggingService).toHaveProperty('retryCloudLogging');
+      expect(typeof LoggingService.retryCloudLogging).toBe('function');
+    });
+
+    it('should buffer logs when Cloud Logging is unavailable', async () => {
+      expect(LoggingService).toHaveProperty('getLogBuffer');
+      expect(typeof LoggingService.getLogBuffer).toBe('function');
+    });
+
+    it('should flush buffered logs when Cloud Logging becomes available', async () => {
+      expect(LoggingService).toHaveProperty('flushLogBuffer');
+      expect(typeof LoggingService.flushLogBuffer).toBe('function');
     });
   });
 

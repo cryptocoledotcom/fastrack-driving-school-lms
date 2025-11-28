@@ -1,0 +1,13 @@
+
+> fastrack-driving-school-lms@1.0.0 test
+> react-scripts test --testNamePattern="LoggingService" --watchAll=false --no-coverage
+
+PASS src/api/base/__tests__/ServiceBase.test.js
+PASS src/components/common/ErrorBoundary/ErrorBoundary.test.js
+PASS src/services/__tests__/loggingService.test.js
+
+Test Suites: 16 skipped, 3 passed, 3 of 19 total
+Tests:       605 skipped, 53 passed, 658 total
+Snapshots:   0 total
+Time:        3.559 s
+Ran all test suites with tests matching "LoggingService".

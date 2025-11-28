@@ -1,0 +1,32 @@
+
+> fastrack-driving-school-lms@1.0.0 test
+> react-scripts test --testNamePattern="LoggingService" --watchAll=false --no-coverage
+
+PASS src/api/base/__tests__/ServiceBase.test.js
+PASS src/components/common/ErrorBoundary/ErrorBoundary.test.js
+FAIL src/services/__tests__/loggingService.test.js
+  ● LoggingService › sendToCloudLogging() method › should resolve with pending status
+
+    expect(received).toHaveProperty(path, value)
+
+    Expected path: "status"
+
+    Expected value: "pending"
+    Received value: "buffered"
+
+    [0m [90m 291 |[39m       [36mconst[39m result [33m=[39m [36mawait[39m [33mLoggingService[39m[33m.[39msendToCloudLogging({ level[33m:[39m [32m'INFO'[39m[33m,[39m message[33m:[39m [32m'Test'[39m })[33m;[39m
+     [90m 292 |[39m
+    [31m[1m>[22m[39m[90m 293 |[39m       expect(result)[33m.[39mtoHaveProperty([32m'status'[39m[33m,[39m [32m'pending'[39m)[33m;[39m
+     [90m     |[39m                      [31m[1m^[22m[39m
+     [90m 294 |[39m       expect(result)[33m.[39mtoHaveProperty([32m'message'[39m)[33m;[39m
+     [90m 295 |[39m     })[33m;[39m
+     [90m 296 |[39m[0m
+
+      at Object.<anonymous> (src/services/__tests__/loggingService.test.js:293:22)
+
+
+Test Suites: 1 failed, 16 skipped, 2 passed, 3 of 19 total
+Tests:       1 failed, 605 skipped, 52 passed, 658 total
+Snapshots:   0 total
+Time:        3.843 s
+Ran all test suites with tests matching "LoggingService".

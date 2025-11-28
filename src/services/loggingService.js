@@ -1,4 +1,11 @@
 class LoggingService {
+  static cloudLoggingEnabled = false;
+  static cloudLoggingCredentials = null;
+  static logBuffer = [];
+  static maxBufferSize = 100;
+  static retryAttempts = 0;
+  static maxRetryAttempts = 3;
+
   /**
    * Create a log entry with level, message, and additional data
    * @param {string} level - Log level: DEBUG, INFO, WARN, ERROR
@@ -95,24 +102,195 @@ class LoggingService {
   }
 
   /**
-   * Placeholder for Cloud Logging integration
-   * Will be implemented in Phase 3
-   * @param {object} entry - Log entry to send
-   * @returns {Promise}
+   * Cloud Logging integration for production environments
+   * @param {object} entry - Log entry to send to Cloud Logging
+   * @returns {Promise} Result of Cloud Logging operation
    */
   static async sendToCloudLogging(entry) {
-    // TODO: Implement Cloud Logging integration
-    // Example:
-    // const response = await fetch('/api/logs', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify(entry)
-    // });
-    // return response.json();
-    return Promise.resolve({
-      status: 'pending',
-      message: 'Cloud Logging not yet implemented'
-    });
+    if (!this.cloudLoggingEnabled) {
+      this.bufferLog(entry);
+      return Promise.resolve({
+        status: 'buffered',
+        message: 'Cloud Logging not enabled, log buffered locally'
+      });
+    }
+
+    try {
+      const response = await fetch('/api/logs', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          ...(this.cloudLoggingCredentials?.authHeader && {
+            Authorization: this.cloudLoggingCredentials.authHeader
+          })
+        },
+        body: JSON.stringify(entry)
+      });
+
+      if (!response.ok) {
+        throw new Error(`Cloud Logging error: ${response.status}`);
+      }
+
+      return response.json();
+    } catch (error) {
+      this.logError('Cloud Logging failed', error, {
+        entry,
+        attempt: this.retryAttempts
+      });
+      this.bufferLog(entry);
+      return Promise.resolve({
+        status: 'error',
+        message: `Cloud Logging failed: ${error.message}`,
+        buffered: true
+      });
+    }
+  }
+
+  /**
+   * Set Cloud Logging credentials
+   * @param {object} credentials - Cloud Logging credentials
+   * @returns {void}
+   */
+  static setCloudLoggingCredentials(credentials) {
+    if (credentials && typeof credentials === 'object') {
+      this.cloudLoggingCredentials = credentials;
+      this.cloudLoggingEnabled = true;
+      this.info('Cloud Logging enabled');
+      this.flushLogBuffer();
+    }
+  }
+
+  /**
+   * Get Cloud Logging status
+   * @returns {object} Cloud Logging status
+   */
+  static getCloudLoggingStatus() {
+    return {
+      enabled: this.cloudLoggingEnabled,
+      hasCredentials: !!this.cloudLoggingCredentials,
+      bufferSize: this.logBuffer.length,
+      retryAttempts: this.retryAttempts,
+      maxRetryAttempts: this.maxRetryAttempts
+    };
+  }
+
+  /**
+   * Buffer a log entry for later sending to Cloud Logging
+   * @param {object} entry - Log entry to buffer
+   * @returns {void}
+   */
+  static bufferLog(entry) {
+    if (this.logBuffer.length < this.maxBufferSize) {
+      this.logBuffer.push({
+        ...entry,
+        bufferedAt: new Date().toISOString()
+      });
+    } else {
+      this.logBuffer.shift();
+      this.logBuffer.push({
+        ...entry,
+        bufferedAt: new Date().toISOString()
+      });
+    }
+  }
+
+  /**
+   * Get buffered logs
+   * @returns {array} Array of buffered log entries
+   */
+  static getLogBuffer() {
+    return [...this.logBuffer];
+  }
+
+  /**
+   * Clear the log buffer
+   * @returns {void}
+   */
+  static clearLogBuffer() {
+    this.logBuffer = [];
+    this.retryAttempts = 0;
+  }
+
+  /**
+   * Retry sending Cloud Logging entries from buffer
+   * @returns {Promise<number>} Number of logs sent
+   */
+  static async retryCloudLogging() {
+    if (!this.cloudLoggingEnabled) {
+      return Promise.resolve(0);
+    }
+
+    if (this.retryAttempts >= this.maxRetryAttempts) {
+      this.warn('Max retry attempts reached for Cloud Logging');
+      return Promise.resolve(0);
+    }
+
+    this.retryAttempts += 1;
+    const buffer = [...this.logBuffer];
+    let successCount = 0;
+
+    for (const entry of buffer) {
+      try {
+        const response = await fetch('/api/logs/batch', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            ...(this.cloudLoggingCredentials?.authHeader && {
+              Authorization: this.cloudLoggingCredentials.authHeader
+            })
+          },
+          body: JSON.stringify([entry])
+        });
+
+        if (response.ok) {
+          this.logBuffer = this.logBuffer.filter(e => e !== entry);
+          successCount += 1;
+        }
+      } catch (error) {
+        this.error('Retry failed for Cloud Logging entry', error);
+      }
+    }
+
+    if (this.logBuffer.length === 0) {
+      this.retryAttempts = 0;
+    }
+
+    return Promise.resolve(successCount);
+  }
+
+  /**
+   * Flush all buffered logs to Cloud Logging
+   * @returns {Promise<number>} Number of logs sent
+   */
+  static async flushLogBuffer() {
+    if (!this.cloudLoggingEnabled || this.logBuffer.length === 0) {
+      return Promise.resolve(0);
+    }
+
+    try {
+      const buffer = [...this.logBuffer];
+      const response = await fetch('/api/logs/batch', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          ...(this.cloudLoggingCredentials?.authHeader && {
+            Authorization: this.cloudLoggingCredentials.authHeader
+          })
+        },
+        body: JSON.stringify(buffer)
+      });
+
+      if (response.ok) {
+        this.clearLogBuffer();
+        this.info(`Flushed ${buffer.length} logs to Cloud Logging`);
+        return Promise.resolve(buffer.length);
+      }
+
+      return Promise.resolve(0);
+    } catch (error) {
+      this.error('Failed to flush log buffer to Cloud Logging', error);
+      return Promise.resolve(0);
+    }
   }
 }
 

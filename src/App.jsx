@@ -7,6 +7,7 @@ import { AuthProvider } from './context/AuthContext';
 import { CourseProvider } from './context/CourseContext';
 import { TimerProvider } from './context/TimerContext';
 import { ModalProvider } from './context/ModalContext';
+import ErrorBoundary from './components/common/ErrorBoundary/ErrorBoundary';
 
 // Route Guards
 import ProtectedRoute from './components/guards/ProtectedRoute';
@@ -56,11 +57,12 @@ import './assets/styles/animations.css';
 
 function App() {
   return (
-    <Router>
-      <AuthProvider>
-        <CourseProvider>
-          <TimerProvider>
-            <ModalProvider>
+    <ErrorBoundary>
+      <Router>
+        <AuthProvider>
+          <CourseProvider>
+            <TimerProvider>
+              <ModalProvider>
               <Routes>
                 {/* Public Routes */}
                 <Route path={PUBLIC_ROUTES.HOME} element={
@@ -207,11 +209,12 @@ function App() {
                   </MainLayout>
                 } />
               </Routes>
-            </ModalProvider>
-          </TimerProvider>
-        </CourseProvider>
-      </AuthProvider>
-    </Router>
+              </ModalProvider>
+            </TimerProvider>
+          </CourseProvider>
+        </AuthProvider>
+      </Router>
+    </ErrorBoundary>
   );
 }
 
