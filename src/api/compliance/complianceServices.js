@@ -6,17 +6,26 @@ import {
   updateDoc,
   getDocs,
   query,
-  where
+  where,
+  serverTimestamp,
+  arrayUnion,
+  writeBatch
 } from 'firebase/firestore';
 import { db } from '../../config/firebase';
 import { executeService } from '../base/ServiceWrapper';
 import { validateUserId, validateCourseId } from '../validators/validators';
 import { ValidationError } from '../errors/ApiError';
 
-const COMPLIANCE_LOGS_COLLECTION = 'complianceLogs';
 const MAX_DAILY_HOURS = 4 * 3600;
 const MIN_BREAK_DURATION = 10 * 60;
 
+// Helper function to get sessions subcollection reference
+// Path: users/{userId}/sessions
+const getSessionsRef = (userId) => {
+  return collection(db, 'users', userId, 'sessions');
+};
+
+// Create a new compliance session (PHASE 1 - Issue #2: Heartbeat support)
 export const createComplianceSession = async (userId, courseId, data) => {
   return executeService(async () => {
     validateUserId(userId);
@@ -25,16 +34,22 @@ export const createComplianceSession = async (userId, courseId, data) => {
       throw new ValidationError('data must be a non-empty object');
     }
 
-    const sessionRef = doc(collection(db, COMPLIANCE_LOGS_COLLECTION));
+    const sessionsRef = getSessionsRef(userId);
+    const sessionRef = doc(sessionsRef);
     const sessionData = {
       userId,
       courseId,
       sessionId: sessionRef.id,
-      startTime: new Date().toISOString(),
-      startTimestamp: Date.now(),
-      ipAddress: data.ipAddress,
+      startTime: serverTimestamp(),
+      startTimestamp: new Date().getTime(),
+      ipAddress: data.ipAddress || null,
       deviceInfo: data.deviceInfo || null,
-      createdAt: new Date().toISOString()
+      userAgent: data.userAgent || null,
+      status: 'active',
+      lastHeartbeat: serverTimestamp(),
+      completionEvents: [],
+      breaks: [],
+      createdAt: serverTimestamp()
     };
 
     await setDoc(sessionRef, sessionData);
@@ -42,7 +57,8 @@ export const createComplianceSession = async (userId, courseId, data) => {
   }, 'createComplianceSession');
 };
 
-export const updateComplianceSession = async (sessionId, updates) => {
+// Update compliance session (PHASE 1 - Issue #2: Heartbeat)
+export const updateComplianceSession = async (userId, sessionId, updates) => {
   return executeService(async () => {
     if (!sessionId || typeof sessionId !== 'string') {
       throw new ValidationError('sessionId must be a non-empty string');
@@ -51,17 +67,18 @@ export const updateComplianceSession = async (sessionId, updates) => {
       throw new ValidationError('updates must be a non-empty object');
     }
 
-    const now = new Date().toISOString();
-    const sessionRef = doc(db, COMPLIANCE_LOGS_COLLECTION, sessionId);
+    const sessionsRef = getSessionsRef(userId);
+    const sessionRef = doc(sessionsRef, sessionId);
+    
     await updateDoc(sessionRef, {
       ...updates,
-      lastUpdated: now,
-      updatedAt: now
+      lastUpdated: serverTimestamp()
     });
   }, 'updateComplianceSession');
 };
 
-export const closeComplianceSession = async (sessionId, sessionData) => {
+// Close a compliance session
+export const closeComplianceSession = async (userId, sessionId, sessionData) => {
   return executeService(async () => {
     if (!sessionId || typeof sessionId !== 'string') {
       throw new ValidationError('sessionId must be a non-empty string');
@@ -70,23 +87,25 @@ export const closeComplianceSession = async (sessionId, sessionData) => {
       throw new ValidationError('sessionData must be a non-empty object');
     }
 
-    const now = new Date().toISOString();
-    const timestamp = Date.now();
-    const sessionRef = doc(db, COMPLIANCE_LOGS_COLLECTION, sessionId);
+    const sessionsRef = getSessionsRef(userId);
+    const sessionRef = doc(sessionsRef, sessionId);
+    
     await updateDoc(sessionRef, {
-      endTime: now,
-      endTimestamp: timestamp,
-      duration: sessionData.duration,
+      endTime: serverTimestamp(),
+      endTimestamp: new Date().getTime(),
+      duration: sessionData.duration || 0,
       videoProgress: sessionData.videoProgress || null,
       lessonsAccessed: sessionData.lessonsAccessed || [],
       breaks: sessionData.breaks || [],
-      status: 'completed',
-      closedAt: now,
-      updatedAt: now
+      status: sessionData.closureType === 'page_unload' ? 'unloaded' : 'completed',
+      closureType: sessionData.closureType || 'normal_exit',
+      closedAt: serverTimestamp(),
+      updatedAt: serverTimestamp()
     });
   }, 'closeComplianceSession');
 };
 
+// Get daily time spent on course
 export const getDailyTime = async (userId, courseId) => {
   return executeService(async () => {
     validateUserId(userId);
@@ -96,27 +115,30 @@ export const getDailyTime = async (userId, courseId) => {
     today.setHours(0, 0, 0, 0);
     const todayISO = today.toISOString();
 
-    const logsRef = collection(db, COMPLIANCE_LOGS_COLLECTION);
+    const sessionsRef = getSessionsRef(userId);
     const q = query(
-      logsRef,
-      where('userId', '==', userId),
+      sessionsRef,
       where('courseId', '==', courseId)
     );
 
-    const snapshot = await getDocs(q);
-    let totalSeconds = 0;
+    const querySnapshot = await getDocs(q);
+    let totalTime = 0;
 
-    snapshot.forEach(doc => {
-      const data = doc.data();
-      if (data.status === 'completed' && data.startTime >= todayISO && data.duration) {
-        totalSeconds += data.duration;
+    querySnapshot.forEach((doc) => {
+      const session = doc.data();
+      if (session.status === 'completed' && session.startTime) {
+        const startTime = new Date(session.startTime);
+        if (startTime >= today) {
+          totalTime += session.duration || 0;
+        }
       }
     });
 
-    return totalSeconds;
+    return totalTime;
   }, 'getDailyTime');
 };
 
+// Check if user has hit daily hour lockout
 export const checkDailyHourLockout = async (userId, courseId) => {
   return executeService(async () => {
     validateUserId(userId);
@@ -127,37 +149,34 @@ export const checkDailyHourLockout = async (userId, courseId) => {
   }, 'checkDailyHourLockout');
 };
 
+// Get session history for a user in a course
 export const getSessionHistory = async (userId, courseId, limit = 50) => {
   return executeService(async () => {
     validateUserId(userId);
     validateCourseId(courseId);
-    if (typeof limit !== 'number' || limit <= 0) {
-      throw new ValidationError('limit must be a positive number');
-    }
 
-    const logsRef = collection(db, COMPLIANCE_LOGS_COLLECTION);
+    const sessionsRef = getSessionsRef(userId);
     const q = query(
-      logsRef,
-      where('userId', '==', userId),
+      sessionsRef,
       where('courseId', '==', courseId)
     );
 
-    const snapshot = await getDocs(q);
+    const querySnapshot = await getDocs(q);
     const sessions = [];
 
-    snapshot.forEach(doc => {
+    querySnapshot.forEach((doc) => {
       sessions.push({
-        id: doc.id,
+        sessionId: doc.id,
         ...doc.data()
       });
     });
 
-    sessions.sort((a, b) => new Date(b.startTime) - new Date(a.startTime));
     return sessions.slice(0, limit);
   }, 'getSessionHistory');
 };
 
-export const logBreak = async (sessionId, breakData) => {
+// Log a break during a session
+export const logBreak = async (userId, sessionId, breakData) => {
   return executeService(async () => {
     if (!sessionId || typeof sessionId !== 'string') {
       throw new ValidationError('sessionId must be a non-empty string');
@@ -166,25 +185,22 @@ export const logBreak = async (sessionId, breakData) => {
       throw new ValidationError('breakData must be a non-empty object');
     }
 
-    const now = new Date().toISOString();
-    const sessionRef = doc(db, COMPLIANCE_LOGS_COLLECTION, sessionId);
-    const sessionDoc = await getDoc(sessionRef);
-
-    if (sessionDoc.exists()) {
-      const breaks = sessionDoc.data().breaks || [];
-      breaks.push({
-        startTime: breakData.startTime || now,
-        scheduledDuration: breakData.duration,
-        type: breakData.type || 'mandatory',
-        status: 'initiated'
-      });
-
-      await updateDoc(sessionRef, { breaks, updatedAt: now });
-    }
+    const sessionsRef = getSessionsRef(userId);
+    const sessionRef = doc(sessionsRef, sessionId);
+    
+    await updateDoc(sessionRef, {
+      breaks: arrayUnion({
+        startTime: serverTimestamp(),
+        duration: breakData.duration || 0,
+        reason: breakData.reason || 'user_initiated',
+        timestamp: serverTimestamp()
+      })
+    });
   }, 'logBreak');
 };
 
-export const logBreakEnd = async (sessionId, actualDurationSeconds) => {
+// Log end of break and enforce minimum break duration
+export const logBreakEnd = async (userId, sessionId, actualDurationSeconds) => {
   return executeService(async () => {
     if (!sessionId || typeof sessionId !== 'string') {
       throw new ValidationError('sessionId must be a non-empty string');
@@ -193,88 +209,38 @@ export const logBreakEnd = async (sessionId, actualDurationSeconds) => {
       throw new ValidationError('actualDurationSeconds must be a non-negative number');
     }
 
-    const now = new Date().toISOString();
-    const sessionRef = doc(db, COMPLIANCE_LOGS_COLLECTION, sessionId);
+    if (actualDurationSeconds < MIN_BREAK_DURATION) {
+      throw new ValidationError(
+        `Break must be at least ${MIN_BREAK_DURATION / 60} minutes. Current: ${actualDurationSeconds / 60} minutes`
+      );
+    }
+
+    const sessionsRef = getSessionsRef(userId);
+    const sessionRef = doc(sessionsRef, sessionId);
     const sessionDoc = await getDoc(sessionRef);
 
     if (sessionDoc.exists()) {
       const breaks = sessionDoc.data().breaks || [];
       if (breaks.length > 0) {
         const lastBreak = breaks[breaks.length - 1];
+        lastBreak.endTime = serverTimestamp();
         lastBreak.actualDuration = actualDurationSeconds;
-        lastBreak.endTime = now;
-        lastBreak.status = 'completed';
-        
-        if (actualDurationSeconds < MIN_BREAK_DURATION) {
-          lastBreak.complianceFlag = 'BREAK_TOO_SHORT';
-        }
-      }
 
-      await updateDoc(sessionRef, { breaks });
+        await updateDoc(sessionRef, {
+          breaks
+        });
+      }
     }
   }, 'logBreakEnd');
 };
 
-export const logLessonCompletion = async (sessionId, lessonCompletionData) => {
-  return executeService(async () => {
-    if (!sessionId || typeof sessionId !== 'string') {
-      throw new ValidationError('sessionId must be a non-empty string');
-    }
-    if (!lessonCompletionData || typeof lessonCompletionData !== 'object') {
-      throw new ValidationError('lessonCompletionData must be a non-empty object');
-    }
+// Removed: logLessonCompletion (now handled via batch transaction in progressServices)
+// This function is no longer used - lesson completion is atomic with progress updates
 
-    const sessionRef = doc(db, COMPLIANCE_LOGS_COLLECTION, sessionId);
-    const sessionDoc = await getDoc(sessionRef);
+// Removed: logModuleCompletion (now handled via batch transaction in progressServices)
+// This function is no longer used - module completion is atomic with progress updates
 
-    if (sessionDoc.exists()) {
-      const completionEvents = sessionDoc.data().completionEvents || [];
-      completionEvents.push({
-        type: 'lesson_completion',
-        lessonId: lessonCompletionData.lessonId,
-        lessonTitle: lessonCompletionData.lessonTitle,
-        moduleId: lessonCompletionData.moduleId,
-        moduleTitle: lessonCompletionData.moduleTitle,
-        timestamp: new Date().toISOString(),
-        sessionTime: lessonCompletionData.sessionTime,
-        videoProgress: lessonCompletionData.videoProgress || null,
-        completedAt: new Date().toISOString()
-      });
-
-      await updateDoc(sessionRef, { completionEvents });
-    }
-  }, 'logLessonCompletion');
-};
-
-export const logModuleCompletion = async (sessionId, moduleCompletionData) => {
-  return executeService(async () => {
-    if (!sessionId || typeof sessionId !== 'string') {
-      throw new ValidationError('sessionId must be a non-empty string');
-    }
-    if (!moduleCompletionData || typeof moduleCompletionData !== 'object') {
-      throw new ValidationError('moduleCompletionData must be a non-empty object');
-    }
-
-    const sessionRef = doc(db, COMPLIANCE_LOGS_COLLECTION, sessionId);
-    const sessionDoc = await getDoc(sessionRef);
-
-    if (sessionDoc.exists()) {
-      const completionEvents = sessionDoc.data().completionEvents || [];
-      completionEvents.push({
-        type: 'module_completion',
-        moduleId: moduleCompletionData.moduleId,
-        moduleTitle: moduleCompletionData.moduleTitle,
-        lessonsCompleted: moduleCompletionData.lessonsCompleted || 0,
-        timestamp: new Date().toISOString(),
-        sessionTime: moduleCompletionData.sessionTime,
-        completedAt: new Date().toISOString()
-      });
-
-      await updateDoc(sessionRef, { completionEvents });
-    }
-  }, 'logModuleCompletion');
-};
-
+// Log identity verification (PVQ)
 export const logIdentityVerification = async (userId, courseId, pvqData) => {
   return executeService(async () => {
     validateUserId(userId);
@@ -283,23 +249,25 @@ export const logIdentityVerification = async (userId, courseId, pvqData) => {
       throw new ValidationError('pvqData must be a non-empty object');
     }
 
-    const verificationRef = doc(collection(db, 'identityVerifications'));
+    const verificationRef = doc(collection(db, 'users', userId, 'identityVerifications'));
+    
     await setDoc(verificationRef, {
       userId,
       courseId,
-      question: pvqData.question,
-      answer: pvqData.answer,
-      isCorrect: pvqData.isCorrect,
-      timeToAnswer: pvqData.timeToAnswer,
-      timestamp: new Date().toISOString(),
-      ipAddress: pvqData.ipAddress
+      pvqId: pvqData.pvqId,
+      questionsAnswered: pvqData.questionsAnswered || 0,
+      correctAnswers: pvqData.correctAnswers || 0,
+      passed: pvqData.passed || false,
+      verifiedAt: serverTimestamp(),
+      createdAt: serverTimestamp()
     });
 
     return verificationRef.id;
   }, 'logIdentityVerification');
 };
 
-export const logQuizAttempt = async (sessionId, quizAttemptData) => {
+// Log quiz attempt
+export const logQuizAttempt = async (userId, sessionId, quizAttemptData) => {
   return executeService(async () => {
     if (!sessionId || typeof sessionId !== 'string') {
       throw new ValidationError('sessionId must be a non-empty string');
@@ -308,70 +276,114 @@ export const logQuizAttempt = async (sessionId, quizAttemptData) => {
       throw new ValidationError('quizAttemptData must be a non-empty object');
     }
 
-    const sessionRef = doc(db, COMPLIANCE_LOGS_COLLECTION, sessionId);
-    const sessionDoc = await getDoc(sessionRef);
-
-    if (sessionDoc.exists()) {
-      const quizAttempts = sessionDoc.data().quizAttempts || [];
-      quizAttempts.push({
+    const sessionsRef = getSessionsRef(userId);
+    const sessionRef = doc(sessionsRef, sessionId);
+    
+    await updateDoc(sessionRef, {
+      completionEvents: arrayUnion({
         type: 'quiz_attempt',
         quizId: quizAttemptData.quizId,
         quizTitle: quizAttemptData.quizTitle,
-        isFinalExam: quizAttemptData.isFinalExam || false,
-        attemptNumber: quizAttemptData.attemptNumber || 1,
         score: quizAttemptData.score || 0,
+        passingScore: quizAttemptData.passingScore || 0,
         passed: quizAttemptData.passed || false,
-        correctAnswers: quizAttemptData.correctAnswers || 0,
-        totalQuestions: quizAttemptData.totalQuestions || 0,
-        timeSpent: quizAttemptData.timeSpent || 0,
-        startTime: quizAttemptData.startTime || new Date().toISOString(),
-        completedAt: quizAttemptData.completedAt || new Date().toISOString(),
-        timestamp: new Date().toISOString()
-      });
-
-      await updateDoc(sessionRef, { quizAttempts });
-    }
+        attemptNumber: quizAttemptData.attemptNumber || 1,
+        completedAt: serverTimestamp(),
+        timestamp: serverTimestamp()
+      })
+    });
   }, 'logQuizAttempt');
 };
 
+// Get total session time for user in course
 export const getTotalSessionTime = async (userId, courseId) => {
   return executeService(async () => {
+    //Note: getTotalSessionTime gets ALL sessions, not just today
     validateUserId(userId);
     validateCourseId(courseId);
 
-    const logsRef = collection(db, COMPLIANCE_LOGS_COLLECTION);
+    const sessionsRef = getSessionsRef(userId);
     const q = query(
-      logsRef,
-      where('userId', '==', userId),
+      sessionsRef,
       where('courseId', '==', courseId),
       where('status', '==', 'completed')
     );
 
-    const snapshot = await getDocs(q);
-    let totalSeconds = 0;
+    const querySnapshot = await getDocs(q);
+    let totalTime = 0;
 
-    snapshot.forEach(doc => {
-      const data = doc.data();
-      if (data.duration) {
-        totalSeconds += data.duration;
+    querySnapshot.forEach((doc) => {
+      const session = doc.data();
+      if (session.status === 'completed') {
+        totalTime += session.duration || 0;
       }
     });
 
-    return totalSeconds;
+    return totalTime;
   }, 'getTotalSessionTime');
 };
 
+// Get total session time in minutes
 export const getTotalSessionTimeInMinutes = async (userId, courseId) => {
+  return executeService(async () => {
+    const totalSeconds = await getTotalSessionTime(userId, courseId);
+    return Math.round(totalSeconds / 60);
+  }, 'getTotalSessionTimeInMinutes');
+};
+
+// PHASE 1 - Issue #2: Detect and close orphaned sessions
+export const handleOrphanedSessions = async (userId, courseId) => {
   return executeService(async () => {
     validateUserId(userId);
     validateCourseId(courseId);
 
-    const totalSeconds = await getTotalSessionTime(userId, courseId);
-    return Math.floor(totalSeconds / 60);
-  }, 'getTotalSessionTimeInMinutes');
+    const now = new Date().getTime();
+    const thirtyMinutesAgo = now - (30 * 60 * 1000);
+
+    const sessionsRef = getSessionsRef(userId);
+    const q = query(
+      sessionsRef,
+      where('courseId', '==', courseId),
+      where('status', '==', 'active')
+    );
+
+    const orphanedSnapshots = await getDocs(q);
+    const closedSessions = [];
+
+    for (const sessionDoc of orphanedSnapshots.docs) {
+      const session = sessionDoc.data();
+      const lastHeartbeatTime = session.lastHeartbeat?.toMillis?.() || session.startTimestamp;
+      
+      if (lastHeartbeatTime < thirtyMinutesAgo) {
+        try {
+          const startTime = session.startTimestamp || 0;
+          const duration = Math.floor((now - startTime) / 1000);
+
+          await updateDoc(sessionDoc.ref, {
+            status: 'timeout',
+            endTime: serverTimestamp(),
+            endTimestamp: now,
+            duration: duration,
+            closureType: 'orphaned_auto_close',
+            auditFlag: 'SESSION_ABANDONED_30MIN',
+            updatedAt: serverTimestamp()
+          });
+
+          closedSessions.push({
+            sessionId: sessionDoc.id,
+            duration: duration
+          });
+        } catch (error) {
+          console.error(`Failed to close orphaned session ${sessionDoc.id}:`, error);
+        }
+      }
+    }
+
+    return { closedCount: closedSessions.length };
+  }, 'handleOrphanedSessions');
 };
 
-const complianceServices = {
+export default {
   createComplianceSession,
   updateComplianceSession,
   closeComplianceSession,
@@ -380,12 +392,9 @@ const complianceServices = {
   getSessionHistory,
   logBreak,
   logBreakEnd,
-  logLessonCompletion,
-  logModuleCompletion,
   logIdentityVerification,
   logQuizAttempt,
   getTotalSessionTime,
-  getTotalSessionTimeInMinutes
+  getTotalSessionTimeInMinutes,
+  handleOrphanedSessions
 };
-
-export default complianceServices;

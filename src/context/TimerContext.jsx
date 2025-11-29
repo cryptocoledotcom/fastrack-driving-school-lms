@@ -41,6 +41,9 @@ export const TimerProvider = ({ children, courseId, lessonId, ipAddress }) => {
   const breakIntervalRef = useRef(null);
   const saveIntervalRef = useRef(null);
   const lastSaveTimeRef = useRef(Date.now());
+  const heartbeatIntervalRef = useRef(null);
+  const beforeUnloadHandlerRef = useRef(null);
+  const sessionCreationPromiseRef = useRef(null);
 
   const sessionTimer = useSessionTimer({
     sessionTime: 0,
@@ -103,7 +106,7 @@ export const TimerProvider = ({ children, courseId, lessonId, ipAddress }) => {
           }
         };
 
-        await updateComplianceSession(sessionData.currentSessionId, timerData);
+        await updateComplianceSession(user.uid, sessionData.currentSessionId, timerData);
         lastSaveTimeRef.current = Date.now();
       } catch (err) {
         console.error('Error saving timer data to compliance log:', err);
@@ -111,18 +114,79 @@ export const TimerProvider = ({ children, courseId, lessonId, ipAddress }) => {
     }
   };
 
+  const startHeartbeat = async (sessionId) => {
+    if (heartbeatIntervalRef.current) {
+      clearInterval(heartbeatIntervalRef.current);
+    }
+
+    heartbeatIntervalRef.current = setInterval(async () => {
+      if (user && sessionId) {
+        try {
+          await updateComplianceSession(user.uid, sessionId, {
+            lastHeartbeat: new Date().toISOString(),
+            status: 'active'
+          });
+        } catch (error) {
+          console.error('Heartbeat failed:', error);
+        }
+      }
+    }, 5 * 60 * 1000);
+  };
+
+  const stopHeartbeat = () => {
+    if (heartbeatIntervalRef.current) {
+      clearInterval(heartbeatIntervalRef.current);
+      heartbeatIntervalRef.current = null;
+    }
+  };
+
+  const setupPageUnloadHandler = (sessionId) => {
+    beforeUnloadHandlerRef.current = async (event) => {
+      if (user && sessionId) {
+        try {
+          navigator.sendBeacon(
+            '/api/sessions/close',
+            JSON.stringify({
+              userId: user.uid,
+              sessionId,
+              closureType: 'page_unload',
+              duration: sessionTimer.sessionTime
+            })
+          );
+        } catch (error) {
+          console.error('Failed to send unload beacon:', error);
+        }
+      }
+    };
+
+    window.addEventListener('beforeunload', beforeUnloadHandlerRef.current);
+  };
+
+  const removePageUnloadHandler = () => {
+    if (beforeUnloadHandlerRef.current) {
+      window.removeEventListener('beforeunload', beforeUnloadHandlerRef.current);
+      beforeUnloadHandlerRef.current = null;
+    }
+  };
+
   const startTimerComplianceWrapped = async () => {
-    if (!sessionTimer.isActive && !breakManager.isOnBreak && !sessionTimer.isLockedOut && user && courseId) {
-      try {
-        const now = new Date().toISOString();
-        const session = {
-          startTime: now,
-          courseId,
-          lessonId: lessonId || null,
-          ipAddress,
-          lessonsAccessed: lessonId ? [lessonId] : [],
-          videoProgress: null
-        };
+    if (sessionCreationPromiseRef.current) {
+      await sessionCreationPromiseRef.current;
+      return;
+    }
+
+    if (!sessionTimer.isActive && !breakManager.isOnBreak && !sessionTimer.isLockedOut && !sessionData.currentSessionId && user && courseId) {
+      sessionCreationPromiseRef.current = (async () => {
+        try {
+          const now = new Date().toISOString();
+          const session = {
+            startTime: now,
+            courseId,
+            lessonId: lessonId || null,
+            ipAddress,
+            lessonsAccessed: lessonId ? [lessonId] : [],
+            videoProgress: null
+          };
         
         const sessionId = await createComplianceSession(user.uid, courseId, {
           ipAddress,
@@ -132,10 +196,19 @@ export const TimerProvider = ({ children, courseId, lessonId, ipAddress }) => {
         
         sessionTimer.startTimer();
         sessionData.createSession(sessionId, session);
-        setLastActivityTime(Date.now());
-      } catch (err) {
-        console.error('Error starting timer:', err);
-      }
+        
+        startHeartbeat(sessionId);
+        setupPageUnloadHandler(sessionId);
+        
+          setLastActivityTime(Date.now());
+        } catch (err) {
+          console.error('Error starting timer:', err);
+        } finally {
+          sessionCreationPromiseRef.current = null;
+        }
+      })();
+
+      await sessionCreationPromiseRef.current;
     }
   };
 
@@ -157,6 +230,9 @@ export const TimerProvider = ({ children, courseId, lessonId, ipAddress }) => {
 
   const stopTimerComplianceWrapped = async () => {
     if (sessionTimer.isActive && sessionData.currentSessionId && user && courseId) {
+      stopHeartbeat();
+      removePageUnloadHandler();
+      
       try {
         const timerData = {
           duration: sessionTimer.sessionTime,
@@ -165,7 +241,7 @@ export const TimerProvider = ({ children, courseId, lessonId, ipAddress }) => {
           breaks: breakManager.breakHistory
         };
 
-        await closeComplianceSession(sessionData.currentSessionId, timerData);
+        await closeComplianceSession(user.uid, sessionData.currentSessionId, timerData);
       } catch (err) {
         console.error('Error stopping timer:', err);
       }
@@ -175,6 +251,7 @@ export const TimerProvider = ({ children, courseId, lessonId, ipAddress }) => {
     sessionData.closeSession();
     setVideoProgress(null);
     setBreakTime(0);
+
   };
 
   const resetSessionTimer = () => {
@@ -183,9 +260,9 @@ export const TimerProvider = ({ children, courseId, lessonId, ipAddress }) => {
   };
 
   const startBreakComplianceWrapped = async (duration = APP_CONFIG.BREAK_INTERVALS?.SHORT_BREAK || 600) => {
-    if (sessionData.currentSessionId) {
+    if (sessionData.currentSessionId && user) {
       try {
-        await logBreak(sessionData.currentSessionId, {
+        await logBreak(user.uid, sessionData.currentSessionId, {
           duration,
           type: 'mandatory',
           startTime: new Date().toISOString()
@@ -215,7 +292,7 @@ export const TimerProvider = ({ children, courseId, lessonId, ipAddress }) => {
       }
 
       if (sessionData.currentSessionId) {
-        await logBreakEnd(sessionData.currentSessionId, breakDuration);
+        await logBreakEnd(user.uid, sessionData.currentSessionId, breakDuration);
       }
 
       breakManager.endBreak();

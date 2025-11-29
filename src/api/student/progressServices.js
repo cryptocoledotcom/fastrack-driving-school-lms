@@ -7,18 +7,18 @@ import {
   getDoc, 
   getDocs,
   updateDoc,
-  setDoc
+  setDoc,
+  writeBatch,
+  serverTimestamp,
+  increment,
+  arrayUnion
 } from 'firebase/firestore';
 import { db } from '../../config/firebase';
-import {
-  logLessonCompletion,
-  logModuleCompletion
-} from '../compliance/complianceServices';
 import { executeService } from '../base/ServiceWrapper';
 import { ValidationError } from '../errors/ApiError';
 import { validateUserId, validateCourseId, validateLessonId, validateModuleId } from '../validators/validators';
 
-// Reference to user's main progress document
+// Reference to user's progress document
 // Path: users/{userId}/userProgress/progress
 const getUserProgressRef = (userId) => {
   return doc(db, 'users', userId, 'userProgress', 'progress');
@@ -48,8 +48,8 @@ export const initializeProgress = async (userId, courseId, totalLessons = 0) => 
         totalLessons: totalLessons,
         lessonProgress: {},
         moduleProgress: {},
-        lastAccessedAt: new Date().toISOString(),
-        createdAt: new Date().toISOString(),
+        lastAccessedAt: serverTimestamp(),
+        createdAt: serverTimestamp(),
         enrolled: true
       };
 
@@ -60,7 +60,7 @@ export const initializeProgress = async (userId, courseId, totalLessons = 0) => 
     } else {
       const updatedProgress = {
         ...existingData[courseId],
-        lastAccessedAt: new Date().toISOString()
+        lastAccessedAt: serverTimestamp()
       };
       
       await updateDoc(progressRef, {
@@ -110,312 +110,287 @@ export const saveProgress = async (userId, courseId, progressData) => {
   return executeService(async () => {
     validateUserId(userId);
     validateCourseId(courseId);
-    
     if (!progressData || typeof progressData !== 'object') {
-      throw new ValidationError('Progress data must be a valid object');
+      throw new ValidationError('progressData must be a non-empty object');
     }
-    
+
     const progressRef = getUserProgressRef(userId);
-    const timestampedData = {
-      ...progressData,
-      updatedAt: new Date().toISOString()
+    const updateData = {
+      [courseId]: progressData,
+      lastModified: serverTimestamp()
     };
 
-    await updateDoc(progressRef, {
-      [courseId]: timestampedData
-    });
-    return timestampedData;
+    await updateDoc(progressRef, updateData);
+    return progressData;
   }, 'saveProgress');
 };
 
-// Update specific progress fields for a course
+// Update specific fields in user progress
 export const updateProgress = async (userId, courseId, updates) => {
   return executeService(async () => {
     validateUserId(userId);
     validateCourseId(courseId);
-    if (typeof updates !== 'object' || !updates) {
-      throw new ValidationError('Updates must be a valid object');
+    if (!updates || typeof updates !== 'object') {
+      throw new ValidationError('updates must be a non-empty object');
     }
-    
+
     const progressRef = getUserProgressRef(userId);
-    
-    const currentProgress = await getProgress(userId, courseId);
-    const mergedProgress = { 
-      ...currentProgress, 
-      ...updates,
-      updatedAt: new Date().toISOString()
-    };
-    
-    await updateDoc(progressRef, {
-      [courseId]: mergedProgress
-    });
-    return mergedProgress;
+    const updateData = {};
+
+    for (const [key, value] of Object.entries(updates)) {
+      updateData[`${courseId}.${key}`] = value;
+    }
+    updateData['lastModified'] = serverTimestamp();
+
+    await updateDoc(progressRef, updateData);
+    return updates;
   }, 'updateProgress');
 };
 
-// Mark lesson as complete
+// Mark a single lesson as complete (without compliance)
 export const markLessonComplete = async (userId, courseId, lessonId) => {
   return executeService(async () => {
     validateUserId(userId);
     validateCourseId(courseId);
     validateLessonId(lessonId);
-    
-    const progress = await getProgress(userId, courseId);
-    const lessonProgress = progress.lessonProgress || {};
-    const now = new Date().toISOString();
-    
-    lessonProgress[lessonId] = {
-      completed: true,
-      completedAt: now,
-      attempts: (lessonProgress[lessonId]?.attempts || 0) + 1
-    };
-    
-    const completedLessons = Object.keys(lessonProgress).filter(
-      id => lessonProgress[id].completed
-    ).length;
-    
-    const overallProgress = progress.totalLessons > 0 
-      ? Math.round((completedLessons / (progress.totalLessons || 1)) * 100)
-      : 0;
-    
+
     return await saveProgress(userId, courseId, {
-      lessonProgress,
-      completedLessons,
-      overallProgress,
-      lastAccessedAt: now
+      lessonProgress: {
+        [lessonId]: {
+          completed: true,
+          completedAt: serverTimestamp(),
+          attempts: 1
+        }
+      }
     });
   }, 'markLessonComplete');
 };
 
-// Mark lesson as complete with compliance logging
+// Mark lesson complete WITH compliance tracking (atomic batch)
+// PHASE 1 - Issue #1: Atomic batch transaction
 export const markLessonCompleteWithCompliance = async (
   userId,
   courseId,
   lessonId,
-  complianceData = {}
+  complianceData
 ) => {
   return executeService(async () => {
     validateUserId(userId);
     validateCourseId(courseId);
     validateLessonId(lessonId);
-    if (typeof complianceData !== 'object' || complianceData === null) {
-      throw new ValidationError('Compliance data must be an object');
+
+    if (!complianceData || typeof complianceData !== 'object') {
+      throw new ValidationError('complianceData must be a non-empty object');
     }
+
+    if (!complianceData.sessionId) {
+      throw new ValidationError('complianceData.sessionId is required');
+    }
+
+    // Get current progress to calculate new overall progress
+    const progressRef = getUserProgressRef(userId);
+    const progressDoc = await getDoc(progressRef);
+    const progress = progressDoc.exists() ? progressDoc.data()[courseId] || {} : {};
+    const lessonProgress = { ...progress.lessonProgress } || {};
     
-    const progress = await getProgress(userId, courseId);
-    const lessonProgress = progress.lessonProgress || {};
-    const now = new Date().toISOString();
-    
+    // Mark lesson as completed
     lessonProgress[lessonId] = {
       completed: true,
-      completedAt: now,
+      completedAt: serverTimestamp(),
       attempts: (lessonProgress[lessonId]?.attempts || 0) + 1
     };
     
+    // Calculate new overall progress
     const completedLessons = Object.keys(lessonProgress).filter(
       id => lessonProgress[id].completed
     ).length;
-    
-    const overallProgress = progress.totalLessons > 0 
-      ? Math.round((completedLessons / (progress.totalLessons || 1)) * 100)
+    const overallProgress = progress.totalLessons > 0
+      ? Math.round((completedLessons / progress.totalLessons) * 100)
       : 0;
+
+    // CREATE ATOMIC BATCH TRANSACTION
+    const batch = writeBatch(db);
     
-    const progressResult = await saveProgress(userId, courseId, {
-      lessonProgress,
+    // Update 1: Progress document
+    batch.update(progressRef, {
+      [`${courseId}.lessonProgress.${lessonId}.completed`]: true,
+      [`${courseId}.lessonProgress.${lessonId}.completedAt`]: serverTimestamp(),
+      [`${courseId}.lessonProgress.${lessonId}.attempts`]: increment(1),
+      [`${courseId}.completedLessons`]: increment(1),
+      [`${courseId}.overallProgress`]: overallProgress,
+      [`${courseId}.lastModified`]: serverTimestamp()
+    });
+    
+    // Update 2: Compliance session - append to completionEvents array (SUBCOLLECTION)
+    const sessionRef = doc(db, 'users', userId, 'sessions', complianceData.sessionId);
+    batch.update(sessionRef, {
+      completionEvents: arrayUnion({
+        type: 'lesson_completion',
+        lessonId,
+        lessonTitle: complianceData.lessonTitle,
+        moduleId: complianceData.moduleId,
+        moduleTitle: complianceData.moduleTitle,
+        sessionTime: complianceData.sessionTime,
+        videoProgress: complianceData.videoProgress || null,
+        completedAt: serverTimestamp(),
+        timestamp: serverTimestamp()
+      })
+    });
+    
+    // ATOMIC COMMIT: Both succeed or both fail
+    await batch.commit();
+
+    return {
+      lessonId,
       completedLessons,
       overallProgress,
-      lastAccessedAt: now
-    });
-
-    if (complianceData.sessionId) {
-      try {
-        await logLessonCompletion(complianceData.sessionId, {
-          lessonId,
-          lessonTitle: complianceData.lessonTitle,
-          moduleId: complianceData.moduleId,
-          moduleTitle: complianceData.moduleTitle,
-          sessionTime: complianceData.sessionTime || 0,
-          videoProgress: complianceData.videoProgress || null
-        });
-      } catch (complianceError) {
-        // Suppress compliance error - progress still saved
-      }
-    }
-
-    return progressResult;
+      sessionTime: complianceData.sessionTime
+    };
   }, 'markLessonCompleteWithCompliance');
 };
 
-// Mark module as complete
+// Mark module as complete (without compliance)
 export const markModuleComplete = async (userId, courseId, moduleId) => {
   return executeService(async () => {
     validateUserId(userId);
     validateCourseId(courseId);
     validateModuleId(moduleId);
-    
-    const progress = await getProgress(userId, courseId);
-    const moduleProgress = progress.moduleProgress || {};
-    
-    moduleProgress[moduleId] = {
-      completed: true,
-      completedAt: new Date().toISOString()
-    };
-    
-    const completedModules = Object.keys(moduleProgress).filter(
-      id => moduleProgress[id].completed
-    ).length;
-    
+
     return await saveProgress(userId, courseId, {
-      moduleProgress,
-      completedModules,
-      lastAccessedAt: new Date().toISOString()
+      moduleProgress: {
+        [moduleId]: {
+          completed: true,
+          completedAt: serverTimestamp()
+        }
+      }
     });
   }, 'markModuleComplete');
 };
 
-// Mark module as complete with compliance logging
+// Mark module complete WITH compliance tracking (atomic batch)
+// PHASE 1 - Issue #1: Atomic batch transaction
 export const markModuleCompleteWithCompliance = async (
   userId,
   courseId,
   moduleId,
-  complianceData = {}
+  complianceData
 ) => {
   return executeService(async () => {
     validateUserId(userId);
     validateCourseId(courseId);
     validateModuleId(moduleId);
-    if (typeof complianceData !== 'object' || complianceData === null) {
-      throw new ValidationError('Compliance data must be an object');
+
+    if (!complianceData || typeof complianceData !== 'object') {
+      throw new ValidationError('complianceData must be a non-empty object');
     }
+
+    if (!complianceData.sessionId) {
+      throw new ValidationError('complianceData.sessionId is required');
+    }
+
+    // Get current progress
+    const progressRef = getUserProgressRef(userId);
+    const progressDoc = await getDoc(progressRef);
+    const progress = progressDoc.exists() ? progressDoc.data()[courseId] || {} : {};
+
+    // CREATE ATOMIC BATCH TRANSACTION
+    const batch = writeBatch(db);
     
-    const progress = await getProgress(userId, courseId);
-    const moduleProgress = progress.moduleProgress || {};
-    
-    moduleProgress[moduleId] = {
-      completed: true,
-      completedAt: new Date().toISOString()
-    };
-    
-    const completedModules = Object.keys(moduleProgress).filter(
-      id => moduleProgress[id].completed
-    ).length;
-    
-    const progressResult = await saveProgress(userId, courseId, {
-      moduleProgress,
-      completedModules,
-      lastAccessedAt: new Date().toISOString()
+    // Update 1: Progress document
+    batch.update(progressRef, {
+      [`${courseId}.moduleProgress.${moduleId}.completed`]: true,
+      [`${courseId}.moduleProgress.${moduleId}.completedAt`]: serverTimestamp(),
+      [`${courseId}.lastModified`]: serverTimestamp()
     });
+    
+    // Update 2: Compliance session - append to completionEvents array (SUBCOLLECTION)
+    const sessionRef = doc(db, 'users', userId, 'sessions', complianceData.sessionId);
+    batch.update(sessionRef, {
+      completionEvents: arrayUnion({
+        type: 'module_completion',
+        moduleId,
+        moduleTitle: complianceData.moduleTitle,
+        sessionTime: complianceData.sessionTime,
+        completedAt: serverTimestamp(),
+        timestamp: serverTimestamp()
+      })
+    });
+    
+    // ATOMIC COMMIT
+    await batch.commit();
 
-    if (complianceData.sessionId) {
-      try {
-        await logModuleCompletion(complianceData.sessionId, {
-          moduleId,
-          moduleTitle: complianceData.moduleTitle,
-          lessonsCompleted: complianceData.lessonsCompleted || 0,
-          sessionTime: complianceData.sessionTime || 0
-        });
-      } catch (complianceError) {
-        // Suppress compliance error - progress still saved
-      }
-    }
-
-    return progressResult;
+    return {
+      moduleId,
+      sessionTime: complianceData.sessionTime
+    };
   }, 'markModuleCompleteWithCompliance');
 };
 
-// Note: enrollInCourse and getUserEnrolledCourses have been moved to enrollmentServices.js
-// to maintain clear separation between enrollment management and progress tracking
-
-// Update lesson progress (for video watching, quiz attempts, etc.)
+// Update progress for a lesson
 export const updateLessonProgress = async (userId, courseId, lessonId, progressData) => {
   return executeService(async () => {
     validateUserId(userId);
     validateCourseId(courseId);
     validateLessonId(lessonId);
-    if (typeof progressData !== 'object' || !progressData) {
-      throw new ValidationError('Progress data must be a valid object');
+    if (!progressData || typeof progressData !== 'object') {
+      throw new ValidationError('progressData must be a non-empty object');
     }
-    
-    const progress = await getProgress(userId, courseId);
-    const lessonProgress = progress.lessonProgress || {};
-    
-    lessonProgress[lessonId] = {
-      ...lessonProgress[lessonId],
-      ...progressData,
-      lastAccessedAt: new Date().toISOString()
-    };
-    
-    return await saveProgress(userId, courseId, {
-      lessonProgress,
-      lastAccessedAt: new Date().toISOString()
-    });
+
+    const progressRef = getUserProgressRef(userId);
+    const updateData = {};
+
+    for (const [key, value] of Object.entries(progressData)) {
+      updateData[`${courseId}.lessonProgress.${lessonId}.${key}`] = value;
+    }
+    updateData[`${courseId}.lastModified`] = serverTimestamp();
+
+    await updateDoc(progressRef, updateData);
+    return progressData;
   }, 'updateLessonProgress');
 };
 
-// Get user's overall statistics
+// Get user stats across all courses
 export const getUserStats = async (userId) => {
   return executeService(async () => {
     validateUserId(userId);
-    
-    const enrollmentsRef = collection(db, 'users', userId, 'courses');
-    const enrollmentsSnapshot = await getDocs(enrollmentsRef);
 
-    if (enrollmentsSnapshot.empty) {
+    const progressRef = getUserProgressRef(userId);
+    const progressDoc = await getDoc(progressRef);
+
+    if (!progressDoc.exists()) {
       return {
-        enrolledCourses: 0,
-        completedCourses: 0,
-        inProgressCourses: 0,
-        completionRate: 0
+        totalCoursesEnrolled: 0,
+        totalLessonsCompleted: 0,
+        averageProgress: 0
       };
     }
 
-    const enrollments = enrollmentsSnapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    }));
+    const data = progressDoc.data();
+    let totalCoursesEnrolled = 0;
+    let totalLessonsCompleted = 0;
+    let totalProgress = 0;
 
-    let enrolledCourses = 0;
-    let completedCourses = 0;
-    let inProgressCourses = 0;
-    
-    try {
-      const progressRef = getUserProgressRef(userId);
-      const progressDoc = await getDoc(progressRef);
-      const progressData = progressDoc.exists() ? progressDoc.data() : {};
-
-      for (const enrollment of enrollments) {
-        if (!enrollment.isComponentOfBundle) {
-          enrolledCourses++;
-          
-          const courseProgress = progressData[enrollment.id];
-          
-          if (courseProgress) {
-            const overallProgress = courseProgress.overallProgress || 0;
-            
-            if (overallProgress === 100) {
-              completedCourses++;
-            } else if (overallProgress > 0) {
-              inProgressCourses++;
-            }
-          }
-        }
+    for (const courseId in data) {
+      if (data[courseId].enrolled) {
+        totalCoursesEnrolled++;
+        totalLessonsCompleted += data[courseId].completedLessons || 0;
+        totalProgress += data[courseId].overallProgress || 0;
       }
-    } catch (err) {
-      // Progress data fetch error - continue with available data
     }
-    
+
+    const averageProgress = totalCoursesEnrolled > 0 
+      ? Math.round(totalProgress / totalCoursesEnrolled) 
+      : 0;
+
     return {
-      enrolledCourses,
-      completedCourses,
-      inProgressCourses,
-      completionRate: enrolledCourses > 0 
-        ? Math.round((completedCourses / enrolledCourses) * 100)
-        : 0
+      totalCoursesEnrolled,
+      totalLessonsCompleted,
+      averageProgress
     };
   }, 'getUserStats');
 };
 
-const progressServices = {
+export default {
   initializeProgress,
   getProgress,
   saveProgress,
@@ -427,5 +402,3 @@ const progressServices = {
   updateLessonProgress,
   getUserStats
 };
-
-export default progressServices;

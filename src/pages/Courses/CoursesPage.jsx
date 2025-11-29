@@ -103,12 +103,17 @@ const CoursesPage = () => {
       const enrollmentServicesModule = await import('../../api/enrollment/enrollmentServices');
       const enrollmentSvc = enrollmentServicesModule.default;
       
-      // For Complete Package, check if split payment
-      if (paymentData.courseId === COURSE_IDS.COMPLETE && paymentData.paymentOption === 'split') {
-        // Split payment: $99.99 now, remaining $450 after certificate
-        await enrollmentSvc.createPaidCompletePackageSplit(user.uid, paymentData.amount, userProfile?.email);
+      // For Complete Package
+      if (paymentData.courseId === COURSE_IDS.COMPLETE) {
+        if (paymentData.paymentOption === 'split') {
+          // Split payment: $99.99 now, remaining $450 after certificate
+          await enrollmentSvc.createPaidCompletePackageSplit(user.uid, paymentData.amount, userProfile?.email);
+        } else {
+          // Full payment: Creates all 3 enrollments (complete + online + behind-the-wheel)
+          await enrollmentSvc.createPaidCompletePackageEnrollment(user.uid, paymentData.amount, userProfile?.email);
+        }
       } else {
-        // Single payment (or other courses)
+        // Single payment for individual courses
         await enrollmentSvc.createPaidEnrollment(user.uid, paymentData.courseId, paymentData.amount, userProfile?.email);
       }
 
