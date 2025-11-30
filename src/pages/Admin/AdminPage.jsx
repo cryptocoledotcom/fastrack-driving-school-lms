@@ -85,8 +85,8 @@ const AdminPage = () => {
   };
 
   const filteredUsers = users.filter(user =>
-    user.email.toLowerCase().includes(searchEmail.toLowerCase()) ||
-    user.displayName.toLowerCase().includes(searchEmail.toLowerCase())
+    (user.email && user.email.toLowerCase().includes(searchEmail.toLowerCase())) ||
+    (user.displayName && user.displayName.toLowerCase().includes(searchEmail.toLowerCase()))
   );
 
   const getCourseName = (courseId) => {
@@ -203,9 +203,9 @@ const AdminPage = () => {
                       >
                         <div className={styles.userInfo}>
                           <h3 className={styles.userName}>{user.displayName || 'No Name'}</h3>
-                          <p className={styles.userEmail}>{user.email}</p>
+                          <p className={styles.userEmail}>{user.email || 'No Email'}</p>
                           <p className={styles.enrollmentCount}>
-                            {user.enrollments.length} enrollment{user.enrollments.length !== 1 ? 's' : ''}
+                            {(user.enrollments || []).length} enrollment{(user.enrollments || []).length !== 1 ? 's' : ''}
                           </p>
                         </div>
                         <span className={`${styles.expandIcon} ${expandedUser === user.userId ? styles.expanded : ''}`}>
@@ -216,7 +216,7 @@ const AdminPage = () => {
                       {expandedUser === user.userId && (
                         <div className={styles.userDetails}>
                           <div className={styles.enrollmentsTable}>
-                            {user.enrollments.map((enrollment) => (
+                            {(user.enrollments || []).map((enrollment) => (
                               <div key={enrollment.id} className={styles.enrollmentRow}>
                                 <div className={styles.enrollmentInfo}>
                                   <div className={styles.courseName}>
@@ -291,14 +291,14 @@ const AdminPage = () => {
                 <div className={styles.statCard}>
                   <div className={styles.statLabel}>Total Enrollments</div>
                   <div className={styles.statValue}>
-                    {filteredUsers.reduce((sum, user) => sum + user.enrollments.length, 0)}
+                    {filteredUsers.reduce((sum, user) => sum + (user.enrollments || []).length, 0)}
                   </div>
                 </div>
                 <div className={styles.statCard}>
                   <div className={styles.statLabel}>Active Enrollments</div>
                   <div className={styles.statValue}>
                     {filteredUsers.reduce((sum, user) => 
-                      sum + user.enrollments.filter(e => e.status === 'active').length, 0
+                      sum + (user.enrollments || []).filter(e => e.status === 'active').length, 0
                     )}
                   </div>
                 </div>
@@ -306,7 +306,7 @@ const AdminPage = () => {
                   <div className={styles.statLabel}>Pending Payment</div>
                   <div className={styles.statValue}>
                     {filteredUsers.reduce((sum, user) => 
-                      sum + user.enrollments.filter(e => e.status === 'pending_payment').length, 0
+                      sum + (user.enrollments || []).filter(e => e.status === 'pending_payment').length, 0
                     )}
                   </div>
                 </div>
@@ -317,7 +317,7 @@ const AdminPage = () => {
                 <div className={styles.courseStats}>
                   {[COURSE_IDS.ONLINE, COURSE_IDS.BEHIND_WHEEL, COURSE_IDS.COMPLETE].map(courseId => {
                     const count = filteredUsers.reduce((sum, user) => 
-                      sum + user.enrollments.filter(e => e.courseId === courseId).length, 0
+                      sum + (user.enrollments || []).filter(e => e.courseId === courseId).length, 0
                     );
                     return (
                       <div key={courseId} className={styles.courseStat}>
