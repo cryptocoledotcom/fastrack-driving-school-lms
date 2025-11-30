@@ -29,6 +29,7 @@ docs/
 │   └── PRODUCTION_CHECKLIST.md       Production readiness & go-live
 │
 ├── setup/                           Initial setup & reference
+│   ├── PROJECT_STRUCTURE.md         Complete file & folder reference
 │   ├── SETUP_GUIDE.md               Project setup instructions
 │   ├── ARCHITECTURE.md              System design overview
 │   └── COMMANDS.md                  Useful commands

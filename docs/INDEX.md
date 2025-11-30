@@ -26,6 +26,7 @@
 ---
 
 ## 📚 Setup & Architecture
+- **[Project Structure](./setup/PROJECT_STRUCTURE.md)** — Complete reference of all files and folders
 - **[Setup Guide](./setup/SETUP_GUIDE.md)** — Initial project setup
 - **[Architecture](./setup/ARCHITECTURE.md)** — System design overview
 - **[Commands Reference](./setup/COMMANDS.md)** — Useful npm scripts & CLI commands
