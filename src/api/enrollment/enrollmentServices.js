@@ -1,4 +1,4 @@
-import { doc, serverTimestamp, writeBatch } from 'firebase/firestore';
+import { doc, serverTimestamp, writeBatch, increment } from 'firebase/firestore';
 import { db } from '../../config/firebase.js';
 import { EnrollmentError, ValidationError } from '../errors/ApiError.js';
 import ServiceBase from '../base/ServiceBase.js';
@@ -222,27 +222,36 @@ class EnrollmentService extends ServiceBase {
         throw new EnrollmentError('Enrollment not found', courseId);
       }
 
-      const currentAmountPaid = Number(enrollment.amountPaid || 0);
-      const currentAmountDue = Number(enrollment.amountDue || 0);
-      const newAmountPaid = currentAmountPaid + Number(paymentAmount);
-      const newAmountDue = Math.max(0, currentAmountDue - Number(paymentAmount));
+      const amountPaid = Number(paymentAmount);
+      const amountDue = Math.max(0, Number(enrollment.amountDue || 0) - amountPaid);
+
+      const batch = writeBatch(db);
+      const enrollmentRef = doc(db, `users/${userId}/courses`, courseId);
 
       const updates = {
-        amountPaid: newAmountPaid,
-        amountDue: newAmountDue,
-        paymentStatus: newAmountDue === 0 ? PAYMENT_STATUS.COMPLETED : PAYMENT_STATUS.PARTIAL,
-        accessStatus: newAmountDue === 0 ? ACCESS_STATUS.UNLOCKED : ACCESS_STATUS.LOCKED,
+        amountPaid: increment(amountPaid),
+        amountDue: increment(-amountPaid),
+        paymentStatus: amountDue === 0 ? PAYMENT_STATUS.COMPLETED : PAYMENT_STATUS.PARTIAL,
+        accessStatus: amountDue === 0 ? ACCESS_STATUS.UNLOCKED : ACCESS_STATUS.LOCKED,
         updatedAt: serverTimestamp()
       };
 
-      if (newAmountDue === 0) {
+      if (amountDue === 0) {
         updates.status = ENROLLMENT_STATUS.ACTIVE;
       }
 
-      await this.updateDoc(`users/${userId}/courses`, courseId, updates);
+      batch.update(enrollmentRef, updates);
+      await batch.commit();
+
       this.log(`Updated enrollment after payment: user ${userId}, course ${courseId}, amount ${paymentAmount}`);
       
-      return updates;
+      return {
+        amountPaid,
+        amountDue,
+        paymentStatus: updates.paymentStatus,
+        accessStatus: updates.accessStatus,
+        status: updates.status || enrollment.status
+      };
     } catch (error) {
       this.logError(error, { method: 'updateEnrollmentAfterPayment', userId, courseId });
       throw error;
@@ -631,25 +640,36 @@ class EnrollmentService extends ServiceBase {
         throw new EnrollmentError('Enrollment not found', courseId);
       }
 
-      const newAmountPaid = Number(enrollment.amountPaid || 0) + Number(amountPaid);
-      const newAmountDue = Math.max(0, Number(enrollment.amountDue || 0) - Number(amountPaid));
+      const amount = Number(amountPaid);
+      const amountDue = Math.max(0, Number(enrollment.amountDue || 0) - amount);
+
+      const batch = writeBatch(db);
+      const enrollmentRef = doc(db, `users/${userId}/courses`, courseId);
 
       const updates = {
-        amountPaid: newAmountPaid,
-        amountDue: newAmountDue,
-        paymentStatus: newAmountDue === 0 ? PAYMENT_STATUS.COMPLETED : PAYMENT_STATUS.PARTIAL,
-        accessStatus: newAmountDue === 0 ? ACCESS_STATUS.UNLOCKED : ACCESS_STATUS.LOCKED,
+        amountPaid: increment(amount),
+        amountDue: increment(-amount),
+        paymentStatus: amountDue === 0 ? PAYMENT_STATUS.COMPLETED : PAYMENT_STATUS.PARTIAL,
+        accessStatus: amountDue === 0 ? ACCESS_STATUS.UNLOCKED : ACCESS_STATUS.LOCKED,
         updatedAt: serverTimestamp()
       };
 
-      if (newAmountDue === 0) {
+      if (amountDue === 0) {
         updates.status = ENROLLMENT_STATUS.ACTIVE;
       }
 
-      await this.updateDoc(`users/${userId}/courses`, courseId, updates);
+      batch.update(enrollmentRef, updates);
+      await batch.commit();
+
       this.log(`Paid remaining balance for user ${userId}, course ${courseId}, amount ${amountPaid}`);
       
-      return updates;
+      return {
+        amountPaid: amount,
+        amountDue,
+        paymentStatus: updates.paymentStatus,
+        accessStatus: updates.accessStatus,
+        status: updates.status || enrollment.status
+      };
     } catch (error) {
       this.logError(error, { method: 'payRemainingBalance', userId, courseId });
       throw error;
