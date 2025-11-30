@@ -17,6 +17,9 @@
 - **[Load Testing Guide](./testing/LOAD_TEST_GUIDE.md)** — Concurrent payment verification
 - **[Atomic Operations Reference](./testing/ATOMIC_OPERATIONS_REFERENCE.md)** — Race condition fixes explained
 
+## 🛠️ Active Development
+- **[Admin Panel TODO](./ADMIN_PANEL_TODO.md)** — Comprehensive audit & roadmap for admin features
+
 ---
 
 ## 🚀 Deployment
