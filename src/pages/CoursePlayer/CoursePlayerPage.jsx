@@ -28,9 +28,9 @@ const CoursePlayerPageContent = () => {
     startTimer,
     stopTimer,
     pauseTimer,
-    resumeTimer,
+    sessionTerminatedByUser,
+
     isActive,
-    isPaused,
     isLockedOut,
     isBreakMandatory,
     getFormattedSessionTime,
@@ -78,6 +78,12 @@ const CoursePlayerPageContent = () => {
       pauseTimer();
     }
   }, [isBreakMandatory, isActive, pauseTimer]);
+
+  useEffect(() => {
+    if (sessionTerminatedByUser) {
+      navigate('/dashboard');
+    }
+  }, [sessionTerminatedByUser, navigate]);
 
   useEffect(() => {
     loadCourseData();
@@ -365,16 +371,7 @@ const CoursePlayerPageContent = () => {
           <div className={styles.timer}>
             ⏱️ {getFormattedSessionTime()}
           </div>
-          {isActive && !isPaused && (
-            <Button variant="outline" size="small" onClick={pauseTimer}>
-              Pause Timer
-            </Button>
-          )}
-          {isPaused && (
-            <Button variant="outline" size="small" onClick={resumeTimer}>
-              Resume Timer
-            </Button>
-          )}
+
         </div>
       </div>
 
