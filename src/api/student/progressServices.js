@@ -2,10 +2,8 @@
 // User progress tracking operations
 
 import {
-  collection,
   doc, 
   getDoc, 
-  getDocs,
   updateDoc,
   setDoc,
   writeBatch,
@@ -290,8 +288,6 @@ export const markModuleCompleteWithCompliance = async (
 
     // Get current progress
     const progressRef = getUserProgressRef(userId);
-    const progressDoc = await getDoc(progressRef);
-    const progress = progressDoc.exists() ? progressDoc.data()[courseId] || {} : {};
 
     // CREATE ATOMIC BATCH TRANSACTION
     const batch = writeBatch(db);
@@ -390,7 +386,7 @@ export const getUserStats = async (userId) => {
   }, 'getUserStats');
 };
 
-export default {
+const progressServices = {
   initializeProgress,
   getProgress,
   saveProgress,
@@ -402,3 +398,5 @@ export default {
   updateLessonProgress,
   getUserStats
 };
+
+export default progressServices;

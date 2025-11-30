@@ -44,6 +44,7 @@ firestore-debug.log
 
 # Firebase service account keys
 *adminsdk*.json
+serviceAccountKey.json
 
 # .mp4 Videos
 public/assets/videos/*.mp4

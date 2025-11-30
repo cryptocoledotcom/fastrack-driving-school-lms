@@ -8,8 +8,7 @@ import {
   query,
   where,
   serverTimestamp,
-  arrayUnion,
-  writeBatch
+  arrayUnion
 } from 'firebase/firestore';
 import { db } from '../../config/firebase';
 import { executeService } from '../base/ServiceWrapper';
@@ -113,8 +112,6 @@ export const getDailyTime = async (userId, courseId) => {
 
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    const todayISO = today.toISOString();
-
     const sessionsRef = getSessionsRef(userId);
     const q = query(
       sessionsRef,
@@ -383,7 +380,7 @@ export const handleOrphanedSessions = async (userId, courseId) => {
   }, 'handleOrphanedSessions');
 };
 
-export default {
+const complianceServices = {
   createComplianceSession,
   updateComplianceSession,
   closeComplianceSession,
@@ -398,3 +395,5 @@ export default {
   getTotalSessionTimeInMinutes,
   handleOrphanedSessions
 };
+
+export default complianceServices;
