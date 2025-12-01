@@ -29,6 +29,9 @@ const SchedulingManagement = () => {
   const [selectedSlotForAssignment, setSelectedSlotForAssignment] = useState(null);
   const [selectedStudentId, setSelectedStudentId] = useState('');
   const [assigningSlot, setAssigningSlot] = useState(false);
+  const [submittingForm, setSubmittingForm] = useState(false);
+  const [deletingSlot, setDeletingSlot] = useState({});
+  const [unassigningSlot, setUnassigningSlot] = useState({});
   const [formData, setFormData] = useState({
     date: '',
     startTime: '',
@@ -101,6 +104,7 @@ const SchedulingManagement = () => {
     e.preventDefault();
     setError('');
     setSuccess('');
+    setSubmittingForm(true);
 
     try {
       if (editingSlot) {
@@ -117,6 +121,8 @@ const SchedulingManagement = () => {
     } catch (err) {
       console.error('Error saving time slot:', err);
       setError(err.message || 'Failed to save time slot');
+    } finally {
+      setSubmittingForm(false);
     }
   };
 
@@ -125,6 +131,7 @@ const SchedulingManagement = () => {
 
     try {
       setError('');
+      setDeletingSlot(prev => ({ ...prev, [slotId]: true }));
       await deleteTimeSlot(slotId);
       setSuccess('Time slot deleted successfully!');
       await loadData();
@@ -132,6 +139,8 @@ const SchedulingManagement = () => {
     } catch (err) {
       console.error('Error deleting time slot:', err);
       setError('Failed to delete time slot');
+    } finally {
+      setDeletingSlot(prev => ({ ...prev, [slotId]: false }));
     }
   };
 
@@ -176,6 +185,7 @@ const SchedulingManagement = () => {
     try {
       setError('');
       setSuccess('');
+      setUnassigningSlot(prev => ({ ...prev, [slot.id]: true }));
       await unassignTimeSlot(slot.id, slot.assignedTo);
       setSuccess('Lesson unassigned successfully!');
       await loadData();
@@ -183,6 +193,8 @@ const SchedulingManagement = () => {
     } catch (err) {
       console.error('Error unassigning slot:', err);
       setError(err.message || 'Failed to unassign lesson');
+    } finally {
+      setUnassigningSlot(prev => ({ ...prev, [slot.id]: false }));
     }
   };
 
@@ -282,10 +294,10 @@ const SchedulingManagement = () => {
             />
 
             <div className={styles.formActions}>
-              <Button type="submit" variant="primary">
-                {editingSlot ? 'Update Slot' : 'Create Slot'}
+              <Button type="submit" variant="primary" loading={submittingForm}>
+                {submittingForm ? 'Saving...' : (editingSlot ? 'Update Slot' : 'Create Slot')}
               </Button>
-              <Button type="button" variant="outline" onClick={handleCancel}>
+              <Button type="button" variant="outline" onClick={handleCancel} disabled={submittingForm}>
                 Cancel
               </Button>
             </div>
@@ -408,6 +420,7 @@ const SchedulingManagement = () => {
                     size="small"
                     onClick={() => handleUnassignSlot(slot)}
                     disabled={showForm || showAssignModal}
+                    loading={unassigningSlot[slot.id]}
                   >
                     Unassign
                   </Button>
@@ -425,6 +438,7 @@ const SchedulingManagement = () => {
                   size="small"
                   onClick={() => handleDeleteSlot(slot.id)}
                   disabled={showForm || showAssignModal}
+                  loading={deletingSlot[slot.id]}
                 >
                   Delete
                 </Button>
