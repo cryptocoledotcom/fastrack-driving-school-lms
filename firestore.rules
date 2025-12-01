@@ -5,13 +5,15 @@ service cloud.firestore {
     // --- User Data Rules ---
     // Users can read and write to their own user document and all sub-collections
     // (like 'courses' for enrollments, 'userProgress', and 'sessions' for compliance).
-    // Admins and instructors can manage student records for assignment purposes.
+    // Only DMV_ADMIN and SUPER_ADMIN can manage student records.
     match /users/{userId} {
-      allow read, write: if request.auth != null && (request.auth.uid == userId || isAdmin() || isInstructor());
+      allow read: if request.auth != null && (request.auth.uid == userId || isAdmin());
+      allow write: if request.auth != null && (request.auth.uid == userId || isSuperAdmin());
     }
     
     match /users/{userId}/{document=**} {
-      allow read, write: if request.auth != null && (request.auth.uid == userId || isAdmin() || isInstructor());
+      allow read: if request.auth != null && (request.auth.uid == userId || isAdmin());
+      allow write: if request.auth != null && (request.auth.uid == userId || isSuperAdmin());
     }
 
     // PHASE 1 - Issue #2: Compliance Sessions (Immutable Subcollection)
@@ -96,6 +98,13 @@ service cloud.firestore {
       allow update, delete: if false;
     }
 
+    // Activity Logs collection for user management audit trail
+    match /activityLogs/{logId} {
+      allow read: if request.auth != null && isSuperAdmin();
+      allow create: if request.auth != null && isSuperAdmin();
+      allow update, delete: if false;
+    }
+
     // Payments collection - users can access their own payments
     match /payments/{paymentId} {
       allow read: if request.auth != null && resource.data.userId == request.auth.uid;
@@ -152,12 +161,18 @@ service cloud.firestore {
 }
 
 // --- Helper Functions ---
-// Note: Role validation is enforced client-side. These functions ensure user is authenticated.
-// Fine-grained role checks use the user document's 'role' field in queries.
+// Role validation is enforced server-side via the user document's 'role' field
 function isAdmin() {
-  return request.auth != null;
+  return request.auth != null && 
+    get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role in ['dmv_admin', 'super_admin'];
+}
+
+function isSuperAdmin() {
+  return request.auth != null && 
+    get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'super_admin';
 }
 
 function isInstructor() {
-  return request.auth != null;
+  return request.auth != null && 
+    get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'instructor';
 }

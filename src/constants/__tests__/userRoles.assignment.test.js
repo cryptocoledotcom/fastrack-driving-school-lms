@@ -11,8 +11,8 @@ describe('User Roles - Admin Assignment Permissions', () => {
       expect(USER_ROLES.SUPER_ADMIN).toBe('super_admin');
     });
 
-    it('should define ADMIN role (DMV)', () => {
-      expect(USER_ROLES.ADMIN).toBe('admin');
+    it('should define DMV_ADMIN role', () => {
+      expect(USER_ROLES.DMV_ADMIN).toBe('dmv_admin');
     });
 
     it('should define STUDENT role', () => {
@@ -26,74 +26,74 @@ describe('User Roles - Admin Assignment Permissions', () => {
 
   describe('DMV Admin Permissions', () => {
     it('should allow DMV admin to view students', () => {
-      expect(hasPermission(USER_ROLES.ADMIN, 'canViewStudents')).toBe(true);
+      expect(hasPermission(USER_ROLES.DMV_ADMIN, 'canViewStudents')).toBe(true);
     });
 
     it('should allow DMV admin to assign lessons', () => {
-      expect(hasPermission(USER_ROLES.ADMIN, 'canAssignLessons')).toBe(true);
+      expect(hasPermission(USER_ROLES.DMV_ADMIN, 'canAssignLessons')).toBe(true);
     });
 
     it('should allow DMV admin to manage lesson slots', () => {
       expect(
-        hasPermission(USER_ROLES.ADMIN, 'canManageLessonSlots')
+        hasPermission(USER_ROLES.DMV_ADMIN, 'canManageLessonSlots')
       ).toBe(true);
     });
 
     it('should allow DMV admin to view compliance data', () => {
-      expect(hasPermission(USER_ROLES.ADMIN, 'canViewComplianceData')).toBe(
+      expect(hasPermission(USER_ROLES.DMV_ADMIN, 'canViewComplianceData')).toBe(
         true
       );
     });
 
     it('should allow DMV admin to export compliance reports', () => {
       expect(
-        hasPermission(USER_ROLES.ADMIN, 'canExportComplianceReports')
+        hasPermission(USER_ROLES.DMV_ADMIN, 'canExportComplianceReports')
       ).toBe(true);
     });
 
     it('should allow DMV admin to generate reports', () => {
-      expect(hasPermission(USER_ROLES.ADMIN, 'canGenerateReports')).toBe(
+      expect(hasPermission(USER_ROLES.DMV_ADMIN, 'canGenerateReports')).toBe(
         true
       );
     });
 
     it('should allow DMV admin to view all progress', () => {
-      expect(hasPermission(USER_ROLES.ADMIN, 'canViewAllProgress')).toBe(
+      expect(hasPermission(USER_ROLES.DMV_ADMIN, 'canViewAllProgress')).toBe(
         true
       );
     });
 
     it('should allow DMV admin to edit profile', () => {
-      expect(hasPermission(USER_ROLES.ADMIN, 'canEditProfile')).toBe(true);
+      expect(hasPermission(USER_ROLES.DMV_ADMIN, 'canEditProfile')).toBe(true);
     });
 
     it('should NOT allow DMV admin to manage users', () => {
-      expect(hasPermission(USER_ROLES.ADMIN, 'canManageUsers')).not.toBe(
+      expect(hasPermission(USER_ROLES.DMV_ADMIN, 'canManageUsers')).not.toBe(
         true
       );
     });
 
     it('should NOT allow DMV admin to manage courses', () => {
-      expect(hasPermission(USER_ROLES.ADMIN, 'canManageCourses')).not.toBe(
+      expect(hasPermission(USER_ROLES.DMV_ADMIN, 'canManageCourses')).not.toBe(
         true
       );
     });
 
     it('should NOT allow DMV admin to enroll courses', () => {
-      expect(hasPermission(USER_ROLES.ADMIN, 'canEnrollCourses')).not.toBe(
+      expect(hasPermission(USER_ROLES.DMV_ADMIN, 'canEnrollCourses')).not.toBe(
         true
       );
     });
 
     it('should NOT allow DMV admin to take lessons', () => {
-      expect(hasPermission(USER_ROLES.ADMIN, 'canTakeLessons')).not.toBe(
+      expect(hasPermission(USER_ROLES.DMV_ADMIN, 'canTakeLessons')).not.toBe(
         true
       );
     });
 
     it('should only have assignment-focused permissions', () => {
-      const adminPerms = ROLE_PERMISSIONS[USER_ROLES.ADMIN];
-      const permCount = Object.values(adminPerms).filter(p => p === true).length;
+      const dmvAdminPerms = ROLE_PERMISSIONS[USER_ROLES.DMV_ADMIN];
+      const permCount = Object.values(dmvAdminPerms).filter(p => p === true).length;
       expect(permCount).toBe(8);
     });
   });
@@ -131,9 +131,9 @@ describe('User Roles - Admin Assignment Permissions', () => {
 
     it('should have all available permissions', () => {
       const superAdminPerms = ROLE_PERMISSIONS[USER_ROLES.SUPER_ADMIN];
-      const adminPerms = ROLE_PERMISSIONS[USER_ROLES.ADMIN];
+      const dmvAdminPerms = ROLE_PERMISSIONS[USER_ROLES.DMV_ADMIN];
 
-      Object.keys(adminPerms).forEach(permission => {
+      Object.keys(dmvAdminPerms).forEach(permission => {
         expect(superAdminPerms[permission]).toBe(true);
       });
     });
@@ -183,16 +183,16 @@ describe('User Roles - Admin Assignment Permissions', () => {
 
   describe('hasRole Function', () => {
     it('should check single role correctly', () => {
-      expect(hasRole(USER_ROLES.ADMIN, USER_ROLES.ADMIN)).toBe(true);
-      expect(hasRole(USER_ROLES.ADMIN, USER_ROLES.SUPER_ADMIN)).toBe(false);
+      expect(hasRole(USER_ROLES.DMV_ADMIN, USER_ROLES.DMV_ADMIN)).toBe(true);
+      expect(hasRole(USER_ROLES.DMV_ADMIN, USER_ROLES.SUPER_ADMIN)).toBe(false);
     });
 
     it('should check multiple roles correctly', () => {
       expect(
-        hasRole(USER_ROLES.ADMIN, [USER_ROLES.ADMIN, USER_ROLES.SUPER_ADMIN])
+        hasRole(USER_ROLES.DMV_ADMIN, [USER_ROLES.DMV_ADMIN, USER_ROLES.SUPER_ADMIN])
       ).toBe(true);
       expect(
-        hasRole(USER_ROLES.ADMIN, [USER_ROLES.STUDENT, USER_ROLES.INSTRUCTOR])
+        hasRole(USER_ROLES.DMV_ADMIN, [USER_ROLES.STUDENT, USER_ROLES.INSTRUCTOR])
       ).toBe(false);
     });
   });

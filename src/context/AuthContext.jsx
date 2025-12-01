@@ -32,6 +32,8 @@ export const AuthProvider = ({ children }) => {
   const [userProfile, setUserProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [requiresPasswordChange, setRequiresPasswordChange] = useState(false);
+  const [showPasswordChangeModal, setShowPasswordChangeModal] = useState(false);
 
   // Apply theme based on preference
   const applyTheme = (isDarkMode) => {
@@ -96,6 +98,15 @@ export const AuthProvider = ({ children }) => {
         
         setUserProfile(profile);
         
+        // Check if user needs to change password
+        if (profile?.requiresPasswordChange) {
+          setRequiresPasswordChange(true);
+          setShowPasswordChangeModal(true);
+        } else {
+          setRequiresPasswordChange(false);
+          setShowPasswordChangeModal(false);
+        }
+        
         // Apply theme from user settings
         const settings = profile?.settings || {
           darkMode: false,
@@ -106,6 +117,8 @@ export const AuthProvider = ({ children }) => {
       } else {
         setUser(null);
         setUserProfile(null);
+        setRequiresPasswordChange(false);
+        setShowPasswordChangeModal(false);
         // Default to light mode for unauthenticated users
         applyTheme(false);
       }
@@ -267,6 +280,9 @@ export const AuthProvider = ({ children }) => {
     userProfile,
     loading,
     error,
+    requiresPasswordChange,
+    showPasswordChangeModal,
+    setShowPasswordChangeModal,
     login,
     register,
     loginWithGoogle,
@@ -276,7 +292,7 @@ export const AuthProvider = ({ children }) => {
     hasRole,
     getUserFullName,
     isAuthenticated: !!user,
-    isAdmin: hasRole([USER_ROLES.ADMIN, USER_ROLES.SUPER_ADMIN]),
+    isAdmin: hasRole([USER_ROLES.DMV_ADMIN, USER_ROLES.SUPER_ADMIN]),
     isInstructor: hasRole(USER_ROLES.INSTRUCTOR),
     isStudent: hasRole(USER_ROLES.STUDENT)
   };

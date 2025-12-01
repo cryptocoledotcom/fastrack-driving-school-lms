@@ -1,0 +1,82 @@
+646: [braces: 1] exports.generateComplianceReport = onCall({ enforceAppCheck: false }, async (data, context) => {
+647: [braces: 1]   console.log('generateComplianceReport called - v6');
+648: [braces: 1]   
+649: [braces: 1]   let userId;
+650: [braces: 2]   if (context && context.auth && context.auth.uid) {
+651: [braces: 2]     userId = context.auth.uid;
+652: [braces: 2]   } else if (data && data.auth && data.auth.uid) {
+653: [braces: 2]     userId = data.auth.uid;
+654: [braces: 2]   } else {
+655: [braces: 2]     throw new Error('Authentication required');
+656: [braces: 1]   }
+657: [braces: 1]   console.log('Using userId:', userId);
+658: [braces: 1]   const actualData = data.data || data;
+659: [braces: 1]   const { exportType = 'course', courseId, studentId, studentName, format = 'json' } = actualData;
+660: [braces: 1]   console.log('Parsed parameters:', { exportType, courseId, studentId, studentName, format });
+661: [braces: 1]   
+662: [braces: 1]   if (!['csv', 'json', 'pdf'].includes(format)) throw new Error('Format must be csv, json, or pdf');
+663: [braces: 1]   
+664: [braces: 2]   try {
+665: [braces: 2]     let complianceData;
+666: [braces: 2]     
+667: [braces: 3]     if (exportType === 'student') {
+668: [braces: 3]       console.log('Processing student export');
+669: [braces: 3]       if (!studentId && !studentName) throw new Error('studentId or studentName is required');
+670: [braces: 3]       const uid = studentId || await getStudentIdByName(studentName);
+671: [braces: 3]       console.log('Got student uid:', uid);
+672: [braces: 3]       complianceData = await getComplianceDataForStudent(uid, courseId);
+673: [braces: 3]       console.log('Got compliance data for student, records:', complianceData.length);
+674: [braces: 3]     } else {
+675: [braces: 3]       console.log('Processing course export with courseId:', courseId);
+676: [braces: 3]       if (!courseId) throw new Error('courseId is required for course-wide export');
+677: [braces: 3]       complianceData = await getComplianceDataForCourse(courseId);
+678: [braces: 3]       console.log('Got compliance data for course:', complianceData.length, 'records');
+679: [braces: 2]     }
+680: [braces: 2]     
+681: [braces: 3]     if (!complianceData || complianceData.length === 0) {
+682: [braces: 3]       console.warn('No compliance data found for export');
+683: [braces: 3]       complianceData = [];
+684: [braces: 2]     }
+685: [braces: 2]     
+686: [braces: 2]     let reportContent, fileName, contentType;
+687: [braces: 3]     if (format === 'csv') {
+688: [braces: 3]       reportContent = convertToCSV(complianceData);
+689: [braces: 3]       fileName = 'compliance-report-' + courseId + '-' + Date.now() + '.csv';
+690: [braces: 3]       contentType = 'text/csv';
+691: [braces: 3]     } else if (format === 'pdf') {
+692: [braces: 3]       reportContent = await convertToPDF(complianceData, courseId);
+693: [braces: 3]       fileName = 'compliance-report-' + courseId + '-' + Date.now() + '.pdf';
+694: [braces: 3]       contentType = 'application/pdf';
+695: [braces: 3]     } else {
+696: [braces: 3]       reportContent = JSON.stringify(complianceData, null, 2);
+697: [braces: 3]       fileName = 'compliance-report-' + courseId + '-' + Date.now() + '.json';
+698: [braces: 3]       contentType = 'application/json';
+699: [braces: 2]     }
+700: [braces: 2]     
+701: [braces: 2]     const fileContent = Buffer.isBuffer(reportContent) ? reportContent : Buffer.from(reportContent);
+702: [braces: 2]     const dataUrl = `data:${contentType};base64,${fileContent.toString('base64')}`;
+703: [braces: 2]     
+704: [braces: 2]     const bucket = admin.storage().bucket('fastrack-driving-school-lms-default');
+705: [braces: 2]     const file = bucket.file('compliance-reports/' + fileName);
+706: [braces: 2]     await file.save(reportContent, { contentType });
+707: [braces: 2]     
+708: [braces: 3]     if (userId) {
+709: [braces: 3]       await logAuditEvent(userId, 'create', 'compliance_report', fileName, 'success', { exportType, courseId, studentId, studentName, format });
+710: [braces: 2]     }
+711: [braces: 2]     
+712: [braces: 2]     return { success: true, reportId: fileName, fileName, format, downloadUrl: dataUrl, generatedAt: new Date().toISOString(), recordCount: complianceData.length };
+713: [braces: 2]   } catch (error) {
+714: [braces: 2]     console.error('Error generating compliance report:', error);
+715: [braces: 3]     if (userId) {
+716: [braces: 4]       try {
+717: [braces: 4]         await logAuditEvent(userId, 'create', 'compliance_report', 'compliance_report_export', 'failure', { error: error.message, exportType, courseId, studentId, studentName });
+718: [braces: 4]       } catch (auditError) {
+719: [braces: 4]         console.error('Failed to log audit event:', auditError);
+720: [braces: 3]       }
+721: [braces: 2]     }
+722: [braces: 2]     throw error;
+723: [braces: 1]   }
+724: [braces: 0] });
+
+
+Found end of generateComplianceReport at line 724

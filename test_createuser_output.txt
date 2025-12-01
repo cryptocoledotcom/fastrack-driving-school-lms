@@ -1,0 +1,4 @@
+
+> fastrack-driving-school-lms@1.0.0 test
+> react-scripts test userManagementServices.createUser --testPathPattern="createUser" --watchAll=false
+

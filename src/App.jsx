@@ -1,7 +1,7 @@
 // Main App Component
 // Application routing and context providers
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { CourseProvider } from './context/CourseContext';
@@ -50,20 +50,26 @@ import NotFoundPage from './pages/NotFound/NotFoundPage';
 import { PUBLIC_ROUTES, PROTECTED_ROUTES, ADMIN_ROUTES } from './constants/routes';
 import { USER_ROLES } from './constants/userRoles';
 
+// Auth Components
+import ForcePasswordChangeModal from './components/auth/ForcePasswordChangeModal';
+
 // Styles
 import './assets/styles/global.css';
 import './assets/styles/theme.css';
 import './assets/styles/animations.css';
 
-function App() {
+import { useAuth } from './context/AuthContext';
+
+function AppRoutes() {
+  const { showPasswordChangeModal, setShowPasswordChangeModal } = useAuth();
+
   return (
-    <ErrorBoundary>
-      <Router>
-        <AuthProvider>
-          <CourseProvider>
-            <TimerProvider>
-              <ModalProvider>
-              <Routes>
+    <>
+      <ForcePasswordChangeModal
+        isOpen={showPasswordChangeModal}
+        onComplete={() => setShowPasswordChangeModal(false)}
+      />
+      <Routes>
                 {/* Public Routes */}
                 <Route path={PUBLIC_ROUTES.HOME} element={
                   <MainLayout>
@@ -209,6 +215,19 @@ function App() {
                   </MainLayout>
                 } />
               </Routes>
+    </>
+  );
+}
+
+function App() {
+  return (
+    <ErrorBoundary>
+      <Router>
+        <AuthProvider>
+          <CourseProvider>
+            <TimerProvider>
+              <ModalProvider>
+                <AppRoutes />
               </ModalProvider>
             </TimerProvider>
           </CourseProvider>

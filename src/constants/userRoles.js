@@ -4,7 +4,7 @@
 export const USER_ROLES = {
   STUDENT: 'student',
   INSTRUCTOR: 'instructor',
-  ADMIN: 'admin',
+  DMV_ADMIN: 'dmv_admin',
   SUPER_ADMIN: 'super_admin'
 };
 
@@ -36,7 +36,7 @@ export const ROLE_PERMISSIONS = {
     canViewAnalytics: true
   },
   
-  [USER_ROLES.ADMIN]: {
+  [USER_ROLES.DMV_ADMIN]: {
     canViewStudents: true,
     canViewAllProgress: true,
     canGenerateReports: true,
@@ -97,7 +97,7 @@ export const getRoleDisplayName = (role) => {
   const displayNames = {
     [USER_ROLES.STUDENT]: 'Student',
     [USER_ROLES.INSTRUCTOR]: 'Instructor',
-    [USER_ROLES.ADMIN]: 'Administrator',
+    [USER_ROLES.DMV_ADMIN]: 'DMV Administrator',
     [USER_ROLES.SUPER_ADMIN]: 'Super Administrator'
   };
   return displayNames[role] || 'Unknown Role';

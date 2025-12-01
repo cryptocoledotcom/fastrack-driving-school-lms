@@ -1,0 +1,10 @@
+
+> fastrack-driving-school-lms@1.0.0 build
+> react-scripts build
+
+Creating an optimized production build...
+Failed to compile.
+
+Module not found: Error: Can't resolve '../common/Modal/Modal' in 'c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\auth'
+
+
