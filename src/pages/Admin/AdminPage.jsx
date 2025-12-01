@@ -6,6 +6,7 @@ import LoadingSpinner from '../../components/common/LoadingSpinner/LoadingSpinne
 import Input from '../../components/common/Input/Input';
 import ErrorMessage from '../../components/common/ErrorMessage/ErrorMessage';
 import SuccessMessage from '../../components/common/SuccessMessage/SuccessMessage';
+import ErrorBoundary from '../../components/common/ErrorBoundary/ErrorBoundary';
 import SchedulingManagement from '../../components/admin/SchedulingManagement';
 import ComplianceReporting from '../../components/admin/ComplianceReporting';
 import enrollmentServices from '../../api/enrollment/enrollmentServices';
@@ -140,7 +141,16 @@ const AdminPage = () => {
     return <LoadingSpinner fullScreen text="Loading admin panel..." />;
   }
 
+  const TabErrorFallback = ({ tabName }) => (
+    <div className={styles.tabErrorContainer}>
+      <h3>Error in {tabName}</h3>
+      <p>There was a problem loading this section. Please try refreshing the page.</p>
+      <Button onClick={() => window.location.reload()}>Refresh Page</Button>
+    </div>
+  );
+
   return (
+    <ErrorBoundary fallback={<TabErrorFallback tabName="Admin Panel" />}>
     <div className={styles.adminPage}>
       <div className={styles.container}>
         <h1 className={styles.title}>Admin Panel</h1>
@@ -177,8 +187,9 @@ const AdminPage = () => {
         </div>
 
         {activeTab === 'enrollment-management' && (
-          <div className={styles.enrollmentTab}>
-            <Card padding="large">
+          <ErrorBoundary fallback={<TabErrorFallback tabName="Enrollment Management" />}>
+            <div className={styles.enrollmentTab}>
+              <Card padding="large">
               <div className={styles.searchSection}>
                 <label className={styles.selectLabel}>Select Student</label>
                 <select
@@ -278,21 +289,25 @@ const AdminPage = () => {
                 )}
               </div>
             </Card>
-          </div>
+            </div>
+          </ErrorBoundary>
         )}
 
         {activeTab === 'scheduling' && (
-          <div className={styles.schedulingTab}>
-            <Card padding="large">
-              <SchedulingManagement />
-            </Card>
-          </div>
+          <ErrorBoundary fallback={<TabErrorFallback tabName="Lesson Scheduling" />}>
+            <div className={styles.schedulingTab}>
+              <Card padding="large">
+                <SchedulingManagement />
+              </Card>
+            </div>
+          </ErrorBoundary>
         )}
 
         {activeTab === 'analytics' && (
-          <div className={styles.analyticsTab}>
-            <Card padding="large">
-              <h2 className={styles.sectionTitle}>Enrollment Analytics</h2>
+          <ErrorBoundary fallback={<TabErrorFallback tabName="Analytics" />}>
+            <div className={styles.analyticsTab}>
+              <Card padding="large">
+                <h2 className={styles.sectionTitle}>Enrollment Analytics</h2>
               
               <div className={styles.statsGrid}>
                 <div className={styles.statCard}>
@@ -340,14 +355,18 @@ const AdminPage = () => {
                 </div>
               </div>
             </Card>
-          </div>
+            </div>
+          </ErrorBoundary>
         )}
 
         {activeTab === 'compliance-reporting' && (
-          <ComplianceReporting />
+          <ErrorBoundary fallback={<TabErrorFallback tabName="Compliance Reports" />}>
+            <ComplianceReporting />
+          </ErrorBoundary>
         )}
       </div>
     </div>
+    </ErrorBoundary>
   );
 };
 

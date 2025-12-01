@@ -1,0 +1,14 @@
+
+> fastrack-driving-school-lms@1.0.0 test
+> react-scripts test --watchAll=false --testPathPattern="enrollment"
+
+PASS src/api/enrollment/__tests__/enrollmentServices.refactor.test.js
+PASS src/api/enrollment/__tests__/enrollmentServices.checkCourseAccess.test.js
+PASS src/api/enrollment/__tests__/enrollmentServices.reset.test.js
+PASS src/api/enrollment/__tests__/enrollmentServices.concurrent.test.js
+
+Test Suites: 4 passed, 4 total
+Tests:       57 passed, 57 total
+Snapshots:   0 total
+Time:        1.659 s
+Ran all test suites matching /enrollment/i.

@@ -477,6 +477,29 @@
   }
 }
 
+/* Error Boundary Fallback */
+.tabErrorContainer {
+  padding: 3rem 2rem;
+  text-align: center;
+  background: var(--bg-surface);
+  border: 2px solid var(--status-error);
+  border-radius: 0.5rem;
+  margin: 2rem 0;
+}
+
+.tabErrorContainer h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--status-error);
+  margin-bottom: 1rem;
+}
+
+.tabErrorContainer p {
+  font-size: 1rem;
+  color: var(--text-main);
+  margin-bottom: 1.5rem;
+}
+
 @media (max-width: 480px) {
   .statsGrid {
     grid-template-columns: 1fr;
@@ -489,5 +512,9 @@
   .tab {
     padding: 0.5rem 0.75rem;
     font-size: 0.85rem;
+  }
+
+  .tabErrorContainer {
+    padding: 2rem 1rem;
   }
 }
