@@ -285,84 +285,73 @@ const AdminPage = () => {
                 </div>
               </div>
 
-              <div className={styles.usersList}>
-                {filteredUsers.length === 0 ? (
-                  <p className={styles.noUsers}>
-                    {selectedUserId ? 'No enrollments found.' : 'Select a student to view enrollments.'}
-                  </p>
-                ) : (
-                  filteredUsers.map((user) => (
-                    <div key={user.userId} className={styles.userCard}>
-                      <div
-                        className={styles.userHeader}
-                        onClick={() => setExpandedUser(
-                          expandedUser === user.userId ? null : user.userId
-                        )}
-                      >
-                        <div className={styles.userInfo}>
-                          <h3 className={styles.userName}>{user.displayName || 'No Name'}</h3>
-                          <p className={styles.userEmail}>{user.email || 'No Email'}</p>
-                          <p className={styles.enrollmentCount}>
-                            {(user.enrollments || []).length} enrollment{(user.enrollments || []).length !== 1 ? 's' : ''}
-                          </p>
-                        </div>
-                        <span className={`${styles.expandIcon} ${expandedUser === user.userId ? styles.expanded : ''}`}>
-                          ▼
-                        </span>
-                      </div>
+              <div className={styles.enrollmentsTableContainer}>
+                {(() => {
+                  const allEnrollments = [];
+                  filteredUsers.forEach(user => {
+                    (user.enrollments || []).forEach(enrollment => {
+                      allEnrollments.push({ ...enrollment, userId: user.userId, userName: user.displayName, userEmail: user.email });
+                    });
+                  });
 
-                      {expandedUser === user.userId && (
-                        <div className={styles.userDetails}>
-                          <div className={styles.enrollmentsTable}>
-                            {(user.enrollments || []).map((enrollment) => (
-                              <div key={enrollment.id} className={styles.enrollmentRow}>
-                                <div className={styles.enrollmentInfo}>
-                                  <div className={styles.courseName}>
-                                    {getCourseName(enrollment.courseId)}
-                                  </div>
-                                  <div className={styles.enrollmentMeta}>
-                                    <span className={`${styles.statusBadge} ${getStatusBadgeClass(enrollment.status)}`}>
-                                      {enrollment.status}
-                                    </span>
-                                    <span className={`${styles.paymentBadge} ${getPaymentStatusBadgeClass(enrollment.paymentStatus)}`}>
-                                      {enrollment.paymentStatus}
-                                    </span>
-                                    <span className={styles.accessStatus}>
-                                      Access: {enrollment.accessStatus}
-                                    </span>
-                                  </div>
-                                  <div className={styles.enrollmentDetails}>
-                                    <p>Total: ${enrollment.totalAmount.toFixed(2)}</p>
-                                    <p>Paid: ${enrollment.amountPaid.toFixed(2)}</p>
-                                    <p>Due: ${enrollment.amountDue.toFixed(2)}</p>
-                                  </div>
-                                </div>
-                                <Button
-                                  variant="secondary"
-                                  size="small"
-                                  onClick={() => handleResetEnrollment(user.userId, enrollment.courseId)}
-                                  loading={resettingEnrollments[`${user.userId}-${enrollment.courseId}`]}
-                                  className={styles.resetButton}
-                                >
-                                  Reset
-                                </Button>
-                              </div>
-                            ))}
-                          </div>
+                  if (allEnrollments.length === 0) {
+                    return (
+                      <p className={styles.noUsers}>
+                        {searchText || filterStatus || filterCourse ? 'No enrollments found matching your criteria.' : 'Enter search terms or select filters to view enrollments.'}
+                      </p>
+                    );
+                  }
 
-                          <Button
-                            variant="danger"
-                            onClick={() => handleResetAllUserEnrollments(user.userId, user.displayName)}
-                            loading={resettingEnrollments[user.userId]}
-                            className={styles.resetAllButton}
-                          >
-                            Reset All User Enrollments
-                          </Button>
-                        </div>
-                      )}
-                    </div>
-                  ))
-                )}
+                  return (
+                    <table className={styles.enrollmentsTable}>
+                      <thead>
+                        <tr>
+                          <th>Student Name</th>
+                          <th>Email</th>
+                          <th>Course</th>
+                          <th>Status</th>
+                          <th>Payment</th>
+                          <th>Total</th>
+                          <th>Paid</th>
+                          <th>Due</th>
+                          <th>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {allEnrollments.map((enrollment) => (
+                          <tr key={`${enrollment.userId}-${enrollment.id}`}>
+                            <td className={styles.studentName}>{enrollment.userName || 'No Name'}</td>
+                            <td className={styles.studentEmail}>{enrollment.userEmail || 'No Email'}</td>
+                            <td>{getCourseName(enrollment.courseId)}</td>
+                            <td>
+                              <span className={`${styles.statusBadge} ${getStatusBadgeClass(enrollment.status)}`}>
+                                {enrollment.status}
+                              </span>
+                            </td>
+                            <td>
+                              <span className={`${styles.paymentBadge} ${getPaymentStatusBadgeClass(enrollment.paymentStatus)}`}>
+                                {enrollment.paymentStatus}
+                              </span>
+                            </td>
+                            <td>${enrollment.totalAmount.toFixed(2)}</td>
+                            <td>${enrollment.amountPaid.toFixed(2)}</td>
+                            <td>${enrollment.amountDue.toFixed(2)}</td>
+                            <td className={styles.actionCell}>
+                              <Button
+                                variant="secondary"
+                                size="small"
+                                onClick={() => handleResetEnrollment(enrollment.userId, enrollment.courseId)}
+                                loading={resettingEnrollments[`${enrollment.userId}-${enrollment.courseId}`]}
+                              >
+                                Reset
+                              </Button>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  );
+                })()}
               </div>
             </Card>
             </div>
