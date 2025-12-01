@@ -542,33 +542,33 @@ describe('Validators', () => {
   describe('validateTimeSlotData', () => {
     it('should accept valid time slot data', () => {
       const data = {
-        instructor: 'John Doe',
-        startTime: '09:00 AM',
-        endTime: '10:00 AM'
+        instructorId: 'instructor123',
+        startTime: new Date().toISOString(),
+        endTime: new Date(Date.now() + 3600000).toISOString()
       };
       expect(() => validateTimeSlotData(data)).not.toThrow();
     });
 
-    it('should reject if instructor missing', () => {
+    it('should reject if instructorId missing', () => {
       const data = {
-        startTime: '09:00 AM',
-        endTime: '10:00 AM'
+        startTime: new Date().toISOString(),
+        endTime: new Date(Date.now() + 3600000).toISOString()
       };
       expect(() => validateTimeSlotData(data)).toThrow(ValidationError);
     });
 
     it('should reject if startTime missing', () => {
       const data = {
-        instructor: 'John Doe',
-        endTime: '10:00 AM'
+        instructorId: 'instructor123',
+        endTime: new Date(Date.now() + 3600000).toISOString()
       };
       expect(() => validateTimeSlotData(data)).toThrow(ValidationError);
     });
 
     it('should reject if endTime missing', () => {
       const data = {
-        instructor: 'John Doe',
-        startTime: '09:00 AM'
+        instructorId: 'instructor123',
+        startTime: new Date().toISOString()
       };
       expect(() => validateTimeSlotData(data)).toThrow(ValidationError);
     });

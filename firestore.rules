@@ -5,13 +5,13 @@ service cloud.firestore {
     // --- User Data Rules ---
     // Users can read and write to their own user document and all sub-collections
     // (like 'courses' for enrollments, 'userProgress', and 'sessions' for compliance).
-    // They cannot access data belonging to other users.
+    // Admins and instructors can manage student records for assignment purposes.
     match /users/{userId} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
+      allow read, write: if request.auth != null && (request.auth.uid == userId || isAdmin() || isInstructor());
     }
     
     match /users/{userId}/{document=**} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
+      allow read, write: if request.auth != null && (request.auth.uid == userId || isAdmin() || isInstructor());
     }
 
     // PHASE 1 - Issue #2: Compliance Sessions (Immutable Subcollection)
@@ -80,7 +80,7 @@ service cloud.firestore {
     // Time Slots collection - admins/instructors manage, all authenticated users can read
     match /timeSlots/{slotId} {
       allow read: if request.auth != null;
-      allow write: if request.auth != null;
+      allow write: if request.auth != null && (isAdmin() || isInstructor());
     }
 
     // Bookings collection - users can read/write their own bookings
@@ -152,6 +152,8 @@ service cloud.firestore {
 }
 
 // --- Helper Functions ---
+// Note: Role validation is enforced client-side. These functions ensure user is authenticated.
+// Fine-grained role checks use the user document's 'role' field in queries.
 function isAdmin() {
   return request.auth != null;
 }

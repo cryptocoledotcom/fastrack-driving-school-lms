@@ -208,7 +208,7 @@ export const validateTimeSlotData = (slotData) => {
 
   const errors = [];
 
-  if (!slotData.instructorId) errors.push('instructorId is required');
+  if (!slotData.instructor) errors.push('instructor is required');
   if (!slotData.startTime) errors.push('startTime is required');
   if (!slotData.endTime) errors.push('endTime is required');
 

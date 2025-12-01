@@ -37,26 +37,14 @@ export const ROLE_PERMISSIONS = {
   },
   
   [USER_ROLES.ADMIN]: {
-    canEnrollCourses: true,
-    canViewCourses: true,
-    canTakeLessons: true,
-    canTakeQuizzes: true,
-    canViewProgress: true,
-    canDownloadCertificates: true,
-    canEditProfile: true,
-    canViewDashboard: true,
     canViewStudents: true,
-    canGradeQuizzes: true,
-    canCreateLessons: true,
-    canEditLessons: true,
-    canViewAnalytics: true,
-    canManageUsers: true,
-    canManageCourses: true,
-    canManageModules: true,
-    canManageLessons: true,
     canViewAllProgress: true,
     canGenerateReports: true,
-    canManageSettings: true
+    canAssignLessons: true,
+    canManageLessonSlots: true,
+    canViewComplianceData: true,
+    canExportComplianceReports: true,
+    canEditProfile: true
   },
   
   [USER_ROLES.SUPER_ADMIN]: {
@@ -82,7 +70,11 @@ export const ROLE_PERMISSIONS = {
     canManageSettings: true,
     canManageAdmins: true,
     canAccessSystemSettings: true,
-    canDeleteAnything: true
+    canDeleteAnything: true,
+    canAssignLessons: true,
+    canManageLessonSlots: true,
+    canViewComplianceData: true,
+    canExportComplianceReports: true
   }
 };
 

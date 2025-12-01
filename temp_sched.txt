@@ -14,7 +14,6 @@ import {
   unassignTimeSlot
 } from '../../api/compliance/schedulingServices';
 import { getUser, getAllStudents } from '../../api/student/userServices';
-import { formatTime24to12, parseLocalDate } from '../../utils/dateTimeFormatter';
 import styles from './SchedulingManagement.module.css';
 
 const SchedulingManagement = () => {
@@ -298,8 +297,8 @@ const SchedulingManagement = () => {
           <div className={styles.modal}>
             <h3>Assign Lesson to Student</h3>
             <p className={styles.slotInfo}>
-              {parseLocalDate(selectedSlotForAssignment.date)?.toLocaleDateString()} at{' '}
-              {formatTime24to12(selectedSlotForAssignment.startTime)}
+              {new Date(selectedSlotForAssignment.date).toLocaleDateString()} at{' '}
+              {selectedSlotForAssignment.startTime}
             </p>
 
             <div className={styles.selectWrapper}>
@@ -350,14 +349,14 @@ const SchedulingManagement = () => {
               <div className={styles.slotHeader}>
                 <div className={styles.slotDateTime}>
                   <span className={styles.date}>
-                    {parseLocalDate(slot.date)?.toLocaleDateString('en-US', {
+                    {new Date(slot.date).toLocaleDateString('en-US', {
                       weekday: 'short',
                       month: 'short',
                       day: 'numeric'
                     })}
                   </span>
                   <span className={styles.time}>
-                    {formatTime24to12(slot.startTime)} - {formatTime24to12(slot.endTime)}
+                    {slot.startTime} - {slot.endTime}
                   </span>
                 </div>
                 <span className={`${styles.status} ${slot.assignedTo ? styles.assigned : styles.available}`}>

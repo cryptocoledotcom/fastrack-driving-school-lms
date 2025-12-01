@@ -8,13 +8,15 @@ import {
   collection,
   query,
   where,
-  getDocs
+  getDocs,
+  CollectionReference
 } from 'firebase/firestore';
 import { db } from '../../config/firebase';
 import { executeService } from '../base/ServiceWrapper';
 import { ValidationError, NotFoundError } from '../errors/ApiError';
 import { validateUserId } from '../validators/validators';
 import { getUpdatedTimestamp } from '../utils/timestampHelper.js';
+import { USER_ROLES } from '../../constants/userRoles';
 export { getUserStats } from './progressServices';
 
 const USERS_COLLECTION = 'users';
@@ -208,6 +210,28 @@ export const updateUserRole = async (userId, role) => {
   }, 'updateUserRole');
 };
 
+export const getAllStudents = async () => {
+  return executeService(async () => {
+    const usersRef = collection(db, USERS_COLLECTION);
+    const q = query(usersRef, where('role', '==', USER_ROLES.STUDENT));
+    const querySnapshot = await getDocs(q);
+    
+    const students = [];
+    querySnapshot.forEach((doc) => {
+      students.push({
+        id: doc.id,
+        ...doc.data()
+      });
+    });
+    
+    return students.sort((a, b) => {
+      const nameA = (a.displayName || a.email || '').toLowerCase();
+      const nameB = (b.displayName || b.email || '').toLowerCase();
+      return nameA.localeCompare(nameB);
+    });
+  }, 'getAllStudents');
+};
+
 const userServices = {
   getUser,
   updateProfile,
@@ -218,7 +242,8 @@ const userServices = {
   getUserByUsername,
   updateUserSettings,
   getUserSettings,
-  updateUserRole
+  updateUserRole,
+  getAllStudents
 };
 
 export default userServices;

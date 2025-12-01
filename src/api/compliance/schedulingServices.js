@@ -175,6 +175,130 @@ export const bookTimeSlot = async (userId, slotId, userEmail) => {
   }, 'bookTimeSlot');
 };
 
+export const assignTimeSlot = async (slotId, userId) => {
+  return executeService(async () => {
+    if (!slotId || typeof slotId !== 'string') {
+      throw new ValidationError('Slot ID is required');
+    }
+    validateUserId(userId);
+    
+    const slotRef = doc(db, 'timeSlots', slotId);
+    const slotDoc = await getDoc(slotRef);
+
+    if (!slotDoc.exists()) {
+      throw new SchedulingError('Time slot not found');
+    }
+
+    const slotData = slotDoc.data();
+
+    if (slotData.assignedTo && slotData.assignedTo === userId) {
+      throw new SchedulingError('This slot is already assigned to this user');
+    }
+
+    const userRef = doc(db, 'users', userId);
+    const userDoc = await getDoc(userRef);
+    if (!userDoc.exists()) {
+      throw new ValidationError('User not found');
+    }
+    const userData = userDoc.data();
+
+    const lessonRef = doc(collection(db, 'users', userId, 'lessons'));
+    
+    await setDoc(lessonRef, {
+      userId,
+      slotId,
+      date: slotData.date,
+      startTime: slotData.startTime,
+      endTime: slotData.endTime,
+      location: slotData.location || 'TBD',
+      instructor: slotData.instructor || 'TBD',
+      status: 'assigned',
+      courseId: COURSE_IDS.BEHIND_WHEEL,
+      assignedAt: new Date().toISOString(),
+      ...getFirestoreTimestamps()
+    });
+
+    await updateDoc(slotRef, {
+      assignedTo: userId,
+      assignedToEmail: userData.email,
+      assignedAt: serverTimestamp(),
+      isAvailable: false,
+      updatedAt: serverTimestamp()
+    });
+
+    return {
+      success: true,
+      slotId,
+      userId,
+      slot: slotData
+    };
+  }, 'assignTimeSlot');
+};
+
+export const unassignTimeSlot = async (slotId, userId) => {
+  return executeService(async () => {
+    if (!slotId || typeof slotId !== 'string') {
+      throw new ValidationError('Slot ID is required');
+    }
+    validateUserId(userId);
+    
+    const slotRef = doc(db, 'timeSlots', slotId);
+    const slotDoc = await getDoc(slotRef);
+
+    if (!slotDoc.exists()) {
+      throw new SchedulingError('Time slot not found');
+    }
+
+    const slotData = slotDoc.data();
+    if (slotData.assignedTo !== userId) {
+      throw new SchedulingError('This slot is not assigned to this user');
+    }
+
+    const lessonsRef = collection(db, 'users', userId, 'lessons');
+    const q = query(lessonsRef, where('slotId', '==', slotId));
+    const querySnapshot = await getDocs(q);
+
+    if (!querySnapshot.empty) {
+      const lessonDoc = querySnapshot.docs[0];
+      await deleteDoc(lessonDoc.ref);
+    }
+
+    await updateDoc(slotRef, {
+      assignedTo: null,
+      assignedToEmail: null,
+      assignedAt: null,
+      isAvailable: true,
+      updatedAt: serverTimestamp()
+    });
+
+    return { success: true };
+  }, 'unassignTimeSlot');
+};
+
+export const getSlotsByAssignment = async (userId) => {
+  return executeService(async () => {
+    validateUserId(userId);
+    
+    const slotsRef = collection(db, 'timeSlots');
+    const q = query(slotsRef, where('assignedTo', '==', userId));
+    const querySnapshot = await getDocs(q);
+    
+    const slots = [];
+    querySnapshot.forEach(docSnap => {
+      slots.push({
+        id: docSnap.id,
+        ...docSnap.data()
+      });
+    });
+
+    return slots.sort((a, b) => {
+      const timeA = new Date(`${a.date} ${a.startTime}`);
+      const timeB = new Date(`${b.date} ${b.startTime}`);
+      return timeA - timeB;
+    });
+  }, 'getSlotsByAssignment');
+};
+
 export const getUserBookings = async (userId) => {
   return executeService(async () => {
     validateUserId(userId);
@@ -273,7 +397,10 @@ const schedulingServices = {
   getUserBookings,
   cancelBooking,
   updateTimeSlot,
-  deleteTimeSlot
+  deleteTimeSlot,
+  assignTimeSlot,
+  unassignTimeSlot,
+  getSlotsByAssignment
 };
 
 export default schedulingServices;

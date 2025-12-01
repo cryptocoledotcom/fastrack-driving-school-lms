@@ -82,6 +82,45 @@
   border-bottom: 1px solid var(--border-light);
 }
 
+.selectLabel {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.studentSelect {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border: 1px solid var(--border-light);
+  border-radius: 0.375rem;
+  background: var(--bg-surface);
+  color: var(--text-main);
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  font-family: inherit;
+}
+
+.studentSelect:hover {
+  border-color: var(--border-strong);
+}
+
+.studentSelect:focus {
+  outline: none;
+  border-color: var(--brand-primary);
+  box-shadow: 0 0 0 3px rgba(155, 130, 194, 0.1);
+}
+
+.studentSelect option {
+  background: var(--bg-surface);
+  color: var(--text-main);
+  padding: 0.5rem;
+}
+
 .usersList {
   display: flex;
   flex-direction: column;
