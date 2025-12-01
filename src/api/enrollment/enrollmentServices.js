@@ -389,6 +389,8 @@ class EnrollmentService extends ServiceBase {
         if (enrollments && enrollments.length > 0) {
           usersWithEnrollments.push({
             userId: user.id,
+            displayName: user.displayName || user.name || '',
+            email: user.email || '',
             enrollments
           });
         }
