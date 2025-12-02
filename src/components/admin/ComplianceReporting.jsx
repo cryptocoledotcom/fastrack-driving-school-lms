@@ -36,13 +36,6 @@ const ComplianceReporting = () => {
         }),
       };
 
-      console.log('ComplianceReporting state at export:');
-      console.log('  exportType:', exportType);
-      console.log('  courseId:', courseId);
-      console.log('  studentId:', studentId);
-      console.log('  studentName:', studentName);
-      console.log('  Final payload:', JSON.stringify(payload));
-
       const response = await generateReport(payload);
       const { downloadUrl, fileName } = response.data;
 

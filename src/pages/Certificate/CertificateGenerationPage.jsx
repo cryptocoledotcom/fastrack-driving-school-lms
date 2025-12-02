@@ -5,7 +5,7 @@ import Card from '../../components/common/Card/Card';
 import Button from '../../components/common/Button/Button';
 import LoadingSpinner from '../../components/common/LoadingSpinner/LoadingSpinner';
 import SuccessMessage from '../../components/common/SuccessMessage/SuccessMessage';
-import enrollmentServices from '../../api/enrollment/enrollmentServices';
+import { enrollmentServices } from '../../api/enrollment';
 import { COURSE_IDS, ENROLLMENT_STATUS } from '../../constants/courses';
 import styles from './CertificateGenerationPage.module.css';
 

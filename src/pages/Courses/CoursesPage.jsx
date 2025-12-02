@@ -9,7 +9,7 @@ import Button from '../../components/common/Button/Button';
 import LoadingSpinner from '../../components/common/LoadingSpinner/LoadingSpinner';
 import PaymentModal from '../../components/payment/PaymentModal';
 import { getCourses } from '../../api/courses/courseServices';
-import enrollmentServices from '../../api/enrollment/enrollmentServices';
+import { enrollmentServices } from '../../api/enrollment';
 import { COURSE_IDS, COURSE_PRICING } from '../../constants/courses';
 import styles from './CoursesPage.module.css';
 

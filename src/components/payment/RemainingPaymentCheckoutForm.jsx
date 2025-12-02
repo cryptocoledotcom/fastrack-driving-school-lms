@@ -5,7 +5,7 @@ import Button from '../common/Button/Button';
 import ErrorMessage from '../common/ErrorMessage/ErrorMessage';
 import SuccessMessage from '../common/SuccessMessage/SuccessMessage';
 import Input from '../common/Input/Input';
-import enrollmentServices from '../../api/enrollment/enrollmentServices';
+import { enrollmentServices } from '../../api/enrollment';
 import styles from './CheckoutForm.module.css';
 
 const RemainingPaymentCheckoutForm = ({

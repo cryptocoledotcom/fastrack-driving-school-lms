@@ -6,7 +6,7 @@ import Button from '../../components/common/Button/Button';
 import ProgressBar from '../../components/common/ProgressBar/ProgressBar';
 import LoadingSpinner from '../../components/common/LoadingSpinner/LoadingSpinner';
 import ErrorMessage from '../../components/common/ErrorMessage/ErrorMessage';
-import enrollmentServices from '../../api/enrollment/enrollmentServices';
+import { enrollmentServices } from '../../api/enrollment';
 import { getCourseById } from '../../api/courses/courseServices';
 import { getProgress } from '../../api/student/progressServices';
 import { Elements } from '@stripe/react-stripe-js';

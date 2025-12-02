@@ -11,7 +11,7 @@ import SuccessMessage from '../../components/common/SuccessMessage/SuccessMessag
 import { getCourseById } from '../../api/courses/courseServices';
 import { getModules } from '../../api/courses/moduleServices';
 import { getProgress } from '../../api/student/progressServices';
-import enrollmentServices from '../../api/enrollment/enrollmentServices';
+import { enrollmentServices } from '../../api/enrollment';
 import styles from './CourseDetailPage.module.css';
 
 const CourseDetailPage = () => {

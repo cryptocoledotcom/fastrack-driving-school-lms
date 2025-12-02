@@ -1,1 +1,1 @@
-export { default as securityServices } from './securityServices';
+export { default as securityServices } from './securityServices.js';
