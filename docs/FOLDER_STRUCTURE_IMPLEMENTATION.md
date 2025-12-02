@@ -1,6 +1,6 @@
 # Folder Structure Refactoring - Implementation Guide
 
-**Status:** Phase 1 ✅ COMPLETE | Phase 2 ✅ COMPLETE | Phase 3 ✅ COMPLETE  
+**Status:** Phase 1 ✅ COMPLETE | Phase 2 ✅ COMPLETE | Phase 3 ✅ COMPLETE | Phase 4 ✅ COMPLETE  
 **Complexity:** Low-to-Medium  
 **Estimated Time:** 6-10 hours total (can be done incrementally)
 
@@ -205,6 +205,97 @@ import { errorHandler, formatTime24to12 } from '../../utils';
 - ✅ Build Status: 0 new errors, 0 new warnings introduced
 - ✅ Tests: All tests passing
 - ✅ Original files kept in api/utils and api/validators for gradual migration
+
+---
+
+## PHASE 4: SERVICES EXPANSION - ✅ COMPLETED
+
+**Date Completed:** December 2, 2025
+
+### Files Created:
+
+**src/services/** (Application-wide service layer)
+- ✅ `index.js` - Barrel export: loggingService, storageService, notificationService
+- ✅ `storageService.js` - Comprehensive storage management (localStorage/sessionStorage)
+- ✅ `notificationService.js` - Notification/toast management system
+
+### Service Features:
+
+**StorageService**
+- Set/get/remove/clear storage items
+- Automatic expiration support with `expiresIn` option
+- Prefix-based namespacing (prevents conflicts)
+- JSON serialization for objects
+- Helper methods for user data, auth tokens, preferences
+- Storage info retrieval (size, count)
+- Fallback to defaultValue if item not found or expired
+- Support for both localStorage and sessionStorage
+
+**NotificationService**
+- Global notification state management
+- Subscriber pattern for reactive UI components
+- Multiple notification types: success, error, warning, info, loading, confirm
+- Auto-dismiss capability with configurable duration
+- Manual dismiss and dismissAll functionality
+- Query notifications by type
+- Update existing notifications
+- Async operation wrapper with loading/success/error states
+- Action buttons support for interactive notifications
+- Confirmation dialogs
+
+**LoggingService** (Already existed)
+- Debug, info, warning, error logging levels
+- Console logging in development
+- Cloud Logging integration for production
+- Log buffering and retry mechanism
+
+### Import Patterns:
+
+**Option 1: Direct imports**
+```javascript
+import { loggingService, storageService, notificationService } from '../../services';
+```
+
+**Option 2: Individual imports**
+```javascript
+import StorageService from '../../services/storageService';
+import NotificationService from '../../services/notificationService';
+import LoggingService from '../../services/loggingService';
+```
+
+### Usage Examples:
+
+**StorageService:**
+```javascript
+StorageService.set('user_prefs', { theme: 'dark' });
+const prefs = StorageService.get('user_prefs');
+StorageService.saveAuthToken(token, 3600000); // 1 hour expiration
+StorageService.remove('user_prefs');
+```
+
+**NotificationService:**
+```javascript
+NotificationService.success('Operation completed!');
+NotificationService.error('Something went wrong', { duration: 7000 });
+const unsubscribe = NotificationService.subscribe(notifications => {
+  console.log('Notifications updated:', notifications);
+});
+await NotificationService.asyncOperation(
+  fetchUserData(),
+  'Loading user data...',
+  { successMessage: 'Data loaded successfully' }
+);
+```
+
+### Results:
+
+- ✅ 2 new service files created (storageService.js, notificationService.js)
+- ✅ 1 barrel export file created (src/services/index.js)
+- ✅ Services follow static class pattern consistent with loggingService
+- ✅ Comprehensive functionality for storage and notification management
+- ✅ Ready for React component integration
+- ✅ Build Status: 0 new errors, 0 new warnings introduced
+- ✅ All services tested for syntax and structure
 
 ---
 

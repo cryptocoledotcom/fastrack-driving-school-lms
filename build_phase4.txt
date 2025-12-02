@@ -1,0 +1,54 @@
+
+> fastrack-driving-school-lms@1.0.0 build
+> react-scripts build
+
+Creating an optimized production build...
+Compiled with warnings.
+
+[eslint] 
+src\App.jsx
+  Line 4:17:  'useEffect' is defined but never used  no-unused-vars
+  Line 4:28:  'useState' is defined but never used   no-unused-vars
+
+src\api\admin\analyticsServices.js
+  Line 57:11:  'totalAmount' is assigned a value but never used  no-unused-vars
+  Line 61:11:  'completedAt' is assigned a value but never used  no-unused-vars
+
+src\api\admin\userManagementServices.js
+  Line 12:3:   'collectionGroup' is defined but never used                       no-unused-vars
+  Line 16:10:  'auth' is defined but never used                                  no-unused-vars
+  Line 283:1:  Assign instance to a variable before exporting as module default  import/no-anonymous-default-export
+
+src\api\student\userServices.js
+  Line 12:3:  'CollectionReference' is defined but never used  no-unused-vars
+
+src\components\admin\SchedulingManagement.jsx
+  Line 16:10:  'getUser' is defined but never used  no-unused-vars
+
+src\components\admin\tabs\UserManagementTab.jsx
+  Line 23:10:  'changingRole' is assigned a value but never used  no-unused-vars
+
+src\pages\Admin\AdminPage.jsx
+  Line 16:10:  'COURSE_IDS' is defined but never used  no-unused-vars
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+File sizes after gzip:
+
+  335.46 kB  build\static\js\main.df172980.js
+  20.12 kB   build\static\css\main.23199abd.css
+
+The project was built assuming it is hosted at /.
+You can control this with the homepage field in your package.json.
+
+The build folder is ready to be deployed.
+You may serve it with a static server:
+
+  npm install -g serve
+  serve -s build
+
+Find out more about deployment here:
+
+  https://cra.link/deployment
+
