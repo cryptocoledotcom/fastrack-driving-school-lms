@@ -12,7 +12,7 @@ import {
 } from 'firebase/firestore';
 import { db } from '../../config/firebase';
 import { executeService } from '../base/ServiceWrapper';
-import { validateUserId, validateCourseId } from '../validators/validators';
+import { validateUserId, validateCourseId } from '../../utils/api/validators.js';
 import { ValidationError } from '../errors/ApiError';
 
 const MAX_DAILY_HOURS = 4 * 3600;

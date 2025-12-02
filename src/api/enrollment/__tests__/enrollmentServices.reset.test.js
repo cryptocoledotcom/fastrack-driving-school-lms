@@ -13,9 +13,9 @@ jest.mock('../../../config/firebase.js', () => ({
   db: {}
 }));
 
-jest.mock('../../validators/validators.js');
+jest.mock('../../../utils/api/validators.js');
 
-jest.mock('../../utils/timestampHelper.js', () => ({
+jest.mock('../../../utils/api/timestampHelper.js', () => ({
   getFirestoreTimestamps: jest.fn(() => ({
     createdAt: 'mock-created',
     updatedAt: 'mock-updated'

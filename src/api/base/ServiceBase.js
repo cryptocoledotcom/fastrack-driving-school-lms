@@ -2,7 +2,7 @@ import { auth, db } from '../../config/firebase.js';
 import { writeBatch, doc, getDoc, getDocs, setDoc, updateDoc, deleteDoc, collection } from 'firebase/firestore';
 import { mapFirebaseError, ApiError } from '../errors/ApiError.js';
 import loggingService from '../../services/loggingService.js';
-import * as validators from '../validators/validators.js';
+import * as validators from '../../utils/api/validators.js';
 
 class ServiceBase {
   constructor(serviceName) {

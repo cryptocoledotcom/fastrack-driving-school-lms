@@ -14,8 +14,8 @@ import { db } from '../../config/firebase';
 import { COURSE_IDS } from '../../constants/courses';
 import { executeService } from '../base/ServiceWrapper';
 import { ValidationError, SchedulingError } from '../errors/ApiError';
-import { validateUserId, validateTimeSlotData } from '../validators/validators';
-import { getFirestoreTimestamps } from '../utils/timestampHelper.js';
+import { validateUserId, validateTimeSlotData } from '../../utils/api/validators.js';
+import { getFirestoreTimestamps } from '../../utils/api/timestampHelper.js';
 
 export const createTimeSlot = async (timeSlotData) => {
   return executeService(async () => {

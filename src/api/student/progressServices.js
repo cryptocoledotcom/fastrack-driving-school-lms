@@ -14,7 +14,7 @@ import {
 import { db } from '../../config/firebase';
 import { executeService } from '../base/ServiceWrapper';
 import { ValidationError } from '../errors/ApiError';
-import { validateUserId, validateCourseId, validateLessonId, validateModuleId } from '../validators/validators';
+import { validateUserId, validateCourseId, validateLessonId, validateModuleId } from '../../utils/api/validators.js';
 
 // Reference to user's progress document
 // Path: users/{userId}/userProgress/progress

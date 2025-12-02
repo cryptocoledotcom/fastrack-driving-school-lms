@@ -35,7 +35,7 @@ jest.mock('../../../services/loggingService.js', () => ({
   warn: jest.fn()
 }));
 
-jest.mock('../../validators/validators.js', () => ({
+jest.mock('../../../utils/api/validators.js', () => ({
   validateUserId: jest.fn(),
   validateCourseId: jest.fn(),
   validateEmail: jest.fn()

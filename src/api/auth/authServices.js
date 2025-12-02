@@ -13,7 +13,7 @@ import {
 } from 'firebase/auth';
 import { auth } from '../../config/firebase';
 import { executeService } from '../base/ServiceWrapper';
-import { validateEmail, validatePassword } from '../validators/validators';
+import { validateEmail, validatePassword } from '../../utils/api/validators.js';
 import { AuthError, ValidationError } from '../errors/ApiError';
 
 // Login with email and password

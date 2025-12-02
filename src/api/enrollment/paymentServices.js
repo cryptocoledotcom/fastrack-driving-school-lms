@@ -17,8 +17,8 @@ import { db } from '../../config/firebase';
 import { PAYMENT_STATUS } from '../../constants/courses';
 import { executeService } from '../base/ServiceWrapper';
 import { ValidationError, PaymentError } from '../errors/ApiError';
-import { validateUserId, validateCourseId, validatePaymentData } from '../validators/validators';
-import { getFirestoreTimestamps } from '../utils/timestampHelper.js';
+import { validateUserId, validateCourseId, validatePaymentData } from '../../utils/api/validators.js';
+import { getFirestoreTimestamps } from '../../utils/api/timestampHelper.js';
 
 const PAYMENTS_COLLECTION = 'payments';
 

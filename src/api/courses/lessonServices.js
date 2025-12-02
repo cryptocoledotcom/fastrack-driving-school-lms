@@ -15,8 +15,8 @@ import {
 import { db } from '../../config/firebase';
 import { executeService } from '../base/ServiceWrapper';
 import { ValidationError, LessonError } from '../errors/ApiError';
-import { validateCourseId, validateModuleId, validateLessonId, validateUserId } from '../validators/validators';
-import { getTimestamps, getUpdatedTimestamp, getCreatedTimestamp } from '../utils/timestampHelper.js';
+import { validateCourseId, validateModuleId, validateLessonId, validateUserId } from '../../utils/api/validators.js';
+import { getTimestamps, getUpdatedTimestamp, getCreatedTimestamp } from '../../utils/api/timestampHelper.js';
 
 const LESSONS_COLLECTION = 'lessons';
 

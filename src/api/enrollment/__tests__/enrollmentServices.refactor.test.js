@@ -2,8 +2,8 @@ import enrollmentServices from '../enrollmentServices.js';
 import { ValidationError, EnrollmentError } from '../../errors/ApiError.js';
 import { COURSE_IDS, COURSE_PRICING, ENROLLMENT_STATUS, PAYMENT_STATUS, ACCESS_STATUS } from '../../../constants/courses.js';
 
-jest.mock('../../validators/validators.js');
-jest.mock('../../utils/timestampHelper.js', () => ({
+jest.mock('../../../utils/api/validators.js');
+jest.mock('../../../utils/api/timestampHelper.js', () => ({
   getFirestoreTimestamps: jest.fn(() => ({
     createdAt: 'mock-created',
     updatedAt: 'mock-updated'

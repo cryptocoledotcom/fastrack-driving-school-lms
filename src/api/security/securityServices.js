@@ -11,8 +11,8 @@ import {
 import { db } from '../../config/firebase';
 import { executeService } from '../base/ServiceWrapper';
 import { ValidationError } from '../errors/ApiError';
-import { validateUserId } from '../validators/validators';
-import { getFirestoreTimestamps } from '../utils/timestampHelper.js';
+import { validateUserId } from '../../utils/api/validators.js';
+import { getFirestoreTimestamps } from '../../utils/api/timestampHelper.js';
 
 export const getSecurityProfile = async (userId) => {
   return executeService(async () => {

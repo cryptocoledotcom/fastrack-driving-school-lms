@@ -14,8 +14,8 @@ import {
 import { db } from '../../config/firebase';
 import { executeService } from '../base/ServiceWrapper';
 import { ValidationError, NotFoundError } from '../errors/ApiError';
-import { validateUserId } from '../validators/validators';
-import { getUpdatedTimestamp } from '../utils/timestampHelper.js';
+import { validateUserId } from '../../utils/api/validators.js';
+import { getUpdatedTimestamp } from '../../utils/api/timestampHelper.js';
 import { USER_ROLES } from '../../constants/userRoles';
 export { getUserStats } from './progressServices';
 

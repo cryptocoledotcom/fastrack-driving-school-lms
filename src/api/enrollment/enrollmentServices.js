@@ -2,7 +2,7 @@ import { doc, serverTimestamp, writeBatch, increment } from 'firebase/firestore'
 import { db } from '../../config/firebase.js';
 import { EnrollmentError, ValidationError } from '../errors/ApiError.js';
 import ServiceBase from '../base/ServiceBase.js';
-import { getFirestoreTimestamps } from '../utils/timestampHelper.js';
+import { getFirestoreTimestamps } from '../../utils/api/timestampHelper.js';
 import { 
   COURSE_IDS, 
   COURSE_PRICING, 

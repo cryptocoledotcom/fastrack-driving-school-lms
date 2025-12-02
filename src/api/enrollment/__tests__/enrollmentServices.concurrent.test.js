@@ -46,7 +46,7 @@ jest.mock('../../errors/ApiError.js', () => {
   };
 });
 
-jest.mock('../../validators/validators.js', () => ({
+jest.mock('../../../utils/api/validators.js', () => ({
   validateUserId: jest.fn((userId) => {
     if (!userId || typeof userId !== 'string') {
       throw new Error('Invalid user ID');
