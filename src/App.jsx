@@ -10,14 +10,10 @@ import { ModalProvider } from './context/ModalContext';
 import ErrorBoundary from './components/common/ErrorBoundary/ErrorBoundary';
 
 // Route Guards
-import ProtectedRoute from './components/guards/ProtectedRoute';
-import PublicRoute from './components/guards/PublicRoute';
-import RoleBasedRoute from './components/guards/RoleBasedRoute';
+import { ProtectedRoute, PublicRoute, RoleBasedRoute } from './components/guards';
 
 // Layouts
-import MainLayout from './components/layout/MainLayout';
-import DashboardLayout from './components/layout/DashboardLayout';
-import AuthLayout from './components/layout/AuthLayout';
+import { MainLayout, DashboardLayout, AuthLayout } from './components/layout';
 
 // Public Pages
 import HomePage from './pages/Home/HomePage';
@@ -51,7 +47,7 @@ import { PUBLIC_ROUTES, PROTECTED_ROUTES, ADMIN_ROUTES } from './constants/route
 import { USER_ROLES } from './constants/userRoles';
 
 // Auth Components
-import ForcePasswordChangeModal from './components/auth/ForcePasswordChangeModal';
+import { ForcePasswordChangeModal } from './components/auth';
 
 // Styles
 import './assets/styles/global.css';
