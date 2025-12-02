@@ -1,0 +1,4 @@
+
+> fastrack-driving-school-lms@1.0.0 test
+> react-scripts test --testPathPattern="AnalyticsTab|analyticsServices" --watchAll=false --passWithNoTests
+

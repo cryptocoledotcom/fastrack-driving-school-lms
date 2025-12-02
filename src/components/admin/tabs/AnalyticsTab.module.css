@@ -1,0 +1,251 @@
+.analyticsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.headerSection {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.metricCard {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px;
+  padding: 1.5rem;
+  color: white;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.metricCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.metricCard.enrollment {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.metricCard.revenue {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.metricCard.users {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.metricCard.payment {
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+}
+
+.metricLabel {
+  font-size: 0.875rem;
+  opacity: 0.9;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+}
+
+.metricValue {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.metricSubtext {
+  font-size: 0.75rem;
+  opacity: 0.85;
+}
+
+.chartsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 2rem;
+}
+
+.chartCard {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+}
+
+.chartCard h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1.125rem;
+  color: #1f2937;
+  font-weight: 600;
+}
+
+.chartContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+  overflow-x: auto;
+}
+
+.fullWidthChart {
+  grid-column: 1 / -1;
+}
+
+.tableSection {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+}
+
+.tableSection h3 {
+  margin: 0 0 1.5rem 0;
+  font-size: 1.125rem;
+  color: #1f2937;
+  font-weight: 600;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tableHeader {
+  background-color: #f3f4f6;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.tableHeaderCell {
+  padding: 0.75rem;
+  text-align: left;
+  font-weight: 600;
+  color: #374151;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.tableRow {
+  border-bottom: 1px solid #e5e7eb;
+  transition: background-color 0.2s ease;
+}
+
+.tableRow:hover {
+  background-color: #f9fafb;
+}
+
+.tableCell {
+  padding: 0.75rem;
+  color: #374151;
+  font-size: 0.875rem;
+}
+
+.statusBadge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.statusPending {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.statusCompleted {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.statusPartial {
+  background-color: #bfdbfe;
+  color: #1e40af;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 2rem;
+  color: #6b7280;
+}
+
+.emptyState p {
+  margin: 0.5rem 0;
+}
+
+.statGridSection {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.miniStat {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+}
+
+.miniStatLabel {
+  font-size: 0.75rem;
+  color: #6b7280;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.5rem;
+}
+
+.miniStatValue {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+@media (max-width: 1024px) {
+  .chartsGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .fullWidthChart {
+    grid-column: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .analyticsContainer {
+    gap: 1.5rem;
+    padding: 0.5rem;
+  }
+  
+  .headerSection {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .metricValue {
+    font-size: 1.5rem;
+  }
+  
+  .chartContainer {
+    min-height: 250px;
+  }
+  
+  .tableCell {
+    padding: 0.5rem;
+    font-size: 0.75rem;
+  }
+  
+  .tableHeaderCell {
+    padding: 0.5rem;
+    font-size: 0.7rem;
+  }
+}

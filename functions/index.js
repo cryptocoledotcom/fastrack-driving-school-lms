@@ -94,7 +94,7 @@ exports.createCheckoutSession = onCall(
         const stripeClient = stripe(process.env.STRIPE_SECRET_KEY);
 
         // Verify authentication
-        if (!context.auth) {
+        if (!request.auth) {
             throw new Error('User must be authenticated to create checkout session');
         }
 
@@ -171,7 +171,7 @@ exports.createPaymentIntent = onCall(
         // Initialize Stripe using the environment variable
         const stripeClient = stripe(process.env.STRIPE_SECRET_KEY);
 
-        if (!context.auth) {
+        if (!request.auth) {
             throw new Error('User must be authenticated');
         }
 
@@ -428,7 +428,7 @@ async function updateEnrollmentAfterPayment(userId, courseId, paymentAmount, pay
  * Validates: 24-hour requirement, quiz passage, final exam (3 attempts max), PVQ completion
  */
 exports.generateCertificate = onCall(async (data, context) => {
-    if (!context.auth) {
+    if (!request.auth) {
         throw new Error('User must be authenticated');
     }
 
@@ -616,7 +616,7 @@ exports.generateCertificate = onCall(async (data, context) => {
  */
 exports.auditComplianceAccess = onCall(async (data, context) => {
     // Verify authentication
-    if (!context.auth) {
+    if (!request.auth) {
         throw new Error('User must be authenticated');
     }
 
@@ -649,13 +649,13 @@ exports.auditComplianceAccess = onCall(async (data, context) => {
  * Called by Super Admin to create a new DMV Admin account
  * User must change password on first login
  */
-exports.createUser = onCall(async (data, context) => {
-  if (!context.auth) {
+exports.createUser = onCall(async (request) => {
+  if (!request.auth) {
     throw new Error('User must be authenticated');
   }
 
-  const { email, temporaryPassword, displayName, role } = data;
-  const performedByAdminId = context.auth.uid;
+  const { email, temporaryPassword, displayName, role } = request.data;
+  const performedByAdminId = request.auth.uid;
 
   if (!email || !temporaryPassword) {
     throw new Error('Email and temporary password are required');
@@ -663,8 +663,8 @@ exports.createUser = onCall(async (data, context) => {
 
   try {
     // Verify the user is Super Admin
-    const adminDoc = await getFirestore().collection('users').doc(performedByAdminId).get();
-    if (!adminDoc.exists() || adminDoc.data().role !== 'super_admin') {
+    const adminDoc = await db.collection('users').doc(performedByAdminId).get();
+    if (!adminDoc.exists || adminDoc.data().role !== 'super_admin') {
       throw new Error('Only Super Admins can create users');
     }
 
@@ -688,10 +688,10 @@ exports.createUser = onCall(async (data, context) => {
       deleted: false
     };
 
-    await getFirestore().collection('users').doc(userRecord.uid).set(userData);
+    await db.collection('users').doc(userRecord.uid).set(userData);
 
     // Log the activity
-    await getFirestore().collection('activityLogs').add({
+    await db.collection('activityLogs').add({
       type: 'USER_CREATED',
       targetUserId: userRecord.uid,
       performedByAdminId,
