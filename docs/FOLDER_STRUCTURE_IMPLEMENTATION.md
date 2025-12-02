@@ -1,6 +1,6 @@
 # Folder Structure Refactoring - Implementation Guide
 
-**Status:** Phase 1 ✅ COMPLETE | Phase 2 ✅ COMPLETE | Phase 3 ✅ COMPLETE | Phase 4 ✅ COMPLETE  
+**Status:** Phase 1 ✅ COMPLETE | Phase 2 ✅ COMPLETE | Phase 3 ✅ COMPLETE | Phase 4 ✅ COMPLETE | Phase 5 ✅ COMPLETE  
 **Complexity:** Low-to-Medium  
 **Estimated Time:** 6-10 hours total (can be done incrementally)
 
@@ -296,6 +296,124 @@ await NotificationService.asyncOperation(
 - ✅ Ready for React component integration
 - ✅ Build Status: 0 new errors, 0 new warnings introduced
 - ✅ All services tested for syntax and structure
+
+---
+
+## PHASE 5: CLOUD FUNCTIONS ORGANIZATION - ✅ COMPLETED
+
+**Date Completed:** December 2, 2025
+
+### New Folder Structure Created:
+
+**functions/src/** (Organized Cloud Functions by domain)
+- ✅ `index.js` - Main barrel export aggregating all function domains
+- ✅ `payment/` - Payment and Stripe webhook functions
+- ✅ `certificate/` - Certificate generation functions
+- ✅ `compliance/` - Compliance reporting and audit functions
+- ✅ `user/` - User management functions
+- ✅ `common/` - Shared utilities and helpers
+
+### Domain Organization:
+
+**functions/src/payment/**
+- ✅ `paymentFunctions.js` - Exports: createCheckoutSession, createPaymentIntent, stripeWebhook
+- ✅ `index.js` - Barrel export
+- Helper functions: handleCheckoutSessionCompleted, handlePaymentIntentSucceeded, handlePaymentIntentFailed, updateEnrollmentAfterPayment
+
+**functions/src/certificate/**
+- ✅ `certificateFunctions.js` - Exports: generateCertificate
+- ✅ `index.js` - Barrel export
+- Handles certificate generation and storage
+
+**functions/src/compliance/**
+- ✅ `complianceFunctions.js` - Exports: auditComplianceAccess, generateComplianceReport
+- ✅ `index.js` - Barrel export
+- Helper functions: getStudentIdByName, getComplianceDataForStudent, getComplianceDataForCourse, getStudentSessionHistory, getStudentQuizAttempts, getStudentPVQRecords, getStudentCertificate, convertToCSV, convertToPDF
+
+**functions/src/user/**
+- ✅ `userFunctions.js` - Exports: createUser
+- ✅ `index.js` - Barrel export
+- Handles user creation and management
+
+**functions/src/common/**
+- ✅ `auditLogger.js` - Shared audit logging utility
+- ✅ `index.js` - Barrel export
+- Provides logAuditEvent function for compliance tracking
+
+### Main Entry Point:
+
+**functions/index.js** (Updated to use modular structure)
+```javascript
+const admin = require('firebase-admin');
+const { initializeApp } = require('firebase-admin/app');
+
+initializeApp();
+
+const functions = require('./src');
+
+module.exports = functions;
+```
+
+### Import Patterns:
+
+**Old Pattern (Still Works - Functions use original single index):**
+```javascript
+const { createCheckoutSession } = require('./index');
+```
+
+**New Pattern (Modular by domain):**
+```javascript
+const { createCheckoutSession } = require('./src/payment');
+const { generateCertificate } = require('./src/certificate');
+const { generateComplianceReport } = require('./src/compliance');
+const { createUser } = require('./src/user');
+```
+
+**Direct domain imports:**
+```javascript
+const paymentFunctions = require('./src/payment');
+const certificateFunctions = require('./src/certificate');
+```
+
+### Function Summary:
+
+**Payment Functions (3 exports):**
+- `createCheckoutSession` - Create Stripe checkout session
+- `createPaymentIntent` - Create Stripe payment intent
+- `stripeWebhook` - Handle Stripe webhook events
+
+**Certificate Functions (1 export):**
+- `generateCertificate` - Generate course completion certificate
+
+**Compliance Functions (2 exports + 8 helpers):**
+- `auditComplianceAccess` - Log compliance access
+- `generateComplianceReport` - Generate compliance reports (CSV, PDF, JSON)
+
+**User Functions (1 export):**
+- `createUser` - Create new user with Firebase Auth and Firestore
+
+**Common Utilities:**
+- `logAuditEvent` - Audit event logging to Firestore and Cloud Logging
+
+### Benefits:
+
+- ✅ Domain-based organization improves code maintainability
+- ✅ Easier to locate and modify functions by domain
+- ✅ Shared utilities in common/ reduce code duplication
+- ✅ Clear separation of concerns
+- ✅ Modular imports enable tree-shaking and code splitting
+- ✅ Backward compatible - single index.js still exports all functions
+- ✅ Ready for future Cloud Functions features like async tasks
+
+### Results:
+
+- ✅ 5 domain folders created with modular functions
+- ✅ 1 common utilities folder for shared code
+- ✅ 11 modular function files (one per domain area + barrel exports)
+- ✅ Main entry point updated to aggregate modular exports
+- ✅ Functions/index.js simplified to 8 lines
+- ✅ Build Status: 0 new errors, 0 new warnings introduced
+- ✅ All function exports maintained for backward compatibility
 
 ---
 
