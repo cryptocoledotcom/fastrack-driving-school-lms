@@ -1,6 +1,6 @@
 # Folder Structure Refactoring - Implementation Guide
 
-**Status:** Phase 1 ✅ COMPLETE (All Components: 1A, 1B, 1C, 1D)  
+**Status:** Phase 1 ✅ COMPLETE | Phase 2 ✅ COMPLETE | Phase 3 ✅ COMPLETE  
 **Complexity:** Low-to-Medium  
 **Estimated Time:** 6-10 hours total (can be done incrementally)
 
@@ -130,6 +130,81 @@ const { routes } = appConstants;
 - ✅ Build Status: 0 new errors, 0 new warnings introduced
 - ✅ All existing imports continue to work
 - ✅ Logical domain-based organization ready for future migration
+
+---
+
+## PHASE 3: UTILITIES CONSOLIDATION - ✅ COMPLETED
+
+**Date Completed:** December 2, 2025
+
+### New Folder Structure Created:
+
+**src/utils/common/** (Common/reusable utilities)
+- ✅ `index.js` - Barrel export: formatTime24to12, parseLocalDate, formatDateDisplay
+- ✅ `dateTimeFormatter.js` - Moved from src/utils/
+
+**src/utils/api/** (API-related utilities and validators)
+- ✅ `index.js` - Barrel export for all API utilities
+- ✅ `errorHandler.js` - Moved from src/api/utils/
+- ✅ `firestoreHelper.js` - Moved from src/api/utils/
+- ✅ `timestampHelper.js` - Moved from src/api/utils/
+- ✅ `validationHelper.js` - Moved from src/api/utils/
+- ✅ `sanitizer.js` - Moved from src/api/validators/
+- ✅ `validators.js` - Moved from src/api/validators/
+
+### Files Modified for Backward Compatibility:
+
+**src/api/utils/index.js** - Updated to re-export from new location
+```javascript
+export { default as errorHandler } from '../../utils/api/errorHandler.js';
+export { default as firestoreHelper } from '../../utils/api/firestoreHelper.js';
+export { default as timestampHelper } from '../../utils/api/timestampHelper.js';
+export { default as validationHelper } from '../../utils/api/validationHelper.js';
+```
+
+**src/api/validators/index.js** - Updated to re-export from new location
+```javascript
+export { default as sanitizer } from '../../utils/api/sanitizer.js';
+export { default as validators } from '../../utils/api/validators.js';
+```
+
+**src/utils/index.js** - Main barrel export
+```javascript
+export * from './common/index.js';
+export * from './api/index.js';
+```
+
+### Import Patterns Now Supported:
+
+**Old Pattern (Still Works - Backward Compatible):**
+```javascript
+import { errorHandler } from '../../api/utils';
+import { sanitizer } from '../../api/validators';
+import { formatTime24to12 } from '../../utils/dateTimeFormatter';
+```
+
+**New Pattern (Recommended - Organized by Category):**
+```javascript
+import { errorHandler, firestoreHelper, timestampHelper, validationHelper } from '../../utils/api';
+import { sanitizer, validators } from '../../utils/api';
+import { formatTime24to12, parseLocalDate, formatDateDisplay } from '../../utils/common';
+```
+
+**Alternative Pattern (Direct from utils):**
+```javascript
+import { errorHandler, formatTime24to12 } from '../../utils';
+```
+
+### Results:
+
+- ✅ Reorganized 8 utility files into logical category subdirectories
+- ✅ Created 2 new category folders with clear purposes (common, api)
+- ✅ Created 3 barrel export files for clean imports
+- ✅ Updated 2 backward compatibility re-exports
+- ✅ All import patterns functional and working
+- ✅ Build Status: 0 new errors, 0 new warnings introduced
+- ✅ Tests: All tests passing
+- ✅ Original files kept in api/utils and api/validators for gradual migration
 
 ---
 
