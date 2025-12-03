@@ -10,11 +10,11 @@ import EnrollmentManagementTab from '../../components/admin/tabs/EnrollmentManag
 import AnalyticsTab from '../../components/admin/tabs/AnalyticsTab';
 import UserManagementTab from '../../components/admin/tabs/UserManagementTab';
 import AuditLogsTab from '../../components/admin/tabs/AuditLogsTab';
+import DETSExportTab from '../../components/admin/tabs/DETSExportTab';
 import SchedulingManagement from '../../components/admin/SchedulingManagement';
 import ComplianceReporting from '../../components/admin/ComplianceReporting';
 import { enrollmentServices } from '../../api/enrollment';
 import { USER_ROLES } from '../../constants/userRoles';
-import { COURSE_IDS } from '../../constants/courses';
 import styles from './AdminPage.module.css';
 
 const AdminPage = () => {
@@ -192,6 +192,15 @@ const AdminPage = () => {
             </button>
           )}
 
+          {(userProfile?.role === USER_ROLES.SUPER_ADMIN || userProfile?.role === USER_ROLES.DMV_ADMIN) && (
+            <button
+              className={`${styles.tab} ${activeTab === 'dets-export' ? styles.activeTab : ''}`}
+              onClick={() => setActiveTab('dets-export')}
+            >
+              DETS Export
+            </button>
+          )}
+
           {userProfile?.role === USER_ROLES.SUPER_ADMIN && (
             <button
               className={`${styles.tab} ${activeTab === 'user-management' ? styles.activeTab : ''}`}
@@ -241,6 +250,12 @@ const AdminPage = () => {
         {activeTab === 'audit-logs' && (userProfile?.role === USER_ROLES.SUPER_ADMIN || userProfile?.role === USER_ROLES.DMV_ADMIN || userProfile?.role === USER_ROLES.INSTRUCTOR) && (
           <ErrorBoundary fallback={<TabErrorFallback tabName="Audit Logs" />}>
             <AuditLogsTab />
+          </ErrorBoundary>
+        )}
+
+        {activeTab === 'dets-export' && (userProfile?.role === USER_ROLES.SUPER_ADMIN || userProfile?.role === USER_ROLES.DMV_ADMIN) && (
+          <ErrorBoundary fallback={<TabErrorFallback tabName="DETS Export" />}>
+            <DETSExportTab />
           </ErrorBoundary>
         )}
 
