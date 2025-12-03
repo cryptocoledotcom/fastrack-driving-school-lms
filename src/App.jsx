@@ -38,6 +38,7 @@ import PaymentSuccessPage from './pages/PaymentSuccess/PaymentSuccessPage';
 
 // Admin Pages
 import AdminPage from './pages/Admin/AdminPage';
+import AuditLogsPage from './pages/Admin/AuditLogsPage';
 
 // 404 Page
 import NotFoundPage from './pages/NotFound/NotFoundPage';
@@ -199,6 +200,16 @@ function AppRoutes() {
                     <DashboardLayout>
                       <RoleBasedRoute allowedRoles={[USER_ROLES.ADMIN, USER_ROLES.SUPER_ADMIN]}>
                         <AdminPage />
+                      </RoleBasedRoute>
+                    </DashboardLayout>
+                  </ProtectedRoute>
+                } />
+
+                <Route path={ADMIN_ROUTES.AUDIT_LOGS} element={
+                  <ProtectedRoute>
+                    <DashboardLayout>
+                      <RoleBasedRoute allowedRoles={[USER_ROLES.ADMIN, USER_ROLES.SUPER_ADMIN, USER_ROLES.INSTRUCTOR]}>
+                        <AuditLogsPage />
                       </RoleBasedRoute>
                     </DashboardLayout>
                   </ProtectedRoute>

@@ -1,7 +1,8 @@
 const admin = require('firebase-admin');
 const { getFirestore } = require('firebase-admin/firestore');
 const { onCall, onRequest } = require('firebase-functions/v2/https');
-const { logAuditEvent } = require('../common/auditLogger');
+const { onSchedule } = require('firebase-functions/v2/scheduler');
+const { logAuditEvent, deleteExpiredAuditLogs, AUDIT_EVENT_TYPES } = require('../common/auditLogger');
 
 const db = getFirestore();
 
@@ -745,12 +746,24 @@ const generateComplianceReport = onCall({ enforceAppCheck: false }, async (data,
   }
 });
 
+const auditLogRetentionPolicy = onSchedule('every day 02:00', async (context) => {
+  try {
+    const deletedCount = await deleteExpiredAuditLogs();
+    console.log(`Audit log retention policy executed. Deleted ${deletedCount} expired logs.`);
+    return { success: true, deletedCount };
+  } catch (error) {
+    console.error('Error executing audit log retention policy:', error);
+    throw error;
+  }
+});
+
 module.exports = {
   sessionHeartbeat,
   trackPVQAttempt,
   trackExamAttempt,
   auditComplianceAccess,
   generateComplianceReport,
+  auditLogRetentionPolicy,
   getStudentIdByName,
   getComplianceDataForStudent,
   getComplianceDataForCourse,

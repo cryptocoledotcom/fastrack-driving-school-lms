@@ -29,6 +29,7 @@ export const ADMIN_ROUTES = {
   MANAGE_COURSES: '/admin/courses',
   MANAGE_LESSONS: '/admin/lessons',
   ANALYTICS: '/admin/analytics',
+  AUDIT_LOGS: '/admin/audit-logs',
   SETTINGS: '/admin/settings'
 };
 

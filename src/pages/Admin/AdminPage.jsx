@@ -9,6 +9,7 @@ import ErrorBoundary from '../../components/common/ErrorBoundary/ErrorBoundary';
 import EnrollmentManagementTab from '../../components/admin/tabs/EnrollmentManagementTab';
 import AnalyticsTab from '../../components/admin/tabs/AnalyticsTab';
 import UserManagementTab from '../../components/admin/tabs/UserManagementTab';
+import AuditLogsTab from '../../components/admin/tabs/AuditLogsTab';
 import SchedulingManagement from '../../components/admin/SchedulingManagement';
 import ComplianceReporting from '../../components/admin/ComplianceReporting';
 import { enrollmentServices } from '../../api/enrollment';
@@ -182,6 +183,15 @@ const AdminPage = () => {
             Compliance Reports
           </button>
 
+          {(userProfile?.role === USER_ROLES.SUPER_ADMIN || userProfile?.role === USER_ROLES.DMV_ADMIN || userProfile?.role === USER_ROLES.INSTRUCTOR) && (
+            <button
+              className={`${styles.tab} ${activeTab === 'audit-logs' ? styles.activeTab : ''}`}
+              onClick={() => setActiveTab('audit-logs')}
+            >
+              Audit Logs
+            </button>
+          )}
+
           {userProfile?.role === USER_ROLES.SUPER_ADMIN && (
             <button
               className={`${styles.tab} ${activeTab === 'user-management' ? styles.activeTab : ''}`}
@@ -225,6 +235,12 @@ const AdminPage = () => {
         {activeTab === 'compliance-reporting' && (
           <ErrorBoundary fallback={<TabErrorFallback tabName="Compliance Reports" />}>
             <ComplianceReporting />
+          </ErrorBoundary>
+        )}
+
+        {activeTab === 'audit-logs' && (userProfile?.role === USER_ROLES.SUPER_ADMIN || userProfile?.role === USER_ROLES.DMV_ADMIN || userProfile?.role === USER_ROLES.INSTRUCTOR) && (
+          <ErrorBoundary fallback={<TabErrorFallback tabName="Audit Logs" />}>
+            <AuditLogsTab />
           </ErrorBoundary>
         )}
 
