@@ -9,6 +9,7 @@ export * as messageConstants from './messages';
 export { appConfig, routes, validationRules } from './app';
 export { courses, userRoles, lessonTypes, progressStatus } from './domain';
 export { errorMessages, successMessages } from './messages';
+export { default as OHIO_COMPLIANCE } from './compliance.js';
 
 // Most frequently used exports for convenience
 export { COURSE_IDS, COURSE_PRICING, COURSE_TYPES, PAYMENT_STATUS, ENROLLMENT_STATUS, ACCESS_STATUS } from './domain/courses.js';

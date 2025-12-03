@@ -6,6 +6,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useTimer } from '../../context/TimerContext';
 import { TimerProvider } from '../../context/TimerContext';
+import useComplianceHeartbeat from '../../hooks/useComplianceHeartbeat';
 import Card from '../../components/common/Card/Card';
 import Button from '../../components/common/Button/Button';
 import ProgressBar from '../../components/common/ProgressBar/ProgressBar';
@@ -61,6 +62,26 @@ const CoursePlayerPageContent = () => {
   // Video tracking
   const videoRef = useRef(null);
   const progressSaveInterval = useRef(null);
+
+  // Compliance heartbeat hook - sends server-side heartbeat every 60 seconds
+  useComplianceHeartbeat({
+    userId: user?.uid,
+    courseId,
+    sessionId: currentSessionId,
+    enabled: isActive && !!user && !!courseId,
+    onLimitReached: () => {
+      setError('You have reached the 4-hour daily limit. Please try again tomorrow.');
+      stopTimer();
+    },
+    onIdleTimeout: () => {
+      setError('Your session has ended due to 15 minutes of inactivity. Please log in again to continue.');
+      stopTimer();
+      navigate('/login');
+    },
+    onHeartbeatError: (error) => {
+      console.error('Compliance heartbeat error:', error);
+    }
+  });
 
   // Check for daily lockout and show error
   useEffect(() => {

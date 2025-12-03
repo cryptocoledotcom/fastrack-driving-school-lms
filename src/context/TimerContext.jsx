@@ -5,13 +5,11 @@ import useSessionTimer from '../hooks/useSessionTimer';
 import useBreakManagement from '../hooks/useBreakManagement';
 import usePVQTrigger from '../hooks/usePVQTrigger';
 import useSessionData from '../hooks/useSessionData';
-import ConfirmModal from '../components/common/Modals/ConfirmModal';
 import {
   createComplianceSession,
   updateComplianceSession,
   closeComplianceSession,
   getDailyTime,
-  checkDailyHourLockout,
   logBreak,
   logBreakEnd
 } from '../api/compliance/complianceServices';
@@ -35,11 +33,8 @@ export const TimerProvider = ({ children, courseId, lessonId, ipAddress }) => {
   
   const [videoProgress, setVideoProgress] = useState(null);
   const [breakTime, setBreakTime] = useState(0);
-  const [lastActivityTime, setLastActivityTime] = useState(Date.now());
   const [pvqError, setPVQError] = useState(null);
-  const [showInactivityModal, setShowInactivityModal] = useState(false);
   const [sessionTerminatedByUser, setSessionTerminatedByUser] = useState(false);
-  const [isUserActive, setIsUserActive] = useState(true);
 
   const intervalRef = useRef(null);
   const breakIntervalRef = useRef(null);
@@ -48,9 +43,6 @@ export const TimerProvider = ({ children, courseId, lessonId, ipAddress }) => {
   const heartbeatIntervalRef = useRef(null);
   const beforeUnloadHandlerRef = useRef(null);
   const sessionCreationPromiseRef = useRef(null);
-  const inactivityTimeoutRef = useRef(null);
-  const lastActivityTimeRef = useRef(Date.now());
-  const pageVisibilityHandlerRef = useRef(null);
 
   const sessionTimer = useSessionTimer({
     sessionTime: 0,
@@ -82,7 +74,6 @@ export const TimerProvider = ({ children, courseId, lessonId, ipAddress }) => {
     const initializeSession = async () => {
       if (user && courseId) {
         try {
-          await checkDailyHourLockout(user.uid, courseId);
           const dailyTime = await getDailyTime(user.uid, courseId);
           sessionTimer.loadDailyTime(dailyTime);
         } catch (err) {
@@ -206,8 +197,6 @@ export const TimerProvider = ({ children, courseId, lessonId, ipAddress }) => {
         
         startHeartbeat(sessionId);
         setupPageUnloadHandler(sessionId);
-        
-          setLastActivityTime(Date.now());
         } catch (err) {
           console.error('Error starting timer:', err);
         } finally {
@@ -219,53 +208,10 @@ export const TimerProvider = ({ children, courseId, lessonId, ipAddress }) => {
     }
   };
 
-  const handleUserActivity = () => {
-    lastActivityTimeRef.current = Date.now();
-    setLastActivityTime(Date.now());
-    setIsUserActive(true);
-
-    if (inactivityTimeoutRef.current) {
-      clearTimeout(inactivityTimeoutRef.current);
-      inactivityTimeoutRef.current = null;
-    }
-
-    if (sessionTimer.isPaused && sessionData.currentSessionId) {
-      resumeTimerComplianceWrapped();
-    }
-
-    startInactivityTimeout();
-  };
-
-  const startInactivityTimeout = () => {
-    if (inactivityTimeoutRef.current) {
-      clearTimeout(inactivityTimeoutRef.current);
-    }
-
-    inactivityTimeoutRef.current = setTimeout(() => {
-      setIsUserActive(false);
-      setShowInactivityModal(true);
-      if (sessionTimer.isActive && !sessionTimer.isPaused) {
-        pauseTimerComplianceWrapped();
-      }
-    }, 5 * 60 * 1000);
-  };
-
-  const handleInactivityModalResponse = (isContaining) => {
-    if (isContaining) {
-      setShowInactivityModal(false);
-      handleUserActivity();
-    } else {
-      setShowInactivityModal(false);
-      setSessionTerminatedByUser(true);
-      stopTimerComplianceWrapped();
-    }
-  };
-
   const pauseTimerComplianceWrapped = async () => {
     if (sessionTimer.isActive && !sessionTimer.isPaused) {
       await saveTimerData();
       sessionTimer.pauseTimer();
-      setLastActivityTime(Date.now());
     }
   };
 
@@ -273,7 +219,6 @@ export const TimerProvider = ({ children, courseId, lessonId, ipAddress }) => {
     if (sessionTimer.isActive && sessionTimer.isPaused) {
       await saveTimerData();
       sessionTimer.resumeTimer();
-      setLastActivityTime(Date.now());
     }
   };
 
@@ -485,62 +430,9 @@ export const TimerProvider = ({ children, courseId, lessonId, ipAddress }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sessionTimer.isActive, sessionTimer.isPaused, sessionTimer.sessionTime, videoProgress, sessionData.lessonsAccessed, breakManager.breakHistory]);
 
-  useEffect(() => {
-    if (sessionTimer.isActive && !sessionTimer.isPaused) {
-      const idleCheckInterval = setInterval(() => {
-        const idleTime = Date.now() - lastActivityTime;
-        if (idleTime > (APP_CONFIG.IDLE_TIMEOUT || 1800000)) {
-          pauseTimerComplianceWrapped();
-        }
-      }, 60000);
 
-      return () => clearInterval(idleCheckInterval);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sessionTimer.isActive, sessionTimer.isPaused, lastActivityTime]);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => {
-    if (!sessionData.currentSessionId) return;
 
-    const handleActivity = () => {
-      handleUserActivity();
-    };
-
-    const handlePageVisibility = () => {
-      if (document.hidden) {
-        if (sessionTimer.isActive && !sessionTimer.isPaused) {
-          pauseTimerComplianceWrapped();
-        }
-      } else {
-        if (sessionTimer.isActive && sessionTimer.isPaused) {
-          resumeTimerComplianceWrapped();
-        }
-      }
-    };
-
-    document.addEventListener('click', handleActivity);
-    document.addEventListener('keypress', handleActivity);
-    document.addEventListener('scroll', handleActivity);
-    document.addEventListener('visibilitychange', handlePageVisibility);
-
-    pageVisibilityHandlerRef.current = handlePageVisibility;
-
-    if (sessionTimer.isActive && !sessionTimer.isPaused) {
-      startInactivityTimeout();
-    }
-
-    return () => {
-      document.removeEventListener('click', handleActivity);
-      document.removeEventListener('keypress', handleActivity);
-      document.removeEventListener('scroll', handleActivity);
-      document.removeEventListener('visibilitychange', handlePageVisibility);
-      if (inactivityTimeoutRef.current) {
-        clearTimeout(inactivityTimeoutRef.current);
-      }
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sessionData.currentSessionId, sessionTimer.isActive, sessionTimer.isPaused]);
 
   const value = {
     sessionTime: sessionTimer.sessionTime,
@@ -582,25 +474,12 @@ export const TimerProvider = ({ children, courseId, lessonId, ipAddress }) => {
     hasBreakMetMinimumDuration,
     handlePVQSubmit,
     closePVQModal: closePVQModalWrapped,
-    showInactivityModal,
-    handleInactivityModalResponse,
-    isUserActive,
     sessionTerminatedByUser
   };
 
   return (
     <TimerContext.Provider value={value}>
       {children}
-      <ConfirmModal
-        isOpen={showInactivityModal}
-        title="Still Learning?"
-        message="We haven't detected any activity for 5 minutes. Are you still actively learning?"
-        confirmText="Yes, Continue"
-        cancelText="No, Stop"
-        onConfirm={() => handleInactivityModalResponse(true)}
-        onCancel={() => handleInactivityModalResponse(false)}
-        onClose={() => setShowInactivityModal(false)}
-      />
     </TimerContext.Provider>
   );
 };

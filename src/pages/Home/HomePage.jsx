@@ -53,13 +53,24 @@ const HomePage = () => {
     <div className={styles.homePage}>
       {/* Hero Section */}
       <section className={styles.hero}>
+        <video
+          src="/assets/videos/homepage-logo-video.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          className={styles.heroVideo}
+        />
+        <div className={styles.heroOverlay}></div>
         <div className={styles.heroContent}>
-          <h1 className={styles.heroTitle}>
-            Learn to Drive with Confidence
-          </h1>
-          <p className={styles.heroSubtitle}>
-            Join thousands of successful students who learned to drive safely with Fastrack Driving School
-          </p>
+          <div className={styles.heroText}>
+            <h1 className={styles.heroTitle}>
+              Learn to Drive with Confidence
+            </h1>
+            <p className={styles.heroSubtitle}>
+              Join thousands of successful students who learned to drive safely with Fastrack Driving School
+            </p>
+          </div>
           <div className={styles.heroButtons}>
             <Link to={PUBLIC_ROUTES.REGISTER}>
               <Button variant="primary" size="large">
@@ -72,19 +83,6 @@ const HomePage = () => {
               </Button>
             </Link>
           </div>
-        </div>
-      </section>
-
-      {/* Logo Video Section */}
-      <section className={styles.logoVideoSection}>
-        <div className={styles.container}>
-          <video src="/assets/videos/homepage-logo-video.mp4"
-            autoPlay
-            loop
-            muted
-            playsInline
-            className={styles.logoVideo}
-          />
         </div>
       </section>
 
