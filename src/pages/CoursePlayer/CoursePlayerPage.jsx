@@ -23,6 +23,7 @@ import { getLessons } from '../../api/courses/lessonServices';
 import { initializeProgress, getProgress, markLessonCompleteWithCompliance, updateLessonProgress } from '../../api/student/progressServices';
 import { getPostVideoQuestion, recordVideoQuestionResponse, checkVideoQuestionAnswer } from '../../api/student/videoQuestionServices';
 import { createQuizAttempt, submitQuizAttempt } from '../../api/courses/quizServices';
+import { generateEnrollmentCertificate, hasEnrollmentCertificate } from '../../api/student/certificateServices';
 import { LESSON_TYPES } from '../../constants/lessonTypes';
 import OHIO_COMPLIANCE from '../../constants/compliance';
 import styles from './CoursePlayerPage.module.css';
@@ -80,6 +81,11 @@ const CoursePlayerPageContent = () => {
   const [quizAttemptId, setQuizAttemptId] = useState(null);
   const [quizSubmitting, setQuizSubmitting] = useState(false);
   const [quizError, setQuizError] = useState(null);
+
+  // Enrollment certificate tracking
+  const [showCertificateNotification, setShowCertificateNotification] = useState(false);
+  const [certificateEligible, setCertificateEligible] = useState(false);
+  const [generatingCertificate, setGeneratingCertificate] = useState(false);
 
   // Compliance heartbeat hook - sends server-side heartbeat every 60 seconds
   useComplianceHeartbeat({
@@ -152,6 +158,12 @@ const CoursePlayerPageContent = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentLesson]);
+
+  useEffect(() => {
+    if (progress) {
+      checkEnrollmentCertificateEligibility();
+    }
+  }, [progress?.cumulativeMinutes, progress?.unit1_complete, progress?.unit2_complete]);
 
   const loadCourseData = async () => {
     try {
@@ -444,6 +456,42 @@ const CoursePlayerPageContent = () => {
     }
   };
 
+  const checkEnrollmentCertificateEligibility = async () => {
+    if (!user?.uid || !courseId) return;
+
+    try {
+      const hasUserCertificate = await hasEnrollmentCertificate(user.uid, courseId);
+      if (hasUserCertificate) return;
+
+      const cumulativeMinutes = progress?.cumulativeMinutes || 0;
+      const unit1Complete = progress?.unit1_complete || false;
+      const unit2Complete = progress?.unit2_complete || false;
+
+      if (cumulativeMinutes >= 120 && unit1Complete && unit2Complete) {
+        setCertificateEligible(true);
+        setShowCertificateNotification(true);
+      }
+    } catch (err) {
+      console.error('Error checking certificate eligibility:', err);
+    }
+  };
+
+  const handleGenerateEnrollmentCertificate = async () => {
+    if (!user?.uid || !courseId || !course) return;
+
+    setGeneratingCertificate(true);
+    try {
+      await generateEnrollmentCertificate(user.uid, courseId, course.title);
+      setShowCertificateNotification(false);
+      navigate('/certificates');
+    } catch (err) {
+      console.error('Error generating certificate:', err);
+      alert('Failed to generate certificate. Please try again.');
+    } finally {
+      setGeneratingCertificate(false);
+    }
+  };
+
   const renderLessonContent = () => {
     if (!currentLesson) {
       return (
@@ -568,6 +616,33 @@ const CoursePlayerPageContent = () => {
 
         </div>
       </div>
+
+      {showCertificateNotification && (
+        <div className={styles.certificateNotification}>
+          <div className={styles.notificationContent}>
+            <div className={styles.notificationIcon}>🎉</div>
+            <div className={styles.notificationText}>
+              <h3>Enrollment Certificate Earned!</h3>
+              <p>You've completed 2 hours of instruction and finished Units 1-2. Claim your enrollment certificate now!</p>
+            </div>
+            <div className={styles.notificationActions}>
+              <Button
+                variant="primary"
+                onClick={handleGenerateEnrollmentCertificate}
+                loading={generatingCertificate}
+              >
+                Claim Certificate
+              </Button>
+              <Button
+                variant="ghost"
+                onClick={() => setShowCertificateNotification(false)}
+              >
+                Dismiss
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className={styles.playerContainer}>
         {/* Sidebar */}
