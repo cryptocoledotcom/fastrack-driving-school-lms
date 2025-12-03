@@ -16,11 +16,13 @@ import ErrorMessage from '../../components/common/ErrorMessage/ErrorMessage';
 import PVQModal from '../../components/common/Modals/PVQModal';
 import RestrictedVideoPlayer from '../../components/common/RestrictedVideoPlayer/RestrictedVideoPlayer';
 import PostVideoQuestionModal from '../../components/common/Modals/PostVideoQuestionModal';
+import Quiz from '../../components/common/Quiz/Quiz';
 import { getCourseById } from '../../api/courses/courseServices';
 import { getModules } from '../../api/courses/moduleServices';
 import { getLessons } from '../../api/courses/lessonServices';
 import { initializeProgress, getProgress, markLessonCompleteWithCompliance, updateLessonProgress } from '../../api/student/progressServices';
 import { getPostVideoQuestion, recordVideoQuestionResponse, checkVideoQuestionAnswer } from '../../api/student/videoQuestionServices';
+import { createQuizAttempt, submitQuizAttempt } from '../../api/courses/quizServices';
 import { LESSON_TYPES } from '../../constants/lessonTypes';
 import OHIO_COMPLIANCE from '../../constants/compliance';
 import styles from './CoursePlayerPage.module.css';
@@ -73,6 +75,11 @@ const CoursePlayerPageContent = () => {
   const [videoDuration, setVideoDuration] = useState(0);
   const [checkingAnswer, setCheckingAnswer] = useState(false);
   const [videoQuestionError, setVideoQuestionError] = useState(null);
+
+  // Quiz tracking
+  const [quizAttemptId, setQuizAttemptId] = useState(null);
+  const [quizSubmitting, setQuizSubmitting] = useState(false);
+  const [quizError, setQuizError] = useState(null);
 
   // Compliance heartbeat hook - sends server-side heartbeat every 60 seconds
   useComplianceHeartbeat({
@@ -381,6 +388,62 @@ const CoursePlayerPageContent = () => {
     await handleLessonComplete();
   };
 
+  const handleQuizStart = async () => {
+    try {
+      setQuizError(null);
+      const attemptId = await createQuizAttempt(user.uid, courseId, {
+        quizId: currentLesson.id,
+        quizTitle: currentLesson.title,
+        isFinalExam: false,
+        sessionId: currentSessionId,
+        ipAddress: null,
+        deviceInfo: navigator.userAgent
+      });
+      setQuizAttemptId(attemptId);
+    } catch (err) {
+      console.error('Error starting quiz:', err);
+      setQuizError(err.message || 'Failed to start quiz');
+    }
+  };
+
+  const handleQuizSubmit = async (submissionData) => {
+    if (!quizAttemptId) {
+      setQuizError('Quiz session not initialized');
+      return;
+    }
+
+    setQuizSubmitting(true);
+    try {
+      const result = await submitQuizAttempt(quizAttemptId, {
+        answers: submissionData.selectedAnswers,
+        totalQuestions: submissionData.totalQuestions,
+        correctAnswers: Object.entries(submissionData.selectedAnswers).filter(
+          ([qId, answer]) => {
+            const question = currentLesson.questions?.find(q => q.id === qId);
+            return question && question.correctAnswer === answer;
+          }
+        ).length,
+        timeSpent: submissionData.timeSpent || 0
+      });
+
+      return result;
+    } catch (err) {
+      console.error('Error submitting quiz:', err);
+      setQuizError(err.message || 'Failed to submit quiz');
+      throw err;
+    } finally {
+      setQuizSubmitting(false);
+    }
+  };
+
+  const handleQuizComplete = async (isPassed) => {
+    setQuizAttemptId(null);
+    setQuizError(null);
+    if (isPassed) {
+      await handleLessonComplete();
+    }
+  };
+
   const renderLessonContent = () => {
     if (!currentLesson) {
       return (
@@ -425,10 +488,44 @@ const CoursePlayerPageContent = () => {
         );
 
       case LESSON_TYPES.QUIZ:
+        if (!quizAttemptId) {
+          return (
+            <div className={styles.quizContent}>
+              <div className={styles.quizInitial}>
+                <h3>{currentLesson.title}</h3>
+                {currentLesson.description && <p>{currentLesson.description}</p>}
+                <div className={styles.quizInfo}>
+                  <p className={styles.quizInfoItem}>
+                    <strong>Questions:</strong> {currentLesson.questions?.length || 0}
+                  </p>
+                  <p className={styles.quizInfoItem}>
+                    <strong>Passing Score:</strong> {currentLesson.passingScore || 70}%
+                  </p>
+                  <p className={styles.warningNote}>
+                    ⚠️ <strong>Important:</strong> Once you start the quiz, correct answers will only be shown after you submit.
+                  </p>
+                </div>
+                <Button
+                  variant="primary"
+                  onClick={handleQuizStart}
+                  disabled={quizSubmitting}
+                  size="large"
+                >
+                  Start Quiz
+                </Button>
+              </div>
+            </div>
+          );
+        }
         return (
           <div className={styles.quizContent}>
-            <h3>Quiz: {currentLesson.title}</h3>
-            <p>Quiz functionality coming soon...</p>
+            <Quiz
+              quiz={currentLesson}
+              onSubmit={handleQuizSubmit}
+              loading={quizSubmitting}
+              error={quizError}
+              onCancel={() => setQuizAttemptId(null)}
+            />
           </div>
         );
 

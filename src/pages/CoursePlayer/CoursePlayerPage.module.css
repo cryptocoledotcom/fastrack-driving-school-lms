@@ -356,3 +356,55 @@
   font-size: 0.95rem;
   line-height: 1.4;
 }
+
+.quizInitial {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.quizInitial h3 {
+  font-size: 2rem;
+  color: var(--text-main);
+  margin: 0 0 1rem 0;
+}
+
+.quizInitial p {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin: 0 0 1.5rem 0;
+  line-height: 1.6;
+}
+
+.quizInfo {
+  background-color: #f5f7fa;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  text-align: left;
+  border-left: 4px solid #3498db;
+}
+
+.quizInfoItem {
+  margin: 0.5rem 0;
+  font-size: 0.95rem;
+  color: var(--text-main);
+}
+
+.quizInfoItem strong {
+  color: var(--text-main);
+  font-weight: 600;
+}
+
+.warningNote {
+  background-color: #fff3cd;
+  color: #856404;
+  padding: 1rem;
+  border-radius: 6px;
+  border-left: 4px solid #ffc107;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin: 1.5rem 0 !important;
+  text-align: left;
+}

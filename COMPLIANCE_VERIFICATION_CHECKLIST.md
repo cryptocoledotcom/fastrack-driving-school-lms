@@ -204,11 +204,28 @@
 - **Note**: Implementation uses dynamic `totalQuestions` parameter for flexibility
 
 ### 5.2 Correct Answers Hidden Until After Submission
-- [ ] **Status**: NEEDS IMPLEMENTATION ✗
-- [ ] Questions/answers visible during exam
-- [ ] Correct answers NOT revealed until entire test submitted + graded
-- [ ] After submission, show score but not answers on first/second failure
-- **ACTION NEEDED**: Update quiz UI to hide answers until submission
+- [x] **Status**: IMPLEMENTED ✓ (Deployed Dec 3, 2025)
+- [x] Questions/answers visible during exam (no correct answer indicators shown)
+- [x] Correct answers NOT revealed until entire test submitted + graded
+- [x] After submission, detailed results page shows:
+  - Overall score percentage and pass/fail status
+  - Score required to pass
+  - Detailed question-by-question review with:
+    - User's selected answer vs. correct answer
+    - Visual indicators (✓ for correct, ✗ for incorrect)
+- **Implementation Files**:
+  - `src/components/common/Quiz/Quiz.jsx` (225 lines)
+  - `src/components/common/Quiz/Quiz.module.css` (410 lines)
+  - `src/pages/CoursePlayer/CoursePlayerPage.jsx` (quiz integration: lines 79-82, 391-445, 490-530, 360-410 CSS)
+  - `src/components/common/Quiz/Quiz.test.js` (comprehensive Jest tests)
+- **Implementation Details**:
+  - Quiz component displays questions with answer options during test
+  - No visual indication of correct/incorrect until submission
+  - User must select answer for each question before submitting
+  - Upon submission, results page displays with full answer review
+  - Failed quizzes show "Retake Quiz" button for retry
+  - Passed quizzes show "Close Quiz" button for completion
+  - CoursePlayerPage creates quiz attempt, tracks submission, handles results
 
 ### 5.3 Three-Strike Rule with 24-Hour Cooldowns
 - [x] **Status**: IMPLEMENTED ✓ (DEPLOYED)
@@ -469,12 +486,12 @@
 ### CRITICAL (Must implement immediately for compliance)
 6. **Audit logging system** - 3-year record retention (ongoing)
 7. **DETS integration** - State reporting requirement
-8. **Correct answers hidden until submission** - Quiz UI update
+8. ✅ **Correct answers hidden until submission** - Deployed Dec 3, 2025
 9. **Two-hour enrollment certificate** - Trigger after Unit 1+2 complete
 
 ### HIGH (Important for core functionality)
 7. ✅ Video player with seek restrictions & post-video questions - Deployed Dec 3, 2025
-8. Correct answers hidden until submission
+8. ✅ Correct answers hidden until submission - Deployed Dec 3, 2025
 9. Two-hour enrollment certificate generation
 10. Curriculum unit total minute verification (currently 135 min short)
 11. Text-to-speech for exam questions
@@ -520,7 +537,38 @@
   - Modal styling with gradient header
   - Answer option styling
   - Feedback message styling
+
+- `src/components/common/Quiz/Quiz.jsx` (225 lines)
+  - Quiz component with hidden answers during test
+  - Displays questions and answer options (no correct answer indicators)
+  - Shows results page after submission with detailed review
+  - Supports retake for failed quizzes
+  - Radio button answer selection
+  - Answer review shows user's answer vs. correct answer with visual marks (✓/✗)
+
+- `src/components/common/Quiz/Quiz.module.css` (410 lines)
+  - Quiz container and question styling
+  - Results page styling with pass/fail states
+  - Answer option hover and selection states
+  - Review section styling
+  - Responsive design for mobile/tablet/desktop
+  - Gradient backgrounds for results header
+
+- `src/components/common/Quiz/Quiz.test.js` (comprehensive Jest tests)
+  - Tests for quiz rendering and answer selection
+  - Tests for submission flow and results display
+  - Tests for correct answer visibility (hidden during test, shown after)
+  - Tests for error handling and loading states
+  - Tests for retake functionality
   - Responsive design
+
+**Integration Points**:
+- `src/pages/CoursePlayer/CoursePlayerPage.jsx` (modified)
+  - Added imports: `Quiz` component and `createQuizAttempt`, `submitQuizAttempt` services
+  - Added quiz state: `quizAttemptId`, `quizSubmitting`, `quizError`
+  - Added quiz handlers: `handleQuizStart()`, `handleQuizSubmit()`, `handleQuizComplete()`
+  - Updated `renderLessonContent()` to display quiz intro screen and Quiz component
+  - Updated `CoursePlayerPage.module.css` with quiz styling (360-410 lines)
 
 **Service Layer**:
 - `src/api/student/videoQuestionServices.js` (146 lines)
