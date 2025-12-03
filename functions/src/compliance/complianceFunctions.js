@@ -494,6 +494,208 @@ const trackPVQAttempt = onCall(
   }
 );
 
+const trackExamAttempt = onCall(
+  { enforceAppCheck: false },
+  async (data, context) => {
+    try {
+      if (!context.auth) {
+        throw new Error('Authentication required');
+      }
+
+      const { userId, courseId, sessionId, score, totalQuestions } = data;
+
+      if (!userId || !courseId || !sessionId || typeof score !== 'number' || typeof totalQuestions !== 'number') {
+        throw new Error('Missing required parameters: userId, courseId, sessionId, score, totalQuestions');
+      }
+
+      if (context.auth.uid !== userId) {
+        throw new Error('User ID mismatch - cannot track exam attempts for another user');
+      }
+
+      const PASSING_SCORE_PERCENT = 75;
+      const passingScore = Math.ceil((PASSING_SCORE_PERCENT / 100) * totalQuestions);
+      const isPassed = score >= passingScore;
+      const scorePercent = Math.round((score / totalQuestions) * 100);
+
+      const userRef = db.collection('users').doc(userId);
+      const userDoc = await userRef.get();
+
+      if (!userDoc.exists()) {
+        throw new Error('User not found');
+      }
+
+      // Check if user is currently locked out from exam
+      const userData = userDoc.data();
+      const now = new Date();
+      if (userData.examLockoutUntil && userData.examLockoutUntil.toDate() > now) {
+        const remainingHours = Math.ceil((userData.examLockoutUntil.toDate() - now) / (60 * 60 * 1000));
+        throw new Error(`EXAM_LOCKED_OUT: You are locked out from taking the exam for ${remainingHours} more hours`);
+      }
+
+      // Get or create exam attempt record
+      const examAttemptsRef = db.collection('exam_attempts').doc(`${userId}_${courseId}`);
+      const examAttemptsDoc = await examAttemptsRef.get();
+
+      let attemptNumber = 1;
+      let failureCount = 0;
+      let previousAttempts = [];
+
+      if (examAttemptsDoc.exists()) {
+        const examData = examAttemptsDoc.data();
+        previousAttempts = examData.attempts || [];
+        attemptNumber = previousAttempts.length + 1;
+        failureCount = examData.failureCount || 0;
+      }
+
+      // If not passed, increment failure count
+      if (!isPassed) {
+        failureCount += 1;
+
+        // Check for 3rd failure - flag for academic reset
+        if (failureCount >= 3) {
+          const resetUntil = new Date(now.getTime() + 72 * 60 * 60 * 1000);
+          await userRef.update({
+            academicResetRequired: true,
+            academicResetReason: 'Final exam - 3 strikes exceeded',
+            resetAvailableAt: resetUntil,
+            examAttemptsAfterReset: 0
+          });
+
+          await logAuditEvent(
+            userId,
+            'EXAM_ACADEMIC_RESET_FLAGGED',
+            'assessment',
+            courseId,
+            'error',
+            {
+              sessionId,
+              attemptNumber,
+              failureCount,
+              score,
+              scorePercent,
+              passingScore
+            }
+          );
+
+          throw new Error('EXAM_ACADEMIC_RESET: You have exceeded the maximum number of exam attempts. Your account has been flagged for academic reset. Please contact support.');
+        }
+
+        // Set 24-hour lockout for attempt 1 and 2
+        const lockoutUntil = new Date(now.getTime() + 24 * 60 * 60 * 1000);
+        await userRef.update({
+          examLockoutUntil: lockoutUntil,
+          examLockedOutAt: admin.firestore.FieldValue.serverTimestamp()
+        });
+
+        await logAuditEvent(
+          userId,
+          'EXAM_ATTEMPT_FAILED',
+          'assessment',
+          courseId,
+          'error',
+          {
+            sessionId,
+            attemptNumber,
+            failureCount,
+            score,
+            scorePercent,
+            passingScore,
+            lockoutUntil: lockoutUntil.toISOString()
+          }
+        );
+      } else {
+        // Exam passed - clear any lockout and update user
+        await userRef.update({
+          finalExamPassed: true,
+          finalExamPassedAt: admin.firestore.FieldValue.serverTimestamp(),
+          finalExamScore: scorePercent,
+          examLockoutUntil: admin.firestore.FieldValue.delete(),
+          academicResetRequired: admin.firestore.FieldValue.delete()
+        });
+
+        await logAuditEvent(
+          userId,
+          'EXAM_PASSED',
+          'assessment',
+          courseId,
+          'success',
+          {
+            sessionId,
+            attemptNumber,
+            score,
+            scorePercent
+          }
+        );
+      }
+
+      // Record this attempt
+      const attemptRecord = {
+        attemptNumber,
+        score,
+        scorePercent,
+        totalQuestions,
+        passingScore,
+        isPassed,
+        attemptedAt: admin.firestore.FieldValue.serverTimestamp(),
+        sessionId
+      };
+
+      previousAttempts.push(attemptRecord);
+
+      await examAttemptsRef.set({
+        userId,
+        courseId,
+        attempts: previousAttempts,
+        attemptCount: previousAttempts.length,
+        failureCount,
+        lastAttemptScore: scorePercent,
+        lastAttemptAt: admin.firestore.FieldValue.serverTimestamp(),
+        isPassed,
+        updatedAt: admin.firestore.FieldValue.serverTimestamp()
+      }, { merge: true });
+
+      return {
+        success: true,
+        attemptNumber,
+        score,
+        scorePercent,
+        passingScore,
+        isPassed,
+        failureCount,
+        remainingAttempts: Math.max(0, 3 - failureCount),
+        serverTimestamp: admin.firestore.Timestamp.now().toMillis()
+      };
+    } catch (error) {
+      console.error('Error tracking exam attempt:', error);
+
+      // Log failure
+      try {
+        const { userId, courseId, sessionId } = data;
+        if (userId && courseId) {
+          await logAuditEvent(
+            userId,
+            'EXAM_ATTEMPT_TRACKING_FAILED',
+            'assessment',
+            courseId,
+            'error',
+            { error: error.message, sessionId }
+          );
+        }
+      } catch (auditError) {
+        console.error('Failed to log audit event:', auditError);
+      }
+
+      if (error.message.startsWith('EXAM_LOCKED_OUT:') || error.message.startsWith('EXAM_ACADEMIC_RESET:')) {
+        const err = new Error(error.message);
+        err.code = 'PERMISSION_DENIED';
+        throw err;
+      }
+
+      throw new Error(`Exam attempt tracking failed: ${error.message}`);
+    }
+  }
+);
+
 const generateComplianceReport = onCall({ enforceAppCheck: false }, async (data, context) => {
   try {
     if (!context.auth) {
@@ -546,6 +748,7 @@ const generateComplianceReport = onCall({ enforceAppCheck: false }, async (data,
 module.exports = {
   sessionHeartbeat,
   trackPVQAttempt,
+  trackExamAttempt,
   auditComplianceAccess,
   generateComplianceReport,
   getStudentIdByName,

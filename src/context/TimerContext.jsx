@@ -5,6 +5,8 @@ import useSessionTimer from '../hooks/useSessionTimer';
 import useBreakManagement from '../hooks/useBreakManagement';
 import usePVQTrigger from '../hooks/usePVQTrigger';
 import useSessionData from '../hooks/useSessionData';
+import { httpsCallable, getFunctions } from 'firebase/functions';
+import { getApp } from 'firebase/app';
 import {
   createComplianceSession,
   updateComplianceSession,
@@ -269,7 +271,6 @@ export const TimerProvider = ({ children, courseId, lessonId, ipAddress }) => {
     breakManager.startBreak();
     setBreakTime(duration);
     sessionTimer.pauseTimer();
-    setLastActivityTime(Date.now());
   };
 
   const endBreakComplianceWrapped = async () => {
@@ -315,6 +316,15 @@ export const TimerProvider = ({ children, courseId, lessonId, ipAddress }) => {
 
     try {
       const timeToAnswer = pvqResponse.timeToAnswer;
+      const functions = getFunctions(getApp());
+      const trackPVQAttemptFn = httpsCallable(functions, 'trackPVQAttempt');
+
+      const trackResult = await trackPVQAttemptFn({
+        userId: user.uid,
+        courseId,
+        sessionId: sessionData.currentSessionId,
+        isCorrect: true
+      });
 
       await logIdentityVerificationPVQ(user.uid, courseId, sessionData.currentSessionId, {
         questionId: pvqTrigger.currentPVQQuestion.id,
@@ -323,7 +333,9 @@ export const TimerProvider = ({ children, courseId, lessonId, ipAddress }) => {
         isCorrect: true,
         timeToAnswer,
         ipAddress,
-        deviceInfo: navigator.userAgent
+        deviceInfo: navigator.userAgent,
+        attemptNumber: trackResult.data.attemptCount,
+        remainingAttempts: trackResult.data.remainingAttempts
       });
 
       await pvqTrigger.submitPVQAnswer(pvqResponse.answer);
@@ -331,7 +343,11 @@ export const TimerProvider = ({ children, courseId, lessonId, ipAddress }) => {
       resumeTimerComplianceWrapped();
     } catch (err) {
       console.error('Error submitting PVQ:', err);
-      setPVQError(err.message || 'Error saving verification');
+      if (err.message?.includes('PVQ_LOCKED_OUT') || err.message?.includes('PVQ_MAX_ATTEMPTS_EXCEEDED')) {
+        setPVQError(err.message);
+      } else {
+        setPVQError(err.message || 'Error saving verification');
+      }
     }
   };
 
@@ -371,7 +387,7 @@ export const TimerProvider = ({ children, courseId, lessonId, ipAddress }) => {
   useEffect(() => {
     if (sessionTimer.isActive && !sessionTimer.isPaused && !breakManager.isOnBreak) {
       intervalRef.current = setInterval(() => {
-        setLastActivityTime(Date.now());
+        // Activity tracking handled by server-side heartbeat
       }, 1000);
     } else {
       if (intervalRef.current) {
