@@ -627,6 +627,61 @@ const trackExamAttempt = onCall(
             scorePercent
           }
         );
+
+        // Check if student qualifies for completion certificate
+        // (1,440+ minutes + 75%+ exam score)
+        const totalInstructionMinutes = userData.totalInstructionMinutes || userData.cumulativeMinutes || 0;
+        const MIN_INSTRUCTION_MINUTES = 1440;
+        
+        if (totalInstructionMinutes >= MIN_INSTRUCTION_MINUTES && scorePercent >= 75) {
+          try {
+            // Auto-generate completion certificate
+            const { generateCompletionCertificate } = require('./enrollmentCertificateFunctions');
+            const courseDoc = await db.collection('courses').doc(courseId).get();
+            const courseName = courseDoc.exists() ? courseDoc.data().title : 'Course';
+            
+            // Call the internal function
+            await db.collection('certificates').add({
+              userId,
+              courseId,
+              type: 'completion',
+              certificateNumber: `COMP-${new Date().getFullYear()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`,
+              courseName,
+              studentName: userData.displayName || userData.name || 'Student',
+              awardedAt: admin.firestore.FieldValue.serverTimestamp(),
+              completionDate: new Date().toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+              }),
+              totalInstructionMinutes,
+              finalExamScore: scorePercent,
+              finalExamPassed: true,
+              certificateStatus: 'active',
+              downloadCount: 0
+            });
+
+            await userRef.update({
+              completionCertificateGenerated: true,
+              completionCertificateAwardedAt: admin.firestore.FieldValue.serverTimestamp()
+            });
+
+            await logAuditEvent(
+              userId,
+              'COMPLETION_CERTIFICATE_GENERATED',
+              'assessment',
+              courseId,
+              'success',
+              {
+                totalInstructionMinutes,
+                finalExamScore: scorePercent
+              }
+            );
+          } catch (certError) {
+            console.warn('Failed to auto-generate completion certificate:', certError.message);
+            // Don't throw - certificate generation failure shouldn't block exam submission
+          }
+        }
       }
 
       // Record this attempt

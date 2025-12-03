@@ -324,33 +324,48 @@ exports.getDETSReports = functions.https.onCall(async (data, context) => {
   }
 });
 
-exports.processPendingDETSReports = functions.pubsub
-  .schedule('0 3 * * *')
-  .timeZone('UTC')
-  .onRun(async (context) => {
-    try {
-      const pendingReports = await detsReportsRef
-        .where('status', '==', 'ready')
-        .limit(10)
-        .get();
+exports.processPendingDETSReports = functions.https.onCall(async (data, context) => {
+  if (!context.auth) {
+    throw new functions.https.HttpsError('authentication-required', 'User must be authenticated');
+  }
+  const userRef = await admin.firestore().collection('users').doc(context.auth.uid).get();
+  const userData = userRef.data();
+  if (userData?.role !== 'SUPER_ADMIN' && userData?.role !== 'DMV_ADMIN') {
+    throw new functions.https.HttpsError('permission-denied', 'Only admins can trigger DETS processing');
+  }
+  try {
+    const pendingReports = await detsReportsRef
+      .where('status', '==', 'ready')
+      .limit(10)
+      .get();
 
-      console.log(`Found ${pendingReports.docs.length} pending DETS reports`);
+    console.log(`Found ${pendingReports.docs.length} pending DETS reports`);
 
-      for (const doc of pendingReports.docs) {
-        try {
-          await submitDETSReportInternal(doc.id, 'system');
-          console.log(`Successfully submitted DETS report ${doc.id}`);
-        } catch (error) {
-          console.warn(`Failed to submit DETS report ${doc.id}:`, error.message);
-        }
+    let successCount = 0;
+    let failureCount = 0;
+
+    for (const doc of pendingReports.docs) {
+      try {
+        await submitDETSReportInternal(doc.id, 'system');
+        successCount++;
+        console.log(`Successfully submitted DETS report ${doc.id}`);
+      } catch (error) {
+        failureCount++;
+        console.warn(`Failed to submit DETS report ${doc.id}:`, error.message);
       }
-
-      return null;
-    } catch (error) {
-      console.error('Error processing pending DETS reports:', error);
-      return null;
     }
-  });
+
+    return {
+      success: true,
+      message: `Processed ${pendingReports.docs.length} pending reports`,
+      successCount,
+      failureCount
+    };
+  } catch (error) {
+    console.error('Error processing pending DETS reports:', error);
+    throw new functions.https.HttpsError('internal', error.message || 'Error processing pending DETS reports');
+  }
+});
 
 async function getTotalInstructionMinutes(userId, courseId) {
   const today = new Date();

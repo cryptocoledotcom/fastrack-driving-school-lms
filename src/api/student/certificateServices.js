@@ -135,13 +135,57 @@ export const markCertificateAsDownloaded = async (certificateId) => {
   }, 'markCertificateAsDownloaded');
 };
 
+export const generateCompletionCertificate = async (userId, courseId, courseName) => {
+  return executeService(async () => {
+    const functions = getFunctions(getApp());
+    const generateCompCertFn = httpsCallable(functions, 'generateCompletionCertificate');
+
+    try {
+      const result = await generateCompCertFn({
+        userId,
+        courseId,
+        courseName
+      });
+
+      return result.data;
+    } catch (error) {
+      if (error.code === 'functions/not-found') {
+        throw new Error('Completion certificate generation function not deployed yet. Please try again later.');
+      }
+      throw error;
+    }
+  }, 'generateCompletionCertificate');
+};
+
+export const checkCompletionCertificateEligibility = async (userId) => {
+  return executeService(async () => {
+    const functions = getFunctions(getApp());
+    const checkCompCertFn = httpsCallable(functions, 'checkCompletionCertificateEligibility');
+
+    try {
+      const result = await checkCompCertFn({
+        userId
+      });
+
+      return result.data;
+    } catch (error) {
+      if (error.code === 'functions/not-found') {
+        throw new Error('Completion certificate eligibility check function not deployed yet. Please try again later.');
+      }
+      throw error;
+    }
+  }, 'checkCompletionCertificateEligibility');
+};
+
 const certificateServices = {
   getCertificatesByUserId,
   getCertificateById,
   generateEnrollmentCertificate,
   getCertificatesByType,
   hasEnrollmentCertificate,
-  markCertificateAsDownloaded
+  markCertificateAsDownloaded,
+  generateCompletionCertificate,
+  checkCompletionCertificateEligibility
 };
 
 export default certificateServices;
