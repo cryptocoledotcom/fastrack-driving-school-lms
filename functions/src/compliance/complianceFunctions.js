@@ -351,6 +351,149 @@ const auditComplianceAccess = onCall(async (data, context) => {
   }
 });
 
+const trackPVQAttempt = onCall(
+  { enforceAppCheck: false },
+  async (data, context) => {
+    try {
+      if (!context.auth) {
+        throw new Error('Authentication required');
+      }
+
+      const { userId, courseId, sessionId, isCorrect } = data;
+
+      if (!userId || !courseId || !sessionId || typeof isCorrect !== 'boolean') {
+        throw new Error('Missing required parameters: userId, courseId, sessionId, isCorrect');
+      }
+
+      if (context.auth.uid !== userId) {
+        throw new Error('User ID mismatch - cannot track attempts for another user');
+      }
+
+      const userRef = db.collection('users').doc(userId);
+      const userDoc = await userRef.get();
+
+      if (!userDoc.exists()) {
+        throw new Error('User not found');
+      }
+
+      // Check if user is currently locked out from PVQ
+      const userData = userDoc.data();
+      const now = new Date();
+      if (userData.pvqLockoutUntil && userData.pvqLockoutUntil.toDate() > now) {
+        const remainingMinutes = Math.ceil((userData.pvqLockoutUntil.toDate() - now) / 60000);
+        throw new Error(`PVQ_LOCKED_OUT: You are locked out from identity verification for ${remainingMinutes} more minutes`);
+      }
+
+      // Get or create PVQ verification record for this session
+      const pvqRef = db.collection('pvq_verification').doc(`${userId}_${sessionId}`);
+      const pvqDoc = await pvqRef.get();
+
+      let attemptCount = 0;
+      let failureCount = 0;
+
+      if (pvqDoc.exists()) {
+        const pvqData = pvqDoc.data();
+        attemptCount = pvqData.attemptCount || 0;
+        failureCount = pvqData.failureCount || 0;
+      }
+
+      // Only increment counters if not correct
+      if (!isCorrect) {
+        failureCount += 1;
+
+        // If 2 failed attempts, lock user for 24 hours
+        if (failureCount >= 2) {
+          const lockoutUntil = new Date(now.getTime() + 24 * 60 * 60 * 1000);
+          await userRef.update({
+            pvqLockoutUntil: lockoutUntil,
+            pvqLockedOutAt: admin.firestore.FieldValue.serverTimestamp()
+          });
+
+          await logAuditEvent(
+            userId,
+            'PVQ_LOCKOUT_ACTIVATED',
+            'identity_verification',
+            courseId,
+            'error',
+            {
+              sessionId,
+              failureCount,
+              lockoutDuration: '24 hours',
+              lockoutUntil: lockoutUntil.toISOString()
+            }
+          );
+
+          throw new Error('PVQ_MAX_ATTEMPTS_EXCEEDED: You have exceeded the maximum number of verification attempts. Please try again in 24 hours.');
+        }
+      }
+
+      // Update or create PVQ verification record
+      attemptCount += 1;
+      await pvqRef.set({
+        userId,
+        courseId,
+        sessionId,
+        attemptCount,
+        failureCount,
+        lastAttemptAt: admin.firestore.FieldValue.serverTimestamp(),
+        lastAttemptCorrect: isCorrect,
+        createdAt: admin.firestore.FieldValue.serverTimestamp()
+      }, { merge: true });
+
+      // Log the attempt
+      await logAuditEvent(
+        userId,
+        'PVQ_ATTEMPT',
+        'identity_verification',
+        courseId,
+        isCorrect ? 'success' : 'error',
+        {
+          sessionId,
+          attemptCount,
+          failureCount,
+          isCorrect
+        }
+      );
+
+      return {
+        success: true,
+        attemptCount,
+        failureCount,
+        isCorrect,
+        remainingAttempts: Math.max(0, 2 - failureCount),
+        serverTimestamp: admin.firestore.Timestamp.now().toMillis()
+      };
+    } catch (error) {
+      console.error('Error tracking PVQ attempt:', error);
+
+      // Log failure
+      try {
+        const { userId, courseId, sessionId } = data;
+        if (userId && courseId) {
+          await logAuditEvent(
+            userId,
+            'PVQ_ATTEMPT_FAILED',
+            'identity_verification',
+            courseId,
+            'error',
+            { error: error.message, sessionId }
+          );
+        }
+      } catch (auditError) {
+        console.error('Failed to log audit event:', auditError);
+      }
+
+      if (error.message.startsWith('PVQ_LOCKED_OUT:') || error.message.startsWith('PVQ_MAX_ATTEMPTS_EXCEEDED:')) {
+        const err = new Error(error.message);
+        err.code = 'PERMISSION_DENIED';
+        throw err;
+      }
+
+      throw new Error(`PVQ attempt tracking failed: ${error.message}`);
+    }
+  }
+);
+
 const generateComplianceReport = onCall({ enforceAppCheck: false }, async (data, context) => {
   try {
     if (!context.auth) {
@@ -402,6 +545,7 @@ const generateComplianceReport = onCall({ enforceAppCheck: false }, async (data,
 
 module.exports = {
   sessionHeartbeat,
+  trackPVQAttempt,
   auditComplianceAccess,
   generateComplianceReport,
   getStudentIdByName,
