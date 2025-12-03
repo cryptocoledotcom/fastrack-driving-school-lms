@@ -7,6 +7,7 @@ export { default as ErrorMessage } from './ErrorMessage/ErrorMessage.jsx';
 export { default as Input } from './Input/Input.jsx';
 export { default as LoadingSpinner } from './LoadingSpinner/LoadingSpinner.jsx';
 export { default as ProgressBar } from './ProgressBar/ProgressBar.jsx';
+export { default as RestrictedVideoPlayer } from './RestrictedVideoPlayer/RestrictedVideoPlayer.jsx';
 export { default as Select } from './Select/Select.jsx';
 export { default as SuccessMessage } from './SuccessMessage/SuccessMessage.jsx';
 export { default as ToggleSwitch } from './ToggleSwitch/ToggleSwitch.jsx';

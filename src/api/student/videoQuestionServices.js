@@ -1,0 +1,146 @@
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  addDoc
+} from 'firebase/firestore';
+import { db } from '../../config/firebase';
+import { executeService } from '../base/ServiceWrapper';
+import { httpsCallable, getFunctions } from 'firebase/functions';
+import { getApp } from 'firebase/app';
+
+const VIDEO_QUESTIONS_COLLECTION = 'video_post_questions';
+const VIDEO_QUESTION_RESPONSES_COLLECTION = 'video_question_responses';
+
+export const getPostVideoQuestion = async (lessonId) => {
+  return executeService(async () => {
+    const questionsRef = collection(db, VIDEO_QUESTIONS_COLLECTION);
+    const q = query(
+      questionsRef,
+      where('lessonId', '==', lessonId),
+      where('active', '==', true)
+    );
+
+    const querySnapshot = await getDocs(q);
+
+    if (querySnapshot.empty) {
+      return null;
+    }
+
+    const doc = querySnapshot.docs[0];
+    return {
+      id: doc.id,
+      ...doc.data()
+    };
+  }, 'getPostVideoQuestion');
+};
+
+export const recordVideoQuestionResponse = async (
+  userId,
+  lessonId,
+  courseId,
+  questionId,
+  selectedAnswer,
+  isCorrect,
+  attemptNumber = 1
+) => {
+  return executeService(async () => {
+    const responsesRef = collection(db, VIDEO_QUESTION_RESPONSES_COLLECTION);
+
+    const response = {
+      userId,
+      lessonId,
+      courseId,
+      questionId,
+      selectedAnswer,
+      isCorrect,
+      attemptNumber,
+      respondedAt: new Date().toISOString(),
+      ipAddress: null,
+      deviceInfo: navigator.userAgent
+    };
+
+    const docRef = await addDoc(responsesRef, response);
+
+    return {
+      id: docRef.id,
+      ...response
+    };
+  }, 'recordVideoQuestionResponse');
+};
+
+export const checkVideoQuestionAnswer = async (
+  userId,
+  lessonId,
+  courseId,
+  questionId,
+  selectedAnswer
+) => {
+  return executeService(async () => {
+    const functions = getFunctions(getApp());
+    const checkAnswerFn = httpsCallable(functions, 'checkVideoQuestionAnswer');
+
+    try {
+      const result = await checkAnswerFn({
+        userId,
+        lessonId,
+        courseId,
+        questionId,
+        selectedAnswer
+      });
+
+      return result.data;
+    } catch (error) {
+      if (error.code === 'functions/not-found') {
+        throw new Error('Video question function not deployed yet. Please try again later.');
+      }
+      throw error;
+    }
+  }, 'checkVideoQuestionAnswer');
+};
+
+export const getVideoQuestionAttempts = async (userId, lessonId, courseId) => {
+  return executeService(async () => {
+    const responsesRef = collection(db, VIDEO_QUESTION_RESPONSES_COLLECTION);
+    const q = query(
+      responsesRef,
+      where('userId', '==', userId),
+      where('lessonId', '==', lessonId),
+      where('courseId', '==', courseId)
+    );
+
+    const querySnapshot = await getDocs(q);
+    const attempts = [];
+
+    querySnapshot.forEach((doc) => {
+      attempts.push({
+        id: doc.id,
+        ...doc.data()
+      });
+    });
+
+    attempts.sort(
+      (a, b) => new Date(b.respondedAt) - new Date(a.respondedAt)
+    );
+
+    return attempts;
+  }, 'getVideoQuestionAttempts');
+};
+
+export const hasAnsweredVideoQuestion = async (userId, lessonId, courseId) => {
+  return executeService(async () => {
+    const attempts = await getVideoQuestionAttempts(userId, lessonId, courseId);
+    return attempts.length > 0 && attempts.some((a) => a.isCorrect);
+  }, 'hasAnsweredVideoQuestion');
+};
+
+const videoQuestionServices = {
+  getPostVideoQuestion,
+  recordVideoQuestionResponse,
+  checkVideoQuestionAnswer,
+  getVideoQuestionAttempts,
+  hasAnsweredVideoQuestion
+};
+
+export default videoQuestionServices;

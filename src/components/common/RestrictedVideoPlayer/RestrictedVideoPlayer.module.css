@@ -1,0 +1,137 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: #000;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.error {
+  padding: 40px 20px;
+  background-color: #f8d7da;
+  color: #721c24;
+  text-align: center;
+  font-weight: 500;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.videoWrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  background: #000;
+  overflow: hidden;
+}
+
+.video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.customControls {
+  background-color: #1a1a1a;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.progressContainer {
+  width: 100%;
+  height: 4px;
+  background-color: #333;
+  cursor: not-allowed;
+}
+
+.progressBar {
+  height: 100%;
+  background: linear-gradient(90deg, #4a90e2, #2ecc71);
+  transition: width 0.1s linear;
+  pointer-events: none;
+}
+
+.controlsBottom {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background-color: #1a1a1a;
+}
+
+.playButton {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 4px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  transition: opacity 0.2s;
+  flex-shrink: 0;
+}
+
+.playButton:hover {
+  opacity: 0.8;
+}
+
+.playButton:active {
+  transform: scale(0.95);
+}
+
+.timeDisplay {
+  color: #fff;
+  font-size: 12px;
+  font-family: 'Monaco', 'Courier New', monospace;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.seekWarning {
+  color: #ffc107;
+  font-size: 11px;
+  margin-left: auto;
+  flex-shrink: 0;
+  padding: 4px 8px;
+  background-color: rgba(255, 193, 7, 0.1);
+  border-radius: 4px;
+  border: 1px solid rgba(255, 193, 7, 0.3);
+}
+
+.note {
+  padding: 12px 16px;
+  background-color: #e3f2fd;
+  color: #1565c0;
+  font-size: 12px;
+  text-align: center;
+  border-top: 1px solid #90caf9;
+}
+
+@media (max-width: 768px) {
+  .seekWarning {
+    display: none;
+  }
+
+  .controlsBottom {
+    gap: 8px;
+    padding: 10px 12px;
+  }
+
+  .playButton {
+    font-size: 20px;
+  }
+
+  .timeDisplay {
+    font-size: 11px;
+  }
+}

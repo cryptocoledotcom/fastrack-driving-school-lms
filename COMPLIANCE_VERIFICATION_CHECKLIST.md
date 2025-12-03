@@ -172,12 +172,17 @@
 - **ACTION NEEDED**: Verify 10+ quizzes exist in database and mapped to units
 
 ### 4.2 Video Quizzes (Mandatory for >60 second videos)
-- [ ] **Status**: NEEDS IMPLEMENTATION ✗
-- [ ] Video player must detect length >= 60 seconds
-- [ ] Auto-generate/display post-video question
-- [ ] Next button disabled until video `onEnded` event fired AND question answered
-- [ ] Questions must be specific recall, not general knowledge
-- **Missing Implementation**: Video player component with seek restrictions
+- [x] **Status**: IMPLEMENTED ✓
+- [x] Video player detects length >= 60 seconds (line 339 in CoursePlayerPage.jsx)
+- [x] Auto-generate/display post-video question after video ends
+- [x] Next button disabled until video `onEnded` event AND question answered correctly
+- [x] Questions must be specific recall (enforced via video_post_questions collection schema)
+- **Implementation Files**:
+  - `src/components/common/RestrictedVideoPlayer/RestrictedVideoPlayer.jsx` (84 lines, custom player)
+  - `src/components/common/Modals/PostVideoQuestionModal.jsx` (131 lines, question modal)
+  - `src/api/student/videoQuestionServices.js` (146 lines, service layer)
+  - `functions/src/compliance/videoQuestionFunctions.js` (175 lines, Cloud Functions)
+- **Deployment**: Successfully deployed 3 Cloud Functions (checkVideoQuestionAnswer, getVideoQuestion, recordVideoQuestionResponse) Dec 3, 2025
 
 ### 4.3 Minimum 30 Content Questions Total
 - [ ] **Status**: NEEDS VERIFICATION
@@ -229,18 +234,30 @@
 ## 6. VIDEO CONTROLS & RESTRICTIONS
 
 ### 6.1 Seek Bar Disabled
-- [ ] **Status**: NEEDS IMPLEMENTATION ✗
-- [ ] Video player custom-built or library with no seek capability
-- [ ] User cannot skip to end of video
-- **Missing**: Custom video player component
+- [x] **Status**: IMPLEMENTED ✓
+- [x] Custom video player built in RestrictedVideoPlayer component
+- [x] User cannot skip to end of video (seek prevented via onSeek handler)
+- [x] Custom controls with play/pause only (no seek bar)
+- **Implementation Details**:
+  - `RestrictedVideoPlayer.jsx`: Custom HTML5 video with disabled seek functionality
+  - `handleSeek()` prevents seek attempts and resets video time
+  - `controlsList="nodownload nofullscreen"` disables browser controls
+  - Warning message displayed: "Seeking disabled (compliance requirement)"
+  - Progress bar visual-only (no interactive seek)
 
 ### 6.2 Post-Video Questions (>60 seconds)
-- [ ] **Status**: NEEDS IMPLEMENTATION ✗
-- [ ] Automatic question insertion after videos > 60 seconds
-- [ ] Next button disabled until:
-  1. `video.onEnded` event fires
-  2. User answers post-video question correctly
-- **Missing**: Video player integration with quiz logic
+- [x] **Status**: IMPLEMENTED ✓
+- [x] Automatic question insertion after videos > 60 seconds (line 335-337 CoursePlayerPage.jsx)
+- [x] Next button (Course progression) disabled until:
+  1. `video.onEnded` event fires (line 334 CoursePlayerPage.jsx)
+  2. User answers post-video question correctly (verified in PostVideoQuestionModal.jsx line 120)
+- **Implementation Details**:
+  - `handleVideoEnded()` detects video end and loads question if duration > 60 sec
+  - `PostVideoQuestionModal` shows comprehension question with multiple choice
+  - "Continue to Next Lesson" button only enabled after correct answer
+  - Incorrect answers show "try again" with hint (correct answer disclosed)
+  - User must submit correct answer before progression allowed
+  - All responses logged to `video_question_responses` collection for audit trail
 
 ### 6.3 Video Content Requirements (3-9 hours)
 - [x] **Status**: DEFINED ✓
@@ -433,7 +450,7 @@
 9. **Two-hour enrollment certificate** - Trigger after Unit 1+2 complete
 
 ### HIGH (Important for core functionality)
-7. Video player with seek restrictions & post-video questions
+7. ✅ Video player with seek restrictions & post-video questions - Deployed Dec 3, 2025
 8. Correct answers hidden until submission
 9. Two-hour enrollment certificate generation
 10. Curriculum unit total minute verification (currently 135 min short)
@@ -466,7 +483,7 @@
 
 ## NEXT STEPS
 
-### Completed (Dec 3, 2025 - 19:40)
+### Completed (Dec 3, 2025)
 - ✅ Implement server-side heartbeat Cloud Function
 - ✅ Integrate heartbeat hook into CoursePlayerPage
 - ✅ Deploy all functions successfully
@@ -476,6 +493,14 @@
 - ✅ Fix PVQ 2-hour trigger (changed from 30 min to 120 min)
 - ✅ Implement PVQ attempt limits (max 2 attempts)
 - ✅ Implement 24-hour lockout on 2nd failure
+- ✅ Implement final exam 3-strike rule with academic reset
+- ✅ Fix eslint errors (removed orphaned setLastActivityTime references)
+- ✅ Build custom video player with seek restrictions (RestrictedVideoPlayer.jsx)
+- ✅ Implement post-video comprehension questions (PostVideoQuestionModal.jsx)
+- ✅ Create video question service layer (videoQuestionServices.js)
+- ✅ Deploy 3 Cloud Functions for video questions (checkVideoQuestionAnswer, getVideoQuestion, recordVideoQuestionResponse)
+- ✅ Integrate video player into CoursePlayerPage with progress tracking
+- ✅ Update compliance checklist with implementation details
 - ✅ Deploy trackPVQAttempt Cloud Function
 - ✅ Integrate trackPVQAttempt into PVQ submission flow (TimerContext)
 - ✅ Implement final exam 3-strike rule Cloud Function

@@ -14,11 +14,15 @@ import Badge from '../../components/common/Badge/Badge';
 import LoadingSpinner from '../../components/common/LoadingSpinner/LoadingSpinner';
 import ErrorMessage from '../../components/common/ErrorMessage/ErrorMessage';
 import PVQModal from '../../components/common/Modals/PVQModal';
+import RestrictedVideoPlayer from '../../components/common/RestrictedVideoPlayer/RestrictedVideoPlayer';
+import PostVideoQuestionModal from '../../components/common/Modals/PostVideoQuestionModal';
 import { getCourseById } from '../../api/courses/courseServices';
 import { getModules } from '../../api/courses/moduleServices';
 import { getLessons } from '../../api/courses/lessonServices';
 import { initializeProgress, getProgress, markLessonCompleteWithCompliance, updateLessonProgress } from '../../api/student/progressServices';
+import { getPostVideoQuestion, recordVideoQuestionResponse, checkVideoQuestionAnswer } from '../../api/student/videoQuestionServices';
 import { LESSON_TYPES } from '../../constants/lessonTypes';
+import OHIO_COMPLIANCE from '../../constants/compliance';
 import styles from './CoursePlayerPage.module.css';
 
 const CoursePlayerPageContent = () => {
@@ -62,6 +66,13 @@ const CoursePlayerPageContent = () => {
   // Video tracking
   const videoRef = useRef(null);
   const progressSaveInterval = useRef(null);
+  
+  // Post-video question tracking
+  const [postVideoQuestion, setPostVideoQuestion] = useState(null);
+  const [showPostVideoQuestion, setShowPostVideoQuestion] = useState(false);
+  const [videoDuration, setVideoDuration] = useState(0);
+  const [checkingAnswer, setCheckingAnswer] = useState(false);
+  const [videoQuestionError, setVideoQuestionError] = useState(null);
 
   // Compliance heartbeat hook - sends server-side heartbeat every 60 seconds
   useComplianceHeartbeat({
@@ -307,6 +318,69 @@ const CoursePlayerPageContent = () => {
     return Math.round((completedCount / moduleLessons.length) * 100);
   };
 
+  const loadPostVideoQuestion = async (lesson) => {
+    try {
+      setVideoQuestionError(null);
+      const question = await getPostVideoQuestion(lesson.id);
+      if (question) {
+        setPostVideoQuestion(question);
+      }
+    } catch (err) {
+      console.error('Error loading post-video question:', err);
+      setVideoQuestionError('Failed to load comprehension question');
+    }
+  };
+
+  const handleVideoEnded = async () => {
+    if (currentLesson && videoDuration > OHIO_COMPLIANCE.VIDEO_REQUIREMENTS.MIN_VIDEO_LENGTH_SECONDS_FOR_QUESTIONS) {
+      await loadPostVideoQuestion(currentLesson);
+      setShowPostVideoQuestion(true);
+    } else {
+      await handleLessonComplete();
+    }
+  };
+
+  const handlePostVideoAnswerSubmit = async (selectedAnswer) => {
+    if (!postVideoQuestion || !currentLesson) return;
+
+    setCheckingAnswer(true);
+    try {
+      const result = await checkVideoQuestionAnswer(
+        user.uid,
+        currentLesson.id,
+        courseId,
+        postVideoQuestion.id,
+        selectedAnswer
+      );
+
+      await recordVideoQuestionResponse(
+        user.uid,
+        currentLesson.id,
+        courseId,
+        postVideoQuestion.id,
+        selectedAnswer,
+        result.isCorrect,
+        1
+      );
+
+      return result;
+    } catch (err) {
+      console.error('Error checking video question answer:', err);
+      setVideoQuestionError(err.message || 'Failed to submit answer');
+      throw err;
+    } finally {
+      setCheckingAnswer(false);
+    }
+  };
+
+  const handlePostVideoQuestionComplete = async () => {
+    setShowPostVideoQuestion(false);
+    setPostVideoQuestion(null);
+    setVideoDuration(0);
+    setVideoQuestionError(null);
+    await handleLessonComplete();
+  };
+
   const renderLessonContent = () => {
     if (!currentLesson) {
       return (
@@ -320,24 +394,26 @@ const CoursePlayerPageContent = () => {
       case LESSON_TYPES.VIDEO:
         return (
           <div className={styles.videoContainer}>
-            <video
+            <RestrictedVideoPlayer
               ref={videoRef}
-              controls
-              className={styles.video}
               src={currentLesson.videoUrl}
-              onEnded={handleLessonComplete}
-              onTimeUpdate={() => {
-                if (videoRef.current) {
-                  updateVideoProgress(
-                    videoRef.current.currentTime,
-                    videoRef.current.duration,
-                    (videoRef.current.currentTime / videoRef.current.duration) * 100
-                  );
-                }
+              onEnded={handleVideoEnded}
+              onTimeUpdate={(progress) => {
+                updateVideoProgress(
+                  progress.currentTime,
+                  progress.duration,
+                  progress.percentWatched
+                );
               }}
-            >
-              Your browser does not support the video tag.
-            </video>
+              onLoadedMetadata={(meta) => {
+                setVideoDuration(meta.duration);
+              }}
+            />
+            {videoDuration > OHIO_COMPLIANCE.VIDEO_REQUIREMENTS.MIN_VIDEO_LENGTH_SECONDS_FOR_QUESTIONS && (
+              <div className={styles.videoNote}>
+                <p>⚠️ After this video, you'll need to answer a comprehension question to proceed.</p>
+              </div>
+            )}
           </div>
         );
 
@@ -513,6 +589,16 @@ const CoursePlayerPageContent = () => {
         onSubmit={handlePVQSubmit}
         isSubmitting={pvqSubmitting}
         error={pvqError}
+      />
+
+      {/* Post-Video Question Modal */}
+      <PostVideoQuestionModal
+        isOpen={showPostVideoQuestion}
+        question={postVideoQuestion}
+        onAnswerSubmit={handlePostVideoAnswerSubmit}
+        onComplete={handlePostVideoQuestionComplete}
+        loading={checkingAnswer}
+        error={videoQuestionError}
       />
     </div>
   );

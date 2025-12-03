@@ -341,3 +341,18 @@
     padding: 1rem;
   }
 }
+
+.videoNote {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: #fff3cd;
+  border: 1px solid #ffc107;
+  border-radius: 8px;
+  color: #856404;
+}
+
+.videoNote p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
