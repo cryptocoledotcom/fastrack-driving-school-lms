@@ -1,7 +1,7 @@
 // Main App Component
 // Application routing and context providers
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { CourseProvider } from './context/CourseContext';

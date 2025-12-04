@@ -1,7 +1,7 @@
 // CoursePlayerPage Component
 // Full-featured course player with time tracking and progress
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useTimer } from '../../context/TimerContext';
@@ -84,7 +84,6 @@ const CoursePlayerPageContent = () => {
 
   // Enrollment certificate tracking
   const [showCertificateNotification, setShowCertificateNotification] = useState(false);
-  const [certificateEligible, setCertificateEligible] = useState(false);
   const [generatingCertificate, setGeneratingCertificate] = useState(false);
 
   // Compliance heartbeat hook - sends server-side heartbeat every 60 seconds
@@ -159,11 +158,30 @@ const CoursePlayerPageContent = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentLesson]);
 
+  const checkEnrollmentCertificateEligibility = useCallback(async () => {
+    if (!user?.uid || !courseId) return;
+
+    try {
+      const hasUserCertificate = await hasEnrollmentCertificate(user.uid, courseId);
+      if (hasUserCertificate) return;
+
+      const cumulativeMinutes = progress?.cumulativeMinutes || 0;
+      const unit1Complete = progress?.unit1_complete || false;
+      const unit2Complete = progress?.unit2_complete || false;
+
+      if (cumulativeMinutes >= 120 && unit1Complete && unit2Complete) {
+        setShowCertificateNotification(true);
+      }
+    } catch (err) {
+      console.error('Error checking certificate eligibility:', err);
+    }
+  }, [user?.uid, courseId, progress]);
+
   useEffect(() => {
     if (progress) {
       checkEnrollmentCertificateEligibility();
     }
-  }, [progress?.cumulativeMinutes, progress?.unit1_complete, progress?.unit2_complete]);
+  }, [progress?.cumulativeMinutes, progress?.unit1_complete, progress?.unit2_complete, checkEnrollmentCertificateEligibility, progress]);
 
   const loadCourseData = async () => {
     try {
@@ -445,34 +463,6 @@ const CoursePlayerPageContent = () => {
       throw err;
     } finally {
       setQuizSubmitting(false);
-    }
-  };
-
-  const handleQuizComplete = async (isPassed) => {
-    setQuizAttemptId(null);
-    setQuizError(null);
-    if (isPassed) {
-      await handleLessonComplete();
-    }
-  };
-
-  const checkEnrollmentCertificateEligibility = async () => {
-    if (!user?.uid || !courseId) return;
-
-    try {
-      const hasUserCertificate = await hasEnrollmentCertificate(user.uid, courseId);
-      if (hasUserCertificate) return;
-
-      const cumulativeMinutes = progress?.cumulativeMinutes || 0;
-      const unit1Complete = progress?.unit1_complete || false;
-      const unit2Complete = progress?.unit2_complete || false;
-
-      if (cumulativeMinutes >= 120 && unit1Complete && unit2Complete) {
-        setCertificateEligible(true);
-        setShowCertificateNotification(true);
-      }
-    } catch (err) {
-      console.error('Error checking certificate eligibility:', err);
     }
   };
 

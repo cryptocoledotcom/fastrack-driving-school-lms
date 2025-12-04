@@ -8,8 +8,7 @@ import {
   collection,
   query,
   where,
-  getDocs,
-  CollectionReference
+  getDocs
 } from 'firebase/firestore';
 import { db } from '../../config/firebase';
 import { executeService } from '../base/ServiceWrapper';

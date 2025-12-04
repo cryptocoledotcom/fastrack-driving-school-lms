@@ -54,11 +54,9 @@ const analyticsServices = {
       enrollments.forEach(enrollment => {
         const { 
           paymentStatus = 'pending', 
-          totalAmount = 0, 
           amountPaid = 0,
           amountDue = 0,
-          courseId = 'unknown',
-          completedAt = null
+          courseId = 'unknown'
         } = enrollment;
 
         metrics.totalRevenue += amountPaid;

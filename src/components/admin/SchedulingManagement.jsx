@@ -13,7 +13,7 @@ import {
   assignTimeSlot,
   unassignTimeSlot
 } from '../../api/compliance/schedulingServices';
-import { getUser, getAllStudents } from '../../api/student/userServices';
+import { getAllStudents } from '../../api/student/userServices';
 import { formatTime24to12, parseLocalDate } from '../../utils/dateTimeFormatter';
 import styles from './SchedulingManagement.module.css';
 

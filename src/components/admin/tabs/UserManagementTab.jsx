@@ -20,7 +20,6 @@ const UserManagementTab = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [roleFilter, setRoleFilter] = useState('');
   const [expandedUser, setExpandedUser] = useState(null);
-  const [changingRole, setChangingRole] = useState({});
   const [deletingUser, setDeletingUser] = useState({});
   const [showActivityLogs, setShowActivityLogs] = useState(false);
   const [activityLogs, setActivityLogs] = useState([]);
@@ -138,7 +137,6 @@ const UserManagementTab = () => {
     }
 
     try {
-      setChangingRole(prev => ({ ...prev, [userId]: true }));
       setError('');
       setSuccess('');
 
@@ -152,8 +150,6 @@ const UserManagementTab = () => {
     } catch (err) {
       console.error('Error changing user role:', err);
       setError(`Failed to change role: ${err.message}`);
-    } finally {
-      setChangingRole(prev => ({ ...prev, [userId]: false }));
     }
   };
 

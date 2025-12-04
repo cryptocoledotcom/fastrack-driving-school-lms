@@ -36,7 +36,6 @@ export const TimerProvider = ({ children, courseId, lessonId, ipAddress }) => {
   const [videoProgress, setVideoProgress] = useState(null);
   const [breakTime, setBreakTime] = useState(0);
   const [pvqError, setPVQError] = useState(null);
-  const [sessionTerminatedByUser, setSessionTerminatedByUser] = useState(false);
 
   const intervalRef = useRef(null);
   const breakIntervalRef = useRef(null);
@@ -489,8 +488,7 @@ export const TimerProvider = ({ children, courseId, lessonId, ipAddress }) => {
     getActualBreakDuration,
     hasBreakMetMinimumDuration,
     handlePVQSubmit,
-    closePVQModal: closePVQModalWrapped,
-    sessionTerminatedByUser
+    closePVQModal: closePVQModalWrapped
   };
 
   return (

@@ -1,24 +1,21 @@
 import {
   collection,
   doc,
-  setDoc,
   getDoc,
   updateDoc,
   getDocs,
   query,
   where,
   orderBy,
-  addDoc,
-  serverTimestamp
+  addDoc
 } from 'firebase/firestore';
 import { db } from '../../config/firebase';
 import { executeService } from '../base/ServiceWrapper';
 import { ValidationError, QuizError } from '../errors/ApiError';
-import { validateUserId, validateCourseId, validateQuizAttemptData } from '../../utils/api/validators.js';
+import { validateUserId, validateCourseId } from '../../utils/api/validators.js';
 import { getCreatedTimestamp, getUpdatedTimestamp, getCurrentISOTimestamp } from '../../utils/api/timestampHelper.js';
 
 const QUIZ_ATTEMPTS_COLLECTION = 'quizAttempts';
-const QUIZ_COLLECTION = 'quizzes';
 
 export const createQuizAttempt = async (userId, courseId, quizData) => {
   return executeService(async () => {

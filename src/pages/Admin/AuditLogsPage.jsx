@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { auditLogServices } from '../../api/admin';
@@ -30,17 +30,7 @@ const AuditLogsPage = () => {
   const [offset, setOffset] = useState(0);
   const [totalCount, setTotalCount] = useState(0);
 
-  useEffect(() => {
-    if (!user) {
-      navigate('/login');
-      return;
-    }
-
-    loadAuditLogs();
-    loadAuditStats();
-  }, [user, filters, sortBy, sortOrder, limit, offset, navigate]);
-
-  const loadAuditLogs = async () => {
+  const loadAuditLogs = useCallback(async () => {
     try {
       setLoading(true);
       setError('');
@@ -65,9 +55,9 @@ const AuditLogsPage = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [filters, sortBy, sortOrder, limit, offset]);
 
-  const loadAuditStats = async () => {
+  const loadAuditStats = useCallback(async () => {
     try {
       const now = new Date();
       const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
@@ -80,7 +70,17 @@ const AuditLogsPage = () => {
     } catch (err) {
       console.error('Error loading audit stats:', err);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    if (!user) {
+      navigate('/login');
+      return;
+    }
+
+    loadAuditLogs();
+    loadAuditStats();
+  }, [user, navigate, loadAuditLogs, loadAuditStats]);
 
   const handleFilterChange = (e) => {
     const { name, value } = e.target;

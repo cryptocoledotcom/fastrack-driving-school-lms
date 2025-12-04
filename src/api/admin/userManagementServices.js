@@ -9,11 +9,9 @@ import {
   addDoc, 
   serverTimestamp,
   getDoc,
-  collectionGroup,
   orderBy,
   limit
 } from 'firebase/firestore';
-import { auth } from '../../config/firebase';
 import { httpsCallable } from 'firebase/functions';
 import { getFunctions } from 'firebase/functions';
 import { USER_ROLES } from '../../constants/userRoles';
@@ -280,4 +278,5 @@ class UserManagementService {
   }
 }
 
-export default new UserManagementService();
+const userManagementService = new UserManagementService();
+export default userManagementService;

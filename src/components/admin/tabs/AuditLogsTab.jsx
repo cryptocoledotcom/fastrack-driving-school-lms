@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { auditLogServices } from '../../../api/admin';
 import LoadingSpinner from '../../common/LoadingSpinner/LoadingSpinner';
 import ErrorMessage from '../../common/ErrorMessage/ErrorMessage';
@@ -25,12 +25,7 @@ const AuditLogsTab = () => {
   const [offset, setOffset] = useState(0);
   const [totalCount, setTotalCount] = useState(0);
 
-  useEffect(() => {
-    loadAuditLogs();
-    loadAuditStats();
-  }, [filters, sortBy, sortOrder, limit, offset]);
-
-  const loadAuditLogs = async () => {
+  const loadAuditLogs = useCallback(async () => {
     try {
       setLoading(true);
       setError('');
@@ -48,13 +43,13 @@ const AuditLogsTab = () => {
       setTotalCount(result.totalCount || 0);
     } catch (err) {
       console.error('Error loading audit logs:', err);
-      setError('Failed to load audit logs. Please try again.');
+      setError('Failed to load audit logs');
     } finally {
       setLoading(false);
     }
-  };
+  }, [filters, sortBy, sortOrder, limit, offset]);
 
-  const loadAuditStats = async () => {
+  const loadAuditStats = useCallback(async () => {
     try {
       const now = new Date();
       const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
@@ -65,7 +60,12 @@ const AuditLogsTab = () => {
     } catch (err) {
       console.error('Error loading audit stats:', err);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    loadAuditLogs();
+    loadAuditStats();
+  }, [loadAuditLogs, loadAuditStats]);
 
   const handleFilterChange = (e) => {
     const { name, value } = e.target;

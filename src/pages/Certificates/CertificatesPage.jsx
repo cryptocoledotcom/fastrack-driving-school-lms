@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import Card from '../../components/common/Card/Card';
 import Button from '../../components/common/Button/Button';
@@ -13,17 +13,7 @@ const CertificatesPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  useEffect(() => {
-    if (!user?.uid) {
-      setError('User not authenticated');
-      setLoading(false);
-      return;
-    }
-
-    loadCertificates();
-  }, [user?.uid]);
-
-  const loadCertificates = async () => {
+  const loadCertificates = useCallback(async () => {
     try {
       setLoading(true);
       setError('');
@@ -35,7 +25,17 @@ const CertificatesPage = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [user.uid]);
+
+  useEffect(() => {
+    if (!user?.uid) {
+      setError('User not authenticated');
+      setLoading(false);
+      return;
+    }
+
+    loadCertificates();
+  }, [user?.uid, loadCertificates]);
 
   const getCertificateTypeLabel = (type) => {
     switch (type) {
