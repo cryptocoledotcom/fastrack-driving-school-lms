@@ -4,10 +4,18 @@ import ErrorBoundary from './ErrorBoundary';
 import LoggingService from '../../../services/loggingService';
 import { vi } from 'vitest';
 
-vi.mock('../../../services/loggingService', () => ({
-  error: vi.fn(),
-  info: vi.fn()
-}));
+vi.mock('../../../services/loggingService', () => {
+  const mockLogger = {
+    error: vi.fn(),
+    info: vi.fn(),
+    warn: vi.fn(),
+    debug: vi.fn(),
+    log: vi.fn(),
+  };
+  return {
+    default: mockLogger,
+  };
+});
 
 const TestComponent = ({ shouldError = false }) => {
   if (shouldError) {
@@ -498,7 +506,7 @@ describe('ErrorBoundary', () => {
       );
 
       const errorContainer = container.querySelector('[data-testid="error-boundary-container"]');
-      expect(errorContainer).toHaveClass('errorBoundary');
+      expect(errorContainer.className).toMatch(/errorBoundary/);
     });
 
     it('should apply error container styles', () => {
@@ -509,7 +517,7 @@ describe('ErrorBoundary', () => {
       );
 
       const errorMsg = container.querySelector('[data-testid="error-message"]');
-      expect(errorMsg).toHaveClass('errorContainer');
+      expect(errorMsg.className).toMatch(/errorContainer/);
     });
   });
 });

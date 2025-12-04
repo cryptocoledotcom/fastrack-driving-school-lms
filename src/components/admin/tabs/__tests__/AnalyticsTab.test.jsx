@@ -5,7 +5,6 @@ import AnalyticsTab from '../AnalyticsTab';
 import { vi } from 'vitest';
 
 vi.mock('recharts', () => ({
-  ...jest.requireActual('recharts'),
   ResponsiveContainer: ({ children }) => <div data-testid="responsive-container">{children}</div>,
   LineChart: ({ children, data }) => <div data-testid="line-chart" data-count={data?.length}>{children}</div>,
   BarChart: ({ children, data }) => <div data-testid="bar-chart" data-count={data?.length}>{children}</div>,
@@ -150,19 +149,17 @@ describe('AnalyticsTab', () => {
     });
 
     it('should display average progress', () => {
-      const { container } = render(<AnalyticsTab users={mockUsers} getCourseName={mockGetCourseName} />);
+      render(<AnalyticsTab users={mockUsers} getCourseName={mockGetCourseName} />);
       
-      const miniStatLabels = container.querySelectorAll('.miniStatLabel');
-      const avgProgressLabel = Array.from(miniStatLabels).find(el => el.textContent === 'Avg Progress');
-      expect(avgProgressLabel).toBeInTheDocument();
+      const labels = screen.getAllByText('Avg Progress');
+      expect(labels.length).toBeGreaterThan(0);
     });
 
     it('should display active students count', () => {
-      const { container } = render(<AnalyticsTab users={mockUsers} getCourseName={mockGetCourseName} />);
+      render(<AnalyticsTab users={mockUsers} getCourseName={mockGetCourseName} />);
       
-      const miniStatLabels = container.querySelectorAll('.miniStatLabel');
-      const activeStudentsLabel = Array.from(miniStatLabels).find(el => el.textContent === 'Active Students');
-      expect(activeStudentsLabel).toBeInTheDocument();
+      const labels = screen.getAllByText('Active Students');
+      expect(labels.length).toBeGreaterThan(0);
     });
 
     it('should display completed students count', () => {
@@ -289,7 +286,7 @@ describe('AnalyticsTab', () => {
     });
 
     it('should accept getCourseName function prop', () => {
-      const customGetCourseName = jest.fn((courseId) => `Custom: ${courseId}`);
+      const customGetCourseName = vi.fn((courseId) => `Custom: ${courseId}`);
       
       render(<AnalyticsTab users={mockUsers} getCourseName={customGetCourseName} />);
       

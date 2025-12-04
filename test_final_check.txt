@@ -1,0 +1,115 @@
+
+> fastrack-driving-school-lms@1.0.0 test
+> vitest --run
+
+
+[7m[1m[36m RUN [39m[22m[27m [36mv1.6.1[39m [90mc:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System[39m
+
+ [33m❯[39m src/context/ModalContext.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [32m✓[39m src/api/errors/__tests__/ApiError.test.js [2m ([22m[2m38 tests[22m[2m)[22m[90m 33[2mms[22m[39m
+ [32m✓[39m src/api/base/__tests__/QueryHelper.test.js [2m ([22m[2m21 tests[22m[2m)[22m[90m 69[2mms[22m[39m
+[90mstdout[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mexecute[2m > [22m[2mshould retry and eventually succeed[22m[39m
+✅ [test-operation] Succeeded on attempt 3/3
+
+[90mstdout[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mexecute[2m > [22m[2mshould handle async operations correctly[22m[39m
+✅ [async-operation] Succeeded on attempt 2/3
+
+[90mstdout[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mexecute[2m > [22m[2mshould use exponential backoff timing[22m[39m
+✅ [timed-operation] Succeeded on attempt 3/3
+
+ [32m✓[39m src/api/base/__tests__/ServiceBase.test.js [2m ([22m[2m25 tests[22m[2m)[22m[90m 91[2mms[22m[39m
+ [32m✓[39m src/hooks/usePVQTrigger.test.js [2m ([22m[2m42 tests[22m[2m)[22m[90m 129[2mms[22m[39m
+[90mstdout[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mretryAsync convenience function[2m > [22m[2mshould work with default configuration[22m[39m
+✅ [test-operation] Succeeded on attempt 2/3
+
+ [32m✓[39m src/hooks/useBreakManagement.test.js [2m ([22m[2m42 tests[22m[2m)[22m[90m 102[2mms[22m[39m
+ [32m✓[39m src/api/admin/__tests__/userManagementServices.test.js [2m ([22m[2m26 tests[22m[2m)[22m[90m 145[2mms[22m[39m
+ [32m✓[39m src/services/__tests__/loggingService.test.js [2m ([22m[2m50 tests[22m[2m)[22m[90m 136[2mms[22m[39m
+ [32m✓[39m src/hooks/useSessionData.test.js [2m ([22m[2m45 tests[22m[2m)[22m[90m 127[2mms[22m[39m
+[90mstdout[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mreal-world scenarios[2m > [22m[2mshould handle temporary network failure[22m[39m
+✅ [fetchData] Succeeded on attempt 3/3
+
+[90mstdout[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mreal-world scenarios[2m > [22m[2mshould recover from server temporarily unavailable[22m[39m
+✅ [submitForm] Succeeded on attempt 2/3
+
+ [32m✓[39m src/api/base/__tests__/RetryHandler.test.js [2m ([22m[2m31 tests[22m[2m)[22m[33m 1004[2mms[22m[39m
+ [32m✓[39m src/context/ModalContext.test.jsx [2m ([22m[2m19 tests[22m[2m)[22m[33m 327[2mms[22m[39m
+ [32m✓[39m src/components/common/ErrorBoundary/ErrorBoundary.test.jsx [2m ([22m[2m32 tests[22m[2m)[22m[33m 961[2mms[22m[39m
+ [32m✓[39m src/api/admin/__tests__/analyticsServices.test.js [2m ([22m[2m35 tests[22m[2m)[22m[90m 34[2mms[22m[39m
+ [33m❯[39m src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/components/common/Quiz/Quiz.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/api/enrollment/__tests__/enrollmentServices.concurrent.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [32m✓[39m src/components/admin/tabs/__tests__/UserManagementTab.test.jsx [2m ([22m[2m28 tests[22m[2m)[22m[33m 2939[2mms[22m[39m
+ [32m✓[39m src/api/enrollment/__tests__/enrollmentServices.reset.test.js [2m ([22m[2m19 tests[22m[2m)[22m[90m 75[2mms[22m[39m
+ [32m✓[39m src/hooks/useSessionTimer.test.js [2m ([22m[2m26 tests[22m[2m)[22m[90m 101[2mms[22m[39m
+ [33m❯[39m src/context/CourseContext.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [32m✓[39m src/api/base/__tests__/CacheService.test.js [2m ([22m[2m32 tests[22m[2m)[22m[90m 61[2mms[22m[39m
+ [32m✓[39m src/__tests__/firestore.rules.test.js [2m ([22m[2m25 tests[22m[2m)[22m[90m 30[2mms[22m[39m
+ [33m❯[39m src/pages/Admin/__tests__/AdminPage.userManagement.integration.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [32m✓[39m src/api/enrollment/__tests__/enrollmentServices.refactor.test.js [2m ([22m[2m13 tests[22m[2m)[22m[90m 59[2mms[22m[39m
+ [32m✓[39m src/components/admin/tabs/__tests__/AnalyticsTab.test.jsx [2m ([22m[2m30 tests[22m[2m)[22m[33m 1663[2mms[22m[39m
+ [32m✓[39m src/context/CourseContext.test.jsx [2m ([22m[2m18 tests[22m[2m)[22m[33m 346[2mms[22m[39m
+ [33m❯[39m src/components/admin/tabs/__tests__/UserManagementTab.createUser.integration.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [32m✓[39m src/components/admin/__tests__/SchedulingManagement.loadingIndicators.test.jsx [2m ([22m[2m16 tests[22m[2m)[22m[33m 5085[2mms[22m[39m
+ [32m✓[39m src/context/AuthContext.test.jsx [2m ([22m[2m14 tests[22m[2m)[22m[90m 242[2mms[22m[39m
+ [33m❯[39m src/context/AuthContext.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [32m✓[39m src/constants/__tests__/userRoles.assignment.test.js [2m ([22m[2m35 tests[22m[2m)[22m[90m 23[2mms[22m[39m
+ [33m❯[39m src/components/auth/__tests__/ForcePasswordChangeModal.integration.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m functions/src/compliance/sessionHeartbeat.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [32m✓[39m src/api/enrollment/__tests__/enrollmentServices.checkCourseAccess.test.js [2m ([22m[2m9 tests[22m[2m)[22m[90m 27[2mms[22m[39m
+ [32m✓[39m src/api/student/__tests__/userServices.getAllStudents.test.js [2m ([22m[2m6 tests[22m[2m)[22m[90m 15[2mms[22m[39m
+ [33m❯[39m src/pages/CoursePlayer/CoursePlayerPage.quiz.integration.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [32m✓[39m src/utils/__tests__/dateTimeFormatter.test.js [2m ([22m[2m11 tests[22m[2m)[22m[90m 6[2mms[22m[39m
+ [32m✓[39m src/api/admin/__tests__/userManagementServices.createUserFunction.test.js [2m ([22m[2m9 tests[22m[2m)[22m[90m 24[2mms[22m[39m
+ [33m❯[39m src/context/TimerContext.test.jsx [2m ([22m[2m30 tests[22m [2m|[22m [31m1 failed[39m[2m)[22m[33m 426[2mms[22m[39m
+[31m   [33m❯[31m src/context/TimerContext.test.jsx[2m > [22mTimerContext Integration[2m > [22mSyntax and Structure[2m > [22mshould have no syntax errors[39m
+[31m     → expected [Function] to not throw an error but 'SyntaxError: Unexpected token \'<\'' was thrown[39m
+ [33m❯[39m src/components/admin/__tests__/SchedulingManagement.assignment.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/hooks/useComplianceHeartbeat.test.js [2m ([22m[2m6 tests[22m [2m|[22m [31m4 failed[39m[2m)[22m[90m 110[2mms[22m[39m
+[31m   [33m❯[31m src/hooks/useComplianceHeartbeat.test.js[2m > [22museComplianceHeartbeat[2m > [22mshould call heartbeat function every 60 seconds[39m
+[31m     → Timed out in waitFor.
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div />[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+[31m   [33m❯[31m src/hooks/useComplianceHeartbeat.test.js[2m > [22museComplianceHeartbeat[2m > [22mshould call onHeartbeatSuccess callback on successful heartbeat[39m
+[31m     → Timed out in waitFor.
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div />[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+[31m   [33m❯[31m src/hooks/useComplianceHeartbeat.test.js[2m > [22museComplianceHeartbeat[2m > [22mshould call onLimitReached when daily limit is exceeded[39m
+[31m     → Timed out in waitFor.
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div />[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+[31m   [33m❯[31m src/hooks/useComplianceHeartbeat.test.js[2m > [22museComplianceHeartbeat[2m > [22mshould call onHeartbeatError callback on error[39m
+[31m     → Timed out in waitFor.
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div />[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+ [32m✓[39m src/api/compliance/__tests__/schedulingServices.assignment.test.js [2m ([22m[2m3 tests[22m[2m)[22m[90m 3[2mms[22m[39m
+
+[2m Test Files [22m [1m[31m14 failed[39m[22m[2m | [22m[1m[32m28 passed[39m[22m[90m (42)[39m
+[2m      Tests [22m [1m[31m5 failed[39m[22m[2m | [22m[1m[32m731 passed[39m[22m[90m (736)[39m
+[2m   Start at [22m 12:39:36
+[2m   Duration [22m 14.91s[2m (transform 4.91s, setup 29.38s, collect 14.06s, tests 14.39s, environment 94.70s, prepare 23.79s)[22m
+

@@ -337,7 +337,7 @@ describe('UserManagementTab', () => {
         expect(screen.getByText('Delete User')).toBeInTheDocument();
       });
 
-      window.confirm = jest.fn(() => true);
+      window.confirm = vi.fn(() => true);
       fireEvent.click(screen.getByText('Delete User'));
 
       await waitFor(() => {
@@ -359,7 +359,7 @@ describe('UserManagementTab', () => {
         expect(screen.getByText('Delete User')).toBeInTheDocument();
       });
 
-      window.confirm = jest.fn(() => false);
+      window.confirm = vi.fn(() => false);
       fireEvent.click(screen.getByText('Delete User'));
 
       await waitFor(() => {
@@ -433,7 +433,7 @@ describe('UserManagementTab', () => {
         expect(screen.getByText('Delete User')).toBeInTheDocument();
       });
 
-      window.confirm = jest.fn(() => true);
+      window.confirm = vi.fn(() => true);
       fireEvent.click(screen.getByText('Delete User'));
 
       await waitFor(() => {

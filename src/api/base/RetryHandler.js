@@ -56,9 +56,8 @@ export class RetryHandler {
   async execute(operation, operationName = 'Operation') {
     if (typeof operation !== 'function') {
       throw new ApiError(
-        'Operation must be a function',
         'INVALID_OPERATION',
-        400
+        'Operation must be a function'
       );
     }
 
@@ -92,9 +91,8 @@ export class RetryHandler {
           }
           // Otherwise wrap in ApiError
           throw new ApiError(
-            error.message,
             error.code || 'NON_RETRYABLE_ERROR',
-            500
+            error.message
           );
         }
 
@@ -119,15 +117,8 @@ export class RetryHandler {
 
     // All retries exhausted - throw comprehensive error
     throw new ApiError(
-      `${operationName} failed after ${this.maxAttempts} attempts: ${lastError?.message || 'Unknown error'}`,
       'RETRY_EXHAUSTED',
-      500,
-      {
-        operationName,
-        attempts: this.maxAttempts,
-        lastErrorCode: lastError?.code,
-        lastErrorMessage: lastError?.message
-      }
+      `${operationName} failed after ${this.maxAttempts} attempts: ${lastError?.message || 'Unknown error'}`
     );
   }
 

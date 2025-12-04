@@ -106,7 +106,6 @@ describe('AdminPage - Comprehensive Integration Tests', () => {
       </AuthContext.Provider>
     );
     
-    // Wait for the component to finish loading
     await waitFor(() => {
       expect(enrollmentServices.getAllUsersWithEnrollments).toHaveBeenCalled();
     }, { timeout: 3000 });
@@ -135,13 +134,12 @@ describe('AdminPage - Comprehensive Integration Tests', () => {
     });
 
     test('should display loading state initially', async () => {
-      enrollmentServices.getAllUsersWithEnrollments = jest.fn(
+      enrollmentServices.getAllUsersWithEnrollments = vi.fn(
         () => new Promise(resolve => setTimeout(() => resolve(mockUsers), 100))
       );
 
       const { rerender } = renderAdminPage();
 
-      // Should show default empty state before data loads
       await waitFor(() => {
         expect(enrollmentServices.getAllUsersWithEnrollments).toHaveBeenCalled();
       });
@@ -272,7 +270,7 @@ describe('AdminPage - Comprehensive Integration Tests', () => {
     });
 
     test('should handle reset enrollment error', async () => {
-      enrollmentServices.resetEnrollmentToPending = jest
+      enrollmentServices.resetEnrollmentToPending = vi
         .fn()
         .mockRejectedValue(new Error('Reset failed'));
 
@@ -345,7 +343,7 @@ describe('AdminPage - Comprehensive Integration Tests', () => {
     });
 
     test('should handle scheduling API errors', async () => {
-      schedulingServices.getTimeSlots = jest
+      schedulingServices.getTimeSlots = vi
         .fn()
         .mockRejectedValue(new Error('API Error'));
 
@@ -433,7 +431,6 @@ describe('AdminPage - Comprehensive Integration Tests', () => {
       const enrollmentTab = screen.getByText('Enrollment Management');
       fireEvent.click(enrollmentTab);
 
-      // Should not call getAllUsers again since tab data was already loaded
       await waitFor(() => {
         expect(enrollmentServices.getAllUsersWithEnrollments).toHaveBeenCalledTimes(1);
       });
@@ -458,7 +455,6 @@ describe('AdminPage - Comprehensive Integration Tests', () => {
       const analyticsTab = screen.getByText('Analytics');
       fireEvent.click(analyticsTab);
 
-      // Should not throw errors
       await waitFor(() => {
         expect(analyticsTab).toBeInTheDocument();
       });
@@ -483,7 +479,6 @@ describe('AdminPage - Comprehensive Integration Tests', () => {
       const complianceTab = screen.getByText('Compliance Reports');
       fireEvent.click(complianceTab);
 
-      // Should not throw errors
       await waitFor(() => {
         expect(complianceTab).toBeInTheDocument();
       });
@@ -492,7 +487,7 @@ describe('AdminPage - Comprehensive Integration Tests', () => {
 
   describe('Error Handling', () => {
     test('should handle enrollment data load error', async () => {
-      enrollmentServices.getAllUsersWithEnrollments = jest
+      enrollmentServices.getAllUsersWithEnrollments = vi
         .fn()
         .mockRejectedValue(new Error('Failed to load users'));
 
@@ -504,7 +499,7 @@ describe('AdminPage - Comprehensive Integration Tests', () => {
     });
 
     test('should show error message when API fails', async () => {
-      enrollmentServices.getAllUsersWithEnrollments = jest
+      enrollmentServices.getAllUsersWithEnrollments = vi
         .fn()
         .mockRejectedValue(new Error('Network error'));
 
@@ -517,7 +512,7 @@ describe('AdminPage - Comprehensive Integration Tests', () => {
 
     test('should recover from error state', async () => {
       let callCount = 0;
-      enrollmentServices.getAllUsersWithEnrollments = jest.fn(() => {
+      enrollmentServices.getAllUsersWithEnrollments = vi.fn(() => {
         callCount++;
         if (callCount === 1) {
           return Promise.reject(new Error('Initial error'));
@@ -531,20 +526,18 @@ describe('AdminPage - Comprehensive Integration Tests', () => {
         expect(enrollmentServices.getAllUsersWithEnrollments).toHaveBeenCalled();
       });
 
-      // Component should attempt to recover or display error gracefully
       expect(enrollmentServices.getAllUsersWithEnrollments).toHaveBeenCalled();
     });
   });
 
   describe('Loading States', () => {
     test('should show loading indicator while fetching data', async () => {
-      enrollmentServices.getAllUsersWithEnrollments = jest.fn(
+      enrollmentServices.getAllUsersWithEnrollments = vi.fn(
         () => new Promise(resolve => setTimeout(() => resolve(mockUsers), 50))
       );
 
       renderAdminPage();
 
-      // Initial render - checking for loading state
       expect(enrollmentServices.getAllUsersWithEnrollments).toHaveBeenCalled();
 
       await waitFor(() => {
@@ -553,7 +546,7 @@ describe('AdminPage - Comprehensive Integration Tests', () => {
     });
 
     test('should show loading state on reset operations', async () => {
-      enrollmentServices.resetEnrollmentToPending = jest.fn(
+      enrollmentServices.resetEnrollmentToPending = vi.fn(
         () => new Promise(resolve => setTimeout(() => resolve({}), 50))
       );
 
@@ -600,7 +593,6 @@ describe('AdminPage - Comprehensive Integration Tests', () => {
         expect(screen.getByText('DMV Written Test')).toBeInTheDocument();
       });
 
-      // Users should still be visible
       expect(screen.getByText('John Doe')).toBeInTheDocument();
       expect(screen.getByText('Jane Smith')).toBeInTheDocument();
     });
@@ -612,8 +604,6 @@ describe('AdminPage - Comprehensive Integration Tests', () => {
         expect(screen.getByText(/Total Users/i)).toBeInTheDocument();
       });
 
-      // mockUsers has 2 users and 3 total enrollments
-      // This test verifies the stats are calculated correctly
       expect(enrollmentServices.getAllUsersWithEnrollments).toHaveBeenCalled();
     });
   });
@@ -652,7 +642,6 @@ describe('AdminPage - Comprehensive Integration Tests', () => {
         expect(screen.getByText('Jane Smith')).toBeInTheDocument();
       });
 
-      // Clear the search
       fireEvent.change(searchInput, { target: { value: '' } });
 
       await waitFor(() => {
@@ -690,7 +679,7 @@ describe('AdminPage - Comprehensive Integration Tests', () => {
     });
 
     test('should not allow duplicate submissions during reset', async () => {
-      enrollmentServices.resetEnrollmentToPending = jest.fn(
+      enrollmentServices.resetEnrollmentToPending = vi.fn(
         () => new Promise(resolve => setTimeout(() => resolve({}), 100))
       );
 
@@ -712,12 +701,10 @@ describe('AdminPage - Comprehensive Integration Tests', () => {
       const resetButtons = screen.getAllByText(/reset/i);
       const button = resetButtons[0];
 
-      // Click button multiple times rapidly
       fireEvent.click(button);
       fireEvent.click(button);
 
       await waitFor(() => {
-        // Should be called but possibly only once if button is disabled during operation
         expect(enrollmentServices.resetEnrollmentToPending).toHaveBeenCalled();
       });
     });

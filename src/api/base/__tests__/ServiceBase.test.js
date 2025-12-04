@@ -1,5 +1,6 @@
-import ServiceBase from '../ServiceBase.js';
 import { vi } from 'vitest';
+import ServiceBase from '../ServiceBase.js';
+import loggingService from '../../../services/loggingService.js';
 
 let ApiError;
 
@@ -28,13 +29,19 @@ vi.mock('../../errors/ApiError.js', () => {
   };
 });
 
-vi.mock('../../../services/loggingService.js', () => ({
-  log: vi.fn(),
-  error: vi.fn(),
-  debug: vi.fn(),
-  info: vi.fn(),
-  warn: vi.fn()
-}));
+vi.mock('../../../services/loggingService.js', () => {
+  const mockLogger = {
+    log: vi.fn(),
+    error: vi.fn(),
+    debug: vi.fn(),
+    info: vi.fn(),
+    warn: vi.fn()
+  };
+  return {
+    default: mockLogger,
+    ...mockLogger
+  };
+});
 
 vi.mock('../../../utils/api/validators.js', () => ({
   validateUserId: vi.fn(),
@@ -42,25 +49,39 @@ vi.mock('../../../utils/api/validators.js', () => ({
   validateEmail: vi.fn()
 }));
 
-vi.mock('firebase/firestore', () => ({
-  collection: vi.fn(),
-  writeBatch: vi.fn(),
-  doc: vi.fn(),
-  getDoc: vi.fn(),
-  getDocs: vi.fn(),
-  setDoc: vi.fn(),
-  updateDoc: vi.fn(),
-  deleteDoc: vi.fn()
-}));
+vi.mock('firebase/firestore', () => {
+  const collection = vi.fn();
+  const doc = vi.fn();
+  const getDoc = vi.fn();
+  const getDocs = vi.fn();
+  const setDoc = vi.fn();
+  const updateDoc = vi.fn();
+  const deleteDoc = vi.fn();
+  const writeBatch = vi.fn();
+  
+  return {
+    collection,
+    doc,
+    getDoc,
+    getDocs,
+    setDoc,
+    updateDoc,
+    deleteDoc,
+    writeBatch
+  };
+});
 
 let authModule;
 let firebaseFirestore;
-beforeEach(() => {
+beforeEach(async () => {
   vi.clearAllMocks();
-  authModule = require('../../../config/firebase.js');
+  const firebaseModule = await import('../../../config/firebase.js');
+  authModule = firebaseModule;
   authModule.auth.currentUser = null;
-  ApiError = require('../../errors/ApiError.js').ApiError;
-  firebaseFirestore = require('firebase/firestore');
+  const apiErrorModule = await import('../../errors/ApiError.js');
+  ApiError = apiErrorModule.ApiError;
+  const firestore = await import('firebase/firestore');
+  firebaseFirestore = vi.mocked(firestore);
 });
 
 describe('ServiceBase', () => {
@@ -303,7 +324,6 @@ describe('ServiceBase', () => {
 
   describe('log', () => {
     it('should use LoggingService for logging', () => {
-      const loggingService = require('../../../services/loggingService.js');
       const service = new ServiceBase('TestService');
       
       service.log('Test message', { key: 'value' });
@@ -317,7 +337,6 @@ describe('ServiceBase', () => {
 
   describe('logError', () => {
     it('should log errors with service context', () => {
-      const loggingService = require('../../../services/loggingService.js');
       const testError = new Error('Test error');
       testError.code = 'TEST_CODE';
       const service = new ServiceBase('TestService');
@@ -335,7 +354,6 @@ describe('ServiceBase', () => {
     });
 
     it('should handle errors without code', () => {
-      const loggingService = require('../../../services/loggingService.js');
       const testError = new Error('Test error');
       const service = new ServiceBase('TestService');
       

@@ -1,5 +1,5 @@
-import QueryHelper from '../QueryHelper.js';
 import { vi } from 'vitest';
+import QueryHelper from '../QueryHelper.js';
 
 let ApiError;
 
@@ -21,23 +21,36 @@ vi.mock('../../errors/ApiError.js', () => {
   };
 });
 
-vi.mock('firebase/firestore', () => ({
-  collection: vi.fn(),
-  query: vi.fn(),
-  where: vi.fn(),
-  orderBy: vi.fn(),
-  limit: vi.fn(),
-  startAfter: vi.fn(),
-  getDocs: vi.fn(),
-  getCountFromServer: vi.fn()
-}));
+vi.mock('firebase/firestore', () => {
+  const collection = vi.fn();
+  const query = vi.fn();
+  const where = vi.fn();
+  const orderBy = vi.fn();
+  const limit = vi.fn();
+  const startAfter = vi.fn();
+  const getDocs = vi.fn();
+  const getCountFromServer = vi.fn();
+  
+  return {
+    collection,
+    query,
+    where,
+    orderBy,
+    limit,
+    startAfter,
+    getDocs,
+    getCountFromServer
+  };
+});
 
 let firebaseFirestore;
 
-beforeEach(() => {
+beforeEach(async () => {
   vi.clearAllMocks();
-  firebaseFirestore = require('firebase/firestore');
-  ApiError = require('../../errors/ApiError.js').ApiError;
+  const firestore = await import('firebase/firestore');
+  firebaseFirestore = vi.mocked(firestore);
+  const apiErrorModule = await import('../../errors/ApiError.js');
+  ApiError = apiErrorModule.ApiError;
 });
 
 describe('QueryHelper', () => {

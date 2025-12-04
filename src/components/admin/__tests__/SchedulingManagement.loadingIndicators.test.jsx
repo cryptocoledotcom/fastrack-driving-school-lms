@@ -69,7 +69,6 @@ describe('SchedulingManagement - Loading Indicators', () => {
         expect(screen.getByText('Lesson Time Slot Management')).toBeInTheDocument();
       });
 
-      // Verify component renders without loading state initially
       const addButton = screen.getByRole('button', { name: /Add New Time Slot/ });
       expect(addButton).not.toHaveAttribute('disabled');
     });
@@ -84,16 +83,13 @@ describe('SchedulingManagement - Loading Indicators', () => {
       const addButton = screen.getByRole('button', { name: /Add New Time Slot/ });
       fireEvent.click(addButton);
 
-      // Form should open when Add button is clicked
       await waitFor(() => {
         expect(screen.getByText('Create New Time Slot')).toBeInTheDocument();
       });
 
-      // Form should contain date, time, and location inputs
       const dateInputs = screen.getAllByDisplayValue('');
       expect(dateInputs.length).toBeGreaterThan(0);
 
-      // createTimeSlot should not have been called yet
       expect(schedulingApi.createTimeSlot).not.toHaveBeenCalled();
     });
 
@@ -122,7 +118,7 @@ describe('SchedulingManagement - Loading Indicators', () => {
       const deleteButtons = screen.getAllByRole('button', { name: /Delete/ });
       const deleteButton = deleteButtons[0];
 
-      window.confirm = jest.fn(() => true);
+      window.confirm = vi.fn(() => true);
 
       schedulingApi.deleteTimeSlot.mockImplementationOnce(
         () => new Promise(resolve => setTimeout(resolve, 500))
@@ -145,7 +141,7 @@ describe('SchedulingManagement - Loading Indicators', () => {
       const deleteButtons = screen.getAllByRole('button', { name: /Delete/ });
       const deleteButton = deleteButtons[0];
 
-      window.confirm = jest.fn(() => true);
+      window.confirm = vi.fn(() => true);
 
       fireEvent.click(deleteButton);
 
@@ -168,7 +164,7 @@ describe('SchedulingManagement - Loading Indicators', () => {
       const deleteButtons = screen.getAllByRole('button', { name: /Delete/ });
       const deleteButton = deleteButtons[0];
 
-      window.confirm = jest.fn(() => true);
+      window.confirm = vi.fn(() => true);
       schedulingApi.deleteTimeSlot.mockRejectedValueOnce(new Error('Delete failed'));
 
       fireEvent.click(deleteButton);
@@ -192,7 +188,7 @@ describe('SchedulingManagement - Loading Indicators', () => {
       const deleteButtons = screen.getAllByRole('button', { name: /Delete/ });
       const deleteButton = deleteButtons[0];
 
-      window.confirm = jest.fn(() => false);
+      window.confirm = vi.fn(() => false);
 
       fireEvent.click(deleteButton);
 
@@ -212,7 +208,7 @@ describe('SchedulingManagement - Loading Indicators', () => {
       const unassignButtons = screen.getAllByRole('button', { name: /Unassign/ });
       const unassignButton = unassignButtons[0];
 
-      window.confirm = jest.fn(() => true);
+      window.confirm = vi.fn(() => true);
 
       schedulingApi.unassignTimeSlot.mockImplementationOnce(
         () => new Promise(resolve => setTimeout(resolve, 500))
@@ -235,7 +231,7 @@ describe('SchedulingManagement - Loading Indicators', () => {
       const unassignButtons = screen.getAllByRole('button', { name: /Unassign/ });
       const unassignButton = unassignButtons[0];
 
-      window.confirm = jest.fn(() => true);
+      window.confirm = vi.fn(() => true);
 
       fireEvent.click(unassignButton);
 
@@ -258,14 +254,13 @@ describe('SchedulingManagement - Loading Indicators', () => {
       const unassignButtons = screen.getAllByRole('button', { name: /Unassign/ });
       const unassignButton = unassignButtons[0];
 
-      window.confirm = jest.fn(() => true);
+      window.confirm = vi.fn(() => true);
       schedulingApi.unassignTimeSlot.mockRejectedValueOnce(new Error('Unassign failed'));
 
       expect(unassignButton).not.toHaveAttribute('disabled');
       
       fireEvent.click(unassignButton);
 
-      // Even if error occurs, button should still be present and working
       await waitFor(() => {
         expect(unassignButton).toBeDefined();
       });
@@ -281,7 +276,7 @@ describe('SchedulingManagement - Loading Indicators', () => {
       const unassignButtons = screen.getAllByRole('button', { name: /Unassign/ });
       const unassignButton = unassignButtons[0];
 
-      window.confirm = jest.fn(() => false);
+      window.confirm = vi.fn(() => false);
 
       fireEvent.click(unassignButton);
 
@@ -300,21 +295,18 @@ describe('SchedulingManagement - Loading Indicators', () => {
 
       const deleteButtons = screen.getAllByRole('button', { name: /Delete/ });
 
-      window.confirm = jest.fn(() => true);
+      window.confirm = vi.fn(() => true);
 
-      // Start deletion on first slot
       schedulingApi.deleteTimeSlot.mockImplementationOnce(
         () => new Promise(resolve => setTimeout(resolve, 300))
       );
 
       fireEvent.click(deleteButtons[0]);
 
-      // Verify first button becomes disabled during deletion
       await waitFor(() => {
         expect(deleteButtons[0]).toHaveAttribute('disabled');
       }, { timeout: 1000 });
 
-      // After deletion completes, button should clear loading state
       await waitFor(() => {
         expect(screen.getByText('Time slot deleted successfully!')).toBeInTheDocument();
       });
@@ -329,10 +321,8 @@ describe('SchedulingManagement - Loading Indicators', () => {
 
       const unassignButtons = screen.getAllByRole('button', { name: /Unassign/ });
       
-      // Verify we have at least one unassign button (for assigned slots)
       expect(unassignButtons.length).toBeGreaterThan(0);
       
-      // All should be enabled initially
       unassignButtons.forEach(btn => {
         expect(btn).not.toHaveAttribute('disabled');
       });
@@ -355,7 +345,6 @@ describe('SchedulingManagement - Loading Indicators', () => {
         expect(screen.getByText('Lesson Time Slot Management')).toBeInTheDocument();
       });
 
-      // Delete buttons should not be loading after remount
       const deleteButtons = screen.getAllByRole('button', { name: /Delete/ });
       deleteButtons.forEach(btn => {
         expect(btn).not.toHaveAttribute('disabled');
@@ -369,7 +358,6 @@ describe('SchedulingManagement - Loading Indicators', () => {
         expect(screen.getByText('Lesson Time Slot Management')).toBeInTheDocument();
       });
 
-      // All buttons should be enabled initially
       const deleteButtons = screen.getAllByRole('button', { name: /Delete/ });
       const unassignButtons = screen.getAllByRole('button', { name: /Unassign/ });
       
@@ -388,14 +376,13 @@ describe('SchedulingManagement - Loading Indicators', () => {
       const unassignButtons = screen.getAllByRole('button', { name: /Unassign/ });
       expect(unassignButtons.length).toBeGreaterThan(0);
 
-      window.confirm = jest.fn(() => true);
+      window.confirm = vi.fn(() => true);
       fireEvent.click(unassignButtons[0]);
 
       await waitFor(() => {
         expect(screen.getByText('Lesson unassigned successfully!')).toBeInTheDocument();
       });
 
-      // Button should no longer be disabled after success
       await waitFor(() => {
         expect(unassignButtons[0]).not.toHaveAttribute('disabled');
       });

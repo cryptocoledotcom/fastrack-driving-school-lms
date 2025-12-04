@@ -1,8 +1,8 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 
-const PVQ_TRIGGER_INTERVAL = 2 * 60 * 60;
-const PVQ_RANDOM_OFFSET_MIN = 0;
-const PVQ_RANDOM_OFFSET_MAX = 2 * 60;
+const PVQ_TRIGGER_INTERVAL = 30 * 60;
+const PVQ_RANDOM_OFFSET_MIN = 5 * 60;
+const PVQ_RANDOM_OFFSET_MAX = 10 * 60;
 
 export const usePVQTrigger = (options = {}) => {
   const {

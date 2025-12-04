@@ -1,0 +1,1502 @@
+
+> fastrack-driving-school-lms@1.0.0 test
+> vitest --run
+
+
+[7m[1m[36m RUN [39m[22m[27m [36mv1.6.1[39m [90mc:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System[39m
+
+Cannot parse C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/src/pages/Admin/__tests__/AdminPage.comprehensive.test.js:
+Expression expected
+ [33m❯[39m src/pages/Admin/__tests__/AdminPage.comprehensive.test.js [2m ([22m[2m0 test[22m[2m)[22m
+Cannot parse C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/src/components/admin/__tests__/SchedulingManagement.loadingIndicators.test.js:
+Expression expected
+ [33m❯[39m src/components/admin/__tests__/SchedulingManagement.loadingIndicators.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/hooks/usePVQTrigger.test.js [2m ([22m[2m42 tests[22m [2m|[22m [31m2 failed[39m[2m)[22m[90m 112[2mms[22m[39m
+[31m   [33m❯[31m src/hooks/usePVQTrigger.test.js[2m > [22musePVQTrigger Hook[2m > [22mPVQ Triggering Logic[2m > [22mshould calculate next PVQ trigger time with random offset[39m
+[31m     → expected 'import { useState, useCallback, useEf…' to contain '30 * 60'[39m
+[31m   [33m❯[31m src/hooks/usePVQTrigger.test.js[2m > [22musePVQTrigger Hook[2m > [22mRandom Trigger Intervals[2m > [22mshould calculate offset within specified range[39m
+[31m     → expected 'import { useState, useCallback, useEf…' to contain '5 * 60'[39m
+Cannot parse C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/src/components/common/ErrorBoundary/ErrorBoundary.test.js:
+Expression expected
+ [33m❯[39m src/components/common/ErrorBoundary/ErrorBoundary.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [32m✓[39m src/hooks/useSessionData.test.js [2m ([22m[2m45 tests[22m[2m)[22m[90m 94[2mms[22m[39m
+ [33m❯[39m src/api/base/__tests__/ServiceBase.test.js [2m ([22m[2m25 tests[22m [2m|[22m [31m25 failed[39m[2m)[22m[33m 643[2mms[22m[39m
+[31m   [33m❯[31m src/api/base/__tests__/ServiceBase.test.js[2m > [22mServiceBase[2m > [22mConstructor[2m > [22mshould set serviceName[39m
+[31m     → Cannot read properties of undefined (reading 'VITE_FIREBASE_API_KEY')[39m
+[31m   [33m❯[31m src/api/base/__tests__/ServiceBase.test.js[2m > [22mServiceBase[2m > [22mConstructor[2m > [22mshould expose validators as this.validate[39m
+[31m     → Cannot read properties of undefined (reading 'VITE_FIREBASE_API_KEY')[39m
+[31m   [33m❯[31m src/api/base/__tests__/ServiceBase.test.js[2m > [22mServiceBase[2m > [22mgetCurrentUser[2m > [22mshould return current user if authenticated[39m
+[31m     → Cannot read properties of undefined (reading 'VITE_FIREBASE_API_KEY')[39m
+[31m   [33m❯[31m src/api/base/__tests__/ServiceBase.test.js[2m > [22mServiceBase[2m > [22mgetCurrentUser[2m > [22mshould throw ApiError if not authenticated[39m
+[31m     → Cannot read properties of undefined (reading 'VITE_FIREBASE_API_KEY')[39m
+[31m   [33m❯[31m src/api/base/__tests__/ServiceBase.test.js[2m > [22mServiceBase[2m > [22mgetCurrentUser[2m > [22mshould throw error with AUTH_ERROR code[39m
+[31m     → Cannot read properties of undefined (reading 'VITE_FIREBASE_API_KEY')[39m
+[31m   [33m❯[31m src/api/base/__tests__/ServiceBase.test.js[2m > [22mServiceBase[2m > [22mgetCurrentUserId[2m > [22mshould return user UID when authenticated[39m
+[31m     → Cannot read properties of undefined (reading 'VITE_FIREBASE_API_KEY')[39m
+[31m   [33m❯[31m src/api/base/__tests__/ServiceBase.test.js[2m > [22mServiceBase[2m > [22mgetCurrentUserId[2m > [22mshould throw error when not authenticated[39m
+[31m     → Cannot read properties of undefined (reading 'VITE_FIREBASE_API_KEY')[39m
+[31m   [33m❯[31m src/api/base/__tests__/ServiceBase.test.js[2m > [22mServiceBase[2m > [22mgetDoc[2m > [22mshould retrieve and format document[39m
+[31m     → Cannot read properties of undefined (reading 'VITE_FIREBASE_API_KEY')[39m
+[31m   [33m❯[31m src/api/base/__tests__/ServiceBase.test.js[2m > [22mServiceBase[2m > [22mgetDoc[2m > [22mshould throw NOT_FOUND error if document missing[39m
+[31m     → Cannot read properties of undefined (reading 'VITE_FIREBASE_API_KEY')[39m
+[31m   [33m❯[31m src/api/base/__tests__/ServiceBase.test.js[2m > [22mServiceBase[2m > [22mgetDoc[2m > [22mshould catch and map Firebase errors[39m
+[31m     → Cannot read properties of undefined (reading 'VITE_FIREBASE_API_KEY')[39m
+[31m   [33m❯[31m src/api/base/__tests__/ServiceBase.test.js[2m > [22mServiceBase[2m > [22msetDoc[2m > [22mshould set document data[39m
+[31m     → Cannot read properties of undefined (reading 'VITE_FIREBASE_API_KEY')[39m
+[31m   [33m❯[31m src/api/base/__tests__/ServiceBase.test.js[2m > [22mServiceBase[2m > [22msetDoc[2m > [22mshould handle Firebase errors[39m
+[31m     → Cannot read properties of undefined (reading 'VITE_FIREBASE_API_KEY')[39m
+[31m   [33m❯[31m src/api/base/__tests__/ServiceBase.test.js[2m > [22mServiceBase[2m > [22mupdateDoc[2m > [22mshould update document[39m
+[31m     → Cannot read properties of undefined (reading 'VITE_FIREBASE_API_KEY')[39m
+[31m   [33m❯[31m src/api/base/__tests__/ServiceBase.test.js[2m > [22mServiceBase[2m > [22mupdateDoc[2m > [22mshould validate updates before writing[39m
+[31m     → Cannot read properties of undefined (reading 'VITE_FIREBASE_API_KEY')[39m
+[31m   [33m❯[31m src/api/base/__tests__/ServiceBase.test.js[2m > [22mServiceBase[2m > [22mdeleteDoc[2m > [22mshould delete document[39m
+[31m     → Cannot read properties of undefined (reading 'VITE_FIREBASE_API_KEY')[39m
+[31m   [33m❯[31m src/api/base/__tests__/ServiceBase.test.js[2m > [22mServiceBase[2m > [22mdeleteDoc[2m > [22mshould handle Firebase errors[39m
+[31m     → Cannot read properties of undefined (reading 'VITE_FIREBASE_API_KEY')[39m
+[31m   [33m❯[31m src/api/base/__tests__/ServiceBase.test.js[2m > [22mServiceBase[2m > [22mbatch[2m > [22mshould return batch instance[39m
+[31m     → Cannot read properties of undefined (reading 'VITE_FIREBASE_API_KEY')[39m
+[31m   [33m❯[31m src/api/base/__tests__/ServiceBase.test.js[2m > [22mServiceBase[2m > [22mbatch[2m > [22mshould execute multiple operations[39m
+[31m     → Cannot read properties of undefined (reading 'VITE_FIREBASE_API_KEY')[39m
+[31m   [33m❯[31m src/api/base/__tests__/ServiceBase.test.js[2m > [22mServiceBase[2m > [22mlog[2m > [22mshould use LoggingService for logging[39m
+[31m     → Cannot read properties of undefined (reading 'VITE_FIREBASE_API_KEY')[39m
+[31m   [33m❯[31m src/api/base/__tests__/ServiceBase.test.js[2m > [22mServiceBase[2m > [22mlogError[2m > [22mshould log errors with service context[39m
+[31m     → Cannot read properties of undefined (reading 'VITE_FIREBASE_API_KEY')[39m
+[31m   [33m❯[31m src/api/base/__tests__/ServiceBase.test.js[2m > [22mServiceBase[2m > [22mlogError[2m > [22mshould handle errors without code[39m
+[31m     → Cannot read properties of undefined (reading 'VITE_FIREBASE_API_KEY')[39m
+[31m   [33m❯[31m src/api/base/__tests__/ServiceBase.test.js[2m > [22mServiceBase[2m > [22mgetCollection[2m > [22mshould return formatted documents[39m
+[31m     → Cannot read properties of undefined (reading 'VITE_FIREBASE_API_KEY')[39m
+[31m   [33m❯[31m src/api/base/__tests__/ServiceBase.test.js[2m > [22mServiceBase[2m > [22mgetCollection[2m > [22mshould apply filters correctly[39m
+[31m     → Cannot read properties of undefined (reading 'VITE_FIREBASE_API_KEY')[39m
+[31m   [33m❯[31m src/api/base/__tests__/ServiceBase.test.js[2m > [22mServiceBase[2m > [22mError handling[2m > [22mshould throw ApiError for all operations[39m
+[31m     → Cannot read properties of undefined (reading 'VITE_FIREBASE_API_KEY')[39m
+[31m   [33m❯[31m src/api/base/__tests__/ServiceBase.test.js[2m > [22mServiceBase[2m > [22mError handling[2m > [22mshould not double-wrap ApiErrors[39m
+[31m     → Cannot read properties of undefined (reading 'VITE_FIREBASE_API_KEY')[39m
+ [32m✓[39m src/hooks/useBreakManagement.test.js [2m ([22m[2m42 tests[22m[2m)[22m[90m 88[2mms[22m[39m
+[90mstderr[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mexecute[2m > [22m[2mshould retry and eventually succeed[22m[39m
+⏱️  [test-operation] Attempt 1/3 failed, retrying in 9ms: Network timeout
+
+[90mstderr[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mexecute[2m > [22m[2mshould retry and eventually succeed[22m[39m
+⏱️  [test-operation] Attempt 2/3 failed, retrying in 19ms: Network timeout
+
+Cannot parse C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/src/components/admin/tabs/__tests__/UserManagementTab.test.js:
+Expression expected
+[90mstderr[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mexecute[2m > [22m[2mshould retry and eventually succeed[22m[39m
+<empty line>
+[90mstdout[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mexecute[2m > [22m[2mshould retry and eventually succeed[22m[39m
+✅ [test-operation] Succeeded on attempt 3/3
+
+[90mstderr[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mexecute[2m > [22m[2mshould fail immediately for non-retryable errors[22m[39m
+❌ [test-operation] Non-retryable error on attempt 1: Invalid credentials
+
+[90mstderr[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mexecute[2m > [22m[2mshould throw after max attempts exhausted[22m[39m
+⏱️  [test-operation] Attempt 1/3 failed, retrying in 9ms: Persistent network error
+
+[90mstderr[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mexecute[2m > [22m[2mshould throw after max attempts exhausted[22m[39m
+⏱️  [test-operation] Attempt 2/3 failed, retrying in 19ms: Persistent network error
+
+ [33m❯[39m src/components/admin/tabs/__tests__/UserManagementTab.test.js [2m ([22m[2m0 test[22m[2m)[22m
+[90mstderr[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mexecute[2m > [22m[2mshould throw after max attempts exhausted[22m[39m
+❌ [test-operation] Failed after 3 attempts. Last error: Persistent network error
+
+[90mstderr[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mexecute[2m > [22m[2mshould throw ApiError with context information[22m[39m
+⏱️  [updateUser] Attempt 1/3 failed, retrying in 10ms: Connection failed
+
+[90mstderr[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mexecute[2m > [22m[2mshould throw ApiError with context information[22m[39m
+⏱️  [updateUser] Attempt 2/3 failed, retrying in 20ms: Connection failed
+
+[90mstderr[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mexecute[2m > [22m[2mshould throw ApiError with context information[22m[39m
+❌ [updateUser] Failed after 3 attempts. Last error: Connection failed
+
+[90mstderr[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mexecute[2m > [22m[2mshould handle async operations correctly[22m[39m
+⏱️  [async-operation] Attempt 1/3 failed, retrying in 10ms: Network error
+
+ [33m❯[39m src/context/TimerContext.test.js [2m ([22m[2m50 tests[22m [2m|[22m [31m1 failed[39m[2m)[22m[90m 158[2mms[22m[39m
+[31m   [33m❯[31m src/context/TimerContext.test.js[2m > [22mTimerContext Integration[2m > [22mSyntax and Structure[2m > [22mshould have no syntax errors[39m
+[31m     → expected [Function] to not throw an error but 'SyntaxError: Unexpected token \'<\'' was thrown[39m
+[90mstderr[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mexecute[2m > [22m[2mshould handle async operations correctly[22m[39m
+<empty line>
+[90mstdout[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mexecute[2m > [22m[2mshould handle async operations correctly[22m[39m
+✅ [async-operation] Succeeded on attempt 2/3
+
+[90mstderr[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mexecute[2m > [22m[2mshould use exponential backoff timing[22m[39m
+⏱️  [timed-operation] Attempt 1/3 failed, retrying in 11ms: Network error
+
+[90mstderr[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mexecute[2m > [22m[2mshould use exponential backoff timing[22m[39m
+⏱️  [timed-operation] Attempt 2/3 failed, retrying in 19ms: Network error
+
+[90mstderr[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mexecute[2m > [22m[2mshould use exponential backoff timing[22m[39m
+<empty line>
+[90mstdout[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mexecute[2m > [22m[2mshould use exponential backoff timing[22m[39m
+✅ [timed-operation] Succeeded on attempt 3/3
+
+[90mstderr[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mexecute[2m > [22m[2mshould handle errors with message property[22m[39m
+⏱️  [test-operation] Attempt 1/3 failed, retrying in 11ms: Specific failure reason
+
+[90mstderr[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mexecute[2m > [22m[2mshould handle errors with message property[22m[39m
+⏱️  [test-operation] Attempt 2/3 failed, retrying in 20ms: Specific failure reason
+
+[90mstderr[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mexecute[2m > [22m[2mshould handle errors with message property[22m[39m
+❌ [test-operation] Failed after 3 attempts. Last error: Specific failure reason
+
+[90mstderr[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mexecute[2m > [22m[2mshould log context in thrown error[22m[39m
+⏱️  [myOperation] Attempt 1/3 failed, retrying in 11ms: Network unavailable
+
+[90mstderr[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mexecute[2m > [22m[2mshould log context in thrown error[22m[39m
+⏱️  [myOperation] Attempt 2/3 failed, retrying in 21ms: Network unavailable
+
+[90mstderr[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mexecute[2m > [22m[2mshould log context in thrown error[22m[39m
+❌ [myOperation] Failed after 3 attempts. Last error: Network unavailable
+
+[90mstderr[2m | src/api/admin/__tests__/userManagementServices.test.js[2m > [22m[2mUser Management Services[2m > [22m[2mgetAllUsers[2m > [22m[2mshould throw error on fetch failure[22m[39m
+Error fetching all users: Error: Firestore error
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\[39msrc\api\admin\__tests__\userManagementServices.test.js:55:21
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:135:14
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:60:26
+    at runTest (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:781:17)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runFiles (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:958:5)
+    at startTests (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:967:3)
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4mvitest[24m/dist/chunks/runtime-runBaseTests.oAvMKtQC.js:116:7
+
+[90mstderr[2m | src/api/admin/__tests__/userManagementServices.test.js[2m > [22m[2mUser Management Services[2m > [22m[2mgetUserById[2m > [22m[2mshould throw error on fetch failure[22m[39m
+Error fetching user: Error: Firestore error
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\[39msrc\api\admin\__tests__\userManagementServices.test.js:94:21
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:135:14
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:60:26
+    at runTest (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:781:17)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runFiles (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:958:5)
+    at startTests (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:967:3)
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4mvitest[24m/dist/chunks/runtime-runBaseTests.oAvMKtQC.js:116:7
+
+[90mstderr[2m | src/api/admin/__tests__/userManagementServices.test.js[2m > [22m[2mUser Management Services[2m > [22m[2mupdateUserRole[2m > [22m[2mshould throw error for invalid role[22m[39m
+Error updating user role: Error: Invalid role: invalid_role
+    at UserManagementService.updateUserRole [90m(c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\[39msrc\api\admin\userManagementServices.js:57:15[90m)[39m
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\[39msrc\api\admin\__tests__\userManagementServices.test.js:136:32
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:135:14
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:60:26
+    at runTest (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:781:17)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runFiles (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:958:5)
+    at startTests (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:967:3)
+
+[90mstderr[2m | src/api/admin/__tests__/userManagementServices.test.js[2m > [22m[2mUser Management Services[2m > [22m[2mupdateUserRole[2m > [22m[2mshould throw error if user not found[22m[39m
+Error updating user role: Error: User not found
+    at UserManagementService.updateUserRole [90m(c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\[39msrc\api\admin\userManagementServices.js:64:15[90m)[39m
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\[39msrc\api\admin\__tests__\userManagementServices.test.js:147:7
+    at runTest (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:781:11)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runFiles (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:958:5)
+    at startTests (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:967:3)
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4mvitest[24m/dist/chunks/runtime-runBaseTests.oAvMKtQC.js:116:7
+    at withEnv (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4mvitest[24m/dist/chunks/runtime-runBaseTests.oAvMKtQC.js:83:5)
+
+[90mstderr[2m | src/api/admin/__tests__/userManagementServices.test.js[2m > [22m[2mUser Management Services[2m > [22m[2mlogActivity[2m > [22m[2mshould throw error on log failure[22m[39m
+Error logging activity: Error: Failed to log
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\[39msrc\api\admin\__tests__\userManagementServices.test.js:174:21
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:135:14
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:60:26
+    at runTest (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:781:17)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runFiles (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:958:5)
+    at startTests (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:967:3)
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4mvitest[24m/dist/chunks/runtime-runBaseTests.oAvMKtQC.js:116:7
+
+[90mstderr[2m | src/api/admin/__tests__/userManagementServices.test.js[2m > [22m[2mUser Management Services[2m > [22m[2mgetActivityLogs[2m > [22m[2mshould throw error on fetch failure[22m[39m
+Error fetching activity logs: Error: Firestore error
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\[39msrc\api\admin\__tests__\userManagementServices.test.js:225:21
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:135:14
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:60:26
+    at runTest (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:781:17)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runFiles (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:958:5)
+    at startTests (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:967:3)
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4mvitest[24m/dist/chunks/runtime-runBaseTests.oAvMKtQC.js:116:7
+
+[90mstderr[2m | src/api/admin/__tests__/userManagementServices.test.js[2m > [22m[2mUser Management Services[2m > [22m[2mgetUserActivityHistory[2m > [22m[2mshould throw error on fetch failure[22m[39m
+Error fetching user activity history: Error: Firestore error
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\[39msrc\api\admin\__tests__\userManagementServices.test.js:256:21
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:135:14
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:60:26
+    at runTest (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:781:17)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runFiles (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:958:5)
+    at startTests (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:967:3)
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4mvitest[24m/dist/chunks/runtime-runBaseTests.oAvMKtQC.js:116:7
+
+[90mstderr[2m | src/api/admin/__tests__/userManagementServices.test.js[2m > [22m[2mUser Management Services[2m > [22m[2mgetAdminActivityHistory[2m > [22m[2mshould throw error on fetch failure[22m[39m
+Error fetching admin activity history: Error: Firestore error
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\[39msrc\api\admin\__tests__\userManagementServices.test.js:287:21
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:135:14
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:60:26
+    at runTest (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:781:17)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runFiles (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:958:5)
+    at startTests (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:967:3)
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4mvitest[24m/dist/chunks/runtime-runBaseTests.oAvMKtQC.js:116:7
+
+[90mstderr[2m | src/api/admin/__tests__/userManagementServices.test.js[2m > [22m[2mUser Management Services[2m > [22m[2mdeleteUser[2m > [22m[2mshould throw error on delete failure[22m[39m
+Error deleting user: Error: Failed to delete
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\[39msrc\api\admin\__tests__\userManagementServices.test.js:322:21
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:135:14
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:60:26
+    at runTest (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:781:17)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runFiles (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:958:5)
+    at startTests (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:967:3)
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4mvitest[24m/dist/chunks/runtime-runBaseTests.oAvMKtQC.js:116:7
+
+[90mstderr[2m | src/api/admin/__tests__/userManagementServices.test.js[2m > [22m[2mUser Management Services[2m > [22m[2mrestoreUser[2m > [22m[2mshould throw error on restore failure[22m[39m
+Error restoring user: Error: Failed to restore
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\[39msrc\api\admin\__tests__\userManagementServices.test.js:357:21
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:135:14
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:60:26
+    at runTest (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:781:17)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runFiles (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:958:5)
+    at startTests (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:967:3)
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4mvitest[24m/dist/chunks/runtime-runBaseTests.oAvMKtQC.js:116:7
+
+[90mstderr[2m | src/api/admin/__tests__/userManagementServices.test.js[2m > [22m[2mUser Management Services[2m > [22m[2mgetUserStats[2m > [22m[2mshould throw error on fetch failure[22m[39m
+Error fetching user stats: Error: Firestore error
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\[39msrc\api\admin\__tests__\userManagementServices.test.js:415:21
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:135:14
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:60:26
+    at runTest (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:781:17)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runFiles (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:958:5)
+    at startTests (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:967:3)
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4mvitest[24m/dist/chunks/runtime-runBaseTests.oAvMKtQC.js:116:7
+
+ [32m✓[39m src/api/admin/__tests__/userManagementServices.test.js [2m ([22m[2m26 tests[22m[2m)[22m[90m 134[2mms[22m[39m
+ [32m✓[39m src/services/__tests__/loggingService.test.js [2m ([22m[2m50 tests[22m[2m)[22m[90m 93[2mms[22m[39m
+ [33m❯[39m src/api/base/__tests__/QueryHelper.test.js [2m ([22m[2m21 tests[22m [2m|[22m [31m21 failed[39m[2m)[22m[33m 605[2mms[22m[39m
+[31m   [33m❯[31m src/api/base/__tests__/QueryHelper.test.js[2m > [22mQueryHelper[2m > [22mpaginate[2m > [22mshould retrieve first page with pagination metadata[39m
+[31m     → firebaseFirestore.collection.mockReturnValue is not a function[39m
+[31m   [33m❯[31m src/api/base/__tests__/QueryHelper.test.js[2m > [22mQueryHelper[2m > [22mpaginate[2m > [22mshould apply filters when provided[39m
+[31m     → firebaseFirestore.collection.mockReturnValue is not a function[39m
+[31m   [33m❯[31m src/api/base/__tests__/QueryHelper.test.js[2m > [22mQueryHelper[2m > [22mpaginate[2m > [22mshould apply ordering when provided[39m
+[31m     → firebaseFirestore.collection.mockReturnValue is not a function[39m
+[31m   [33m❯[31m src/api/base/__tests__/QueryHelper.test.js[2m > [22mQueryHelper[2m > [22mpaginate[2m > [22mshould indicate hasNextPage = true when total > pageSize[39m
+[31m     → firebaseFirestore.collection.mockReturnValue is not a function[39m
+[31m   [33m❯[31m src/api/base/__tests__/QueryHelper.test.js[2m > [22mQueryHelper[2m > [22mpaginate[2m > [22mshould throw ApiError on query failure[39m
+[31m     → firebaseFirestore.collection.mockReturnValue is not a function[39m
+[31m   [33m❯[31m src/api/base/__tests__/QueryHelper.test.js[2m > [22mQueryHelper[2m > [22mgetNextPage[2m > [22mshould retrieve next page using cursor[39m
+[31m     → firebaseFirestore.collection.mockReturnValue is not a function[39m
+[31m   [33m❯[31m src/api/base/__tests__/QueryHelper.test.js[2m > [22mQueryHelper[2m > [22mgetNextPage[2m > [22mshould throw error if lastVisible is null[39m
+[31m     → expected MockApiError{ …(3) } to be an instance of ApiError[39m
+[31m   [33m❯[31m src/api/base/__tests__/QueryHelper.test.js[2m > [22mQueryHelper[2m > [22mgetNextPage[2m > [22mshould indicate hasNextPage = false when fewer docs than pageSize returned[39m
+[31m     → firebaseFirestore.collection.mockReturnValue is not a function[39m
+[31m   [33m❯[31m src/api/base/__tests__/QueryHelper.test.js[2m > [22mQueryHelper[2m > [22mgetNextPage[2m > [22mshould throw ApiError on query failure[39m
+[31m     → firebaseFirestore.collection.mockReturnValue is not a function[39m
+[31m   [33m❯[31m src/api/base/__tests__/QueryHelper.test.js[2m > [22mQueryHelper[2m > [22mgetPageAtIndex[2m > [22mshould retrieve specific page by number[39m
+[31m     → firebaseFirestore.collection.mockReturnValue is not a function[39m
+[31m   [33m❯[31m src/api/base/__tests__/QueryHelper.test.js[2m > [22mQueryHelper[2m > [22mgetPageAtIndex[2m > [22mshould throw error if pageNumber < 1[39m
+[31m     → expected MockApiError{ …(3) } to be an instance of ApiError[39m
+[31m   [33m❯[31m src/api/base/__tests__/QueryHelper.test.js[2m > [22mQueryHelper[2m > [22mgetPageAtIndex[2m > [22mshould calculate correct skip count for pagination[39m
+[31m     → firebaseFirestore.collection.mockReturnValue is not a function[39m
+[31m   [33m❯[31m src/api/base/__tests__/QueryHelper.test.js[2m > [22mQueryHelper[2m > [22mgetPageAtIndex[2m > [22mshould have hasPreviousPage = false on first page[39m
+[31m     → firebaseFirestore.collection.mockReturnValue is not a function[39m
+[31m   [33m❯[31m src/api/base/__tests__/QueryHelper.test.js[2m > [22mQueryHelper[2m > [22mgetPageAtIndex[2m > [22mshould have hasNextPage = false on last page[39m
+[31m     → firebaseFirestore.collection.mockReturnValue is not a function[39m
+[31m   [33m❯[31m src/api/base/__tests__/QueryHelper.test.js[2m > [22mQueryHelper[2m > [22mgetPageAtIndex[2m > [22mshould throw ApiError on query failure[39m
+[31m     → firebaseFirestore.collection.mockReturnValue is not a function[39m
+[31m   [33m❯[31m src/api/base/__tests__/QueryHelper.test.js[2m > [22mQueryHelper[2m > [22mgetCollectionCount[2m > [22mshould return collection document count[39m
+[31m     → firebaseFirestore.collection.mockReturnValue is not a function[39m
+[31m   [33m❯[31m src/api/base/__tests__/QueryHelper.test.js[2m > [22mQueryHelper[2m > [22mgetCollectionCount[2m > [22mshould apply filters when provided[39m
+[31m     → firebaseFirestore.collection.mockReturnValue is not a function[39m
+[31m   [33m❯[31m src/api/base/__tests__/QueryHelper.test.js[2m > [22mQueryHelper[2m > [22mgetCollectionCount[2m > [22mshould throw ApiError on query failure[39m
+[31m     → firebaseFirestore.collection.mockReturnValue is not a function[39m
+[31m   [33m❯[31m src/api/base/__tests__/QueryHelper.test.js[2m > [22mQueryHelper[2m > [22mgetCollectionCount[2m > [22mshould return 0 for empty collection[39m
+[31m     → firebaseFirestore.collection.mockReturnValue is not a function[39m
+[31m   [33m❯[31m src/api/base/__tests__/QueryHelper.test.js[2m > [22mQueryHelper[2m > [22mIntegration scenarios[2m > [22mshould handle multiple filters correctly[39m
+[31m     → firebaseFirestore.collection.mockReturnValue is not a function[39m
+[31m   [33m❯[31m src/api/base/__tests__/QueryHelper.test.js[2m > [22mQueryHelper[2m > [22mIntegration scenarios[2m > [22mshould handle pagination chain: first -> next -> next[39m
+[31m     → firebaseFirestore.collection.mockReturnValue is not a function[39m
+[90mstderr[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mretryAsync convenience function[2m > [22m[2mshould work with default configuration[22m[39m
+⏱️  [test-operation] Attempt 1/3 failed, retrying in 107ms: Network error
+
+[90mstderr[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mretryAsync convenience function[2m > [22m[2mshould work with default configuration[22m[39m
+<empty line>
+[90mstdout[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mretryAsync convenience function[2m > [22m[2mshould work with default configuration[22m[39m
+✅ [test-operation] Succeeded on attempt 2/3
+
+[90mstderr[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mretryAsync convenience function[2m > [22m[2mshould throw after max attempts[22m[39m
+⏱️  [test-operation] Attempt 1/3 failed, retrying in 101ms: Persistent error
+
+[90mstderr[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mretryAsync convenience function[2m > [22m[2mshould throw after max attempts[22m[39m
+⏱️  [test-operation] Attempt 2/3 failed, retrying in 213ms: Persistent error
+
+[90mstderr[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mretryAsync convenience function[2m > [22m[2mshould throw after max attempts[22m[39m
+❌ [test-operation] Failed after 3 attempts. Last error: Persistent error
+
+[90mstderr[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mcreateRetryHandler factory[2m > [22m[2mshould work with custom handler[22m[39m
+⏱️  [test] Attempt 1/2 failed, retrying in 5ms: Error
+
+[90mstderr[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mcreateRetryHandler factory[2m > [22m[2mshould work with custom handler[22m[39m
+❌ [test] Failed after 2 attempts. Last error: Error
+
+[90mstderr[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mreal-world scenarios[2m > [22m[2mshould handle temporary network failure[22m[39m
+⏱️  [fetchData] Attempt 1/3 failed, retrying in 10ms: Network error
+
+[90mstderr[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mreal-world scenarios[2m > [22m[2mshould handle temporary network failure[22m[39m
+⏱️  [fetchData] Attempt 2/3 failed, retrying in 18ms: Network error
+
+[90mstderr[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mreal-world scenarios[2m > [22m[2mshould handle temporary network failure[22m[39m
+<empty line>
+[90mstdout[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mreal-world scenarios[2m > [22m[2mshould handle temporary network failure[22m[39m
+✅ [fetchData] Succeeded on attempt 3/3
+
+[90mstderr[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mreal-world scenarios[2m > [22m[2mshould fail fast on permission error[22m[39m
+❌ [updateDocument] Non-retryable error on attempt 1: Access denied
+
+[90mstderr[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mreal-world scenarios[2m > [22m[2mshould recover from server temporarily unavailable[22m[39m
+⏱️  [submitForm] Attempt 1/3 failed, retrying in 9ms: Service unavailable
+
+[90mstderr[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mreal-world scenarios[2m > [22m[2mshould recover from server temporarily unavailable[22m[39m
+<empty line>
+[90mstdout[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mreal-world scenarios[2m > [22m[2mshould recover from server temporarily unavailable[22m[39m
+✅ [submitForm] Succeeded on attempt 2/3
+
+ [33m❯[39m src/api/base/__tests__/RetryHandler.test.js [2m ([22m[2m31 tests[22m [2m|[22m [31m9 failed[39m[2m)[22m[33m 1153[2mms[22m[39m
+[31m   [33m❯[31m src/api/base/__tests__/RetryHandler.test.js[2m > [22mRetryHandler[2m > [22mexecute[2m > [22mshould fail immediately for non-retryable errors[39m
+[31m     → expected 'UNAUTHENTICATED' to contain 'Invalid credentials'[39m
+[31m   [33m❯[31m src/api/base/__tests__/RetryHandler.test.js[2m > [22mRetryHandler[2m > [22mexecute[2m > [22mshould throw after max attempts exhausted[39m
+[31m     → expected 'RETRY_EXHAUSTED' to contain 'failed after 3 attempts'[39m
+[31m   [33m❯[31m src/api/base/__tests__/RetryHandler.test.js[2m > [22mRetryHandler[2m > [22mexecute[2m > [22mshould throw ApiError with context information[39m
+[31m     → expected 'RETRY_EXHAUSTED' to contain 'failed after 3 attempts'[39m
+[31m   [33m❯[31m src/api/base/__tests__/RetryHandler.test.js[2m > [22mRetryHandler[2m > [22mexecute[2m > [22mshould validate operation parameter[39m
+[31m     → expected 'INVALID_OPERATION' to contain 'must be a function'[39m
+[31m   [33m❯[31m src/api/base/__tests__/RetryHandler.test.js[2m > [22mRetryHandler[2m > [22mexecute[2m > [22mshould handle errors with message property[39m
+[31m     → expected 'RETRY_EXHAUSTED' to contain 'failed after 3 attempts'[39m
+[31m   [33m❯[31m src/api/base/__tests__/RetryHandler.test.js[2m > [22mRetryHandler[2m > [22mexecute[2m > [22mshould log context in thrown error[39m
+[31m     → expected 'RETRY_EXHAUSTED' to contain 'myOperation'[39m
+[31m   [33m❯[31m src/api/base/__tests__/RetryHandler.test.js[2m > [22mRetryHandler[2m > [22mretryAsync convenience function[2m > [22mshould throw after max attempts[39m
+[31m     → expected 'RETRY_EXHAUSTED' to contain 'failed after'[39m
+[31m   [33m❯[31m src/api/base/__tests__/RetryHandler.test.js[2m > [22mRetryHandler[2m > [22mcreateRetryHandler factory[2m > [22mshould work with custom handler[39m
+[31m     → expected 'RETRY_EXHAUSTED' to contain 'failed after 2 attempts'[39m
+[31m   [33m❯[31m src/api/base/__tests__/RetryHandler.test.js[2m > [22mRetryHandler[2m > [22mreal-world scenarios[2m > [22mshould fail fast on permission error[39m
+[31m     → expected 'PERMISSION_DENIED' to contain 'Access denied'[39m
+Cannot parse C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/src/components/admin/tabs/__tests__/AnalyticsTab.test.js:
+Expression expected
+ [33m❯[39m src/components/admin/tabs/__tests__/AnalyticsTab.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/context/ModalContext.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [32m✓[39m src/api/errors/__tests__/ApiError.test.js [2m ([22m[2m38 tests[22m[2m)[22m[90m 100[2mms[22m[39m
+ [33m❯[39m src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx [2m ([22m[2m0 test[22m[2m)[22m
+ [32m✓[39m src/api/base/__tests__/CacheService.test.js [2m ([22m[2m32 tests[22m[2m)[22m[90m 50[2mms[22m[39m
+[90mstderr[2m | src/components/admin/tabs/__tests__/UserManagementTab.test.jsx[2m > [22m[2mUserManagementTab[2m > [22m[2mError Handling[2m > [22m[2mshould display error message on load failure[22m[39m
+Error loading users: Error: Load failed
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\[39msrc\components\admin\tabs\__tests__\UserManagementTab.test.jsx:552:21
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:135:14
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:60:26
+    at runTest (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:781:17)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runFiles (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:958:5)
+    at startTests (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:967:3)
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4mvitest[24m/dist/chunks/runtime-runBaseTests.oAvMKtQC.js:116:7
+
+[90mstderr[2m | src/components/admin/tabs/__tests__/UserManagementTab.test.jsx[2m > [22m[2mUserManagementTab[2m > [22m[2mError Handling[2m > [22m[2mshould display error on role change failure[22m[39m
+Error changing user role: Error: Role change failed
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\[39msrc\components\admin\tabs\__tests__\UserManagementTab.test.jsx:563:21
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:135:14
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:60:26
+    at runTest (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:781:17)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runFiles (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:958:5)
+    at startTests (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:967:3)
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4mvitest[24m/dist/chunks/runtime-runBaseTests.oAvMKtQC.js:116:7
+
+[90mstderr[2m | src/components/admin/tabs/__tests__/UserManagementTab.test.jsx[2m > [22m[2mUserManagementTab[2m > [22m[2mError Handling[2m > [22m[2mshould display error on activity logs load failure[22m[39m
+Error loading activity logs: Error: Logs load failed
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\[39msrc\components\admin\tabs\__tests__\UserManagementTab.test.jsx:588:21
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:135:14
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:60:26
+    at runTest (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:781:17)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runFiles (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:958:5)
+    at startTests (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:967:3)
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4mvitest[24m/dist/chunks/runtime-runBaseTests.oAvMKtQC.js:116:7
+
+ [32m✓[39m src/components/admin/tabs/__tests__/UserManagementTab.test.jsx [2m ([22m[2m28 tests[22m[2m)[22m[33m 3609[2mms[22m[39m
+Cannot parse C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/src/pages/Admin/__tests__/AdminPage.userManagement.integration.test.js:
+Expression expected
+ [33m❯[39m src/pages/Admin/__tests__/AdminPage.userManagement.integration.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/components/admin/tabs/__tests__/AnalyticsTab.test.jsx [2m ([22m[2m30 tests[22m [2m|[22m [31m2 failed[39m[2m)[22m[33m 1597[2mms[22m[39m
+[31m   [33m❯[31m src/components/admin/tabs/__tests__/AnalyticsTab.test.jsx[2m > [22mAnalyticsTab[2m > [22mMini Stats[2m > [22mshould display average progress[39m
+[31m     → [2mexpect([22m[31mreceived[31m[2m).toBeInTheDocument()[22m
+
+[31mreceived[31m value must be an HTMLElement or an SVGElement.
+[39m
+[31m   [33m❯[31m src/components/admin/tabs/__tests__/AnalyticsTab.test.jsx[2m > [22mAnalyticsTab[2m > [22mMini Stats[2m > [22mshould display active students count[39m
+[31m     → [2mexpect([22m[31mreceived[31m[2m).toBeInTheDocument()[22m
+
+[31mreceived[31m value must be an HTMLElement or an SVGElement.
+[39m
+ [32m✓[39m src/api/admin/__tests__/analyticsServices.test.js [2m ([22m[2m35 tests[22m[2m)[22m[90m 88[2mms[22m[39m
+ [33m❯[39m src/components/common/Quiz/Quiz.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/api/enrollment/__tests__/enrollmentServices.concurrent.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [32m✓[39m src/hooks/useSessionTimer.test.js [2m ([22m[2m26 tests[22m[2m)[22m[90m 81[2mms[22m[39m
+ [32m✓[39m src/__tests__/firestore.rules.test.js [2m ([22m[2m25 tests[22m[2m)[22m[90m 27[2mms[22m[39m
+Cannot parse C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/src/context/CourseContext.test.js:
+Expression expected
+ [33m❯[39m src/context/CourseContext.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [32m✓[39m src/api/enrollment/__tests__/enrollmentServices.reset.test.js [2m ([22m[2m19 tests[22m[2m)[22m[90m 70[2mms[22m[39m
+ [33m❯[39m src/api/enrollment/__tests__/enrollmentServices.refactor.test.js [2m ([22m[2m13 tests[22m [2m|[22m [31m7 failed[39m[2m)[22m[90m 73[2mms[22m[39m
+[31m   [33m❯[31m src/api/enrollment/__tests__/enrollmentServices.refactor.test.js[2m > [22menrollmentServices.createEnrollment() - Refactored with utilities[2m > [22mEnrollment Creation[2m > [22mshould create enrollment with correct data for regular user[39m
+[31m     → [vitest] No "serverTimestamp" export is defined on the "firebase/firestore" mock. Did you forget to return it from "vi.mock"?
+If you need to partially mock a module, you can use "importOriginal" helper inside:
+[39m
+[31m   [33m❯[31m src/api/enrollment/__tests__/enrollmentServices.refactor.test.js[2m > [22menrollmentServices.createEnrollment() - Refactored with utilities[2m > [22mEnrollment Creation[2m > [22mshould create admin enrollment with correct status[39m
+[31m     → [vitest] No "serverTimestamp" export is defined on the "firebase/firestore" mock. Did you forget to return it from "vi.mock"?
+If you need to partially mock a module, you can use "importOriginal" helper inside:
+[39m
+[31m   [33m❯[31m src/api/enrollment/__tests__/enrollmentServices.refactor.test.js[2m > [22menrollmentServices.createEnrollment() - Refactored with utilities[2m > [22mEnrollment Creation[2m > [22mshould return created enrollment with id[39m
+[31m     → [vitest] No "serverTimestamp" export is defined on the "firebase/firestore" mock. Did you forget to return it from "vi.mock"?
+If you need to partially mock a module, you can use "importOriginal" helper inside:
+[39m
+[31m   [33m❯[31m src/api/enrollment/__tests__/enrollmentServices.refactor.test.js[2m > [22menrollmentServices.createEnrollment() - Refactored with utilities[2m > [22mEnrollment Creation[2m > [22mshould include required timestamp and enrollment fields[39m
+[31m     → [vitest] No "serverTimestamp" export is defined on the "firebase/firestore" mock. Did you forget to return it from "vi.mock"?
+If you need to partially mock a module, you can use "importOriginal" helper inside:
+[39m
+[31m   [33m❯[31m src/api/enrollment/__tests__/enrollmentServices.refactor.test.js[2m > [22menrollmentServices.createEnrollment() - Refactored with utilities[2m > [22mEnrollment Creation[2m > [22mshould call correct Firestore path for document[39m
+[31m     → [vitest] No "serverTimestamp" export is defined on the "firebase/firestore" mock. Did you forget to return it from "vi.mock"?
+If you need to partially mock a module, you can use "importOriginal" helper inside:
+[39m
+[31m   [33m❯[31m src/api/enrollment/__tests__/enrollmentServices.refactor.test.js[2m > [22menrollmentServices.createEnrollment() - Refactored with utilities[2m > [22mAdmin Email Detection[2m > [22mshould recognize admin email (case insensitive)[39m
+[31m     → [vitest] No "serverTimestamp" export is defined on the "firebase/firestore" mock. Did you forget to return it from "vi.mock"?
+If you need to partially mock a module, you can use "importOriginal" helper inside:
+[39m
+[31m   [33m❯[31m src/api/enrollment/__tests__/enrollmentServices.refactor.test.js[2m > [22menrollmentServices.createEnrollment() - Refactored with utilities[2m > [22mAdmin Email Detection[2m > [22mshould not recognize non-admin email[39m
+[31m     → [vitest] No "serverTimestamp" export is defined on the "firebase/firestore" mock. Did you forget to return it from "vi.mock"?
+If you need to partially mock a module, you can use "importOriginal" helper inside:
+[39m
+ [32m✓[39m src/constants/__tests__/userRoles.assignment.test.js [2m ([22m[2m35 tests[22m[2m)[22m[90m 23[2mms[22m[39m
+Cannot parse C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/src/components/admin/tabs/__tests__/UserManagementTab.createUser.integration.test.js:
+Expression expected
+ [33m❯[39m src/components/admin/tabs/__tests__/UserManagementTab.createUser.integration.test.js [2m ([22m[2m0 test[22m[2m)[22m
+Cannot parse C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/src/context/AuthContext.test.js:
+Expression expected
+ [33m❯[39m src/context/AuthContext.test.js [2m ([22m[2m0 test[22m[2m)[22m
+Cannot parse C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/src/components/auth/__tests__/ForcePasswordChangeModal.integration.test.js:
+Expression expected
+ [33m❯[39m src/components/auth/__tests__/ForcePasswordChangeModal.integration.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [32m✓[39m src/api/student/__tests__/userServices.getAllStudents.test.js [2m ([22m[2m6 tests[22m[2m)[22m[90m 24[2mms[22m[39m
+ [32m✓[39m src/api/enrollment/__tests__/enrollmentServices.checkCourseAccess.test.js [2m ([22m[2m9 tests[22m[2m)[22m[90m 23[2mms[22m[39m
+Cannot parse C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/functions/src/compliance/sessionHeartbeat.test.js:
+Expected ',', got '}'
+ [33m❯[39m functions/src/compliance/sessionHeartbeat.test.js [2m ([22m[2m0 test[22m[2m)[22m
+Cannot parse C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/src/pages/CoursePlayer/CoursePlayerPage.quiz.integration.test.js:
+Expression expected
+ [33m❯[39m src/pages/CoursePlayer/CoursePlayerPage.quiz.integration.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [32m✓[39m src/utils/__tests__/dateTimeFormatter.test.js [2m ([22m[2m11 tests[22m[2m)[22m[90m 25[2mms[22m[39m
+ [32m✓[39m src/api/admin/__tests__/userManagementServices.createUserFunction.test.js [2m ([22m[2m9 tests[22m[2m)[22m[90m 78[2mms[22m[39m
+[90mstderr[2m | src/api/admin/__tests__/userManagementServices.createUserFunction.test.js[2m > [22m[2mUser Management - createUser Function[2m > [22m[2mshould handle Cloud Function errors[22m[39m
+Error creating user: Error: Failed to create user: Email already exists
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\[39msrc\api\admin\__tests__\userManagementServices.createUserFunction.test.js:84:19
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:135:14
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:60:26
+    at runTest (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:781:17)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runFiles (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:958:5)
+    at startTests (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:967:3)
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4mvitest[24m/dist/chunks/runtime-runBaseTests.oAvMKtQC.js:116:7
+    at withEnv (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4mvitest[24m/dist/chunks/runtime-runBaseTests.oAvMKtQC.js:83:5)
+
+[90mstderr[2m | src/api/admin/__tests__/userManagementServices.createUserFunction.test.js[2m > [22m[2mUser Management - createUser Function[2m > [22m[2mshould handle authentication errors[22m[39m
+Error creating user: Error: User must be authenticated
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\[39msrc\api\admin\__tests__\userManagementServices.createUserFunction.test.js:98:36
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:135:14
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:60:26
+    at runTest (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:781:17)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runFiles (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:958:5)
+    at startTests (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:967:3)
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4mvitest[24m/dist/chunks/runtime-runBaseTests.oAvMKtQC.js:116:7
+    at withEnv (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4mvitest[24m/dist/chunks/runtime-runBaseTests.oAvMKtQC.js:83:5)
+
+[90mstderr[2m | src/api/admin/__tests__/userManagementServices.createUserFunction.test.js[2m > [22m[2mUser Management - createUser Function[2m > [22m[2mshould handle permission errors for non-super-admins[22m[39m
+Error creating user: Error: Only Super Admins can create users
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\[39msrc\api\admin\__tests__\userManagementServices.createUserFunction.test.js:106:36
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:135:14
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:60:26
+    at runTest (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:781:17)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runFiles (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:958:5)
+    at startTests (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:967:3)
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4mvitest[24m/dist/chunks/runtime-runBaseTests.oAvMKtQC.js:116:7
+    at withEnv (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4mvitest[24m/dist/chunks/runtime-runBaseTests.oAvMKtQC.js:83:5)
+
+[90mstderr[2m | src/api/admin/__tests__/userManagementServices.createUserFunction.test.js[2m > [22m[2mUser Management - createUser Function[2m > [22m[2mshould handle network errors[22m[39m
+Error creating user: Error: Network error
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\[39msrc\api\admin\__tests__\userManagementServices.createUserFunction.test.js:131:36
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:135:14
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:60:26
+    at runTest (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:781:17)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runFiles (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:958:5)
+    at startTests (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:967:3)
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4mvitest[24m/dist/chunks/runtime-runBaseTests.oAvMKtQC.js:116:7
+    at withEnv (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4mvitest[24m/dist/chunks/runtime-runBaseTests.oAvMKtQC.js:83:5)
+
+Cannot parse C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/src/components/admin/__tests__/SchedulingManagement.assignment.test.js:
+Expression expected
+ [33m❯[39m src/components/admin/__tests__/SchedulingManagement.assignment.test.js [2m ([22m[2m0 test[22m[2m)[22m
+[90mstderr[2m | src/hooks/useComplianceHeartbeat.test.js[2m > [22m[2museComplianceHeartbeat[2m > [22m[2mshould call heartbeat function every 60 seconds[22m[39m
+Heartbeat error: Error: [vitest] No "getApp" export is defined on the "firebase/app" mock. Did you forget to return it from "vi.mock"?
+If you need to partially mock a module, you can use "importOriginal" helper inside:
+
+    at VitestMocker.createError (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4mvitest[24m/dist/vendor/execute.fL3szUAI.js:79:19)
+    at Object.get (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4mvitest[24m/dist/vendor/execute.fL3szUAI.js:153:22)
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\[39msrc\hooks\useComplianceHeartbeat.js:29:38
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\[39msrc\hooks\useComplianceHeartbeat.js:79:7
+    at callTimer [90m(file:///c:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/[39mnode_modules/[4mvitest[24m/dist/vendor/vi.YFlodzP_.js:1976:24[90m)[39m
+    at doTickInner [90m(file:///c:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/[39mnode_modules/[4mvitest[24m/dist/vendor/vi.YFlodzP_.js:2562:29[90m)[39m
+    at doTick [90m(file:///c:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/[39mnode_modules/[4mvitest[24m/dist/vendor/vi.YFlodzP_.js:2643:20[90m)[39m
+    at Object.tick [90m(file:///c:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/[39mnode_modules/[4mvitest[24m/dist/vendor/vi.YFlodzP_.js:2651:20[90m)[39m
+    at FakeTimers.advanceTimersByTime [90m(file:///c:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/[39mnode_modules/[4mvitest[24m/dist/vendor/vi.YFlodzP_.js:3116:19[90m)[39m
+    at Object.advanceTimersByTime [90m(file:///c:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/[39mnode_modules/[4mvitest[24m/dist/vendor/vi.YFlodzP_.js:3393:16[90m)[39m {
+  codeFrame: [32m'vi\x1B[33m.\x1B[39m\x1B[34mmock\x1B[39m(\x1B[32m"firebase/app"\x1B[39m\x1B[33m,\x1B[39m \x1B[35masync\x1B[39m (importOriginal) \x1B[33m=>\x1B[39m {\n'[39m +
+    [32m'  \x1B[35mconst\x1B[39m actual \x1B[33m=\x1B[39m \x1B[35mawait\x1B[39m \x1B[34mimportOriginal\x1B[39m()\n'[39m +
+    [32m'  \x1B[35mreturn\x1B[39m {\n'[39m +
+    [32m'    \x1B[33m...\x1B[39mactual\x1B[33m,\x1B[39m\n'[39m +
+    [32m'    \x1B[90m// your mocked methods\x1B[39m\n'[39m +
+    [32m'  }\n'[39m +
+    [32m'})'[39m
+}
+
+[90mstderr[2m | src/hooks/useComplianceHeartbeat.test.js[2m > [22m[2museComplianceHeartbeat[2m > [22m[2mshould call onHeartbeatSuccess callback on successful heartbeat[22m[39m
+Heartbeat error: Error: [vitest] No "getApp" export is defined on the "firebase/app" mock. Did you forget to return it from "vi.mock"?
+If you need to partially mock a module, you can use "importOriginal" helper inside:
+
+    at VitestMocker.createError (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4mvitest[24m/dist/vendor/execute.fL3szUAI.js:79:19)
+    at Object.get (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4mvitest[24m/dist/vendor/execute.fL3szUAI.js:153:22)
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\[39msrc\hooks\useComplianceHeartbeat.js:29:38
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\[39msrc\hooks\useComplianceHeartbeat.js:79:7
+    at callTimer [90m(file:///c:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/[39mnode_modules/[4mvitest[24m/dist/vendor/vi.YFlodzP_.js:1976:24[90m)[39m
+    at doTickInner [90m(file:///c:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/[39mnode_modules/[4mvitest[24m/dist/vendor/vi.YFlodzP_.js:2562:29[90m)[39m
+    at doTick [90m(file:///c:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/[39mnode_modules/[4mvitest[24m/dist/vendor/vi.YFlodzP_.js:2643:20[90m)[39m
+    at Object.tick [90m(file:///c:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/[39mnode_modules/[4mvitest[24m/dist/vendor/vi.YFlodzP_.js:2651:20[90m)[39m
+    at FakeTimers.advanceTimersByTime [90m(file:///c:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/[39mnode_modules/[4mvitest[24m/dist/vendor/vi.YFlodzP_.js:3116:19[90m)[39m
+    at Object.advanceTimersByTime [90m(file:///c:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/[39mnode_modules/[4mvitest[24m/dist/vendor/vi.YFlodzP_.js:3393:16[90m)[39m {
+  codeFrame: [32m'vi\x1B[33m.\x1B[39m\x1B[34mmock\x1B[39m(\x1B[32m"firebase/app"\x1B[39m\x1B[33m,\x1B[39m \x1B[35masync\x1B[39m (importOriginal) \x1B[33m=>\x1B[39m {\n'[39m +
+    [32m'  \x1B[35mconst\x1B[39m actual \x1B[33m=\x1B[39m \x1B[35mawait\x1B[39m \x1B[34mimportOriginal\x1B[39m()\n'[39m +
+    [32m'  \x1B[35mreturn\x1B[39m {\n'[39m +
+    [32m'    \x1B[33m...\x1B[39mactual\x1B[33m,\x1B[39m\n'[39m +
+    [32m'    \x1B[90m// your mocked methods\x1B[39m\n'[39m +
+    [32m'  }\n'[39m +
+    [32m'})'[39m
+}
+
+[90mstderr[2m | src/hooks/useComplianceHeartbeat.test.js[2m > [22m[2museComplianceHeartbeat[2m > [22m[2mshould call onLimitReached when daily limit is exceeded[22m[39m
+Heartbeat error: Error: [vitest] No "getApp" export is defined on the "firebase/app" mock. Did you forget to return it from "vi.mock"?
+If you need to partially mock a module, you can use "importOriginal" helper inside:
+
+    at VitestMocker.createError (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4mvitest[24m/dist/vendor/execute.fL3szUAI.js:79:19)
+    at Object.get (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4mvitest[24m/dist/vendor/execute.fL3szUAI.js:153:22)
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\[39msrc\hooks\useComplianceHeartbeat.js:29:38
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\[39msrc\hooks\useComplianceHeartbeat.js:79:7
+    at callTimer [90m(file:///c:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/[39mnode_modules/[4mvitest[24m/dist/vendor/vi.YFlodzP_.js:1976:24[90m)[39m
+    at doTickInner [90m(file:///c:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/[39mnode_modules/[4mvitest[24m/dist/vendor/vi.YFlodzP_.js:2562:29[90m)[39m
+    at doTick [90m(file:///c:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/[39mnode_modules/[4mvitest[24m/dist/vendor/vi.YFlodzP_.js:2643:20[90m)[39m
+    at Object.tick [90m(file:///c:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/[39mnode_modules/[4mvitest[24m/dist/vendor/vi.YFlodzP_.js:2651:20[90m)[39m
+    at FakeTimers.advanceTimersByTime [90m(file:///c:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/[39mnode_modules/[4mvitest[24m/dist/vendor/vi.YFlodzP_.js:3116:19[90m)[39m
+    at Object.advanceTimersByTime [90m(file:///c:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/[39mnode_modules/[4mvitest[24m/dist/vendor/vi.YFlodzP_.js:3393:16[90m)[39m {
+  codeFrame: [32m'vi\x1B[33m.\x1B[39m\x1B[34mmock\x1B[39m(\x1B[32m"firebase/app"\x1B[39m\x1B[33m,\x1B[39m \x1B[35masync\x1B[39m (importOriginal) \x1B[33m=>\x1B[39m {\n'[39m +
+    [32m'  \x1B[35mconst\x1B[39m actual \x1B[33m=\x1B[39m \x1B[35mawait\x1B[39m \x1B[34mimportOriginal\x1B[39m()\n'[39m +
+    [32m'  \x1B[35mreturn\x1B[39m {\n'[39m +
+    [32m'    \x1B[33m...\x1B[39mactual\x1B[33m,\x1B[39m\n'[39m +
+    [32m'    \x1B[90m// your mocked methods\x1B[39m\n'[39m +
+    [32m'  }\n'[39m +
+    [32m'})'[39m
+}
+
+[90mstderr[2m | src/hooks/useComplianceHeartbeat.test.js[2m > [22m[2museComplianceHeartbeat[2m > [22m[2mshould call onHeartbeatError callback on error[22m[39m
+Heartbeat error: Error: [vitest] No "getApp" export is defined on the "firebase/app" mock. Did you forget to return it from "vi.mock"?
+If you need to partially mock a module, you can use "importOriginal" helper inside:
+
+    at VitestMocker.createError (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4mvitest[24m/dist/vendor/execute.fL3szUAI.js:79:19)
+    at Object.get (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4mvitest[24m/dist/vendor/execute.fL3szUAI.js:153:22)
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\[39msrc\hooks\useComplianceHeartbeat.js:29:38
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\[39msrc\hooks\useComplianceHeartbeat.js:79:7
+    at callTimer [90m(file:///c:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/[39mnode_modules/[4mvitest[24m/dist/vendor/vi.YFlodzP_.js:1976:24[90m)[39m
+    at doTickInner [90m(file:///c:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/[39mnode_modules/[4mvitest[24m/dist/vendor/vi.YFlodzP_.js:2562:29[90m)[39m
+    at doTick [90m(file:///c:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/[39mnode_modules/[4mvitest[24m/dist/vendor/vi.YFlodzP_.js:2643:20[90m)[39m
+    at Object.tick [90m(file:///c:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/[39mnode_modules/[4mvitest[24m/dist/vendor/vi.YFlodzP_.js:2651:20[90m)[39m
+    at FakeTimers.advanceTimersByTime [90m(file:///c:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/[39mnode_modules/[4mvitest[24m/dist/vendor/vi.YFlodzP_.js:3116:19[90m)[39m
+    at Object.advanceTimersByTime [90m(file:///c:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/[39mnode_modules/[4mvitest[24m/dist/vendor/vi.YFlodzP_.js:3393:16[90m)[39m {
+  codeFrame: [32m'vi\x1B[33m.\x1B[39m\x1B[34mmock\x1B[39m(\x1B[32m"firebase/app"\x1B[39m\x1B[33m,\x1B[39m \x1B[35masync\x1B[39m (importOriginal) \x1B[33m=>\x1B[39m {\n'[39m +
+    [32m'  \x1B[35mconst\x1B[39m actual \x1B[33m=\x1B[39m \x1B[35mawait\x1B[39m \x1B[34mimportOriginal\x1B[39m()\n'[39m +
+    [32m'  \x1B[35mreturn\x1B[39m {\n'[39m +
+    [32m'    \x1B[33m...\x1B[39mactual\x1B[33m,\x1B[39m\n'[39m +
+    [32m'    \x1B[90m// your mocked methods\x1B[39m\n'[39m +
+    [32m'  }\n'[39m +
+    [32m'})'[39m
+}
+
+ [33m❯[39m src/hooks/useComplianceHeartbeat.test.js [2m ([22m[2m6 tests[22m [2m|[22m [31m4 failed[39m[2m)[22m[90m 72[2mms[22m[39m
+[31m   [33m❯[31m src/hooks/useComplianceHeartbeat.test.js[2m > [22museComplianceHeartbeat[2m > [22mshould call heartbeat function every 60 seconds[39m
+[31m     → Timed out in waitFor.
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div />[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+[31m   [33m❯[31m src/hooks/useComplianceHeartbeat.test.js[2m > [22museComplianceHeartbeat[2m > [22mshould call onHeartbeatSuccess callback on successful heartbeat[39m
+[31m     → Timed out in waitFor.
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div />[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+[31m   [33m❯[31m src/hooks/useComplianceHeartbeat.test.js[2m > [22museComplianceHeartbeat[2m > [22mshould call onLimitReached when daily limit is exceeded[39m
+[31m     → Timed out in waitFor.
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div />[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+[31m   [33m❯[31m src/hooks/useComplianceHeartbeat.test.js[2m > [22museComplianceHeartbeat[2m > [22mshould call onHeartbeatError callback on error[39m
+[31m     → Timed out in waitFor.
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div />[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+ [32m✓[39m src/api/compliance/__tests__/schedulingServices.assignment.test.js [2m ([22m[2m3 tests[22m[2m)[22m[90m 3[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯[1m[7m Failed Suites 17 [27m[22m⎯⎯⎯⎯⎯⎯[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/context/AuthContext.test.js [2m[ src/context/AuthContext.test.js ][22m
+[31m[1m[7m FAIL [27m[22m[39m src/context/CourseContext.test.js [2m[ src/context/CourseContext.test.js ][22m
+[31m[1m[7m FAIL [27m[22m[39m src/context/ModalContext.test.js [2m[ src/context/ModalContext.test.js ][22m
+[31m[1m[7m FAIL [27m[22m[39m functions/src/compliance/sessionHeartbeat.test.js [2m[ functions/src/compliance/sessionHeartbeat.test.js ][22m
+[31m[1m[7m FAIL [27m[22m[39m src/pages/CoursePlayer/CoursePlayerPage.quiz.integration.test.js [2m[ src/pages/CoursePlayer/CoursePlayerPage.quiz.integration.test.js ][22m
+[31m[1m[7m FAIL [27m[22m[39m src/components/auth/__tests__/ForcePasswordChangeModal.integration.test.js [2m[ src/components/auth/__tests__/ForcePasswordChangeModal.integration.test.js ][22m
+[31m[1m[7m FAIL [27m[22m[39m src/components/common/ErrorBoundary/ErrorBoundary.test.js [2m[ src/components/common/ErrorBoundary/ErrorBoundary.test.js ][22m
+[31m[1m[7m FAIL [27m[22m[39m src/pages/Admin/__tests__/AdminPage.comprehensive.test.js [2m[ src/pages/Admin/__tests__/AdminPage.comprehensive.test.js ][22m
+[31m[1m[7m FAIL [27m[22m[39m src/pages/Admin/__tests__/AdminPage.userManagement.integration.test.js [2m[ src/pages/Admin/__tests__/AdminPage.userManagement.integration.test.js ][22m
+[31m[1m[7m FAIL [27m[22m[39m src/components/admin/tabs/__tests__/AnalyticsTab.test.js [2m[ src/components/admin/tabs/__tests__/AnalyticsTab.test.js ][22m
+[31m[1mError[22m: Failed to parse source for import analysis because the content contains invalid JS syntax. If you are using JSX, make sure to name the file with the .jsx or .tsx extension.[39m
+[90m [2m❯[22m TransformPluginContext._formatError node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:[2m49258:41[22m[39m
+[90m [2m❯[22m TransformPluginContext.error node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:[2m49253:16[22m[39m
+[90m [2m❯[22m TransformPluginContext.transform node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:[2m64259:14[22m[39m
+[90m [2m❯[22m PluginContainer.transform node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:[2m49099:18[22m[39m
+[90m [2m❯[22m loadAndTransform node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:[2m51978:27[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/88]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/api/enrollment/__tests__/enrollmentServices.concurrent.test.js [2m[ src/api/enrollment/__tests__/enrollmentServices.concurrent.test.js ][22m
+[31m[1mError[22m: [vitest] There was an error when mocking a module. If you are using "vi.mock" factory, make sure there are no top level variables inside, since this call is hoisted to top of the file. Read more: https://vitest.dev/api/vi.html#vi-mock[39m
+[90m [2m❯[22m src/api/enrollment/enrollmentServices.js:[2m3:31[22m[39m
+
+[31m[1mCaused by: ReferenceError[22m: Cannot access '__vi_import_1__' before initialization[39m
+[90m [2m❯[22m src/api/enrollment/__tests__/enrollmentServices.concurrent.test.js:[2m38:22[22m[39m
+[90m [2m❯[22m src/api/enrollment/enrollmentServices.js:[2m3:31[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/88]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/components/common/Quiz/Quiz.test.js [2m[ src/components/common/Quiz/Quiz.test.js ][22m
+[31m[1m[7m FAIL [27m[22m[39m src/components/admin/__tests__/SchedulingManagement.assignment.test.js [2m[ src/components/admin/__tests__/SchedulingManagement.assignment.test.js ][22m
+[31m[1m[7m FAIL [27m[22m[39m src/components/admin/__tests__/SchedulingManagement.loadingIndicators.test.js [2m[ src/components/admin/__tests__/SchedulingManagement.loadingIndicators.test.js ][22m
+[31m[1m[7m FAIL [27m[22m[39m src/components/admin/tabs/__tests__/UserManagementTab.createUser.integration.test.js [2m[ src/components/admin/tabs/__tests__/UserManagementTab.createUser.integration.test.js ][22m
+[31m[1m[7m FAIL [27m[22m[39m src/components/admin/tabs/__tests__/UserManagementTab.test.js [2m[ src/components/admin/tabs/__tests__/UserManagementTab.test.js ][22m
+[31m[1mError[22m: Expression expected[39m
+[90m [2m❯[22m getRollupError node_modules/vite/node_modules/rollup/dist/es/shared/parseAst.js:[2m401:41[22m[39m
+[90m [2m❯[22m convertProgram node_modules/vite/node_modules/rollup/dist/es/shared/parseAst.js:[2m1098:26[22m[39m
+[90m [2m❯[22m parseAstAsync node_modules/vite/node_modules/rollup/dist/es/shared/parseAst.js:[2m2084:106[22m[39m
+[90m [2m❯[22m ssrTransformScript node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:[2m52430:11[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/88]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx [2m[ src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx ][22m
+[31m[1mFirebaseError[22m: Firebase: No Firebase App '[DEFAULT]' has been created - call initializeApp() first (app/no-app).[39m
+[90m [2m❯[22m getApp node_modules/@firebase/app/src/api.ts:[2m385:25[22m[39m
+[90m [2m❯[22m Module.getFunctions node_modules/@firebase/functions/src/api.ts:[2m47:22[22m[39m
+[90m [2m❯[22m src/api/admin/auditLogServices.js:[2m4:19[22m[39m
+[90m [2m❯[22m src/api/admin/index.js:[2m7:31[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[22m[39m
+[31m[1mSerialized Error:[22m[39m [90m{ code: 'app/no-app', customData: { appName: '[DEFAULT]' } }[39m
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/88]⎯[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯[1m[7m Failed Tests 71 [27m[22m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/context/TimerContext.test.js[2m > [22mTimerContext Integration[2m > [22mSyntax and Structure[2m > [22mshould have no syntax errors
+[31m[1mAssertionError[22m: expected [Function] to not throw an error but 'SyntaxError: Unexpected token \'<\'' was thrown[39m
+
+[32m- Expected:[39m 
+undefined
+
+[31m+ Received:[39m 
+"SyntaxError: Unexpected token '<'"
+
+[90m [2m❯[22m src/context/TimerContext.test.js:[2m435:14[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/88]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/hooks/useComplianceHeartbeat.test.js[2m > [22museComplianceHeartbeat[2m > [22mshould call heartbeat function every 60 seconds
+[31m[1mError[22m: Timed out in waitFor.
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div />[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+[90m [2m❯[22m Proxy.waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:[2m163:27[22m[39m
+[90m [2m❯[22m src/hooks/useComplianceHeartbeat.test.js:[2m45:11[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/88]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/hooks/useComplianceHeartbeat.test.js[2m > [22museComplianceHeartbeat[2m > [22mshould call onHeartbeatSuccess callback on successful heartbeat
+[31m[1mError[22m: Timed out in waitFor.
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div />[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+[90m [2m❯[22m Proxy.waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:[2m163:27[22m[39m
+[90m [2m❯[22m src/hooks/useComplianceHeartbeat.test.js:[2m82:11[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/88]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/hooks/useComplianceHeartbeat.test.js[2m > [22museComplianceHeartbeat[2m > [22mshould call onLimitReached when daily limit is exceeded
+[31m[1mError[22m: Timed out in waitFor.
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div />[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+[90m [2m❯[22m Proxy.waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:[2m163:27[22m[39m
+[90m [2m❯[22m src/hooks/useComplianceHeartbeat.test.js:[2m110:11[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/88]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/hooks/useComplianceHeartbeat.test.js[2m > [22museComplianceHeartbeat[2m > [22mshould call onHeartbeatError callback on error
+[31m[1mError[22m: Timed out in waitFor.
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div />[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+[90m [2m❯[22m Proxy.waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:[2m163:27[22m[39m
+[90m [2m❯[22m src/hooks/useComplianceHeartbeat.test.js:[2m185:11[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/88]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/hooks/usePVQTrigger.test.js[2m > [22musePVQTrigger Hook[2m > [22mPVQ Triggering Logic[2m > [22mshould calculate next PVQ trigger time with random offset
+[31m[1mAssertionError[22m: expected 'import { useState, useCallback, useEf…' to contain '30 * 60'[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- 30 * 60[39m
+[31m+ import { useState, useCallback, useEffect, useRef } from 'react';[39m
+[31m+[39m
+[31m+ const PVQ_TRIGGER_INTERVAL = 2 * 60 * 60;[39m
+[31m+ const PVQ_RANDOM_OFFSET_MIN = 0;[39m
+[31m+ const PVQ_RANDOM_OFFSET_MAX = 2 * 60;[39m
+[31m+[39m
+[31m+ export const usePVQTrigger = (options = {}) => {[39m
+[31m+   const {[39m
+[31m+     sessionTime = 0,[39m
+[31m+     getRandomQuestion = null,[39m
+[31m+     onPVQTriggered = null,[39m
+[31m+     onPVQSubmitted = null[39m
+[31m+   } = options;[39m
+[31m+[39m
+[31m+   const [showPVQModal, setShowPVQModal] = useState(false);[39m
+[31m+   const [currentPVQQuestion, setCurrentPVQQuestion] = useState(null);[39m
+[31m+   const [pvqStartTime, setPVQStartTime] = useState(null);[39m
+[31m+   const [nextPVQTriggerTime, setNextPVQTriggerTime] = useState(calculateNextTriggerTime());[39m
+[31m+   const [pvqSubmitting, setPVQSubmitting] = useState(false);[39m
+[31m+[39m
+[31m+   const pvqTriggeredRef = useRef(false);[39m
+[31m+[39m
+[31m+   function calculateNextTriggerTime() {[39m
+[31m+     const randomOffset = Math.floor([39m
+[31m+       Math.random() * (PVQ_RANDOM_OFFSET_MAX - PVQ_RANDOM_OFFSET_MIN) + PVQ_RANDOM_OFFSET_MIN[39m
+[31m+     );[39m
+[31m+     return PVQ_TRIGGER_INTERVAL + randomOffset;[39m
+[31m+   }[39m
+[31m+[39m
+[31m+   const triggerPVQ = useCallback(async () => {[39m
+[31m+     if (!showPVQModal && getRandomQuestion) {[39m
+[31m+       try {[39m
+[31m+         setPVQSubmitting(false);[39m
+[31m+         const question = await getRandomQuestion();[39m
+[31m+         if (question) {[39m
+[31m+           setCurrentPVQQuestion(question);[39m
+[31m+           setShowPVQModal(true);[39m
+[31m+           setPVQStartTime(Date.now());[39m
+[31m+[39m
+[31m+           if (onPVQTriggered) {[39m
+[31m+             onPVQTriggered(question);[39m
+[31m+           }[39m
+[31m+         }[39m
+[31m+       } catch (error) {[39m
+[31m+         console.error('Error triggering PVQ:', error);[39m
+[31m+       }[39m
+[31m+     }[39m
+[31m+   }, [showPVQModal, getRandomQuestion, onPVQTriggered]);[39m
+[31m+[39m
+[31m+   const closePVQModal = useCallback(() => {[39m
+[31m+     setShowPVQModal(false);[39m
+[31m+     setCurrentPVQQuestion(null);[39m
+[31m+     setPVQStartTime(null);[39m
+[31m+     setPVQSubmitting(false);[39m
+[31m+     setNextPVQTriggerTime(calculateNextTriggerTime());[39m
+[31m+     pvqTriggeredRef.current = false;[39m
+[31m+   }, []);[39m
+[31m+[39m
+[31m+   const submitPVQAnswer = useCallback(async (answer) => {[39m
+[31m+     if (!currentPVQQuestion) return;[39m
+[31m+[39m
+[31m+     setPVQSubmitting(true);[39m
+[31m+[39m
+[31m+     try {[39m
+[31m+       const timeToAnswer = pvqStartTime ? Date.now() - pvqStartTime : 0;[39m
+[31m+[39m
+[31m+       if (onPVQSubmitted) {[39m
+[31m+         await onPVQSubmitted({[39m
+[31m+           question: currentPVQQuestion,[39m
+[31m+           answer,[39m
+[31m+           timeToAnswer[39m
+[31m+         });[39m
+[31m+       }[39m
+[31m+[39m
+[31m+       setShowPVQModal(false);[39m
+[31m+       setCurrentPVQQuestion(null);[39m
+[31m+       setPVQStartTime(null);[39m
+[31m+       setPVQSubmitting(false);[39m
+[31m+       setNextPVQTriggerTime(calculateNextTriggerTime());[39m
+[31m+       pvqTriggeredRef.current = false;[39m
+[31m+     } catch (error) {[39m
+[31m+       console.error('Error submitting PVQ answer:', error);[39m
+[31m+       setPVQSubmitting(false);[39m
+[31m+     }[39m
+[31m+   }, [currentPVQQuestion, pvqStartTime, onPVQSubmitted]);[39m
+[31m+[39m
+[31m+   useEffect(() => {[39m
+[31m+     if ([39m
+[31m+       sessionTime >= nextPVQTriggerTime &&[39m
+[31m+       !showPVQModal &&[39m
+[31m+       !pvqTriggeredRef.current[39m
+[31m+     ) {[39m
+[31m+       pvqTriggeredRef.current = true;[39m
+[31m+       triggerPVQ();[39m
+[31m+     }[39m
+[31m+   }, [sessionTime, nextPVQTriggerTime, showPVQModal, triggerPVQ]);[39m
+[31m+[39m
+[31m+   return {[39m
+[31m+     showPVQModal,[39m
+[31m+     currentPVQQuestion,[39m
+[31m+     pvqStartTime,[39m
+[31m+     nextPVQTriggerTime,[39m
+[31m+     pvqSubmitting,[39m
+[31m+     triggerPVQ,[39m
+[31m+     closePVQModal,[39m
+[31m+     submitPVQAnswer[39m
+[31m+   };[39m
+[31m+ };[39m
+[31m+[39m
+[31m+ export default usePVQTrigger;[39m
+[31m+[39m
+
+[90m [2m❯[22m src/hooks/usePVQTrigger.test.js:[2m133:23[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/88]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/hooks/usePVQTrigger.test.js[2m > [22musePVQTrigger Hook[2m > [22mRandom Trigger Intervals[2m > [22mshould calculate offset within specified range
+[31m[1mAssertionError[22m: expected 'import { useState, useCallback, useEf…' to contain '5 * 60'[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- 5 * 60[39m
+[31m+ import { useState, useCallback, useEffect, useRef } from 'react';[39m
+[31m+[39m
+[31m+ const PVQ_TRIGGER_INTERVAL = 2 * 60 * 60;[39m
+[31m+ const PVQ_RANDOM_OFFSET_MIN = 0;[39m
+[31m+ const PVQ_RANDOM_OFFSET_MAX = 2 * 60;[39m
+[31m+[39m
+[31m+ export const usePVQTrigger = (options = {}) => {[39m
+[31m+   const {[39m
+[31m+     sessionTime = 0,[39m
+[31m+     getRandomQuestion = null,[39m
+[31m+     onPVQTriggered = null,[39m
+[31m+     onPVQSubmitted = null[39m
+[31m+   } = options;[39m
+[31m+[39m
+[31m+   const [showPVQModal, setShowPVQModal] = useState(false);[39m
+[31m+   const [currentPVQQuestion, setCurrentPVQQuestion] = useState(null);[39m
+[31m+   const [pvqStartTime, setPVQStartTime] = useState(null);[39m
+[31m+   const [nextPVQTriggerTime, setNextPVQTriggerTime] = useState(calculateNextTriggerTime());[39m
+[31m+   const [pvqSubmitting, setPVQSubmitting] = useState(false);[39m
+[31m+[39m
+[31m+   const pvqTriggeredRef = useRef(false);[39m
+[31m+[39m
+[31m+   function calculateNextTriggerTime() {[39m
+[31m+     const randomOffset = Math.floor([39m
+[31m+       Math.random() * (PVQ_RANDOM_OFFSET_MAX - PVQ_RANDOM_OFFSET_MIN) + PVQ_RANDOM_OFFSET_MIN[39m
+[31m+     );[39m
+[31m+     return PVQ_TRIGGER_INTERVAL + randomOffset;[39m
+[31m+   }[39m
+[31m+[39m
+[31m+   const triggerPVQ = useCallback(async () => {[39m
+[31m+     if (!showPVQModal && getRandomQuestion) {[39m
+[31m+       try {[39m
+[31m+         setPVQSubmitting(false);[39m
+[31m+         const question = await getRandomQuestion();[39m
+[31m+         if (question) {[39m
+[31m+           setCurrentPVQQuestion(question);[39m
+[31m+           setShowPVQModal(true);[39m
+[31m+           setPVQStartTime(Date.now());[39m
+[31m+[39m
+[31m+           if (onPVQTriggered) {[39m
+[31m+             onPVQTriggered(question);[39m
+[31m+           }[39m
+[31m+         }[39m
+[31m+       } catch (error) {[39m
+[31m+         console.error('Error triggering PVQ:', error);[39m
+[31m+       }[39m
+[31m+     }[39m
+[31m+   }, [showPVQModal, getRandomQuestion, onPVQTriggered]);[39m
+[31m+[39m
+[31m+   const closePVQModal = useCallback(() => {[39m
+[31m+     setShowPVQModal(false);[39m
+[31m+     setCurrentPVQQuestion(null);[39m
+[31m+     setPVQStartTime(null);[39m
+[31m+     setPVQSubmitting(false);[39m
+[31m+     setNextPVQTriggerTime(calculateNextTriggerTime());[39m
+[31m+     pvqTriggeredRef.current = false;[39m
+[31m+   }, []);[39m
+[31m+[39m
+[31m+   const submitPVQAnswer = useCallback(async (answer) => {[39m
+[31m+     if (!currentPVQQuestion) return;[39m
+[31m+[39m
+[31m+     setPVQSubmitting(true);[39m
+[31m+[39m
+[31m+     try {[39m
+[31m+       const timeToAnswer = pvqStartTime ? Date.now() - pvqStartTime : 0;[39m
+[31m+[39m
+[31m+       if (onPVQSubmitted) {[39m
+[31m+         await onPVQSubmitted({[39m
+[31m+           question: currentPVQQuestion,[39m
+[31m+           answer,[39m
+[31m+           timeToAnswer[39m
+[31m+         });[39m
+[31m+       }[39m
+[31m+[39m
+[31m+       setShowPVQModal(false);[39m
+[31m+       setCurrentPVQQuestion(null);[39m
+[31m+       setPVQStartTime(null);[39m
+[31m+       setPVQSubmitting(false);[39m
+[31m+       setNextPVQTriggerTime(calculateNextTriggerTime());[39m
+[31m+       pvqTriggeredRef.current = false;[39m
+[31m+     } catch (error) {[39m
+[31m+       console.error('Error submitting PVQ answer:', error);[39m
+[31m+       setPVQSubmitting(false);[39m
+[31m+     }[39m
+[31m+   }, [currentPVQQuestion, pvqStartTime, onPVQSubmitted]);[39m
+[31m+[39m
+[31m+   useEffect(() => {[39m
+[31m+     if ([39m
+[31m+       sessionTime >= nextPVQTriggerTime &&[39m
+[31m+       !showPVQModal &&[39m
+[31m+       !pvqTriggeredRef.current[39m
+[31m+     ) {[39m
+[31m+       pvqTriggeredRef.current = true;[39m
+[31m+       triggerPVQ();[39m
+[31m+     }[39m
+[31m+   }, [sessionTime, nextPVQTriggerTime, showPVQModal, triggerPVQ]);[39m
+[31m+[39m
+[31m+   return {[39m
+[31m+     showPVQModal,[39m
+[31m+     currentPVQQuestion,[39m
+[31m+     pvqStartTime,[39m
+[31m+     nextPVQTriggerTime,[39m
+[31m+     pvqSubmitting,[39m
+[31m+     triggerPVQ,[39m
+[31m+     closePVQModal,[39m
+[31m+     submitPVQAnswer[39m
+[31m+   };[39m
+[31m+ };[39m
+[31m+[39m
+[31m+ export default usePVQTrigger;[39m
+[31m+[39m
+
+[90m [2m❯[22m src/hooks/usePVQTrigger.test.js:[2m270:23[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/88]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/QueryHelper.test.js[2m > [22mQueryHelper[2m > [22mpaginate[2m > [22mshould retrieve first page with pagination metadata
+[31m[1mTypeError[22m: firebaseFirestore.collection.mockReturnValue is not a function[39m
+[90m [2m❯[22m src/api/base/__tests__/QueryHelper.test.js:[2m52:36[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/88]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/QueryHelper.test.js[2m > [22mQueryHelper[2m > [22mpaginate[2m > [22mshould apply filters when provided
+[31m[1mTypeError[22m: firebaseFirestore.collection.mockReturnValue is not a function[39m
+[90m [2m❯[22m src/api/base/__tests__/QueryHelper.test.js:[2m80:36[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/88]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/QueryHelper.test.js[2m > [22mQueryHelper[2m > [22mpaginate[2m > [22mshould apply ordering when provided
+[31m[1mTypeError[22m: firebaseFirestore.collection.mockReturnValue is not a function[39m
+[90m [2m❯[22m src/api/base/__tests__/QueryHelper.test.js:[2m100:36[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/88]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/QueryHelper.test.js[2m > [22mQueryHelper[2m > [22mpaginate[2m > [22mshould indicate hasNextPage = true when total > pageSize
+[31m[1mTypeError[22m: firebaseFirestore.collection.mockReturnValue is not a function[39m
+[90m [2m❯[22m src/api/base/__tests__/QueryHelper.test.js:[2m119:36[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/88]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/QueryHelper.test.js[2m > [22mQueryHelper[2m > [22mpaginate[2m > [22mshould throw ApiError on query failure
+[31m[1mTypeError[22m: firebaseFirestore.collection.mockReturnValue is not a function[39m
+[90m [2m❯[22m src/api/base/__tests__/QueryHelper.test.js:[2m138:36[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/88]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/QueryHelper.test.js[2m > [22mQueryHelper[2m > [22mgetNextPage[2m > [22mshould retrieve next page using cursor
+[31m[1mTypeError[22m: firebaseFirestore.collection.mockReturnValue is not a function[39m
+[90m [2m❯[22m src/api/base/__tests__/QueryHelper.test.js:[2m163:36[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/88]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/QueryHelper.test.js[2m > [22mQueryHelper[2m > [22mgetNextPage[2m > [22mshould throw error if lastVisible is null
+[31m[1mAssertionError[22m: expected MockApiError{ …(3) } to be an instance of ApiError[39m
+[90m [2m❯[22m src/api/base/__tests__/QueryHelper.test.js:[2m186:23[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/88]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/QueryHelper.test.js[2m > [22mQueryHelper[2m > [22mgetNextPage[2m > [22mshould indicate hasNextPage = false when fewer docs than pageSize returned
+[31m[1mTypeError[22m: firebaseFirestore.collection.mockReturnValue is not a function[39m
+[90m [2m❯[22m src/api/base/__tests__/QueryHelper.test.js:[2m197:36[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/88]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/QueryHelper.test.js[2m > [22mQueryHelper[2m > [22mgetNextPage[2m > [22mshould throw ApiError on query failure
+[31m[1mTypeError[22m: firebaseFirestore.collection.mockReturnValue is not a function[39m
+[90m [2m❯[22m src/api/base/__tests__/QueryHelper.test.js:[2m214:36[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[20/88]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/QueryHelper.test.js[2m > [22mQueryHelper[2m > [22mgetPageAtIndex[2m > [22mshould retrieve specific page by number
+[31m[1mTypeError[22m: firebaseFirestore.collection.mockReturnValue is not a function[39m
+[90m [2m❯[22m src/api/base/__tests__/QueryHelper.test.js:[2m240:36[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[21/88]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/QueryHelper.test.js[2m > [22mQueryHelper[2m > [22mgetPageAtIndex[2m > [22mshould throw error if pageNumber < 1
+[31m[1mAssertionError[22m: expected MockApiError{ …(3) } to be an instance of ApiError[39m
+[90m [2m❯[22m src/api/base/__tests__/QueryHelper.test.js:[2m267:23[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[22/88]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/QueryHelper.test.js[2m > [22mQueryHelper[2m > [22mgetPageAtIndex[2m > [22mshould calculate correct skip count for pagination
+[31m[1mTypeError[22m: firebaseFirestore.collection.mockReturnValue is not a function[39m
+[90m [2m❯[22m src/api/base/__tests__/QueryHelper.test.js:[2m273:36[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[23/88]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/QueryHelper.test.js[2m > [22mQueryHelper[2m > [22mgetPageAtIndex[2m > [22mshould have hasPreviousPage = false on first page
+[31m[1mTypeError[22m: firebaseFirestore.collection.mockReturnValue is not a function[39m
+[90m [2m❯[22m src/api/base/__tests__/QueryHelper.test.js:[2m295:36[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[24/88]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/QueryHelper.test.js[2m > [22mQueryHelper[2m > [22mgetPageAtIndex[2m > [22mshould have hasNextPage = false on last page
+[31m[1mTypeError[22m: firebaseFirestore.collection.mockReturnValue is not a function[39m
+[90m [2m❯[22m src/api/base/__tests__/QueryHelper.test.js:[2m314:36[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[25/88]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/QueryHelper.test.js[2m > [22mQueryHelper[2m > [22mgetPageAtIndex[2m > [22mshould throw ApiError on query failure
+[31m[1mTypeError[22m: firebaseFirestore.collection.mockReturnValue is not a function[39m
+[90m [2m❯[22m src/api/base/__tests__/QueryHelper.test.js:[2m333:36[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[26/88]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/QueryHelper.test.js[2m > [22mQueryHelper[2m > [22mgetCollectionCount[2m > [22mshould return collection document count
+[31m[1mTypeError[22m: firebaseFirestore.collection.mockReturnValue is not a function[39m
+[90m [2m❯[22m src/api/base/__tests__/QueryHelper.test.js:[2m352:36[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[27/88]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/QueryHelper.test.js[2m > [22mQueryHelper[2m > [22mgetCollectionCount[2m > [22mshould apply filters when provided
+[31m[1mTypeError[22m: firebaseFirestore.collection.mockReturnValue is not a function[39m
+[90m [2m❯[22m src/api/base/__tests__/QueryHelper.test.js:[2m365:36[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[28/88]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/QueryHelper.test.js[2m > [22mQueryHelper[2m > [22mgetCollectionCount[2m > [22mshould throw ApiError on query failure
+[31m[1mTypeError[22m: firebaseFirestore.collection.mockReturnValue is not a function[39m
+[90m [2m❯[22m src/api/base/__tests__/QueryHelper.test.js:[2m381:36[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[29/88]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/QueryHelper.test.js[2m > [22mQueryHelper[2m > [22mgetCollectionCount[2m > [22mshould return 0 for empty collection
+[31m[1mTypeError[22m: firebaseFirestore.collection.mockReturnValue is not a function[39m
+[90m [2m❯[22m src/api/base/__tests__/QueryHelper.test.js:[2m398:36[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[30/88]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/QueryHelper.test.js[2m > [22mQueryHelper[2m > [22mIntegration scenarios[2m > [22mshould handle multiple filters correctly
+[31m[1mTypeError[22m: firebaseFirestore.collection.mockReturnValue is not a function[39m
+[90m [2m❯[22m src/api/base/__tests__/QueryHelper.test.js:[2m413:36[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[31/88]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/QueryHelper.test.js[2m > [22mQueryHelper[2m > [22mIntegration scenarios[2m > [22mshould handle pagination chain: first -> next -> next
+[31m[1mTypeError[22m: firebaseFirestore.collection.mockReturnValue is not a function[39m
+[90m [2m❯[22m src/api/base/__tests__/QueryHelper.test.js:[2m439:36[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[32/88]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/RetryHandler.test.js[2m > [22mRetryHandler[2m > [22mexecute[2m > [22mshould fail immediately for non-retryable errors
+[31m[1mAssertionError[22m: expected 'UNAUTHENTICATED' to contain 'Invalid credentials'[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- Invalid credentials[39m
+[31m+ UNAUTHENTICATED[39m
+
+[90m [2m❯[22m src/api/base/__tests__/RetryHandler.test.js:[2m183:31[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[33/88]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/RetryHandler.test.js[2m > [22mRetryHandler[2m > [22mexecute[2m > [22mshould throw after max attempts exhausted
+[31m[1mAssertionError[22m: expected 'RETRY_EXHAUSTED' to contain 'failed after 3 attempts'[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- failed after 3 attempts[39m
+[31m+ RETRY_EXHAUSTED[39m
+
+[90m [2m❯[22m src/api/base/__tests__/RetryHandler.test.js:[2m199:31[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[34/88]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/RetryHandler.test.js[2m > [22mRetryHandler[2m > [22mexecute[2m > [22mshould throw ApiError with context information
+[31m[1mAssertionError[22m: expected 'RETRY_EXHAUSTED' to contain 'failed after 3 attempts'[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- failed after 3 attempts[39m
+[31m+ RETRY_EXHAUSTED[39m
+
+[90m [2m❯[22m src/api/base/__tests__/RetryHandler.test.js:[2m212:31[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[35/88]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/RetryHandler.test.js[2m > [22mRetryHandler[2m > [22mexecute[2m > [22mshould validate operation parameter
+[31m[1mAssertionError[22m: expected 'INVALID_OPERATION' to contain 'must be a function'[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- must be a function[39m
+[31m+ INVALID_OPERATION[39m
+
+[90m [2m❯[22m src/api/base/__tests__/RetryHandler.test.js:[2m222:31[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[36/88]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/RetryHandler.test.js[2m > [22mRetryHandler[2m > [22mexecute[2m > [22mshould handle errors with message property
+[31m[1mAssertionError[22m: expected 'RETRY_EXHAUSTED' to contain 'failed after 3 attempts'[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- failed after 3 attempts[39m
+[31m+ RETRY_EXHAUSTED[39m
+
+[90m [2m❯[22m src/api/base/__tests__/RetryHandler.test.js:[2m279:37[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[37/88]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/RetryHandler.test.js[2m > [22mRetryHandler[2m > [22mexecute[2m > [22mshould log context in thrown error
+[31m[1mAssertionError[22m: expected 'RETRY_EXHAUSTED' to contain 'myOperation'[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- myOperation[39m
+[31m+ RETRY_EXHAUSTED[39m
+
+[90m [2m❯[22m src/api/base/__tests__/RetryHandler.test.js:[2m295:37[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[38/88]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/RetryHandler.test.js[2m > [22mRetryHandler[2m > [22mretryAsync convenience function[2m > [22mshould throw after max attempts
+[31m[1mAssertionError[22m: expected 'RETRY_EXHAUSTED' to contain 'failed after'[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- failed after[39m
+[31m+ RETRY_EXHAUSTED[39m
+
+[90m [2m❯[22m src/api/base/__tests__/RetryHandler.test.js:[2m325:31[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[39/88]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/RetryHandler.test.js[2m > [22mRetryHandler[2m > [22mcreateRetryHandler factory[2m > [22mshould work with custom handler
+[31m[1mAssertionError[22m: expected 'RETRY_EXHAUSTED' to contain 'failed after 2 attempts'[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- failed after 2 attempts[39m
+[31m+ RETRY_EXHAUSTED[39m
+
+[90m [2m❯[22m src/api/base/__tests__/RetryHandler.test.js:[2m352:31[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[40/88]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/RetryHandler.test.js[2m > [22mRetryHandler[2m > [22mreal-world scenarios[2m > [22mshould fail fast on permission error
+[31m[1mAssertionError[22m: expected 'PERMISSION_DENIED' to contain 'Access denied'[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- Access denied[39m
+[31m+ PERMISSION_DENIED[39m
+
+[90m [2m❯[22m src/api/base/__tests__/RetryHandler.test.js:[2m388:31[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[41/88]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/ServiceBase.test.js[2m > [22mServiceBase[2m > [22mConstructor[2m > [22mshould set serviceName
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/ServiceBase.test.js[2m > [22mServiceBase[2m > [22mConstructor[2m > [22mshould expose validators as this.validate
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/ServiceBase.test.js[2m > [22mServiceBase[2m > [22mgetCurrentUser[2m > [22mshould return current user if authenticated
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/ServiceBase.test.js[2m > [22mServiceBase[2m > [22mgetCurrentUser[2m > [22mshould throw ApiError if not authenticated
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/ServiceBase.test.js[2m > [22mServiceBase[2m > [22mgetCurrentUser[2m > [22mshould throw error with AUTH_ERROR code
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/ServiceBase.test.js[2m > [22mServiceBase[2m > [22mgetCurrentUserId[2m > [22mshould return user UID when authenticated
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/ServiceBase.test.js[2m > [22mServiceBase[2m > [22mgetCurrentUserId[2m > [22mshould throw error when not authenticated
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/ServiceBase.test.js[2m > [22mServiceBase[2m > [22mgetDoc[2m > [22mshould retrieve and format document
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/ServiceBase.test.js[2m > [22mServiceBase[2m > [22mgetDoc[2m > [22mshould throw NOT_FOUND error if document missing
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/ServiceBase.test.js[2m > [22mServiceBase[2m > [22mgetDoc[2m > [22mshould catch and map Firebase errors
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/ServiceBase.test.js[2m > [22mServiceBase[2m > [22msetDoc[2m > [22mshould set document data
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/ServiceBase.test.js[2m > [22mServiceBase[2m > [22msetDoc[2m > [22mshould handle Firebase errors
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/ServiceBase.test.js[2m > [22mServiceBase[2m > [22mupdateDoc[2m > [22mshould update document
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/ServiceBase.test.js[2m > [22mServiceBase[2m > [22mupdateDoc[2m > [22mshould validate updates before writing
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/ServiceBase.test.js[2m > [22mServiceBase[2m > [22mdeleteDoc[2m > [22mshould delete document
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/ServiceBase.test.js[2m > [22mServiceBase[2m > [22mdeleteDoc[2m > [22mshould handle Firebase errors
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/ServiceBase.test.js[2m > [22mServiceBase[2m > [22mbatch[2m > [22mshould return batch instance
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/ServiceBase.test.js[2m > [22mServiceBase[2m > [22mbatch[2m > [22mshould execute multiple operations
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/ServiceBase.test.js[2m > [22mServiceBase[2m > [22mlog[2m > [22mshould use LoggingService for logging
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/ServiceBase.test.js[2m > [22mServiceBase[2m > [22mlogError[2m > [22mshould log errors with service context
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/ServiceBase.test.js[2m > [22mServiceBase[2m > [22mlogError[2m > [22mshould handle errors without code
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/ServiceBase.test.js[2m > [22mServiceBase[2m > [22mgetCollection[2m > [22mshould return formatted documents
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/ServiceBase.test.js[2m > [22mServiceBase[2m > [22mgetCollection[2m > [22mshould apply filters correctly
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/ServiceBase.test.js[2m > [22mServiceBase[2m > [22mError handling[2m > [22mshould throw ApiError for all operations
+[31m[1m[7m FAIL [27m[22m[39m src/api/base/__tests__/ServiceBase.test.js[2m > [22mServiceBase[2m > [22mError handling[2m > [22mshould not double-wrap ApiErrors
+[31m[1mTypeError[22m: Cannot read properties of undefined (reading 'VITE_FIREBASE_API_KEY')[39m
+[90m [2m❯[22m src/config/firebase.js:[2m9:27[22m[39m
+[90m [2m❯[22m TracingChannel.traceSync node:diagnostics_channel:[2m322:14[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[42/88]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/api/enrollment/__tests__/enrollmentServices.refactor.test.js[2m > [22menrollmentServices.createEnrollment() - Refactored with utilities[2m > [22mEnrollment Creation[2m > [22mshould create enrollment with correct data for regular user
+[31m[1mError[22m: [vitest] No "serverTimestamp" export is defined on the "firebase/firestore" mock. Did you forget to return it from "vi.mock"?
+If you need to partially mock a module, you can use "importOriginal" helper inside:
+[39m
+vi[33m.[39m[34mmock[39m([32m"firebase/firestore"[39m[33m,[39m [35masync[39m (importOriginal) [33m=>[39m {
+  [35mconst[39m actual [33m=[39m [35mawait[39m [34mimportOriginal[39m()
+  [35mreturn[39m {
+    [33m...[39mactual[33m,[39m
+    [90m// your mocked methods[39m
+  }
+})
+
+[90m [2m❯[22m EnrollmentService.createEnrollment src/api/enrollment/enrollmentServices.js:[2m45:25[22m[39m
+[90m [2m❯[22m src/api/enrollment/__tests__/enrollmentServices.refactor.test.js:[2m83:7[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[43/88]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/api/enrollment/__tests__/enrollmentServices.refactor.test.js[2m > [22menrollmentServices.createEnrollment() - Refactored with utilities[2m > [22mEnrollment Creation[2m > [22mshould create admin enrollment with correct status
+[31m[1mError[22m: [vitest] No "serverTimestamp" export is defined on the "firebase/firestore" mock. Did you forget to return it from "vi.mock"?
+If you need to partially mock a module, you can use "importOriginal" helper inside:
+[39m
+vi[33m.[39m[34mmock[39m([32m"firebase/firestore"[39m[33m,[39m [35masync[39m (importOriginal) [33m=>[39m {
+  [35mconst[39m actual [33m=[39m [35mawait[39m [34mimportOriginal[39m()
+  [35mreturn[39m {
+    [33m...[39mactual[33m,[39m
+    [90m// your mocked methods[39m
+  }
+})
+
+[90m [2m❯[22m EnrollmentService.createEnrollment src/api/enrollment/enrollmentServices.js:[2m45:25[22m[39m
+[90m [2m❯[22m src/api/enrollment/__tests__/enrollmentServices.refactor.test.js:[2m107:7[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[44/88]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/api/enrollment/__tests__/enrollmentServices.refactor.test.js[2m > [22menrollmentServices.createEnrollment() - Refactored with utilities[2m > [22mEnrollment Creation[2m > [22mshould return created enrollment with id
+[31m[1mError[22m: [vitest] No "serverTimestamp" export is defined on the "firebase/firestore" mock. Did you forget to return it from "vi.mock"?
+If you need to partially mock a module, you can use "importOriginal" helper inside:
+[39m
+vi[33m.[39m[34mmock[39m([32m"firebase/firestore"[39m[33m,[39m [35masync[39m (importOriginal) [33m=>[39m {
+  [35mconst[39m actual [33m=[39m [35mawait[39m [34mimportOriginal[39m()
+  [35mreturn[39m {
+    [33m...[39mactual[33m,[39m
+    [90m// your mocked methods[39m
+  }
+})
+
+[90m [2m❯[22m EnrollmentService.createEnrollment src/api/enrollment/enrollmentServices.js:[2m45:25[22m[39m
+[90m [2m❯[22m src/api/enrollment/__tests__/enrollmentServices.refactor.test.js:[2m126:22[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[45/88]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/api/enrollment/__tests__/enrollmentServices.refactor.test.js[2m > [22menrollmentServices.createEnrollment() - Refactored with utilities[2m > [22mEnrollment Creation[2m > [22mshould include required timestamp and enrollment fields
+[31m[1mError[22m: [vitest] No "serverTimestamp" export is defined on the "firebase/firestore" mock. Did you forget to return it from "vi.mock"?
+If you need to partially mock a module, you can use "importOriginal" helper inside:
+[39m
+vi[33m.[39m[34mmock[39m([32m"firebase/firestore"[39m[33m,[39m [35masync[39m (importOriginal) [33m=>[39m {
+  [35mconst[39m actual [33m=[39m [35mawait[39m [34mimportOriginal[39m()
+  [35mreturn[39m {
+    [33m...[39mactual[33m,[39m
+    [90m// your mocked methods[39m
+  }
+})
+
+[90m [2m❯[22m EnrollmentService.createEnrollment src/api/enrollment/enrollmentServices.js:[2m45:25[22m[39m
+[90m [2m❯[22m src/api/enrollment/__tests__/enrollmentServices.refactor.test.js:[2m141:7[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[46/88]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/api/enrollment/__tests__/enrollmentServices.refactor.test.js[2m > [22menrollmentServices.createEnrollment() - Refactored with utilities[2m > [22mEnrollment Creation[2m > [22mshould call correct Firestore path for document
+[31m[1mError[22m: [vitest] No "serverTimestamp" export is defined on the "firebase/firestore" mock. Did you forget to return it from "vi.mock"?
+If you need to partially mock a module, you can use "importOriginal" helper inside:
+[39m
+vi[33m.[39m[34mmock[39m([32m"firebase/firestore"[39m[33m,[39m [35masync[39m (importOriginal) [33m=>[39m {
+  [35mconst[39m actual [33m=[39m [35mawait[39m [34mimportOriginal[39m()
+  [35mreturn[39m {
+    [33m...[39mactual[33m,[39m
+    [90m// your mocked methods[39m
+  }
+})
+
+[90m [2m❯[22m EnrollmentService.createEnrollment src/api/enrollment/enrollmentServices.js:[2m45:25[22m[39m
+[90m [2m❯[22m src/api/enrollment/__tests__/enrollmentServices.refactor.test.js:[2m160:7[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[47/88]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/api/enrollment/__tests__/enrollmentServices.refactor.test.js[2m > [22menrollmentServices.createEnrollment() - Refactored with utilities[2m > [22mAdmin Email Detection[2m > [22mshould recognize admin email (case insensitive)
+[31m[1mError[22m: [vitest] No "serverTimestamp" export is defined on the "firebase/firestore" mock. Did you forget to return it from "vi.mock"?
+If you need to partially mock a module, you can use "importOriginal" helper inside:
+[39m
+vi[33m.[39m[34mmock[39m([32m"firebase/firestore"[39m[33m,[39m [35masync[39m (importOriginal) [33m=>[39m {
+  [35mconst[39m actual [33m=[39m [35mawait[39m [34mimportOriginal[39m()
+  [35mreturn[39m {
+    [33m...[39mactual[33m,[39m
+    [90m// your mocked methods[39m
+  }
+})
+
+[90m [2m❯[22m EnrollmentService.createEnrollment src/api/enrollment/enrollmentServices.js:[2m45:25[22m[39m
+[90m [2m❯[22m src/api/enrollment/__tests__/enrollmentServices.refactor.test.js:[2m196:7[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[48/88]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/api/enrollment/__tests__/enrollmentServices.refactor.test.js[2m > [22menrollmentServices.createEnrollment() - Refactored with utilities[2m > [22mAdmin Email Detection[2m > [22mshould not recognize non-admin email
+[31m[1mError[22m: [vitest] No "serverTimestamp" export is defined on the "firebase/firestore" mock. Did you forget to return it from "vi.mock"?
+If you need to partially mock a module, you can use "importOriginal" helper inside:
+[39m
+vi[33m.[39m[34mmock[39m([32m"firebase/firestore"[39m[33m,[39m [35masync[39m (importOriginal) [33m=>[39m {
+  [35mconst[39m actual [33m=[39m [35mawait[39m [34mimportOriginal[39m()
+  [35mreturn[39m {
+    [33m...[39mactual[33m,[39m
+    [90m// your mocked methods[39m
+  }
+})
+
+[90m [2m❯[22m EnrollmentService.createEnrollment src/api/enrollment/enrollmentServices.js:[2m45:25[22m[39m
+[90m [2m❯[22m src/api/enrollment/__tests__/enrollmentServices.refactor.test.js:[2m206:7[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[49/88]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/components/admin/tabs/__tests__/AnalyticsTab.test.jsx[2m > [22mAnalyticsTab[2m > [22mMini Stats[2m > [22mshould display average progress
+[31m[1mError[22m: [2mexpect([22m[31mreceived[31m[2m).toBeInTheDocument()[22m
+
+[31mreceived[31m value must be an HTMLElement or an SVGElement.
+[39m
+[90m [2m❯[22m src/components/admin/tabs/__tests__/AnalyticsTab.test.jsx:[2m156:32[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[50/88]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/components/admin/tabs/__tests__/AnalyticsTab.test.jsx[2m > [22mAnalyticsTab[2m > [22mMini Stats[2m > [22mshould display active students count
+[31m[1mError[22m: [2mexpect([22m[31mreceived[31m[2m).toBeInTheDocument()[22m
+
+[31mreceived[31m value must be an HTMLElement or an SVGElement.
+[39m
+[90m [2m❯[22m src/components/admin/tabs/__tests__/AnalyticsTab.test.jsx:[2m164:35[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[51/88]⎯[22m[39m
+
+[2m Test Files [22m [1m[31m25 failed[39m[22m[2m | [22m[1m[32m17 passed[39m[22m[90m (42)[39m
+[2m      Tests [22m [1m[31m71 failed[39m[22m[2m | [22m[1m[32m586 passed[39m[22m[90m (657)[39m
+[2m   Start at [22m 11:23:02
+[2m   Duration [22m 16.68s[2m (transform 4.50s, setup 36.60s, collect 8.84s, tests 9.02s, environment 108.82s, prepare 29.16s)[22m
+
