@@ -1,18 +1,22 @@
 import { httpsCallable, getFunctions } from 'firebase/functions';
 import { executeService } from '../base/ServiceWrapper';
 
-const functions = getFunctions();
-
-const detsExportReportCallable = httpsCallable(functions, 'exportDETSReport');
-const detsSubmitToStateCallable = httpsCallable(functions, 'submitDETSToState');
-const detsGetReportsCallable = httpsCallable(functions, 'getDETSReports');
-const detsValidateRecordCallable = httpsCallable(functions, 'validateDETSRecord');
+const getCallables = () => {
+  const functions = getFunctions();
+  return {
+    detsExportReport: httpsCallable(functions, 'exportDETSReport'),
+    detsSubmitToState: httpsCallable(functions, 'submitDETSToState'),
+    detsGetReports: httpsCallable(functions, 'getDETSReports'),
+    detsValidateRecord: httpsCallable(functions, 'validateDETSRecord'),
+  };
+};
 
 export const detsServices = {
   generateDETSReport: async (courseId, startDate, endDate, studentIds = null) => {
     return executeService(
       async () => {
-        const response = await detsExportReportCallable({
+        const { detsExportReport } = getCallables();
+        const response = await detsExportReport({
           courseId,
           startDate,
           endDate,
@@ -27,7 +31,8 @@ export const detsServices = {
   submitDETSReport: async (reportId) => {
     return executeService(
       async () => {
-        const response = await detsSubmitToStateCallable({
+        const { detsSubmitToState } = getCallables();
+        const response = await detsSubmitToState({
           reportId
         });
         return response.data;
@@ -39,7 +44,8 @@ export const detsServices = {
   getDETSReports: async (limit = 50, offset = 0) => {
     return executeService(
       async () => {
-        const response = await detsGetReportsCallable({
+        const { detsGetReports } = getCallables();
+        const response = await detsGetReports({
           limit,
           offset
         });
@@ -52,7 +58,8 @@ export const detsServices = {
   validateDETSRecord: async (record) => {
     return executeService(
       async () => {
-        const response = await detsValidateRecordCallable(record);
+        const { detsValidateRecord } = getCallables();
+        const response = await detsValidateRecord(record);
         return response.data;
       },
       'validateDETSRecord'
@@ -62,7 +69,8 @@ export const detsServices = {
   retryDETSSubmission: async (reportId) => {
     return executeService(
       async () => {
-        const response = await detsSubmitToStateCallable({
+        const { detsSubmitToState } = getCallables();
+        const response = await detsSubmitToState({
           reportId,
           retry: true
         });
@@ -75,7 +83,8 @@ export const detsServices = {
   getDETSReportById: async (reportId) => {
     return executeService(
       async () => {
-        const response = await detsGetReportsCallable({
+        const { detsGetReports } = getCallables();
+        const response = await detsGetReports({
           reportId
         });
         return response.data;
@@ -87,7 +96,8 @@ export const detsServices = {
   exportReportAsCSV: async (reportId) => {
     return executeService(
       async () => {
-        const reportResponse = await detsGetReportsCallable({
+        const { detsGetReports } = getCallables();
+        const reportResponse = await detsGetReports({
           reportId
         });
         const report = reportResponse.data;

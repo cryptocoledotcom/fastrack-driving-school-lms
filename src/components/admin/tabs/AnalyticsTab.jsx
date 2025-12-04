@@ -293,8 +293,8 @@ const AnalyticsTab = ({ users = [], getCourseName = defaultGetCourseName }) => {
               </tr>
             </thead>
             <tbody>
-              {topOverduePayments.map((payment, index) => (
-                <tr key={`${payment.userId}-${index}`} className={styles.tableRow}>
+              {topOverduePayments.map((payment) => (
+                <tr key={`${payment.userId}-${payment.courseId}`} className={styles.tableRow}>
                   <td className={styles.tableCell}>{payment.userName}</td>
                   <td className={styles.tableCell}>{courseNames[payment.courseId] || payment.courseId}</td>
                   <td className={styles.tableCell}>${payment.amountDue.toFixed(2)}</td>

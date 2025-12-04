@@ -1,9 +1,7 @@
 import { renderHook, waitFor } from '@testing-library/react';
 import { vi } from 'vitest';
 import { useComplianceHeartbeat } from './useComplianceHeartbeat';
-import { httpsCallable } from 'firebase/functions';
-
-vi.mock('firebase/functions');
+import { httpsCallable, getFunctions } from 'firebase/functions';
 
 describe('useComplianceHeartbeat', () => {
   let mockHeartbeatFn;
@@ -11,12 +9,12 @@ describe('useComplianceHeartbeat', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     mockHeartbeatFn = vi.fn();
-    httpsCallable.mockReturnValue(mockHeartbeatFn);
+    vi.mocked(httpsCallable).mockReturnValue(mockHeartbeatFn);
     vi.useFakeTimers();
   });
 
   afterEach(() => {
-    jest.runOnlyPendingTimers();
+    vi.clearAllTimers();
     vi.useRealTimers();
   });
 
@@ -42,14 +40,14 @@ describe('useComplianceHeartbeat', () => {
       })
     );
 
-    await waitFor(() => {
-      jest.advanceTimersByTime(60 * 1000);
-    });
+    vi.advanceTimersByTime(60 * 1000);
 
-    expect(mockHeartbeatFn).toHaveBeenCalledWith({
-      userId,
-      courseId,
-      sessionId
+    await waitFor(() => {
+      expect(mockHeartbeatFn).toHaveBeenCalledWith({
+        userId,
+        courseId,
+        sessionId
+      });
     });
   });
 
@@ -79,11 +77,11 @@ describe('useComplianceHeartbeat', () => {
       })
     );
 
-    await waitFor(() => {
-      jest.advanceTimersByTime(60 * 1000);
-    });
+    vi.advanceTimersByTime(60 * 1000);
 
-    expect(onHeartbeatSuccess).toHaveBeenCalledWith(mockResponse);
+    await waitFor(() => {
+      expect(onHeartbeatSuccess).toHaveBeenCalledWith(mockResponse);
+    });
   });
 
   it('should call onLimitReached when daily limit is exceeded', async () => {
@@ -107,13 +105,13 @@ describe('useComplianceHeartbeat', () => {
       })
     );
 
-    await waitFor(() => {
-      jest.advanceTimersByTime(60 * 1000);
-    });
+    vi.advanceTimersByTime(60 * 1000);
 
-    expect(onLimitReached).toHaveBeenCalledWith({
-      message: 'You have reached the 4-hour daily training limit',
-      minutesCompleted: 240
+    await waitFor(() => {
+      expect(onLimitReached).toHaveBeenCalledWith({
+        message: 'You have reached the 4-hour daily training limit',
+        minutesCompleted: 240
+      });
     });
   });
 
@@ -135,7 +133,7 @@ describe('useComplianceHeartbeat', () => {
       })
     );
 
-    jest.advanceTimersByTime(60 * 1000);
+    vi.advanceTimersByTime(60 * 1000);
 
     expect(mockHeartbeatFn).not.toHaveBeenCalled();
   });
@@ -158,7 +156,7 @@ describe('useComplianceHeartbeat', () => {
       })
     );
 
-    jest.advanceTimersByTime(60 * 1000);
+    vi.advanceTimersByTime(60 * 1000);
 
     expect(mockHeartbeatFn).not.toHaveBeenCalled();
   });
@@ -182,10 +180,10 @@ describe('useComplianceHeartbeat', () => {
       })
     );
 
-    await waitFor(() => {
-      jest.advanceTimersByTime(60 * 1000);
-    });
+    vi.advanceTimersByTime(60 * 1000);
 
-    expect(onHeartbeatError).toHaveBeenCalledWith(error);
+    await waitFor(() => {
+      expect(onHeartbeatError).toHaveBeenCalledWith(error);
+    });
   });
 });

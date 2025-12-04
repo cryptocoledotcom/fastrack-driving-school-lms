@@ -1,16 +1,20 @@
 import { httpsCallable, getFunctions } from 'firebase/functions';
 import { executeService } from '../base/ServiceWrapper';
 
-const functions = getFunctions();
-
-const getAuditLogsCallable = httpsCallable(functions, 'getAuditLogs');
-const getAuditLogStatsCallable = httpsCallable(functions, 'getAuditLogStats');
-const getUserAuditTrailCallable = httpsCallable(functions, 'getUserAuditTrail');
+const getCallables = () => {
+  const functions = getFunctions();
+  return {
+    getAuditLogs: httpsCallable(functions, 'getAuditLogs'),
+    getAuditLogStats: httpsCallable(functions, 'getAuditLogStats'),
+    getUserAuditTrail: httpsCallable(functions, 'getUserAuditTrail'),
+  };
+};
 
 const auditLogServices = {
   getAuditLogs: async (filters = {}, sortBy = 'timestamp', sortOrder = 'desc', limit = 100, offset = 0) => {
     return executeService(async () => {
-      const response = await getAuditLogsCallable({
+      const { getAuditLogs } = getCallables();
+      const response = await getAuditLogs({
         filters,
         sortBy,
         sortOrder,
@@ -24,7 +28,8 @@ const auditLogServices = {
 
   getAuditLogsByDateRange: async (startDate, endDate) => {
     return executeService(async () => {
-      const response = await getAuditLogsCallable({
+      const { getAuditLogs } = getCallables();
+      const response = await getAuditLogs({
         filters: { startDate, endDate },
         sortBy: 'timestamp',
         sortOrder: 'desc',
@@ -38,7 +43,8 @@ const auditLogServices = {
 
   getAuditLogsByUser: async (userId, limit = 500) => {
     return executeService(async () => {
-      const response = await getAuditLogsCallable({
+      const { getAuditLogs } = getCallables();
+      const response = await getAuditLogs({
         filters: { userId },
         sortBy: 'timestamp',
         sortOrder: 'desc',
@@ -52,7 +58,8 @@ const auditLogServices = {
 
   getAuditLogsByAction: async (action, limit = 500) => {
     return executeService(async () => {
-      const response = await getAuditLogsCallable({
+      const { getAuditLogs } = getCallables();
+      const response = await getAuditLogs({
         filters: { action },
         sortBy: 'timestamp',
         sortOrder: 'desc',
@@ -66,7 +73,8 @@ const auditLogServices = {
 
   getAuditLogsByStatus: async (status, limit = 500) => {
     return executeService(async () => {
-      const response = await getAuditLogsCallable({
+      const { getAuditLogs } = getCallables();
+      const response = await getAuditLogs({
         filters: { status },
         sortBy: 'timestamp',
         sortOrder: 'desc',
@@ -80,7 +88,8 @@ const auditLogServices = {
 
   getAuditLogStats: async (startDate, endDate) => {
     return executeService(async () => {
-      const response = await getAuditLogStatsCallable({
+      const { getAuditLogStats } = getCallables();
+      const response = await getAuditLogStats({
         startDate,
         endDate
       });
@@ -91,7 +100,8 @@ const auditLogServices = {
 
   getUserAuditTrail: async (userId) => {
     return executeService(async () => {
-      const response = await getUserAuditTrailCallable({
+      const { getUserAuditTrail } = getCallables();
+      const response = await getUserAuditTrail({
         targetUserId: userId
       });
 

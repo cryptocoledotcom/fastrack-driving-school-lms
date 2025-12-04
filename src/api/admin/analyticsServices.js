@@ -75,7 +75,7 @@ const analyticsServices = {
 
         if (paymentStatus === 'pending' && amountDue > 0) {
           metrics.overduePayments.push({
-            userId: user.uid,
+            userId: user.userId || user.uid,
             userName: user.displayName || user.email || 'Unknown',
             courseId,
             amountDue,
@@ -133,7 +133,7 @@ const analyticsServices = {
       }
 
       metrics.studentsWithProgress.push({
-        userId: user.uid,
+        userId: user.userId || user.uid,
         name: user.displayName || user.email || 'Unknown',
         progress: avgProgress,
         completedCourses: completedCount,

@@ -10,6 +10,7 @@ vi.mock('src/config/firebase', () => ({
 
 vi.mock('firebase/app', () => ({
   initializeApp: vi.fn(() => ({})),
+  getApp: vi.fn(() => ({})),
 }));
 
 vi.mock('firebase/auth', () => ({
@@ -74,6 +75,12 @@ vi.mock('firebase/storage', () => ({
   deleteObject: vi.fn(),
   listAll: vi.fn(),
   connectStorageEmulator: vi.fn(),
+}));
+
+vi.mock('firebase/functions', () => ({
+  getFunctions: vi.fn(() => ({})),
+  httpsCallable: vi.fn(() => vi.fn()),
+  connectFunctionsEmulator: vi.fn(),
 }));
 
 vi.mock('src/services/loggingService', () => {

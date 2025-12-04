@@ -7,7 +7,6 @@ let app;
 let authInstance;
 let dbInstance;
 let storageInstance;
-let initialized = false;
 
 const initializeFirebase = () => {
   if (app) return app;
@@ -23,43 +22,17 @@ const initializeFirebase = () => {
     };
 
     if (Object.values(firebaseConfig).some(v => !v)) {
-      if (process.env.NODE_ENV !== 'test') {
+      if (import.meta.env.MODE !== 'test') {
         console.error('Firebase configuration incomplete');
       }
       return null;
     }
 
     app = initializeApp(firebaseConfig);
-    initialized = true;
   } catch (error) {
     console.error('Failed to initialize Firebase:', error);
   }
   return app;
-};
-
-const createLazyProxy = (getter) => {
-  return new Proxy({}, {
-    get(target, prop) {
-      const instance = getter();
-      if (!instance) return undefined;
-      return instance[prop];
-    },
-    has(target, prop) {
-      const instance = getter();
-      if (!instance) return false;
-      return prop in instance;
-    },
-    ownKeys(target) {
-      const instance = getter();
-      if (!instance) return [];
-      return Object.keys(instance);
-    },
-    getOwnPropertyDescriptor(target, prop) {
-      const instance = getter();
-      if (!instance) return;
-      return Object.getOwnPropertyDescriptor(instance, prop);
-    }
-  });
 };
 
 const getAuthInstance = () => {
@@ -92,9 +65,11 @@ const getStorageInstance = () => {
   return storageInstance;
 };
 
-export const auth = createLazyProxy(getAuthInstance);
-export const db = createLazyProxy(getDbInstance);
-export const storage = createLazyProxy(getStorageInstance);
+initializeFirebase();
+
+export const auth = getAuthInstance();
+export const db = getDbInstance();
+export const storage = getStorageInstance();
 
 export const getApp = () => initializeFirebase();
 

@@ -28,18 +28,30 @@ const mockUsers = [
     email: 'john@test.com',
     enrollments: [
       {
+        id: 'enrollment-1',
         courseId: 'course-1',
         courseName: 'DMV Written Test',
         status: 'active',
         paymentStatus: 'paid',
         price: 199.99,
+        totalAmount: 199.99,
+        amountPaid: 199.99,
+        amountDue: 0,
+        userName: 'John Doe',
+        userEmail: 'john@test.com',
       },
       {
+        id: 'enrollment-2',
         courseId: 'course-2',
         courseName: 'Road Test Prep',
         status: 'inactive',
         paymentStatus: 'pending',
         price: 299.99,
+        totalAmount: 299.99,
+        amountPaid: 0,
+        amountDue: 299.99,
+        userName: 'John Doe',
+        userEmail: 'john@test.com',
       },
     ],
   },
@@ -49,11 +61,17 @@ const mockUsers = [
     email: 'jane@test.com',
     enrollments: [
       {
+        id: 'enrollment-3',
         courseId: 'course-1',
         courseName: 'DMV Written Test',
         status: 'active',
         paymentStatus: 'paid',
         price: 199.99,
+        totalAmount: 199.99,
+        amountPaid: 199.99,
+        amountDue: 0,
+        userName: 'Jane Smith',
+        userEmail: 'jane@test.com',
       },
     ],
   },
@@ -91,12 +109,14 @@ describe('AdminPage - Comprehensive Integration Tests', () => {
     enrollmentServices.resetEnrollmentToPending = vi.fn().mockResolvedValue({});
     enrollmentServices.resetAllUserEnrollments = vi.fn().mockResolvedValue({});
 
-    schedulingServices.getTimeSlots = vi.fn().mockResolvedValue(mockTimeSlots);
+    schedulingServices.getTimeSlots = vi.fn().mockResolvedValue(mockTimeSlots || []);
     schedulingServices.assignTimeSlot = vi.fn().mockResolvedValue({});
     schedulingServices.unassignTimeSlot = vi.fn().mockResolvedValue({});
     schedulingServices.deleteTimeSlot = vi.fn().mockResolvedValue({});
+    schedulingServices.createTimeSlot = vi.fn().mockResolvedValue({});
+    schedulingServices.updateTimeSlot = vi.fn().mockResolvedValue({});
 
-    userServices.getAllStudents = vi.fn().mockResolvedValue(mockStudents);
+    userServices.getAllStudents = vi.fn().mockResolvedValue(mockStudents || []);
   });
 
   const renderAdminPage = async () => {

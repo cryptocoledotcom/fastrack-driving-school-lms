@@ -5,16 +5,18 @@ const { AUDIT_EVENT_TYPES } = require('../common/auditLogger');
 
 const db = getFirestore();
 
-exports.getAuditLogs = onCall(async (data, context) => {
-  if (!context.auth) {
+exports.getAuditLogs = onCall(async (request) => {
+  const { auth, data } = request;
+  
+  if (!auth) {
     throw new Error('UNAUTHENTICATED: User must be authenticated');
   }
 
   try {
-    const { userId } = context.auth;
+    const userId = auth.uid;
     const userDoc = await db.collection('users').doc(userId).get();
 
-    if (!userDoc.exists()) {
+    if (!userDoc.exists) {
       throw new Error('NOT_FOUND: User not found');
     }
 
@@ -53,27 +55,52 @@ exports.getAuditLogs = onCall(async (data, context) => {
     }
 
     if (filters.startDate && filters.endDate) {
+      let startDate = filters.startDate;
+      let endDate = filters.endDate;
+      
+      if (typeof startDate === 'string') {
+        startDate = admin.firestore.Timestamp.fromDate(new Date(startDate));
+      }
+      if (typeof endDate === 'string') {
+        endDate = admin.firestore.Timestamp.fromDate(new Date(endDate));
+      }
+      
       query = query
-        .where('timestamp', '>=', filters.startDate)
-        .where('timestamp', '<=', filters.endDate);
+        .where('timestamp', '>=', startDate)
+        .where('timestamp', '<=', endDate);
     }
 
-    const snapshot = await query
-      .orderBy(sortBy, sortOrder === 'asc' ? 'asc' : 'desc')
-      .limit(limit + offset)
-      .get();
+    const snapshot = await query.get();
 
-    const totalCount = snapshot.size;
-    const logs = [];
-
-    snapshot.forEach((doc, index) => {
-      if (index >= offset) {
-        logs.push({
-          id: doc.id,
-          ...doc.data()
-        });
-      }
+    const allLogs = [];
+    snapshot.forEach(doc => {
+      allLogs.push({
+        id: doc.id,
+        ...doc.data()
+      });
     });
+
+    allLogs.sort((a, b) => {
+      const aVal = a[sortBy];
+      const bVal = b[sortBy];
+      if (aVal === undefined || bVal === undefined) {
+        return 0;
+      }
+      if (typeof aVal === 'string') {
+        return sortOrder === 'asc' 
+          ? aVal.localeCompare(bVal)
+          : bVal.localeCompare(aVal);
+      }
+      if (aVal instanceof admin.firestore.Timestamp && bVal instanceof admin.firestore.Timestamp) {
+        return sortOrder === 'asc' 
+          ? aVal.toMillis() - bVal.toMillis()
+          : bVal.toMillis() - aVal.toMillis();
+      }
+      return sortOrder === 'asc' ? aVal - bVal : bVal - aVal;
+    });
+
+    const totalCount = allLogs.length;
+    const logs = allLogs.slice(offset, offset + limit);
 
     return {
       success: true,
@@ -88,16 +115,18 @@ exports.getAuditLogs = onCall(async (data, context) => {
   }
 });
 
-exports.getAuditLogStats = onCall(async (data, context) => {
-  if (!context.auth) {
+exports.getAuditLogStats = onCall(async (request) => {
+  const { auth, data } = request;
+  
+  if (!auth) {
     throw new Error('UNAUTHENTICATED: User must be authenticated');
   }
 
   try {
-    const { userId } = context.auth;
+    const userId = auth.uid;
     const userDoc = await db.collection('users').doc(userId).get();
 
-    if (!userDoc.exists()) {
+    if (!userDoc.exists) {
       throw new Error('NOT_FOUND: User not found');
     }
 
@@ -109,7 +138,22 @@ exports.getAuditLogStats = onCall(async (data, context) => {
       throw new Error('PERMISSION_DENIED: Only admins and instructors can access audit logs');
     }
 
-    const { startDate, endDate } = data;
+    let { startDate, endDate } = data;
+
+    if (!startDate || !endDate) {
+      throw new Error('BAD_REQUEST: startDate and endDate are required');
+    }
+
+    if (typeof startDate === 'string') {
+      startDate = admin.firestore.Timestamp.fromDate(new Date(startDate));
+    }
+    if (typeof endDate === 'string') {
+      endDate = admin.firestore.Timestamp.fromDate(new Date(endDate));
+    }
+
+    if (!startDate || !endDate || typeof startDate.toMillis !== 'function' || typeof endDate.toMillis !== 'function') {
+      throw new Error('BAD_REQUEST: startDate and endDate must be valid Firestore Timestamps');
+    }
 
     const snapshot = await db.collection('auditLogs')
       .where('timestamp', '>=', startDate)
@@ -124,11 +168,11 @@ exports.getAuditLogStats = onCall(async (data, context) => {
     };
 
     snapshot.forEach(doc => {
-      const data = doc.data();
+      const docData = doc.data();
 
-      stats.byStatus[data.status] = (stats.byStatus[data.status] || 0) + 1;
-      stats.byAction[data.action] = (stats.byAction[data.action] || 0) + 1;
-      stats.byResource[data.resource] = (stats.byResource[data.resource] || 0) + 1;
+      stats.byStatus[docData.status] = (stats.byStatus[docData.status] || 0) + 1;
+      stats.byAction[docData.action] = (stats.byAction[docData.action] || 0) + 1;
+      stats.byResource[docData.resource] = (stats.byResource[docData.resource] || 0) + 1;
     });
 
     return {
@@ -141,16 +185,18 @@ exports.getAuditLogStats = onCall(async (data, context) => {
   }
 });
 
-exports.getUserAuditTrail = onCall(async (data, context) => {
-  if (!context.auth) {
+exports.getUserAuditTrail = onCall(async (request) => {
+  const { auth, data } = request;
+  
+  if (!auth) {
     throw new Error('UNAUTHENTICATED: User must be authenticated');
   }
 
   try {
-    const { userId } = context.auth;
+    const userId = auth.uid;
     const userDoc = await db.collection('users').doc(userId).get();
 
-    if (!userDoc.exists()) {
+    if (!userDoc.exists) {
       throw new Error('NOT_FOUND: User not found');
     }
 
@@ -166,8 +212,6 @@ exports.getUserAuditTrail = onCall(async (data, context) => {
 
     const snapshot = await db.collection('auditLogs')
       .where('userId', '==', targetUserId)
-      .orderBy('timestamp', 'desc')
-      .limit(500)
       .get();
 
     const trail = [];
@@ -177,6 +221,16 @@ exports.getUserAuditTrail = onCall(async (data, context) => {
         id: doc.id,
         ...doc.data()
       });
+    });
+
+    trail.sort((a, b) => {
+      const aTime = a.timestamp instanceof admin.firestore.Timestamp 
+        ? a.timestamp.toMillis() 
+        : a.timestamp;
+      const bTime = b.timestamp instanceof admin.firestore.Timestamp 
+        ? b.timestamp.toMillis() 
+        : b.timestamp;
+      return bTime - aTime;
     });
 
     return {
