@@ -4,6 +4,7 @@ const { onCall, onRequest } = require('firebase-functions/v2/https');
 const { onSchedule } = require('firebase-functions/v2/scheduler');
 const { logAuditEvent, deleteExpiredAuditLogs, AUDIT_EVENT_TYPES } = require('../common/auditLogger');
 
+
 const db = getFirestore();
 
 // Constants for compliance enforcement
@@ -142,9 +143,10 @@ async function convertToPDF(data, courseId) {
  */
 const sessionHeartbeat = onCall(
   { enforceAppCheck: false },
-  async (data, context) => {
+  async (request) => {
     try {
-      if (!context.auth) {
+      const { auth, data } = request;
+      if (!auth) {
         throw new Error('Authentication required');
       }
 
@@ -154,7 +156,7 @@ const sessionHeartbeat = onCall(
         throw new Error('Missing required parameters: userId, courseId, sessionId');
       }
 
-      const authenticatedUserId = context.auth.uid;
+      const authenticatedUserId = auth.uid;
       if (authenticatedUserId !== userId) {
         throw new Error('User ID mismatch - cannot log heartbeat for another user');
       }
@@ -329,9 +331,10 @@ const sessionHeartbeat = onCall(
   }
 );
 
-const auditComplianceAccess = onCall(async (data, context) => {
+const auditComplianceAccess = onCall(async (request) => {
   try {
-    if (!context.auth) {
+    const { auth, data } = request;
+    if (!auth) {
       throw new Error('Authentication required');
     }
 
@@ -341,8 +344,8 @@ const auditComplianceAccess = onCall(async (data, context) => {
       throw new Error('Missing required parameters: userId, action');
     }
 
-    await logAuditEvent(context.auth.uid, action, 'compliance', userId, 'success', {
-      accessedBy: context.auth.uid
+    await logAuditEvent(auth.uid, action, 'compliance', userId, 'success', {
+      accessedBy: auth.uid
     });
 
     return { success: true, message: 'Compliance access logged' };
@@ -354,9 +357,10 @@ const auditComplianceAccess = onCall(async (data, context) => {
 
 const trackPVQAttempt = onCall(
   { enforceAppCheck: false },
-  async (data, context) => {
+  async (request) => {
     try {
-      if (!context.auth) {
+      const { auth, data } = request;
+      if (!auth) {
         throw new Error('Authentication required');
       }
 
@@ -366,7 +370,7 @@ const trackPVQAttempt = onCall(
         throw new Error('Missing required parameters: userId, courseId, sessionId, isCorrect');
       }
 
-      if (context.auth.uid !== userId) {
+      if (auth.uid !== userId) {
         throw new Error('User ID mismatch - cannot track attempts for another user');
       }
 
@@ -497,9 +501,10 @@ const trackPVQAttempt = onCall(
 
 const trackExamAttempt = onCall(
   { enforceAppCheck: false },
-  async (data, context) => {
+  async (request) => {
     try {
-      if (!context.auth) {
+      const { auth, data } = request;
+      if (!auth) {
         throw new Error('Authentication required');
       }
 
@@ -509,7 +514,7 @@ const trackExamAttempt = onCall(
         throw new Error('Missing required parameters: userId, courseId, sessionId, score, totalQuestions');
       }
 
-      if (context.auth.uid !== userId) {
+      if (auth.uid !== userId) {
         throw new Error('User ID mismatch - cannot track exam attempts for another user');
       }
 
@@ -752,9 +757,10 @@ const trackExamAttempt = onCall(
   }
 );
 
-const generateComplianceReport = onCall({ enforceAppCheck: false }, async (data, context) => {
+const generateComplianceReport = onCall({ enforceAppCheck: false }, async (request) => {
   try {
-    if (!context.auth) {
+    const { auth, data } = request;
+    if (!auth) {
       throw new Error('Authentication required');
     }
 
@@ -785,10 +791,15 @@ const generateComplianceReport = onCall({ enforceAppCheck: false }, async (data,
       formattedReport = doc;
     }
 
-    await logAuditEvent(context.auth.uid, 'GENERATE_COMPLIANCE_REPORT', 'compliance', courseId, 'success', {
-      format,
-      studentId
-    });
+    const metadata = { format };
+    if (studentId) {
+      metadata.studentId = studentId;
+      metadata.exportType = 'student';
+    } else {
+      metadata.exportType = 'course';
+    }
+
+    await logAuditEvent(auth.uid, 'GENERATE_COMPLIANCE_REPORT', 'compliance', courseId, 'success', metadata);
 
     return {
       success: true,
