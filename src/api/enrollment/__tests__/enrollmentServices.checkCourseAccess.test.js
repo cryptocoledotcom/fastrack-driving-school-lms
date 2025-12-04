@@ -1,16 +1,17 @@
 import enrollmentServices from '../enrollmentServices.js';
 import { COURSE_IDS, ENROLLMENT_STATUS, PAYMENT_STATUS, ACCESS_STATUS } from '../../../constants/courses.js';
+import { vi } from 'vitest';
 
 describe('enrollmentServices.checkCourseAccess()', () => {
   let mockGetEnrollment;
 
   beforeEach(() => {
-    jest.clearAllMocks();
-    mockGetEnrollment = jest.spyOn(enrollmentServices, 'getEnrollment');
+    vi.clearAllMocks();
+    mockGetEnrollment = vi.spyOn(enrollmentServices, 'getEnrollment');
   });
 
   afterEach(() => {
-    jest.restoreAllMocks();
+    vi.restoreAllMocks();
   });
 
   describe('No Enrollment Found', () => {
@@ -99,7 +100,7 @@ describe('enrollmentServices.checkCourseAccess()', () => {
     it('should log error with context', async () => {
       const error = new Error('Test error');
       mockGetEnrollment.mockRejectedValue(error);
-      const logErrorSpy = jest.spyOn(enrollmentServices, 'logError');
+      const logErrorSpy = vi.spyOn(enrollmentServices, 'logError');
 
       try {
         await enrollmentServices.checkCourseAccess('user123', COURSE_IDS.ONLINE);

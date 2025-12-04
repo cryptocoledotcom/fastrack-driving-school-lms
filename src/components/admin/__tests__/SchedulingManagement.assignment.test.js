@@ -3,9 +3,10 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import SchedulingManagement from '../SchedulingManagement';
 import * as schedulingServices from '../../../api/compliance/schedulingServices';
 import * as userServices from '../../../api/student/userServices';
+import { vi } from 'vitest';
 
-jest.mock('../../../api/compliance/schedulingServices');
-jest.mock('../../../api/student/userServices');
+vi.mock('../../../api/compliance/schedulingServices');
+vi.mock('../../../api/student/userServices');
 
 describe('SchedulingManagement - Admin Assignment', () => {
   const mockSlot1 = {
@@ -26,7 +27,7 @@ describe('SchedulingManagement - Admin Assignment', () => {
   };
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
     schedulingServices.getTimeSlots.mockResolvedValue([mockSlot1]);
     userServices.getAllStudents.mockResolvedValue([mockStudent1]);
   });

@@ -4,9 +4,10 @@ import userEvent from '@testing-library/user-event';
 import SchedulingManagement from '../SchedulingManagement';
 import * as schedulingApi from '../../../api/compliance/schedulingServices';
 import * as studentApi from '../../../api/student/userServices';
+import { vi } from 'vitest';
 
-jest.mock('../../../api/compliance/schedulingServices');
-jest.mock('../../../api/student/userServices');
+vi.mock('../../../api/compliance/schedulingServices');
+vi.mock('../../../api/student/userServices');
 
 describe('SchedulingManagement - Loading Indicators', () => {
   const mockTimeSlots = [
@@ -50,7 +51,7 @@ describe('SchedulingManagement - Loading Indicators', () => {
   ];
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
     schedulingApi.getTimeSlots.mockResolvedValue(mockTimeSlots);
     studentApi.getAllStudents.mockResolvedValue(mockStudents);
     schedulingApi.createTimeSlot.mockResolvedValue({ id: 'slot-new' });

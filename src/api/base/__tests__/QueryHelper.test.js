@@ -1,12 +1,13 @@
 import QueryHelper from '../QueryHelper.js';
+import { vi } from 'vitest';
 
 let ApiError;
 
-jest.mock('../../../config/firebase.js', () => ({
+vi.mock('../../../config/firebase.js', () => ({
   db: {}
 }));
 
-jest.mock('../../errors/ApiError.js', () => {
+vi.mock('../../errors/ApiError.js', () => {
   class MockApiError {
     constructor(code, message, originalError) {
       this.code = code;
@@ -20,21 +21,21 @@ jest.mock('../../errors/ApiError.js', () => {
   };
 });
 
-jest.mock('firebase/firestore', () => ({
-  collection: jest.fn(),
-  query: jest.fn(),
-  where: jest.fn(),
-  orderBy: jest.fn(),
-  limit: jest.fn(),
-  startAfter: jest.fn(),
-  getDocs: jest.fn(),
-  getCountFromServer: jest.fn()
+vi.mock('firebase/firestore', () => ({
+  collection: vi.fn(),
+  query: vi.fn(),
+  where: vi.fn(),
+  orderBy: vi.fn(),
+  limit: vi.fn(),
+  startAfter: vi.fn(),
+  getDocs: vi.fn(),
+  getCountFromServer: vi.fn()
 }));
 
 let firebaseFirestore;
 
 beforeEach(() => {
-  jest.clearAllMocks();
+  vi.clearAllMocks();
   firebaseFirestore = require('firebase/firestore');
   ApiError = require('../../errors/ApiError.js').ApiError;
 });

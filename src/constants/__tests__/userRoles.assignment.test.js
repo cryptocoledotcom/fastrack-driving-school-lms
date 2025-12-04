@@ -4,6 +4,7 @@ import {
   hasPermission,
   hasRole
 } from '../userRoles';
+import { vi } from 'vitest';
 
 describe('User Roles - Admin Assignment Permissions', () => {
   describe('Role Definitions', () => {

@@ -1,4 +1,5 @@
 import React from 'react';
+import { vi } from 'vitest';
 import useSessionTimer from './useSessionTimer';
 
 const MAX_DAILY_HOURS = 4 * 3600;
@@ -6,12 +7,12 @@ const BREAK_REQUIRED_AFTER = 2 * 3600;
 
 describe('useSessionTimer Hook', () => {
   beforeEach(() => {
-    jest.useFakeTimers();
+    vi.useFakeTimers();
   });
 
   afterEach(() => {
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
+    vi.runOnlyPendingTimers();
+    vi.useRealTimers();
   });
 
   describe('Hook Creation', () => {

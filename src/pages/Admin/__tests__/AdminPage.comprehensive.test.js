@@ -6,18 +6,19 @@ import enrollmentServices from '../../../api/enrollment/enrollmentServices';
 import schedulingServices from '../../../api/compliance/schedulingServices';
 import userServices from '../../../api/student/userServices';
 import AuthContext from '../../../context/AuthContext';
+import { vi } from 'vitest';
 
-jest.mock('../../../api/enrollment/enrollmentServices');
-jest.mock('../../../api/compliance/schedulingServices');
-jest.mock('../../../api/student/userServices');
+vi.mock('../../../api/enrollment/enrollmentServices');
+vi.mock('../../../api/compliance/schedulingServices');
+vi.mock('../../../api/student/userServices');
 
 const mockAuthContext = {
   user: { uid: 'admin-1', email: 'admin@test.com', role: 'Super_admin' },
   userProfile: { role: 'Super_admin' },
   isAdmin: true,
   loading: false,
-  login: jest.fn(),
-  logout: jest.fn(),
+  login: vi.fn(),
+  logout: vi.fn(),
 };
 
 const mockUsers = [
@@ -84,18 +85,18 @@ const mockStudents = [
 
 describe('AdminPage - Comprehensive Integration Tests', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
 
-    enrollmentServices.getAllUsersWithEnrollments = jest.fn().mockResolvedValue(mockUsers);
-    enrollmentServices.resetEnrollmentToPending = jest.fn().mockResolvedValue({});
-    enrollmentServices.resetAllUserEnrollments = jest.fn().mockResolvedValue({});
+    enrollmentServices.getAllUsersWithEnrollments = vi.fn().mockResolvedValue(mockUsers);
+    enrollmentServices.resetEnrollmentToPending = vi.fn().mockResolvedValue({});
+    enrollmentServices.resetAllUserEnrollments = vi.fn().mockResolvedValue({});
 
-    schedulingServices.getTimeSlots = jest.fn().mockResolvedValue(mockTimeSlots);
-    schedulingServices.assignTimeSlot = jest.fn().mockResolvedValue({});
-    schedulingServices.unassignTimeSlot = jest.fn().mockResolvedValue({});
-    schedulingServices.deleteTimeSlot = jest.fn().mockResolvedValue({});
+    schedulingServices.getTimeSlots = vi.fn().mockResolvedValue(mockTimeSlots);
+    schedulingServices.assignTimeSlot = vi.fn().mockResolvedValue({});
+    schedulingServices.unassignTimeSlot = vi.fn().mockResolvedValue({});
+    schedulingServices.deleteTimeSlot = vi.fn().mockResolvedValue({});
 
-    userServices.getAllStudents = jest.fn().mockResolvedValue(mockStudents);
+    userServices.getAllStudents = vi.fn().mockResolvedValue(mockStudents);
   });
 
   const renderAdminPage = async () => {

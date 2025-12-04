@@ -1,17 +1,18 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { vi } from 'vitest';
 import { AuthProvider, useAuth } from './AuthContext';
 import * as firebase from 'firebase/auth';
 import * as firestore from 'firebase/firestore';
 
-jest.mock('firebase/auth');
-jest.mock('firebase/firestore');
-jest.mock('../config/firebase', () => ({
+vi.mock('firebase/auth');
+vi.mock('firebase/firestore');
+vi.mock('../config/firebase', () => ({
   auth: {},
   db: {}
 }));
 
-jest.mock('../constants/userRoles', () => ({
+vi.mock('../constants/userRoles', () => ({
   USER_ROLES: {
     STUDENT: 'student',
     INSTRUCTOR: 'instructor',
@@ -22,10 +23,10 @@ jest.mock('../constants/userRoles', () => ({
 
 describe('AuthContext', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
     firebase.onAuthStateChanged.mockImplementation((auth, callback) => {
       callback(null);
-      return jest.fn();
+      return vi.fn();
     });
   });
 

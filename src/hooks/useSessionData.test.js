@@ -1,14 +1,15 @@
 import React from 'react';
+import { vi } from 'vitest';
 import useSessionData from './useSessionData';
 
 describe('useSessionData Hook', () => {
   beforeEach(() => {
-    jest.useFakeTimers();
+    vi.useFakeTimers();
   });
 
   afterEach(() => {
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
+    vi.runOnlyPendingTimers();
+    vi.useRealTimers();
   });
 
   describe('Hook Creation', () => {

@@ -3,9 +3,10 @@ import {
   unassignTimeSlot,
   getSlotsByAssignment
 } from '../schedulingServices';
+import { vi } from 'vitest';
 
-jest.mock('firebase/firestore');
-jest.mock('../../base/ServiceWrapper', () => ({
+vi.mock('firebase/firestore');
+vi.mock('../../base/ServiceWrapper', () => ({
   executeService: jest.fn((fn) => fn())
 }));
 

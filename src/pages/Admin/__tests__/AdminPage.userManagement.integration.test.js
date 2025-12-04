@@ -4,33 +4,34 @@ import AdminPage from '../AdminPage';
 import { USER_ROLES } from '../../../constants/userRoles';
 import enrollmentServices from '../../../api/enrollment/enrollmentServices';
 import userManagementServices from '../../../api/admin/userManagementServices';
+import { vi } from 'vitest';
 
-jest.mock('../../../api/enrollment/enrollmentServices');
-jest.mock('../../../api/admin/userManagementServices');
-jest.mock('../../../context/AuthContext', () => ({
-  useAuth: jest.fn(),
+vi.mock('../../../api/enrollment/enrollmentServices');
+vi.mock('../../../api/admin/userManagementServices');
+vi.mock('../../../context/AuthContext', () => ({
+  useAuth: vi.fn(),
 }));
-jest.mock('../../../components/admin/tabs/EnrollmentManagementTab', () => {
+vi.mock('../../../components/admin/tabs/EnrollmentManagementTab', () => {
   return function DummyComponent() {
     return <div>Enrollment Management Tab</div>;
   };
 });
-jest.mock('../../../components/admin/tabs/AnalyticsTab', () => {
+vi.mock('../../../components/admin/tabs/AnalyticsTab', () => {
   return function DummyComponent() {
     return <div>Analytics Tab</div>;
   };
 });
-jest.mock('../../../components/admin/SchedulingManagement', () => {
+vi.mock('../../../components/admin/SchedulingManagement', () => {
   return function DummyComponent() {
     return <div>Scheduling Management</div>;
   };
 });
-jest.mock('../../../components/admin/ComplianceReporting', () => {
+vi.mock('../../../components/admin/ComplianceReporting', () => {
   return function DummyComponent() {
     return <div>Compliance Reporting</div>;
   };
 });
-jest.mock('../../../components/admin/tabs/UserManagementTab', () => {
+vi.mock('../../../components/admin/tabs/UserManagementTab', () => {
   return function DummyComponent() {
     return <div>User Management Tab</div>;
   };
@@ -40,7 +41,7 @@ const { useAuth } = require('../../../context/AuthContext');
 
 describe('AdminPage - User Management Integration', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
     enrollmentServices.getAllUsersWithEnrollments.mockResolvedValue([]);
   });
 

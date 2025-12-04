@@ -1,21 +1,22 @@
 import enrollmentServices from '../enrollmentServices.js';
 import { ValidationError } from '../../errors/ApiError.js';
 import { COURSE_IDS, ENROLLMENT_STATUS, PAYMENT_STATUS, ACCESS_STATUS } from '../../../constants/courses.js';
+import { vi } from 'vitest';
 
-const firebaseFirestore = jest.mock('firebase/firestore', () => ({
-  writeBatch: jest.fn(),
+const firebaseFirestore = vi.mock('firebase/firestore', () => ({
+  writeBatch: vi.fn(),
   serverTimestamp: jest.fn(() => ({ _type: 'serverTimestamp' })),
-  doc: jest.fn(),
-  increment: jest.fn()
+  doc: vi.fn(),
+  increment: vi.fn()
 }));
 
-jest.mock('../../../config/firebase.js', () => ({
+vi.mock('../../../config/firebase.js', () => ({
   db: {}
 }));
 
-jest.mock('../../../utils/api/validators.js');
+vi.mock('../../../utils/api/validators.js');
 
-jest.mock('../../../utils/api/timestampHelper.js', () => ({
+vi.mock('../../../utils/api/timestampHelper.js', () => ({
   getFirestoreTimestamps: jest.fn(() => ({
     createdAt: 'mock-created',
     updatedAt: 'mock-updated'
@@ -28,17 +29,17 @@ describe('enrollmentServices - Reset Functionality', () => {
   let mockBatchCommit;
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
 
-    mockUpdateDoc = jest.fn().mockResolvedValue(true);
-    mockBatchUpdate = jest.fn();
-    mockBatchCommit = jest.fn().mockResolvedValue(true);
+    mockUpdateDoc = vi.fn().mockResolvedValue(true);
+    mockBatchUpdate = vi.fn();
+    mockBatchCommit = vi.fn().mockResolvedValue(true);
 
     enrollmentServices.updateDoc = mockUpdateDoc;
     enrollmentServices.validate.validateUserId.mockImplementation(() => {});
     enrollmentServices.validate.validateCourseId.mockImplementation(() => {});
-    enrollmentServices.log = jest.fn();
-    enrollmentServices.logError = jest.fn();
+    enrollmentServices.log = vi.fn();
+    enrollmentServices.logError = vi.fn();
   });
 
   describe('resetEnrollmentToPending()', () => {
@@ -196,7 +197,7 @@ describe('enrollmentServices - Reset Functionality', () => {
     const userId = 'user123';
 
     beforeEach(() => {
-      enrollmentServices.getUserEnrollments = jest.fn();
+      enrollmentServices.getUserEnrollments = vi.fn();
     });
 
     describe('Input Validation', () => {

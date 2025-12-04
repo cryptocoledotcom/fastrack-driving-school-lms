@@ -1,13 +1,14 @@
 import userManagementServices from '../userManagementServices';
 import { getFunctions, httpsCallable } from 'firebase/functions';
+import { vi } from 'vitest';
 
-jest.mock('firebase/functions');
+vi.mock('firebase/functions');
 
 describe('User Management - createUser Function', () => {
-  const mockFunction = jest.fn();
+  const mockFunction = vi.fn();
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
     httpsCallable.mockReturnValue(mockFunction);
   });
 

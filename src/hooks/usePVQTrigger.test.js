@@ -1,4 +1,5 @@
 import React from 'react';
+import { vi } from 'vitest';
 import usePVQTrigger from './usePVQTrigger';
 
 const PVQ_TRIGGER_INTERVAL = 30 * 60;
@@ -7,12 +8,12 @@ const PVQ_RANDOM_OFFSET_MAX = 10 * 60;
 
 describe('usePVQTrigger Hook', () => {
   beforeEach(() => {
-    jest.useFakeTimers();
+    vi.useFakeTimers();
   });
 
   afterEach(() => {
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
+    vi.runOnlyPendingTimers();
+    vi.useRealTimers();
   });
 
   describe('Hook Creation', () => {

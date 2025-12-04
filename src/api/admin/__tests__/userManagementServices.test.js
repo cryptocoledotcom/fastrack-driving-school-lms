@@ -9,15 +9,16 @@ import {
   getDoc,
   serverTimestamp,
 } from 'firebase/firestore';
+import { vi } from 'vitest';
 import { db } from '../../../config/firebase';
 import userManagementServices from '../userManagementServices';
 import { USER_ROLES } from '../../../constants/userRoles';
 
-jest.mock('firebase/firestore');
+vi.mock('firebase/firestore');
 
 describe('User Management Services', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   describe('getAllUsers', () => {

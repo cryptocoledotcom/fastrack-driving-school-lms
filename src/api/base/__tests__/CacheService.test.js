@@ -1,15 +1,16 @@
 import CacheService from '../CacheService.js';
+import { vi } from 'vitest';
 
 describe('CacheService', () => {
   beforeEach(() => {
-    jest.useFakeTimers();
+    vi.useFakeTimers();
     jest.clearAllTimers();
     CacheService.clear();
   });
 
   afterEach(() => {
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
+    vi.runOnlyPendingTimers();
+    vi.useRealTimers();
   });
 
   describe('set()', () => {
@@ -65,7 +66,7 @@ describe('CacheService', () => {
 
       expect(CacheService.get('expiring')).toBe('value');
 
-      jest.advanceTimersByTime(ttl + 1);
+      vi.advanceTimersByTime(ttl + 1);
 
       expect(CacheService.get('expiring')).toBeNull();
     });
@@ -74,7 +75,7 @@ describe('CacheService', () => {
       const ttl = 5000;
       CacheService.set('key1', 'value', ttl);
 
-      jest.advanceTimersByTime(ttl - 1);
+      vi.advanceTimersByTime(ttl - 1);
 
       expect(CacheService.get('key1')).toBe('value');
     });
@@ -82,7 +83,7 @@ describe('CacheService', () => {
     it('should return value if no TTL provided', () => {
       CacheService.set('permanent', 'value');
 
-      jest.advanceTimersByTime(10000);
+      vi.advanceTimersByTime(10000);
 
       expect(CacheService.get('permanent')).toBe('value');
     });
@@ -91,7 +92,7 @@ describe('CacheService', () => {
       const ttl = 5000;
       CacheService.set('expiring', 'value', ttl);
 
-      jest.advanceTimersByTime(ttl + 1);
+      vi.advanceTimersByTime(ttl + 1);
 
       CacheService.get('expiring');
 
@@ -122,7 +123,7 @@ describe('CacheService', () => {
 
       CacheService.invalidate('key1');
 
-      jest.advanceTimersByTime(ttl + 1);
+      vi.advanceTimersByTime(ttl + 1);
 
       expect(CacheService.get('key1')).toBeNull();
     });
@@ -159,7 +160,7 @@ describe('CacheService', () => {
 
       CacheService.clear();
 
-      jest.advanceTimersByTime(ttl + 1);
+      vi.advanceTimersByTime(ttl + 1);
 
       expect(CacheService.get('key1')).toBeNull();
       expect(CacheService.get('key2')).toBeNull();
@@ -179,10 +180,10 @@ describe('CacheService', () => {
       const ttl = 3000;
       CacheService.set('key1', 'value', ttl);
 
-      jest.advanceTimersByTime(ttl - 1);
+      vi.advanceTimersByTime(ttl - 1);
       expect(CacheService.get('key1')).toBe('value');
 
-      jest.advanceTimersByTime(1);
+      vi.advanceTimersByTime(1);
       expect(CacheService.get('key1')).toBeNull();
     });
 
@@ -190,7 +191,7 @@ describe('CacheService', () => {
       CacheService.set('shortKey', 'value', 2000);
       CacheService.set('longKey', 'value', 5000);
 
-      jest.advanceTimersByTime(3000);
+      vi.advanceTimersByTime(3000);
 
       expect(CacheService.get('shortKey')).toBeNull();
       expect(CacheService.get('longKey')).toBe('value');
@@ -199,7 +200,7 @@ describe('CacheService', () => {
     it('should not expire entries without TTL', () => {
       CacheService.set('permanent', 'value');
 
-      jest.advanceTimersByTime(10000);
+      vi.advanceTimersByTime(10000);
 
       expect(CacheService.get('permanent')).toBe('value');
     });
@@ -208,7 +209,7 @@ describe('CacheService', () => {
       const ttl = 5000;
       CacheService.set('key1', 'value', ttl);
 
-      jest.advanceTimersByTime(ttl);
+      vi.advanceTimersByTime(ttl);
 
       expect(CacheService.get('key1')).toBeNull();
     });
@@ -291,7 +292,7 @@ describe('CacheService', () => {
       CacheService.set('withTTL', 'expires', ttl);
       CacheService.set('withoutTTL', 'permanent');
 
-      jest.advanceTimersByTime(ttl + 1);
+      vi.advanceTimersByTime(ttl + 1);
 
       expect(CacheService.get('withTTL')).toBeNull();
       expect(CacheService.get('withoutTTL')).toBe('permanent');
@@ -314,7 +315,7 @@ describe('CacheService', () => {
       const ttl = 3000;
       CacheService.set('key1', 'value', ttl);
 
-      jest.advanceTimersByTime(ttl + 1);
+      vi.advanceTimersByTime(ttl + 1);
       expect(CacheService.get('key1')).toBeNull();
 
       expect(() => {

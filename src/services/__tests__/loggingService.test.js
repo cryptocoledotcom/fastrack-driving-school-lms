@@ -1,4 +1,5 @@
 import LoggingService from '../loggingService';
+import { vi } from 'vitest';
 
 // Mock console methods
 const consoleMethods = ['debug', 'info', 'warn', 'error', 'log'];
@@ -7,7 +8,7 @@ const originalConsole = {};
 beforeAll(() => {
   consoleMethods.forEach(method => {
     originalConsole[method] = console[method];
-    console[method] = jest.fn();
+    console[method] = vi.fn();
   });
 });
 
@@ -18,7 +19,7 @@ afterAll(() => {
 });
 
 afterEach(() => {
-  jest.clearAllMocks();
+  vi.clearAllMocks();
   process.env.NODE_ENV = 'test';
 });
 

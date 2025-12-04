@@ -2,8 +2,9 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import AnalyticsTab from '../AnalyticsTab';
+import { vi } from 'vitest';
 
-jest.mock('recharts', () => ({
+vi.mock('recharts', () => ({
   ...jest.requireActual('recharts'),
   ResponsiveContainer: ({ children }) => <div data-testid="responsive-container">{children}</div>,
   LineChart: ({ children, data }) => <div data-testid="line-chart" data-count={data?.length}>{children}</div>,

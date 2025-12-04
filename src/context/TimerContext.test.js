@@ -1,15 +1,16 @@
 import React from 'react';
+import { vi } from 'vitest';
 
 const TIMER_CONTEXT_FILE = '../TimerContext.jsx';
 
 describe('TimerContext Integration', () => {
   beforeEach(() => {
-    jest.useFakeTimers();
+    vi.useFakeTimers();
   });
 
   afterEach(() => {
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
+    vi.runOnlyPendingTimers();
+    vi.useRealTimers();
   });
 
   describe('TimerContext Exports', () => {

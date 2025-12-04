@@ -3,9 +3,10 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import UserManagementTab from '../UserManagementTab';
 import userManagementServices from '../../../../api/admin/userManagementServices';
 import { useAuth } from '../../../../context/AuthContext';
+import { vi } from 'vitest';
 
-jest.mock('../../../../api/admin/userManagementServices');
-jest.mock('../../../../context/AuthContext');
+vi.mock('../../../../api/admin/userManagementServices');
+vi.mock('../../../../context/AuthContext');
 
 describe('UserManagementTab - Create User Integration Tests', () => {
   const mockUserProfile = {
@@ -16,7 +17,7 @@ describe('UserManagementTab - Create User Integration Tests', () => {
   };
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
     useAuth.mockReturnValue({
       userProfile: mockUserProfile
     });

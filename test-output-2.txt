@@ -1,0 +1,826 @@
+
+> fastrack-driving-school-lms@1.0.0 test
+> vitest --run
+
+
+[7m[1m[36m RUN [39m[22m[27m [36mv1.6.1[39m [90mc:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System[39m
+
+ [33m❯[39m src/components/admin/tabs/__tests__/UserManagementTab.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/pages/Admin/__tests__/AdminPage.comprehensive.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/context/TimerContext.test.js [2m ([22m[2m50 tests[22m [2m|[22m [31m50 failed[39m[2m)[22m[90m 74[2mms[22m[39m
+[31m   [33m❯[31m src/context/TimerContext.test.js[2m > [22mTimerContext Integration[2m > [22mTimerContext Exports[2m > [22mshould export TimerContext[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/context/TimerContext.test.js[2m > [22mTimerContext Integration[2m > [22mTimerContext Exports[2m > [22mshould export useTimer hook[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/context/TimerContext.test.js[2m > [22mTimerContext Integration[2m > [22mTimerContext Exports[2m > [22mshould export TimerProvider component[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/context/TimerContext.test.js[2m > [22mTimerContext Integration[2m > [22mCustom Hooks Integration[2m > [22mshould import useSessionTimer hook[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/context/TimerContext.test.js[2m > [22mTimerContext Integration[2m > [22mCustom Hooks Integration[2m > [22mshould import useBreakManagement hook[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/context/TimerContext.test.js[2m > [22mTimerContext Integration[2m > [22mCustom Hooks Integration[2m > [22mshould import usePVQTrigger hook[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/context/TimerContext.test.js[2m > [22mTimerContext Integration[2m > [22mCustom Hooks Integration[2m > [22mshould import useSessionData hook[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/context/TimerContext.test.js[2m > [22mTimerContext Integration[2m > [22mTimerProvider Structure[2m > [22mshould accept children prop[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/context/TimerContext.test.js[2m > [22mTimerContext Integration[2m > [22mTimerProvider Structure[2m > [22mshould accept courseId prop[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/context/TimerContext.test.js[2m > [22mTimerContext Integration[2m > [22mTimerProvider Structure[2m > [22mshould accept lessonId prop[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/context/TimerContext.test.js[2m > [22mTimerContext Integration[2m > [22mTimerProvider Structure[2m > [22mshould accept ipAddress prop[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/context/TimerContext.test.js[2m > [22mTimerContext Integration[2m > [22mTimerProvider Structure[2m > [22mshould return TimerContext.Provider wrapping children[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/context/TimerContext.test.js[2m > [22mTimerContext Integration[2m > [22museTimer Hook Validation[2m > [22mshould throw error when used outside provider[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/context/TimerContext.test.js[2m > [22mTimerContext Integration[2m > [22museTimer Hook Validation[2m > [22mshould return context when used inside provider[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/context/TimerContext.test.js[2m > [22mTimerContext Integration[2m > [22mContext Value - Session Timer State[2m > [22mshould expose sessionTime from useSessionTimer[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/context/TimerContext.test.js[2m > [22mTimerContext Integration[2m > [22mContext Value - Session Timer State[2m > [22mshould expose totalTime from useSessionTimer[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/context/TimerContext.test.js[2m > [22mTimerContext Integration[2m > [22mContext Value - Session Timer State[2m > [22mshould expose isActive from useSessionTimer[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/context/TimerContext.test.js[2m > [22mTimerContext Integration[2m > [22mContext Value - Session Timer State[2m > [22mshould expose isPaused from useSessionTimer[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/context/TimerContext.test.js[2m > [22mTimerContext Integration[2m > [22mContext Value - Session Timer State[2m > [22mshould expose isLockedOut from useSessionTimer[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/context/TimerContext.test.js[2m > [22mTimerContext Integration[2m > [22mContext Value - Break Management State[2m > [22mshould expose isOnBreak from useBreakManagement[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/context/TimerContext.test.js[2m > [22mTimerContext Integration[2m > [22mContext Value - Break Management State[2m > [22mshould expose isBreakMandatory from useBreakManagement[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/context/TimerContext.test.js[2m > [22mTimerContext Integration[2m > [22mContext Value - Break Management State[2m > [22mshould expose breakHistory from useBreakManagement[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/context/TimerContext.test.js[2m > [22mTimerContext Integration[2m > [22mContext Value - PVQ Trigger State[2m > [22mshould expose showPVQModal from usePVQTrigger[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/context/TimerContext.test.js[2m > [22mTimerContext Integration[2m > [22mContext Value - PVQ Trigger State[2m > [22mshould expose currentPVQQuestion from usePVQTrigger[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/context/TimerContext.test.js[2m > [22mTimerContext Integration[2m > [22mContext Value - PVQ Trigger State[2m > [22mshould expose pvqSubmitting from usePVQTrigger[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/context/TimerContext.test.js[2m > [22mTimerContext Integration[2m > [22mContext Value - Session Data State[2m > [22mshould expose currentSessionId from useSessionData[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/context/TimerContext.test.js[2m > [22mTimerContext Integration[2m > [22mContext Value - Session Data State[2m > [22mshould expose lessonsAccessed from useSessionData[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/context/TimerContext.test.js[2m > [22mTimerContext Integration[2m > [22mContext Value - Session Data State[2m > [22mshould expose sessionHistory from useSessionData[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/context/TimerContext.test.js[2m > [22mTimerContext Integration[2m > [22mContext Value - Timer Methods[2m > [22mshould expose startTimer from useSessionTimer[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/context/TimerContext.test.js[2m > [22mTimerContext Integration[2m > [22mContext Value - Timer Methods[2m > [22mshould expose pauseTimer from useSessionTimer[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/context/TimerContext.test.js[2m > [22mTimerContext Integration[2m > [22mContext Value - Timer Methods[2m > [22mshould expose resumeTimer from useSessionTimer[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/context/TimerContext.test.js[2m > [22mTimerContext Integration[2m > [22mContext Value - Timer Methods[2m > [22mshould expose stopTimer from useSessionTimer[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/context/TimerContext.test.js[2m > [22mTimerContext Integration[2m > [22mContext Value - Break Methods[2m > [22mshould expose startBreak from useBreakManagement[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/context/TimerContext.test.js[2m > [22mTimerContext Integration[2m > [22mContext Value - Break Methods[2m > [22mshould expose endBreak from useBreakManagement[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/context/TimerContext.test.js[2m > [22mTimerContext Integration[2m > [22mContext Value - PVQ Methods[2m > [22mshould expose triggerPVQ from usePVQTrigger[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/context/TimerContext.test.js[2m > [22mTimerContext Integration[2m > [22mContext Value - PVQ Methods[2m > [22mshould expose closePVQModal from usePVQTrigger[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/context/TimerContext.test.js[2m > [22mTimerContext Integration[2m > [22mContext Value - PVQ Methods[2m > [22mshould expose submitPVQAnswer from usePVQTrigger[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/context/TimerContext.test.js[2m > [22mTimerContext Integration[2m > [22mContext Value - Session Data Methods[2m > [22mshould expose createSession from useSessionData[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/context/TimerContext.test.js[2m > [22mTimerContext Integration[2m > [22mContext Value - Session Data Methods[2m > [22mshould expose recordLessonAccess from useSessionData[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/context/TimerContext.test.js[2m > [22mTimerContext Integration[2m > [22mContext Value - Session Data Methods[2m > [22mshould expose closeSession from useSessionData[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/context/TimerContext.test.js[2m > [22mTimerContext Integration[2m > [22mBackward Compatibility - Additional Methods[2m > [22mshould preserve helper method updateVideoProgress[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/context/TimerContext.test.js[2m > [22mTimerContext Integration[2m > [22mBackward Compatibility - Additional Methods[2m > [22mshould preserve helper method trackLessonAccess[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/context/TimerContext.test.js[2m > [22mTimerContext Integration[2m > [22mBackward Compatibility - Additional Methods[2m > [22mshould preserve helper method formatTime[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/context/TimerContext.test.js[2m > [22mTimerContext Integration[2m > [22mBackward Compatibility - Additional Methods[2m > [22mshould preserve helper method getFormattedSessionTime[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/context/TimerContext.test.js[2m > [22mTimerContext Integration[2m > [22mBackward Compatibility - Additional Methods[2m > [22mshould preserve helper method getRemainingDailyTime[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/context/TimerContext.test.js[2m > [22mTimerContext Integration[2m > [22mNo Breaking Changes[2m > [22mshould not break App.jsx integration[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/context/TimerContext.test.js[2m > [22mTimerContext Integration[2m > [22mNo Breaking Changes[2m > [22mshould not break CoursePlayerPage.jsx integration[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/context/TimerContext.test.js[2m > [22mTimerContext Integration[2m > [22mSyntax and Structure[2m > [22mshould have no syntax errors[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/context/TimerContext.test.js[2m > [22mTimerContext Integration[2m > [22mSyntax and Structure[2m > [22mshould be a valid React component[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/context/TimerContext.test.js[2m > [22mTimerContext Integration[2m > [22mSyntax and Structure[2m > [22mshould call all 4 custom hooks[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+ [33m❯[39m src/components/admin/__tests__/SchedulingManagement.loadingIndicators.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/hooks/useBreakManagement.test.js [2m ([22m[2m42 tests[22m [2m|[22m [31m42 failed[39m[2m)[22m[90m 100[2mms[22m[39m
+[31m   [33m❯[31m src/hooks/useBreakManagement.test.js[2m > [22museBreakManagement Hook[2m > [22mHook Creation[2m > [22mshould be a function[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useBreakManagement.test.js[2m > [22museBreakManagement Hook[2m > [22mHook Creation[2m > [22mshould be a valid React hook[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useBreakManagement.test.js[2m > [22museBreakManagement Hook[2m > [22mDMV Compliance Constants[2m > [22mshould enforce 2-hour break requirement threshold[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useBreakManagement.test.js[2m > [22museBreakManagement Hook[2m > [22mDMV Compliance Constants[2m > [22mshould enforce 10-minute minimum break duration[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useBreakManagement.test.js[2m > [22museBreakManagement Hook[2m > [22mHook Exports[2m > [22mshould export named hook[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useBreakManagement.test.js[2m > [22museBreakManagement Hook[2m > [22mHook Exports[2m > [22mshould have default export[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useBreakManagement.test.js[2m > [22museBreakManagement Hook[2m > [22mInitial State[2m > [22mshould initialize with correct default state[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useBreakManagement.test.js[2m > [22museBreakManagement Hook[2m > [22mRequired State Properties[2m > [22mshould have all required state properties[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useBreakManagement.test.js[2m > [22museBreakManagement Hook[2m > [22mRequired Methods[2m > [22mshould have all required methods[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useBreakManagement.test.js[2m > [22museBreakManagement Hook[2m > [22mRequired Methods[2m > [22mshould export methods as useCallback[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useBreakManagement.test.js[2m > [22museBreakManagement Hook[2m > [22mRequired Getters[2m > [22mshould have all required getter properties[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useBreakManagement.test.js[2m > [22museBreakManagement Hook[2m > [22mOptions Handling[2m > [22mshould accept sessionTime for break tracking[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useBreakManagement.test.js[2m > [22museBreakManagement Hook[2m > [22mOptions Handling[2m > [22mshould accept onBreakRequired callback[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useBreakManagement.test.js[2m > [22museBreakManagement Hook[2m > [22mOptions Handling[2m > [22mshould accept onBreakEnded callback[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useBreakManagement.test.js[2m > [22museBreakManagement Hook[2m > [22mBreak Tracking Logic[2m > [22mshould track break start time when break starts[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useBreakManagement.test.js[2m > [22museBreakManagement Hook[2m > [22mBreak Tracking Logic[2m > [22mshould maintain break history array[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useBreakManagement.test.js[2m > [22museBreakManagement Hook[2m > [22mBreak Tracking Logic[2m > [22mshould calculate current break duration[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useBreakManagement.test.js[2m > [22museBreakManagement Hook[2m > [22mBreak Tracking Logic[2m > [22mshould identify when break is due[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useBreakManagement.test.js[2m > [22museBreakManagement Hook[2m > [22mBreak Duration Validation[2m > [22mshould enforce minimum break duration of 10 minutes[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useBreakManagement.test.js[2m > [22museBreakManagement Hook[2m > [22mBreak Duration Validation[2m > [22mshould check if minimum break is met[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useBreakManagement.test.js[2m > [22museBreakManagement Hook[2m > [22mBreak State Management[2m > [22mshould toggle isOnBreak state when starting break[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useBreakManagement.test.js[2m > [22museBreakManagement Hook[2m > [22mBreak State Management[2m > [22mshould toggle isOnBreak state when ending break[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useBreakManagement.test.js[2m > [22museBreakManagement Hook[2m > [22mBreak State Management[2m > [22mshould set isBreakMandatory when break is required[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useBreakManagement.test.js[2m > [22museBreakManagement Hook[2m > [22mBreak History Tracking[2m > [22mshould record breaks in history array[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useBreakManagement.test.js[2m > [22museBreakManagement Hook[2m > [22mBreak History Tracking[2m > [22mshould include break duration in history[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useBreakManagement.test.js[2m > [22museBreakManagement Hook[2m > [22mBreak History Tracking[2m > [22mshould include break timestamp in history[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useBreakManagement.test.js[2m > [22museBreakManagement Hook[2m > [22mCallback Triggers[2m > [22mshould trigger onBreakRequired callback when break is due[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useBreakManagement.test.js[2m > [22museBreakManagement Hook[2m > [22mCallback Triggers[2m > [22mshould trigger onBreakEnded callback when break ends[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useBreakManagement.test.js[2m > [22museBreakManagement Hook[2m > [22mReturn Object Structure[2m > [22mshould return object with all state properties[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useBreakManagement.test.js[2m > [22museBreakManagement Hook[2m > [22mReact Hooks Usage[2m > [22mshould use useState hook[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useBreakManagement.test.js[2m > [22museBreakManagement Hook[2m > [22mReact Hooks Usage[2m > [22mshould use useCallback for methods[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useBreakManagement.test.js[2m > [22museBreakManagement Hook[2m > [22mReact Hooks Usage[2m > [22mshould use useEffect for break tracking[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useBreakManagement.test.js[2m > [22museBreakManagement Hook[2m > [22mReact Hooks Usage[2m > [22mshould use useRef for tracking[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useBreakManagement.test.js[2m > [22museBreakManagement Hook[2m > [22mReact Hooks Usage[2m > [22mshould import hooks from react[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useBreakManagement.test.js[2m > [22museBreakManagement Hook[2m > [22mCompliance with Step 1.3.2 Requirements[2m > [22mshould have all required state properties[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useBreakManagement.test.js[2m > [22museBreakManagement Hook[2m > [22mCompliance with Step 1.3.2 Requirements[2m > [22mshould have all required methods[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useBreakManagement.test.js[2m > [22museBreakManagement Hook[2m > [22mCompliance with Step 1.3.2 Requirements[2m > [22mshould have all required getters[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useBreakManagement.test.js[2m > [22museBreakManagement Hook[2m > [22mNo Breaking Changes[2m > [22mshould not modify TimerContext[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useBreakManagement.test.js[2m > [22museBreakManagement Hook[2m > [22mNo Breaking Changes[2m > [22mshould not break existing App.jsx integration[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useBreakManagement.test.js[2m > [22museBreakManagement Hook[2m > [22mSyntax and Structure[2m > [22mshould have no syntax errors[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useBreakManagement.test.js[2m > [22museBreakManagement Hook[2m > [22mSyntax and Structure[2m > [22mshould export hook as default export[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useBreakManagement.test.js[2m > [22museBreakManagement Hook[2m > [22mSyntax and Structure[2m > [22mshould also export as named export[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[90mstdout[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mexecute[2m > [22m[2mshould retry and eventually succeed[22m[39m
+✅ [test-operation] Succeeded on attempt 3/3
+
+ [33m❯[39m src/components/admin/tabs/__tests__/AnalyticsTab.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [32m✓[39m src/api/errors/__tests__/ApiError.test.js [2m ([22m[2m38 tests[22m[2m)[22m[90m 64[2mms[22m[39m
+ [33m❯[39m src/hooks/usePVQTrigger.test.js [2m ([22m[2m42 tests[22m [2m|[22m [31m42 failed[39m[2m)[22m[90m 125[2mms[22m[39m
+[31m   [33m❯[31m src/hooks/usePVQTrigger.test.js[2m > [22musePVQTrigger Hook[2m > [22mHook Creation[2m > [22mshould be a function[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/usePVQTrigger.test.js[2m > [22musePVQTrigger Hook[2m > [22mHook Creation[2m > [22mshould be a valid React hook[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/usePVQTrigger.test.js[2m > [22musePVQTrigger Hook[2m > [22mDMV Compliance Constants[2m > [22mshould enforce 30-minute PVQ trigger interval[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/usePVQTrigger.test.js[2m > [22musePVQTrigger Hook[2m > [22mDMV Compliance Constants[2m > [22mshould enforce random offset minimum of 5 minutes[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/usePVQTrigger.test.js[2m > [22musePVQTrigger Hook[2m > [22mDMV Compliance Constants[2m > [22mshould enforce random offset maximum of 10 minutes[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/usePVQTrigger.test.js[2m > [22musePVQTrigger Hook[2m > [22mHook Exports[2m > [22mshould export named hook[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/usePVQTrigger.test.js[2m > [22musePVQTrigger Hook[2m > [22mHook Exports[2m > [22mshould have default export[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/usePVQTrigger.test.js[2m > [22musePVQTrigger Hook[2m > [22mInitial State[2m > [22mshould initialize with correct default state[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/usePVQTrigger.test.js[2m > [22musePVQTrigger Hook[2m > [22mRequired State Properties[2m > [22mshould have all required state properties[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/usePVQTrigger.test.js[2m > [22musePVQTrigger Hook[2m > [22mRequired Methods[2m > [22mshould have all required methods[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/usePVQTrigger.test.js[2m > [22musePVQTrigger Hook[2m > [22mRequired Methods[2m > [22mshould export methods as useCallback[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/usePVQTrigger.test.js[2m > [22musePVQTrigger Hook[2m > [22mPVQ Triggering Logic[2m > [22mshould calculate next PVQ trigger time with random offset[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/usePVQTrigger.test.js[2m > [22musePVQTrigger Hook[2m > [22mPVQ Triggering Logic[2m > [22mshould track PVQ start time[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/usePVQTrigger.test.js[2m > [22musePVQTrigger Hook[2m > [22mPVQ Triggering Logic[2m > [22mshould track when PVQ is submitted[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/usePVQTrigger.test.js[2m > [22musePVQTrigger Hook[2m > [22mPVQ Triggering Logic[2m > [22mshould store current PVQ question[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/usePVQTrigger.test.js[2m > [22musePVQTrigger Hook[2m > [22mOptions Handling[2m > [22mshould accept sessionTime for PVQ trigger check[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/usePVQTrigger.test.js[2m > [22musePVQTrigger Hook[2m > [22mOptions Handling[2m > [22mshould accept getRandomQuestion callback[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/usePVQTrigger.test.js[2m > [22musePVQTrigger Hook[2m > [22mOptions Handling[2m > [22mshould accept onPVQTriggered callback[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/usePVQTrigger.test.js[2m > [22musePVQTrigger Hook[2m > [22mOptions Handling[2m > [22mshould accept onPVQSubmitted callback[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/usePVQTrigger.test.js[2m > [22musePVQTrigger Hook[2m > [22mOptions Handling[2m > [22mshould handle missing options gracefully[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/usePVQTrigger.test.js[2m > [22musePVQTrigger Hook[2m > [22mModal State Management[2m > [22mshould toggle showPVQModal state[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/usePVQTrigger.test.js[2m > [22musePVQTrigger Hook[2m > [22mModal State Management[2m > [22mshould set PVQ question when triggered[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/usePVQTrigger.test.js[2m > [22musePVQTrigger Hook[2m > [22mModal State Management[2m > [22mshould clear PVQ question when closed[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/usePVQTrigger.test.js[2m > [22musePVQTrigger Hook[2m > [22mSubmission State[2m > [22mshould toggle pvqSubmitting state[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/usePVQTrigger.test.js[2m > [22musePVQTrigger Hook[2m > [22mCallback Triggers[2m > [22mshould trigger onPVQTriggered when PVQ modal opens[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/usePVQTrigger.test.js[2m > [22musePVQTrigger Hook[2m > [22mCallback Triggers[2m > [22mshould trigger onPVQSubmitted when answer is submitted[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/usePVQTrigger.test.js[2m > [22musePVQTrigger Hook[2m > [22mRandom Trigger Intervals[2m > [22mshould calculate offset within specified range[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/usePVQTrigger.test.js[2m > [22musePVQTrigger Hook[2m > [22mRandom Trigger Intervals[2m > [22mshould add offset to base trigger interval[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/usePVQTrigger.test.js[2m > [22musePVQTrigger Hook[2m > [22mReturn Object Structure[2m > [22mshould return object with all state properties[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/usePVQTrigger.test.js[2m > [22musePVQTrigger Hook[2m > [22mReact Hooks Usage[2m > [22mshould use useState hook[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/usePVQTrigger.test.js[2m > [22musePVQTrigger Hook[2m > [22mReact Hooks Usage[2m > [22mshould use useCallback for methods[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/usePVQTrigger.test.js[2m > [22musePVQTrigger Hook[2m > [22mReact Hooks Usage[2m > [22mshould use useEffect for PVQ trigger checking[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/usePVQTrigger.test.js[2m > [22musePVQTrigger Hook[2m > [22mReact Hooks Usage[2m > [22mshould use useRef for tracking[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/usePVQTrigger.test.js[2m > [22musePVQTrigger Hook[2m > [22mReact Hooks Usage[2m > [22mshould import hooks from react[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/usePVQTrigger.test.js[2m > [22musePVQTrigger Hook[2m > [22mCompliance with Step 1.3.3 Requirements[2m > [22mshould have all required state properties[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/usePVQTrigger.test.js[2m > [22musePVQTrigger Hook[2m > [22mCompliance with Step 1.3.3 Requirements[2m > [22mshould have all required methods[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/usePVQTrigger.test.js[2m > [22musePVQTrigger Hook[2m > [22mCompliance with Step 1.3.3 Requirements[2m > [22mshould implement random trigger intervals[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/usePVQTrigger.test.js[2m > [22musePVQTrigger Hook[2m > [22mNo Breaking Changes[2m > [22mshould not modify TimerContext[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/usePVQTrigger.test.js[2m > [22musePVQTrigger Hook[2m > [22mNo Breaking Changes[2m > [22mshould not break existing App.jsx integration[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/usePVQTrigger.test.js[2m > [22musePVQTrigger Hook[2m > [22mSyntax and Structure[2m > [22mshould have no syntax errors[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/usePVQTrigger.test.js[2m > [22musePVQTrigger Hook[2m > [22mSyntax and Structure[2m > [22mshould export hook as default export[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/usePVQTrigger.test.js[2m > [22musePVQTrigger Hook[2m > [22mSyntax and Structure[2m > [22mshould also export as named export[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[90mstdout[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mexecute[2m > [22m[2mshould handle async operations correctly[22m[39m
+✅ [async-operation] Succeeded on attempt 2/3
+
+ [33m❯[39m src/components/common/ErrorBoundary/ErrorBoundary.test.js [2m ([22m[2m0 test[22m[2m)[22m
+[90mstdout[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mexecute[2m > [22m[2mshould use exponential backoff timing[22m[39m
+✅ [timed-operation] Succeeded on attempt 3/3
+
+ [33m❯[39m src/api/base/__tests__/ServiceBase.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/api/admin/__tests__/userManagementServices.test.js [2m ([22m[2m0 test[22m[2m)[22m
+[90mstdout[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mretryAsync convenience function[2m > [22m[2mshould work with default configuration[22m[39m
+✅ [test-operation] Succeeded on attempt 2/3
+
+ [33m❯[39m src/hooks/useSessionData.test.js [2m ([22m[2m45 tests[22m [2m|[22m [31m45 failed[39m[2m)[22m[90m 118[2mms[22m[39m
+[31m   [33m❯[31m src/hooks/useSessionData.test.js[2m > [22museSessionData Hook[2m > [22mHook Creation[2m > [22mshould be a function[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionData.test.js[2m > [22museSessionData Hook[2m > [22mHook Creation[2m > [22mshould be a valid React hook[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionData.test.js[2m > [22museSessionData Hook[2m > [22mHook Exports[2m > [22mshould export named hook[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionData.test.js[2m > [22museSessionData Hook[2m > [22mHook Exports[2m > [22mshould have default export[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionData.test.js[2m > [22museSessionData Hook[2m > [22mInitial State[2m > [22mshould initialize with correct default state[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionData.test.js[2m > [22museSessionData Hook[2m > [22mRequired State Properties[2m > [22mshould have all required state properties[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionData.test.js[2m > [22museSessionData Hook[2m > [22mRequired Methods[2m > [22mshould have all required methods[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionData.test.js[2m > [22museSessionData Hook[2m > [22mRequired Methods[2m > [22mshould export methods as useCallback[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionData.test.js[2m > [22museSessionData Hook[2m > [22mRequired Getters[2m > [22mshould have all required getter properties[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionData.test.js[2m > [22museSessionData Hook[2m > [22mOptions Handling[2m > [22mshould accept optional callbacks in options[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionData.test.js[2m > [22museSessionData Hook[2m > [22mOptions Handling[2m > [22mshould accept onSessionCreated callback[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionData.test.js[2m > [22museSessionData Hook[2m > [22mOptions Handling[2m > [22mshould accept onLessonAccessed callback[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionData.test.js[2m > [22museSessionData Hook[2m > [22mOptions Handling[2m > [22mshould accept onSessionClosed callback[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionData.test.js[2m > [22museSessionData Hook[2m > [22mSession Creation[2m > [22mshould create session with ID[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionData.test.js[2m > [22museSessionData Hook[2m > [22mSession Creation[2m > [22mshould initialize lessons accessed array for new session[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionData.test.js[2m > [22museSessionData Hook[2m > [22mSession Creation[2m > [22mshould create current session object with metadata[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionData.test.js[2m > [22museSessionData Hook[2m > [22mSession Creation[2m > [22mshould trigger onSessionCreated callback[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionData.test.js[2m > [22museSessionData Hook[2m > [22mLesson Access Recording[2m > [22mshould add lesson ID to lessonsAccessed array[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionData.test.js[2m > [22museSessionData Hook[2m > [22mLesson Access Recording[2m > [22mshould prevent duplicate lesson entries[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionData.test.js[2m > [22museSessionData Hook[2m > [22mLesson Access Recording[2m > [22mshould trigger onLessonAccessed callback[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionData.test.js[2m > [22museSessionData Hook[2m > [22mSession Closure[2m > [22mshould close current session[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionData.test.js[2m > [22museSessionData Hook[2m > [22mSession Closure[2m > [22mshould move closed session to session history[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionData.test.js[2m > [22museSessionData Hook[2m > [22mSession Closure[2m > [22mshould clear lessons accessed array on close[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionData.test.js[2m > [22museSessionData Hook[2m > [22mSession Closure[2m > [22mshould set end time for closed session[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionData.test.js[2m > [22museSessionData Hook[2m > [22mSession Closure[2m > [22mshould trigger onSessionClosed callback[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionData.test.js[2m > [22museSessionData Hook[2m > [22mSession Data Structure[2m > [22mshould track session ID[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionData.test.js[2m > [22museSessionData Hook[2m > [22mSession Data Structure[2m > [22mshould track lesson IDs accessed[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionData.test.js[2m > [22museSessionData Hook[2m > [22mSession Data Structure[2m > [22mshould track start time[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionData.test.js[2m > [22museSessionData Hook[2m > [22mSession Data Structure[2m > [22mshould track end time when session closes[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionData.test.js[2m > [22museSessionData Hook[2m > [22mLesson Count Getter[2m > [22mshould calculate number of lessons accessed[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionData.test.js[2m > [22museSessionData Hook[2m > [22mLesson Count Getter[2m > [22mshould use lessonsAccessed array length[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionData.test.js[2m > [22museSessionData Hook[2m > [22mSession Count Getter[2m > [22mshould calculate number of sessions in history[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionData.test.js[2m > [22museSessionData Hook[2m > [22mSession Count Getter[2m > [22mshould use sessionHistory array length[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionData.test.js[2m > [22museSessionData Hook[2m > [22mReturn Object Structure[2m > [22mshould return object with all state properties[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionData.test.js[2m > [22museSessionData Hook[2m > [22mReact Hooks Usage[2m > [22mshould use useState hook[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionData.test.js[2m > [22museSessionData Hook[2m > [22mReact Hooks Usage[2m > [22mshould use useCallback for methods[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionData.test.js[2m > [22museSessionData Hook[2m > [22mReact Hooks Usage[2m > [22mshould import hooks from react[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionData.test.js[2m > [22museSessionData Hook[2m > [22mCompliance with Step 1.3.4 Requirements[2m > [22mshould have all required state properties[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionData.test.js[2m > [22museSessionData Hook[2m > [22mCompliance with Step 1.3.4 Requirements[2m > [22mshould have all required methods[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionData.test.js[2m > [22museSessionData Hook[2m > [22mCompliance with Step 1.3.4 Requirements[2m > [22mshould have all required getters[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionData.test.js[2m > [22museSessionData Hook[2m > [22mNo Breaking Changes[2m > [22mshould not modify TimerContext[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionData.test.js[2m > [22museSessionData Hook[2m > [22mNo Breaking Changes[2m > [22mshould not break existing App.jsx integration[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionData.test.js[2m > [22museSessionData Hook[2m > [22mSyntax and Structure[2m > [22mshould have no syntax errors[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionData.test.js[2m > [22museSessionData Hook[2m > [22mSyntax and Structure[2m > [22mshould export hook as default export[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionData.test.js[2m > [22museSessionData Hook[2m > [22mSyntax and Structure[2m > [22mshould also export as named export[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+ [33m❯[39m src/services/__tests__/loggingService.test.js [2m ([22m[2m50 tests[22m[2m)[22m[90m 35[2mms[22m[39m
+[90mstdout[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mreal-world scenarios[2m > [22m[2mshould handle temporary network failure[22m[39m
+✅ [fetchData] Succeeded on attempt 3/3
+
+ [33m❯[39m src/api/base/__tests__/RetryHandler.test.js [2m ([22m[2m31 tests[22m [2m|[22m [31m9 failed[39m[2m)[22m[33m 1024[2mms[22m[39m
+[31m   [33m❯[31m src/api/base/__tests__/RetryHandler.test.js[2m > [22mRetryHandler[2m > [22mexecute[2m > [22mshould fail immediately for non-retryable errors[39m
+[31m     → expected 'UNAUTHENTICATED' to contain 'Invalid credentials'[39m
+[31m   [33m❯[31m src/api/base/__tests__/RetryHandler.test.js[2m > [22mRetryHandler[2m > [22mexecute[2m > [22mshould throw after max attempts exhausted[39m
+[31m     → expected 'RETRY_EXHAUSTED' to contain 'failed after 3 attempts'[39m
+[31m   [33m❯[31m src/api/base/__tests__/RetryHandler.test.js[2m > [22mRetryHandler[2m > [22mexecute[2m > [22mshould throw ApiError with context information[39m
+[31m     → expected 'RETRY_EXHAUSTED' to contain 'failed after 3 attempts'[39m
+[31m   [33m❯[31m src/api/base/__tests__/RetryHandler.test.js[2m > [22mRetryHandler[2m > [22mexecute[2m > [22mshould validate operation parameter[39m
+[31m     → expected 'INVALID_OPERATION' to contain 'must be a function'[39m
+[31m   [33m❯[31m src/api/base/__tests__/RetryHandler.test.js[2m > [22mRetryHandler[2m > [22mexecute[2m > [22mshould handle errors with message property[39m
+[31m     → expected 'RETRY_EXHAUSTED' to contain 'failed after 3 attempts'[39m
+[31m   [33m❯[31m src/api/base/__tests__/RetryHandler.test.js[2m > [22mRetryHandler[2m > [22mexecute[2m > [22mshould log context in thrown error[39m
+[31m     → expected 'RETRY_EXHAUSTED' to contain 'myOperation'[39m
+[31m   [33m❯[31m src/api/base/__tests__/RetryHandler.test.js[2m > [22mRetryHandler[2m > [22mretryAsync convenience function[2m > [22mshould throw after max attempts[39m
+[31m     → expected 'RETRY_EXHAUSTED' to contain 'failed after'[39m
+[31m   [33m❯[31m src/api/base/__tests__/RetryHandler.test.js[2m > [22mRetryHandler[2m > [22mcreateRetryHandler factory[2m > [22mshould work with custom handler[39m
+[31m     → expected 'RETRY_EXHAUSTED' to contain 'failed after 2 attempts'[39m
+[31m   [33m❯[31m src/api/base/__tests__/RetryHandler.test.js[2m > [22mRetryHandler[2m > [22mreal-world scenarios[2m > [22mshould fail fast on permission error[39m
+[31m     → expected 'PERMISSION_DENIED' to contain 'Access denied'[39m
+[90mstdout[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mreal-world scenarios[2m > [22m[2mshould recover from server temporarily unavailable[22m[39m
+✅ [submitForm] Succeeded on attempt 2/3
+
+ [33m❯[39m src/api/base/__tests__/QueryHelper.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/context/ModalContext.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/components/common/Quiz/Quiz.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [32m✓[39m src/api/admin/__tests__/analyticsServices.test.js [2m ([22m[2m35 tests[22m[2m)[22m[90m 120[2mms[22m[39m
+ [33m❯[39m src/components/admin/tabs/__tests__/UserManagementTab.createUser.integration.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/api/enrollment/__tests__/enrollmentServices.concurrent.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/context/AuthContext.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/pages/Admin/__tests__/AdminPage.userManagement.integration.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [32m✓[39m src/__tests__/firestore.rules.test.js [2m ([22m[2m25 tests[22m[2m)[22m[90m 18[2mms[22m[39m
+ [32m✓[39m src/constants/__tests__/userRoles.assignment.test.js [2m ([22m[2m35 tests[22m[2m)[22m[90m 29[2mms[22m[39m
+ [33m❯[39m src/context/CourseContext.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/api/enrollment/__tests__/enrollmentServices.reset.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/api/base/__tests__/CacheService.test.js [2m ([22m[2m32 tests[22m [2m|[22m [31m32 failed[39m[2m)[22m[90m 100[2mms[22m[39m
+[31m   [33m❯[31m src/api/base/__tests__/CacheService.test.js[2m > [22mCacheService[2m > [22mset()[2m > [22mshould store a value in cache[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/api/base/__tests__/CacheService.test.js[2m > [22mCacheService[2m > [22mset()[2m > [22mshould overwrite existing key[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/api/base/__tests__/CacheService.test.js[2m > [22mCacheService[2m > [22mset()[2m > [22mshould store different types of values[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/api/base/__tests__/CacheService.test.js[2m > [22mCacheService[2m > [22mset()[2m > [22mshould store null values[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/api/base/__tests__/CacheService.test.js[2m > [22mCacheService[2m > [22mset()[2m > [22mshould handle numeric keys by converting to string[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/api/base/__tests__/CacheService.test.js[2m > [22mCacheService[2m > [22mget()[2m > [22mshould retrieve cached value[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/api/base/__tests__/CacheService.test.js[2m > [22mCacheService[2m > [22mget()[2m > [22mshould return null if key does not exist[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/api/base/__tests__/CacheService.test.js[2m > [22mCacheService[2m > [22mget()[2m > [22mshould return null if entry has expired[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/api/base/__tests__/CacheService.test.js[2m > [22mCacheService[2m > [22mget()[2m > [22mshould return value before TTL expires[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/api/base/__tests__/CacheService.test.js[2m > [22mCacheService[2m > [22mget()[2m > [22mshould return value if no TTL provided[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/api/base/__tests__/CacheService.test.js[2m > [22mCacheService[2m > [22mget()[2m > [22mshould automatically clean up expired entries on get()[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/api/base/__tests__/CacheService.test.js[2m > [22mCacheService[2m > [22minvalidate()[2m > [22mshould remove a single entry from cache[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/api/base/__tests__/CacheService.test.js[2m > [22mCacheService[2m > [22minvalidate()[2m > [22mshould handle invalidating non-existent key gracefully[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/api/base/__tests__/CacheService.test.js[2m > [22mCacheService[2m > [22minvalidate()[2m > [22mshould remove TTL timeout when invalidating[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/api/base/__tests__/CacheService.test.js[2m > [22mCacheService[2m > [22minvalidate()[2m > [22mshould not affect other cache entries[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/api/base/__tests__/CacheService.test.js[2m > [22mCacheService[2m > [22mclear()[2m > [22mshould remove all entries from cache[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/api/base/__tests__/CacheService.test.js[2m > [22mCacheService[2m > [22mclear()[2m > [22mshould clear all TTL timeouts[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/api/base/__tests__/CacheService.test.js[2m > [22mCacheService[2m > [22mclear()[2m > [22mshould allow adding new entries after clearing[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/api/base/__tests__/CacheService.test.js[2m > [22mCacheService[2m > [22mTTL (time-to-live)[2m > [22mshould use default TTL if provided[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/api/base/__tests__/CacheService.test.js[2m > [22mCacheService[2m > [22mTTL (time-to-live)[2m > [22mshould honor different TTLs for different entries[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/api/base/__tests__/CacheService.test.js[2m > [22mCacheService[2m > [22mTTL (time-to-live)[2m > [22mshould not expire entries without TTL[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/api/base/__tests__/CacheService.test.js[2m > [22mCacheService[2m > [22mTTL (time-to-live)[2m > [22mshould expire exactly at TTL boundary[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/api/base/__tests__/CacheService.test.js[2m > [22mCacheService[2m > [22medge cases[2m > [22mshould handle cache hits and misses in sequence[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/api/base/__tests__/CacheService.test.js[2m > [22mCacheService[2m > [22medge cases[2m > [22mshould handle rapid set and get operations[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/api/base/__tests__/CacheService.test.js[2m > [22mCacheService[2m > [22medge cases[2m > [22mshould handle special characters in keys[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/api/base/__tests__/CacheService.test.js[2m > [22mCacheService[2m > [22medge cases[2m > [22mshould handle large objects[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/api/base/__tests__/CacheService.test.js[2m > [22mCacheService[2m > [22medge cases[2m > [22mshould not interfere with prototype chain[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/api/base/__tests__/CacheService.test.js[2m > [22mCacheService[2m > [22mintegration scenarios[2m > [22mshould handle cache invalidation and re-population[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/api/base/__tests__/CacheService.test.js[2m > [22mCacheService[2m > [22mintegration scenarios[2m > [22mshould handle mixed TTL and non-TTL entries[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/api/base/__tests__/CacheService.test.js[2m > [22mCacheService[2m > [22mintegration scenarios[2m > [22mshould handle multiple clears[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/api/base/__tests__/CacheService.test.js[2m > [22mCacheService[2m > [22mintegration scenarios[2m > [22mshould handle invalidate after expiration[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/api/base/__tests__/CacheService.test.js[2m > [22mCacheService[2m > [22mintegration scenarios[2m > [22mshould maintain cache between get operations[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+ [33m❯[39m src/hooks/useSessionTimer.test.js [2m ([22m[2m26 tests[22m [2m|[22m [31m26 failed[39m[2m)[22m[90m 87[2mms[22m[39m
+[31m   [33m❯[31m src/hooks/useSessionTimer.test.js[2m > [22museSessionTimer Hook[2m > [22mHook Creation[2m > [22mshould be a function[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionTimer.test.js[2m > [22museSessionTimer Hook[2m > [22mHook Creation[2m > [22mshould be a valid React hook[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionTimer.test.js[2m > [22museSessionTimer Hook[2m > [22mDMV Compliance Constants[2m > [22mshould enforce 4-hour daily maximum[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionTimer.test.js[2m > [22museSessionTimer Hook[2m > [22mDMV Compliance Constants[2m > [22mshould enforce 2-hour break requirement[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionTimer.test.js[2m > [22museSessionTimer Hook[2m > [22mHook Methods[2m > [22mshould export named hook[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionTimer.test.js[2m > [22museSessionTimer Hook[2m > [22mHook Methods[2m > [22mshould have default export[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionTimer.test.js[2m > [22museSessionTimer Hook[2m > [22mReturn Object Structure[2m > [22mshould return object with expected state properties[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionTimer.test.js[2m > [22museSessionTimer Hook[2m > [22mConstants Preservation[2m > [22mshould preserve MAX_DAILY_HOURS for DMV compliance[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionTimer.test.js[2m > [22museSessionTimer Hook[2m > [22mConstants Preservation[2m > [22mshould preserve BREAK_REQUIRED_AFTER for DMV compliance[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionTimer.test.js[2m > [22museSessionTimer Hook[2m > [22mHook Methods Available[2m > [22mshould expose required method signatures[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionTimer.test.js[2m > [22museSessionTimer Hook[2m > [22mHook Methods Available[2m > [22mshould return state properties[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionTimer.test.js[2m > [22museSessionTimer Hook[2m > [22mHook Methods Available[2m > [22mshould return getter properties[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionTimer.test.js[2m > [22museSessionTimer Hook[2m > [22mNo Breaking Changes[2m > [22mshould not modify TimerContext[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionTimer.test.js[2m > [22museSessionTimer Hook[2m > [22mNo Breaking Changes[2m > [22mshould not break existing App.jsx integration[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionTimer.test.js[2m > [22museSessionTimer Hook[2m > [22mOptions Handling[2m > [22mshould accept optional callbacks[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionTimer.test.js[2m > [22museSessionTimer Hook[2m > [22mOptions Handling[2m > [22mshould handle missing options gracefully[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionTimer.test.js[2m > [22museSessionTimer Hook[2m > [22mCompliance with Step 1.3.1 Requirements[2m > [22mshould have all required state properties[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionTimer.test.js[2m > [22museSessionTimer Hook[2m > [22mCompliance with Step 1.3.1 Requirements[2m > [22mshould have all required methods[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionTimer.test.js[2m > [22museSessionTimer Hook[2m > [22mCompliance with Step 1.3.1 Requirements[2m > [22mshould have all required getters[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionTimer.test.js[2m > [22museSessionTimer Hook[2m > [22mCompliance with Step 1.3.1 Requirements[2m > [22mshould check daily lockout on demand[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionTimer.test.js[2m > [22museSessionTimer Hook[2m > [22mCompliance with Step 1.3.1 Requirements[2m > [22mshould increment timer every 1 second[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionTimer.test.js[2m > [22museSessionTimer Hook[2m > [22mExport Validation[2m > [22mshould export hook as default export[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionTimer.test.js[2m > [22museSessionTimer Hook[2m > [22mExport Validation[2m > [22mshould also export as named export[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionTimer.test.js[2m > [22museSessionTimer Hook[2m > [22mSyntax and Structure[2m > [22mshould have no syntax errors[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionTimer.test.js[2m > [22museSessionTimer Hook[2m > [22mSyntax and Structure[2m > [22mshould use React hooks correctly[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/hooks/useSessionTimer.test.js[2m > [22museSessionTimer Hook[2m > [22mSyntax and Structure[2m > [22mshould import React hooks from react[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+ [33m❯[39m src/api/enrollment/__tests__/enrollmentServices.refactor.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/api/student/__tests__/userServices.getAllStudents.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m functions/src/compliance/sessionHeartbeat.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/components/auth/__tests__/ForcePasswordChangeModal.integration.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/pages/CoursePlayer/CoursePlayerPage.quiz.integration.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/api/enrollment/__tests__/enrollmentServices.checkCourseAccess.test.js [2m ([22m[2m9 tests[22m [2m|[22m [31m9 failed[39m[2m)[22m[90m 25[2mms[22m[39m
+[31m   [33m❯[31m src/api/enrollment/__tests__/enrollmentServices.checkCourseAccess.test.js[2m > [22menrollmentServices.checkCourseAccess()[2m > [22mNo Enrollment Found[2m > [22mshould return hasAccess: false when no enrollment[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/api/enrollment/__tests__/enrollmentServices.checkCourseAccess.test.js[2m > [22menrollmentServices.checkCourseAccess()[2m > [22mAccess Check[2m > [22mshould return hasAccess: true for unlocked and active enrollment[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/api/enrollment/__tests__/enrollmentServices.checkCourseAccess.test.js[2m > [22menrollmentServices.checkCourseAccess()[2m > [22mAccess Check[2m > [22mshould return hasAccess: false if locked[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/api/enrollment/__tests__/enrollmentServices.checkCourseAccess.test.js[2m > [22menrollmentServices.checkCourseAccess()[2m > [22mAccess Check[2m > [22mshould return hasAccess: false if enrollment not active[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/api/enrollment/__tests__/enrollmentServices.checkCourseAccess.test.js[2m > [22menrollmentServices.checkCourseAccess()[2m > [22mAccess Check[2m > [22mshould return hasAccess: false even if unlocked but not active[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/api/enrollment/__tests__/enrollmentServices.checkCourseAccess.test.js[2m > [22menrollmentServices.checkCourseAccess()[2m > [22mError Handling[2m > [22mshould rethrow caught errors[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/api/enrollment/__tests__/enrollmentServices.checkCourseAccess.test.js[2m > [22menrollmentServices.checkCourseAccess()[2m > [22mError Handling[2m > [22mshould log error with context[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/api/enrollment/__tests__/enrollmentServices.checkCourseAccess.test.js[2m > [22menrollmentServices.checkCourseAccess()[2m > [22mResponse Structure[2m > [22mshould always return object with hasAccess property[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+[31m   [33m❯[31m src/api/enrollment/__tests__/enrollmentServices.checkCourseAccess.test.js[2m > [22menrollmentServices.checkCourseAccess()[2m > [22mResponse Structure[2m > [22mshould include all status fields in response[39m
+[31m     → jest is not defined[39m
+[31m     → jest is not defined[39m
+ [33m❯[39m src/hooks/useComplianceHeartbeat.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [32m✓[39m src/utils/__tests__/dateTimeFormatter.test.js [2m ([22m[2m11 tests[22m[2m)[22m[90m 7[2mms[22m[39m
+ [33m❯[39m src/components/admin/__tests__/SchedulingManagement.assignment.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/api/admin/__tests__/userManagementServices.createUserFunction.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/api/compliance/__tests__/schedulingServices.assignment.test.js [2m ([22m[2m0 test[22m[2m)[22m
+
+[2m Test Files [22m [1m[31m34 failed[39m[22m[2m | [22m[1m[32m5 passed[39m[22m[90m (39)[39m
+[2m      Tests [22m [1m[31m255 failed[39m[22m[2m | [22m[1m[32m166 passed[39m[22m[90m (471)[39m
+[2m   Start at [22m 10:51:47
+[2m   Duration [22m 11.40s[2m (transform 916ms, setup 13.53s, collect 1.47s, tests 1.93s, environment 82.85s, prepare 23.34s)[22m
+

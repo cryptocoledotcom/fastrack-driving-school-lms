@@ -1,22 +1,23 @@
 import { renderHook, waitFor } from '@testing-library/react';
+import { vi } from 'vitest';
 import { useComplianceHeartbeat } from './useComplianceHeartbeat';
 import { httpsCallable } from 'firebase/functions';
 
-jest.mock('firebase/functions');
+vi.mock('firebase/functions');
 
 describe('useComplianceHeartbeat', () => {
   let mockHeartbeatFn;
 
   beforeEach(() => {
-    jest.clearAllMocks();
-    mockHeartbeatFn = jest.fn();
+    vi.clearAllMocks();
+    mockHeartbeatFn = vi.fn();
     httpsCallable.mockReturnValue(mockHeartbeatFn);
-    jest.useFakeTimers();
+    vi.useFakeTimers();
   });
 
   afterEach(() => {
     jest.runOnlyPendingTimers();
-    jest.useRealTimers();
+    vi.useRealTimers();
   });
 
   it('should call heartbeat function every 60 seconds', async () => {
@@ -53,7 +54,7 @@ describe('useComplianceHeartbeat', () => {
   });
 
   it('should call onHeartbeatSuccess callback on successful heartbeat', async () => {
-    const onHeartbeatSuccess = jest.fn();
+    const onHeartbeatSuccess = vi.fn();
     const userId = 'test-user-123';
     const courseId = 'course-456';
     const sessionId = 'session-789';
@@ -86,7 +87,7 @@ describe('useComplianceHeartbeat', () => {
   });
 
   it('should call onLimitReached when daily limit is exceeded', async () => {
-    const onLimitReached = jest.fn();
+    const onLimitReached = vi.fn();
     const userId = 'test-user-123';
     const courseId = 'course-456';
     const sessionId = 'session-789';
@@ -163,7 +164,7 @@ describe('useComplianceHeartbeat', () => {
   });
 
   it('should call onHeartbeatError callback on error', async () => {
-    const onHeartbeatError = jest.fn();
+    const onHeartbeatError = vi.fn();
     const userId = 'test-user-123';
     const courseId = 'course-456';
     const sessionId = 'session-789';

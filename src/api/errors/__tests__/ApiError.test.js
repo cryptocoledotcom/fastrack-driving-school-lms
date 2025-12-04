@@ -15,6 +15,7 @@ import {
   PVQError,
   SchedulingError
 } from '../ApiError';
+import { vi } from 'vitest';
 
 describe('ApiError', () => {
   describe('Base ApiError Class', () => {

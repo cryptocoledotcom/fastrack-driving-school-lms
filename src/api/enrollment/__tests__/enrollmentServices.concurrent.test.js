@@ -1,18 +1,19 @@
 import enrollmentServices from '../enrollmentServices.js';
 import { EnrollmentError, ValidationError } from '../../errors/ApiError.js';
+import { vi } from 'vitest';
 
-jest.mock('firebase/firestore', () => ({
-  doc: jest.fn(),
-  writeBatch: jest.fn(),
+vi.mock('firebase/firestore', () => ({
+  doc: vi.fn(),
+  writeBatch: vi.fn(),
   increment: jest.fn((val) => ({ _type: 'increment', value: val })),
   serverTimestamp: jest.fn(() => ({ _type: 'serverTimestamp' }))
 }));
 
-jest.mock('../../../config/firebase.js', () => ({
+vi.mock('../../../config/firebase.js', () => ({
   db: {}
 }));
 
-jest.mock('../../errors/ApiError.js', () => {
+vi.mock('../../errors/ApiError.js', () => {
   class ValidationError extends Error {
     constructor(message) {
       super(message);
@@ -46,7 +47,7 @@ jest.mock('../../errors/ApiError.js', () => {
   };
 });
 
-jest.mock('../../../utils/api/validators.js', () => ({
+vi.mock('../../../utils/api/validators.js', () => ({
   validateUserId: jest.fn((userId) => {
     if (!userId || typeof userId !== 'string') {
       throw new Error('Invalid user ID');
@@ -57,20 +58,20 @@ jest.mock('../../../utils/api/validators.js', () => ({
       throw new Error('Invalid course ID');
     }
   }),
-  validateEmail: jest.fn(),
-  validatePaymentData: jest.fn(),
-  validateEnrollmentData: jest.fn()
+  validateEmail: vi.fn(),
+  validatePaymentData: vi.fn(),
+  validateEnrollmentData: vi.fn()
 }));
 
 let firebaseFirestore;
 let db;
 
 beforeEach(() => {
-  jest.clearAllMocks();
+  vi.clearAllMocks();
   firebaseFirestore = require('firebase/firestore');
   db = require('../../../config/firebase.js').db;
   
-  enrollmentServices.getEnrollment = jest.fn();
+  enrollmentServices.getEnrollment = vi.fn();
   
   enrollmentServices.validate = {
     validateUserId: (userId) => {
@@ -113,8 +114,8 @@ describe('enrollmentServices - Concurrent Operations (Atomic)', () => {
 
     it('should use atomic operations with batch updates', async () => {
       const mockBatch = {
-        update: jest.fn().mockReturnThis(),
-        commit: jest.fn().mockResolvedValue(undefined)
+        update: vi.fn().mockReturnThis(),
+        commit: vi.fn().mockResolvedValue(undefined)
       };
 
       firebaseFirestore.writeBatch.mockReturnValue(mockBatch);
@@ -140,8 +141,8 @@ describe('enrollmentServices - Concurrent Operations (Atomic)', () => {
       });
 
       const mockBatch = {
-        update: jest.fn().mockReturnThis(),
-        commit: jest.fn().mockResolvedValue(undefined)
+        update: vi.fn().mockReturnThis(),
+        commit: vi.fn().mockResolvedValue(undefined)
       };
 
       firebaseFirestore.writeBatch.mockReturnValue(mockBatch);
@@ -161,8 +162,8 @@ describe('enrollmentServices - Concurrent Operations (Atomic)', () => {
       });
 
       const mockBatch = {
-        update: jest.fn().mockReturnThis(),
-        commit: jest.fn().mockResolvedValue(undefined)
+        update: vi.fn().mockReturnThis(),
+        commit: vi.fn().mockResolvedValue(undefined)
       };
 
       firebaseFirestore.writeBatch.mockReturnValue(mockBatch);
@@ -202,8 +203,8 @@ describe('enrollmentServices - Concurrent Operations (Atomic)', () => {
       });
 
       const mockBatch = {
-        update: jest.fn().mockReturnThis(),
-        commit: jest.fn().mockResolvedValue(undefined)
+        update: vi.fn().mockReturnThis(),
+        commit: vi.fn().mockResolvedValue(undefined)
       };
 
       firebaseFirestore.writeBatch.mockReturnValue(mockBatch);
@@ -222,8 +223,8 @@ describe('enrollmentServices - Concurrent Operations (Atomic)', () => {
       });
 
       const mockBatch = {
-        update: jest.fn().mockReturnThis(),
-        commit: jest.fn().mockResolvedValue(undefined)
+        update: vi.fn().mockReturnThis(),
+        commit: vi.fn().mockResolvedValue(undefined)
       };
 
       firebaseFirestore.writeBatch.mockReturnValue(mockBatch);
@@ -244,13 +245,13 @@ describe('enrollmentServices - Concurrent Operations (Atomic)', () => {
       });
 
       const mockBatch1 = {
-        update: jest.fn().mockReturnThis(),
-        commit: jest.fn().mockResolvedValue(undefined)
+        update: vi.fn().mockReturnThis(),
+        commit: vi.fn().mockResolvedValue(undefined)
       };
 
       const mockBatch2 = {
-        update: jest.fn().mockReturnThis(),
-        commit: jest.fn().mockResolvedValue(undefined)
+        update: vi.fn().mockReturnThis(),
+        commit: vi.fn().mockResolvedValue(undefined)
       };
 
       let batchIndex = 0;
@@ -280,8 +281,8 @@ describe('enrollmentServices - Concurrent Operations (Atomic)', () => {
         });
 
       const mockBatch = {
-        update: jest.fn().mockReturnThis(),
-        commit: jest.fn().mockResolvedValue(undefined)
+        update: vi.fn().mockReturnThis(),
+        commit: vi.fn().mockResolvedValue(undefined)
       };
 
       firebaseFirestore.writeBatch.mockReturnValue(mockBatch);
@@ -298,8 +299,8 @@ describe('enrollmentServices - Concurrent Operations (Atomic)', () => {
   describe('Error Handling with Atomic Operations', () => {
     it('should not commit batch on validation error', async () => {
       const mockBatch = {
-        update: jest.fn().mockReturnThis(),
-        commit: jest.fn().mockResolvedValue(undefined)
+        update: vi.fn().mockReturnThis(),
+        commit: vi.fn().mockResolvedValue(undefined)
       };
 
       firebaseFirestore.writeBatch.mockReturnValue(mockBatch);
@@ -315,8 +316,8 @@ describe('enrollmentServices - Concurrent Operations (Atomic)', () => {
       enrollmentServices.getEnrollment.mockResolvedValue(null);
 
       const mockBatch = {
-        update: jest.fn().mockReturnThis(),
-        commit: jest.fn().mockResolvedValue(undefined)
+        update: vi.fn().mockReturnThis(),
+        commit: vi.fn().mockResolvedValue(undefined)
       };
 
       firebaseFirestore.writeBatch.mockReturnValue(mockBatch);
@@ -339,8 +340,8 @@ describe('enrollmentServices - Concurrent Operations (Atomic)', () => {
       });
 
       const mockBatch = {
-        update: jest.fn().mockReturnThis(),
-        commit: jest.fn().mockResolvedValue(undefined)
+        update: vi.fn().mockReturnThis(),
+        commit: vi.fn().mockResolvedValue(undefined)
       };
 
       firebaseFirestore.writeBatch.mockReturnValue(mockBatch);
@@ -362,8 +363,8 @@ describe('enrollmentServices - Concurrent Operations (Atomic)', () => {
       });
 
       const mockBatch = {
-        update: jest.fn().mockReturnThis(),
-        commit: jest.fn().mockResolvedValue(undefined)
+        update: vi.fn().mockReturnThis(),
+        commit: vi.fn().mockResolvedValue(undefined)
       };
 
       firebaseFirestore.writeBatch.mockReturnValue(mockBatch);

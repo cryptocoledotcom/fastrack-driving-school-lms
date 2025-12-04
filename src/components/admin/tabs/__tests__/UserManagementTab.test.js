@@ -4,8 +4,9 @@ import userEvent from '@testing-library/user-event';
 import UserManagementTab from '../UserManagementTab';
 import userManagementServices from '../../../../api/admin/userManagementServices';
 import { USER_ROLES } from '../../../../constants/userRoles';
+import { vi } from 'vitest';
 
-jest.mock('../../../../api/admin/userManagementServices');
+vi.mock('../../../../api/admin/userManagementServices');
 
 const mockUserProfile = {
   uid: 'admin123',
@@ -13,7 +14,7 @@ const mockUserProfile = {
   displayName: 'Super Admin',
 };
 
-jest.mock('../../../../context/AuthContext', () => ({
+vi.mock('../../../../context/AuthContext', () => ({
   useAuth: () => ({
     userProfile: mockUserProfile,
   }),
@@ -74,7 +75,7 @@ const mockActivityLogs = [
 
 describe('UserManagementTab', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
     userManagementServices.getAllUsers.mockResolvedValue(mockUsers);
     userManagementServices.getUserStats.mockResolvedValue(mockStats);
     userManagementServices.getActivityLogs.mockResolvedValue(mockActivityLogs);

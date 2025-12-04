@@ -6,17 +6,17 @@ import * as moduleServices from '../api/courses/moduleServices';
 import * as lessonServices from '../api/courses/lessonServices';
 import * as progressServices from '../api/student/progressServices';
 
-jest.mock('./AuthContext', () => ({
+vi.mock('./AuthContext', () => ({
   useAuth: () => ({
     user: { uid: 'test-user-id' },
     userProfile: { role: 'student' }
   })
 }));
 
-jest.mock('../api/courses/courseServices');
-jest.mock('../api/courses/moduleServices');
-jest.mock('../api/courses/lessonServices');
-jest.mock('../api/student/progressServices');
+vi.mock('../api/courses/courseServices');
+vi.mock('../api/courses/moduleServices');
+vi.mock('../api/courses/lessonServices');
+vi.mock('../api/student/progressServices');
 
 describe('CourseContext', () => {
   const mockCourses = [
@@ -38,7 +38,7 @@ describe('CourseContext', () => {
   };
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
     courseServices.getCourses.mockResolvedValue(mockCourses);
     courseServices.getCourseById.mockResolvedValue(mockCourses[0]);
     moduleServices.getModules.mockResolvedValue(mockModules);

@@ -2,10 +2,11 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import ErrorBoundary from './ErrorBoundary';
 import LoggingService from '../../../services/loggingService';
+import { vi } from 'vitest';
 
-jest.mock('../../../services/loggingService', () => ({
-  error: jest.fn(),
-  info: jest.fn()
+vi.mock('../../../services/loggingService', () => ({
+  error: vi.fn(),
+  info: vi.fn()
 }));
 
 const TestComponent = ({ shouldError = false }) => {
@@ -30,8 +31,8 @@ describe('ErrorBoundary', () => {
   let consoleErrorSpy;
 
   beforeEach(() => {
-    jest.clearAllMocks();
-    consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+    vi.clearAllMocks();
+    consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
   });
 
   afterEach(() => {

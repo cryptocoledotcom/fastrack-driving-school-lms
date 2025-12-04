@@ -7,13 +7,14 @@ import * as lessonServices from '../../api/courses/lessonServices';
 import * as progressServices from '../../api/student/progressServices';
 import * as quizServices from '../../api/courses/quizServices';
 import { LESSON_TYPES } from '../../constants/lessonTypes';
+import { vi } from 'vitest';
 
-jest.mock('../../api/courses/courseServices');
-jest.mock('../../api/courses/moduleServices');
-jest.mock('../../api/courses/lessonServices');
-jest.mock('../../api/student/progressServices');
-jest.mock('../../api/courses/quizServices');
-jest.mock('../../hooks/useComplianceHeartbeat', () => ({
+vi.mock('../../api/courses/courseServices');
+vi.mock('../../api/courses/moduleServices');
+vi.mock('../../api/courses/lessonServices');
+vi.mock('../../api/student/progressServices');
+vi.mock('../../api/courses/quizServices');
+vi.mock('../../hooks/useComplianceHeartbeat', () => ({
   __esModule: true,
   default: () => ({})
 }));
@@ -63,7 +64,7 @@ describe('CoursePlayerPage - Quiz Integration', () => {
   };
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
 
     courseServices.getCourseById.mockResolvedValue(mockCourse);
     moduleServices.getModules.mockResolvedValue([mockModule]);

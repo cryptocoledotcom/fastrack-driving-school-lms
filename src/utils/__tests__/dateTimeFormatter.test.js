@@ -1,4 +1,5 @@
 import { formatTime24to12, parseLocalDate, formatDateDisplay } from '../dateTimeFormatter';
+import { vi } from 'vitest';
 
 describe('dateTimeFormatter', () => {
   describe('formatTime24to12', () => {

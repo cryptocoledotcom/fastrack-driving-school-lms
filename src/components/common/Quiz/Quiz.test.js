@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Quiz from './Quiz';
+import { vi } from 'vitest';
 
 describe('Quiz Component', () => {
   const mockQuiz = {
@@ -29,8 +30,8 @@ describe('Quiz Component', () => {
     ]
   };
 
-  const mockOnSubmit = jest.fn();
-  const mockOnCancel = jest.fn();
+  const mockOnSubmit = vi.fn();
+  const mockOnCancel = vi.fn();
 
   beforeEach(() => {
     mockOnSubmit.mockClear();
@@ -308,7 +309,7 @@ describe('Quiz Component', () => {
   });
 
   test('shows alert when trying to submit without answering all questions', () => {
-    const alertSpy = jest.spyOn(window, 'alert').mockImplementation(() => {});
+    const alertSpy = vi.spyOn(window, 'alert').mockImplementation(() => {});
 
     render(
       <Quiz

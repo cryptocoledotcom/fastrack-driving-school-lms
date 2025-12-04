@@ -1,15 +1,16 @@
 import { getAllStudents } from '../userServices';
 import * as firestoreModule from 'firebase/firestore';
 import { USER_ROLES } from '../../../constants/userRoles';
+import { vi } from 'vitest';
 
-jest.mock('firebase/firestore');
-jest.mock('../../base/ServiceWrapper', () => ({
+vi.mock('firebase/firestore');
+vi.mock('../../base/ServiceWrapper', () => ({
   executeService: jest.fn((fn) => fn())
 }));
 
 describe('User Services - getAllStudents', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it('should fetch all students with role STUDENT', async () => {
@@ -109,7 +110,7 @@ describe('User Services - getAllStudents', () => {
 
   it('should return empty array when no students exist', async () => {
     const mockQuerySnapshot = {
-      forEach: jest.fn()
+      forEach: vi.fn()
     };
 
     firestoreModule.collection.mockReturnValueOnce({ path: 'users' });
@@ -154,7 +155,7 @@ describe('User Services - getAllStudents', () => {
 
   it('should use query filter for STUDENT role', async () => {
     const mockQuerySnapshot = {
-      forEach: jest.fn()
+      forEach: vi.fn()
     };
 
     firestoreModule.collection.mockReturnValueOnce({ path: 'users' });

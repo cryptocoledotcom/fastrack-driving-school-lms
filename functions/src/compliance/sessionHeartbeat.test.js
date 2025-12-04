@@ -2,7 +2,7 @@ const { sessionHeartbeat } = require('./complianceFunctions');
 const admin = require('firebase-admin');
 
 // Mock firebase-admin
-jest.mock('firebase-admin', () => ({
+vi.mock('firebase-admin', () => ({
   firestore: {
     FieldValue: {
       serverTimestamp: jest.fn(() => 'server-timestamp'),
@@ -16,25 +16,25 @@ jest.mock('firebase-admin', () => ({
   }
 }));
 
-jest.mock('firebase-admin/firestore', () => ({
+vi.mock('firebase-admin/firestore', () => ({
   getFirestore: jest.fn(() => ({
     collection: jest.fn(() => ({
       doc: jest.fn(() => ({
-        get: jest.fn(),
-        update: jest.fn(),
-        set: jest.fn(),
-        collection: jest.fn()
+        get: vi.fn(),
+        update: vi.fn(),
+        set: vi.fn(),
+        collection: vi.fn()
       }))
     })),
     batch: jest.fn(() => ({
-      set: jest.fn(),
-      update: jest.fn(),
-      commit: jest.fn()
+      set: vi.fn(),
+      update: vi.fn(),
+      commit: vi.fn()
     }))
   }))
 }));
 
-jest.mock('../common/auditLogger', () => ({
+vi.mock('../common/auditLogger', () => ({
   logAuditEvent: jest.fn(() => Promise.resolve())
 }));
 
@@ -43,7 +43,7 @@ describe('sessionHeartbeat Cloud Function', () => {
   let mockData;
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
 
     mockContext = {
       auth: {

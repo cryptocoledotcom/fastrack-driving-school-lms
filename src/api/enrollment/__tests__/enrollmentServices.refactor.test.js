@@ -1,9 +1,10 @@
 import enrollmentServices from '../enrollmentServices.js';
 import { ValidationError, EnrollmentError } from '../../errors/ApiError.js';
 import { COURSE_IDS, COURSE_PRICING, ENROLLMENT_STATUS, PAYMENT_STATUS, ACCESS_STATUS } from '../../../constants/courses.js';
+import { vi } from 'vitest';
 
-jest.mock('../../../utils/api/validators.js');
-jest.mock('../../../utils/api/timestampHelper.js', () => ({
+vi.mock('../../../utils/api/validators.js');
+vi.mock('../../../utils/api/timestampHelper.js', () => ({
   getFirestoreTimestamps: jest.fn(() => ({
     createdAt: 'mock-created',
     updatedAt: 'mock-updated'
@@ -15,9 +16,9 @@ describe('enrollmentServices.createEnrollment() - Refactored with utilities', ()
   let mockGetDoc;
 
   beforeEach(() => {
-    jest.clearAllMocks();
-    mockSetDoc = jest.fn();
-    mockGetDoc = jest.fn();
+    vi.clearAllMocks();
+    mockSetDoc = vi.fn();
+    mockGetDoc = vi.fn();
     
     enrollmentServices.setDoc = mockSetDoc;
     enrollmentServices.getDoc = mockGetDoc;

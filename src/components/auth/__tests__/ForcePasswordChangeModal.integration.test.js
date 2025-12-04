@@ -2,11 +2,12 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import * as AuthModule from 'firebase/auth';
 import * as FirestoreModule from 'firebase/firestore';
+import { vi } from 'vitest';
 
-jest.mock('firebase/auth');
-jest.mock('firebase/firestore');
+vi.mock('firebase/auth');
+vi.mock('firebase/firestore');
 
-jest.mock('../ForcePasswordChangeModal', () => {
+vi.mock('../ForcePasswordChangeModal', () => {
   return function DummyForcePasswordChangeModal({ isOpen, onComplete, temporaryPassword }) {
     if (!isOpen) return null;
     
@@ -43,11 +44,11 @@ jest.mock('../ForcePasswordChangeModal', () => {
 });
 
 describe('ForcePasswordChangeModal Integration Tests', () => {
-  const mockOnComplete = jest.fn();
+  const mockOnComplete = vi.fn();
   const temporaryPassword = 'TempPassword123!';
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
     
     AuthModule.auth = {
       currentUser: {

@@ -1,13 +1,14 @@
 import ServiceBase from '../ServiceBase.js';
+import { vi } from 'vitest';
 
 let ApiError;
 
-jest.mock('../../../config/firebase.js', () => ({
+vi.mock('../../../config/firebase.js', () => ({
   auth: { currentUser: null },
   db: {}
 }));
 
-jest.mock('../../errors/ApiError.js', () => {
+vi.mock('../../errors/ApiError.js', () => {
   class MockApiError {
     constructor(code, message, originalError) {
       this.code = code;
@@ -27,35 +28,35 @@ jest.mock('../../errors/ApiError.js', () => {
   };
 });
 
-jest.mock('../../../services/loggingService.js', () => ({
-  log: jest.fn(),
-  error: jest.fn(),
-  debug: jest.fn(),
-  info: jest.fn(),
-  warn: jest.fn()
+vi.mock('../../../services/loggingService.js', () => ({
+  log: vi.fn(),
+  error: vi.fn(),
+  debug: vi.fn(),
+  info: vi.fn(),
+  warn: vi.fn()
 }));
 
-jest.mock('../../../utils/api/validators.js', () => ({
-  validateUserId: jest.fn(),
-  validateCourseId: jest.fn(),
-  validateEmail: jest.fn()
+vi.mock('../../../utils/api/validators.js', () => ({
+  validateUserId: vi.fn(),
+  validateCourseId: vi.fn(),
+  validateEmail: vi.fn()
 }));
 
-jest.mock('firebase/firestore', () => ({
-  collection: jest.fn(),
-  writeBatch: jest.fn(),
-  doc: jest.fn(),
-  getDoc: jest.fn(),
-  getDocs: jest.fn(),
-  setDoc: jest.fn(),
-  updateDoc: jest.fn(),
-  deleteDoc: jest.fn()
+vi.mock('firebase/firestore', () => ({
+  collection: vi.fn(),
+  writeBatch: vi.fn(),
+  doc: vi.fn(),
+  getDoc: vi.fn(),
+  getDocs: vi.fn(),
+  setDoc: vi.fn(),
+  updateDoc: vi.fn(),
+  deleteDoc: vi.fn()
 }));
 
 let authModule;
 let firebaseFirestore;
 beforeEach(() => {
-  jest.clearAllMocks();
+  vi.clearAllMocks();
   authModule = require('../../../config/firebase.js');
   authModule.auth.currentUser = null;
   ApiError = require('../../errors/ApiError.js').ApiError;
@@ -266,7 +267,7 @@ describe('ServiceBase', () => {
 
   describe('batch', () => {
     it('should return batch instance', () => {
-      const mockBatch = { set: jest.fn(), commit: jest.fn() };
+      const mockBatch = { set: vi.fn(), commit: vi.fn() };
       firebaseFirestore.writeBatch.mockReturnValue(mockBatch);
       
       const service = new ServiceBase('TestService');
@@ -278,10 +279,10 @@ describe('ServiceBase', () => {
 
     it('should execute multiple operations', async () => {
       const mockBatch = {
-        set: jest.fn().mockReturnThis(),
-        update: jest.fn().mockReturnThis(),
-        delete: jest.fn().mockReturnThis(),
-        commit: jest.fn().mockResolvedValue(undefined)
+        set: vi.fn().mockReturnThis(),
+        update: vi.fn().mockReturnThis(),
+        delete: vi.fn().mockReturnThis(),
+        commit: vi.fn().mockResolvedValue(undefined)
       };
       firebaseFirestore.writeBatch.mockReturnValue(mockBatch);
       

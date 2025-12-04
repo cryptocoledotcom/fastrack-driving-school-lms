@@ -1,2 +1,52 @@
-ERROR: Invalid syntax. Default option is not allowed more than '1' time(s).
-Type "TIMEOUT /?" for usage.
+
+> fastrack-driving-school-lms@1.0.0 test
+> vitest --run
+
+
+[7m[1m[36m RUN [39m[22m[27m [36mv1.6.1[39m [90mc:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System[39m
+
+ [33m❯[39m src/pages/Admin/__tests__/AdminPage.comprehensive.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/api/admin/__tests__/userManagementServices.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/api/base/__tests__/RetryHandler.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/context/TimerContext.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/components/admin/tabs/__tests__/UserManagementTab.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/api/base/__tests__/ServiceBase.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/components/admin/tabs/__tests__/AnalyticsTab.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/components/admin/__tests__/SchedulingManagement.loadingIndicators.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/api/errors/__tests__/ApiError.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/hooks/usePVQTrigger.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/hooks/useBreakManagement.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/services/__tests__/loggingService.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/api/base/__tests__/QueryHelper.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/hooks/useSessionData.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/components/common/ErrorBoundary/ErrorBoundary.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/context/ModalContext.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/api/enrollment/__tests__/enrollmentServices.concurrent.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/api/admin/__tests__/analyticsServices.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/components/common/Quiz/Quiz.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/pages/Admin/__tests__/AdminPage.userManagement.integration.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/__tests__/firestore.rules.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/constants/__tests__/userRoles.assignment.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/context/AuthContext.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/api/base/__tests__/CacheService.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/api/enrollment/__tests__/enrollmentServices.reset.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/hooks/useSessionTimer.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/components/admin/tabs/__tests__/UserManagementTab.createUser.integration.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/context/CourseContext.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/api/student/__tests__/userServices.getAllStudents.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/api/enrollment/__tests__/enrollmentServices.refactor.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/api/enrollment/__tests__/enrollmentServices.checkCourseAccess.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/components/auth/__tests__/ForcePasswordChangeModal.integration.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m functions/src/compliance/sessionHeartbeat.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/pages/CoursePlayer/CoursePlayerPage.quiz.integration.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/hooks/useComplianceHeartbeat.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/components/admin/__tests__/SchedulingManagement.assignment.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/api/admin/__tests__/userManagementServices.createUserFunction.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/utils/__tests__/dateTimeFormatter.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/api/compliance/__tests__/schedulingServices.assignment.test.js [2m ([22m[2m0 test[22m[2m)[22m
+
+[2m Test Files [22m [1m[31m39 failed[39m[22m[90m (39)[39m
+[2m      Tests [22m [2mno tests[22m
+[2m   Start at [22m 10:51:07
+[2m   Duration [22m 12.85s[2m (transform 107ms, setup 0ms, collect 0ms, tests 0ms, environment 82.48s, prepare 22.91s)[22m
+
