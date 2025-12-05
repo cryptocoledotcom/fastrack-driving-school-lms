@@ -43,6 +43,9 @@ import AuditLogsPage from './pages/Admin/AuditLogsPage';
 // 404 Page
 import NotFoundPage from './pages/NotFound/NotFoundPage';
 
+// Landing Page (Coming Soon)
+import LandingPage from './pages/LandingPage/LandingPage';
+
 // Routes
 import { PUBLIC_ROUTES, PROTECTED_ROUTES, ADMIN_ROUTES } from './constants/routes';
 import { USER_ROLES } from './constants/userRoles';

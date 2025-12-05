@@ -2,14 +2,17 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import * as Sentry from '@sentry/react';
+import initSentry from './config/sentry';
 import App from './App';
-import './assets/styles/global.css';
-import './assets/styles/theme.css';
-import './assets/styles/animations.css';
+
+initSentry();
+
+const SentryApp = Sentry.withProfiler(App);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <SentryApp />
   </React.StrictMode>
 );

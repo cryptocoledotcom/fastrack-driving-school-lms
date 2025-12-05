@@ -29,9 +29,31 @@ export const validateEmail = (email) => {
     throw new ValidationError('Email is required and must be a string');
   }
 
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
   if (!emailRegex.test(email)) {
     throw new ValidationError('Email must be a valid email address');
+  }
+};
+
+export const validatePassword = (password) => {
+  if (!password || typeof password !== 'string') {
+    throw new ValidationError('Password is required and must be a string');
+  }
+
+  if (password.length < 8) {
+    throw new ValidationError('Password must be at least 8 characters long');
+  }
+
+  if (!/[A-Z]/.test(password)) {
+    throw new ValidationError('Password must contain at least one uppercase letter');
+  }
+
+  if (!/[a-z]/.test(password)) {
+    throw new ValidationError('Password must contain at least one lowercase letter');
+  }
+
+  if (!/[0-9]/.test(password)) {
+    throw new ValidationError('Password must contain at least one number');
   }
 };
 
