@@ -30,16 +30,31 @@ npm run build
 ### Test Suite
 
 - [ ] **All tests passing**: `npm test`
-- [ ] **Test coverage > 80%**: Run coverage report
+- [ ] **Test coverage > 99%**: Current: 99.46% (732/736 tests passing)
 - [ ] **No flaky tests**: Run tests 3x, all pass consistently
 - [ ] **Integration tests passing**: All user flows tested
 - [ ] **E2E tests passing** (if applicable): Critical paths tested
 
 **Command**:
 ```bash
-npm test -- --coverage
-# Expected: All tests PASS
-# Coverage: ✓ > 80%
+npm test -- --run
+# Expected: 732/736 tests PASS (99.46%)
+# Coverage: ✓ > 99%
+```
+
+
+### E2E Tests (Playwright)
+
+- [ ] **All E2E tests passing**: `npm run test:e2e`
+- [ ] **200+ tests across 7 suites**: Happy path, error handling, permissions, data validation
+- [ ] **Multi-browser tested**: Chromium, Firefox, WebKit (all pass)
+- [ ] **No flaky tests**: Run 2x, all pass consistently
+
+**Command**:
+```bash
+npm run test:e2e
+# Expected: All browsers pass
+# Coverage: 200+ tests across 7 suites
 ```
 
 ### Code Quality
@@ -249,14 +264,12 @@ Test each major flow end-to-end in production build:
 
 ### Cloud Functions
 
-- [ ] **All functions deployed**: 
-  - [ ] createCheckoutSession
-  - [ ] createPaymentIntent
-  - [ ] stripeWebhook
-  - [ ] generateCertificate
-  - [ ] auditComplianceAccess
-  - [ ] generateComplianceReport
-  - [ ] createUser
+- [ ] **All 24 functions deployed**:
+   -[ ] Payment (3): createCheckoutSession, createPaymentIntent, stripeWebhook
+   -[ ] Certificates (2): generateEnrollmentCertificate, generateCompletionCertificate
+   -[ ] Compliance (14): sessionHeartbeat, trackPVQAttempt, trackExamAttempt, auditComplianceAccess, generateComplianceReport, getAuditLogs, getAuditLogStats, getUserAuditTrail, validateDETSRecord, exportDETSReport, submitDETSToState, getDETSReports, processPendingDETSReports, checkCompletionCertificateEligibility
+   -[ ] User (3): createUser, updateUserRole, deleteUser
+
 - [ ] **Functions responding**: Test each endpoint
 - [ ] **Error handling correct**: 
   - [ ] Invalid inputs rejected
@@ -265,6 +278,34 @@ Test each major flow end-to-end in production build:
   - [ ] Server errors return 500
 - [ ] **Logging working**: Functions log appropriately
 - [ ] **Performance acceptable**: Response times < 3s
+
+```markdown
+
+### Sentry Error Tracking Verification
+
+- [ ] **Sentry frontend integration**: Dashboard receives errors
+  - [ ] DSN configured: `VITE_SENTRY_DSN` in `.env`
+  - [ ] Project: `fastrack-lms-web`
+  - [ ] Organization: Fastrack Driving School
+  - [ ] Sample rate: 10% production, 50% development
+  - [ ] Session replay enabled
+  
+- [ ] **Sentry backend integration**: All 24 Cloud Functions monitored
+  - [ ] Backend DSN configured in Firebase Secrets Manager
+  - [ ] Project: `fastrack-lms-functions`
+  - [ ] Test error capture: Trigger a test error and verify it appears in Sentry
+  - [ ] Performance monitoring active
+  
+**Verification**:
+```bash
+# Check frontend Sentry
+curl https://your-deployed-url.web.app/  # Trigger any console error
+# Verify in https://sentry.io/organizations/fastrack-driving-school/projects/fastrack-lms-web/
+
+# Check backend Sentry
+firebase functions:call someFunction  # Call any function
+# Verify in https://sentry.io/organizations/fastrack-driving-school/projects/fastrack-lms-functions/
+
 
 **Test Functions**:
 ```bash
@@ -428,5 +469,5 @@ Launch is successful when:
 ---
 
 **Prepared By**: Solo Developer  
-**Last Updated**: December 2, 2025  
+**Last Updated**: December 6, 2025 (Added Sentry, Playwright, updated test stats)  
 **Launch Status**: Ready for execution

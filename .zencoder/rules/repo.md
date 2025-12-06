@@ -7,7 +7,7 @@ alwaysApply: true
 
 ## Summary
 
-A comprehensive Learning Management System (LMS) for Fastrack Driving School built with React 19 and Firebase. Features authentication, course management, progress tracking, time tracking, certificate generation, and role-based access control (student, instructor, admin). Payment integration with Stripe for course enrollment. Fully compliant with Ohio OAC Chapter 4501-7 driver education requirements. Production-ready with 24 deployed Cloud Functions v2 API, dual certificate system, comprehensive audit logging, and modern build stack with Vite and Vitest.
+A comprehensive Learning Management System (LMS) for Fastrack Driving School built with React 19 and Firebase. Features authentication, course management, progress tracking, time tracking, certificate generation, and role-based access control (student, instructor, admin). Payment integration with Stripe for course enrollment. Fully compliant with Ohio OAC Chapter 4501-7 driver education requirements. Production-ready with 24 deployed Cloud Functions v2 API, dual certificate system, comprehensive audit logging, and modern build stack with Vite and Vitest. Sentry error tracking for frontend and backend, Playwright multi-browser E2E testing, Landing Page hosted on Firebase Hosting (fastrackdrive.com).
 
 ## Repository Structure
 
@@ -192,6 +192,28 @@ npm run test
 npm run test:ui   # Vitest UI dashboard
 ```
 
+### E2E Tests (Playwright)
+**Framework**: Playwright 1.57.0
+
+**Test Location**: `tests/e2e/`
+
+**Browsers Tested**: Chromium, Firefox, WebKit
+
+**Configuration** (`playwright.config.ts`):
+- Base URL: `http://localhost:3001`
+- Timeout: 60 seconds per test
+- Workers: 1 (sequential for stability)
+- Screenshots: On failure only
+- Trace: On first retry
+- Auto-launch dev server: `npm run dev`
+
+**Run E2E Tests**:
+```bash
+npm run test:e2e        # Headless execution
+npm run test:e2e:ui     # Interactive mode
+npm run test:e2e:debug  # Debug mode
+
+
 ## Security & Quality Improvements
 
 **Vulnerabilities**: 78% reduction (23 → 5)
@@ -204,6 +226,32 @@ npm run test:ui   # Vitest UI dashboard
 - TypeScript/JSDoc: Comprehensive type coverage
 - Build warnings: 0
 - Deployment errors: 0
+
+
+```markdown
+## Error Tracking & Monitoring
+
+**Framework**: Sentry
+
+**Frontend Configuration**:
+- **Package**: @sentry/react 10.29.0
+- **DSN**: https://2fba5c7771aef0df5b638c87a349920f@o4510483033292800.ingest.us.sentry.io/4510483046727680
+- **Environment Variable**: `VITE_SENTRY_DSN` in `.env`
+- **Features**: Automatic error capture, performance monitoring, session replay, user context tracking
+- **Sample Rates**: 10% production, 50% development
+
+**Backend Configuration**:
+- **Package**: @sentry/node
+- **DSN**: https://4668f48c841748d763e253033e3d7614@o4510483033292800.ingest.us.sentry.io/4510483059572736
+- **Environment Variable**: `SENTRY_DSN` in `functions/.env.local`
+- **Features**: All 24 Cloud Functions send errors to Sentry
+- **Sample Rates**: 10% production, 1.0 development
+
+**Dashboard**: https://sentry.io/organizations/fastrack-driving-school/
+- Organization: Fastrack Driving School
+- Frontend Project: `fastrack-lms-web`
+- Backend Project: `fastrack-lms-functions`
+
 
 ## Production Status
 

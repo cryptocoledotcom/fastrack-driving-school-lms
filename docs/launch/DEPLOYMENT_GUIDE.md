@@ -32,14 +32,24 @@ Before deploying, verify the following:
 Your `.env` file should contain:
 
 ```env
-REACT_APP_FIREBASE_API_KEY=AIzaSy...
-REACT_APP_FIREBASE_AUTH_DOMAIN=fastrack-xxx.firebaseapp.com
-REACT_APP_FIREBASE_PROJECT_ID=fastrack-xxx
-REACT_APP_FIREBASE_STORAGE_BUCKET=fastrack-xxx.appspot.com
-REACT_APP_FIREBASE_MESSAGING_SENDER_ID=123456789
-REACT_APP_FIREBASE_APP_ID=1:123456789:web:abc...
-REACT_APP_STRIPE_PUBLIC_KEY=pk_live_...
+# Firebase (Vite prefix - NOT REACT_APP_)
+VITE_FIREBASE_API_KEY=AIzaSy...
+VITE_FIREBASE_AUTH_DOMAIN=fastrack-xxx.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=fastrack-xxx
+VITE_FIREBASE_STORAGE_BUCKET=fastrack-xxx.appspot.com
+VITE_FIREBASE_MESSAGING_SENDER_ID=123456789
+VITE_FIREBASE_APP_ID=1:123456789:web:abc...
+
+# Stripe
+VITE_STRIPE_PUBLISHABLE_KEY=pk_test_51SUtdlFqT72Uaf78YrNlJbMsCwxQnDrGFAsRNKAxFJ5pY70xjMhc1GsIl0BloT0JL88ph1e5xNE6EX2Lg4reVN0100ve6AvzqS
+
+# Sentry Error Tracking
+VITE_SENTRY_DSN=https://2fba5c7771aef0df5b638c87a349920f@o4510483033292800.ingest.us.sentry.io/4510483046727680
+
+# Environment
+VITE_ENVIRONMENT=production
 NODE_ENV=production
+
 ```
 
 **Location**: Project root (not committed to git)
@@ -89,15 +99,9 @@ npm install
 npm run build
 ```
 
-**Expected Output**:
+**Expected Output** (Vite):
 ```
-> react-scripts build
-
-Creating an optimized production build...
-The build folder is ready to be deployed.
-...
-Bundle Analysis:
-main.xxx.js
+vite v5.4.21 building for production... ✓ 1234 modules transformed. dist/index.html 0.45 kB dist/assets/index-abc123.js 381.98 kB ✓ built in 5.23s
 ```
 
 **Verification**:
@@ -112,7 +116,8 @@ main.xxx.js
 npm install -g serve
 
 # Serve the production build locally
-serve -s build
+# For Vite, use:
+npm run preview
 ```
 
 Visit `http://localhost:3000` and verify:
@@ -196,14 +201,32 @@ Expected output:
 ```
 ✔  Functions list retrieved.
 
+✔  Functions list retrieved.
+
 NAME                                                    STATUS   TRIGGER             AVAILABLE   CREATED
 payment-createCheckoutSession(us-central1)             active   http                yes         2025-12-02
 payment-createPaymentIntent(us-central1)               active   http                yes         2025-12-02
 payment-stripeWebhook(us-central1)                     active   http                yes         2025-12-02
-certificate-generateCertificate(us-central1)          active   http                yes         2025-12-02
-compliance-auditComplianceAccess(us-central1)         active   http                yes         2025-12-02
-compliance-generateComplianceReport(us-central1)      active   http                yes         2025-12-02
+certificate-generateEnrollmentCertificate(us-central1) active   http                yes         2025-12-02
+certificate-generateCompletionCertificate(us-central1) active   http                yes         2025-12-02
+compliance-sessionHeartbeat(us-central1)               active   http                yes         2025-12-02
+compliance-trackPVQAttempt(us-central1)                active   http                yes         2025-12-02
+compliance-trackExamAttempt(us-central1)               active   http                yes         2025-12-02
+compliance-auditComplianceAccess(us-central1)          active   http                yes         2025-12-02
+compliance-generateComplianceReport(us-central1)       active   http                yes         2025-12-02
+compliance-getAuditLogs(us-central1)                   active   callable           yes         2025-12-02
+compliance-getAuditLogStats(us-central1)               active   callable           yes         2025-12-02
+compliance-getUserAuditTrail(us-central1)              active   callable           yes         2025-12-02
+compliance-validateDETSRecord(us-central1)             active   callable           yes         2025-12-02
+compliance-exportDETSReport(us-central1)               active   callable           yes         2025-12-02
+compliance-submitDETSToState(us-central1)              active   callable           yes         2025-12-02
+compliance-getDETSReports(us-central1)                 active   callable           yes         2025-12-02
+compliance-processPendingDETSReports(us-central1)      active   callable           yes         2025-12-02
+compliance-checkCompletionCertificateEligibility(us-central1) active callable yes 2025-12-02
 user-createUser(us-central1)                           active   http                yes         2025-12-02
+user-updateUserRole(us-central1)                       active   http                yes         2025-12-02
+user-deleteUser(us-central1)                           active   http                yes         2025-12-02
+
 ```
 
 ---
@@ -267,6 +290,26 @@ Verify:
 - [ ] Execution time charts loading
 - [ ] Error rates at 0%
 - [ ] No function timeouts
+
+
+### 5. Sentry Monitoring Verification
+
+Verify error tracking is working:
+
+```bash
+# Check Sentry integration
+firebase functions:log --lines 50 | grep -i sentry
+
+Verify in Sentry Dashboard:
+
+[ ] Frontend project (fastrack-lms-web) receiving errors
+[ ] Backend project (fastrack-lms-functions) receiving errors
+[ ] Performance monitoring data arriving
+[ ] No integration errors in logs
+Dashboard Access:
+
+Frontend: https://sentry.io/organizations/fastrack-driving-school/projects/fastrack-lms-web/
+Backend: https://sentry.io/organizations/fastrack-driving-school/projects/fastrack-lms-functions/
 
 ---
 

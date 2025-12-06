@@ -28,13 +28,13 @@ Project Root/
 All Firebase credentials are found in Firebase Console → Project Settings
 
 ```env
-# Firebase Project Configuration
-REACT_APP_FIREBASE_API_KEY=AIzaSy...your-api-key...
-REACT_APP_FIREBASE_AUTH_DOMAIN=fastrack-xxx.firebaseapp.com
-REACT_APP_FIREBASE_PROJECT_ID=fastrack-driving-school-lms
-REACT_APP_FIREBASE_STORAGE_BUCKET=fastrack-xxx.appspot.com
-REACT_APP_FIREBASE_MESSAGING_SENDER_ID=123456789012
-REACT_APP_FIREBASE_APP_ID=1:123456789012:web:abcd1234efgh5678ijkl
+# NOTE: Fastrack uses Vite, so all variables use VITE_ prefix (not REACT_APP_)
+VITE_FIREBASE_API_KEY=AIzaSy...your-api-key...
+VITE_FIREBASE_AUTH_DOMAIN=fastrack-xxx.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=fastrack-driving-school-lms
+VITE_FIREBASE_STORAGE_BUCKET=fastrack-xxx.appspot.com
+VITE_FIREBASE_MESSAGING_SENDER_ID=123456789012
+VITE_FIREBASE_APP_ID=1:123456789012:web:abcd1234efgh5678ijkl
 ```
 
 **How to Get These Values**:
@@ -48,16 +48,23 @@ REACT_APP_FIREBASE_APP_ID=1:123456789012:web:abcd1234efgh5678ijkl
 
 **Example .env file** (values are examples):
 ```env
-# Firebase Configuration
-REACT_APP_FIREBASE_API_KEY=AIzaSyA1b2C3d4E5f6G7h8I9j0K1L2M3N4O5P6Q7R
-REACT_APP_FIREBASE_AUTH_DOMAIN=fastrack-lms.firebaseapp.com
-REACT_APP_FIREBASE_PROJECT_ID=fastrack-driving-school-lms
-REACT_APP_FIREBASE_STORAGE_BUCKET=fastrack-lms.appspot.com
-REACT_APP_FIREBASE_MESSAGING_SENDER_ID=123456789012
-REACT_APP_FIREBASE_APP_ID=1:123456789012:web:abc123def456ghi789jkl
+# Firebase Configuration (Vite prefix)
+VITE_FIREBASE_API_KEY=AIzaSyA1b2C3d4E5f6G7h8I9j0K1L2M3N4O5P6Q7R
+VITE_FIREBASE_AUTH_DOMAIN=fastrack-lms.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=fastrack-driving-school-lms
+VITE_FIREBASE_STORAGE_BUCKET=fastrack-lms.appspot.com
+VITE_FIREBASE_MESSAGING_SENDER_ID=123456789012
+VITE_FIREBASE_APP_ID=1:123456789012:web:abc123def456ghi789jkl
 
 # Stripe Configuration (Public Key ONLY - Safe to expose)
-REACT_APP_STRIPE_PUBLIC_KEY=pk_live_abcd1234efgh5678ijkl9mno0pqr
+VITE_STRIPE_PUBLISHABLE_KEY=pk_live_abcd1234efgh5678ijkl9mno0pqr
+
+# Sentry Error Tracking (Frontend)
+VITE_SENTRY_DSN=https://your-key@o4510483033292800.ingest.us.sentry.io/4510483046727680
+
+# Environment
+VITE_ENVIRONMENT=production
+
 
 # Environment
 REACT_APP_ENVIRONMENT=production
@@ -70,7 +77,7 @@ Stripe provides public and secret keys for payment processing.
 
 **Public Key** (safe to expose in frontend):
 ```env
-REACT_APP_STRIPE_PUBLIC_KEY=pk_live_...
+VITE_STRIPE_PUBLISHABLE_KEY=pk_live_...
 ```
 
 **How to Get Stripe Public Key**:
@@ -87,19 +94,29 @@ REACT_APP_STRIPE_PUBLIC_KEY=pk_live_...
 
 ```env
 # Development: Full logging, warnings visible
-REACT_APP_ENVIRONMENT=development
+VITE_ENVIRONMENT=development
 NODE_ENV=development
 
 # Staging: Production-like, enhanced logging
-REACT_APP_ENVIRONMENT=staging
+VITE_ENVIRONMENT=staging
 NODE_ENV=production
 
 # Production: Optimized, minimal logging
-REACT_APP_ENVIRONMENT=production
+VITE_ENVIRONMENT=production
 NODE_ENV=production
 ```
 
 ---
+
+### Sentry Configuration (Error Tracking)
+
+Sentry provides real-time error tracking and performance monitoring for both frontend and backend.
+
+**Frontend DSN** (safe to expose - only logs errors to your Sentry project):
+```env
+VITE_SENTRY_DSN=https://2fba5c7771aef0df5b638c87a349920f@o4510483033292800.ingest.us.sentry.io/4510483046727680
+```
+
 
 ## Cloud Functions Environment Variables
 
@@ -166,21 +183,24 @@ const stripe = require('stripe')(stripeSecretKey);
 ```env
 # PRODUCTION ENVIRONMENT - DO NOT MODIFY LIGHTLY
 
-# Firebase Production Configuration
-REACT_APP_FIREBASE_API_KEY=AIzaSy...production-key...
-REACT_APP_FIREBASE_AUTH_DOMAIN=fastrack-xxx.firebaseapp.com
-REACT_APP_FIREBASE_PROJECT_ID=fastrack-driving-school-lms
-REACT_APP_FIREBASE_STORAGE_BUCKET=fastrack-xxx.appspot.com
-REACT_APP_FIREBASE_MESSAGING_SENDER_ID=123456789012
-REACT_APP_FIREBASE_APP_ID=1:123456789012:web:production-id
+# Firebase Production Configuration (Vite prefix)
+VITE_FIREBASE_API_KEY=AIzaSy...production-key...
+VITE_FIREBASE_AUTH_DOMAIN=fastrack-xxx.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=fastrack-driving-school-lms
+VITE_FIREBASE_STORAGE_BUCKET=fastrack-xxx.appspot.com
+VITE_FIREBASE_MESSAGING_SENDER_ID=123456789012
+VITE_FIREBASE_APP_ID=1:123456789012:web:production-id
 
 # Stripe Live Key (Public - Safe to expose)
-REACT_APP_STRIPE_PUBLIC_KEY=pk_live_production_key_here
+VITE_STRIPE_PUBLISHABLE_KEY=pk_test_51SUtdlFqT72Uaf78YrNlJbMsCwxQnDrGFAsRNKAxFJ5pY70xjMhc1GsIl0BloT0JL88ph1e5xNE6EX2Lg4reVN0100ve6AvzqS
+
+# Sentry Error Tracking (Production - 10% sampling)
+VITE_SENTRY_DSN=https://2fba5c7771aef0df5b638c87a349920f@o4510483033292800.ingest.us.sentry.io/4510483046727680
 
 # Production Settings
-REACT_APP_ENVIRONMENT=production
+VITE_ENVIRONMENT=production
 NODE_ENV=production
-REACT_APP_DISABLE_ANALYTICS=false
+
 ```
 
 ---
@@ -198,4 +218,4 @@ REACT_APP_DISABLE_ANALYTICS=false
 
 ---
 
-**Last Updated**: December 2, 2025
+**Last Updated**: December 6, 2025 (Vite/Sentry updates)
