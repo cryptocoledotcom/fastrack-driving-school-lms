@@ -18,8 +18,10 @@ export const PROTECTED_ROUTES = {
   LESSON: '/dashboard/courses/:courseId/lessons/:lessonId',
   PROGRESS: '/dashboard/progress',
   PROFILE: '/dashboard/profile',
+  PROFILE_VIEW: '/dashboard/profile/:userId',
   SETTINGS: '/dashboard/settings',
   CERTIFICATES: '/dashboard/certificates',
+  CERTIFICATE_VIEW: '/dashboard/certificates/:certificateId',
   PAYMENT_SUCCESS: '/payment-success'
 };
 

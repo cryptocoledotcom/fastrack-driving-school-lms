@@ -13,6 +13,15 @@ export default defineConfig({
     setupFiles: ['./src/setupTests.js'],
     testTimeout: 10000,
     css: true,
+    exclude: [
+      'node_modules',
+      'functions/node_modules',
+      'dist',
+      '.idea',
+      '.git',
+      '.cache',
+      'tests/e2e/**'
+    ],
     alias: {
       '@': path.resolve(__dirname, './src'),
     },

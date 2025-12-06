@@ -10,7 +10,7 @@ import { ModalProvider } from './context/ModalContext';
 import ErrorBoundary from './components/common/ErrorBoundary/ErrorBoundary';
 
 // Route Guards
-import { ProtectedRoute, PublicRoute, RoleBasedRoute } from './components/guards';
+import { ProtectedRoute, PublicRoute, RoleBasedRoute, UserAccessGuard } from './components/guards';
 
 // Layouts
 import { MainLayout, DashboardLayout, AuthLayout } from './components/layout';
@@ -174,6 +174,16 @@ function AppRoutes() {
                     </DashboardLayout>
                   </ProtectedRoute>
                 } />
+
+                <Route path={PROTECTED_ROUTES.PROFILE_VIEW} element={
+                  <ProtectedRoute>
+                    <UserAccessGuard accessType="profile">
+                      <DashboardLayout>
+                        <ProfilePage />
+                      </DashboardLayout>
+                    </UserAccessGuard>
+                  </ProtectedRoute>
+                } />
                 
                 <Route path={PROTECTED_ROUTES.SETTINGS} element={
                   <ProtectedRoute>
@@ -188,6 +198,16 @@ function AppRoutes() {
                     <DashboardLayout>
                       <CertificatesPage />
                     </DashboardLayout>
+                  </ProtectedRoute>
+                } />
+
+                <Route path={PROTECTED_ROUTES.CERTIFICATE_VIEW} element={
+                  <ProtectedRoute>
+                    <UserAccessGuard accessType="certificate">
+                      <DashboardLayout>
+                        <CertificatesPage />
+                      </DashboardLayout>
+                    </UserAccessGuard>
                   </ProtectedRoute>
                 } />
 

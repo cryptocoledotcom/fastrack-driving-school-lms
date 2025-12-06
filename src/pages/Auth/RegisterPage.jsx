@@ -7,6 +7,7 @@ import Button from '../../components/common/Button/Button';
 import ErrorMessage from '../../components/common/ErrorMessage/ErrorMessage';
 import { PUBLIC_ROUTES, PROTECTED_ROUTES } from '../../constants/routes';
 import { getErrorMessage } from '../../constants/errorMessages';
+import { validators, VALIDATION_RULES } from '../../constants/validationRules';
 import styles from './AuthPages.module.css';
 
 const RegisterPage = () => {
@@ -29,6 +30,21 @@ const RegisterPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+
+    if (!validators.isRequired(formData.displayName)) {
+      setError('Full name is required');
+      return;
+    }
+
+    if (!validators.isValidEmail(formData.email)) {
+      setError('Please enter a valid email address');
+      return;
+    }
+
+    if (formData.password.length < VALIDATION_RULES.PASSWORD_MIN_LENGTH) {
+      setError(`Password must be at least ${VALIDATION_RULES.PASSWORD_MIN_LENGTH} characters long`);
+      return;
+    }
 
     if (formData.password !== formData.confirmPassword) {
       setError('Passwords do not match');
@@ -80,7 +96,7 @@ const RegisterPage = () => {
         />
         <Input
           label="Email"
-          type="text"
+          type="email"
           name="email"
           value={formData.email}
           onChange={handleChange}

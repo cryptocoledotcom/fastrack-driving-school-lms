@@ -9,6 +9,7 @@ export const VALIDATION_RULES = {
   
   // Email Rules
   EMAIL_REGEX: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+  EMAIL_REGEX_STRICT: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
   EMAIL_MAX_LENGTH: 254,
   
   // Name Rules
@@ -50,7 +51,7 @@ export const validators = {
   // Email Validator
   isValidEmail: (email) => {
     if (!email) return false;
-    return VALIDATION_RULES.EMAIL_REGEX.test(email) && 
+    return VALIDATION_RULES.EMAIL_REGEX_STRICT.test(email) && 
            email.length <= VALIDATION_RULES.EMAIL_MAX_LENGTH;
   },
   
