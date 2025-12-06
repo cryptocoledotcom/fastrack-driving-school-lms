@@ -167,14 +167,6 @@ function AppRoutes() {
                   </ProtectedRoute>
                 } />
                 
-                <Route path={PROTECTED_ROUTES.PROFILE} element={
-                  <ProtectedRoute>
-                    <DashboardLayout>
-                      <ProfilePage />
-                    </DashboardLayout>
-                  </ProtectedRoute>
-                } />
-
                 <Route path={PROTECTED_ROUTES.PROFILE_VIEW} element={
                   <ProtectedRoute>
                     <UserAccessGuard accessType="profile">
@@ -182,6 +174,14 @@ function AppRoutes() {
                         <ProfilePage />
                       </DashboardLayout>
                     </UserAccessGuard>
+                  </ProtectedRoute>
+                } />
+
+                <Route path={PROTECTED_ROUTES.PROFILE} element={
+                  <ProtectedRoute>
+                    <DashboardLayout>
+                      <ProfilePage />
+                    </DashboardLayout>
                   </ProtectedRoute>
                 } />
                 
@@ -193,14 +193,6 @@ function AppRoutes() {
                   </ProtectedRoute>
                 } />
                 
-                <Route path={PROTECTED_ROUTES.CERTIFICATES} element={
-                  <ProtectedRoute>
-                    <DashboardLayout>
-                      <CertificatesPage />
-                    </DashboardLayout>
-                  </ProtectedRoute>
-                } />
-
                 <Route path={PROTECTED_ROUTES.CERTIFICATE_VIEW} element={
                   <ProtectedRoute>
                     <UserAccessGuard accessType="certificate">
@@ -208,6 +200,14 @@ function AppRoutes() {
                         <CertificatesPage />
                       </DashboardLayout>
                     </UserAccessGuard>
+                  </ProtectedRoute>
+                } />
+
+                <Route path={PROTECTED_ROUTES.CERTIFICATES} element={
+                  <ProtectedRoute>
+                    <DashboardLayout>
+                      <CertificatesPage />
+                    </DashboardLayout>
                   </ProtectedRoute>
                 } />
 
