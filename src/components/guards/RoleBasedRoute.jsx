@@ -18,9 +18,13 @@ const RoleBasedRoute = ({ children, allowedRoles = [] }) => {
     return <Navigate to="/login" replace />;
   }
 
+  if (!userProfile) {
+    return <LoadingSpinner fullScreen text="Loading profile..." />;
+  }
+
   // Check if user has required role
   const hasRequiredRole = allowedRoles.length === 0 || 
-    (userProfile && allowedRoles.includes(userProfile.role));
+    allowedRoles.includes(userProfile.role);
 
   if (!hasRequiredRole) {
     // Redirect to dashboard if user doesn't have required role

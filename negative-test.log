@@ -1,0 +1,24 @@
+
+> fastrack-driving-school-lms@1.0.0 test:e2e
+> playwright test tests/e2e/negative-scenarios.spec.ts --project=chromium
+
+
+Running 13 tests using 1 worker
+
+[1A[2K[1/13] [chromium] › tests\e2e\negative-scenarios.spec.ts:5:5 › Negative Scenarios - Error Handling › Signup Validation › should reject signup with invalid email format
+[1A[2K[2/13] [chromium] › tests\e2e\negative-scenarios.spec.ts:27:5 › Negative Scenarios - Error Handling › Signup Validation › should reject signup with password mismatch
+[1A[2K[3/13] [chromium] › tests\e2e\negative-scenarios.spec.ts:49:5 › Negative Scenarios - Error Handling › Signup Validation › should reject signup with missing required fields
+[1A[2K[4/13] [chromium] › tests\e2e\negative-scenarios.spec.ts:71:5 › Negative Scenarios - Error Handling › Signup Validation › should reject signup with weak password
+[1A[2K[5/13] [chromium] › tests\e2e\negative-scenarios.spec.ts:93:5 › Negative Scenarios - Error Handling › Login Failure Scenarios › should reject login with wrong password
+[1A[2K[6/13] [chromium] › tests\e2e\negative-scenarios.spec.ts:113:5 › Negative Scenarios - Error Handling › Login Failure Scenarios › should reject login with non-existent email
+[1A[2K[7/13] [chromium] › tests\e2e\negative-scenarios.spec.ts:133:5 › Negative Scenarios - Error Handling › Login Failure Scenarios › should reject login with empty credentials
+[1A[2K[8/13] [chromium] › tests\e2e\negative-scenarios.spec.ts:152:5 › Negative Scenarios - Error Handling › Course Enrollment Error Handling › should handle enrollment failure gracefully
+[1A[2K[9/13] [chromium] › tests\e2e\negative-scenarios.spec.ts:195:5 › Negative Scenarios - Error Handling › Course Enrollment Error Handling › should prevent enrollment with invalid course ID
+[1A[2K[10/13] [chromium] › tests\e2e\negative-scenarios.spec.ts:215:5 › Negative Scenarios - Error Handling › Form Input Validation › should reject signup with very long name
+[1A[2K[11/13] [chromium] › tests\e2e\negative-scenarios.spec.ts:238:5 › Negative Scenarios - Error Handling › Form Input Validation › should handle special characters in email
+[1A[2K[chromium] › tests\e2e\negative-scenarios.spec.ts:238:5 › Negative Scenarios - Error Handling › Form Input Validation › should handle special characters in email
+Special characters validation depends on backend
+
+[1A[2K[12/13] [chromium] › tests\e2e\negative-scenarios.spec.ts:259:5 › Negative Scenarios - Error Handling › Network & Timeout Scenarios › should show loading state during signup
+[1A[2K[13/13] [chromium] › tests\e2e\negative-scenarios.spec.ts:280:5 › Negative Scenarios - Error Handling › Network & Timeout Scenarios › should handle stale session on page navigation
+[1A[2K  13 passed (23.6s)

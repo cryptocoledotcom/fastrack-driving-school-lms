@@ -1,0 +1,16 @@
+
+> fastrack-driving-school-lms@1.0.0 test:e2e
+> playwright test tests/e2e/quiz-certificate-flow.spec.ts --project=chromium
+
+
+Running 5 tests using 1 worker
+
+[1A[2K[1/5] [chromium] › tests\e2e\quiz-certificate-flow.spec.ts:14:3 › Quiz/Exam → Auto-Certificate Generation Flow › should display quiz/exam on course player
+[1A[2K[2/5] [chromium] › tests\e2e\quiz-certificate-flow.spec.ts:53:3 › Quiz/Exam → Auto-Certificate Generation Flow › should track quiz/exam attempt data
+[1A[2K[3/5] [chromium] › tests\e2e\quiz-certificate-flow.spec.ts:69:3 › Quiz/Exam → Auto-Certificate Generation Flow › should display certificates page for completed courses
+[1A[2K[chromium] › tests\e2e\quiz-certificate-flow.spec.ts:69:3 › Quiz/Exam → Auto-Certificate Generation Flow › should display certificates page for completed courses
+Certificates page loaded
+
+[1A[2K[4/5] [chromium] › tests\e2e\quiz-certificate-flow.spec.ts:88:3 › Quiz/Exam → Auto-Certificate Generation Flow › should verify certificate enrollment trigger conditions
+[1A[2K[5/5] [chromium] › tests\e2e\quiz-certificate-flow.spec.ts:122:3 › Quiz/Exam → Auto-Certificate Generation Flow › should handle completion certificate generation workflow
+[1A[2K  5 passed (17.8s)

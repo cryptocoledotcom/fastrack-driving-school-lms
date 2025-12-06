@@ -1,0 +1,19 @@
+
+> fastrack-driving-school-lms@1.0.0 test:e2e
+> playwright test tests/e2e/admin-user-role-flow.spec.ts --project=chromium
+
+
+Running 8 tests using 1 worker
+
+[1A[2K[1/8] [chromium] › tests\e2e\admin-user-role-flow.spec.ts:7:3 › Admin User Creation → Role Assignment Flow › admin page requires authentication
+[1A[2K[2/8] [chromium] › tests\e2e\admin-user-role-flow.spec.ts:18:3 › Admin User Creation → Role Assignment Flow › should display admin dashboard with user management tab
+[1A[2K[3/8] [chromium] › tests\e2e\admin-user-role-flow.spec.ts:35:3 › Admin User Creation → Role Assignment Flow › should verify user management interface elements
+[1A[2K[4/8] [chromium] › tests\e2e\admin-user-role-flow.spec.ts:64:3 › Admin User Creation → Role Assignment Flow › should verify role assignment UI components exist
+[1A[2K[5/8] [chromium] › tests\e2e\admin-user-role-flow.spec.ts:85:3 › Admin User Creation → Role Assignment Flow › should display audit trail for user management actions
+[1A[2K[6/8] [chromium] › tests\e2e\admin-user-role-flow.spec.ts:109:3 › Admin User Creation → Role Assignment Flow › should verify enrollment management tab for user handling
+[1A[2K[7/8] [chromium] › tests\e2e\admin-user-role-flow.spec.ts:133:3 › Admin User Creation → Role Assignment Flow › should verify admin role-based access control
+[1A[2K[8/8] [chromium] › tests\e2e\admin-user-role-flow.spec.ts:149:3 › Admin User Creation → Role Assignment Flow › should handle user management operations workflow
+[1A[2K[chromium] › tests\e2e\admin-user-role-flow.spec.ts:149:3 › Admin User Creation → Role Assignment Flow › should handle user management operations workflow
+Admin page redirected to login (authentication required)
+
+[1A[2K  8 passed (14.4s)

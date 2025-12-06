@@ -238,6 +238,36 @@ function AppRoutes() {
                   </ProtectedRoute>
                 } />
 
+                <Route path={ADMIN_ROUTES.MANAGE_USERS} element={
+                  <ProtectedRoute>
+                    <DashboardLayout>
+                      <RoleBasedRoute allowedRoles={[USER_ROLES.ADMIN, USER_ROLES.SUPER_ADMIN]}>
+                        <AdminPage />
+                      </RoleBasedRoute>
+                    </DashboardLayout>
+                  </ProtectedRoute>
+                } />
+
+                <Route path={ADMIN_ROUTES.MANAGE_COURSES} element={
+                  <ProtectedRoute>
+                    <DashboardLayout>
+                      <RoleBasedRoute allowedRoles={[USER_ROLES.ADMIN, USER_ROLES.SUPER_ADMIN]}>
+                        <AdminPage />
+                      </RoleBasedRoute>
+                    </DashboardLayout>
+                  </ProtectedRoute>
+                } />
+
+                <Route path={ADMIN_ROUTES.ANALYTICS} element={
+                  <ProtectedRoute>
+                    <DashboardLayout>
+                      <RoleBasedRoute allowedRoles={[USER_ROLES.ADMIN, USER_ROLES.SUPER_ADMIN]}>
+                        <AdminPage />
+                      </RoleBasedRoute>
+                    </DashboardLayout>
+                  </ProtectedRoute>
+                } />
+
                 {/* 404 Route */}
                 <Route path="*" element={
                   <MainLayout>

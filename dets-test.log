@@ -1,0 +1,19 @@
+
+> fastrack-driving-school-lms@1.0.0 test:e2e
+> playwright test tests/e2e/dets-export-flow.spec.ts --project=chromium
+
+
+Running 8 tests using 1 worker
+
+[1A[2K[1/8] [chromium] › tests\e2e\dets-export-flow.spec.ts:9:3 › DETS Export Workflow › should display DETS export tab in admin panel
+[1A[2K[chromium] › tests\e2e\dets-export-flow.spec.ts:9:3 › DETS Export Workflow › should display DETS export tab in admin panel
+DETS export functionality available in admin interface
+
+[1A[2K[2/8] [chromium] › tests\e2e\dets-export-flow.spec.ts:21:3 › DETS Export Workflow › should verify DETS export interface elements
+[1A[2K[3/8] [chromium] › tests\e2e\dets-export-flow.spec.ts:44:3 › DETS Export Workflow › should handle DETS export configuration options
+[1A[2K[4/8] [chromium] › tests\e2e\dets-export-flow.spec.ts:70:3 › DETS Export Workflow › should verify DETS export data validation
+[1A[2K[5/8] [chromium] › tests\e2e\dets-export-flow.spec.ts:91:3 › DETS Export Workflow › should handle DETS export submission workflow
+[1A[2K[6/8] [chromium] › tests\e2e\dets-export-flow.spec.ts:134:3 › DETS Export Workflow › should verify DETS export file download capability
+[1A[2K[7/8] [chromium] › tests\e2e\dets-export-flow.spec.ts:161:3 › DETS Export Workflow › should verify DETS export audit trail
+[1A[2K[8/8] [chromium] › tests\e2e\dets-export-flow.spec.ts:186:3 › DETS Export Workflow › should handle DETS export error scenarios
+[1A[2K  8 passed (13.8s)
