@@ -199,7 +199,7 @@ const SchedulingManagement = () => {
   };
 
   const getAssignedStudentName = (userId) => {
-    const student = students.find(s => s.id === userId);
+    const student = students && students.find(s => s.id === userId);
     return student?.displayName || student?.email || userId;
   };
 
@@ -322,7 +322,7 @@ const SchedulingManagement = () => {
                 className={styles.studentSelect}
               >
                 <option value="">-- Choose a student --</option>
-                {students.map(student => (
+                {students && students.map(student => (
                   <option key={student.id} value={student.id}>
                     {student.displayName || student.email}
                   </option>
@@ -351,7 +351,7 @@ const SchedulingManagement = () => {
       )}
 
       <div className={styles.slotsList}>
-        {slots.length === 0 ? (
+        {!slots || slots.length === 0 ? (
           <Card className={styles.emptyState}>
             <p>No time slots created yet.</p>
             <p>Click "Add New Time Slot" to create available lesson times.</p>

@@ -1,0 +1,81 @@
+
+> fastrack-driving-school-lms@1.0.0 test
+> vitest --run
+
+
+[7m[1m[36m RUN [39m[22m[27m [36mv1.6.1[39m [90mC:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System[39m
+
+ [32m✓[39m src/api/base/__tests__/QueryHelper.test.js [2m ([22m[2m21 tests[22m[2m)[22m[90m 40[2mms[22m[39m
+ [32m✓[39m src/api/base/__tests__/ServiceBase.test.js [2m ([22m[2m25 tests[22m[2m)[22m[90m 79[2mms[22m[39m
+ [32m✓[39m src/hooks/usePVQTrigger.test.js [2m ([22m[2m42 tests[22m[2m)[22m[90m 97[2mms[22m[39m
+ [32m✓[39m src/hooks/useBreakManagement.test.js [2m ([22m[2m42 tests[22m[2m)[22m[90m 62[2mms[22m[39m
+[90mstdout[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mexecute[2m > [22m[2mshould retry and eventually succeed[22m[39m
+✅ [test-operation] Succeeded on attempt 3/3
+
+ [32m✓[39m src/hooks/useSessionData.test.js [2m ([22m[2m45 tests[22m[2m)[22m[90m 88[2mms[22m[39m
+ [32m✓[39m src/api/admin/__tests__/userManagementServices.test.js [2m ([22m[2m26 tests[22m[2m)[22m[90m 100[2mms[22m[39m
+ [32m✓[39m src/services/__tests__/loggingService.test.js [2m ([22m[2m50 tests[22m[2m)[22m[90m 144[2mms[22m[39m
+[90mstdout[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mexecute[2m > [22m[2mshould handle async operations correctly[22m[39m
+✅ [async-operation] Succeeded on attempt 2/3
+
+[90mstdout[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mexecute[2m > [22m[2mshould use exponential backoff timing[22m[39m
+✅ [timed-operation] Succeeded on attempt 3/3
+
+[90mstdout[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mretryAsync convenience function[2m > [22m[2mshould work with default configuration[22m[39m
+✅ [test-operation] Succeeded on attempt 2/3
+
+[90mstdout[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mreal-world scenarios[2m > [22m[2mshould handle temporary network failure[22m[39m
+✅ [fetchData] Succeeded on attempt 3/3
+
+[90mstdout[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mreal-world scenarios[2m > [22m[2mshould recover from server temporarily unavailable[22m[39m
+✅ [submitForm] Succeeded on attempt 2/3
+
+ [32m✓[39m src/api/base/__tests__/RetryHandler.test.js [2m ([22m[2m31 tests[22m[2m)[22m[33m 951[2mms[22m[39m
+ [32m✓[39m src/components/common/ErrorBoundary/ErrorBoundary.test.jsx [2m ([22m[2m32 tests[22m[2m)[22m[33m 1180[2mms[22m[39m
+ [33m❯[39m src/context/ModalContext.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [32m✓[39m src/api/admin/__tests__/analyticsServices.test.js [2m ([22m[2m35 tests[22m[2m)[22m[90m 59[2mms[22m[39m
+ [32m✓[39m src/api/errors/__tests__/ApiError.test.js [2m ([22m[2m38 tests[22m[2m)[22m[90m 72[2mms[22m[39m
+ [32m✓[39m src/components/admin/tabs/__tests__/UserManagementTab.test.jsx [2m ([22m[2m28 tests[22m[2m)[22m[33m 2727[2mms[22m[39m
+ [32m✓[39m src/context/ModalContext.test.jsx [2m ([22m[2m19 tests[22m[2m)[22m[33m 332[2mms[22m[39m
+ [33m❯[39m src/api/enrollment/__tests__/enrollmentServices.concurrent.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/components/common/Quiz/Quiz.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [32m✓[39m src/hooks/useSessionTimer.test.js [2m ([22m[2m26 tests[22m[2m)[22m[90m 64[2mms[22m[39m
+ [32m✓[39m src/components/admin/__tests__/SchedulingManagement.loadingIndicators.test.jsx [2m ([22m[2m16 tests[22m[2m)[22m[33m 4039[2mms[22m[39m
+ [32m✓[39m src/api/base/__tests__/CacheService.test.js [2m ([22m[2m32 tests[22m[2m)[22m[90m 65[2mms[22m[39m
+ [33m❯[39m src/context/CourseContext.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [32m✓[39m src/context/CourseContext.test.jsx [2m ([22m[2m18 tests[22m[2m)[22m[33m 437[2mms[22m[39m
+ [33m❯[39m tests/e2e/negative-scenarios.spec.ts [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m tests/e2e/data-validation.spec.ts [2m ([22m[2m0 test[22m[2m)[22m
+ [32m✓[39m src/components/admin/tabs/__tests__/AnalyticsTab.test.jsx [2m ([22m[2m30 tests[22m[2m)[22m[33m 1910[2mms[22m[39m
+ [32m✓[39m src/api/enrollment/__tests__/enrollmentServices.refactor.test.js [2m ([22m[2m13 tests[22m[2m)[22m[90m 36[2mms[22m[39m
+ [33m❯[39m src/pages/Admin/__tests__/AdminPage.userManagement.integration.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m tests/e2e/permission-boundaries.spec.ts [2m ([22m[2m0 test[22m[2m)[22m
+ [32m✓[39m src/api/enrollment/__tests__/enrollmentServices.reset.test.js [2m ([22m[2m19 tests[22m[2m)[22m[90m 87[2mms[22m[39m
+ [32m✓[39m src/__tests__/firestore.rules.test.js [2m ([22m[2m25 tests[22m[2m)[22m[90m 49[2mms[22m[39m
+ [32m✓[39m src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx [2m ([22m[2m36 tests[22m[2m)[22m[33m 6337[2mms[22m[39m
+ [33m❯[39m src/components/auth/__tests__/ForcePasswordChangeModal.integration.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/components/admin/tabs/__tests__/UserManagementTab.createUser.integration.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m functions/src/compliance/sessionHeartbeat.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/context/AuthContext.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [32m✓[39m src/constants/__tests__/userRoles.assignment.test.js [2m ([22m[2m35 tests[22m[2m)[22m[90m 27[2mms[22m[39m
+ [33m❯[39m src/pages/CoursePlayer/CoursePlayerPage.quiz.integration.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [32m✓[39m src/context/AuthContext.test.jsx [2m ([22m[2m14 tests[22m[2m)[22m[33m 320[2mms[22m[39m
+ [32m✓[39m src/api/enrollment/__tests__/enrollmentServices.checkCourseAccess.test.js [2m ([22m[2m9 tests[22m[2m)[22m[90m 27[2mms[22m[39m
+ [32m✓[39m src/api/student/__tests__/userServices.getAllStudents.test.js [2m ([22m[2m6 tests[22m[2m)[22m[90m 21[2mms[22m[39m
+ [32m✓[39m src/context/TimerContext.test.jsx [2m ([22m[2m30 tests[22m[2m)[22m[33m 410[2mms[22m[39m
+ [32m✓[39m src/utils/__tests__/dateTimeFormatter.test.js [2m ([22m[2m11 tests[22m[2m)[22m[90m 17[2mms[22m[39m
+ [33m❯[39m src/components/admin/__tests__/SchedulingManagement.assignment.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [32m✓[39m src/api/admin/__tests__/userManagementServices.createUserFunction.test.js [2m ([22m[2m9 tests[22m[2m)[22m[90m 32[2mms[22m[39m
+ [32m✓[39m src/hooks/useComplianceHeartbeat.test.js [2m ([22m[2m6 tests[22m[2m)[22m[90m 77[2mms[22m[39m
+ [33m❯[39m tests/e2e/admin-user-role-flow.spec.ts [2m ([22m[2m0 test[22m[2m)[22m
+ [32m✓[39m src/api/compliance/__tests__/schedulingServices.assignment.test.js [2m ([22m[2m3 tests[22m[2m)[22m[90m 3[2mms[22m[39m
+ [33m❯[39m tests/e2e/dets-export-flow.spec.ts [2m ([22m[2m0 test[22m[2m)[22m
+ [32m✓[39m src/services/__tests__/errorTrackingService.test.js [2m ([22m[2m6 tests[22m[2m)[22m[33m 414[2mms[22m[39m
+ [33m❯[39m tests/e2e/quiz-certificate-flow.spec.ts [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m tests/e2e/student-flow.spec.ts [2m ([22m[2m0 test[22m[2m)[22m
+
+[2m Test Files [22m [1m[31m18 failed[39m[22m[2m | [22m[1m[32m32 passed[39m[22m[90m (50)[39m
+[2m      Tests [22m [1m[32m778 passed[39m[22m[90m (778)[39m
+[2m   Start at [22m 14:15:40
+[2m   Duration [22m 19.28s[2m (transform 4.84s, setup 20.52s, collect 17.15s, tests 20.30s, environment 106.90s, prepare 28.04s)[22m
+
