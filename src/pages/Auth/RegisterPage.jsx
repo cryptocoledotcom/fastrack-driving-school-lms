@@ -41,8 +41,8 @@ const RegisterPage = () => {
       return;
     }
 
-    if (formData.password.length < VALIDATION_RULES.PASSWORD_MIN_LENGTH) {
-      setError(`Password must be at least ${VALIDATION_RULES.PASSWORD_MIN_LENGTH} characters long`);
+    if (!validators.isStrongPassword(formData.password)) {
+      setError('Password must be at least 8 characters and include uppercase, lowercase, numbers, and a special character');
       return;
     }
 
@@ -96,10 +96,11 @@ const RegisterPage = () => {
         />
         <Input
           label="Email"
-          type="email"
+          type="text"
           name="email"
           value={formData.email}
           onChange={handleChange}
+          placeholder="example+tag@domain.com"
           required
           fullWidth
         />

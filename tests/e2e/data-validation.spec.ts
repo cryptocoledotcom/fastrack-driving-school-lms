@@ -44,8 +44,9 @@ test.describe('Data Validation & Input Sanitization', () => {
           await page.waitForTimeout(2500);
         } else {
           await page.click('button:has-text("Sign Up")');
-          const dashboardReached = await page.waitForURL('/dashboard', { timeout: 8000 }).catch(() => false);
-          expect(dashboardReached).toBeTruthy();
+          await page.waitForTimeout(2000);
+          const currentUrl = page.url();
+          expect(currentUrl).toContain('/dashboard');
           await page.waitForTimeout(1500);
         }
       });
@@ -61,7 +62,7 @@ test.describe('Data Validation & Input Sanitization', () => {
       { password: 'Pass123', shouldFail: true, name: 'Too short (7 chars)' },
       { password: 'Password123!', shouldFail: false, name: 'Valid password' },
       { password: 'MyP@ssw0rd', shouldFail: false, name: 'Valid with special char' },
-      { password: 'ValidLongPassword123456', shouldFail: false, name: 'Valid long password' },
+      { password: 'ValidLongPass@123456', shouldFail: false, name: 'Valid long password' },
     ];
 
     for (const testCase of passwordTests) {
@@ -265,7 +266,7 @@ test.describe('Data Validation & Input Sanitization', () => {
       await page.fill('input[name="confirmPassword"]', password);
       await page.click('button:has-text("Sign Up")');
 
-      await page.waitForURL('/dashboard', { timeout: 5000 }).catch(() => {});
+      await page.waitForTimeout(3000);
 
       await page.goto('/register');
       await page.fill('input[name="displayName"]', 'Second User');
@@ -295,7 +296,7 @@ test.describe('Data Validation & Input Sanitization', () => {
       await page.fill('input[name="confirmPassword"]', 'ValidPassword123!');
       await page.click('button:has-text("Sign Up")');
 
-      await page.waitForURL('/dashboard', { timeout: 5000 }).catch(() => {});
+      await page.waitForTimeout(3000);
 
       console.log('Numeric field validation available for purchase forms if present');
     });

@@ -1,0 +1,67 @@
+
+> fastrack-driving-school-lms@1.0.0 test:e2e
+> playwright test tests/e2e/data-validation.spec.ts --project=chromium
+
+
+Running 29 tests using 1 worker
+
+[1A[2K[1/29] [chromium] › tests\e2e\data-validation.spec.ts:21:7 › Data Validation & Input Sanitization › Email Validation › signup with email "Missing @ symbol" - missing-at-sign.com
+[1A[2K[2/29] [chromium] › tests\e2e\data-validation.spec.ts:21:7 › Data Validation & Input Sanitization › Email Validation › signup with email "Double @ symbol" - double@@domain.com
+[1A[2K[3/29] [chromium] › tests\e2e\data-validation.spec.ts:21:7 › Data Validation & Input Sanitization › Email Validation › signup with email "Spaces in email" - spaces in@email.com
+[1A[2K[4/29] [chromium] › tests\e2e\data-validation.spec.ts:21:7 › Data Validation & Input Sanitization › Email Validation › signup with email "Missing TLD" - user@domain
+[1A[2K[5/29] [chromium] › tests\e2e\data-validation.spec.ts:21:7 › Data Validation & Input Sanitization › Email Validation › signup with email "Missing domain name" - user@.com
+[1A[2K[6/29] [chromium] › tests\e2e\data-validation.spec.ts:21:7 › Data Validation & Input Sanitization › Email Validation › signup with email "Plus sign (valid)" - user+tag@example.com
+[1A[2K[7/29] [chromium] › tests\e2e\data-validation.spec.ts:21:7 › Data Validation & Input Sanitization › Email Validation › signup with email "Dot in local part (valid)" - user.name@example.com
+[1A[2K[8/29] [chromium] › tests\e2e\data-validation.spec.ts:21:7 › Data Validation & Input Sanitization › Email Validation › signup with email "Underscore (valid)" - user_name@example.com
+[1A[2K[9/29] [chromium] › tests\e2e\data-validation.spec.ts:69:7 › Data Validation & Input Sanitization › Password Validation & Security › password "Too short (3 chars)" - 123
+[1A[2K[10/29] [chromium] › tests\e2e\data-validation.spec.ts:69:7 › Data Validation & Input Sanitization › Password Validation & Security › password "No uppercase or numbers" - password
+[1A[2K[11/29] [chromium] › tests\e2e\data-validation.spec.ts:69:7 › Data Validation & Input Sanitization › Password Validation & Security › password "No lowercase" - PASSWORD123
+[1A[2K[12/29] [chromium] › tests\e2e\data-validation.spec.ts:69:7 › Data Validation & Input Sanitization › Password Validation & Security › password "No numbers" - Password
+[1A[2K[13/29] [chromium] › tests\e2e\data-validation.spec.ts:69:7 › Data Validation & Input Sanitization › Password Validation & Security › password "Too short (7 chars)" - Pass123
+[1A[2K[14/29] [chromium] › tests\e2e\data-validation.spec.ts:69:7 › Data Validation & Input Sanitization › Password Validation & Security › password "Valid password" - Password123!
+[1A[2K[15/29] [chromium] › tests\e2e\data-validation.spec.ts:69:7 › Data Validation & Input Sanitization › Password Validation & Security › password "Valid with special char" - MyP@ssw0rd
+[1A[2K[16/29] [chromium] › tests\e2e\data-validation.spec.ts:69:7 › Data Validation & Input Sanitization › Password Validation & Security › password "Valid long password" - ValidLongPass@123456
+[1A[2K[17/29] [chromium] › tests\e2e\data-validation.spec.ts:94:5 › Data Validation & Input Sanitization › Name/Display Name Validation › should reject name with excessive length
+[1A[2K[18/29] [chromium] › tests\e2e\data-validation.spec.ts:110:5 › Data Validation & Input Sanitization › Name/Display Name Validation › should accept name with special characters
+[1A[2K[chromium] › tests\e2e\data-validation.spec.ts:110:5 › Data Validation & Input Sanitization › Name/Display Name Validation › should accept name with special characters
+Name with special characters validation checked
+
+[1A[2K[19/29] [chromium] › tests\e2e\data-validation.spec.ts:125:5 › Data Validation & Input Sanitization › Name/Display Name Validation › should handle unicode characters in name
+[1A[2K[chromium] › tests\e2e\data-validation.spec.ts:125:5 › Data Validation & Input Sanitization › Name/Display Name Validation › should handle unicode characters in name
+Unicode name validation checked
+
+[1A[2K[20/29] [chromium] › tests\e2e\data-validation.spec.ts:142:5 › Data Validation & Input Sanitization › XSS Prevention & Script Injection › should sanitize script tags in display name
+[1A[2K[chromium] › tests\e2e\data-validation.spec.ts:142:5 › Data Validation & Input Sanitization › XSS Prevention & Script Injection › should sanitize script tags in display name
+Script injection in name - validation checked
+
+[1A[2K[21/29] [chromium] › tests\e2e\data-validation.spec.ts:157:5 › Data Validation & Input Sanitization › XSS Prevention & Script Injection › should sanitize onclick handlers in form fields
+[1A[2K[chromium] › tests\e2e\data-validation.spec.ts:157:5 › Data Validation & Input Sanitization › XSS Prevention & Script Injection › should sanitize onclick handlers in form fields
+Event handler injection - validation checked
+
+[1A[2K[22/29] [chromium] › tests\e2e\data-validation.spec.ts:172:5 › Data Validation & Input Sanitization › XSS Prevention & Script Injection › should prevent SQL injection in email field
+[1A[2K[23/29] [chromium] › tests\e2e\data-validation.spec.ts:193:5 › Data Validation & Input Sanitization › Form Field Boundary Validation › should handle empty strings gracefully
+[1A[2K[chromium] › tests\e2e\data-validation.spec.ts:193:5 › Data Validation & Input Sanitization › Form Field Boundary Validation › should handle empty strings gracefully
+Empty field validation working
+
+[1A[2K[24/29] [chromium] › tests\e2e\data-validation.spec.ts:212:5 › Data Validation & Input Sanitization › Form Field Boundary Validation › should handle whitespace-only fields
+[1A[2K[25/29] [chromium] › tests\e2e\data-validation.spec.ts:227:5 › Data Validation & Input Sanitization › Form Field Boundary Validation › should trim leading/trailing whitespace from email
+[1A[2K[chromium] › tests\e2e\data-validation.spec.ts:227:5 › Data Validation & Input Sanitization › Form Field Boundary Validation › should trim leading/trailing whitespace from email
+Whitespace trimming checked
+
+[1A[2K[26/29] [chromium] › tests\e2e\data-validation.spec.ts:243:5 › Data Validation & Input Sanitization › Case Sensitivity Validation › should accept email with uppercase letters
+[1A[2K[chromium] › tests\e2e\data-validation.spec.ts:243:5 › Data Validation & Input Sanitization › Case Sensitivity Validation › should accept email with uppercase letters
+Email case sensitivity checked
+
+[1A[2K[27/29] [chromium] › tests\e2e\data-validation.spec.ts:258:5 › Data Validation & Input Sanitization › Case Sensitivity Validation › should treat same email with different case as duplicate
+[1A[2K[chromium] › tests\e2e\data-validation.spec.ts:258:5 › Data Validation & Input Sanitization › Case Sensitivity Validation › should treat same email with different case as duplicate
+Duplicate email case handling checked
+
+[1A[2K[28/29] [chromium] › tests\e2e\data-validation.spec.ts:289:5 › Data Validation & Input Sanitization › Numeric & Special Field Validation › should reject non-numeric input in numeric fields
+[1A[2K[chromium] › tests\e2e\data-validation.spec.ts:289:5 › Data Validation & Input Sanitization › Numeric & Special Field Validation › should reject non-numeric input in numeric fields
+Numeric field validation available for purchase forms if present
+
+[1A[2K[29/29] [chromium] › tests\e2e\data-validation.spec.ts:304:5 › Data Validation & Input Sanitization › Numeric & Special Field Validation › should format phone numbers consistently if present
+[1A[2K[chromium] › tests\e2e\data-validation.spec.ts:304:5 › Data Validation & Input Sanitization › Numeric & Special Field Validation › should format phone numbers consistently if present
+No phone field in signup form
+
+[1A[2K  29 passed (2.1m)
