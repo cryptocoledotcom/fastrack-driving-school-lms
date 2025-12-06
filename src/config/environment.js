@@ -19,6 +19,13 @@ const environment = {
     environment: import.meta.env.VITE_ENVIRONMENT || 'development'
   },
 
+  // Security Configuration
+  security: {
+    corsOrigins: (import.meta.env.VITE_CORS_ORIGINS || 'http://localhost:3000').split(','),
+    csrfTokenName: import.meta.env.VITE_CSRF_TOKEN_NAME || 'X-CSRF-Token',
+    csrfCookieName: import.meta.env.VITE_CSRF_COOKIE_NAME || 'csrf_token'
+  },
+
   // Helper methods
   isDevelopment: () => import.meta.env.MODE === 'development',
   isProduction: () => import.meta.env.MODE === 'production',
