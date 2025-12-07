@@ -1,6 +1,34 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Permission Boundaries - Access Control', () => {
+  test.beforeEach(async ({ page, context }) => {
+    // Clear cookies and storage to ensure fresh auth state
+    await context.clearCookies();
+    await page.goto('/');
+    await page.evaluate(() => {
+      localStorage.clear();
+      sessionStorage.clear();
+    });
+    
+    // Delete Firebase IndexedDB databases
+    await page.evaluate(() => {
+      const databases = ['firebase', 'firebaseLocalStorageDb'];
+      return Promise.all(
+        databases.map(name =>
+          new Promise<void>((resolve) => {
+            const req = indexedDB.deleteDatabase(name);
+            req.onsuccess = () => resolve();
+            req.onerror = () => resolve();
+            req.onblocked = () => resolve();
+          })
+        )
+      );
+    });
+    
+    // Reload page to reinitialize auth state
+    await page.reload();
+  });
+
   test.describe('Unauthenticated Access Restrictions', () => {
     test('should redirect unauthenticated user from dashboard to login', async ({ page }) => {
       await page.goto('/dashboard');

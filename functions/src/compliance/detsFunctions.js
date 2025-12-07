@@ -54,13 +54,13 @@ exports.validateDETSRecord = functions.https.onCall(async (data, context) => {
   }
 });
 
-exports.exportDETSReport = functions.https.onCall(async (data, context) => {
+exports.exportDETSReport = functions.https.onCall(async (request) => {
   try {
-    if (!context.auth) {
+    if (!request.auth) {
       throw new functions.https.HttpsError('unauthenticated', 'User must be authenticated');
     }
 
-    const { courseId, startDate, endDate, studentIds } = data;
+    const { courseId, startDate, endDate, studentIds } = request.data;
 
     if (!courseId) {
       throw new functions.https.HttpsError('invalid-argument', 'Course ID required');
@@ -189,19 +189,19 @@ exports.exportDETSReport = functions.https.onCall(async (data, context) => {
   }
 });
 
-exports.submitDETSToState = functions.https.onCall(async (data, context) => {
+exports.submitDETSToState = functions.https.onCall(async (request) => {
   try {
-    if (!context.auth) {
+    if (!request.auth) {
       throw new functions.https.HttpsError('unauthenticated', 'User must be authenticated');
     }
 
-    const { reportId } = data;
+    const { reportId } = request.data;
 
     if (!reportId) {
       throw new functions.https.HttpsError('invalid-argument', 'Report ID required');
     }
 
-    return await submitDETSReportInternal(reportId, context.auth.uid);
+    return await submitDETSReportInternal(reportId, request.auth.uid);
   } catch (error) {
     console.error('Error submitting DETS report:', error);
     throw new functions.https.HttpsError('internal', error.message || 'Error submitting DETS report');
@@ -283,13 +283,13 @@ async function submitDETSReportInternal(reportId, userId = 'system') {
   }
 }
 
-exports.getDETSReports = functions.https.onCall(async (data, context) => {
+exports.getDETSReports = functions.https.onCall(async (request) => {
   try {
-    if (!context.auth) {
+    if (!request.auth) {
       throw new functions.https.HttpsError('unauthenticated', 'User must be authenticated');
     }
 
-    const { reportId, limit = 50, offset = 0 } = data;
+    const { reportId, limit = 50, offset = 0 } = request.data;
 
     if (reportId) {
       const doc = await detsReportsRef.doc(reportId).get();
@@ -324,11 +324,11 @@ exports.getDETSReports = functions.https.onCall(async (data, context) => {
   }
 });
 
-exports.processPendingDETSReports = functions.https.onCall(async (data, context) => {
-  if (!context.auth) {
+exports.processPendingDETSReports = functions.https.onCall(async (request) => {
+  if (!request.auth) {
     throw new functions.https.HttpsError('authentication-required', 'User must be authenticated');
   }
-  const userRef = await admin.firestore().collection('users').doc(context.auth.uid).get();
+  const userRef = await admin.firestore().collection('users').doc(request.auth.uid).get();
   const userData = userRef.data();
   if (userData?.role !== 'SUPER_ADMIN' && userData?.role !== 'DMV_ADMIN') {
     throw new functions.https.HttpsError('permission-denied', 'Only admins can trigger DETS processing');

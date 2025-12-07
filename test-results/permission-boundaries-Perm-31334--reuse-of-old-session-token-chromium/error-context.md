@@ -51,5 +51,21 @@
           - generic [ref=e38]: ⚙️
           - generic [ref=e39]: Settings
     - main [ref=e40]:
-      - paragraph [ref=e44]: Loading dashboard...
+      - generic [ref=e41]:
+        - generic [ref=e42]:
+          - heading "Welcome back, Session Test!" [level=1] [ref=e43]
+          - paragraph [ref=e44]: Continue your learning journey
+        - generic [ref=e45]:
+          - generic [ref=e46]:
+            - heading "My Courses" [level=2] [ref=e47]
+            - link "Browse Courses" [ref=e48] [cursor=pointer]:
+              - /url: /courses
+              - button "Browse Courses" [ref=e49]
+          - generic [ref=e51]:
+            - generic [ref=e52]: 📚
+            - heading "No courses yet" [level=3] [ref=e53]
+            - paragraph [ref=e54]: You haven't enrolled in any courses yet. Browse our courses to get started!
+            - link "Browse Courses" [ref=e55] [cursor=pointer]:
+              - /url: /courses
+              - button "Browse Courses" [ref=e56]
 ```
