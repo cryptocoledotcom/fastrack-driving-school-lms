@@ -3,8 +3,9 @@ import { Navigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import LoadingSpinner from '../common/LoadingSpinner/LoadingSpinner';
 import { PROTECTED_ROUTES } from '../../constants/routes';
+import { USER_ROLES } from '../../constants/userRoles';
 
-const RoleBasedRoute = ({ children, allowedRoles = [] }) => {
+const AdminOrInstructorRoute = ({ children }) => {
   const { user, userProfile, loading } = useAuth();
 
   if (loading) {
@@ -16,26 +17,18 @@ const RoleBasedRoute = ({ children, allowedRoles = [] }) => {
   }
 
   if (!userProfile) {
-    console.warn('[RoleBasedRoute] No userProfile available, redirecting to dashboard');
     return <Navigate to={PROTECTED_ROUTES.DASHBOARD} replace />;
   }
 
-  const hasRequiredRole = allowedRoles.length === 0 || 
-    allowedRoles.includes(userProfile.role);
+  const hasAccess = userProfile.role === USER_ROLES.DMV_ADMIN || 
+                    userProfile.role === USER_ROLES.SUPER_ADMIN ||
+                    userProfile.role === USER_ROLES.INSTRUCTOR;
 
-  console.debug('[RoleBasedRoute] Role check:', {
-    userRole: userProfile.role,
-    allowedRoles,
-    hasRequiredRole,
-    passedCheck: hasRequiredRole
-  });
-
-  if (!hasRequiredRole) {
-    console.warn('[RoleBasedRoute] Access denied for role:', userProfile.role, 'Allowed:', allowedRoles);
+  if (!hasAccess) {
     return <Navigate to={PROTECTED_ROUTES.DASHBOARD} replace />;
   }
 
   return children;
 };
 
-export default RoleBasedRoute;
+export default AdminOrInstructorRoute;

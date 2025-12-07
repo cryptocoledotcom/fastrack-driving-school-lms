@@ -1,0 +1,21 @@
+
+Running 19 tests using 1 worker
+
+[1A[2K[1/19] [chromium] › tests\e2e\permission-boundaries.spec.ts:5:5 › Permission Boundaries - Access Control › Unauthenticated Access Restrictions › should redirect unauthenticated user from dashboard to login
+[1A[2K[2/19] [chromium] › tests\e2e\permission-boundaries.spec.ts:15:5 › Permission Boundaries - Access Control › Unauthenticated Access Restrictions › should redirect unauthenticated user from my-courses to login
+[1A[2K[3/19] [chromium] › tests\e2e\permission-boundaries.spec.ts:25:5 › Permission Boundaries - Access Control › Unauthenticated Access Restrictions › should redirect unauthenticated user from certificates page to login
+[1A[2K[4/19] [chromium] › tests\e2e\permission-boundaries.spec.ts:33:5 › Permission Boundaries - Access Control › Unauthenticated Access Restrictions › should redirect unauthenticated user from admin panel to login
+[1A[2K[5/19] [chromium] › tests\e2e\permission-boundaries.spec.ts:44:5 › Permission Boundaries - Access Control › Unauthenticated Access Restrictions › should allow unauthenticated access to public pages
+[1A[2K[6/19] [chromium] › tests\e2e\permission-boundaries.spec.ts:61:5 › Permission Boundaries - Access Control › Student Access Restrictions › should prevent student access to admin panel
+[1A[2K  1) [chromium] › tests\e2e\permission-boundaries.spec.ts:61:5 › Permission Boundaries - Access Control › Student Access Restrictions › should prevent student access to admin panel 
+
+    [31mTest timeout of 60000ms exceeded.[39m
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\permission-boundaries-Perm-ee6eb-udent-access-to-admin-panel-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\permission-boundaries-Perm-ee6eb-udent-access-to-admin-panel-chromium\error-context.md
+
+
+[1A[2K[7/19] [chromium] › tests\e2e\permission-boundaries.spec.ts:85:5 › Permission Boundaries - Access Control › Student Access Restrictions › should prevent student access to user management

@@ -1,0 +1,35 @@
+
+Running 19 tests using 1 worker
+
+[1A[2K[1/19] [chromium] › tests\e2e\permission-boundaries.spec.ts:5:5 › Permission Boundaries - Access Control › Unauthenticated Access Restrictions › should redirect unauthenticated user from dashboard to login
+[1A[2K[2/19] [chromium] › tests\e2e\permission-boundaries.spec.ts:15:5 › Permission Boundaries - Access Control › Unauthenticated Access Restrictions › should redirect unauthenticated user from my-courses to login
+[1A[2K[3/19] [chromium] › tests\e2e\permission-boundaries.spec.ts:25:5 › Permission Boundaries - Access Control › Unauthenticated Access Restrictions › should redirect unauthenticated user from certificates page to login
+[1A[2K[4/19] [chromium] › tests\e2e\permission-boundaries.spec.ts:33:5 › Permission Boundaries - Access Control › Unauthenticated Access Restrictions › should redirect unauthenticated user from admin panel to login
+[1A[2K[5/19] [chromium] › tests\e2e\permission-boundaries.spec.ts:44:5 › Permission Boundaries - Access Control › Unauthenticated Access Restrictions › should allow unauthenticated access to public pages
+[1A[2K[6/19] [chromium] › tests\e2e\permission-boundaries.spec.ts:61:5 › Permission Boundaries - Access Control › Student Access Restrictions › should prevent student access to admin panel
+[1A[2K[7/19] [chromium] › tests\e2e\permission-boundaries.spec.ts:85:5 › Permission Boundaries - Access Control › Student Access Restrictions › should prevent student access to user management
+[1A[2K[8/19] [chromium] › tests\e2e\permission-boundaries.spec.ts:107:5 › Permission Boundaries - Access Control › Student Access Restrictions › should prevent student from viewing analytics
+[1A[2K[9/19] [chromium] › tests\e2e\permission-boundaries.spec.ts:129:5 › Permission Boundaries - Access Control › Student Access Restrictions › student dashboard should only show own courses
+[1A[2K[10/19] [chromium] › tests\e2e\permission-boundaries.spec.ts:153:5 › Permission Boundaries - Access Control › Data Isolation & Privacy › should not expose other student enrollment data
+[1A[2K[chromium] › tests\e2e\permission-boundaries.spec.ts:153:5 › Permission Boundaries - Access Control › Data Isolation & Privacy › should not expose other student enrollment data
+Student 1 has 0 courses
+
+[1A[2K[11/19] [chromium] › tests\e2e\permission-boundaries.spec.ts:175:5 › Permission Boundaries - Access Control › Data Isolation & Privacy › should not allow viewing another user profile
+[1A[2K[12/19] [chromium] › tests\e2e\permission-boundaries.spec.ts:193:5 › Permission Boundaries - Access Control › Data Isolation & Privacy › student should not be able to download other student certificate
+[1A[2K[13/19] [chromium] › tests\e2e\permission-boundaries.spec.ts:213:5 › Permission Boundaries - Access Control › Role-Based Menu & Feature Visibility › student dashboard should not show admin menu items
+[1A[2K[chromium] › tests\e2e\permission-boundaries.spec.ts:213:5 › Permission Boundaries - Access Control › Role-Based Menu & Feature Visibility › student dashboard should not show admin menu items
+Admin menu properly hidden from student
+
+[1A[2K[14/19] [chromium] › tests\e2e\permission-boundaries.spec.ts:234:5 › Permission Boundaries - Access Control › Role-Based Menu & Feature Visibility › student should see student-specific menu items
+[1A[2K[15/19] [chromium] › tests\e2e\permission-boundaries.spec.ts:253:5 › Permission Boundaries - Access Control › Role-Based Menu & Feature Visibility › should not show payment/upgrade to free tier users
+[1A[2K[chromium] › tests\e2e\permission-boundaries.spec.ts:253:5 › Permission Boundaries - Access Control › Role-Based Menu & Feature Visibility › should not show payment/upgrade to free tier users
+Free tier user viewing courses
+
+[1A[2K[16/19] [chromium] › tests\e2e\permission-boundaries.spec.ts:272:5 › Permission Boundaries - Access Control › Cross-User Boundary Violations › should prevent direct URL access to another user course
+[1A[2K[chromium] › tests\e2e\permission-boundaries.spec.ts:272:5 › Permission Boundaries - Access Control › Cross-User Boundary Violations › should prevent direct URL access to another user course
+Boundary test - access denied handled
+
+[1A[2K[17/19] [chromium] › tests\e2e\permission-boundaries.spec.ts:294:5 › Permission Boundaries - Access Control › Cross-User Boundary Violations › student modify attempt should fail gracefully
+[1A[2K[18/19] [chromium] › tests\e2e\permission-boundaries.spec.ts:316:5 › Permission Boundaries - Access Control › Session & Authentication Boundaries › should clear user context on logout
+[1A[2K[19/19] [chromium] › tests\e2e\permission-boundaries.spec.ts:339:5 › Permission Boundaries - Access Control › Session & Authentication Boundaries › should not allow reuse of old session token
+[1A[2K  19 passed (1.1m)

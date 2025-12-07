@@ -69,13 +69,17 @@ test.describe('Permission Boundaries - Access Control', () => {
       await page.waitForURL('/dashboard', { timeout: 5000 }).catch(() => {});
 
       await page.goto('/admin');
-      await page.waitForLoadState('domcontentloaded').catch(() => {});
+      
+      // Wait for either redirect to dashboard or stay on admin (should redirect)
+      const finalUrl = await page.waitForFunction(() => {
+        const url = window.location.pathname;
+        return url === '/dashboard' || url === '/admin';
+      }, { timeout: 5000 }).catch(() => null);
 
-      const isOnLogin = page.url().includes('/login') || page.url().includes('/register');
+      const isOnDashboard = page.url().includes('/dashboard');
       const isOnAdmin = page.url().includes('/admin');
 
-      const accessDenied = isOnLogin || !isOnAdmin;
-      expect(accessDenied).toBeTruthy();
+      expect(isOnDashboard || !isOnAdmin).toBeTruthy();
     });
 
     test('should prevent student access to user management', async ({ page }) => {
@@ -89,7 +93,12 @@ test.describe('Permission Boundaries - Access Control', () => {
       await page.waitForURL('/dashboard', { timeout: 5000 }).catch(() => {});
 
       await page.goto('/admin/users');
-      await page.waitForLoadState('domcontentloaded').catch(() => {});
+      
+      // Wait for either redirect to dashboard or stay on users (should redirect)
+      await page.waitForFunction(() => {
+        const url = window.location.pathname;
+        return url === '/dashboard' || url === '/admin/users';
+      }, { timeout: 5000 }).catch(() => null);
 
       const accessDenied = !page.url().includes('/admin/users');
       expect(accessDenied).toBeTruthy();
@@ -106,7 +115,12 @@ test.describe('Permission Boundaries - Access Control', () => {
       await page.waitForURL('/dashboard', { timeout: 5000 }).catch(() => {});
 
       await page.goto('/admin/analytics');
-      await page.waitForLoadState('domcontentloaded').catch(() => {});
+      
+      // Wait for either redirect to dashboard or stay on analytics (should redirect)
+      await page.waitForFunction(() => {
+        const url = window.location.pathname;
+        return url === '/dashboard' || url === '/admin/analytics';
+      }, { timeout: 5000 }).catch(() => null);
 
       const isOnAdmin = page.url().includes('/admin/analytics');
       expect(!isOnAdmin).toBeTruthy();

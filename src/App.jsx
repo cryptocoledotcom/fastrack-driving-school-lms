@@ -10,7 +10,7 @@ import { ModalProvider } from './context/ModalContext';
 import ErrorBoundary from './components/common/ErrorBoundary/ErrorBoundary';
 
 // Route Guards
-import { ProtectedRoute, PublicRoute, RoleBasedRoute, UserAccessGuard } from './components/guards';
+import { ProtectedRoute, PublicRoute, RoleBasedRoute, UserAccessGuard, AdminDashboardRoute, AdminOrInstructorRoute } from './components/guards';
 
 // Layouts
 import { MainLayout, DashboardLayout, AuthLayout } from './components/layout';
@@ -220,51 +220,51 @@ function AppRoutes() {
                 {/* Admin Routes */}
                 <Route path={ADMIN_ROUTES.ADMIN_DASHBOARD} element={
                   <ProtectedRoute>
-                    <DashboardLayout>
-                      <RoleBasedRoute allowedRoles={[USER_ROLES.DMV_ADMIN, USER_ROLES.SUPER_ADMIN]}>
+                    <AdminDashboardRoute>
+                      <DashboardLayout>
                         <AdminPage />
-                      </RoleBasedRoute>
-                    </DashboardLayout>
+                      </DashboardLayout>
+                    </AdminDashboardRoute>
                   </ProtectedRoute>
                 } />
 
                 <Route path={ADMIN_ROUTES.AUDIT_LOGS} element={
                   <ProtectedRoute>
-                    <DashboardLayout>
-                      <RoleBasedRoute allowedRoles={[USER_ROLES.DMV_ADMIN, USER_ROLES.SUPER_ADMIN, USER_ROLES.INSTRUCTOR]}>
+                    <AdminOrInstructorRoute>
+                      <DashboardLayout>
                         <AuditLogsPage />
-                      </RoleBasedRoute>
-                    </DashboardLayout>
+                      </DashboardLayout>
+                    </AdminOrInstructorRoute>
                   </ProtectedRoute>
                 } />
 
                 <Route path={ADMIN_ROUTES.MANAGE_USERS} element={
                   <ProtectedRoute>
-                    <DashboardLayout>
-                      <RoleBasedRoute allowedRoles={[USER_ROLES.DMV_ADMIN, USER_ROLES.SUPER_ADMIN]}>
+                    <AdminDashboardRoute>
+                      <DashboardLayout>
                         <AdminPage />
-                      </RoleBasedRoute>
-                    </DashboardLayout>
+                      </DashboardLayout>
+                    </AdminDashboardRoute>
                   </ProtectedRoute>
                 } />
 
                 <Route path={ADMIN_ROUTES.MANAGE_COURSES} element={
                   <ProtectedRoute>
-                    <DashboardLayout>
-                      <RoleBasedRoute allowedRoles={[USER_ROLES.DMV_ADMIN, USER_ROLES.SUPER_ADMIN]}>
+                    <AdminDashboardRoute>
+                      <DashboardLayout>
                         <AdminPage />
-                      </RoleBasedRoute>
-                    </DashboardLayout>
+                      </DashboardLayout>
+                    </AdminDashboardRoute>
                   </ProtectedRoute>
                 } />
 
                 <Route path={ADMIN_ROUTES.ANALYTICS} element={
                   <ProtectedRoute>
-                    <DashboardLayout>
-                      <RoleBasedRoute allowedRoles={[USER_ROLES.DMV_ADMIN, USER_ROLES.SUPER_ADMIN]}>
+                    <AdminDashboardRoute>
+                      <DashboardLayout>
                         <AdminPage />
-                      </RoleBasedRoute>
-                    </DashboardLayout>
+                      </DashboardLayout>
+                    </AdminDashboardRoute>
                   </ProtectedRoute>
                 } />
 
