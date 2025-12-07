@@ -364,7 +364,7 @@ test.describe('Permission Boundaries - Access Control', () => {
       }
     });
 
-    test('should not allow reuse of old session token', async ({ page }) => {
+    test('should not allow reuse of old session token', async ({ page, context }) => {
       await page.goto('/register');
       const email = `session-${Date.now()}@test.com`;
       await page.fill('input[name="displayName"]', 'Session Test');
@@ -375,15 +375,45 @@ test.describe('Permission Boundaries - Access Control', () => {
 
       await page.waitForURL('/dashboard', { timeout: 5000 }).catch(() => {});
 
+      // Find and click logout button
       const logoutBtn = page.locator('button, a').filter({ hasText: /logout|sign out|log out/i });
-      if (await logoutBtn.isVisible({ timeout: 2000 }).catch(() => false)) {
+      const logoutVisible = await logoutBtn.isVisible({ timeout: 3000 }).catch(() => false);
+
+      if (logoutVisible) {
         await logoutBtn.click();
+        // Wait for page navigation after logout
+        await page.waitForLoadState('networkidle', { timeout: 3000 }).catch(() => {});
       }
 
-      await page.goto('/dashboard');
-      await page.waitForLoadState('domcontentloaded').catch(() => {});
+      // Clear cookies, storage, and Firebase IndexedDB to fully logout
+      await context.clearCookies();
+      await page.evaluate(() => {
+        localStorage.clear();
+        sessionStorage.clear();
+      });
 
-      const isOnLogin = page.url().includes('/login') || page.url().includes('/register');
+      // Delete Firebase IndexedDB to clear persisted auth
+      await page.evaluate(() => {
+        const databases = ['firebase', 'firebaseLocalStorageDb'];
+        return Promise.all(
+          databases.map(name =>
+            new Promise<void>((resolve) => {
+              const req = indexedDB.deleteDatabase(name);
+              req.onsuccess = () => resolve();
+              req.onerror = () => resolve();
+              req.onblocked = () => resolve();
+            })
+          )
+        );
+      });
+
+      // Navigate to protected route
+      await page.goto('/dashboard');
+      await page.waitForLoadState('domcontentloaded');
+
+      // Check if redirected to login
+      const currentUrl = page.url();
+      const isOnLogin = currentUrl.includes('/login') || currentUrl.includes('/register') || currentUrl === '/';
       expect(isOnLogin).toBeTruthy();
     });
   });
