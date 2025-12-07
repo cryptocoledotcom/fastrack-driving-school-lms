@@ -1,0 +1,22 @@
+
+Running 114 tests using 1 worker
+
+[1A[2K[1/114] [chromium] › tests\e2e\admin-user-role-flow.spec.ts:7:3 › Admin User Creation → Role Assignment Flow › admin page requires authentication
+[1A[2K[2/114] [chromium] › tests\e2e\admin-user-role-flow.spec.ts:18:3 › Admin User Creation → Role Assignment Flow › should display admin dashboard with user management tab
+[1A[2K[3/114] [chromium] › tests\e2e\admin-user-role-flow.spec.ts:35:3 › Admin User Creation → Role Assignment Flow › should verify user management interface elements
+[1A[2K[4/114] [chromium] › tests\e2e\admin-user-role-flow.spec.ts:64:3 › Admin User Creation → Role Assignment Flow › should verify role assignment UI components exist
+[1A[2K[5/114] [chromium] › tests\e2e\admin-user-role-flow.spec.ts:85:3 › Admin User Creation → Role Assignment Flow › should display audit trail for user management actions
+[1A[2K[6/114] [chromium] › tests\e2e\admin-user-role-flow.spec.ts:109:3 › Admin User Creation → Role Assignment Flow › should verify enrollment management tab for user handling
+[1A[2K[7/114] [chromium] › tests\e2e\admin-user-role-flow.spec.ts:133:3 › Admin User Creation → Role Assignment Flow › should verify admin role-based access control
+[1A[2K[8/114] [chromium] › tests\e2e\admin-user-role-flow.spec.ts:149:3 › Admin User Creation → Role Assignment Flow › should handle user management operations workflow
+[1A[2K[chromium] › tests\e2e\admin-user-role-flow.spec.ts:149:3 › Admin User Creation → Role Assignment Flow › should handle user management operations workflow
+Admin page redirected to login (authentication required)
+
+[1A[2K[9/114] [chromium] › tests\e2e\app-check.spec.ts:32:5 › Firebase App Check Integration › App Check Initialization › should initialize App Check with ReCaptcha V3 provider
+[1A[2K[10/114] [chromium] › tests\e2e\app-check.spec.ts:51:5 › Firebase App Check Integration › App Check Initialization › should have debug token configured in development
+[1A[2K[11/114] [chromium] › tests\e2e\app-check.spec.ts:61:5 › Firebase App Check Integration › App Check Initialization › should auto-refresh App Check tokens
+[1A[2K[12/114] [chromium] › tests\e2e\app-check.spec.ts:76:5 › Firebase App Check Integration › App Check with Firestore Operations › should allow authenticated users to read public content with App Check
+[1A[2K[13/114] [chromium] › tests\e2e\app-check.spec.ts:88:5 › Firebase App Check Integration › App Check with Firestore Operations › should allow login with valid App Check token
+[1A[2K[14/114] [chromium] › tests\e2e\app-check.spec.ts:107:5 › Firebase App Check Integration › App Check with Firestore Operations › should allow data access with valid App Check token
+[1A[2K[15/114] [chromium] › tests\e2e\app-check.spec.ts:136:5 › Firebase App Check Integration › App Check Error Handling › should not expose App Check errors in UI
+[1A[2K[16/114] [chromium] › tests\e2e\app-check.spec.ts:158:5 › Firebase App Check Integration › App Check Error Handling › should handle App Check token expiration gracefully

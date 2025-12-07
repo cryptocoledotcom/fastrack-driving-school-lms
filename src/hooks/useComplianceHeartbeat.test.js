@@ -77,7 +77,7 @@ describe('useComplianceHeartbeat', () => {
       })
     );
 
-    vi.advanceTimersByTime(60 * 1000);
+    await vi.advanceTimersByTimeAsync(60 * 1000);
 
     await waitFor(() => {
       expect(onHeartbeatSuccess).toHaveBeenCalledWith(mockResponse);
@@ -105,7 +105,7 @@ describe('useComplianceHeartbeat', () => {
       })
     );
 
-    vi.advanceTimersByTime(60 * 1000);
+    await vi.advanceTimersByTimeAsync(60 * 1000);
 
     await waitFor(() => {
       expect(onLimitReached).toHaveBeenCalledWith({
@@ -180,7 +180,7 @@ describe('useComplianceHeartbeat', () => {
       })
     );
 
-    vi.advanceTimersByTime(60 * 1000);
+    await vi.advanceTimersByTimeAsync(60 * 1000);
 
     await waitFor(() => {
       expect(onHeartbeatError).toHaveBeenCalledWith(error);

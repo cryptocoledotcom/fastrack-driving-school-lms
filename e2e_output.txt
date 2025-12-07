@@ -1,0 +1,42 @@
+
+> fastrack-driving-school-lms@1.0.0 test:e2e
+> playwright test
+
+
+Running 342 tests using 1 worker
+
+[1A[2K[1/342] [chromium] › tests\e2e\admin-user-role-flow.spec.ts:7:3 › Admin User Creation → Role Assignment Flow › admin page requires authentication
+[1A[2K[2/342] [chromium] › tests\e2e\admin-user-role-flow.spec.ts:18:3 › Admin User Creation → Role Assignment Flow › should display admin dashboard with user management tab
+[1A[2K[3/342] [chromium] › tests\e2e\admin-user-role-flow.spec.ts:35:3 › Admin User Creation → Role Assignment Flow › should verify user management interface elements
+[1A[2K[4/342] [chromium] › tests\e2e\admin-user-role-flow.spec.ts:64:3 › Admin User Creation → Role Assignment Flow › should verify role assignment UI components exist
+[1A[2K[5/342] [chromium] › tests\e2e\admin-user-role-flow.spec.ts:85:3 › Admin User Creation → Role Assignment Flow › should display audit trail for user management actions
+[1A[2K[6/342] [chromium] › tests\e2e\admin-user-role-flow.spec.ts:109:3 › Admin User Creation → Role Assignment Flow › should verify enrollment management tab for user handling
+[1A[2K[7/342] [chromium] › tests\e2e\admin-user-role-flow.spec.ts:133:3 › Admin User Creation → Role Assignment Flow › should verify admin role-based access control
+[1A[2K[8/342] [chromium] › tests\e2e\admin-user-role-flow.spec.ts:149:3 › Admin User Creation → Role Assignment Flow › should handle user management operations workflow
+[1A[2K[chromium] › tests\e2e\admin-user-role-flow.spec.ts:149:3 › Admin User Creation → Role Assignment Flow › should handle user management operations workflow
+Admin page redirected to login (authentication required)
+
+[1A[2K[9/342] [chromium] › tests\e2e\app-check.spec.ts:32:5 › Firebase App Check Integration › App Check Initialization › should initialize App Check with ReCaptcha V3 provider
+[1A[2K[10/342] [chromium] › tests\e2e\app-check.spec.ts:51:5 › Firebase App Check Integration › App Check Initialization › should have debug token configured in development
+[1A[2K[11/342] [chromium] › tests\e2e\app-check.spec.ts:61:5 › Firebase App Check Integration › App Check Initialization › should auto-refresh App Check tokens
+[1A[2K[12/342] [chromium] › tests\e2e\app-check.spec.ts:76:5 › Firebase App Check Integration › App Check with Firestore Operations › should allow authenticated users to read public content with App Check
+[1A[2K[13/342] [chromium] › tests\e2e\app-check.spec.ts:88:5 › Firebase App Check Integration › App Check with Firestore Operations › should allow login with valid App Check token
+[1A[2K[14/342] [chromium] › tests\e2e\app-check.spec.ts:107:5 › Firebase App Check Integration › App Check with Firestore Operations › should allow data access with valid App Check token
+[1A[2K[15/342] [chromium] › tests\e2e\app-check.spec.ts:136:5 › Firebase App Check Integration › App Check Error Handling › should not expose App Check errors in UI
+[1A[2K[16/342] [chromium] › tests\e2e\app-check.spec.ts:158:5 › Firebase App Check Integration › App Check Error Handling › should handle App Check token expiration gracefully
+[1A[2K[17/342] [chromium] › tests\e2e\app-check.spec.ts:195:5 › Firebase App Check Integration › App Check Security › should validate App Check token before Firestore access
+[1A[2K[18/342] [chromium] › tests\e2e\app-check.spec.ts:215:5 › Firebase App Check Integration › App Check Security › should prevent unauthorized Firestore access without App Check
+[1A[2K[19/342] [chromium] › tests\e2e\app-check.spec.ts:233:5 › Firebase App Check Integration › App Check with Different User Roles › should work with student role
+[1A[2K[20/342] [chromium] › tests\e2e\app-check.spec.ts:250:5 › Firebase App Check Integration › App Check with Different User Roles › should work with admin role (Google signup flow)
+[1A[2K[21/342] [chromium] › tests\e2e\data-validation.spec.ts:21:7 › Data Validation & Input Sanitization › Email Validation › signup with email "Missing @ symbol" - missing-at-sign.com
+[1A[2K[22/342] [chromium] › tests\e2e\data-validation.spec.ts:21:7 › Data Validation & Input Sanitization › Email Validation › signup with email "Double @ symbol" - double@@domain.com
+[1A[2K[23/342] [chromium] › tests\e2e\data-validation.spec.ts:21:7 › Data Validation & Input Sanitization › Email Validation › signup with email "Spaces in email" - spaces in@email.com
+[1A[2K[24/342] [chromium] › tests\e2e\data-validation.spec.ts:21:7 › Data Validation & Input Sanitization › Email Validation › signup with email "Missing TLD" - user@domain
+[1A[2K[25/342] [chromium] › tests\e2e\data-validation.spec.ts:21:7 › Data Validation & Input Sanitization › Email Validation › signup with email "Missing domain name" - user@.com
+[1A[2K[26/342] [chromium] › tests\e2e\data-validation.spec.ts:21:7 › Data Validation & Input Sanitization › Email Validation › signup with email "Plus sign (valid)" - user+tag@example.com
+[1A[2K[27/342] [chromium] › tests\e2e\data-validation.spec.ts:21:7 › Data Validation & Input Sanitization › Email Validation › signup with email "Dot in local part (valid)" - user.name@example.com
+[1A[2K[28/342] [chromium] › tests\e2e\data-validation.spec.ts:21:7 › Data Validation & Input Sanitization › Email Validation › signup with email "Underscore (valid)" - user_name@example.com
+[1A[2K[29/342] [chromium] › tests\e2e\data-validation.spec.ts:69:7 › Data Validation & Input Sanitization › Password Validation & Security › password "Too short (3 chars)" - 123
+[1A[2K[30/342] [chromium] › tests\e2e\data-validation.spec.ts:69:7 › Data Validation & Input Sanitization › Password Validation & Security › password "No uppercase or numbers" - password
+[1A[2K[31/342] [chromium] › tests\e2e\data-validation.spec.ts:69:7 › Data Validation & Input Sanitization › Password Validation & Security › password "No lowercase" - PASSWORD123
+[1A[2K[32/342] [chromium] › tests\e2e\data-validation.spec.ts:69:7 › Data Validation & Input Sanitization › Password Validation & Security › password "No numbers" - Password
