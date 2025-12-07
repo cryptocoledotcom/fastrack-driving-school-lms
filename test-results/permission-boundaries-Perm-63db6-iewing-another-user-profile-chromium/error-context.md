@@ -1,5 +1,55 @@
 # Page snapshot
 
 ```yaml
-- paragraph [ref=e4]: Loading...
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - link "Fastrack Driving School" [ref=e6] [cursor=pointer]:
+        - /url: /
+        - img "Fastrack Driving School" [ref=e7]
+      - navigation [ref=e8]:
+        - link "Home" [ref=e9] [cursor=pointer]:
+          - /url: /
+        - link "Courses" [ref=e10] [cursor=pointer]:
+          - /url: /courses
+        - link "About" [ref=e11] [cursor=pointer]:
+          - /url: /about
+        - link "Contact" [ref=e12] [cursor=pointer]:
+          - /url: /contact
+      - generic [ref=e13]:
+        - link "Dashboard" [ref=e14] [cursor=pointer]:
+          - /url: /dashboard
+          - button "Dashboard" [ref=e15]
+        - generic [ref=e16]:
+          - generic [ref=e17]: profile-test-1765067616463
+          - button "Logout" [ref=e18] [cursor=pointer]
+  - generic [ref=e19]:
+    - complementary [ref=e20]:
+      - navigation [ref=e21]:
+        - link "📊 Dashboard" [ref=e22] [cursor=pointer]:
+          - /url: /dashboard
+          - generic [ref=e23]: 📊
+          - generic [ref=e24]: Dashboard
+        - link "📚 My Courses" [ref=e25] [cursor=pointer]:
+          - /url: /dashboard/my-courses
+          - generic [ref=e26]: 📚
+          - generic [ref=e27]: My Courses
+        - link "📈 Progress" [ref=e28] [cursor=pointer]:
+          - /url: /dashboard/progress
+          - generic [ref=e29]: 📈
+          - generic [ref=e30]: Progress
+        - link "🎓 Certificates" [ref=e31] [cursor=pointer]:
+          - /url: /dashboard/certificates
+          - generic [ref=e32]: 🎓
+          - generic [ref=e33]: Certificates
+        - link "👤 Profile" [ref=e34] [cursor=pointer]:
+          - /url: /dashboard/profile
+          - generic [ref=e35]: 👤
+          - generic [ref=e36]: Profile
+        - link "⚙️ Settings" [ref=e37] [cursor=pointer]:
+          - /url: /dashboard/settings
+          - generic [ref=e38]: ⚙️
+          - generic [ref=e39]: Settings
+    - main [ref=e40]:
+      - paragraph [ref=e44]: Loading dashboard...
 ```

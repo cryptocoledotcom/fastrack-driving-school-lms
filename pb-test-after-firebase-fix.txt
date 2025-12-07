@@ -1,0 +1,201 @@
+
+> fastrack-driving-school-lms@1.0.0 test:e2e
+> playwright test tests/e2e/permission-boundaries.spec.ts --project=chromium
+
+
+Running 19 tests using 1 worker
+
+[1A[2K[1/19] [chromium] › tests\e2e\permission-boundaries.spec.ts:5:5 › Permission Boundaries - Access Control › Unauthenticated Access Restrictions › should redirect unauthenticated user from dashboard to login
+[1A[2K[2/19] [chromium] › tests\e2e\permission-boundaries.spec.ts:15:5 › Permission Boundaries - Access Control › Unauthenticated Access Restrictions › should redirect unauthenticated user from my-courses to login
+[1A[2K[3/19] [chromium] › tests\e2e\permission-boundaries.spec.ts:25:5 › Permission Boundaries - Access Control › Unauthenticated Access Restrictions › should redirect unauthenticated user from certificates page to login
+[1A[2K[4/19] [chromium] › tests\e2e\permission-boundaries.spec.ts:33:5 › Permission Boundaries - Access Control › Unauthenticated Access Restrictions › should redirect unauthenticated user from admin panel to login
+[1A[2K[5/19] [chromium] › tests\e2e\permission-boundaries.spec.ts:44:5 › Permission Boundaries - Access Control › Unauthenticated Access Restrictions › should allow unauthenticated access to public pages
+[1A[2K[6/19] [chromium] › tests\e2e\permission-boundaries.spec.ts:61:5 › Permission Boundaries - Access Control › Student Access Restrictions › should prevent student access to admin panel
+[1A[2K  1) [chromium] › tests\e2e\permission-boundaries.spec.ts:61:5 › Permission Boundaries - Access Control › Student Access Restrictions › should prevent student access to admin panel 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeTruthy[2m()[22m
+
+    Received: [31mfalse[39m
+
+      76 |
+      77 |       const accessDenied = isOnLogin || !isOnAdmin;
+    > 78 |       expect(accessDenied).toBeTruthy();
+         |                            ^
+      79 |     });
+      80 |
+      81 |     test('should prevent student access to user management', async ({ page }) => {
+        at c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\tests\e2e\permission-boundaries.spec.ts:78:28
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\permission-boundaries-Perm-ee6eb-udent-access-to-admin-panel-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\permission-boundaries-Perm-ee6eb-udent-access-to-admin-panel-chromium\error-context.md
+
+
+[1A[2K[7/19] [chromium] › tests\e2e\permission-boundaries.spec.ts:81:5 › Permission Boundaries - Access Control › Student Access Restrictions › should prevent student access to user management
+[1A[2K  2) [chromium] › tests\e2e\permission-boundaries.spec.ts:81:5 › Permission Boundaries - Access Control › Student Access Restrictions › should prevent student access to user management 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeTruthy[2m()[22m
+
+    Received: [31mfalse[39m
+
+      93 |
+      94 |       const accessDenied = !page.url().includes('/admin/users');
+    > 95 |       expect(accessDenied).toBeTruthy();
+         |                            ^
+      96 |     });
+      97 |
+      98 |     test('should prevent student from viewing analytics', async ({ page }) => {
+        at c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\tests\e2e\permission-boundaries.spec.ts:95:28
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\permission-boundaries-Perm-c111c-t-access-to-user-management-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\permission-boundaries-Perm-c111c-t-access-to-user-management-chromium\error-context.md
+
+
+[1A[2K[8/19] [chromium] › tests\e2e\permission-boundaries.spec.ts:98:5 › Permission Boundaries - Access Control › Student Access Restrictions › should prevent student from viewing analytics
+[1A[2K  3) [chromium] › tests\e2e\permission-boundaries.spec.ts:98:5 › Permission Boundaries - Access Control › Student Access Restrictions › should prevent student from viewing analytics 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeTruthy[2m()[22m
+
+    Received: [31mfalse[39m
+
+      110 |
+      111 |       const isOnAdmin = page.url().includes('/admin/analytics');
+    > 112 |       expect(!isOnAdmin).toBeTruthy();
+          |                          ^
+      113 |     });
+      114 |
+      115 |     test('student dashboard should only show own courses', async ({ page }) => {
+        at c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\tests\e2e\permission-boundaries.spec.ts:112:26
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\permission-boundaries-Perm-75771-dent-from-viewing-analytics-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\permission-boundaries-Perm-75771-dent-from-viewing-analytics-chromium\error-context.md
+
+
+[1A[2K[9/19] [chromium] › tests\e2e\permission-boundaries.spec.ts:115:5 › Permission Boundaries - Access Control › Student Access Restrictions › student dashboard should only show own courses
+[1A[2K[10/19] [chromium] › tests\e2e\permission-boundaries.spec.ts:139:5 › Permission Boundaries - Access Control › Data Isolation & Privacy › should not expose other student enrollment data
+[1A[2K[chromium] › tests\e2e\permission-boundaries.spec.ts:139:5 › Permission Boundaries - Access Control › Data Isolation & Privacy › should not expose other student enrollment data
+Student 1 has 0 courses
+
+[1A[2K[11/19] [chromium] › tests\e2e\permission-boundaries.spec.ts:161:5 › Permission Boundaries - Access Control › Data Isolation & Privacy › should not allow viewing another user profile
+[1A[2K  4) [chromium] › tests\e2e\permission-boundaries.spec.ts:161:5 › Permission Boundaries - Access Control › Data Isolation & Privacy › should not allow viewing another user profile 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeTruthy[2m()[22m
+
+    Received: [31mfalse[39m
+
+      174 |
+      175 |       const accessDenied = !page.url().includes('/fake-user-id');
+    > 176 |       expect(accessDenied).toBeTruthy();
+          |                            ^
+      177 |     });
+      178 |
+      179 |     test('student should not be able to download other student certificate', async ({ page }) => {
+        at c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\tests\e2e\permission-boundaries.spec.ts:176:28
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\permission-boundaries-Perm-63db6-iewing-another-user-profile-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\permission-boundaries-Perm-63db6-iewing-another-user-profile-chromium\error-context.md
+
+
+[1A[2K[12/19] [chromium] › tests\e2e\permission-boundaries.spec.ts:179:5 › Permission Boundaries - Access Control › Data Isolation & Privacy › student should not be able to download other student certificate
+[1A[2K  5) [chromium] › tests\e2e\permission-boundaries.spec.ts:179:5 › Permission Boundaries - Access Control › Data Isolation & Privacy › student should not be able to download other student certificate 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeTruthy[2m()[22m
+
+    Received: [31mfalse[39m
+
+      192 |
+      193 |       const notFound = page.url().includes('/certificates/fake-cert-id') === false;
+    > 194 |       expect(notFound).toBeTruthy();
+          |                        ^
+      195 |     });
+      196 |   });
+      197 |
+        at c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\tests\e2e\permission-boundaries.spec.ts:194:24
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\permission-boundaries-Perm-6816b-d-other-student-certificate-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\permission-boundaries-Perm-6816b-d-other-student-certificate-chromium\error-context.md
+
+
+[1A[2K[13/19] [chromium] › tests\e2e\permission-boundaries.spec.ts:199:5 › Permission Boundaries - Access Control › Role-Based Menu & Feature Visibility › student dashboard should not show admin menu items
+[1A[2K[chromium] › tests\e2e\permission-boundaries.spec.ts:199:5 › Permission Boundaries - Access Control › Role-Based Menu & Feature Visibility › student dashboard should not show admin menu items
+Admin menu properly hidden from student
+
+[1A[2K[14/19] [chromium] › tests\e2e\permission-boundaries.spec.ts:220:5 › Permission Boundaries - Access Control › Role-Based Menu & Feature Visibility › student should see student-specific menu items
+[1A[2K[15/19] [chromium] › tests\e2e\permission-boundaries.spec.ts:239:5 › Permission Boundaries - Access Control › Role-Based Menu & Feature Visibility › should not show payment/upgrade to free tier users
+[1A[2K[chromium] › tests\e2e\permission-boundaries.spec.ts:239:5 › Permission Boundaries - Access Control › Role-Based Menu & Feature Visibility › should not show payment/upgrade to free tier users
+Free tier user viewing courses
+
+[1A[2K[16/19] [chromium] › tests\e2e\permission-boundaries.spec.ts:258:5 › Permission Boundaries - Access Control › Cross-User Boundary Violations › should prevent direct URL access to another user course
+[1A[2K[chromium] › tests\e2e\permission-boundaries.spec.ts:258:5 › Permission Boundaries - Access Control › Cross-User Boundary Violations › should prevent direct URL access to another user course
+Boundary test - access denied handled
+
+[1A[2K[17/19] [chromium] › tests\e2e\permission-boundaries.spec.ts:280:5 › Permission Boundaries - Access Control › Cross-User Boundary Violations › student modify attempt should fail gracefully
+[1A[2K  6) [chromium] › tests\e2e\permission-boundaries.spec.ts:280:5 › Permission Boundaries - Access Control › Cross-User Boundary Violations › student modify attempt should fail gracefully 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeTruthy[2m()[22m
+
+    Received: [31mfalse[39m
+
+      295 |       const isOnLogin = page.url().includes('/login');
+      296 |
+    > 297 |       expect(isOnLogin || !isOnAdmin).toBeTruthy();
+          |                                       ^
+      298 |     });
+      299 |   });
+      300 |
+        at c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\tests\e2e\permission-boundaries.spec.ts:297:39
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\permission-boundaries-Perm-c5a10-empt-should-fail-gracefully-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\permission-boundaries-Perm-c5a10-empt-should-fail-gracefully-chromium\error-context.md
+
+
+[1A[2K[18/19] [chromium] › tests\e2e\permission-boundaries.spec.ts:302:5 › Permission Boundaries - Access Control › Session & Authentication Boundaries › should clear user context on logout
+[1A[2K[19/19] [chromium] › tests\e2e\permission-boundaries.spec.ts:325:5 › Permission Boundaries - Access Control › Session & Authentication Boundaries › should not allow reuse of old session token
+[1A[2K  7) [chromium] › tests\e2e\permission-boundaries.spec.ts:325:5 › Permission Boundaries - Access Control › Session & Authentication Boundaries › should not allow reuse of old session token 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeTruthy[2m()[22m
+
+    Received: [31mfalse[39m
+
+      343 |
+      344 |       const isOnLogin = page.url().includes('/login') || page.url().includes('/register');
+    > 345 |       expect(isOnLogin).toBeTruthy();
+          |                         ^
+      346 |     });
+      347 |   });
+      348 | });
+        at c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\tests\e2e\permission-boundaries.spec.ts:345:25
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\permission-boundaries-Perm-31334--reuse-of-old-session-token-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\permission-boundaries-Perm-31334--reuse-of-old-session-token-chromium\error-context.md
+
+
+[1A[2K  7 failed
+    [chromium] › tests\e2e\permission-boundaries.spec.ts:61:5 › Permission Boundaries - Access Control › Student Access Restrictions › should prevent student access to admin panel 
+    [chromium] › tests\e2e\permission-boundaries.spec.ts:81:5 › Permission Boundaries - Access Control › Student Access Restrictions › should prevent student access to user management 
+    [chromium] › tests\e2e\permission-boundaries.spec.ts:98:5 › Permission Boundaries - Access Control › Student Access Restrictions › should prevent student from viewing analytics 
+    [chromium] › tests\e2e\permission-boundaries.spec.ts:161:5 › Permission Boundaries - Access Control › Data Isolation & Privacy › should not allow viewing another user profile 
+    [chromium] › tests\e2e\permission-boundaries.spec.ts:179:5 › Permission Boundaries - Access Control › Data Isolation & Privacy › student should not be able to download other student certificate 
+    [chromium] › tests\e2e\permission-boundaries.spec.ts:280:5 › Permission Boundaries - Access Control › Cross-User Boundary Violations › student modify attempt should fail gracefully 
+    [chromium] › tests\e2e\permission-boundaries.spec.ts:325:5 › Permission Boundaries - Access Control › Session & Authentication Boundaries › should not allow reuse of old session token 
+  12 passed (52.2s)

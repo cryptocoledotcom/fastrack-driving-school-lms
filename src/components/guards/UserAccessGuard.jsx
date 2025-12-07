@@ -18,7 +18,11 @@ const UserAccessGuard = ({ children, accessType = 'profile' }) => {
     return <Navigate to="/login" replace />;
   }
 
-  const isAdmin = userProfile?.role === USER_ROLES.ADMIN || userProfile?.role === USER_ROLES.SUPER_ADMIN;
+  if (!userProfile) {
+    return <Navigate to={PROTECTED_ROUTES.DASHBOARD} replace />;
+  }
+
+  const isAdmin = userProfile.role === USER_ROLES.DMV_ADMIN || userProfile.role === USER_ROLES.SUPER_ADMIN;
   const isOwnResource = user.uid === requestedUserId;
 
   if (!isOwnResource && !isAdmin) {

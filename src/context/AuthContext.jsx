@@ -46,17 +46,40 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Fetch user profile from Firestore
-  const fetchUserProfile = async (uid) => {
+  const createFallbackProfile = (uid, email, displayName) => {
+    return {
+      uid,
+      email,
+      displayName: displayName || '',
+      role: USER_ROLES.STUDENT,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    };
+  };
+
+  const fetchUserProfile = async (uid, email = '', displayName = '') => {
+    const startTime = performance.now();
     try {
-      const userDoc = await getDoc(doc(db, 'users', uid));
+      const timeoutPromise = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('Firestore fetch timeout')), 5000)
+      );
+      
+      const fetchPromise = getDoc(doc(db, 'users', uid));
+      const userDoc = await Promise.race([fetchPromise, timeoutPromise]);
+      
+      const fetchTime = performance.now() - startTime;
+      console.debug(`Profile fetch for ${uid} completed in ${fetchTime.toFixed(2)}ms`);
+      
       if (userDoc.exists()) {
         return userDoc.data();
       }
+      
+      console.debug(`Profile document does not exist for uid: ${uid}`);
       return null;
     } catch (err) {
-      console.error('Error fetching user profile:', err);
-      return null;
+      const fetchTime = performance.now() - startTime;
+      console.warn(`Profile fetch failed for ${uid} after ${fetchTime.toFixed(2)}ms:`, err.message);
+      return createFallbackProfile(uid, email, displayName);
     }
   };
 
@@ -83,22 +106,44 @@ export const AuthProvider = ({ children }) => {
 
   // Listen to auth state changes
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
       if (firebaseUser) {
         setUser(firebaseUser);
-        let profile = await fetchUserProfile(firebaseUser.uid);
-        
-        // If profile doesn't exist, create it with default role
-        if (!profile) {
-          profile = await createUserProfile(firebaseUser.uid, {
-            email: firebaseUser.email,
-            displayName: firebaseUser.displayName || ''
-          });
-        }
-        
+        // Set default profile immediately to unblock loading state
+        const defaultProfile = createFallbackProfile(
+          firebaseUser.uid,
+          firebaseUser.email || '',
+          firebaseUser.displayName || ''
+        );
+        setUserProfile(defaultProfile);
+        setLoading(false);
+      } else {
+        setUser(null);
+        setUserProfile(null);
+        setRequiresPasswordChange(false);
+        setShowPasswordChangeModal(false);
+        applyTheme(false);
+        setLoading(false);
+      }
+    });
+
+    return unsubscribe;
+  }, []);
+
+  // Non-blocking profile update effect
+  useEffect(() => {
+    if (!user || !userProfile) return;
+    
+    const updateProfileAsync = async () => {
+      const profile = await fetchUserProfile(
+        user.uid,
+        user.email || '',
+        user.displayName || ''
+      );
+      
+      if (profile) {
         setUserProfile(profile);
         
-        // Check if user needs to change password
         if (profile?.requiresPasswordChange) {
           setRequiresPasswordChange(true);
           setShowPasswordChangeModal(true);
@@ -107,43 +152,25 @@ export const AuthProvider = ({ children }) => {
           setShowPasswordChangeModal(false);
         }
         
-        // Apply theme from user settings
         const settings = profile?.settings || {
           darkMode: false,
           notifications: true,
           emailNotifications: true
         };
         applyTheme(settings.darkMode);
-      } else {
-        setUser(null);
-        setUserProfile(null);
-        setRequiresPasswordChange(false);
-        setShowPasswordChangeModal(false);
-        // Default to light mode for unauthenticated users
-        applyTheme(false);
       }
-      setLoading(false);
-    });
-
-    return unsubscribe;
-  }, []);
+    };
+    
+    updateProfileAsync().catch(err => 
+      console.warn('Background profile update failed:', err)
+    );
+  }, [user?.uid]);
 
   // Login with email and password
   const login = async (email, password) => {
     try {
       setError(null);
       const result = await signInWithEmailAndPassword(auth, email, password);
-      let profile = await fetchUserProfile(result.user.uid);
-      
-      // If profile doesn't exist, create it
-      if (!profile) {
-        profile = await createUserProfile(result.user.uid, {
-          email: result.user.email,
-          displayName: result.user.displayName || ''
-        });
-      }
-      
-      setUserProfile(profile);
       return result.user;
     } catch (err) {
       setError(err);
@@ -164,14 +191,13 @@ export const AuthProvider = ({ children }) => {
         });
       }
 
-      // Create user profile in Firestore
-      const profile = await createUserProfile(result.user.uid, {
+      // Create user profile in Firestore asynchronously
+      createUserProfile(result.user.uid, {
         email,
         displayName: additionalData.displayName || '',
         ...additionalData
-      });
+      }).catch(err => console.warn('Failed to create user profile:', err));
       
-      setUserProfile(profile);
       return result.user;
     } catch (err) {
       setError(err);
@@ -185,18 +211,6 @@ export const AuthProvider = ({ children }) => {
       setError(null);
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
-      
-      // Check if user profile exists, if not create one
-      let profile = await fetchUserProfile(result.user.uid);
-      if (!profile) {
-        profile = await createUserProfile(result.user.uid, {
-          email: result.user.email,
-          displayName: result.user.displayName,
-          photoURL: result.user.photoURL
-        });
-      }
-      
-      setUserProfile(profile);
       return result.user;
     } catch (err) {
       setError(err);
@@ -242,18 +256,26 @@ export const AuthProvider = ({ children }) => {
         });
       }
 
-      // Update Firestore profile
+      // Update Firestore profile and refresh asynchronously
       const userRef = doc(db, 'users', user.uid);
       await updateDoc(userRef, {
         ...updates,
         updatedAt: new Date().toISOString()
       });
 
-      // Refresh user profile
-      const updatedProfile = await fetchUserProfile(user.uid);
-      setUserProfile(updatedProfile);
-      
-      return updatedProfile;
+      // Refresh profile in background
+      fetchUserProfile(
+        user.uid,
+        user.email || '',
+        user.displayName || ''
+      ).then(updatedProfile => {
+        if (updatedProfile) {
+          setUserProfile(updatedProfile);
+        }
+      }).catch(err => console.warn('Profile refresh failed:', err));
+
+      // Return current profile immediately
+      return userProfile;
     } catch (err) {
       setError(err);
       throw err;

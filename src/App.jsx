@@ -221,7 +221,7 @@ function AppRoutes() {
                 <Route path={ADMIN_ROUTES.ADMIN_DASHBOARD} element={
                   <ProtectedRoute>
                     <DashboardLayout>
-                      <RoleBasedRoute allowedRoles={[USER_ROLES.ADMIN, USER_ROLES.SUPER_ADMIN]}>
+                      <RoleBasedRoute allowedRoles={[USER_ROLES.DMV_ADMIN, USER_ROLES.SUPER_ADMIN]}>
                         <AdminPage />
                       </RoleBasedRoute>
                     </DashboardLayout>
@@ -231,7 +231,7 @@ function AppRoutes() {
                 <Route path={ADMIN_ROUTES.AUDIT_LOGS} element={
                   <ProtectedRoute>
                     <DashboardLayout>
-                      <RoleBasedRoute allowedRoles={[USER_ROLES.ADMIN, USER_ROLES.SUPER_ADMIN, USER_ROLES.INSTRUCTOR]}>
+                      <RoleBasedRoute allowedRoles={[USER_ROLES.DMV_ADMIN, USER_ROLES.SUPER_ADMIN, USER_ROLES.INSTRUCTOR]}>
                         <AuditLogsPage />
                       </RoleBasedRoute>
                     </DashboardLayout>
@@ -241,7 +241,7 @@ function AppRoutes() {
                 <Route path={ADMIN_ROUTES.MANAGE_USERS} element={
                   <ProtectedRoute>
                     <DashboardLayout>
-                      <RoleBasedRoute allowedRoles={[USER_ROLES.ADMIN, USER_ROLES.SUPER_ADMIN]}>
+                      <RoleBasedRoute allowedRoles={[USER_ROLES.DMV_ADMIN, USER_ROLES.SUPER_ADMIN]}>
                         <AdminPage />
                       </RoleBasedRoute>
                     </DashboardLayout>
@@ -251,7 +251,7 @@ function AppRoutes() {
                 <Route path={ADMIN_ROUTES.MANAGE_COURSES} element={
                   <ProtectedRoute>
                     <DashboardLayout>
-                      <RoleBasedRoute allowedRoles={[USER_ROLES.ADMIN, USER_ROLES.SUPER_ADMIN]}>
+                      <RoleBasedRoute allowedRoles={[USER_ROLES.DMV_ADMIN, USER_ROLES.SUPER_ADMIN]}>
                         <AdminPage />
                       </RoleBasedRoute>
                     </DashboardLayout>
@@ -261,7 +261,7 @@ function AppRoutes() {
                 <Route path={ADMIN_ROUTES.ANALYTICS} element={
                   <ProtectedRoute>
                     <DashboardLayout>
-                      <RoleBasedRoute allowedRoles={[USER_ROLES.ADMIN, USER_ROLES.SUPER_ADMIN]}>
+                      <RoleBasedRoute allowedRoles={[USER_ROLES.DMV_ADMIN, USER_ROLES.SUPER_ADMIN]}>
                         <AdminPage />
                       </RoleBasedRoute>
                     </DashboardLayout>
