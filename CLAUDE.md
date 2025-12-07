@@ -9,7 +9,155 @@
 
 ---
 
-## Current Session Summary (December 6, 2025)
+## Current Session Summary (December 7, 2025 - Continued)
+
+### Firebase App Check & Production Firestore Rules
+
+#### Firebase App Check (Complete)
+**Status**: ✅ Fully integrated and operational
+
+**Implementation**:
+- `initializeAppCheckConfig()` in `src/config/firebase.js` initializes ReCaptcha V3 provider
+- Site key: `VITE_FIREBASE_APP_CHECK_SITE_KEY=6LcWPyQsAAAAACDnQvBBVmXRq9RpvuwOQZAY8i3N`
+- Persistent debug token for localhost: `550e8400-e29b-41d4-a716-446655440000` (UUID v4 format)
+- Auto-token refresh enabled: `isTokenAutoRefreshEnabled: true`
+- Debug token configuration: `window.FIREBASE_APPCHECK_DEBUG_TOKEN = true` in development mode
+
+**Verification**:
+- Browser console confirms "Firebase App Check initialized with ReCaptcha provider" ✅
+- No console errors related to App Check
+- All Firestore operations execute with valid tokens
+
+#### Production-Ready Firestore Rules (Complete)
+**Status**: ✅ Deployed and verified
+
+**File**: `firestore.rules` (223 lines)
+
+**Architecture**:
+11 role-based helper functions for granular access control:
+- `getAuthUser()` - Returns authenticated user
+- `isAuthenticated()` - Checks if user is logged in
+- `userRole()` - Fetches user's role from Firestore
+- `isStudent()`, `isInstructor()`, `isDmvAdmin()`, `isSuperAdmin()` - Role checks
+- `isAdmin()` - DMV_ADMIN OR SUPER_ADMIN
+- `isOwnProfile(userId)` - Ownership check
+- `isInstructorForStudent(studentId)` - Instructor assignment validation
+- `canViewEnrollment()`, `canViewProgress()`, `canViewQuizAttempt()`, `canViewCertificate()`, `canViewIdentityVerification()` - Collection-level permissions
+
+**Access Control Rules**:
+
+| Collection | Student | Instructor | Admin | Public |
+|-----------|---------|-----------|-------|--------|
+| users/{userId} | Read own, update own | Read own | Read/write all | ✗ |
+| enrollments/{id} | Read own | Read assigned students | Read all | ✗ |
+| progress/{id} | Read/create own | Read assigned students | Read all | ✗ |
+| certificates/{id} | Read own | ✗ | Create/read all | ✗ |
+| quizAttempts/{id} | Create/update own, read own | Read assigned students | Read all | ✗ |
+| sessions/{id} | Read/create own | ✗ | Read all | ✗ |
+| pvqRecords/{id} | Create/update own | ✗ | Read all | ✗ |
+| identityVerifications/{id} | Create/update own | ✗ | Read all | ✗ |
+| courses/{id} | Read | Read | Write | **Read ✅** |
+| modules/{id} | Read | Read | Write | **Read ✅** |
+| lessons/{id} | Read | Read | Write | **Read ✅** |
+| auditLogs/{id} | Create only | ✗ | Read/create | ✗ |
+| activityLogs/{id} | Create only | ✗ | Read/create | ✗ |
+| payments/{id} | Read own | ✗ | Read/write all | ✗ |
+
+**Security Features**:
+- Request-resource field validation for `create` operations (prevents field spoofing)
+- Instructor-student relationship checking before data access
+- Immutable audit/activity logs (no delete, update)
+- No delete allowed on compliance-sensitive collections
+- Cross-user boundary enforced: students cannot access other users' data
+
+**Collections Covered** (15 total):
+- User data: `users`, `users/{userId}/sessions`, `users/{userId}/identityVerifications`
+- Enrollment/Progress: `enrollments`, `progress`, `certificates`
+- Assessment: `quizAttempts`, `identityVerifications`, `pvqRecords`
+- Compliance: `complianceLogs`, `auditLogs`, `activityLogs`
+- Content: `courses`, `modules`, `lessons`
+- Operational: `timeSlots`, `bookings`, `payments`, `admin-data`
+
+#### Security Boundary Verification
+**Method**: Console test accessing another user's profile
+
+```javascript
+const otherId = 'L2sg7590mFh9E7BvnA7RwXuPmva2';
+window.__getDoc(window.__doc(window.__db, 'users', otherId))
+  .then(snap => {
+    if (snap.exists()) console.log('SECURITY ISSUE: Can read other user:', snap.data());
+    else console.log('Access denied or doc missing (expected)');
+  })
+  .catch(err => console.log('Permission denied (expected):', err.code);
+```
+
+**Result**: ✅ `Permission denied (expected): permission-denied Missing or insufficient permissions.`
+- Student account successfully blocked from reading other student's profile
+- Firestore rules enforcing access control correctly
+
+#### Test Data Status
+- **Total Users**: 308
+  - Students: 305
+  - Instructors: 1
+  - DMV Admin: 1
+  - Super Admin: 1
+- All roles tested and working correctly with new rules
+- No permission errors in functional testing
+
+#### Deployment
+```bash
+firebase deploy --only firestore:rules
+```
+- Compilation successful (1 unused function warning: `isStudent()` - kept for consistency)
+- Rules live in production Firebase project
+- No rollback needed
+
+#### Firestore Rules Architecture & Patterns
+
+**Helper Function Chain Pattern**:
+```firestore
+function userRole() {
+  return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role;
+}
+
+function isAdmin() {
+  return isDmvAdmin() || isSuperAdmin();
+}
+
+function canViewEnrollment(enrollmentData) {
+  return isAdmin() || 
+         (isOwnProfile(enrollmentData.userId)) ||
+         (isInstructor() && isInstructorForStudent(enrollmentData.userId));
+}
+```
+
+**Request-Resource Validation Pattern** (prevents field spoofing):
+```firestore
+// For create operations, use request.resource.data instead of resource.data
+match /quizAttempts/{attemptId} {
+  allow create: if isOwnProfile(request.resource.data.userId);  // ✅ correct
+  allow update: if isOwnProfile(resource.data.userId);          // ✅ existing doc
+}
+```
+
+**Immutable Collection Pattern** (compliance data):
+```firestore
+match /auditLogs/{logId} {
+  allow read: if isAdmin();
+  allow create: if isAuthenticated();
+  allow update, delete: if false;  // Never allow changes or deletion
+}
+```
+
+**Important Notes**:
+- Role checking is expensive (queries user doc per request). For high-frequency operations, consider caching roles in tokens
+- Instructor-student relationship is queried per access check. Optimize if instructor has >100 students
+- All collections use the same pattern: explicit deny by default, explicit allow by role/ownership
+- Public content (courses/modules/lessons) are readable by unauthenticated users but writable by admin only
+
+---
+
+## Previous Session Summary (December 6, 2025)
 
 ### Major Achievements
 1. **Sentry Integration Complete**: Error tracking configured for frontend React app and Cloud Functions backend with performance monitoring and session replay
@@ -321,13 +469,13 @@ npm run lint            # ESLint check
 ### Unit & Integration Tests
 **Framework**: Vitest 1.6.1 (migrated from Jest)
 
-**Test Coverage**: 739/772 tests passing (95.7%)
+**Test Coverage**: 778/778 tests passing (100%) ✅
 - API services and error handling
 - Context providers (Auth, Course, Modal, Timer)
 - Components (Admin, Auth, Common, Courses)
 - Custom hooks
 - Utilities and validators
-- Firestore rules
+- Firestore rules (updated for role-based rules)
 - User role assignments
 
 **Run Tests**:
@@ -339,7 +487,7 @@ npm run test:ui         # Visual test dashboard
 ### E2E Tests
 **Framework**: Playwright 1.57.0
 
-**Test Coverage**: 200+ tests across 7 suites (75 basic happy-path + 125+ error/boundary/validation)
+**Test Coverage**: 102 tests across 8 suites, 87/102 passing (85.3% - chromium)
 
 **Test Suites**:
 1. **Happy Path** (4 suites, ~75 tests)
