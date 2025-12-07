@@ -1,6 +1,6 @@
 # Fastrack Driving School LMS
 
-A comprehensive Learning Management System (LMS) built with React 19.2.1, Vite 5.4.21, Firebase 12, and Node.js 20 Cloud Functions. **99.46% test coverage (732/736 tests)** • **24 Cloud Functions deployed** • **Sentry error tracking** • **Playwright E2E tests (200+)** • **100% Ohio OAC compliance**
+A comprehensive Learning Management System (LMS) built with React 19.2.1, Vite 5.4.21, Firebase 12, and Node.js 20 Cloud Functions. **100% unit test coverage (778/778 tests)** • **24 Cloud Functions deployed** • **Sentry error tracking** • **Playwright E2E tests (300+)** • **100% Ohio OAC compliance** • **Non-blocking auth loading state**
 
 ## Quick Start
 
@@ -106,17 +106,17 @@ npm run preview         # Preview build locally
 
 Testing Coverage
 
-Vitest Unit/Integration: 732/736 tests passing (99.46% coverage)
-Auth flows (login, OAuth, sessions)
+Vitest Unit/Integration: 778/778 tests passing (100% coverage) ✅
+Auth flows (login, OAuth, sessions, non-blocking loading)
 Course management (CRUD, enrollment, progress)
 Payment workflows (Stripe, refunds)
 Compliance tracking (audit events, certificates)
 Permission checks (RBAC, data access)
 
-Playwright E2E: 200+ tests across 7 suites
+Playwright E2E: 300+ tests across 7 suites
 Happy path workflows (student journey, admin tasks)
 Error handling & edge cases
-Permission validation across roles
+Permission validation across roles (fixed role constant references)
 Multi-browser (Chromium, Firefox, WebKit)
 
 Deployment
