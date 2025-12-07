@@ -255,33 +255,48 @@ test.describe('Data Validation & Input Sanitization', () => {
       console.log('Email case sensitivity checked');
     });
 
-    test('should treat same email with different case as duplicate', async ({ page }) => {
+    test('should treat same email with different case as duplicate', async ({ browser }) => {
       const email = `duplicate-${Date.now()}@test.com`;
       const password = 'ValidPassword123!';
 
-      await page.goto('/register');
-      await page.fill('input[name="displayName"]', 'First User');
-      await page.fill('input[name="email"]', email);
-      await page.fill('input[name="password"]', password);
-      await page.fill('input[name="confirmPassword"]', password);
-      await page.click('button:has-text("Sign Up")');
+      const context1 = await browser.newContext();
+      const page1 = await context1.newPage();
 
-      await page.waitForTimeout(3000);
+      await page1.goto('/register');
+      await page1.waitForSelector('input[name="displayName"]');
+      
+      await page1.fill('input[name="displayName"]', 'First User');
+      await page1.fill('input[name="email"]', email);
+      await page1.fill('input[name="password"]', password);
+      await page1.fill('input[name="confirmPassword"]', password);
+      await page1.click('button:has-text("Sign Up")');
 
-      await page.goto('/register');
-      await page.fill('input[name="displayName"]', 'Second User');
-      await page.fill('input[name="email"]', email.toUpperCase());
-      await page.fill('input[name="password"]', password);
-      await page.fill('input[name="confirmPassword"]', password);
-      await page.click('button:has-text("Sign Up")');
+      await page1.waitForURL('/dashboard', { timeout: 10000 }).catch(() => {});
 
-      await page.waitForLoadState('domcontentloaded').catch(() => {});
+      await context1.close();
 
-      const duplicateError = page.locator('text=/already|exists|in use/i');
-      const stillOnRegister = page.url().includes('/register');
+      const context2 = await browser.newContext();
+      const page2 = await context2.newPage();
+
+      await page2.goto('/register');
+      await page2.waitForSelector('input[name="displayName"]');
+      await page2.waitForTimeout(500);
+
+      await page2.fill('input[name="displayName"]', 'Second User');
+      await page2.fill('input[name="email"]', email.toUpperCase());
+      await page2.fill('input[name="password"]', password);
+      await page2.fill('input[name="confirmPassword"]', password);
+      await page2.click('button:has-text("Sign Up")');
+
+      await page2.waitForTimeout(3000);
+
+      const duplicateError = page2.locator('text=/already|exists|in use/i');
+      const stillOnRegister = page2.url().includes('/register');
 
       const isDuplicate = (await duplicateError.isVisible({ timeout: 2000 }).catch(() => false)) || stillOnRegister;
-      console.log('Duplicate email case handling checked');
+      expect(isDuplicate).toBeTruthy();
+
+      await context2.close();
     });
   });
 

@@ -16,22 +16,13 @@ const RoleBasedRoute = ({ children, allowedRoles = [] }) => {
   }
 
   if (!userProfile) {
-    console.warn('[RoleBasedRoute] No userProfile available, redirecting to dashboard');
     return <Navigate to={PROTECTED_ROUTES.DASHBOARD} replace />;
   }
 
   const hasRequiredRole = allowedRoles.length === 0 || 
     allowedRoles.includes(userProfile.role);
 
-  console.debug('[RoleBasedRoute] Role check:', {
-    userRole: userProfile.role,
-    allowedRoles,
-    hasRequiredRole,
-    passedCheck: hasRequiredRole
-  });
-
   if (!hasRequiredRole) {
-    console.warn('[RoleBasedRoute] Access denied for role:', userProfile.role, 'Allowed:', allowedRoles);
     return <Navigate to={PROTECTED_ROUTES.DASHBOARD} replace />;
   }
 
