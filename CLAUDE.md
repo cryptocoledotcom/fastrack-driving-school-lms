@@ -4,12 +4,157 @@
 
 **Fastrack Learning Management System** is a comprehensive web application for managing driving school courses, student progress, instructor assignments, and compliance tracking. Built with React 19, Vite, and Firebase 12, with Node.js 20 Cloud Functions backend using Firebase Functions v2 API. Fully compliant with Ohio OAC Chapter 4501-7 driver education requirements.
 
-**Status**: Production-ready, 100% Ohio compliance achieved, 24 Cloud Functions deployed with Firebase v2 API, Sentry error tracking active, Playwright E2E tests configured, Landing Page live on fastrackdrive.com ✅
+**Status**: Security hardened (Phase 7: Phases 1-4 complete), 100% Ohio compliance achieved, 24 Cloud Functions deployed with Firebase v2 API, Sentry error tracking active, Playwright E2E tests configured (16/16 security tests passing), Landing Page live on fastrackdrive.com ✅
 
 
 ---
 
-## Current Session Summary (December 7, 2025 - Continued)
+## Current Session Summary (December 8, 2025)
+
+### Phase 7: Pre-Launch Security Hardening - Phases 1-4 COMPLETE ✅
+
+#### Overview
+All feature development and testing complete (936+ tests passing, 100% Ohio compliance). Session focused on executing four critical security hardening phases before production deployment. All four phases completed successfully with verification.
+
+#### Phase 1: CORS Domain Hardening ✅
+**Duration**: 15 minutes | **Priority**: CRITICAL
+
+**Completed**:
+- Removed Firebase default domains from CORS whitelist in `functions/src/payment/paymentFunctions.js`
+- Updated `CORS_ORIGINS` environment variable to whitelist only production domains:
+  - `https://fastrackdrive.com`
+  - `https://www.fastrackdrive.com`
+  - `http://localhost:3000` (development only)
+- Updated `functions/.env.local` to reflect hardened CORS configuration
+- Verified: No compilation errors in functions directory
+
+**Security Impact**: Prevents unauthorized API calls from Firebase default domains. Restricts payments to approved domains only.
+
+#### Phase 2: CSRF Token Implementation ✅
+**Duration**: 2-3 hours | **Priority**: HIGH
+
+**Completed**: Integrated CSRF protection into 11 critical form submission handlers across 6 files
+
+**Files Modified** (6 total):
+1. `src/pages/Auth/LoginPage.jsx` - 1 form (login)
+   - Token generation: `useEffect` → `getCSRFToken()`
+   - Validation: Form submission start checks `validateCSRFToken()`
+   - Hidden field: `<input type="hidden" name="csrf_token" value={csrfToken} />`
+
+2. `src/pages/Auth/RegisterPage.jsx` - 1 form (registration)
+   - Same pattern as LoginPage
+
+3. `src/components/payment/CheckoutForm.jsx` - 1 form (payment checkout)
+   - Integrated with Stripe payment form
+
+4. `src/components/admin/tabs/UserManagementTab.jsx` - 3 handlers
+   - `createUser()` - Generate new user accounts
+   - `handleRoleChange()` - Change user roles
+   - `deleteUser()` - Delete user accounts
+
+5. `src/components/admin/SchedulingManagement.jsx` - 3 handlers
+   - `submitForm()` - Create/update time slots
+   - `deleteSlot()` - Delete scheduling slots
+   - `assignSlot()` - Assign slots to students
+
+6. `src/components/admin/tabs/DETSExportTab.jsx` - 2 handlers
+   - `handleExport()` - Export DETS reports
+   - `handleSubmit()` - Submit export data
+
+**Implementation Pattern**:
+```javascript
+// 1. Import CSRF utilities
+import { getCSRFToken, validateCSRFToken } from '@/utils/security/csrfToken';
+
+// 2. Generate token in useEffect
+useEffect(() => {
+  const token = getCSRFToken();
+  setCSRFToken(token);
+}, []);
+
+// 3. Validate in form submission
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  if (!validateCSRFToken(csrfToken)) {
+    setError('Security validation failed');
+    return;
+  }
+  // Proceed with submission
+};
+
+// 4. Include hidden field in form
+<input type="hidden" name="csrf_token" value={csrfToken} />
+```
+
+**Utility Used**: `src/utils/security/csrfToken.js`
+- `generateCSRFToken()` - Creates secure random 64-char hex token
+- `getCSRFToken()` - Gets or generates token, stores in sessionStorage
+- `validateCSRFToken()` - Compares tokens for equality
+- `attachCSRFToken()` - Adds token to request headers
+- Storage: sessionStorage (cleared on tab close)
+
+**Security Impact**: Prevents cross-site request forgery attacks across all critical form submissions. Session-based token isolation per user.
+
+#### Phase 3: Stripe API Hardening Verification ✅
+**Duration**: 30 minutes | **Priority**: MEDIUM
+
+**Verification Checklist**:
+1. ✅ Frontend environment: `VITE_STRIPE_PUBLISHABLE_KEY` only (verified in `.env.example`)
+2. ✅ No secret keys: `VITE_STRIPE_SECRET_KEY` not exposed in frontend or `.env.example`
+3. ✅ Payment flow: `createPaymentIntent` Cloud Function creates intents (backend-only)
+4. ✅ Webhook validation: `stripeClient.webhooks.constructEvent()` validates signatures with error handling
+5. ✅ No frontend Stripe API calls: CheckoutForm.jsx uses publishable key only
+
+**Files Verified**:
+- `functions/src/payment/paymentFunctions.js` - Payment intent creation & webhook validation
+- `src/components/payment/CheckoutForm.jsx` - Uses @stripe/react-stripe-js correctly
+- `src/api/admin/paymentServices.js` - Routes through Cloud Function wrapper
+- `.env.example` - Stripe keys documented correctly
+
+**Security Impact**: All payment processing isolated to backend. Secret keys never exposed to client. Webhook signatures validated. Stripe API surface minimized.
+
+#### Phase 4: Security Audit Test Run ✅
+**Duration**: 5 minutes | **Priority**: HIGH
+
+**Test Execution**:
+```bash
+npm run test:e2e -- tests/e2e/security-audit.spec.ts --project=chromium
+```
+
+**Results**: **16/16 tests PASSING (100%)**
+
+**Test Coverage** (4 categories):
+1. **CSRF Token Tests** (3 tests):
+   - Token generation on page load
+   - Token validation on form submission
+   - Token rejection on CSRF violation
+
+2. **CORS Configuration Tests** (3 tests):
+   - Requests from approved domains succeed
+   - Requests from unapproved domains blocked
+   - Preflight OPTIONS requests handled correctly
+
+3. **Auth Token Handling Tests** (3 tests):
+   - Authorization headers attached correctly
+   - Expired tokens trigger refresh
+   - Invalid tokens rejected
+
+4. **Stripe API Isolation Tests** (4 tests):
+   - Publishable key exposed, secret key hidden
+   - Payment intents created via Cloud Function only
+   - Webhook signatures validated
+   - No direct Stripe API calls from frontend
+
+5. **Comprehensive Security Validation** (3 tests):
+   - App Check tokens validated
+   - Firestore rules enforced
+   - Role-based access control working
+
+**Status**: Dev server running in background. All assertions passing. No timeouts or flakiness.
+
+---
+
+## Previous Session Summary (December 7, 2025 - Continued)
 
 ### Firebase App Check & Production Firestore Rules
 
@@ -1588,8 +1733,178 @@ npm run deploy
 
 ### Success Condition
 
-**All 5 phases complete**: System is hardened, tested, and ready for production launch to fastrackdrive.com.
+**Phases 1-4 complete**: System is hardened, tested, and ready for code optimization/cleanup before Phase 5 deployment.
 
 ---
 
-**Status**: ✅ PRODUCTION READY - All tests passing, all security controls verified, all compliance requirements met. **Next Phase: Pre-Launch Security Hardening (START DECEMBER 8)**
+## Known Performance Issues (Pre-Launch)
+
+### 1. Admin Panel Loading Performance (HIGH PRIORITY)
+**Symptom**: Admin dashboard displays loading spinner for 30+ seconds before rendering
+**Severity**: HIGH - User experience degradation, not a functional bug
+**Scope**: Affects all admin users when accessing admin routes
+**Likely Causes** (to investigate):
+- Excessive component re-renders in UserManagementTab, SchedulingManagement, or AdminPage
+- Large unoptimized data fetches from Firestore (no pagination)
+- Missing React.memo() on heavy components
+- Inefficient state updates causing cascade of re-renders
+- CSS-in-JS or inline styles causing layout thrashing
+- Unoptimized queries loading all users/slots without filtering
+
+**Impact on Users**: Perceived app slowness, potential timeout, poor UX
+**Must Fix**: YES - Before Phase 5 production deployment
+
+---
+
+## Pre-Launch Work Backlog (Before Phase 5: Production Deployment)
+
+### Category: Performance & Optimization (HIGH PRIORITY)
+
+#### 1. Admin Panel Performance Optimization
+**Items**:
+- [ ] Profile admin components with React DevTools to identify re-render sources
+- [ ] Implement React.memo() on heavy list components (UserManagementTab, SchedulingManagement)
+- [ ] Add pagination/virtualization to user/slot lists (infinite scroll or page-based)
+- [ ] Optimize Firestore queries: Add where/limit clauses instead of fetching all documents
+- [ ] Profile bundle size with `npm run build` and analyze with `source-map-explorer`
+- [ ] Consider component code-splitting for lazy-loaded admin sections
+- **Target**: Admin load time < 5 seconds (vs current 30+)
+
+#### 2. Component & Query Optimization
+**Items**:
+- [ ] Audit useEffect dependencies to prevent unnecessary re-executions
+- [ ] Consolidate multiple setState calls into batch updates
+- [ ] Use Firestore query indexing for frequently filtered data
+- [ ] Implement request debouncing/throttling for search/filter inputs
+- [ ] Add loading state granularity (don't show spinner for entire page if just reloading one section)
+
+#### 3. Bundle & Network Optimization
+**Items**:
+- [ ] Analyze and remove unused dependencies
+- [ ] Compress images and assets
+- [ ] Enable Vite asset compression in build config
+- [ ] Consider dynamic imports for large utilities
+
+### Category: Code Refactoring (MEDIUM PRIORITY)
+
+#### 1. Large Component Refactoring
+**Items**:
+- [ ] Split `AdminPage.jsx` into smaller focused components (if monolithic)
+- [ ] Split `UserManagementTab.jsx` into:
+  - UserList (display)
+  - UserForm (creation)
+  - UserActions (delete/edit)
+- [ ] Split `SchedulingManagement.jsx` into:
+  - SlotList (display)
+  - SlotForm (creation/editing)
+  - AssignmentPanel (slot assignment)
+- [ ] Extract modal logic into custom hooks
+
+#### 2. Utility & Service Consolidation
+**Items**:
+- [ ] Audit for duplicate utility functions (dateFormatter, validator copies)
+- [ ] Consolidate error handling patterns (currently mixed try/catch and callbacks)
+- [ ] Standardize API service layer patterns (consistent error, loading, success handling)
+- [ ] Create composable validation rule factories to reduce duplication
+
+#### 3. State Management Patterns
+**Items**:
+- [ ] Review Context usage vs Prop drilling (identify over-use of Context)
+- [ ] Consider useReducer for complex admin form state
+- [ ] Consolidate form state patterns (FormData object vs individual useState)
+
+### Category: Code Cleanup (MEDIUM PRIORITY)
+
+#### 1. Console & Debug Statement Removal
+**Items**:
+- [ ] Remove remaining `console.log()` statements from production code
+- [ ] Remove `console.warn()` except for genuine warnings
+- [ ] Remove commented-out code blocks
+- [ ] Target files: AdminPage, admin tabs, scheduling components, payment forms
+
+#### 2. Import & Dependency Cleanup
+**Items**:
+- [ ] Remove unused imports across codebase
+- [ ] Remove unused CSS class definitions
+- [ ] Identify and remove dead code exports
+- [ ] Consolidate wildcard imports that should be specific
+
+#### 3. Documentation & Comments
+**Items**:
+- [ ] Add/update JSDoc comments for exported functions (especially admin services)
+- [ ] Clarify complex component logic with inline comments
+- [ ] Document CSRF token pattern once, reference across forms
+- [ ] Update component prop documentation
+
+#### 4. CSS & Styling Standardization
+**Items**:
+- [ ] Standardize CSS class naming (current: mixed camelCase and kebab-case)
+- [ ] Remove unused CSS selectors from .module.css files
+- [ ] Consolidate common styling patterns (buttons, cards, inputs)
+- [ ] Document CSS variable naming convention (if using custom properties)
+
+### Category: Testing & Validation (MEDIUM PRIORITY)
+
+#### 1. Additional E2E Coverage
+**Items**:
+- [ ] Multi-browser E2E testing (Firefox, WebKit) - Config ready, tests executable
+- [ ] Performance/load testing (simulate 100+ concurrent users in admin panel)
+- [ ] Manual smoke testing checklist on staging environment:
+  - [ ] Complete user registration flow
+  - [ ] Login and session persistence
+  - [ ] Course enrollment
+  - [ ] Quiz completion and scoring
+  - [ ] Certificate generation
+  - [ ] DETS export
+  - [ ] Admin user management
+  - [ ] Admin scheduling
+
+#### 2. Accessibility Testing
+**Items**:
+- [ ] Keyboard navigation audit (Tab/Shift+Tab through all forms)
+- [ ] Screen reader testing (NVDA/JAWS for forms and tables)
+- [ ] Color contrast audit (WCAG AA minimum)
+- [ ] Focus indicators visible on all interactive elements
+
+#### 3. Browser Compatibility
+**Items**:
+- [ ] Test on Chrome, Firefox, Safari (latest versions)
+- [ ] Verify mobile responsiveness (iPhone 12, Android device)
+- [ ] Test on low-bandwidth network (simulate 3G)
+
+### Category: Post-Launch Items (AFTER Phase 5)
+**Items**:
+- [ ] Real DETS API integration (awaiting Ohio credentials)
+- [ ] Instructor role access control rules refinement
+- [ ] External penetration testing (security firm engagement)
+- [ ] Legal compliance review & certification
+- [ ] User feedback collection and iteration
+
+---
+
+## Pre-Launch Execution Plan
+
+### Week 1: Performance & Critical Fixes
+1. **Day 1-2**: Profile admin panel, identify bottlenecks
+2. **Day 3**: Implement performance fixes (React.memo, pagination, query optimization)
+3. **Day 4-5**: Verify improvements with load testing, target <5s load time
+
+### Week 2: Refactoring & Cleanup
+1. **Day 1-2**: Split large components, consolidate utilities
+2. **Day 3-4**: Remove console statements, unused imports, dead code
+3. **Day 5**: Documentation updates, finalize code comments
+
+### Week 3: Testing & Validation
+1. **Day 1-2**: Complete smoke testing checklist
+2. **Day 3-4**: Multi-browser E2E testing
+3. **Day 5**: Final security audit, production build verification
+
+### Week 4: Phase 5 - Production Deployment
+1. **Day 1**: Final code review and approval
+2. **Day 2**: Deploy to staging, verify in production-like environment
+3. **Day 3**: Deploy to production (fastrackdrive.com)
+4. **Day 4-5**: Monitor Sentry, user feedback, post-launch issues
+
+---
+
+**Status**: ✅ **PHASE 7: PHASES 1-4 COMPLETE** - Security hardening complete (CORS, CSRF, Stripe, E2E tests 16/16 passing). **NEXT: Phase 5 deployment pending completion of pre-launch work backlog (performance optimization, refactoring, cleanup)**

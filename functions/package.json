@@ -7,7 +7,11 @@
     "shell": "firebase functions:shell",
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
-    "logs": "firebase functions:log"
+    "logs": "firebase functions:log",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest run --coverage"
   },
   "engines": {
     "node": "20"
@@ -27,7 +31,9 @@
     "eslint": "^9.39.1",
     "eslint-config-google": "^0.14.0",
     "firebase-functions-test": "^3.1.0",
-    "globals": "^16.5.0"
+    "globals": "^16.5.0",
+    "vitest": "^1.6.1",
+    "@vitest/ui": "^1.6.1"
   },
   "private": true
 }

@@ -200,7 +200,7 @@ npm run test:ui   # Vitest UI dashboard
 **Browsers Tested**: Chromium, Firefox, WebKit
 
 **Configuration** (`playwright.config.ts`):
-- Base URL: `http://localhost:3001`
+- Base URL: `http://localhost:3000`
 - Timeout: 60 seconds per test
 - Workers: 1 (sequential for stability)
 - Screenshots: On failure only

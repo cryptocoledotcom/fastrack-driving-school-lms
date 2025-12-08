@@ -5,28 +5,28 @@ const admin = require('firebase-admin');
 vi.mock('firebase-admin', () => ({
   firestore: {
     FieldValue: {
-      serverTimestamp: jest.fn(() => 'server-timestamp'),
-      arrayUnion: jest.fn((val) => ({ _arrayUnion: val })
+      serverTimestamp: vi.fn(() => 'server-timestamp'),
+      arrayUnion: vi.fn((val) => ({ _arrayUnion: val }))
     },
     Timestamp: {
-      now: jest.fn(() => ({
-        toMillis: jest.fn(() => Date.now())
+      now: vi.fn(() => ({
+        toMillis: vi.fn(() => Date.now())
       }))
     }
   }
 }));
 
 vi.mock('firebase-admin/firestore', () => ({
-  getFirestore: jest.fn(() => ({
-    collection: jest.fn(() => ({
-      doc: jest.fn(() => ({
+  getFirestore: vi.fn(() => ({
+    collection: vi.fn(() => ({
+      doc: vi.fn(() => ({
         get: vi.fn(),
         update: vi.fn(),
         set: vi.fn(),
         collection: vi.fn()
       }))
     })),
-    batch: jest.fn(() => ({
+    batch: vi.fn(() => ({
       set: vi.fn(),
       update: vi.fn(),
       commit: vi.fn()
@@ -35,7 +35,7 @@ vi.mock('firebase-admin/firestore', () => ({
 }));
 
 vi.mock('../common/auditLogger', () => ({
-  logAuditEvent: jest.fn(() => Promise.resolve())
+  logAuditEvent: vi.fn(() => Promise.resolve())
 }));
 
 describe('sessionHeartbeat Cloud Function', () => {
