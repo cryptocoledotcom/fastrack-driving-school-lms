@@ -15,6 +15,7 @@ import {
 } from '../../api/compliance/schedulingServices';
 import { getAllStudents } from '../../api/student/userServices';
 import { formatTime24to12, parseLocalDate } from '../../utils/dateTimeFormatter';
+import { getCSRFToken, validateCSRFToken } from '../../utils/security/csrfToken';
 import styles from './SchedulingManagement.module.css';
 
 const SchedulingManagement = () => {
@@ -32,6 +33,7 @@ const SchedulingManagement = () => {
   const [submittingForm, setSubmittingForm] = useState(false);
   const [deletingSlot, setDeletingSlot] = useState({});
   const [unassigningSlot, setUnassigningSlot] = useState({});
+  const [csrfToken, setCSRFToken] = useState('');
   const [formData, setFormData] = useState({
     date: '',
     startTime: '',
@@ -44,6 +46,8 @@ const SchedulingManagement = () => {
 
   useEffect(() => {
     loadData();
+    const token = getCSRFToken();
+    setCSRFToken(token);
   }, []);
 
   const loadData = async () => {
@@ -104,6 +108,12 @@ const SchedulingManagement = () => {
     e.preventDefault();
     setError('');
     setSuccess('');
+
+    if (!validateCSRFToken(csrfToken, getCSRFToken())) {
+      setError('Security validation failed. Please refresh and try again.');
+      return;
+    }
+
     setSubmittingForm(true);
 
     try {
@@ -128,6 +138,11 @@ const SchedulingManagement = () => {
 
   const handleDeleteSlot = async (slotId) => {
     if (!window.confirm('Are you sure you want to delete this time slot?')) return;
+
+    if (!validateCSRFToken(csrfToken, getCSRFToken())) {
+      setError('Security validation failed. Please refresh and try again.');
+      return;
+    }
 
     try {
       setError('');
@@ -158,6 +173,11 @@ const SchedulingManagement = () => {
   const handleAssignSlot = async () => {
     if (!selectedStudentId) {
       setError('Please select a student');
+      return;
+    }
+
+    if (!validateCSRFToken(csrfToken, getCSRFToken())) {
+      setError('Security validation failed. Please refresh and try again.');
       return;
     }
 

@@ -6,12 +6,14 @@ import SuccessMessage from '../../common/SuccessMessage/SuccessMessage';
 import Card from '../../common/Card/Card';
 import Button from '../../common/Button/Button';
 import { COURSE_IDS } from '../../../constants/courses';
+import { getCSRFToken, validateCSRFToken } from '../../../utils/security/csrfToken';
 import styles from './DETSExportTab.module.css';
 
 const DETSExportTab = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [csrfToken, setCSRFToken] = useState('');
 
   const [selectedCourse, setSelectedCourse] = useState(COURSE_IDS.ONLINE);
   const [startDate, setStartDate] = useState('');
@@ -25,6 +27,8 @@ const DETSExportTab = () => {
 
   useEffect(() => {
     loadReports();
+    const token = getCSRFToken();
+    setCSRFToken(token);
   }, []);
 
   const loadReports = async () => {
@@ -42,6 +46,11 @@ const DETSExportTab = () => {
   };
 
   const handleExport = async () => {
+    if (!validateCSRFToken(csrfToken, getCSRFToken())) {
+      setError('Security validation failed. Please refresh and try again.');
+      return;
+    }
+
     try {
       setLoading(true);
       setError('');
@@ -71,6 +80,11 @@ const DETSExportTab = () => {
   };
 
   const handleSubmit = async (reportId) => {
+    if (!validateCSRFToken(csrfToken, getCSRFToken())) {
+      setError('Security validation failed. Please refresh and try again.');
+      return;
+    }
+
     try {
       setLoading(true);
       setError('');

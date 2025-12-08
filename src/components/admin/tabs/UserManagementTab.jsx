@@ -9,6 +9,7 @@ import ErrorMessage from '../../common/ErrorMessage/ErrorMessage';
 import SuccessMessage from '../../common/SuccessMessage/SuccessMessage';
 import LoadingSpinner from '../../common/LoadingSpinner/LoadingSpinner';
 import userManagementServices from '../../../api/admin/userManagementServices';
+import { getCSRFToken, validateCSRFToken } from '../../../utils/security/csrfToken';
 import styles from './UserManagementTab.module.css';
 
 const UserManagementTab = () => {
@@ -30,10 +31,13 @@ const UserManagementTab = () => {
   const [newUserDisplayName, setNewUserDisplayName] = useState('');
   const [generatedPassword, setGeneratedPassword] = useState('');
   const [creatingUser, setCreatingUser] = useState(false);
+  const [csrfToken, setCSRFToken] = useState('');
 
   useEffect(() => {
     loadUsers();
     loadUserStats();
+    const token = getCSRFToken();
+    setCSRFToken(token);
   }, []);
 
   const loadUsers = async () => {
@@ -92,6 +96,11 @@ const UserManagementTab = () => {
   };
 
   const handleCreateUser = async () => {
+    if (!validateCSRFToken(csrfToken, getCSRFToken())) {
+      setError('Security validation failed. Please refresh and try again.');
+      return;
+    }
+
     if (!newUserEmail) {
       setError('Email is required');
       return;
@@ -131,6 +140,11 @@ const UserManagementTab = () => {
   };
 
   const handleRoleChange = async (userId, newRole) => {
+    if (!validateCSRFToken(csrfToken, getCSRFToken())) {
+      setError('Security validation failed. Please refresh and try again.');
+      return;
+    }
+
     if (userId === userProfile.uid && newRole !== USER_ROLES.SUPER_ADMIN) {
       setError('Cannot change your own role.');
       return;
@@ -154,6 +168,11 @@ const UserManagementTab = () => {
   };
 
   const handleDeleteUser = async (userId, userName) => {
+    if (!validateCSRFToken(csrfToken, getCSRFToken())) {
+      setError('Security validation failed. Please refresh and try again.');
+      return;
+    }
+
     if (userId === userProfile.uid) {
       setError('Cannot delete your own account.');
       return;

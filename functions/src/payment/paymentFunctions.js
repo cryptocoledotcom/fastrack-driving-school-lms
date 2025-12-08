@@ -2,7 +2,7 @@ const admin = require('firebase-admin');
 const { getFirestore } = require('firebase-admin/firestore');
 const { onCall, onRequest } = require('firebase-functions/v2/https');
 const { defineSecret } = require('firebase-functions/params');
-const corsOrigins = (process.env.CORS_ORIGINS || 'http://localhost:3000,https://fastrackdrive.com,https://www.fastrackdrive.com,https://fastrack-driving-school-lms.web.app,https://fastrack-driving-school-lms.firebaseapp.com').split(',');
+const corsOrigins = (process.env.CORS_ORIGINS || 'http://localhost:3000,https://fastrackdrive.com,https://www.fastrackdrive.com').split(',');
 
 const cors = require('cors')({
   origin: corsOrigins,

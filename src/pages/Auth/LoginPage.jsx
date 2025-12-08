@@ -1,5 +1,5 @@
 // LoginPage Component
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import Input from '../../components/common/Input/Input';
@@ -7,15 +7,22 @@ import Button from '../../components/common/Button/Button';
 import ErrorMessage from '../../components/common/ErrorMessage/ErrorMessage';
 import { PUBLIC_ROUTES, PROTECTED_ROUTES } from '../../constants/routes';
 import { getErrorMessage } from '../../constants/errorMessages';
+import { getCSRFToken, validateCSRFToken } from '../../utils/security/csrfToken';
 import styles from './AuthPages.module.css';
 
 const LoginPage = () => {
   const { login, loginWithGoogle } = useAuth();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: '', password: '' });
+  const [csrfToken, setCSRFToken] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
+
+  useEffect(() => {
+    const token = getCSRFToken();
+    setCSRFToken(token);
+  }, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -24,6 +31,12 @@ const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+
+    if (!validateCSRFToken(csrfToken, getCSRFToken())) {
+      setError('Security validation failed. Please refresh and try again.');
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -57,6 +70,7 @@ const LoginPage = () => {
       {error && <ErrorMessage message={error} onDismiss={() => setError('')} />}
 
       <form onSubmit={handleSubmit} className={styles.form}>
+        <input type="hidden" name="csrf_token" value={csrfToken} />
         <Input
           label="Email"
           type="email"

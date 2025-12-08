@@ -1,9 +1,10 @@
 // CheckoutForm Component
 // Stripe payment form for processing payments
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import Button from '../common/Button/Button';
+import { getCSRFToken, validateCSRFToken } from '../../utils/security/csrfToken';
 import styles from './CheckoutForm.module.css';
 
 const CheckoutForm = ({ 
@@ -19,6 +20,7 @@ const CheckoutForm = ({
   const elements = useElements();
   const [processing, setProcessing] = useState(false);
   const [error, setError] = useState(null);
+  const [csrfToken, setCSRFToken] = useState('');
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -28,6 +30,11 @@ const CheckoutForm = ({
     zipCode: '',
     phone: ''
   });
+
+  useEffect(() => {
+    const token = getCSRFToken();
+    setCSRFToken(token);
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -67,6 +74,11 @@ const CheckoutForm = ({
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (!validateCSRFToken(csrfToken, getCSRFToken())) {
+      setError('Security validation failed. Please refresh and try again.');
+      return;
+    }
 
     if (!validateForm()) {
       return;
@@ -142,6 +154,7 @@ const CheckoutForm = ({
 
   return (
     <form onSubmit={handleSubmit} className={styles.checkoutForm}>
+      <input type="hidden" name="csrf_token" value={csrfToken} />
       <div className={styles.formHeader}>
         <h3>Complete Your Payment</h3>
         {courseName && <p className={styles.courseName}>{courseName}</p>}
