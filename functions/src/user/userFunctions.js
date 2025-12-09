@@ -1,26 +1,22 @@
-const admin = require('firebase-admin');
-const { getFirestore, FieldValue } = require('firebase-admin/firestore');
 const { onCall } = require('firebase-functions/v2/https');
 const { logAuditEvent } = require('../common/auditLogger');
+const { getDb, getAuth } = require('../common/firebaseUtils');
 
-const db = getFirestore();
-const auth = admin.auth();
-
-const createUser = onCall(async (request) => {
+const createUser = onCall(async (data, context) => {
   try {
-    const { email, password, displayName, role = 'student' } = request.data;
+    const { email, password, displayName, role = 'student' } = data;
 
     if (!email || !password || !displayName) {
       throw new Error('Missing required fields: email, password, displayName');
     }
 
-    const userRecord = await auth.createUser({
+    const userRecord = await getAuth().createUser({
       email,
       password,
       displayName
     });
 
-    const userDocRef = db.collection('users').doc(userRecord.uid);
+    const userDocRef = getDb().collection('users').doc(userRecord.uid);
     await userDocRef.set({
       uid: userRecord.uid,
       email,

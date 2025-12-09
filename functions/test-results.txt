@@ -1,0 +1,613 @@
+
+> test
+> vitest run
+
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+
+[7m[1m[36m RUN [39m[22m[27m [36mv1.6.1[39m [90mc:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/functions[39m
+
+[90mstderr[2m | src/certificate/__tests__/certificateFunctions.test.js[2m > [22m[2mCertificate Functions[2m > [22m[2mgenerateCertificate[2m > [22m[2mshould throw error if user not authenticated[22m[39m
+Error generating certificate: Error: Authentication required
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\certificate\certificateFunctions.js:9:13
+    at Function.run [90m(c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39mnode_modules\[4mfirebase-functions[24m\lib\common\onInit.js:28:10[90m)[39m
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\certificate\__tests__\certificateFunctions.test.js:40:35
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:135:14
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:60:26
+    at runTest (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:781:17)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runFiles (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:958:5)
+
+[90mstderr[2m | src/certificate/__tests__/certificateFunctions.test.js[2m > [22m[2mCertificate Functions[2m > [22m[2mgenerateCertificate[2m > [22m[2mshould throw error if userId missing[22m[39m
+Error generating certificate: Error: Missing required parameters: userId, courseId
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\certificate\certificateFunctions.js:16:13
+    at Function.run [90m(c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39mnode_modules\[4mfirebase-functions[24m\lib\common\onInit.js:28:10[90m)[39m
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\certificate\__tests__\certificateFunctions.test.js:51:35
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:135:14
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:60:26
+    at runTest (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:781:17)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runFiles (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:958:5)
+
+[90mstderr[2m | src/certificate/__tests__/certificateFunctions.test.js[2m > [22m[2mCertificate Functions[2m > [22m[2mgenerateCertificate[2m > [22m[2mshould throw error if courseId missing[22m[39m
+Error generating certificate: Error: Missing required parameters: userId, courseId
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\certificate\certificateFunctions.js:16:13
+    at Function.run [90m(c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39mnode_modules\[4mfirebase-functions[24m\lib\common\onInit.js:28:10[90m)[39m
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\certificate\__tests__\certificateFunctions.test.js:62:35
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:135:14
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:60:26
+    at runTest (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:781:17)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runFiles (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:958:5)
+
+[90mstderr[2m | src/certificate/__tests__/certificateFunctions.test.js[2m > [22m[2mCertificate Functions[2m > [22m[2mgenerateCertificate[2m > [22m[2mshould throw error if enrollment not found[22m[39m
+Error generating certificate: Error: Enrollment not found
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\certificate\certificateFunctions.js:23:13
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\certificate\__tests__\certificateFunctions.test.js:86:9
+    at runTest (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:781:11)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runFiles (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:958:5)
+    at startTests (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:967:3)
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4mvitest[24m/dist/chunks/runtime-runBaseTests.oAvMKtQC.js:116:7
+    at withEnv (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4mvitest[24m/dist/chunks/runtime-runBaseTests.oAvMKtQC.js:83:5)
+
+[90mstderr[2m | src/certificate/__tests__/certificateFunctions.test.js[2m > [22m[2mCertificate Functions[2m > [22m[2mgenerateCertificate[2m > [22m[2mshould throw error if payment not completed[22m[39m
+Error generating certificate: Error: Payment not completed. Cannot generate certificate.
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\certificate\certificateFunctions.js:29:13
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\certificate\__tests__\certificateFunctions.test.js:118:9
+    at runTest (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:781:11)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runFiles (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:958:5)
+    at startTests (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:967:3)
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4mvitest[24m/dist/chunks/runtime-runBaseTests.oAvMKtQC.js:116:7
+    at withEnv (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4mvitest[24m/dist/chunks/runtime-runBaseTests.oAvMKtQC.js:83:5)
+
+[90mstderr[2m | src/certificate/__tests__/certificateFunctions.test.js[2m > [22m[2mCertificate Functions[2m > [22m[2mgenerateCertificate[2m > [22m[2mshould throw error if course not found[22m[39m
+Error generating certificate: Error: Course not found
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\certificate\certificateFunctions.js:36:13
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\certificate\__tests__\certificateFunctions.test.js:159:9
+    at runTest (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:781:11)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runFiles (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:958:5)
+    at startTests (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:967:3)
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4mvitest[24m/dist/chunks/runtime-runBaseTests.oAvMKtQC.js:116:7
+    at withEnv (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4mvitest[24m/dist/chunks/runtime-runBaseTests.oAvMKtQC.js:83:5)
+
+ [32m✓[39m src/certificate/__tests__/certificateFunctions.test.js [2m ([22m[2m8 tests[22m[2m)[22m[90m 44[2mms[22m[39m
+[90mstderr[2m | src/payment/__tests__/paymentFunctions.test.js[2m > [22m[2mPayment Functions[2m > [22m[2mcreateCheckoutSession[2m > [22m[2mshould throw error if user not authenticated[22m[39m
+Error creating checkout session: Error: Authentication required
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\payment\paymentFunctions.js:89:15
+    at Function.run [90m(c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39mnode_modules\[4mfirebase-functions[24m\lib\common\onInit.js:28:10[90m)[39m
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\payment\__tests__\paymentFunctions.test.js:117:37
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:135:14
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:60:26
+    at runTest (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:781:17)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runFiles (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:958:5)
+
+[90mstderr[2m | src/payment/__tests__/paymentFunctions.test.js[2m > [22m[2mPayment Functions[2m > [22m[2mcreateCheckoutSession[2m > [22m[2mshould throw error if courseId missing[22m[39m
+Error creating checkout session: Error: Missing required parameters
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\payment\paymentFunctions.js:96:15
+    at Function.run [90m(c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39mnode_modules\[4mfirebase-functions[24m\lib\common\onInit.js:28:10[90m)[39m
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\payment\__tests__\paymentFunctions.test.js:131:37
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:135:14
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:60:26
+    at runTest (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:781:17)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runFiles (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:958:5)
+
+[90mstderr[2m | src/payment/__tests__/paymentFunctions.test.js[2m > [22m[2mPayment Functions[2m > [22m[2mcreateCheckoutSession[2m > [22m[2mshould throw error if amount missing[22m[39m
+Error creating checkout session: Error: Missing required parameters
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\payment\paymentFunctions.js:96:15
+    at Function.run [90m(c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39mnode_modules\[4mfirebase-functions[24m\lib\common\onInit.js:28:10[90m)[39m
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\payment\__tests__\paymentFunctions.test.js:145:37
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:135:14
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:60:26
+    at runTest (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:781:17)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runFiles (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:958:5)
+
+[90mstderr[2m | src/payment/__tests__/paymentFunctions.test.js[2m > [22m[2mPayment Functions[2m > [22m[2mcreateCheckoutSession[2m > [22m[2mshould throw error if paymentType missing[22m[39m
+Error creating checkout session: Error: Missing required parameters
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\payment\paymentFunctions.js:96:15
+    at Function.run [90m(c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39mnode_modules\[4mfirebase-functions[24m\lib\common\onInit.js:28:10[90m)[39m
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\payment\__tests__\paymentFunctions.test.js:159:37
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:135:14
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:60:26
+    at runTest (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:781:17)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runFiles (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:958:5)
+
+ [32m✓[39m src/compliance/__tests__/videoQuestionFunctions.test.js [2m ([22m[2m36 tests[22m[2m)[22m[90m 45[2mms[22m[39m
+[90mstderr[2m | src/compliance/__tests__/videoQuestionFunctions.test.js[2m > [22m[2mVideo Question Functions[2m > [22m[2mcheckVideoQuestionAnswer[2m > [22m[2mshould throw error if question not found[22m[39m
+{"severity":"ERROR","message":"Error checking video question answer: HttpsError: Question not found\n    at c:\\Users\\Cole\\Documents\\Fastrack\\Fastrack-Learning_Management-System\\functions\\src\\compliance\\videoQuestionFunctions.js:42:15\n    at c:\\Users\\Cole\\Documents\\Fastrack\\Fastrack-Learning_Management-System\\functions\\src\\compliance\\__tests__\\videoQuestionFunctions.test.js:189:9\n    at runTest (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/@vitest/runner/dist/index.js:781:11)\n    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/@vitest/runner/dist/index.js:909:15)\n    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/@vitest/runner/dist/index.js:909:15)\n    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/@vitest/runner/dist/index.js:909:15)\n    at runFiles (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/@vitest/runner/dist/index.js:958:5)\n    at startTests (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/@vitest/runner/dist/index.js:967:3)\n    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/vitest/dist/chunks/runtime-runBaseTests.oAvMKtQC.js:116:7\n    at withEnv (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/vitest/dist/chunks/runtime-runBaseTests.oAvMKtQC.js:83:5) {\n  code: 'not-found',\n  details: undefined,\n  httpErrorCode: { canonicalName: 'NOT_FOUND', status: 404 }\n}"}
+
+[90mstderr[2m | src/compliance/__tests__/videoQuestionFunctions.test.js[2m > [22m[2mVideo Question Functions[2m > [22m[2mgetVideoQuestion[2m > [22m[2mshould handle database errors[22m[39m
+{"severity":"ERROR","message":"Error getting video question: Error: Database error\n    at Object.<anonymous> (c:\\Users\\Cole\\Documents\\Fastrack\\Fastrack-Learning_Management-System\\functions\\src\\compliance\\__tests__\\videoQuestionFunctions.test.js:613:41)\n    at Object.mockCall (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/@vitest/spy/dist/index.js:50:17)\n    at Object.spy (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/tinyspy/dist/index.js:42:80)\n    at c:\\Users\\Cole\\Documents\\Fastrack\\Fastrack-Learning_Management-System\\functions\\src\\compliance\\videoQuestionFunctions.js:111:10\n    at Function.run (c:\\Users\\Cole\\Documents\\Fastrack\\Fastrack-Learning_Management-System\\functions\\node_modules\\firebase-functions\\lib\\common\\onInit.js:28:10)\n    at c:\\Users\\Cole\\Documents\\Fastrack\\Fastrack-Learning_Management-System\\functions\\src\\compliance\\__tests__\\videoQuestionFunctions.test.js:620:32\n    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/@vitest/runner/dist/index.js:135:14\n    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/@vitest/runner/dist/index.js:60:26\n    at runTest (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/@vitest/runner/dist/index.js:781:17)\n    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/@vitest/runner/dist/index.js:909:15)"}
+
+[90mstderr[2m | src/compliance/__tests__/videoQuestionFunctions.test.js[2m > [22m[2mVideo Question Functions[2m > [22m[2mrecordVideoQuestionResponse[2m > [22m[2mshould handle database errors[22m[39m
+{"severity":"ERROR","message":"Error recording video question response: Error: Database error\n    at Object.<anonymous> (c:\\Users\\Cole\\Documents\\Fastrack\\Fastrack-Learning_Management-System\\functions\\src\\compliance\\__tests__\\videoQuestionFunctions.test.js:913:41)\n    at Object.mockCall (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/@vitest/spy/dist/index.js:50:17)\n    at Object.spy (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/tinyspy/dist/index.js:42:80)\n    at c:\\Users\\Cole\\Documents\\Fastrack\\Fastrack-Learning_Management-System\\functions\\src\\compliance\\videoQuestionFunctions.js:164:10\n    at Function.run (c:\\Users\\Cole\\Documents\\Fastrack\\Fastrack-Learning_Management-System\\functions\\node_modules\\firebase-functions\\lib\\common\\onInit.js:28:10)\n    at c:\\Users\\Cole\\Documents\\Fastrack\\Fastrack-Learning_Management-System\\functions\\src\\compliance\\__tests__\\videoQuestionFunctions.test.js:927:43\n    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/@vitest/runner/dist/index.js:135:14\n    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/@vitest/runner/dist/index.js:60:26\n    at runTest (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/@vitest/runner/dist/index.js:781:17)\n    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/@vitest/runner/dist/index.js:909:15)"}
+
+[90mstderr[2m | src/payment/__tests__/paymentFunctions.test.js[2m > [22m[2mPayment Functions[2m > [22m[2mcreateCheckoutSession[2m > [22m[2mshould create checkout session successfully[22m[39m
+Error creating checkout session: StripeAuthenticationError: Invalid API Key provided: sk_test_123
+    at res.toJSON.then.Error_js_1.StripeAPIError.message [90m(c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39mnode_modules\[4mstripe[24m\cjs\RequestSender.js:102:31[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m {
+  type: [32m'StripeAuthenticationError'[39m,
+  raw: {
+    message: [32m'Invalid API Key provided: sk_test_123'[39m,
+    type: [32m'invalid_request_error'[39m,
+    headers: {
+      server: [32m'nginx'[39m,
+      date: [32m'Mon, 08 Dec 2025 23:51:34 GMT'[39m,
+      [32m'content-type'[39m: [32m'application/json'[39m,
+      [32m'content-length'[39m: [32m'113'[39m,
+      connection: [32m'keep-alive'[39m,
+      [32m'access-control-allow-credentials'[39m: [32m'true'[39m,
+      [32m'access-control-allow-methods'[39m: [32m'GET, HEAD, PUT, PATCH, POST, DELETE'[39m,
+      [32m'access-control-allow-origin'[39m: [32m'*'[39m,
+      [32m'access-control-expose-headers'[39m: [32m'Request-Id, Stripe-Manage-Version, Stripe-Should-Retry, X-Stripe-External-Auth-Required, X-Stripe-Privileged-Session-Required'[39m,
+      [32m'access-control-max-age'[39m: [32m'300'[39m,
+      [32m'cache-control'[39m: [32m'no-cache, no-store'[39m,
+      [32m'content-security-policy'[39m: [32m"base-uri 'none'; default-src 'none'; form-action 'none'; frame-ancestors 'none'; img-src 'self'; script-src 'self' 'report-sample'; style-src 'self'; worker-src 'none'; upgrade-insecure-requests; report-uri https://q.stripe.com/csp-violation?q=1Cc2BiGgscqJkzBPBRTMbfLDX7espnfjDjpQhkIa2_eeNz0KBghV-IllDPJsU93ZZgHF5xRTcYtGY8WI"[39m,
+      vary: [32m'Origin'[39m,
+      [32m'www-authenticate'[39m: [32m'Bearer realm="Stripe"'[39m,
+      [32m'x-robots-tag'[39m: [32m'none'[39m,
+      [32m'x-wc'[39m: [32m'ABHIJ'[39m,
+      [32m'strict-transport-security'[39m: [32m'max-age=63072000; includeSubDomains; preload'[39m
+    },
+    statusCode: [33m401[39m,
+    requestId: [90mundefined[39m
+  },
+  rawType: [32m'invalid_request_error'[39m,
+  code: [90mundefined[39m,
+  doc_url: [90mundefined[39m,
+  param: [90mundefined[39m,
+  detail: [90mundefined[39m,
+  headers: {
+    server: [32m'nginx'[39m,
+    date: [32m'Mon, 08 Dec 2025 23:51:34 GMT'[39m,
+    [32m'content-type'[39m: [32m'application/json'[39m,
+    [32m'content-length'[39m: [32m'113'[39m,
+    connection: [32m'keep-alive'[39m,
+    [32m'access-control-allow-credentials'[39m: [32m'true'[39m,
+    [32m'access-control-allow-methods'[39m: [32m'GET, HEAD, PUT, PATCH, POST, DELETE'[39m,
+    [32m'access-control-allow-origin'[39m: [32m'*'[39m,
+    [32m'access-control-expose-headers'[39m: [32m'Request-Id, Stripe-Manage-Version, Stripe-Should-Retry, X-Stripe-External-Auth-Required, X-Stripe-Privileged-Session-Required'[39m,
+    [32m'access-control-max-age'[39m: [32m'300'[39m,
+    [32m'cache-control'[39m: [32m'no-cache, no-store'[39m,
+    [32m'content-security-policy'[39m: [32m"base-uri 'none'; default-src 'none'; form-action 'none'; frame-ancestors 'none'; img-src 'self'; script-src 'self' 'report-sample'; style-src 'self'; worker-src 'none'; upgrade-insecure-requests; report-uri https://q.stripe.com/csp-violation?q=1Cc2BiGgscqJkzBPBRTMbfLDX7espnfjDjpQhkIa2_eeNz0KBghV-IllDPJsU93ZZgHF5xRTcYtGY8WI"[39m,
+    vary: [32m'Origin'[39m,
+    [32m'www-authenticate'[39m: [32m'Bearer realm="Stripe"'[39m,
+    [32m'x-robots-tag'[39m: [32m'none'[39m,
+    [32m'x-wc'[39m: [32m'ABHIJ'[39m,
+    [32m'strict-transport-security'[39m: [32m'max-age=63072000; includeSubDomains; preload'[39m
+  },
+  requestId: [90mundefined[39m,
+  statusCode: [33m401[39m,
+  userMessage: [90mundefined[39m,
+  charge: [90mundefined[39m,
+  decline_code: [90mundefined[39m,
+  payment_intent: [90mundefined[39m,
+  payment_method: [90mundefined[39m,
+  payment_method_type: [90mundefined[39m,
+  setup_intent: [90mundefined[39m,
+  source: [90mundefined[39m
+}
+
+[90mstderr[2m | src/payment/__tests__/paymentFunctions.test.js[2m > [22m[2mPayment Functions[2m > [22m[2mcreatePaymentIntent[2m > [22m[2mshould throw error if user not authenticated[22m[39m
+Error creating payment intent: Error: Authentication required
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\payment\paymentFunctions.js:148:15
+    at Function.run [90m(c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39mnode_modules\[4mfirebase-functions[24m\lib\common\onInit.js:28:10[90m)[39m
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\payment\__tests__\paymentFunctions.test.js:195:35
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:135:14
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:60:26
+    at runTest (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:781:17)
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+
+[90mstderr[2m | src/payment/__tests__/paymentFunctions.test.js[2m > [22m[2mPayment Functions[2m > [22m[2mcreatePaymentIntent[2m > [22m[2mshould throw error if courseId missing[22m[39m
+Error creating payment intent: Error: Missing required parameters
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\payment\paymentFunctions.js:155:15
+    at Function.run [90m(c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39mnode_modules\[4mfirebase-functions[24m\lib\common\onInit.js:28:10[90m)[39m
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\payment\__tests__\paymentFunctions.test.js:209:35
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:135:14
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:60:26
+    at runTest (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:781:17)
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+
+[90mstderr[2m | src/payment/__tests__/paymentFunctions.test.js[2m > [22m[2mPayment Functions[2m > [22m[2mcreatePaymentIntent[2m > [22m[2mshould throw error if amount missing[22m[39m
+Error creating payment intent: Error: Missing required parameters
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\payment\paymentFunctions.js:155:15
+    at Function.run [90m(c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39mnode_modules\[4mfirebase-functions[24m\lib\common\onInit.js:28:10[90m)[39m
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\payment\__tests__\paymentFunctions.test.js:223:35
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:135:14
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:60:26
+    at runTest (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:781:17)
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+
+[90mstderr[2m | src/payment/__tests__/paymentFunctions.test.js[2m > [22m[2mPayment Functions[2m > [22m[2mcreatePaymentIntent[2m > [22m[2mshould throw error if paymentType missing[22m[39m
+Error creating payment intent: Error: Missing required parameters
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\payment\paymentFunctions.js:155:15
+    at Function.run [90m(c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39mnode_modules\[4mfirebase-functions[24m\lib\common\onInit.js:28:10[90m)[39m
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\payment\__tests__\paymentFunctions.test.js:237:35
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:135:14
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:60:26
+    at runTest (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:781:17)
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+
+[90mstderr[2m | src/payment/__tests__/paymentFunctions.test.js[2m > [22m[2mPayment Functions[2m > [22m[2mcreatePaymentIntent[2m > [22m[2mshould create payment intent successfully[22m[39m
+Error creating payment intent: StripeAuthenticationError: Invalid API Key provided: sk_test_123
+    at res.toJSON.then.Error_js_1.StripeAPIError.message [90m(c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39mnode_modules\[4mstripe[24m\cjs\RequestSender.js:102:31[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m {
+  type: [32m'StripeAuthenticationError'[39m,
+  raw: {
+    message: [32m'Invalid API Key provided: sk_test_123'[39m,
+    type: [32m'invalid_request_error'[39m,
+    headers: {
+      server: [32m'nginx'[39m,
+      date: [32m'Mon, 08 Dec 2025 23:51:34 GMT'[39m,
+      [32m'content-type'[39m: [32m'application/json'[39m,
+      [32m'content-length'[39m: [32m'113'[39m,
+      connection: [32m'keep-alive'[39m,
+      [32m'access-control-allow-credentials'[39m: [32m'true'[39m,
+      [32m'access-control-allow-methods'[39m: [32m'GET, HEAD, PUT, PATCH, POST, DELETE'[39m,
+      [32m'access-control-allow-origin'[39m: [32m'*'[39m,
+      [32m'access-control-expose-headers'[39m: [32m'Request-Id, Stripe-Manage-Version, Stripe-Should-Retry, X-Stripe-External-Auth-Required, X-Stripe-Privileged-Session-Required'[39m,
+      [32m'access-control-max-age'[39m: [32m'300'[39m,
+      [32m'cache-control'[39m: [32m'no-cache, no-store'[39m,
+      [32m'content-security-policy'[39m: [32m"base-uri 'none'; default-src 'none'; form-action 'none'; frame-ancestors 'none'; img-src 'self'; script-src 'self' 'report-sample'; style-src 'self'; worker-src 'none'; upgrade-insecure-requests; report-uri https://q.stripe.com/csp-violation?q=1Cc2BiGgscqJkzBPBRTMbfLDX7espnfjDjpQhkIa2_eeNz0KBghV-IllDPJsU93ZZgHF5xRTcYtGY8WI"[39m,
+      vary: [32m'Origin'[39m,
+      [32m'www-authenticate'[39m: [32m'Bearer realm="Stripe"'[39m,
+      [32m'x-robots-tag'[39m: [32m'none'[39m,
+      [32m'x-wc'[39m: [32m'ABHIJ'[39m,
+      [32m'strict-transport-security'[39m: [32m'max-age=63072000; includeSubDomains; preload'[39m
+    },
+    statusCode: [33m401[39m,
+    requestId: [90mundefined[39m
+  },
+  rawType: [32m'invalid_request_error'[39m,
+  code: [90mundefined[39m,
+  doc_url: [90mundefined[39m,
+  param: [90mundefined[39m,
+  detail: [90mundefined[39m,
+  headers: {
+    server: [32m'nginx'[39m,
+    date: [32m'Mon, 08 Dec 2025 23:51:34 GMT'[39m,
+    [32m'content-type'[39m: [32m'application/json'[39m,
+    [32m'content-length'[39m: [32m'113'[39m,
+    connection: [32m'keep-alive'[39m,
+    [32m'access-control-allow-credentials'[39m: [32m'true'[39m,
+    [32m'access-control-allow-methods'[39m: [32m'GET, HEAD, PUT, PATCH, POST, DELETE'[39m,
+    [32m'access-control-allow-origin'[39m: [32m'*'[39m,
+    [32m'access-control-expose-headers'[39m: [32m'Request-Id, Stripe-Manage-Version, Stripe-Should-Retry, X-Stripe-External-Auth-Required, X-Stripe-Privileged-Session-Required'[39m,
+    [32m'access-control-max-age'[39m: [32m'300'[39m,
+    [32m'cache-control'[39m: [32m'no-cache, no-store'[39m,
+    [32m'content-security-policy'[39m: [32m"base-uri 'none'; default-src 'none'; form-action 'none'; frame-ancestors 'none'; img-src 'self'; script-src 'self' 'report-sample'; style-src 'self'; worker-src 'none'; upgrade-insecure-requests; report-uri https://q.stripe.com/csp-violation?q=1Cc2BiGgscqJkzBPBRTMbfLDX7espnfjDjpQhkIa2_eeNz0KBghV-IllDPJsU93ZZgHF5xRTcYtGY8WI"[39m,
+    vary: [32m'Origin'[39m,
+    [32m'www-authenticate'[39m: [32m'Bearer realm="Stripe"'[39m,
+    [32m'x-robots-tag'[39m: [32m'none'[39m,
+    [32m'x-wc'[39m: [32m'ABHIJ'[39m,
+    [32m'strict-transport-security'[39m: [32m'max-age=63072000; includeSubDomains; preload'[39m
+  },
+  requestId: [90mundefined[39m,
+  statusCode: [33m401[39m,
+  userMessage: [90mundefined[39m,
+  charge: [90mundefined[39m,
+  decline_code: [90mundefined[39m,
+  payment_intent: [90mundefined[39m,
+  payment_method: [90mundefined[39m,
+  payment_method_type: [90mundefined[39m,
+  setup_intent: [90mundefined[39m,
+  source: [90mundefined[39m
+}
+
+ [33m❯[39m src/payment/__tests__/paymentFunctions.test.js [2m ([22m[2m21 tests[22m [2m|[22m [31m2 failed[39m[2m)[22m[90m 283[2mms[22m[39m
+[31m   [33m❯[31m src/payment/__tests__/paymentFunctions.test.js[2m > [22mPayment Functions[2m > [22mcreateCheckoutSession[2m > [22mshould create checkout session successfully[39m
+[31m     → Failed to create checkout session: Invalid API Key provided: sk_test_123[39m
+[31m   [33m❯[31m src/payment/__tests__/paymentFunctions.test.js[2m > [22mPayment Functions[2m > [22mcreatePaymentIntent[2m > [22mshould create payment intent successfully[39m
+[31m     → Failed to create payment intent: Invalid API Key provided: sk_test_123[39m
+[90mstderr[2m | src/compliance/sessionHeartbeat.test.js[2m > [22m[2msessionHeartbeat Cloud Function[2m > [22m[2mshould throw error if not authenticated[22m[39m
+Error processing session heartbeat: Error: Authentication required
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\compliance\complianceFunctions.js:147:15
+    at Function.run [90m(c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39mnode_modules\[4mfirebase-functions[24m\lib\common\onInit.js:28:10[90m)[39m
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\compliance\sessionHeartbeat.test.js:89:30
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:135:14
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:60:26
+    at runTest (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:781:17)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runFiles (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:958:5)
+    at startTests (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:967:3)
+Failed to log audit event: ReferenceError: data is not defined
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\compliance\complianceFunctions.js:304:49
+    at Function.run [90m(c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39mnode_modules\[4mfirebase-functions[24m\lib\common\onInit.js:28:10[90m)[39m
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\compliance\sessionHeartbeat.test.js:89:30
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:135:14
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:60:26
+    at runTest (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:781:17)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runFiles (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:958:5)
+    at startTests (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:967:3)
+
+[90mstderr[2m | src/compliance/sessionHeartbeat.test.js[2m > [22m[2msessionHeartbeat Cloud Function[2m > [22m[2mshould throw error if userId is missing[22m[39m
+Error processing session heartbeat: Error: Authentication required
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\compliance\complianceFunctions.js:147:15
+    at Function.run [90m(c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39mnode_modules\[4mfirebase-functions[24m\lib\common\onInit.js:28:10[90m)[39m
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\compliance\sessionHeartbeat.test.js:103:30
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:135:14
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:60:26
+    at runTest (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:781:17)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runFiles (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:958:5)
+    at startTests (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:967:3)
+Failed to log audit event: ReferenceError: data is not defined
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\compliance\complianceFunctions.js:304:49
+    at Function.run [90m(c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39mnode_modules\[4mfirebase-functions[24m\lib\common\onInit.js:28:10[90m)[39m
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\compliance\sessionHeartbeat.test.js:103:30
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:135:14
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:60:26
+    at runTest (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:781:17)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runFiles (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:958:5)
+    at startTests (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:967:3)
+
+[90mstderr[2m | src/compliance/sessionHeartbeat.test.js[2m > [22m[2msessionHeartbeat Cloud Function[2m > [22m[2mshould throw error if user ID does not match authenticated user[22m[39m
+Error processing session heartbeat: Error: Authentication required
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\compliance\complianceFunctions.js:147:15
+    at Function.run [90m(c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39mnode_modules\[4mfirebase-functions[24m\lib\common\onInit.js:28:10[90m)[39m
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\compliance\sessionHeartbeat.test.js:117:30
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:135:14
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:60:26
+    at runTest (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:781:17)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runFiles (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:958:5)
+    at startTests (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:967:3)
+Failed to log audit event: ReferenceError: data is not defined
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\compliance\complianceFunctions.js:304:49
+    at Function.run [90m(c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39mnode_modules\[4mfirebase-functions[24m\lib\common\onInit.js:28:10[90m)[39m
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\compliance\sessionHeartbeat.test.js:117:30
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:135:14
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:60:26
+    at runTest (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:781:17)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runFiles (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:958:5)
+    at startTests (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:967:3)
+
+ [32m✓[39m src/compliance/sessionHeartbeat.test.js [2m ([22m[2m11 tests[22m[2m)[22m[90m 16[2mms[22m[39m
+[90mstderr[2m | src/user/__tests__/userFunctions.test.js[2m > [22m[2mUser Functions[2m > [22m[2mcreateUser[2m > [22m[2mshould throw error if email missing[22m[39m
+Error creating user: Error: Missing required fields: email, password, displayName
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\user\userFunctions.js:10:13
+    at Function.run [90m(c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39mnode_modules\[4mfirebase-functions[24m\lib\common\onInit.js:28:10[90m)[39m
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\user\__tests__\userFunctions.test.js:74:26
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:135:14
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:60:26
+    at runTest (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:781:17)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runFiles (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:958:5)
+
+[90mstderr[2m | src/user/__tests__/userFunctions.test.js[2m > [22m[2mUser Functions[2m > [22m[2mcreateUser[2m > [22m[2mshould throw error if password missing[22m[39m
+Error creating user: Error: Missing required fields: email, password, displayName
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\user\userFunctions.js:10:13
+    at Function.run [90m(c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39mnode_modules\[4mfirebase-functions[24m\lib\common\onInit.js:28:10[90m)[39m
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\user\__tests__\userFunctions.test.js:88:26
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:135:14
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:60:26
+    at runTest (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:781:17)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runFiles (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:958:5)
+
+[90mstderr[2m | src/user/__tests__/userFunctions.test.js[2m > [22m[2mUser Functions[2m > [22m[2mcreateUser[2m > [22m[2mshould throw error if displayName missing[22m[39m
+Error creating user: Error: Missing required fields: email, password, displayName
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\user\userFunctions.js:10:13
+    at Function.run [90m(c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39mnode_modules\[4mfirebase-functions[24m\lib\common\onInit.js:28:10[90m)[39m
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\user\__tests__\userFunctions.test.js:102:26
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:135:14
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:60:26
+    at runTest (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:781:17)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runFiles (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:958:5)
+
+[90mstderr[2m | src/user/__tests__/userFunctions.test.js[2m > [22m[2mUser Functions[2m > [22m[2mcreateUser[2m > [22m[2mshould save user document to Firestore[22m[39m
+Failed to log audit event: TypeError: getDb(...).collection(...).add is not a function
+    at logAuditEvent [90m(c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\common\auditLogger.js:74:43[90m)[39m
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\user\userFunctions.js:29:11
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\user\__tests__\userFunctions.test.js:177:7
+    at runTest (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:781:11)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runFiles (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:958:5)
+    at startTests (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:967:3)
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4mvitest[24m/dist/chunks/runtime-runBaseTests.oAvMKtQC.js:116:7
+
+[90mstderr[2m | src/user/__tests__/userFunctions.test.js[2m > [22m[2mUser Functions[2m > [22m[2mcreateUser[2m > [22m[2mshould include createdAt timestamp[22m[39m
+Failed to log audit event: TypeError: getDb(...).collection(...).add is not a function
+    at logAuditEvent [90m(c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\common\auditLogger.js:74:43[90m)[39m
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\user\userFunctions.js:29:11
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\user\__tests__\userFunctions.test.js:207:7
+    at runTest (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:781:11)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runFiles (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:958:5)
+    at startTests (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:967:3)
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4mvitest[24m/dist/chunks/runtime-runBaseTests.oAvMKtQC.js:116:7
+
+[90mstderr[2m | src/user/__tests__/userFunctions.test.js[2m > [22m[2mUser Functions[2m > [22m[2mcreateUser[2m > [22m[2mshould handle auth creation errors[22m[39m
+Error creating user: Error: Email already exists
+    at [90mc:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\[39msrc\user\__tests__\userFunctions.test.js:227:9
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:135:14
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:60:26
+    at runTest (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:781:17)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runFiles (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:958:5)
+    at startTests (file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4m@vitest/runner[24m/dist/index.js:967:3)
+    at file:///C:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/node_modules/[4mvitest[24m/dist/chunks/runtime-runBaseTests.oAvMKtQC.js:116:7
+
+ [33m❯[39m src/user/__tests__/userFunctions.test.js [2m ([22m[2m11 tests[22m [2m|[22m [31m5 failed[39m[2m)[22m[33m 50052[2mms[22m[39m
+[31m   [33m❯[31m src/user/__tests__/userFunctions.test.js[2m > [22mUser Functions[2m > [22mcreateUser[2m > [22mshould create user with default role of student[39m
+[31m     → Test timed out in 10000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".[39m
+[31m   [33m❯[31m src/user/__tests__/userFunctions.test.js[2m > [22mUser Functions[2m > [22mcreateUser[2m > [22mshould create user with custom role[39m
+[31m     → Test timed out in 10000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".[39m
+[31m   [33m❯[31m src/user/__tests__/userFunctions.test.js[2m > [22mUser Functions[2m > [22mcreateUser[2m > [22mshould call Firebase auth.createUser with correct parameters[39m
+[31m     → Test timed out in 10000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".[39m
+[31m   [33m❯[31m src/user/__tests__/userFunctions.test.js[2m > [22mUser Functions[2m > [22mcreateUser[2m > [22mshould log audit event on user creation[39m
+[31m     → Test timed out in 10000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".[39m
+[31m   [33m❯[31m src/user/__tests__/userFunctions.test.js[2m > [22mUser Functions[2m > [22mcreateUser[2m > [22mshould return user document in response[39m
+[31m     → Test timed out in 10000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[1m[7m Failed Tests 7 [27m[22m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/payment/__tests__/paymentFunctions.test.js[2m > [22mPayment Functions[2m > [22mcreateCheckoutSession[2m > [22mshould create checkout session successfully
+[31m[1mError[22m: Failed to create checkout session: Invalid API Key provided: sk_test_123[39m
+[90m [2m❯[22m src/payment/paymentFunctions.js:[2m136:13[22m[39m
+[90m [2m❯[22m src/payment/__tests__/paymentFunctions.test.js:[2m180:22[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/7]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/payment/__tests__/paymentFunctions.test.js[2m > [22mPayment Functions[2m > [22mcreatePaymentIntent[2m > [22mshould create payment intent successfully
+[31m[1mError[22m: Failed to create payment intent: Invalid API Key provided: sk_test_123[39m
+[90m [2m❯[22m src/payment/paymentFunctions.js:[2m181:13[22m[39m
+[90m [2m❯[22m src/payment/__tests__/paymentFunctions.test.js:[2m256:22[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/7]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/user/__tests__/userFunctions.test.js[2m > [22mUser Functions[2m > [22mcreateUser[2m > [22mshould create user with default role of student
+[31m[1m[7m FAIL [27m[22m[39m src/user/__tests__/userFunctions.test.js[2m > [22mUser Functions[2m > [22mcreateUser[2m > [22mshould create user with custom role
+[31m[1m[7m FAIL [27m[22m[39m src/user/__tests__/userFunctions.test.js[2m > [22mUser Functions[2m > [22mcreateUser[2m > [22mshould call Firebase auth.createUser with correct parameters
+[31m[1m[7m FAIL [27m[22m[39m src/user/__tests__/userFunctions.test.js[2m > [22mUser Functions[2m > [22mcreateUser[2m > [22mshould log audit event on user creation
+[31m[1m[7m FAIL [27m[22m[39m src/user/__tests__/userFunctions.test.js[2m > [22mUser Functions[2m > [22mcreateUser[2m > [22mshould return user document in response
+[31m[1mError[22m: Test timed out in 10000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".[39m
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/7]⎯[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯[1m[7m Unhandled Errors [27m[22m⎯⎯⎯⎯⎯⎯[39m
+[31m[1m
+Vitest caught 5 unhandled errors during the test run.
+This might cause false positive tests. Resolve unhandled errors to make sure your tests are not affected.[22m[39m
+
+[31m⎯⎯⎯⎯⎯[1m[7m Uncaught Exception [27m[22m⎯⎯⎯⎯⎯[39m
+[31m[1mError[22m: Could not load the default credentials. Browse to https://cloud.google.com/docs/authentication/getting-started for more information.[39m
+[90m [2m❯[22m GoogleAuth.getApplicationDefaultAsync node_modules/google-auth-library/build/src/auth/googleauth.js:[2m287:15[22m[39m
+[90m [2m❯[22m processTicksAndRejections node:internal/process/task_queues:[2m105:5[22m[39m
+[90m [2m❯[22m GoogleAuth._GoogleAuth_determineClient node_modules/google-auth-library/build/src/auth/googleauth.js:[2m834:32[22m[39m
+[90m [2m❯[22m GoogleAuth.getClient node_modules/google-auth-library/build/src/auth/googleauth.js:[2m698:20[22m[39m
+[90m [2m❯[22m GrpcClient._getCredentials node_modules/google-gax/src/grpc.ts:[2m209:20[22m[39m
+[90m [2m❯[22m GrpcClient.createStub node_modules/google-gax/src/grpc.ts:[2m426:19[22m[39m
+
+[31mThis error originated in "[1msrc/user/__tests__/userFunctions.test.js[22m" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.[39m
+[31mThe latest test that might've caused the error is "[1mshould create user with default role of student[22m". It might mean one of the following:
+- The error was thrown, while Vitest was running this test.
+- If the error occurred after the test had been completed, this was the last documented test before it was thrown.[39m
+
+[31m⎯⎯⎯⎯⎯[1m[7m Uncaught Exception [27m[22m⎯⎯⎯⎯⎯[39m
+[31m[1mError[22m: Could not load the default credentials. Browse to https://cloud.google.com/docs/authentication/getting-started for more information.[39m
+[90m [2m❯[22m GoogleAuth.getApplicationDefaultAsync node_modules/google-auth-library/build/src/auth/googleauth.js:[2m287:15[22m[39m
+[90m [2m❯[22m processTicksAndRejections node:internal/process/task_queues:[2m105:5[22m[39m
+[90m [2m❯[22m GoogleAuth._GoogleAuth_determineClient node_modules/google-auth-library/build/src/auth/googleauth.js:[2m834:32[22m[39m
+[90m [2m❯[22m GoogleAuth.getClient node_modules/google-auth-library/build/src/auth/googleauth.js:[2m698:20[22m[39m
+[90m [2m❯[22m GrpcClient._getCredentials node_modules/google-gax/src/grpc.ts:[2m209:20[22m[39m
+[90m [2m❯[22m GrpcClient.createStub node_modules/google-gax/src/grpc.ts:[2m426:19[22m[39m
+
+[31mThis error originated in "[1msrc/user/__tests__/userFunctions.test.js[22m" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.[39m
+[31mThe latest test that might've caused the error is "[1mshould create user with custom role[22m". It might mean one of the following:
+- The error was thrown, while Vitest was running this test.
+- If the error occurred after the test had been completed, this was the last documented test before it was thrown.[39m
+
+[31m⎯⎯⎯⎯⎯[1m[7m Uncaught Exception [27m[22m⎯⎯⎯⎯⎯[39m
+[31m[1mError[22m: Could not load the default credentials. Browse to https://cloud.google.com/docs/authentication/getting-started for more information.[39m
+[90m [2m❯[22m GoogleAuth.getApplicationDefaultAsync node_modules/google-auth-library/build/src/auth/googleauth.js:[2m287:15[22m[39m
+[90m [2m❯[22m processTicksAndRejections node:internal/process/task_queues:[2m105:5[22m[39m
+[90m [2m❯[22m GoogleAuth._GoogleAuth_determineClient node_modules/google-auth-library/build/src/auth/googleauth.js:[2m834:32[22m[39m
+[90m [2m❯[22m GoogleAuth.getClient node_modules/google-auth-library/build/src/auth/googleauth.js:[2m698:20[22m[39m
+[90m [2m❯[22m GrpcClient._getCredentials node_modules/google-gax/src/grpc.ts:[2m209:20[22m[39m
+[90m [2m❯[22m GrpcClient.createStub node_modules/google-gax/src/grpc.ts:[2m426:19[22m[39m
+
+[31mThis error originated in "[1msrc/user/__tests__/userFunctions.test.js[22m" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.[39m
+[31mThe latest test that might've caused the error is "[1mshould call Firebase auth.createUser with correct parameters[22m". It might mean one of the following:
+- The error was thrown, while Vitest was running this test.
+- If the error occurred after the test had been completed, this was the last documented test before it was thrown.[39m
+
+[31m⎯⎯⎯⎯⎯[1m[7m Uncaught Exception [27m[22m⎯⎯⎯⎯⎯[39m
+[31m[1mError[22m: Could not load the default credentials. Browse to https://cloud.google.com/docs/authentication/getting-started for more information.[39m
+[90m [2m❯[22m GoogleAuth.getApplicationDefaultAsync node_modules/google-auth-library/build/src/auth/googleauth.js:[2m287:15[22m[39m
+[90m [2m❯[22m processTicksAndRejections node:internal/process/task_queues:[2m105:5[22m[39m
+[90m [2m❯[22m GoogleAuth._GoogleAuth_determineClient node_modules/google-auth-library/build/src/auth/googleauth.js:[2m834:32[22m[39m
+[90m [2m❯[22m GoogleAuth.getClient node_modules/google-auth-library/build/src/auth/googleauth.js:[2m698:20[22m[39m
+[90m [2m❯[22m GrpcClient._getCredentials node_modules/google-gax/src/grpc.ts:[2m209:20[22m[39m
+[90m [2m❯[22m GrpcClient.createStub node_modules/google-gax/src/grpc.ts:[2m426:19[22m[39m
+
+[31mThis error originated in "[1msrc/user/__tests__/userFunctions.test.js[22m" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.[39m
+[31mThe latest test that might've caused the error is "[1mshould log audit event on user creation[22m". It might mean one of the following:
+- The error was thrown, while Vitest was running this test.
+- If the error occurred after the test had been completed, this was the last documented test before it was thrown.[39m
+
+[31m⎯⎯⎯⎯⎯[1m[7m Uncaught Exception [27m[22m⎯⎯⎯⎯⎯[39m
+[31m[1mError[22m: Could not load the default credentials. Browse to https://cloud.google.com/docs/authentication/getting-started for more information.[39m
+[90m [2m❯[22m GoogleAuth.getApplicationDefaultAsync node_modules/google-auth-library/build/src/auth/googleauth.js:[2m287:15[22m[39m
+[90m [2m❯[22m processTicksAndRejections node:internal/process/task_queues:[2m105:5[22m[39m
+[90m [2m❯[22m GoogleAuth._GoogleAuth_determineClient node_modules/google-auth-library/build/src/auth/googleauth.js:[2m834:32[22m[39m
+[90m [2m❯[22m GoogleAuth.getClient node_modules/google-auth-library/build/src/auth/googleauth.js:[2m698:20[22m[39m
+[90m [2m❯[22m GrpcClient._getCredentials node_modules/google-gax/src/grpc.ts:[2m209:20[22m[39m
+[90m [2m❯[22m GrpcClient.createStub node_modules/google-gax/src/grpc.ts:[2m426:19[22m[39m
+
+[31mThis error originated in "[1msrc/user/__tests__/userFunctions.test.js[22m" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.[39m
+[31mThe latest test that might've caused the error is "[1mshould return user document in response[22m". It might mean one of the following:
+- The error was thrown, while Vitest was running this test.
+- If the error occurred after the test had been completed, this was the last documented test before it was thrown.[39m
+[31m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[39m
+
+[2m Test Files [22m [1m[31m2 failed[39m[22m[2m | [22m[1m[32m3 passed[39m[22m[90m (5)[39m
+[2m      Tests [22m [1m[31m7 failed[39m[22m[2m | [22m[1m[32m80 passed[39m[22m[90m (87)[39m
+[2m     Errors [22m [1m[31m5 errors[39m[22m
+[2m   Start at [22m 18:51:33
+[2m   Duration [22m 51.99s[2m (transform 376ms, setup 937ms, collect 3.57s, tests 50.44s, environment 1ms, prepare 1.78s)[22m
+

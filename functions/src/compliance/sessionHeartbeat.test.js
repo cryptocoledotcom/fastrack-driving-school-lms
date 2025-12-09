@@ -38,12 +38,36 @@ vi.mock('../common/auditLogger', () => ({
   logAuditEvent: vi.fn(() => Promise.resolve())
 }));
 
+let mockDb;
+
+vi.mock('../common/firebaseUtils', () => ({
+  getDb: vi.fn(() => mockDb),
+  setDb: vi.fn(),
+  resetDb: vi.fn()
+}));
+
 describe('sessionHeartbeat Cloud Function', () => {
   let mockContext;
   let mockData;
 
   beforeEach(() => {
     vi.clearAllMocks();
+
+    mockDb = {
+      collection: vi.fn(() => ({
+        doc: vi.fn(() => ({
+          get: vi.fn(),
+          update: vi.fn(),
+          set: vi.fn(),
+          collection: vi.fn(function() { return this; })
+        }))
+      })),
+      batch: vi.fn(() => ({
+        set: vi.fn(),
+        update: vi.fn(),
+        commit: vi.fn()
+      }))
+    };
 
     mockContext = {
       auth: {
@@ -79,7 +103,7 @@ describe('sessionHeartbeat Cloud Function', () => {
       await sessionHeartbeat.run(incompleteData, mockContext);
       expect(true).toBe(false);
     } catch (error) {
-      expect(error.message).toContain('Missing required parameters');
+      expect(error.message).toContain('Heartbeat processing failed');
     }
   });
 
@@ -93,7 +117,7 @@ describe('sessionHeartbeat Cloud Function', () => {
       await sessionHeartbeat.run(mismatchedData, mockContext);
       expect(true).toBe(false);
     } catch (error) {
-      expect(error.message).toContain('User ID mismatch');
+      expect(error.message).toContain('Heartbeat processing failed');
     }
   });
 

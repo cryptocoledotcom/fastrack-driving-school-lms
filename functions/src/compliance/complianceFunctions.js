@@ -1,18 +1,15 @@
 const admin = require('firebase-admin');
-const { getFirestore } = require('firebase-admin/firestore');
 const { onCall, onRequest } = require('firebase-functions/v2/https');
 const { onSchedule } = require('firebase-functions/v2/scheduler');
 const { logAuditEvent, deleteExpiredAuditLogs, AUDIT_EVENT_TYPES } = require('../common/auditLogger');
-
-
-const db = getFirestore();
+const { getDb } = require('../common/firebaseUtils');
 
 // Constants for compliance enforcement
 const MAX_DAILY_MINUTES = 240; // 4 hours
 const TIMEZONE = 'America/New_York';
 
 async function getStudentIdByName(studentName) {
-  const usersRef = db.collection('users');
+  const usersRef = getDb().collection('users');
   const snapshot = await usersRef.where('displayName', '==', studentName).get();
 
   if (snapshot.empty) {
@@ -23,13 +20,13 @@ async function getStudentIdByName(studentName) {
 }
 
 async function getComplianceDataForStudent(userId, courseId) {
-  const sessionHistoryRef = db.collection('sessions').where('userId', '==', userId).where('courseId', '==', courseId);
+  const sessionHistoryRef = getDb().collection('sessions').where('userId', '==', userId).where('courseId', '==', courseId);
   const sessionSnapshot = await sessionHistoryRef.get();
 
-  const quizAttemptsRef = db.collection('quizAttempts').where('userId', '==', userId).where('courseId', '==', courseId);
+  const quizAttemptsRef = getDb().collection('quizAttempts').where('userId', '==', userId).where('courseId', '==', courseId);
   const quizSnapshot = await quizAttemptsRef.get();
 
-  const pvqRecordsRef = db.collection('pvqRecords').where('userId', '==', userId).where('courseId', '==', courseId);
+  const pvqRecordsRef = getDb().collection('pvqRecords').where('userId', '==', userId).where('courseId', '==', courseId);
   const pvqSnapshot = await pvqRecordsRef.get();
 
   return {
@@ -45,7 +42,7 @@ async function getComplianceDataForStudent(userId, courseId) {
 }
 
 async function getComplianceDataForCourse(courseId) {
-  const enrollmentsRef = db.collection('enrollments').where('courseId', '==', courseId);
+  const enrollmentsRef = getDb().collection('enrollments').where('courseId', '==', courseId);
   const enrollmentSnapshot = await enrollmentsRef.get();
 
   const enrollments = enrollmentSnapshot.docs.map(doc => doc.data());
@@ -64,28 +61,28 @@ async function getComplianceDataForCourse(courseId) {
 }
 
 async function getStudentSessionHistory(userId, courseId) {
-  const sessionsRef = db.collection('sessions').where('userId', '==', userId).where('courseId', '==', courseId);
+  const sessionsRef = getDb().collection('sessions').where('userId', '==', userId).where('courseId', '==', courseId);
   const snapshot = await sessionsRef.get();
 
   return snapshot.docs.map(doc => doc.data());
 }
 
 async function getStudentQuizAttempts(userId, courseId) {
-  const quizRef = db.collection('quizAttempts').where('userId', '==', userId).where('courseId', '==', courseId);
+  const quizRef = getDb().collection('quizAttempts').where('userId', '==', userId).where('courseId', '==', courseId);
   const snapshot = await quizRef.get();
 
   return snapshot.docs.map(doc => doc.data());
 }
 
 async function getStudentPVQRecords(userId, courseId) {
-  const pvqRef = db.collection('pvqRecords').where('userId', '==', userId).where('courseId', '==', courseId);
+  const pvqRef = getDb().collection('pvqRecords').where('userId', '==', userId).where('courseId', '==', courseId);
   const snapshot = await pvqRef.get();
 
   return snapshot.docs.map(doc => doc.data());
 }
 
 async function getStudentCertificate(userId, courseId) {
-  const certRef = db.collection('certificates').where('userId', '==', userId).where('courseId', '==', courseId);
+  const certRef = getDb().collection('certificates').where('userId', '==', userId).where('courseId', '==', courseId);
   const snapshot = await certRef.get();
 
   if (snapshot.empty) {
@@ -173,10 +170,10 @@ const sessionHeartbeat = onCall(
       
       // Reference to daily activity log document
       const dailyLogDocId = `${userId}_${dateKey}`;
-      const dailyLogRef = db.collection('daily_activity_logs').doc(dailyLogDocId);
+      const dailyLogRef = getDb().collection('daily_activity_logs').doc(dailyLogDocId);
       
       // Get current session document (subcollection)
-      const sessionRef = db.collection('users').doc(userId).collection('sessions').doc(sessionId);
+      const sessionRef = getDb().collection('users').doc(userId).collection('sessions').doc(sessionId);
       const sessionDoc = await sessionRef.get();
 
       if (!sessionDoc.exists()) {
@@ -214,7 +211,7 @@ const sessionHeartbeat = onCall(
       }
 
       // Atomic batch operation: update both daily log and session
-      const batch = db.batch();
+      const batch = getDb().batch();
 
       // 1. Get or create daily activity log
       const dailyLogDoc = await dailyLogRef.get();
@@ -263,7 +260,7 @@ const sessionHeartbeat = onCall(
 
       // If locked out, update user status and log audit event
       if (isLocked) {
-        await db.collection('users').doc(userId).update({
+        await getDb().collection('users').doc(userId).update({
           dailyStatus: 'locked_daily_limit',
           dailyLockedAt: admin.firestore.FieldValue.serverTimestamp()
         });
@@ -374,7 +371,7 @@ const trackPVQAttempt = onCall(
         throw new Error('User ID mismatch - cannot track attempts for another user');
       }
 
-      const userRef = db.collection('users').doc(userId);
+      const userRef = getDb().collection('users').doc(userId);
       const userDoc = await userRef.get();
 
       if (!userDoc.exists()) {
@@ -390,7 +387,7 @@ const trackPVQAttempt = onCall(
       }
 
       // Get or create PVQ verification record for this session
-      const pvqRef = db.collection('pvq_verification').doc(`${userId}_${sessionId}`);
+      const pvqRef = getDb().collection('pvq_verification').doc(`${userId}_${sessionId}`);
       const pvqDoc = await pvqRef.get();
 
       let attemptCount = 0;
@@ -523,7 +520,7 @@ const trackExamAttempt = onCall(
       const isPassed = score >= passingScore;
       const scorePercent = Math.round((score / totalQuestions) * 100);
 
-      const userRef = db.collection('users').doc(userId);
+      const userRef = getDb().collection('users').doc(userId);
       const userDoc = await userRef.get();
 
       if (!userDoc.exists()) {
@@ -539,7 +536,7 @@ const trackExamAttempt = onCall(
       }
 
       // Get or create exam attempt record
-      const examAttemptsRef = db.collection('exam_attempts').doc(`${userId}_${courseId}`);
+      const examAttemptsRef = getDb().collection('exam_attempts').doc(`${userId}_${courseId}`);
       const examAttemptsDoc = await examAttemptsRef.get();
 
       let attemptNumber = 1;
@@ -642,11 +639,11 @@ const trackExamAttempt = onCall(
           try {
             // Auto-generate completion certificate
             const { generateCompletionCertificate } = require('./enrollmentCertificateFunctions');
-            const courseDoc = await db.collection('courses').doc(courseId).get();
+            const courseDoc = await getDb().collection('courses').doc(courseId).get();
             const courseName = courseDoc.exists() ? courseDoc.data().title : 'Course';
             
             // Call the internal function
-            await db.collection('certificates').add({
+            await getDb().collection('certificates').add({
               userId,
               courseId,
               type: 'completion',

@@ -1,9 +1,25 @@
 const admin = require('firebase-admin');
-const { getFirestore } = require('firebase-admin/firestore');
 const { Logging } = require('@google-cloud/logging');
+const { getDb } = require('./firebaseUtils');
 
-const db = getFirestore();
-const logging = new Logging();
+let cachedLogging = null;
+let loggingError = null;
+
+function getLogging() {
+  if (cachedLogging) {
+    return cachedLogging;
+  }
+  if (loggingError) {
+    return null;
+  }
+  try {
+    cachedLogging = new Logging();
+    return cachedLogging;
+  } catch (error) {
+    loggingError = error;
+    return null;
+  }
+}
 
 const AUDIT_EVENT_TYPES = {
   SESSION_START: 'SESSION_START',
@@ -64,21 +80,24 @@ async function logAuditEvent(userId, action, resource, resourceId, status, metad
       userAgent: context?.userAgent || 'unknown'
     };
 
-    await db.collection('auditLogs').add(auditEntry);
+    await getDb().collection('auditLogs').add(auditEntry);
 
-    const log = logging.log('compliance-audit-trail');
-    const severity = status === 'denied' ? 'WARNING' : status === 'error' || status === 'failure' ? 'ERROR' : 'INFO';
-    const logEntry = log.entry({ severity }, {
-      userId,
-      action,
-      resource,
-      resourceId,
-      status,
-      timestamp: iso8601Timestamp,
-      metadata: cleanedMetadata
-    });
+    const logging = getLogging();
+    if (logging) {
+      const log = logging.log('compliance-audit-trail');
+      const severity = status === 'denied' ? 'WARNING' : status === 'error' || status === 'failure' ? 'ERROR' : 'INFO';
+      const logEntry = log.entry({ severity }, {
+        userId,
+        action,
+        resource,
+        resourceId,
+        status,
+        timestamp: iso8601Timestamp,
+        metadata: cleanedMetadata
+      });
 
-    await log.write(logEntry);
+      await log.write(logEntry);
+    }
   } catch (error) {
     console.error('Failed to log audit event:', error);
   }
@@ -97,7 +116,7 @@ async function deleteExpiredAuditLogs() {
   expirationDate.setDate(expirationDate.getDate() - RETENTION_DAYS);
   const expirationTimestamp = expirationDate.toISOString();
 
-  const snapshot = await db.collection('auditLogs')
+  const snapshot = await getDb().collection('auditLogs')
     .where('timestamp', '<', expirationTimestamp)
     .limit(1000)
     .get();
@@ -107,7 +126,7 @@ async function deleteExpiredAuditLogs() {
     return 0;
   }
 
-  const batch = db.batch();
+  const batch = getDb().batch();
   snapshot.docs.forEach(doc => {
     batch.delete(doc.ref);
   });

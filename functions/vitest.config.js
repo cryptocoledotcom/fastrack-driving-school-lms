@@ -31,6 +31,9 @@ export default defineConfig({
         'src/index.js',
       ],
     },
+    mockReset: true,
+    restoreMocks: true,
+    clearMocks: true,
   },
   resolve: {
     alias: {

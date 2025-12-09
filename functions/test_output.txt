@@ -1,0 +1,43 @@
+
+> test
+> vitest run
+
+
+[7m[1m[36m RUN [39m[22m[27m [36mv1.6.1[39m [90mc:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/functions[39m
+
+ [32m✓[39m src/certificate/__tests__/certificateFunctions.test.js [2m ([22m[2m8 tests[22m[2m)[22m[90m 44[2mms[22m[39m
+ [32m✓[39m src/compliance/__tests__/videoQuestionFunctions.test.js [2m ([22m[2m36 tests[22m[2m)[22m[90m 51[2mms[22m[39m
+ [33m❯[39m src/payment/__tests__/paymentFunctions.test.js [2m ([22m[2m21 tests[22m [2m|[22m [31m2 failed[39m[2m)[22m[90m 263[2mms[22m[39m
+[31m   [33m❯[31m src/payment/__tests__/paymentFunctions.test.js[2m > [22mPayment Functions[2m > [22mcreateCheckoutSession[2m > [22mshould create checkout session successfully[39m
+[31m     → Failed to create checkout session: Invalid API Key provided: sk_test_123[39m
+[31m   [33m❯[31m src/payment/__tests__/paymentFunctions.test.js[2m > [22mPayment Functions[2m > [22mcreatePaymentIntent[2m > [22mshould create payment intent successfully[39m
+[31m     → Failed to create payment intent: Invalid API Key provided: sk_test_123[39m
+ [32m✓[39m src/compliance/sessionHeartbeat.test.js [2m ([22m[2m11 tests[22m[2m)[22m[90m 18[2mms[22m[39m
+ [33m❯[39m src/user/__tests__/userFunctions.test.js [2m ([22m[2m11 tests[22m [2m|[22m [31m5 failed[39m[2m)[22m[33m 50047[2mms[22m[39m
+[31m   [33m❯[31m src/user/__tests__/userFunctions.test.js[2m > [22mUser Functions[2m > [22mcreateUser[2m > [22mshould create user with default role of student[39m
+[31m     → Test timed out in 10000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".[39m
+[31m   [33m❯[31m src/user/__tests__/userFunctions.test.js[2m > [22mUser Functions[2m > [22mcreateUser[2m > [22mshould create user with custom role[39m
+[31m     → Test timed out in 10000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".[39m
+[31m   [33m❯[31m src/user/__tests__/userFunctions.test.js[2m > [22mUser Functions[2m > [22mcreateUser[2m > [22mshould call Firebase auth.createUser with correct parameters[39m
+[31m     → Test timed out in 10000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".[39m
+[31m   [33m❯[31m src/user/__tests__/userFunctions.test.js[2m > [22mUser Functions[2m > [22mcreateUser[2m > [22mshould log audit event on user creation[39m
+[31m     → Test timed out in 10000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".[39m
+[31m   [33m❯[31m src/user/__tests__/userFunctions.test.js[2m > [22mUser Functions[2m > [22mcreateUser[2m > [22mshould return user document in response[39m
+[31m     → Test timed out in 10000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".[39m
+
+[31m⎯⎯⎯⎯⎯⎯[1m[7m Unhandled Errors [27m[22m⎯⎯⎯⎯⎯⎯[39m
+[31m[1m
+Vitest caught 5 unhandled errors during the test run.
+This might cause false positive tests. Resolve unhandled errors to make sure your tests are not affected.[22m[39m
+[31m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[39m
+[2m Test Files [22m [1m[31m2 failed[39m[22m[2m | [22m[1m[32m3 passed[39m[22m[90m (5)[39m
+[2m      Tests [22m [1m[31m7 failed[39m[22m[2m | [22m[1m[32m80 passed[39m[22m[90m (87)[39m
+[2m     Errors [22m [1m[31m5 errors[39m[22m
+[2m   Start at [22m 18:06:41
+[2m   Duration [22m 51.99s[2m (transform 325ms, setup 866ms, collect 3.74s, tests 50.42s, environment 2ms, prepare 1.83s)[22m
+

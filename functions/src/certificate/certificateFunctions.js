@@ -1,9 +1,7 @@
 const admin = require('firebase-admin');
-const { getFirestore } = require('firebase-admin/firestore');
 const { onCall } = require('firebase-functions/v2/https');
 const PDFDocument = require('pdfkit');
-
-const db = getFirestore();
+const { getDb } = require('../common/firebaseUtils');
 
 const generateCertificate = onCall(async (data, context) => {
   try {
@@ -18,7 +16,7 @@ const generateCertificate = onCall(async (data, context) => {
       throw new Error('Missing required parameters: userId, courseId');
     }
 
-    const enrollmentRef = db.collection('enrollments').doc(`${userId}_${courseId}`);
+    const enrollmentRef = getDb().collection('enrollments').doc(`${userId}_${courseId}`);
     const enrollmentDoc = await enrollmentRef.get();
 
     if (!enrollmentDoc.exists) {
@@ -31,7 +29,7 @@ const generateCertificate = onCall(async (data, context) => {
       throw new Error('Payment not completed. Cannot generate certificate.');
     }
 
-    const courseRef = db.collection('courses').doc(courseId);
+    const courseRef = getDb().collection('courses').doc(courseId);
     const courseDoc = await courseRef.get();
 
     if (!courseDoc.exists) {
@@ -42,7 +40,7 @@ const generateCertificate = onCall(async (data, context) => {
     const userName = enrollmentData.userName || 'Student';
     const completionDate = new Date().toLocaleDateString();
 
-    const certificateRef = await db.collection('certificates').add({
+    const certificateRef = await getDb().collection('certificates').add({
       userId,
       courseId,
       courseName: courseData.title,

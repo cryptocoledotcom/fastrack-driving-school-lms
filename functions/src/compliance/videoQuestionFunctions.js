@@ -1,6 +1,6 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
-const db = admin.firestore();
+const { getDb } = require('../common/firebaseUtils');
 const logger = functions.logger;
 
 const VIDEO_QUESTIONS_COLLECTION = 'video_post_questions';
@@ -33,7 +33,7 @@ exports.checkVideoQuestionAnswer = functions.https.onCall(
     }
 
     try {
-      const questionDoc = await db
+      const questionDoc = await getDb()
         .collection(VIDEO_QUESTIONS_COLLECTION)
         .doc(questionId)
         .get();
@@ -48,7 +48,7 @@ exports.checkVideoQuestionAnswer = functions.https.onCall(
       const questionData = questionDoc.data();
       const isCorrect = questionData.correctAnswer === selectedAnswer;
 
-      await db
+      await getDb()
         .collection(AUDIT_LOGS_COLLECTION)
         .add({
           userId,
@@ -103,7 +103,7 @@ exports.getVideoQuestion = functions.https.onCall(
     }
 
     try {
-      const querySnapshot = await db
+      const querySnapshot = await getDb()
         .collection(VIDEO_QUESTIONS_COLLECTION)
         .where('lessonId', '==', lessonId)
         .where('active', '==', true)
@@ -159,7 +159,7 @@ exports.recordVideoQuestionResponse = functions.https.onCall(
     }
 
     try {
-      const responseRef = await db
+      const responseRef = await getDb()
         .collection(VIDEO_QUESTION_RESPONSES_COLLECTION)
         .add({
           userId,

@@ -1,6 +1,6 @@
 const admin = require('firebase-admin');
 const functions = require('firebase-functions');
-const db = admin.firestore();
+const { getDb } = require('../common/firebaseUtils');
 const logger = functions.logger;
 
 const CERTIFICATES_COLLECTION = 'certificates';
@@ -33,7 +33,7 @@ exports.generateEnrollmentCertificate = functions.https.onCall(
     }
 
     try {
-      const userDoc = await db.collection('users').doc(userId).get();
+      const userDoc = await getDb().collection('users').doc(userId).get();
 
       if (!userDoc.exists()) {
         throw new functions.https.HttpsError(
@@ -133,7 +133,7 @@ exports.generateEnrollmentCertificate = functions.https.onCall(
           userAgent: context.rawRequest?.headers?.['user-agent'] || null
         });
 
-      await db.collection('users').doc(userId).update({
+      await getDb().collection('users').doc(userId).update({
         enrollmentCertificateGenerated: true,
         enrollmentCertificateAwardedAt: admin.firestore.FieldValue.serverTimestamp(),
         enrollmentCertificateId: certificateRef.id
@@ -192,7 +192,7 @@ exports.checkEnrollmentCertificateEligibility = functions.https.onCall(
     }
 
     try {
-      const userDoc = await db.collection('users').doc(userId).get();
+      const userDoc = await getDb().collection('users').doc(userId).get();
 
       if (!userDoc.exists()) {
         throw new functions.https.HttpsError(
@@ -261,7 +261,7 @@ exports.generateCompletionCertificate = functions.https.onCall(
     }
 
     try {
-      const userDoc = await db.collection('users').doc(userId).get();
+      const userDoc = await getDb().collection('users').doc(userId).get();
 
       if (!userDoc.exists()) {
         throw new functions.https.HttpsError(
@@ -365,7 +365,7 @@ exports.generateCompletionCertificate = functions.https.onCall(
           userAgent: context.rawRequest?.headers?.['user-agent'] || null
         });
 
-      await db.collection('users').doc(userId).update({
+      await getDb().collection('users').doc(userId).update({
         completionCertificateGenerated: true,
         completionCertificateAwardedAt: admin.firestore.FieldValue.serverTimestamp(),
         completionCertificateId: certificateRef.id
@@ -424,7 +424,7 @@ exports.checkCompletionCertificateEligibility = functions.https.onCall(
     }
 
     try {
-      const userDoc = await db.collection('users').doc(userId).get();
+      const userDoc = await getDb().collection('users').doc(userId).get();
 
       if (!userDoc.exists()) {
         throw new functions.https.HttpsError(

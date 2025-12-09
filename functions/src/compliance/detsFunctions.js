@@ -1,18 +1,12 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
-
-const db = admin.firestore();
+const { getDb } = require('../common/firebaseUtils');
 const { logAuditEvent } = require('../common/auditLogger');
 
 const DETS_API_ENDPOINT = process.env.DETS_API_ENDPOINT || 'https://dets.ohio.gov/api/v1';
 const DETS_API_KEY = process.env.DETS_API_KEY || '';
 const DETS_BATCH_SIZE = 500;
 const DETS_AUTO_SUBMIT = process.env.DETS_AUTO_SUBMIT === 'true';
-
-const detsReportsRef = db.collection('dets_reports');
-const certificatesRef = db.collection('certificates');
-const usersRef = db.collection('users');
-const dailyActivityLogsRef = db.collection('daily_activity_logs');
 
 exports.validateDETSRecord = functions.https.onCall(async (data, context) => {
   try {
@@ -69,7 +63,7 @@ exports.exportDETSReport = functions.https.onCall(async (request) => {
     const records = [];
     const errors = [];
 
-    const certificatesQuery = certificatesRef
+    const certificatesQuery = getDb().collection('certificates')
       .where('courseId', '==', courseId)
       .where('type', '==', 'completion');
 
@@ -83,7 +77,7 @@ exports.exportDETSReport = functions.https.onCall(async (request) => {
       if (startDate && new Date(cert.awardedAt?.toDate?.() || 0) < new Date(startDate)) continue;
       if (endDate && new Date(cert.awardedAt?.toDate?.() || 0) > new Date(endDate)) continue;
 
-      const userDoc = await usersRef.doc(cert.userId).get();
+      const userDoc = await getDb().collection('users').doc(cert.userId).get();
       if (!userDoc.exists()) {
         errors.push({
           certificateId: cert.certificateNumber,
@@ -136,7 +130,7 @@ exports.exportDETSReport = functions.https.onCall(async (request) => {
       throw new functions.https.HttpsError('not-found', 'No eligible records found for export');
     }
 
-    const reportId = db.collection('dets_reports').doc().id;
+    const reportId = getDb().collection('dets_reports').doc().id;
     const report = {
       id: reportId,
       courseId,
@@ -152,7 +146,7 @@ exports.exportDETSReport = functions.https.onCall(async (request) => {
       exportedAt: new Date().toISOString()
     };
 
-    await detsReportsRef.doc(reportId).set(report);
+    await getDb().collection('dets_reports').doc(reportId).set(report);
 
     await logAuditEvent({
       userId: context.auth.uid,
@@ -209,7 +203,7 @@ exports.submitDETSToState = functions.https.onCall(async (request) => {
 });
 
 async function submitDETSReportInternal(reportId, userId = 'system') {
-  const reportDoc = await detsReportsRef.doc(reportId).get();
+  const reportDoc = await getDb().collection('dets_reports').doc(reportId).get();
 
   if (!reportDoc.exists()) {
     throw new Error('Report not found');
@@ -236,7 +230,7 @@ async function submitDETSReportInternal(reportId, userId = 'system') {
 
     const response = await callDETSAPI('POST', '/submit', detsPayload);
 
-    await detsReportsRef.doc(reportId).update({
+    await getDb().collection('dets_reports').doc(reportId).update({
       status: response.success ? 'submitted' : 'error',
       submissionDate: admin.firestore.FieldValue.serverTimestamp(),
       detsResponse: response,
@@ -262,7 +256,7 @@ async function submitDETSReportInternal(reportId, userId = 'system') {
       detsResponse: response
     };
   } catch (error) {
-    await detsReportsRef.doc(reportId).update({
+    await getDb().collection('dets_reports').doc(reportId).update({
       status: 'error',
       submissionAttempts: admin.firestore.FieldValue.increment(1),
       lastError: error.message
@@ -292,14 +286,14 @@ exports.getDETSReports = functions.https.onCall(async (request) => {
     const { reportId, limit = 50, offset = 0 } = request.data;
 
     if (reportId) {
-      const doc = await detsReportsRef.doc(reportId).get();
+      const doc = await getDb().collection('dets_reports').doc(reportId).get();
       if (!doc.exists()) {
         throw new functions.https.HttpsError('not-found', 'Report not found');
       }
       return { report: { id: doc.id, ...doc.data() } };
     }
 
-    const snapshot = await detsReportsRef
+    const snapshot = await getDb().collection('dets_reports')
       .orderBy('exportDate', 'desc')
       .limit(limit)
       .offset(offset)
@@ -310,7 +304,7 @@ exports.getDETSReports = functions.https.onCall(async (request) => {
       ...doc.data()
     }));
 
-    const totalSnapshot = await detsReportsRef.count().get();
+    const totalSnapshot = await getDb().collection('dets_reports').count().get();
 
     return {
       reports,
@@ -334,7 +328,7 @@ exports.processPendingDETSReports = functions.https.onCall(async (request) => {
     throw new functions.https.HttpsError('permission-denied', 'Only admins can trigger DETS processing');
   }
   try {
-    const pendingReports = await detsReportsRef
+    const pendingReports = await getDb().collection('dets_reports')
       .where('status', '==', 'ready')
       .limit(10)
       .get();
@@ -376,7 +370,7 @@ async function getTotalInstructionMinutes(userId, courseId) {
     const dateStr = d.toISOString().split('T')[0];
     const docId = `${userId}_${dateStr}`;
 
-    const doc = await dailyActivityLogsRef.doc(docId).get();
+    const doc = await getDb().collection('daily_activity_logs').doc(docId).get();
     if (doc.exists()) {
       const data = doc.data();
       if (data.course_id === courseId || !data.course_id) {

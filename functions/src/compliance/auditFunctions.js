@@ -1,9 +1,7 @@
 const admin = require('firebase-admin');
-const { getFirestore } = require('firebase-admin/firestore');
 const { onCall } = require('firebase-functions/v2/https');
 const { AUDIT_EVENT_TYPES } = require('../common/auditLogger');
-
-const db = getFirestore();
+const { getDb } = require('../common/firebaseUtils');
 
 exports.getAuditLogs = onCall(async (request) => {
   const { auth, data } = request;
@@ -14,7 +12,7 @@ exports.getAuditLogs = onCall(async (request) => {
 
   try {
     const userId = auth.uid;
-    const userDoc = await db.collection('users').doc(userId).get();
+    const userDoc = await getDb().collection('users').doc(userId).get();
 
     if (!userDoc.exists) {
       throw new Error('NOT_FOUND: User not found');
@@ -36,7 +34,7 @@ exports.getAuditLogs = onCall(async (request) => {
       offset = 0
     } = data;
 
-    let query = db.collection('auditLogs');
+    let query = getDb().collection('auditLogs');
 
     if (filters.userId) {
       query = query.where('userId', '==', filters.userId);
@@ -124,7 +122,7 @@ exports.getAuditLogStats = onCall(async (request) => {
 
   try {
     const userId = auth.uid;
-    const userDoc = await db.collection('users').doc(userId).get();
+    const userDoc = await getDb().collection('users').doc(userId).get();
 
     if (!userDoc.exists) {
       throw new Error('NOT_FOUND: User not found');
@@ -155,7 +153,7 @@ exports.getAuditLogStats = onCall(async (request) => {
       throw new Error('BAD_REQUEST: startDate and endDate must be valid Firestore Timestamps');
     }
 
-    const snapshot = await db.collection('auditLogs')
+    const snapshot = await getDb().collection('auditLogs')
       .where('timestamp', '>=', startDate)
       .where('timestamp', '<=', endDate)
       .get();
@@ -194,7 +192,7 @@ exports.getUserAuditTrail = onCall(async (request) => {
 
   try {
     const userId = auth.uid;
-    const userDoc = await db.collection('users').doc(userId).get();
+    const userDoc = await getDb().collection('users').doc(userId).get();
 
     if (!userDoc.exists) {
       throw new Error('NOT_FOUND: User not found');
@@ -210,7 +208,7 @@ exports.getUserAuditTrail = onCall(async (request) => {
 
     const { targetUserId } = data;
 
-    const snapshot = await db.collection('auditLogs')
+    const snapshot = await getDb().collection('auditLogs')
       .where('userId', '==', targetUserId)
       .get();
 

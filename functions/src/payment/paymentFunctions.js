@@ -1,7 +1,7 @@
 const admin = require('firebase-admin');
-const { getFirestore } = require('firebase-admin/firestore');
 const { onCall, onRequest } = require('firebase-functions/v2/https');
 const { defineSecret } = require('firebase-functions/params');
+const { getDb } = require('../common/firebaseUtils');
 const corsOrigins = (process.env.CORS_ORIGINS || 'http://localhost:3000,https://fastrackdrive.com,https://www.fastrackdrive.com').split(',');
 
 const cors = require('cors')({
@@ -11,7 +11,6 @@ const cors = require('cors')({
 
 const STRIPE_SECRET_KEY_SECRET = defineSecret("STRIPE_SECRET_KEY");
 
-const db = getFirestore();
 const stripe = require('stripe');
 
 async function handleCheckoutSessionCompleted(session) {
@@ -49,7 +48,7 @@ async function handlePaymentIntentFailed(paymentIntent) {
 
   if (!userId || !courseId) return;
 
-  const paymentRef = db.collection('payments').doc(paymentIntent.id);
+  const paymentRef = getDb().collection('payments').doc(paymentIntent.id);
   await paymentRef.update({
     status: 'failed',
     updatedAt: new Date()
@@ -57,7 +56,7 @@ async function handlePaymentIntentFailed(paymentIntent) {
 }
 
 async function updateEnrollmentAfterPayment(userId, courseId, paymentAmount, paymentType) {
-  const enrollmentRef = db.collection('enrollments').doc(`${userId}_${courseId}`);
+  const enrollmentRef = getDb().collection('enrollments').doc(`${userId}_${courseId}`);
   const enrollmentDoc = await enrollmentRef.get();
 
   if (!enrollmentDoc.exists) {
@@ -97,7 +96,7 @@ const createCheckoutSession = onCall(
         throw new Error('Missing required parameters');
       }
 
-      const paymentRef = await db.collection('payments').add({
+      const paymentRef = await getDb().collection('payments').add({
         userId,
         courseId,
         amount,
@@ -156,7 +155,7 @@ const createPaymentIntent = onCall(
         throw new Error('Missing required parameters');
       }
 
-      const paymentRef = await db.collection('payments').add({
+      const paymentRef = await getDb().collection('payments').add({
         userId,
         courseId,
         amount,
