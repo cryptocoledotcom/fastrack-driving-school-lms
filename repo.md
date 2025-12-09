@@ -162,6 +162,60 @@ npm run test:e2e:debug
 
 ## Recent Changes (December 8-9, 2025)
 
+### Session: DTO 0051 Identity Verification Registration Form + Privacy Policy Page ✅
+
+#### Overview
+Implemented comprehensive identity verification registration form meeting DTO 0051 compliance requirements. Created Privacy Policy page with full legal compliance sections.
+
+#### Achievements
+
+**New Pages Created**
+- **Privacy Policy Page** (`src/pages/PrivacyPolicy/PrivacyPolicy.jsx`)
+  - Professional 5-section layout (Information Collected, Use, Data Security, FERPA, Sharing)
+  - Compliance notes for iNACOL A11, D11, and DTO 0201 standards
+  - Responsive design with gradient background and card-based sections
+  - Module CSS with hover effects and mobile optimization
+
+**Enhanced Registration Form** (src/pages/Auth/RegisterPage.jsx)
+- **Student Information Section**: Legal name breakdown (first, middle, last), date of birth, TIPIC (optional)
+- **Contact Information Section**: Email, password with strength validation
+- **Address Section**: Street, city, state (Ohio, disabled), zip code
+- **Conditional Parent/Guardian Section**: Automatically shows if age < 18
+  - Parent first/last name, phone, email all required when shown
+  - Stored as parentGuardian object in user document for clean data structure
+- **Certification Section**: Two mandatory legal checkboxes
+  - Terms of Service & Privacy Policy acceptance
+  - Falsification warning per DTO 0201 (violation of Ohio regulations language)
+- **Dynamic Age Calculation**: calculateAge() function added to validators
+  - Intelligently toggles parent fields based on DOB calculation
+  - No minimum age requirement (allows 15.5+ registrations)
+
+**Code Organization**
+- Added `calculateAge()` function to validationRules.js validators
+- Integrated existing Checkbox component for legal certifications
+- Updated AuthPages.module.css with `.formSection` and `.sectionTitle` styling
+- Added `.divider` styling with decorative lines
+- Form organized into 5 logical sections with proper visual hierarchy
+
+**Route Registration**
+- Added PRIVACY_POLICY route to constants/routes.js
+- Registered `/privacy` route in App.jsx with MainLayout wrapper
+- Updated Footer.jsx to use PUBLIC_ROUTES.PRIVACY_POLICY constant
+
+**Data Structure**
+- Parent/Guardian info stored as nested object under student user document (not separate collection)
+- Enables clean queries: student first, then their guardians subcollection
+- TIPIC field optional for now, can be slowly incorporated later
+
+**REMINDER: Future Task**
+- TODO: Remove Google Sign-In from RegisterPage (currently in Google auth section)
+  - Reason: Cannot bypass DTO 0051 identity verification fields via OAuth
+  - Needed fields: legal name, DOB, address, parent/guardian info (if <18), TIPIC
+  - Google OAuth provides none of this information
+  - Will remove sign-in section and keep email/password only path
+
+---
+
 ### Session: Firebase Cloud Functions Test Suite - 100% Pass Rate Achievement ✅
 
 #### Overview
@@ -389,6 +443,12 @@ npm run deploy -- --only functions
 - **Root Cause**: Likely excessive re-renders, slow data queries, or large unoptimized components
 - **Impact**: User experience degradation, not functional
 - **Priority**: HIGH - Must resolve before production launch
+
+### Pending Tasks (Low Priority - Can be deferred)
+- **Google Sign-In Removal**: RegisterPage currently displays Google OAuth button in form footer. Must remove later since DTO 0051 identity verification fields cannot be collected via Google OAuth. Currently only email/password path fully complies with compliance requirements.
+  - **Impact**: Low - OAuth not critical for MVP, email/password path fully functional
+  - **Effort**: 5 minutes to remove
+  - **Status**: Marked for removal at later date
 
 ### Test Coverage
 All unit tests (829/829) and verified E2E tests (107+) are passing at 100%.

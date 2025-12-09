@@ -54,7 +54,7 @@ const Footer = () => {
             <h3 className={styles.sectionTitle}>Legal</h3>
             <ul className={styles.linkList}>
               <li>
-                <Link to="/privacy" className={styles.link}>
+                <Link to={PUBLIC_ROUTES.PRIVACY_POLICY} className={styles.link}>
                   Privacy Policy
                 </Link>
               </li>

@@ -20,6 +20,7 @@ import HomePage from './pages/Home/HomePage';
 import CoursesPage from './pages/Courses/CoursesPage';
 import AboutPage from './pages/About/AboutPage';
 import ContactPage from './pages/Contact/ContactPage';
+import PrivacyPolicy from './pages/PrivacyPolicy/PrivacyPolicy';
 import LoginPage from './pages/Auth/LoginPage';
 import RegisterPage from './pages/Auth/RegisterPage';
 import ForgotPasswordPage from './pages/Auth/ForgotPasswordPage';
@@ -92,6 +93,12 @@ function AppRoutes() {
                 <Route path={PUBLIC_ROUTES.CONTACT} element={
                   <MainLayout>
                     <ContactPage />
+                  </MainLayout>
+                } />
+
+                <Route path={PUBLIC_ROUTES.PRIVACY_POLICY} element={
+                  <MainLayout>
+                    <PrivacyPolicy />
                   </MainLayout>
                 } />
 

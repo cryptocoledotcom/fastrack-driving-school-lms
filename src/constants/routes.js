@@ -8,7 +8,8 @@ export const PUBLIC_ROUTES = {
   COURSES: '/courses',
   LOGIN: '/login',
   REGISTER: '/register',
-  FORGOT_PASSWORD: '/forgot-password'
+  FORGOT_PASSWORD: '/forgot-password',
+  PRIVACY_POLICY: '/privacy'
 };
 
 export const PROTECTED_ROUTES = {
