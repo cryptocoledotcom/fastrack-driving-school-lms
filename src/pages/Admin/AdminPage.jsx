@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import Card from '../../components/common/Card/Card';
 import Button from '../../components/common/Button/Button';
@@ -6,80 +6,37 @@ import LoadingSpinner from '../../components/common/LoadingSpinner/LoadingSpinne
 import ErrorMessage from '../../components/common/ErrorMessage/ErrorMessage';
 import SuccessMessage from '../../components/common/SuccessMessage/SuccessMessage';
 import ErrorBoundary from '../../components/common/ErrorBoundary/ErrorBoundary';
-import { enrollmentServices } from '../../api/enrollment';
 import { useAdminTabs } from '../../hooks/useAdminTabs';
+import { useAdminPanel } from '../../hooks/useAdminPanel';
 import styles from './AdminPage.module.css';
 
 const AdminPage = () => {
   const { isAdmin, userProfile } = useAuth();
   const availableTabs = useAdminTabs(userProfile?.role);
-  const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
-  const [activeTab, setActiveTab] = useState(availableTabs[0]?.id || 'enrollment-management');
-  const [resettingEnrollments, setResettingEnrollments] = useState({});
+  const {
+    users,
+    loading,
+    error,
+    success,
+    resettingEnrollments,
+    activeTab,
+    setActiveTab,
+    loadUsers,
+    handleResetEnrollment,
+    handleResetAllUserEnrollments,
+    clearError,
+    clearSuccess
+  } = useAdminPanel();
+
+  useEffect(() => {
+    if (!activeTab && availableTabs.length > 0) {
+      setActiveTab(availableTabs[0].id);
+    }
+  }, [availableTabs, activeTab, setActiveTab]);
 
   useEffect(() => {
     loadUsers();
-  }, []);
-
-  const loadUsers = async () => {
-    try {
-      setLoading(true);
-      setError('');
-      const usersData = await enrollmentServices.getAllUsersWithEnrollments();
-      setUsers(usersData || []);
-    } catch (err) {
-      console.error('Error loading users:', err);
-      setError('Failed to load users. Please try again.');
-      setUsers([]);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleResetEnrollment = async (userId, courseId) => {
-    try {
-      const key = `${userId}-${courseId}`;
-      setResettingEnrollments(prev => ({ ...prev, [key]: true }));
-      setError('');
-      setSuccess('');
-
-      await enrollmentServices.resetEnrollmentToPending(userId, courseId);
-      
-      setSuccess(`Reset enrollment for ${courseId} successfully!`);
-      await loadUsers();
-      setTimeout(() => setSuccess(''), 3000);
-    } catch (err) {
-      console.error('Error resetting enrollment:', err);
-      setError(`Failed to reset enrollment: ${err.message}`);
-    } finally {
-      const key = `${userId}-${courseId}`;
-      setResettingEnrollments(prev => ({ ...prev, [key]: false }));
-    }
-  };
-
-  const handleResetAllUserEnrollments = async (userId, userName) => {
-    if (window.confirm(`Are you sure you want to reset ALL enrollments for ${userName}? This action cannot be undone.`)) {
-      try {
-        setResettingEnrollments(prev => ({ ...prev, [userId]: true }));
-        setError('');
-        setSuccess('');
-
-        await enrollmentServices.resetUserEnrollmentsToPending(userId);
-        
-        setSuccess(`Reset all enrollments for ${userName} successfully!`);
-        await loadUsers();
-        setTimeout(() => setSuccess(''), 3000);
-      } catch (err) {
-        console.error('Error resetting user enrollments:', err);
-        setError(`Failed to reset enrollments: ${err.message}`);
-      } finally {
-        setResettingEnrollments(prev => ({ ...prev, [userId]: false }));
-      }
-    }
-  };
+  }, [loadUsers]);
 
 
 
@@ -147,8 +104,8 @@ const AdminPage = () => {
       <div className={styles.container}>
         <h1 className={styles.title}>Admin Panel</h1>
         
-        {error && <ErrorMessage message={error} onDismiss={() => setError('')} />}
-        {success && <SuccessMessage message={success} onDismiss={() => setSuccess('')} />}
+        {error && <ErrorMessage message={error} onDismiss={clearError} />}
+        {success && <SuccessMessage message={success} onDismiss={clearSuccess} />}
 
         <div className={styles.tabs}>
           {availableTabs.map(tab => (
