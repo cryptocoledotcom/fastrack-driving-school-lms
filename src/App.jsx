@@ -38,8 +38,16 @@ import CertificatesPage from './pages/Certificates/CertificatesPage';
 import PaymentSuccessPage from './pages/PaymentSuccess/PaymentSuccessPage';
 
 // Admin Pages
-import AdminPage from './pages/Admin/AdminPage';
+import AdminDashboard from './pages/Admin/AdminDashboard';
 import AuditLogsPage from './pages/Admin/AuditLogsPage';
+import AnalyticsPage from './pages/Admin/AnalyticsPage';
+import UsersPage from './pages/Admin/UsersPage';
+import EnrollmentManagementPage from './pages/Admin/EnrollmentManagementPage';
+import SchedulingPage from './pages/Admin/SchedulingPage';
+import ComplianceReportsPage from './pages/Admin/ComplianceReportsPage';
+import DETSExportPage from './pages/Admin/DETSExportPage';
+import AdminCoursesPage from './pages/Admin/AdminCoursesPage';
+import AdminLessonsPage from './pages/Admin/AdminLessonsPage';
 
 // 404 Page
 import NotFoundPage from './pages/NotFound/NotFoundPage';
@@ -228,25 +236,23 @@ function AppRoutes() {
                 <Route path={ADMIN_ROUTES.ADMIN_DASHBOARD} element={
                   <ProtectedRoute>
                     <AdminLayout>
-                      <AdminPage />
+                      <AdminDashboard />
                     </AdminLayout>
                   </ProtectedRoute>
                 } />
 
                 <Route path={ADMIN_ROUTES.AUDIT_LOGS} element={
                   <ProtectedRoute>
-                    <AdminOrInstructorRoute>
-                      <DashboardLayout>
-                        <AuditLogsPage />
-                      </DashboardLayout>
-                    </AdminOrInstructorRoute>
+                    <AdminLayout>
+                      <AuditLogsPage />
+                    </AdminLayout>
                   </ProtectedRoute>
                 } />
 
                 <Route path={ADMIN_ROUTES.MANAGE_USERS} element={
                   <ProtectedRoute>
                     <AdminLayout>
-                      <AdminPage />
+                      <UsersPage />
                     </AdminLayout>
                   </ProtectedRoute>
                 } />
@@ -254,7 +260,15 @@ function AppRoutes() {
                 <Route path={ADMIN_ROUTES.MANAGE_COURSES} element={
                   <ProtectedRoute>
                     <AdminLayout>
-                      <AdminPage />
+                      <AdminCoursesPage />
+                    </AdminLayout>
+                  </ProtectedRoute>
+                } />
+
+                <Route path={ADMIN_ROUTES.MANAGE_LESSONS} element={
+                  <ProtectedRoute>
+                    <AdminLayout>
+                      <AdminLessonsPage />
                     </AdminLayout>
                   </ProtectedRoute>
                 } />
@@ -262,7 +276,39 @@ function AppRoutes() {
                 <Route path={ADMIN_ROUTES.ANALYTICS} element={
                   <ProtectedRoute>
                     <AdminLayout>
-                      <AdminPage />
+                      <AnalyticsPage />
+                    </AdminLayout>
+                  </ProtectedRoute>
+                } />
+
+                <Route path={ADMIN_ROUTES.MANAGE_ENROLLMENTS} element={
+                  <ProtectedRoute>
+                    <AdminLayout>
+                      <EnrollmentManagementPage />
+                    </AdminLayout>
+                  </ProtectedRoute>
+                } />
+
+                <Route path={ADMIN_ROUTES.SCHEDULING} element={
+                  <ProtectedRoute>
+                    <AdminLayout>
+                      <SchedulingPage />
+                    </AdminLayout>
+                  </ProtectedRoute>
+                } />
+
+                <Route path={ADMIN_ROUTES.COMPLIANCE} element={
+                  <ProtectedRoute>
+                    <AdminLayout>
+                      <ComplianceReportsPage />
+                    </AdminLayout>
+                  </ProtectedRoute>
+                } />
+
+                <Route path={ADMIN_ROUTES.DETS_EXPORT} element={
+                  <ProtectedRoute>
+                    <AdminLayout>
+                      <DETSExportPage />
                     </AdminLayout>
                   </ProtectedRoute>
                 } />

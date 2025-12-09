@@ -31,6 +31,10 @@ export const ADMIN_ROUTES = {
   MANAGE_USERS: '/admin/users',
   MANAGE_COURSES: '/admin/courses',
   MANAGE_LESSONS: '/admin/lessons',
+  MANAGE_ENROLLMENTS: '/admin/enrollments',
+  SCHEDULING: '/admin/scheduling',
+  COMPLIANCE: '/admin/compliance',
+  DETS_EXPORT: '/admin/dets-export',
   ANALYTICS: '/admin/analytics',
   AUDIT_LOGS: '/admin/audit-logs',
   SETTINGS: '/admin/settings'

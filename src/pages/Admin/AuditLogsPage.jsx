@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
 import { auditLogServices } from '../../api/admin';
 import LoadingSpinner from '../../components/common/LoadingSpinner/LoadingSpinner';
 import ErrorMessage from '../../components/common/ErrorMessage/ErrorMessage';
@@ -8,7 +7,6 @@ import styles from './AuditLogsPage.module.css';
 
 const AuditLogsPage = () => {
   const { user } = useAuth();
-  const navigate = useNavigate();
 
   const [logs, setLogs] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -73,14 +71,9 @@ const AuditLogsPage = () => {
   }, []);
 
   useEffect(() => {
-    if (!user) {
-      navigate('/login');
-      return;
-    }
-
     loadAuditLogs();
     loadAuditStats();
-  }, [user, navigate, loadAuditLogs, loadAuditStats]);
+  }, [loadAuditLogs, loadAuditStats]);
 
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
