@@ -1,4 +1,0 @@
-
-> fastrack-driving-school-lms@1.0.0 test:e2e
-> playwright test tests/e2e/permission-boundaries.spec.ts --reporter=json
-

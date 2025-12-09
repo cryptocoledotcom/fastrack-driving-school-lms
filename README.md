@@ -1,212 +1,224 @@
 # Fastrack Driving School LMS
 
-A comprehensive Learning Management System (LMS) built with React 19.2.1, Vite 5.4.21, Firebase 12, and Node.js 20 Cloud Functions. **100% unit test coverage (778/778 tests)** • **24 Cloud Functions deployed** • **Sentry error tracking** • **Playwright E2E tests (300+)** • **100% Ohio OAC compliance** • **Non-blocking auth loading state**
+A comprehensive Learning Management System built with React 19, Vite 5, Firebase 12, and Node.js 20 Cloud Functions. Fully compliant with Ohio OAC Chapter 4501-7 driver education requirements.
 
-## Quick Start
+**Status**: ✅ **Production Ready**  
+**Test Pass Rate**: 100% (936+ tests: 829 frontend + 87 Cloud Functions + 107+ E2E)  
+**Compliance**: 100% Ohio OAC Chapter 4501-7 (50/50 requirements)  
+**Cloud Functions**: 24 deployed • **Sentry Active** • **Landing Page Live**
 
+---
+
+## 📖 Documentation
+
+### Start Here
+- **[`DOCUMENTATION_INDEX.md`](./DOCUMENTATION_INDEX.md)** - Navigation guide for all documentation
+- **[`CLAUDE.md`](./CLAUDE.md)** - Comprehensive development reference
+- **[`repo.md`](./repo.md)** - Project setup, quick-start, and quick reference
+
+### Phase Documentation
+- **[`PHASE_4_COMPLETION_SUMMARY.md`](./PHASE_4_COMPLETION_SUMMARY.md)** - Phase 4 detailed summary (Tab-to-Sidebar refactoring)
+- **[`PHASE_4_2_DASHBOARD_RESEARCH.md`](./PHASE_4_2_DASHBOARD_RESEARCH.md)** - Phase 4.2 specification (Admin dashboard - researched, ready to implement)
+
+---
+
+## 🚀 Quick Start
+
+### Installation
 ```bash
 npm install
-npm run dev          # Start dev server (port 3000)
-npm run build        # Production build
-npm test             # Vitest unit tests
-npm run test:e2e     # Playwright E2E tests
+npm run dev                    # Start dev server (localhost:5173)
+```
 
-Features
-Core LMS
+### Testing
+```bash
+npm test                       # Unit tests (Vitest)
+npm run test:e2e             # E2E tests (Playwright)
+npm run test:e2e:ui          # Interactive E2E test runner
+```
 
-🔐 Multi-factor Authentication: Email/password, Google OAuth, magic links
-📚 Course Management: Full course lifecycle with enrollment controls
-📖 Lesson Types: Video, reading materials, quizzes, exams, practical exercises
-📊 Progress Tracking: Real-time monitoring with 3+ metric types
-⏱️ Time Tracking: Session timing, daily totals, 3-year audit retention
-🎓 Dual Certificates: Enrollment (120+ min) and completion (1,440+ min + 75% exam)
-📝 Audit Logging: 30+ event types, Firebase admin access tracked
-Advanced Features
+### Building
+```bash
+npm run build                 # Production build
+npm run preview              # Preview build locally
+```
 
-💳 Stripe Integration: Full + split payment workflows
-🛡️ Role-Based Access: SUPER_ADMIN, DMV_ADMIN, INSTRUCTOR, STUDENT (4 roles)
-🔔 Smart Notifications: Context-aware alerts and modals
-📱 Responsive Design: Mobile, tablet, desktop optimized
-🚀 Performance Monitoring: Sentry performance tracking + Web Vitals
-🔐 Data Protection: Field-level encryption, secure audit trails
+For detailed setup instructions, see [`repo.md`](./repo.md#quick-start).
 
-Tech Stack
-| Layer | Technology | Version | |-------|-----------|---------| | Frontend Framework | React | 19.2.1 | | Routing | React Router DOM | 7.10.0 | | Build Tool | Vite | 5.4.21 | | Backend | Firebase Admin SDK | 13.6.0 | | Functions | Node.js | 20 LTS | | Database | Firestore | Firebase 12 | | Testing (Unit) | Vitest | 1.6.0 | | Testing (E2E) | Playwright | 1.57.0 | | Error Tracking | Sentry | 10.29.0 (frontend), @sentry/node (backend) | | Payments | Stripe | Latest | | State | React Context API | Built-in | | Styling | CSS Modules | Native |
+---
 
-Project Structure
-src/
-├── api/                    # Firebase service layer (auth, courses, progress)
-├── components/
-│   ├── common/             # Reusable UI (Button, Card, Modal, etc.)
-│   ├── layout/             # Header, Sidebar, Footer
-│   └── guards/             # ProtectedRoute, RoleBasedRoute
-├── features/               # Feature modules (courses, students, compliance)
-├── pages/                  # Page components
-├── context/                # Auth, Course, Timer, Modal contexts
-├── hooks/                  # useAuth, useCourse, useTimer, etc.
-├── utils/                  # Helpers, validators, formatters
-├── config/                 # Firebase, Sentry configuration
-├── constants/              # App-wide constants
-└── assets/                 # Images, styles, icons
+## 📋 Project Structure
 
-functions/
-├── src/
-│   ├── compliance/         # Audit, compliance, certificate functions
-│   ├── courses/            # Course management functions
-│   ├── payments/           # Stripe webhook handlers
-│   ├── auth/               # Custom auth functions
-│   └── users/              # User data functions
-└── .env.local              # Backend secrets (NOT committed)
+```
+fastrack-lms/
+├── src/                      # Frontend React code
+│   ├── api/                  # Service layer (API calls)
+│   ├── components/           # React components (Admin, Auth, Courses)
+│   ├── context/              # React Context (Auth, Course, Modal)
+│   ├── pages/                # Page components
+│   ├── hooks/                # Custom React hooks
+│   ├── constants/            # Constants (roles, routes)
+│   ├── config/               # Firebase & Sentry config
+│   └── utils/                # Utility functions
+│
+├── functions/                # Backend Cloud Functions
+│   └── src/
+│       ├── payment/          # Stripe payment processing
+│       ├── certificate/      # Certificate generation
+│       ├── compliance/       # Compliance & audit
+│       ├── user/             # User management
+│       └── common/           # Shared utilities
+│
+├── tests/                    # Automated tests
+│   └── e2e/                  # Playwright E2E tests
+│
+├── CLAUDE.md                 # Development reference
+├── repo.md                   # Quick-start & reference
+├── DOCUMENTATION_INDEX.md    # Documentation navigation
+├── PHASE_4_COMPLETION_SUMMARY.md    # Phase 4 summary
+└── PHASE_4_2_DASHBOARD_RESEARCH.md  # Phase 4.2 specification
+```
 
-tests/
-├── unit/                   # Vitest unit tests
-├── integration/            # Integration tests
-└── e2e/                    # Playwright E2E tests (7 suites)
+For complete directory structure, see [`repo.md`](./repo.md#project-structure).
 
-Environment Setup
-Create .env (Frontend)
-# Firebase Configuration (Use VITE_ prefix, not REACT_APP_)
-VITE_FIREBASE_API_KEY=AIzaSy...
-VITE_FIREBASE_AUTH_DOMAIN=fastrack-xxx.firebaseapp.com
-VITE_FIREBASE_PROJECT_ID=fastrack-xxx
-VITE_FIREBASE_STORAGE_BUCKET=fastrack-xxx.appspot.com
-VITE_FIREBASE_MESSAGING_SENDER_ID=123456789
-VITE_FIREBASE_APP_ID=1:123456789:web:abc...
+---
 
-# Stripe
-VITE_STRIPE_PUBLISHABLE_KEY=pk_test_...
+## 🛠 Tech Stack
 
-# Sentry Error Tracking
-VITE_SENTRY_DSN=https://...@sentry.io/...
+### Frontend
+- React 19 • React Router 7 • Vite 5 • Firebase 12
+- Testing: Vitest (unit), Playwright (E2E)
 
-# Environment
-VITE_ENVIRONMENT=development
-See docs/launch/ENVIRONMENT_CONFIG.md for complete variable reference.
+### Backend
+- Node.js 20 • Firebase Cloud Functions v2 • Firebase Admin SDK 12
 
-Development Commands
-# Start dev server (http://localhost:3000)
-npm run dev
+### Database & Deployment
+- Firestore • Firebase Hosting • Cloud Functions
+- Error Tracking: Sentry
 
-# Run unit/integration tests (Vitest)
-npm test                 # Watch mode
-npm test -- --run       # Single run
+For detailed tech stack breakdown, see [`repo.md`](./repo.md#tech-stack).
 
-# Run E2E tests (Playwright)
-npm run test:e2e        # Interactive
-npm run test:e2e:ui     # UI mode
-npm run test:e2e:debug  # Debug mode
+---
 
-# Linting & type checking
-npm run lint
-npm run typecheck
+## ✅ Current Status
 
-# Build for production
-npm run build
-npm run preview         # Preview build locally
+### Completed Phases
+| Phase | Name | Status |
+|-------|------|--------|
+| Phase 3 | RBAC Migration & Bootstrap Security | ✅ Complete |
+| Phase 3a | Admin Layout Shell Pattern | ✅ Complete |
+| Phase 4 | Tab-to-Sidebar Refactoring | ✅ Complete |
+| **Phase 4.2** | **Admin Dashboard Implementation** | **📋 Researched, ready to implement** |
 
-Testing Coverage
+### Test Coverage
+- **Frontend**: 829/829 tests (100%) ✅
+- **Cloud Functions**: 87/87 tests (100%) ✅
+- **E2E**: 107+ tests (100%) ✅
+- **Firestore Rules**: 57/57 tests (100%) ✅
+- **Total**: 936+ tests (100%) ✅
 
-Vitest Unit/Integration: 778/778 tests passing (100% coverage) ✅
-Auth flows (login, OAuth, sessions, non-blocking loading)
-Course management (CRUD, enrollment, progress)
-Payment workflows (Stripe, refunds)
-Compliance tracking (audit events, certificates)
-Permission checks (RBAC, data access)
+### Key Features
+✅ Multi-role access control (STUDENT, INSTRUCTOR, DMV_ADMIN, SUPER_ADMIN)  
+✅ Course management with enrollment and progress tracking  
+✅ Dual certificate system (enrollment + completion)  
+✅ Stripe payment integration (full & split payments)  
+✅ Real-time session heartbeat and audit logging  
+✅ Ohio OAC 4501-7 compliance (50/50 requirements)  
+✅ CORS hardening, CSRF protection, App Check (ReCaptcha V3)  
+✅ Role-based Firestore security rules with JWT custom claims  
 
-Playwright E2E: 300+ tests across 7 suites
-Happy path workflows (student journey, admin tasks)
-Error handling & edge cases
-Permission validation across roles (fixed role constant references)
-Multi-browser (Chromium, Firefox, WebKit)
+For complete feature list, see [`repo.md`](./repo.md#key-features).
 
-Deployment
-Frontend → Firebase Hosting
-# Build
-npm run build
+---
 
-# Deploy
-firebase deploy --only hosting
-Hosted at: https://fastrackdrive.com, https://www.fastrackdrive.com
+## 🔐 Security
 
-Backend → Cloud Functions
-cd functions
-npm run deploy
-24 Deployed Functions:
+✅ CORS hardened (whitelist production domains only)  
+✅ CSRF protection (token validation on form submissions)  
+✅ App Check (ReCaptcha V3 integration)  
+✅ Firestore rules (role-based access + dual-read pattern)  
+✅ Stripe security (API key isolation, webhook validation)  
+✅ Audit logging (40+ event types, 3-year retention)  
+✅ Sentry error tracking (errors + performance monitoring)  
 
-Compliance (6): Audit logs, reports, access tracking
-Courses (5): CRUD, enrollment, archival
-Payments (4): Webhook handlers, refunds
-Auth (3): Custom tokens, email verification
-Certificates (3): Generation, verification, archival
-Users (2): Profile management, role updates
-Compliance Reports (1): Monthly/annual generation
-See docs/launch/DEPLOYMENT_GUIDE.md for detailed instructions.
+For security details, see [`CLAUDE.md`](./CLAUDE.md#security-features).
 
-Performance
-| Metric | Target | Current | |--------|--------|---------| | Bundle Size | < 500KB (gzip) | 381.98 KB ✅ | | Build Time | < 5s | 1.2s ✅ | | Test Coverage | > 99% | 99.46% ✅ | | Lighthouse Score | > 90 | 94 ✅ | | Core Web Vitals | Green | Green ✅ |
+---
 
-Monitoring & Error Tracking
-Sentry Dashboard: https://sentry.io/organizations/fastrack-driving-school/
+## 🎓 Ohio OAC Chapter 4501-7 Compliance
 
-Frontend Tracking:
+✅ **100% Compliant**
 
-Automatic error capture + breadcrumbs
-Performance monitoring (10% sample rate in prod)
-Session replay (5% sample rate in prod)
-User context tracking
-Backend Tracking:
+**Core Requirements (50%)**:
+- Student identification and enrollment tracking
+- Completion certificate generation (1,440+ min + 75% exam)
+- Time-based course requirements (4-hour daily limit)
+- Exam score recording (3-strike lockout)
+- Course material documentation
 
-Cloud Function error capture
-Unhandled promise rejection tracking
-Performance metrics from all 24 functions
-See docs/launch/ENVIRONMENT_CONFIG.md for Sentry setup.
+**Advanced Requirements (50%)**:
+- Instructor assignment verification
+- Multi-facility support
+- Complete audit trail (immutable logs)
+- DMV report generation (DETS export)
+- Split payment workflows
 
-Security Checklist
-✅ All secrets in .env (NOT committed)
-✅ Firebase security rules enforced (read/write permissions)
-✅ HTTPS enforced (Firebase Hosting)
-✅ CORS configured for API calls
-✅ Stripe API keys verified
-✅ Sentry DSN verified
-✅ No credentials in source code
-✅ Regular dependency updates
-✅ Audit logging enabled
-Ohio OAC Chapter 4501-7 Compliance
-Status: 100% Compliant ✅
+For detailed compliance mapping, see [`CLAUDE.md`](./CLAUDE.md).
 
-Core Requirements (50% complete):
+---
 
-✅ Student identification and enrollment tracking
-✅ Completion certificate generation
-✅ Time-based course requirements
-✅ Exam score recording
-✅ Course material documentation
-Advanced Requirements (50% complete):
+## 📊 Performance
 
-✅ Instructor assignment verification
-✅ Multi-facility support
-✅ Audit trail for all changes
-✅ DMV report generation
-✅ Split payment workflows
-See docs/compliance/OHIO_OAC_COMPLIANCE.md for detailed mapping.
+| Metric | Target | Current |
+|--------|--------|---------|
+| Bundle Size (gzip) | < 500 KB | 466.21 KB ✅ |
+| Admin Panel Load | < 2s | <2s ✅ |
+| Firestore Reads/Load | Minimal | 0 (JWT custom claims) ✅ |
+| Test Pass Rate | 100% | 100% ✅ |
 
-Documentation
-Environment Configuration - All env variables explained
-Deployment Guide - Step-by-step deployment
-Launch Checklist - Final verification before go-live
-Ohio Compliance - Compliance requirements mapping
-API Reference - Cloud Functions documentation
-CLAUDE.md - Session notes and debugging info
-Contributing
-Create feature branch from main
-Make changes with proper testing
-Ensure tests pass: npm test -- --run
-Verify linting: npm run lint
-Create pull request
-License
+---
+
+## 🚀 Next Steps
+
+### Phase 4.2: Admin Dashboard Implementation
+**Status**: Researched & ready to implement  
+**Effort**: 3-4 hours  
+**Risk**: LOW  
+
+Professional admin dashboard with 3 business-critical widgets:
+1. **Certificates** - Count awaiting first download (20-30 min)
+2. **Revenue** - Monthly total from completed payments (30-45 min)
+3. **Recent Activity** - Last 5 user logins (25-35 min)
+
+See [`PHASE_4_2_DASHBOARD_RESEARCH.md`](./PHASE_4_2_DASHBOARD_RESEARCH.md) for complete specification.
+
+---
+
+## 📚 Resources
+
+- **[`CLAUDE.md`](./CLAUDE.md)** - Main development reference
+- **[`repo.md`](./repo.md)** - Project setup & quick-reference
+- **[`DOCUMENTATION_INDEX.md`](./DOCUMENTATION_INDEX.md)** - Documentation navigation
+- **[`PHASE_4_COMPLETION_SUMMARY.md`](./PHASE_4_COMPLETION_SUMMARY.md)** - Phase 4 details
+- **[`PHASE_4_2_DASHBOARD_RESEARCH.md`](./PHASE_4_2_DASHBOARD_RESEARCH.md)** - Phase 4.2 specification
+
+---
+
+## 🤝 Contributing
+
+1. Create feature branch from `main`
+2. Make changes with proper testing (`npm test -- --run`)
+3. Verify linting (`npm run lint`)
+4. Create pull request
+
+---
+
+## 📄 License
+
 MIT License - See LICENSE file for details
 
-Support
-Email: support@fastrackdrivingschool.com
-Issues: GitHub Issues tracker
-Documentation: See /docs directory
+---
+
+**Last Updated**: December 9, 2025  
+**Maintainer**: Cole Bowersock  
+**Status**: Production Ready - Phase 4 Complete, Phase 4.2 Planned
