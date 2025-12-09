@@ -58,6 +58,22 @@ export const AuthProvider = ({ children }) => {
     };
   };
 
+  const extractJWTClaims = async (firebaseUser) => {
+    if (!firebaseUser) return null;
+    try {
+      const tokenResult = await firebaseUser.getIdTokenResult(true);
+      const roleFromClaim = tokenResult.claims.role;
+      
+      if (roleFromClaim) {
+        console.debug(`JWT custom claim found for ${firebaseUser.uid}: ${roleFromClaim}`);
+        return { role: roleFromClaim, source: 'JWT' };
+      }
+    } catch (err) {
+      console.warn(`Failed to extract JWT claims for ${firebaseUser.uid}:`, err.message);
+    }
+    return null;
+  };
+
   const fetchUserProfile = async (uid, email = '', displayName = '') => {
     const startTime = performance.now();
     try {
@@ -107,15 +123,22 @@ export const AuthProvider = ({ children }) => {
 
   // Listen to auth state changes
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       if (firebaseUser) {
         setUser(firebaseUser);
-        // Set default profile immediately to unblock loading state
+        
+        const jwtClaim = await extractJWTClaims(firebaseUser);
+        
         const defaultProfile = createFallbackProfile(
           firebaseUser.uid,
           firebaseUser.email || '',
           firebaseUser.displayName || ''
         );
+        
+        if (jwtClaim?.role) {
+          defaultProfile.role = jwtClaim.role;
+        }
+        
         setUserProfile(defaultProfile);
         setLoading(false);
       } else {
@@ -131,11 +154,13 @@ export const AuthProvider = ({ children }) => {
     return unsubscribe;
   }, []);
 
-  // Non-blocking profile update effect
+  // Non-blocking profile update effect with JWT claim priority
   useEffect(() => {
     if (!user || !userProfile) return;
     
     const updateProfileAsync = async () => {
+      const jwtClaim = await extractJWTClaims(user);
+      
       const profile = await fetchUserProfile(
         user.uid,
         user.email || '',
@@ -143,9 +168,13 @@ export const AuthProvider = ({ children }) => {
       );
       
       if (profile) {
-        setUserProfile(profile);
+        const finalProfile = {
+          ...profile,
+          role: jwtClaim?.role || profile.role
+        };
+        setUserProfile(finalProfile);
         
-        if (profile?.requiresPasswordChange) {
+        if (finalProfile?.requiresPasswordChange) {
           setRequiresPasswordChange(true);
           setShowPasswordChangeModal(true);
         } else {
@@ -153,7 +182,7 @@ export const AuthProvider = ({ children }) => {
           setShowPasswordChangeModal(false);
         }
         
-        const settings = profile?.settings || {
+        const settings = finalProfile?.settings || {
           darkMode: false,
           notifications: true,
           emailNotifications: true
@@ -172,6 +201,7 @@ export const AuthProvider = ({ children }) => {
     try {
       setError(null);
       const result = await signInWithEmailAndPassword(auth, email, password);
+      await extractJWTClaims(result.user);
       return result.user;
     } catch (err) {
       setError(err);
@@ -236,6 +266,7 @@ export const AuthProvider = ({ children }) => {
       setError(null);
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
+      await extractJWTClaims(result.user);
       return result.user;
     } catch (err) {
       setError(err);
