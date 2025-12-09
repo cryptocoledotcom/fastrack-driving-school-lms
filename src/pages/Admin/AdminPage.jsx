@@ -6,24 +6,18 @@ import LoadingSpinner from '../../components/common/LoadingSpinner/LoadingSpinne
 import ErrorMessage from '../../components/common/ErrorMessage/ErrorMessage';
 import SuccessMessage from '../../components/common/SuccessMessage/SuccessMessage';
 import ErrorBoundary from '../../components/common/ErrorBoundary/ErrorBoundary';
-import EnrollmentManagementTab from '../../components/admin/tabs/EnrollmentManagementTab';
-import AnalyticsTab from '../../components/admin/tabs/AnalyticsTab';
-import UserManagementTab from '../../components/admin/tabs/UserManagementTab';
-import AuditLogsTab from '../../components/admin/tabs/AuditLogsTab';
-import DETSExportTab from '../../components/admin/tabs/DETSExportTab';
-import SchedulingManagement from '../../components/admin/SchedulingManagement';
-import ComplianceReporting from '../../components/admin/ComplianceReporting';
 import { enrollmentServices } from '../../api/enrollment';
-import { USER_ROLES } from '../../constants/userRoles';
+import { useAdminTabs } from '../../hooks/useAdminTabs';
 import styles from './AdminPage.module.css';
 
 const AdminPage = () => {
   const { isAdmin, userProfile } = useAuth();
+  const availableTabs = useAdminTabs(userProfile?.role);
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-  const [activeTab, setActiveTab] = useState('enrollment-management');
+  const [activeTab, setActiveTab] = useState(availableTabs[0]?.id || 'enrollment-management');
   const [resettingEnrollments, setResettingEnrollments] = useState({});
 
   useEffect(() => {
@@ -157,113 +151,56 @@ const AdminPage = () => {
         {success && <SuccessMessage message={success} onDismiss={() => setSuccess('')} />}
 
         <div className={styles.tabs}>
-          <button
-            className={`${styles.tab} ${activeTab === 'enrollment-management' ? styles.activeTab : ''}`}
-            onClick={() => setActiveTab('enrollment-management')}
-          >
-            Enrollment Management
-          </button>
-          <button
-            className={`${styles.tab} ${activeTab === 'scheduling' ? styles.activeTab : ''}`}
-            onClick={() => setActiveTab('scheduling')}
-          >
-            Lesson Scheduling
-          </button>
-          <button
-            className={`${styles.tab} ${activeTab === 'analytics' ? styles.activeTab : ''}`}
-            onClick={() => setActiveTab('analytics')}
-          >
-            Analytics
-          </button>
-
-          <button
-            className={`${styles.tab} ${activeTab === 'compliance-reporting' ? styles.activeTab : ''}`}
-            onClick={() => setActiveTab('compliance-reporting')}
-          >
-            Compliance Reports
-          </button>
-
-          {(userProfile?.role === USER_ROLES.SUPER_ADMIN || userProfile?.role === USER_ROLES.DMV_ADMIN || userProfile?.role === USER_ROLES.INSTRUCTOR) && (
+          {availableTabs.map(tab => (
             <button
-              className={`${styles.tab} ${activeTab === 'audit-logs' ? styles.activeTab : ''}`}
-              onClick={() => setActiveTab('audit-logs')}
+              key={tab.id}
+              className={`${styles.tab} ${activeTab === tab.id ? styles.activeTab : ''}`}
+              onClick={() => setActiveTab(tab.id)}
             >
-              Audit Logs
+              {tab.label}
             </button>
-          )}
-
-          {(userProfile?.role === USER_ROLES.SUPER_ADMIN || userProfile?.role === USER_ROLES.DMV_ADMIN) && (
-            <button
-              className={`${styles.tab} ${activeTab === 'dets-export' ? styles.activeTab : ''}`}
-              onClick={() => setActiveTab('dets-export')}
-            >
-              DETS Export
-            </button>
-          )}
-
-          {userProfile?.role === USER_ROLES.SUPER_ADMIN && (
-            <button
-              className={`${styles.tab} ${activeTab === 'user-management' ? styles.activeTab : ''}`}
-              onClick={() => setActiveTab('user-management')}
-            >
-              User Management
-            </button>
-          )}
+          ))}
         </div>
 
-        {activeTab === 'enrollment-management' && (
-          <ErrorBoundary fallback={<TabErrorFallback tabName="Enrollment Management" />}>
-            <EnrollmentManagementTab
-              users={users}
-              onResetEnrollment={handleResetEnrollment}
-              onResetAllUserEnrollments={handleResetAllUserEnrollments}
-              resettingEnrollments={resettingEnrollments}
-              getCourseName={getCourseName}
-              getStatusBadgeClass={getStatusBadgeClass}
-              getPaymentStatusBadgeClass={getPaymentStatusBadgeClass}
-            />
-          </ErrorBoundary>
-        )}
+        {availableTabs.map(tab => {
+          const currentTab = activeTab === tab.id;
+          if (!currentTab) return null;
 
-        {activeTab === 'scheduling' && (
-          <ErrorBoundary fallback={<TabErrorFallback tabName="Lesson Scheduling" />}>
-            <div className={styles.schedulingTab}>
-              <Card padding="large">
-                <SchedulingManagement />
-              </Card>
-            </div>
-          </ErrorBoundary>
-        )}
+          const renderTabContent = () => {
+            switch (tab.id) {
+              case 'enrollment-management':
+                return (
+                  <tab.component
+                    users={users}
+                    onResetEnrollment={handleResetEnrollment}
+                    onResetAllUserEnrollments={handleResetAllUserEnrollments}
+                    resettingEnrollments={resettingEnrollments}
+                    getCourseName={getCourseName}
+                    getStatusBadgeClass={getStatusBadgeClass}
+                    getPaymentStatusBadgeClass={getPaymentStatusBadgeClass}
+                  />
+                );
+              case 'analytics':
+                return <tab.component users={users} getCourseName={getCourseName} />;
+              default:
+                return <tab.component />;
+            }
+          };
 
-        {activeTab === 'analytics' && (
-          <ErrorBoundary fallback={<TabErrorFallback tabName="Analytics" />}>
-            <AnalyticsTab users={users} getCourseName={getCourseName} />
-          </ErrorBoundary>
-        )}
-
-        {activeTab === 'compliance-reporting' && (
-          <ErrorBoundary fallback={<TabErrorFallback tabName="Compliance Reports" />}>
-            <ComplianceReporting />
-          </ErrorBoundary>
-        )}
-
-        {activeTab === 'audit-logs' && (userProfile?.role === USER_ROLES.SUPER_ADMIN || userProfile?.role === USER_ROLES.DMV_ADMIN || userProfile?.role === USER_ROLES.INSTRUCTOR) && (
-          <ErrorBoundary fallback={<TabErrorFallback tabName="Audit Logs" />}>
-            <AuditLogsTab />
-          </ErrorBoundary>
-        )}
-
-        {activeTab === 'dets-export' && (userProfile?.role === USER_ROLES.SUPER_ADMIN || userProfile?.role === USER_ROLES.DMV_ADMIN) && (
-          <ErrorBoundary fallback={<TabErrorFallback tabName="DETS Export" />}>
-            <DETSExportTab />
-          </ErrorBoundary>
-        )}
-
-        {activeTab === 'user-management' && userProfile?.role === USER_ROLES.SUPER_ADMIN && (
-          <ErrorBoundary fallback={<TabErrorFallback tabName="User Management" />}>
-            <UserManagementTab />
-          </ErrorBoundary>
-        )}
+          return (
+            <ErrorBoundary key={tab.id} fallback={<TabErrorFallback tabName={tab.label} />}>
+              {tab.wrapInCard ? (
+                <div className={styles.schedulingTab}>
+                  <Card {...tab.cardProps}>
+                    {renderTabContent()}
+                  </Card>
+                </div>
+              ) : (
+                renderTabContent()
+              )}
+            </ErrorBoundary>
+          );
+        })}
       </div>
     </div>
     </ErrorBoundary>

@@ -6,6 +6,7 @@ import enrollmentServices from '../../../api/enrollment/enrollmentServices';
 import schedulingServices from '../../../api/compliance/schedulingServices';
 import userServices from '../../../api/student/userServices';
 import AuthContext from '../../../context/AuthContext';
+import { USER_ROLES } from '../../../constants/userRoles';
 import { vi } from 'vitest';
 
 vi.mock('../../../api/enrollment/enrollmentServices');
@@ -13,8 +14,8 @@ vi.mock('../../../api/compliance/schedulingServices');
 vi.mock('../../../api/student/userServices');
 
 const mockAuthContext = {
-  user: { uid: 'admin-1', email: 'admin@test.com', role: 'Super_admin' },
-  userProfile: { role: 'Super_admin' },
+  user: { uid: 'admin-1', email: 'admin@test.com', role: USER_ROLES.SUPER_ADMIN },
+  userProfile: { role: USER_ROLES.SUPER_ADMIN },
   isAdmin: true,
   loading: false,
   login: vi.fn(),
