@@ -13,7 +13,7 @@ import ErrorBoundary from './components/common/ErrorBoundary/ErrorBoundary';
 import { ProtectedRoute, PublicRoute, RoleBasedRoute, UserAccessGuard, AdminDashboardRoute, AdminOrInstructorRoute } from './components/guards';
 
 // Layouts
-import { MainLayout, DashboardLayout, AuthLayout } from './components/layout';
+import { MainLayout, DashboardLayout, AuthLayout, AdminLayout } from './components/layout';
 
 // Public Pages
 import HomePage from './pages/Home/HomePage';
@@ -227,11 +227,9 @@ function AppRoutes() {
                 {/* Admin Routes */}
                 <Route path={ADMIN_ROUTES.ADMIN_DASHBOARD} element={
                   <ProtectedRoute>
-                    <AdminDashboardRoute>
-                      <DashboardLayout>
-                        <AdminPage />
-                      </DashboardLayout>
-                    </AdminDashboardRoute>
+                    <AdminLayout>
+                      <AdminPage />
+                    </AdminLayout>
                   </ProtectedRoute>
                 } />
 
@@ -247,31 +245,25 @@ function AppRoutes() {
 
                 <Route path={ADMIN_ROUTES.MANAGE_USERS} element={
                   <ProtectedRoute>
-                    <AdminDashboardRoute>
-                      <DashboardLayout>
-                        <AdminPage />
-                      </DashboardLayout>
-                    </AdminDashboardRoute>
+                    <AdminLayout>
+                      <AdminPage />
+                    </AdminLayout>
                   </ProtectedRoute>
                 } />
 
                 <Route path={ADMIN_ROUTES.MANAGE_COURSES} element={
                   <ProtectedRoute>
-                    <AdminDashboardRoute>
-                      <DashboardLayout>
-                        <AdminPage />
-                      </DashboardLayout>
-                    </AdminDashboardRoute>
+                    <AdminLayout>
+                      <AdminPage />
+                    </AdminLayout>
                   </ProtectedRoute>
                 } />
 
                 <Route path={ADMIN_ROUTES.ANALYTICS} element={
                   <ProtectedRoute>
-                    <AdminDashboardRoute>
-                      <DashboardLayout>
-                        <AdminPage />
-                      </DashboardLayout>
-                    </AdminDashboardRoute>
+                    <AdminLayout>
+                      <AdminPage />
+                    </AdminLayout>
                   </ProtectedRoute>
                 } />
 
