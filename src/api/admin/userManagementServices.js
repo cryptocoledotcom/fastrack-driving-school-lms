@@ -57,30 +57,30 @@ class UserManagementService {
         throw new Error(`Invalid role: ${newRole}`);
       }
 
-      const userRef = doc(db, USERS_COLLECTION, userId);
-      const userData = await getDoc(userRef);
+      const setUserRoleCloudFn = httpsCallable(getFunctions(), 'setUserRole');
       
-      if (!userData.exists()) {
-        throw new Error('User not found');
-      }
-
-      const oldRole = userData.data().role;
-
-      await updateDoc(userRef, {
-        role: newRole,
-        updatedAt: serverTimestamp()
+      const result = await setUserRoleCloudFn({
+        targetUserId: userId,
+        newRole: newRole
       });
+
+      if (!result.data.success) {
+        throw new Error(result.data.message || 'Failed to set user role');
+      }
 
       await this.logActivity({
         type: 'ROLE_CHANGED',
         targetUserId: userId,
         performedByAdminId,
         changes: {
-          oldRole,
-          newRole
+          oldRole: result.data.oldRole,
+          newRole: result.data.newRole
         },
-        description: `Role changed from ${oldRole} to ${newRole}`
+        description: `Role changed from ${result.data.oldRole} to ${result.data.newRole}`
       });
+
+      const userRef = doc(db, USERS_COLLECTION, userId);
+      const userData = await getDoc(userRef);
 
       return {
         uid: userId,
