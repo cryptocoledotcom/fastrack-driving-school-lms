@@ -1,0 +1,222 @@
+/* AdminHeader Component Styles */
+
+.header {
+  background-color: var(--bg-surface);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  height: 73px;
+}
+
+.branding {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.subtitle {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.userSection {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.userDetails {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.25rem;
+}
+
+.userName {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.userRole {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.roleIcon {
+  font-size: 0.875rem;
+}
+
+.roleBadge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  background-color: rgba(43, 184, 212, 0.1);
+  color: var(--brand-action);
+  border-radius: 4px;
+  text-transform: capitalize;
+  font-weight: 600;
+}
+
+.userMenu {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.menuButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.menuButton:hover {
+  background-color: rgba(43, 184, 212, 0.1);
+  color: var(--brand-action);
+}
+
+.menuButton svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  min-width: 150px;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: none;
+  border: none;
+  border-top: 1px solid var(--border-light);
+  color: var(--text-main);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease;
+}
+
+.dropdownItem:first-child {
+  border-top: none;
+}
+
+.dropdownItem:hover {
+  background-color: rgba(43, 184, 212, 0.1);
+  color: var(--brand-action);
+}
+
+.dropdownItem svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.dropdownBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    padding: 0.75rem 1rem;
+    height: auto;
+    gap: 1rem;
+  }
+
+  .title {
+    font-size: 1rem;
+  }
+
+  .subtitle {
+    display: none;
+  }
+
+  .userDetails {
+    gap: 0;
+  }
+
+  .userName {
+    font-size: 0.8rem;
+  }
+
+  .userRole {
+    font-size: 0.7rem;
+  }
+
+  .roleBadge {
+    padding: 0.2rem 0.4rem;
+    font-size: 0.65rem;
+  }
+
+  .dropdown {
+    right: 0.5rem;
+    min-width: 140px;
+  }
+
+  .dropdownItem {
+    padding: 0.6rem 0.75rem;
+    font-size: 0.8rem;
+  }
+
+  .dropdownItem svg {
+    width: 0.9rem;
+    height: 0.9rem;
+  }
+}
