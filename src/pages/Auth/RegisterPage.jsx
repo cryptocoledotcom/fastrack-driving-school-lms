@@ -186,7 +186,7 @@ const RegisterPage = () => {
             label="Legal First Name"
             type="text"
             name="firstName"
-            placeholder="e.g., Christopher"
+            placeholder="Enter your first name"
             value={formData.firstName}
             onChange={handleChange}
             required
@@ -205,7 +205,7 @@ const RegisterPage = () => {
             label="Legal Last Name"
             type="text"
             name="lastName"
-            placeholder="e.g., Bowersock"
+            placeholder="Enter your last name"
             value={formData.lastName}
             onChange={handleChange}
             required

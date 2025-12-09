@@ -15,6 +15,7 @@ import {
 import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import { auth, db } from '../config/firebase';
 import { USER_ROLES } from '../constants/userRoles';
+import { validators } from '../constants/validationRules';
 
 const AuthContext = createContext();
 
@@ -182,6 +183,26 @@ export const AuthProvider = ({ children }) => {
   const register = async (email, password, additionalData = {}) => {
     try {
       setError(null);
+
+      // Validate required fields for DTO 0201/0051 compliance
+      const requiredFields = ['firstName', 'lastName', 'middleName', 'dateOfBirth', 'tipicNumber', 'address'];
+      const missingFields = requiredFields.filter(field => !additionalData[field]);
+      
+      if (missingFields.length > 0) {
+        throw new Error(`Missing required fields for registration: ${missingFields.join(', ')}`);
+      }
+
+      // If user is under 18, validate parent/guardian contact information
+      const age = validators.calculateAge(additionalData.dateOfBirth);
+      if (age !== null && age < 18) {
+        if (!additionalData.parentGuardian?.email) {
+          throw new Error('Parent/Guardian email is required for users under 18');
+        }
+        if (!additionalData.parentGuardian?.phone) {
+          throw new Error('Parent/Guardian phone is required for users under 18');
+        }
+      }
+
       const result = await createUserWithEmailAndPassword(auth, email, password);
       
       // Update display name if provided
@@ -191,15 +212,19 @@ export const AuthProvider = ({ children }) => {
         });
       }
 
-      // Create user profile in Firestore asynchronously
-      createUserProfile(result.user.uid, {
+      // Create user profile in Firestore and await completion
+      await createUserProfile(result.user.uid, {
         email,
         displayName: additionalData.displayName || '',
         ...additionalData
-      }).catch(err => console.warn('Failed to create user profile:', err));
+      });
       
       return result.user;
     } catch (err) {
+      // If profile creation fails, delete the Auth user to prevent orphaned accounts
+      if (auth.currentUser) {
+        await auth.currentUser.delete();
+      }
       setError(err);
       throw err;
     }
