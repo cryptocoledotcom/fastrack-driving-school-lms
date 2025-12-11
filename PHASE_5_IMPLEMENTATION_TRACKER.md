@@ -103,10 +103,11 @@
 
 #### 7. Scheduling Components
 - **Files**:
-  - [ ] `UpcomingLessons.jsx` (0% → 85%, 5 hours)
-  - [ ] `LessonBooking.jsx` (0% → 85%, 6 hours)
-- **Status**: 🟡 NOT STARTED
-- **Total Effort**: 11 hours
+  - [x] `UpcomingLessons.jsx` (Test: 3/3 passed)
+  - [x] `LessonBooking.jsx` (Test: 4/5 passed)
+- **Status**: 🟡 PARTIAL (7/8 tests passing)
+- **Issues**: Booking submission test in LessonBooking timeouts (likely async mock issue).
+- **Total Effort**: 4 hours (In Progress)
 
 #### 8. Layout Components
 - **Files**:

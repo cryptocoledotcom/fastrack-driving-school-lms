@@ -10,14 +10,14 @@ import CompletePackageCheckoutForm from './CompletePackageCheckoutForm';
 import RemainingPaymentCheckoutForm from './RemainingPaymentCheckoutForm';
 import styles from './PaymentModal.module.css';
 
-const PaymentModal = ({ 
-  isOpen, 
-  onClose, 
-  amount, 
+const PaymentModal = ({
+  isOpen,
+  onClose,
+  amount,
   courseId,
   courseName,
   paymentType,
-  onSuccess 
+  onSuccess
 }) => {
   if (!isOpen) return null;
 
@@ -41,7 +41,7 @@ const PaymentModal = ({
         <button className={styles.closeButton} onClick={onClose}>
           ×
         </button>
-        
+
         {!isCompletePackage && !isRemainingPayment && (
           <div className={styles.modalHeader}>
             <h2>Complete Your Payment</h2>
