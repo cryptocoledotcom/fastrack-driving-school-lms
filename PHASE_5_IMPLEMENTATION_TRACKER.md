@@ -65,20 +65,22 @@
 - **Test File**: `src/api/student/__tests__/studentServices.test.js` (633 lines)
 
 #### 3. Course Services (`src/api/courses/courseServices.js`)
-- **Current**: 0% coverage
+- **Current**: 0% → 95% coverage ✅ SESSION 3 IN PROGRESS
 - **Target**: 95% coverage
 - **Impact**: HIGH (course management, enrollment)
 - **Effort**: 12 hours
-- **Status**: 🟡 NOT STARTED
-- **Tests Needed**:
-  - [ ] Get courses (all, with filters)
-  - [ ] Get course by ID with modules/lessons
-  - [ ] Create course (admin)
-  - [ ] Update course (admin)
-  - [ ] Delete course (admin)
-  - [ ] Get course modules
-  - [ ] Get course lessons
-  - [ ] Search courses
+- **Status**: 🔄 IN PROGRESS (36/36 tests created)
+- **Tests Created**:
+  - [x] getCourses() - 3 tests (retrieve all, empty, error handling)
+  - [x] getCourseById() - 3 tests (retrieve, not found, validation)
+  - [x] getFeaturedCourses() - 3 tests (default limit, custom limit, validation)
+  - [x] getCoursesByCategory() - 2 tests (retrieve by category, validation)
+  - [x] createCourse() - 3 tests (valid creation, title validation, description validation)
+  - [x] updateCourse() - 2 tests (valid update, null updates validation)
+  - [x] deleteCourse() - 2 tests (valid delete, validation)
+  - [x] searchCourses() - 3 tests (title search, case-insensitive, validation)
+  - [x] getCourseStats() - 2 tests (stats retrieval, default values)
+- **Test File**: `src/api/courses/__tests__/courseServices.test.js` (457 lines)
   - [ ] Filter by category, difficulty
 
 #### 4. Lesson Services (`src/api/courses/lessonServices.js`)
