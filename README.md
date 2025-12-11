@@ -18,7 +18,8 @@ A comprehensive Learning Management System built with React 19, Vite 5, Firebase
 
 ### Phase Documentation
 - **[`PHASE_4_COMPLETION_SUMMARY.md`](./PHASE_4_COMPLETION_SUMMARY.md)** - Phase 4 detailed summary (Tab-to-Sidebar refactoring)
-- **[`PHASE_4_2_DASHBOARD_RESEARCH.md`](./PHASE_4_2_DASHBOARD_RESEARCH.md)** - Phase 4.2 specification (Admin dashboard - researched, ready to implement)
+- **[`PHASE_5_GREEN_TESTING_RESEARCH.md`](./PHASE_5_GREEN_TESTING_RESEARCH.md)** - Phase 5 research (100% test coverage roadmap)
+- **[`PHASE_6_MAINTENANCE_RESEARCH.md`](./PHASE_6_MAINTENANCE_RESEARCH.md)** - Phase 6 research (Performance & maintenance roadmap)
 
 ---
 
@@ -72,11 +73,12 @@ fastrack-lms/
 ├── tests/                    # Automated tests
 │   └── e2e/                  # Playwright E2E tests
 │
-├── CLAUDE.md                 # Development reference
-├── repo.md                   # Quick-start & reference
-├── DOCUMENTATION_INDEX.md    # Documentation navigation
-├── PHASE_4_COMPLETION_SUMMARY.md    # Phase 4 summary
-└── PHASE_4_2_DASHBOARD_RESEARCH.md  # Phase 4.2 specification
+├── CLAUDE.md                          # Development reference
+├── repo.md                            # Quick-start & reference
+├── DOCUMENTATION_INDEX.md             # Documentation navigation
+├── PHASE_4_COMPLETION_SUMMARY.md      # Phase 4 summary
+├── PHASE_5_GREEN_TESTING_RESEARCH.md  # Phase 5 research
+└── PHASE_6_MAINTENANCE_RESEARCH.md    # Phase 6 research
 ```
 
 For complete directory structure, see [`repo.md`](./repo.md#project-structure).
@@ -108,7 +110,9 @@ For detailed tech stack breakdown, see [`repo.md`](./repo.md#tech-stack).
 | Phase 3 | RBAC Migration & Bootstrap Security | ✅ Complete |
 | Phase 3a | Admin Layout Shell Pattern | ✅ Complete |
 | Phase 4 | Tab-to-Sidebar Refactoring | ✅ Complete |
-| **Phase 4.2** | **Admin Dashboard Implementation** | **📋 Researched, ready to implement** |
+| Phase 4.2 | Admin Dashboard Implementation | ✅ Complete |
+| Phase 5 | Green Testing (100% Coverage) | 📋 Researched |
+| Phase 6 | Code Maintenance & Performance | 📋 Researched |
 
 ### Test Coverage
 - **Frontend**: 829/829 tests (100%) ✅
@@ -180,17 +184,21 @@ For detailed compliance mapping, see [`CLAUDE.md`](./CLAUDE.md).
 
 ## 🚀 Next Steps
 
-### Phase 4.2: Admin Dashboard Implementation
+Choose Phase 5, Phase 6, or both in parallel:
+
+### Phase 5: Green Testing (100% Coverage)
 **Status**: Researched & ready to implement  
-**Effort**: 3-4 hours  
-**Risk**: LOW  
+**Effort**: 6-8 weeks (150+ hours)  
+**Goal**: Expand from 936+ to 1,000+ tests with >90% code coverage
 
-Professional admin dashboard with 3 business-critical widgets:
-1. **Certificates** - Count awaiting first download (20-30 min)
-2. **Revenue** - Monthly total from completed payments (30-45 min)
-3. **Recent Activity** - Last 5 user logins (25-35 min)
+See [`PHASE_5_GREEN_TESTING_RESEARCH.md`](./PHASE_5_GREEN_TESTING_RESEARCH.md) for complete research.
 
-See [`PHASE_4_2_DASHBOARD_RESEARCH.md`](./PHASE_4_2_DASHBOARD_RESEARCH.md) for complete specification.
+### Phase 6: Code Maintenance & Performance
+**Status**: Researched & ready to implement (can run parallel with Phase 5)  
+**Effort**: 4-6 weeks (120+ hours)  
+**Goal**: Reduce bundle 25%, Firestore reads 40%, re-renders 60%
+
+See [`PHASE_6_MAINTENANCE_RESEARCH.md`](./PHASE_6_MAINTENANCE_RESEARCH.md) for complete research.
 
 ---
 
@@ -199,8 +207,9 @@ See [`PHASE_4_2_DASHBOARD_RESEARCH.md`](./PHASE_4_2_DASHBOARD_RESEARCH.md) for c
 - **[`CLAUDE.md`](./CLAUDE.md)** - Main development reference
 - **[`repo.md`](./repo.md)** - Project setup & quick-reference
 - **[`DOCUMENTATION_INDEX.md`](./DOCUMENTATION_INDEX.md)** - Documentation navigation
-- **[`PHASE_4_COMPLETION_SUMMARY.md`](./PHASE_4_COMPLETION_SUMMARY.md)** - Phase 4 details
-- **[`PHASE_4_2_DASHBOARD_RESEARCH.md`](./PHASE_4_2_DASHBOARD_RESEARCH.md)** - Phase 4.2 specification
+- **[`PHASE_4_COMPLETION_SUMMARY.md`](./PHASE_4_COMPLETION_SUMMARY.md)** - Phase 4 completion details
+- **[`PHASE_5_GREEN_TESTING_RESEARCH.md`](./PHASE_5_GREEN_TESTING_RESEARCH.md)** - Phase 5 research & roadmap
+- **[`PHASE_6_MAINTENANCE_RESEARCH.md`](./PHASE_6_MAINTENANCE_RESEARCH.md)** - Phase 6 research & roadmap
 
 ---
 
@@ -219,6 +228,6 @@ MIT License - See LICENSE file for details
 
 ---
 
-**Last Updated**: December 9, 2025  
+**Last Updated**: December 11, 2025  
 **Maintainer**: Cole Bowersock  
-**Status**: Production Ready - Phase 4 Complete, Phase 4.2 Planned
+**Status**: Production Ready - Phase 4.2 Complete, Phase 5-6 Researched

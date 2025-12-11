@@ -147,15 +147,24 @@ npm run test:e2e:debug
 | **Phase 3** | RBAC Bootstrap & Admin Layout | ✅ Complete | Secure role assignment, 30s → <2s load time |
 | **Phase 3a** | Admin Layout Shell Pattern | ✅ Complete | Dedicated admin section with sidebar |
 | **Phase 4** | Tab-to-Sidebar Refactoring | ✅ Complete | 9 dedicated pages, 255 lines removed |
-| **Phase 4.2** | Admin Dashboard Implementation | 📋 Researched | 3 widgets, 3-4 hours, ready to start |
+| **Phase 4.2** | Admin Dashboard Implementation | ✅ Complete | 3 widgets (Certificates, Revenue, Activity) |
+| **Phase 5** | Green Testing (100% Coverage) | 📋 Researched | 1,000+ tests, >90% coverage, 6-8 weeks |
+| **Phase 6** | Code Maintenance & Performance | 📋 Researched | Bundle -25%, reads -40%, re-renders -60% |
 
 ### Next Steps
-**Phase 4.2 Implementation** (3-4 hours, low risk):
-- Professional admin dashboard with 3 business-critical widgets
-- Certificates: Count awaiting first download
-- Revenue: Monthly total from completed payments  
-- Recent Activity: Last 5 user logins with timestamps
-- See: [`CLAUDE.md`](./CLAUDE.md) for detailed plan
+Choose one or both (can run in parallel):
+
+**Phase 5: Green Testing** (6-8 weeks, 150+ hours)
+- Expand test coverage from 936+ to 1,000+ tests
+- Identify and test all untested code paths
+- Target: >90% coverage on APIs, >85% on components
+- See: [`PHASE_5_GREEN_TESTING_RESEARCH.md`](./PHASE_5_GREEN_TESTING_RESEARCH.md)
+
+**Phase 6: Code Maintenance** (4-6 weeks, 120+ hours)
+- Reduce bundle size: 466 kB → 350 kB (-25%)
+- Reduce Firestore reads by 40% through caching
+- Improve performance and accessibility
+- See: [`PHASE_6_MAINTENANCE_RESEARCH.md`](./PHASE_6_MAINTENANCE_RESEARCH.md)
 
 ---
 
@@ -328,5 +337,5 @@ SENTRY_DSN=...
 
 ---
 
-**Last Updated**: December 9, 2025 (Phase 4 Complete, Phase 4.2 Planned)  
-**Status**: ✅ Production Ready - All core features implemented, 100% test pass rate, Phase 5 preparation starting
+**Last Updated**: December 11, 2025  
+**Status**: ✅ Production Ready - Phase 4.2 Complete, Phase 5-6 Researched & Ready to Implement

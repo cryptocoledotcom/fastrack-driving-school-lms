@@ -10,8 +10,8 @@ This file serves as the single source of truth for project documentation. All de
 Comprehensive development guide covering:
 - Project overview and current status
 - Architecture and tech stack
-- Completed phases (Phase 3, 3a, 4) with detailed explanations
-- Planned Phase 4.2 dashboard implementation
+- Completed phases (Phase 3, 3a, 4, 4.2) with detailed explanations
+- Researched Phase 5 & 6 with implementation roadmaps
 - Optional future enhancements
 - Testing overview
 - Security features
@@ -51,19 +51,29 @@ Standalone detailed summary of Phase 4: Tab-to-Sidebar Refactoring completion.
 
 **Reference this for in-depth understanding of Phase 4 changes.**
 
-### [`PHASE_4_2_DASHBOARD_RESEARCH.md`](./PHASE_4_2_DASHBOARD_RESEARCH.md)
-Complete research documentation for Phase 4.2: Admin Dashboard Implementation.
-- Research methodology and findings
-- Data source analysis (certificates, payments, audit logs, users)
-- Firestore schema verification
-- Implementation roadmap (7-step plan)
-- Widget specifications with sample queries
-- Firestore index requirements
-- Performance analysis
-- Edge case handling
-- Success criteria and risk assessment
+### [`PHASE_5_GREEN_TESTING_RESEARCH.md`](./PHASE_5_GREEN_TESTING_RESEARCH.md)
+Comprehensive research for Phase 5: Green Testing - achieving 100% test coverage and 100% pass rate.
+- Current test landscape analysis (936+ tests, coverage gaps)
+- Coverage targets by module (frontend, backend, E2E, Firestore rules)
+- 7-step implementation roadmap (profiling, test expansion, coverage targets)
+- Component, API, Cloud Function, and E2E test specifications
+- Success criteria (1,000+ tests, 100% coverage)
+- Risk assessment and effort estimation (150+ hours, 6-8 weeks)
 
-**Reference this when implementing Phase 4.2 dashboard.**
+**Reference this when implementing Phase 5.**
+
+### [`PHASE_6_MAINTENANCE_RESEARCH.md`](./PHASE_6_MAINTENANCE_RESEARCH.md)
+Detailed research for Phase 6: Code Maintenance & Performance Enhancements.
+- Performance baseline analysis (bundle size, load times, query latency)
+- 8-step optimization roadmap (profiling, bundling, caching, components, queries, functions, error handling, accessibility)
+- Bundle optimization targets (466 kB → 350 kB gzipped, -25%)
+- Database query optimization (40% read reduction through batching and caching)
+- React component performance (60% fewer re-renders through memoization)
+- Accessibility and mobile responsiveness improvements
+- Technical debt elimination and code quality enhancements
+- Risk assessment and timeline (120+ hours, 4-6 weeks)
+
+**Reference this when implementing Phase 6.**
 
 ---
 
@@ -134,13 +144,16 @@ Complete research documentation for Phase 4.2: Admin Dashboard Implementation.
 - **Phase 3**: ✅ RBAC Migration & Bootstrap Security - [See CLAUDE.md](./CLAUDE.md#phase-3-rbac-migration--bootstrap-security-)
 - **Phase 3a**: ✅ Admin Layout Shell Pattern - [See CLAUDE.md](./CLAUDE.md#phase-3a-admin-layout-shell-pattern-)
 - **Phase 4**: ✅ Tab-to-Sidebar Refactoring - [See PHASE_4_COMPLETION_SUMMARY.md](./PHASE_4_COMPLETION_SUMMARY.md)
-- **Phase 4.2**: 📋 Admin Dashboard (Researched, ready to implement) - [See PHASE_4_2_DASHBOARD_RESEARCH.md](./PHASE_4_2_DASHBOARD_RESEARCH.md)
+- **Phase 4.2**: ✅ Admin Dashboard Implementation - [See CLAUDE.md](./CLAUDE.md#phase-42-admin-dashboard-implementation-)
+- **Phase 5**: 📋 Green Testing (100% Coverage) - [See PHASE_5_GREEN_TESTING_RESEARCH.md](./PHASE_5_GREEN_TESTING_RESEARCH.md)
+- **Phase 6**: 📋 Code Maintenance & Performance - [See PHASE_6_MAINTENANCE_RESEARCH.md](./PHASE_6_MAINTENANCE_RESEARCH.md)
 
-### When Implementing Phase 4.2
-1. Reference [`PHASE_4_2_DASHBOARD_RESEARCH.md`](./PHASE_4_2_DASHBOARD_RESEARCH.md) for complete specification
-2. Follow the 7-step implementation roadmap
-3. Update [`CLAUDE.md`](./CLAUDE.md) upon completion
-4. Follow testing guidelines in [`repo.md`](./repo.md)
+### When Implementing Phase 5 or Phase 6
+1. Choose Phase 5 (test coverage), Phase 6 (performance), or both in parallel
+2. Reference [`PHASE_5_GREEN_TESTING_RESEARCH.md`](./PHASE_5_GREEN_TESTING_RESEARCH.md) or [`PHASE_6_MAINTENANCE_RESEARCH.md`](./PHASE_6_MAINTENANCE_RESEARCH.md)
+3. Follow the detailed implementation roadmap
+4. Update [`CLAUDE.md`](./CLAUDE.md) upon completion
+5. Follow testing guidelines in [`repo.md`](./repo.md)
 
 ### Common Tasks
 See "Common Tasks" section in [`repo.md`](./repo.md) for:
@@ -159,8 +172,10 @@ See "Common Tasks" section in [`repo.md`](./repo.md) for:
 | **Test Pass Rate** | ✅ 936+ tests (100%) |
 | **Ohio Compliance** | ✅ 50/50 requirements |
 | **Security** | ✅ CORS, CSRF, App Check, Firestore rules |
-| **Admin Dashboard** | 📋 Phase 4.2 - Researched, ready to implement |
+| **Admin Dashboard** | ✅ Phase 4.2 Complete (3 widgets implemented) |
 | **Production Ready** | ✅ Yes - Sentry active, E2E verified |
+| **Phase 5 (Green Testing)** | 📋 Researched - 100% coverage planning complete |
+| **Phase 6 (Maintenance)** | 📋 Researched - Performance optimization roadmap complete |
 
 ---
 
@@ -204,21 +219,37 @@ Old documentation from previous sessions is archived in `/docs/ARCHIVE/` and sho
 
 ---
 
-## 🎯 Next Phase: Phase 4.2 Admin Dashboard
+## 🎯 Next Phases
 
+### Phase 5: Green Testing (100% Coverage & Passability)
 **Status**: Researched & Ready to Implement  
-**Effort**: 3-4 hours  
-**Risk**: 🟢 LOW  
-**Reference**: [`PHASE_4_2_DASHBOARD_RESEARCH.md`](./PHASE_4_2_DASHBOARD_RESEARCH.md)
+**Effort**: 6-8 weeks (150+ hours)  
+**Risk**: 🟡 MEDIUM  
+**Reference**: [`PHASE_5_GREEN_TESTING_RESEARCH.md`](./PHASE_5_GREEN_TESTING_RESEARCH.md)
 
 **Scope**:
-- Professional admin dashboard with 3 business-critical widgets
-- Certificates: Count awaiting first download (20-30 min)
-- Revenue: Monthly total from completed payments (30-45 min)
-- Recent Activity: Last 5 user logins (25-35 min)
+- Expand from 936+ tests to 1,000+ tests
+- Achieve >90% coverage on all API services
+- Achieve >85% coverage on React components
+- Add 40+ new test files (unit, integration, E2E)
+- Identify and test all untested code paths
+
+### Phase 6: Code Maintenance & Performance Enhancements
+**Status**: Researched & Ready to Implement (can run parallel with Phase 5)  
+**Effort**: 4-6 weeks (120+ hours)  
+**Risk**: 🟡 MEDIUM  
+**Reference**: [`PHASE_6_MAINTENANCE_RESEARCH.md`](./PHASE_6_MAINTENANCE_RESEARCH.md)
+
+**Scope**:
+- Reduce bundle size: 466 kB → 350 kB gzipped (-25%)
+- Reduce Firestore reads by 40% (caching + batching)
+- Reduce re-renders by 60% (memoization + optimization)
+- Improve load times: Admin Dashboard <1s, Courses <1s
+- Standardize error handling and logging
+- Improve accessibility (WCAG 2.1 AA) and mobile UX
 
 ---
 
-**Last Updated**: December 9, 2025  
-**Next Review**: After Phase 4.2 implementation  
+**Last Updated**: December 11, 2025  
+**Current Phase**: Phase 4.2 Complete, Phase 5-6 Researched  
 **Maintainer**: Cole Bowersock
