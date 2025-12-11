@@ -22,9 +22,11 @@ export default defineConfig({
       '.cache',
       'tests/e2e/**'
     ],
-    alias: {
-      '@': path.resolve(__dirname, './src'),
-    },
+    alias: [
+      { find: '@', replacement: path.resolve(__dirname, './src') },
+      { find: /^.*\.module\.(css|less|scss|sass)$/, replacement: path.resolve(__dirname, 'src/__mocks__/styleMock.js') },
+      { find: /\.(css|less|scss|sass)$/, replacement: path.resolve(__dirname, 'src/__mocks__/styleMock.js') },
+    ],
     env: {
       NODE_ENV: 'test',
       VITE_FIREBASE_API_KEY: 'test-api-key',

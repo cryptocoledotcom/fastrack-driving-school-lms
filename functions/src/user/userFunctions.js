@@ -2,6 +2,7 @@ const { onCall } = require('firebase-functions/v2/https');
 const { logAuditEvent } = require('../common/auditLogger');
 const { getDb, getAuth } = require('../common/firebaseUtils');
 
+
 const VALID_ROLES = ['student', 'instructor', 'dmv_admin', 'super_admin'];
 
 const createUser = onCall(async (data, context) => {

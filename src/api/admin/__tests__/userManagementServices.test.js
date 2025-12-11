@@ -15,10 +15,18 @@ import userManagementServices from '../userManagementServices';
 import { USER_ROLES } from '../../../constants/userRoles';
 
 vi.mock('firebase/firestore');
+vi.mock('firebase/functions', () => ({
+  getFunctions: vi.fn(),
+  httpsCallable: vi.fn(),
+}));
+
+import { httpsCallable } from 'firebase/functions';
 
 describe('User Management Services', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    // Default success mock for cloud functions
+    vi.mocked(httpsCallable).mockReturnValue(() => Promise.resolve({ data: { success: true, oldRole: 'STUDENT', newRole: 'DMV_ADMIN' } }));
   });
 
   describe('getAllUsers', () => {
@@ -117,10 +125,8 @@ describe('User Management Services', () => {
       const result = await userManagementServices.updateUserRole(userId, newRole, adminId);
 
       expect(result.role).toBe(newRole);
-      expect(updateDoc).toHaveBeenCalledWith(
-        doc(db, 'users', userId),
-        expect.objectContaining({ role: newRole })
-      );
+      // Expectation removed: updateUserRole uses Cloud Function, not direct updateDoc
+
       expect(addDoc).toHaveBeenCalledWith(
         collection(db, 'activityLogs'),
         expect.objectContaining({
@@ -138,11 +144,11 @@ describe('User Management Services', () => {
     });
 
     it('should throw error if user not found', async () => {
-      const mockUserDoc = {
-        exists: () => false,
-      };
-
-      getDoc.mockResolvedValue(mockUserDoc);
+      // Mock cloud function returning failure
+      const mockSetUserRole = vi.fn().mockResolvedValue({
+        data: { success: false, message: 'User not found' }
+      });
+      httpsCallable.mockReturnValue(mockSetUserRole);
 
       await expect(
         userManagementServices.updateUserRole('nonexistent', USER_ROLES.DMV_ADMIN, 'admin123')

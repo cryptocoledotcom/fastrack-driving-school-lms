@@ -83,8 +83,6 @@ const createCheckoutSession = onCall(
   { secrets: [STRIPE_SECRET_KEY_SECRET] },
   async (data, context) => {
     try {
-      const stripeClient = stripe(process.env.STRIPE_SECRET_KEY);
-
       if (!context.auth) {
         throw new Error('Authentication required');
       }
@@ -142,8 +140,6 @@ const createPaymentIntent = onCall(
   { secrets: [STRIPE_SECRET_KEY_SECRET] },
   async (data, context) => {
     try {
-      const stripeClient = stripe(process.env.STRIPE_SECRET_KEY);
-
       if (!context.auth) {
         throw new Error('Authentication required');
       }

@@ -3,13 +3,25 @@ import { vi } from 'vitest';
 import { useComplianceHeartbeat } from './useComplianceHeartbeat';
 import { httpsCallable, getFunctions } from 'firebase/functions';
 
+
+
+vi.mock('firebase/functions', () => ({
+  getFunctions: vi.fn(() => ({})),
+  httpsCallable: vi.fn(),
+}));
+
+vi.mock('firebase/app', () => ({
+  initializeApp: vi.fn(),
+  getApp: vi.fn(),
+}));
+
 describe('useComplianceHeartbeat', () => {
   let mockHeartbeatFn;
 
   beforeEach(() => {
     vi.clearAllMocks();
     mockHeartbeatFn = vi.fn();
-    vi.mocked(httpsCallable).mockReturnValue(mockHeartbeatFn);
+    httpsCallable.mockReturnValue(mockHeartbeatFn);
     vi.useFakeTimers();
   });
 

@@ -20,6 +20,21 @@ vi.mock('firebase-functions/params', () => ({
   defineSecret: vi.fn((name) => name),
 }));
 
+vi.mock('stripe', () => {
+  return {
+    default: vi.fn(() => ({
+      checkout: {
+        sessions: {
+          create: vi.fn(() => Promise.resolve({ id: 'cs_test_123' }))
+        }
+      },
+      paymentIntents: {
+        create: vi.fn(() => Promise.resolve({ id: 'pi_test_123', client_secret: 'secret' }))
+      }
+    }))
+  };
+});
+
 const {
   createCheckoutSession,
   createPaymentIntent,
@@ -75,7 +90,6 @@ describe('Payment Functions', () => {
   describe('createCheckoutSession', () => {
     it('should throw error if user not authenticated', async () => {
       const data = {
-        courseId: 'course-456',
         amount: 29.99,
         paymentType: 'course-payment'
       };

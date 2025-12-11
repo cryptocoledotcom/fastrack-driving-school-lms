@@ -1,0 +1,5079 @@
+
+> fastrack-driving-school-lms@1.0.0 test
+> vitest run src/api/enrollment/__tests__/enrollmentServices.concurrent.test.js src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx src/components/layout/AdminSidebar/__tests__/AdminSidebar.test.jsx
+
+
+[7m[1m[36m RUN [39m[22m[27m [36mv1.6.1[39m [90mC:/Users/Cole/Documents/Antigravity Fastrack Workspace/Fastrack-Learning_Management-System[39m
+
+stderr | src/components/layout/AdminSidebar/__tests__/AdminSidebar.test.jsx > AdminSidebar > renders admin navigation items
+ΓÜá∩╕Å React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+ΓÜá∩╕Å React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+
+ [32mΓ£ô[39m src/components/layout/AdminSidebar/__tests__/AdminSidebar.test.jsx [2m ([22m[2m1 test[22m[2m)[22m[90m 104[2mms[22m[39m
+ [33mΓ¥»[39m src/api/enrollment/__tests__/enrollmentServices.concurrent.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33mΓ¥»[39m src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx [2m ([22m[2m36 tests[22m [2m|[22m [31m36 failed[39m[2m)[22m[33m 40079[2mms[22m[39m
+[31m   [33mΓ¥»[31m src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx[2m > [22mAdminPage - Comprehensive Integration Tests[2m > [22mPage Initialization[2m > [22mshould render admin page with all tabs[39m
+[31m     ΓåÆ expected "spy" to be called at least once
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"fullScreen"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinnerContainer"[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"spinner medium primary"[31m
+          [36m/>[31m
+          [36m<p[31m
+            [33mclass[31m=[32m"text"[31m
+          [36m>[31m
+            [0mLoading admin dashboard...[0m
+          [36m</p>[31m
+        [36m</div>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+[31m   [33mΓ¥»[31m src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx[2m > [22mAdminPage - Comprehensive Integration Tests[2m > [22mPage Initialization[2m > [22mshould load enrollment data on mount[39m
+[31m     ΓåÆ expected "spy" to be called at least once
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"fullScreen"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinnerContainer"[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"spinner medium primary"[31m
+          [36m/>[31m
+          [36m<p[31m
+            [33mclass[31m=[32m"text"[31m
+          [36m>[31m
+            [0mLoading admin dashboard...[0m
+          [36m</p>[31m
+        [36m</div>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+[31m   [33mΓ¥»[31m src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx[2m > [22mAdminPage - Comprehensive Integration Tests[2m > [22mPage Initialization[2m > [22mshould display loading state initially[39m
+[31m     ΓåÆ expected "spy" to be called at least once
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"fullScreen"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinnerContainer"[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"spinner medium primary"[31m
+          [36m/>[31m
+          [36m<p[31m
+            [33mclass[31m=[32m"text"[31m
+          [36m>[31m
+            [0mLoading admin dashboard...[0m
+          [36m</p>[31m
+        [36m</div>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+[31m   [33mΓ¥»[31m src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx[2m > [22mAdminPage - Comprehensive Integration Tests[2m > [22mEnrollment Management Tab[2m > [22mshould display enrolled users list[39m
+[31m     ΓåÆ Unable to find an element with the text: Enrollment Management. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+[36m<body>[31m
+  [36m<div>[31m
+    [36m<div[31m
+      [33mclass[31m=[32m"fullScreen"[31m
+    [36m>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"spinnerContainer"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinner medium primary"[31m
+        [36m/>[31m
+        [36m<p[31m
+          [33mclass[31m=[32m"text"[31m
+        [36m>[31m
+          [0mLoading admin dashboard...[0m
+        [36m</p>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</div>[31m
+[36m</body>[31m
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"fullScreen"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinnerContainer"[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"spinner medium primary"[31m
+          [36m/>[31m
+          [36m<p[31m
+            [33mclass[31m=[32m"text"[31m
+          [36m>[31m
+            [0mLoading admin dashboard...[0m
+          [36m</p>[31m
+        [36m</div>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+[31m   [33mΓ¥»[31m src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx[2m > [22mAdminPage - Comprehensive Integration Tests[2m > [22mEnrollment Management Tab[2m > [22mshould display user enrollment details when expanded[39m
+[31m     ΓåÆ Unable to find role="table"
+
+Ignored nodes: comments, script, style
+[36m<body>[31m
+  [36m<div>[31m
+    [36m<div[31m
+      [33mclass[31m=[32m"fullScreen"[31m
+    [36m>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"spinnerContainer"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinner medium primary"[31m
+        [36m/>[31m
+        [36m<p[31m
+          [33mclass[31m=[32m"text"[31m
+        [36m>[31m
+          [0mLoading admin dashboard...[0m
+        [36m</p>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</div>[31m
+[36m</body>[31m
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"fullScreen"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinnerContainer"[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"spinner medium primary"[31m
+          [36m/>[31m
+          [36m<p[31m
+            [33mclass[31m=[32m"text"[31m
+          [36m>[31m
+            [0mLoading admin dashboard...[0m
+          [36m</p>[31m
+        [36m</div>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+[31m   [33mΓ¥»[31m src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx[2m > [22mAdminPage - Comprehensive Integration Tests[2m > [22mEnrollment Management Tab[2m > [22mshould display statistics cards[39m
+[31m     ΓåÆ Unable to find role="table"
+
+Ignored nodes: comments, script, style
+[36m<body>[31m
+  [36m<div>[31m
+    [36m<div[31m
+      [33mclass[31m=[32m"fullScreen"[31m
+    [36m>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"spinnerContainer"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinner medium primary"[31m
+        [36m/>[31m
+        [36m<p[31m
+          [33mclass[31m=[32m"text"[31m
+        [36m>[31m
+          [0mLoading admin dashboard...[0m
+        [36m</p>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</div>[31m
+[36m</body>[31m
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"fullScreen"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinnerContainer"[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"spinner medium primary"[31m
+          [36m/>[31m
+          [36m<p[31m
+            [33mclass[31m=[32m"text"[31m
+          [36m>[31m
+            [0mLoading admin dashboard...[0m
+          [36m</p>[31m
+        [36m</div>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+[31m   [33mΓ¥»[31m src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx[2m > [22mAdminPage - Comprehensive Integration Tests[2m > [22mEnrollment Management Tab[2m > [22mshould calculate statistics correctly[39m
+[31m     ΓåÆ Unable to find role="table"
+
+Ignored nodes: comments, script, style
+[36m<body>[31m
+  [36m<div>[31m
+    [36m<div[31m
+      [33mclass[31m=[32m"fullScreen"[31m
+    [36m>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"spinnerContainer"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinner medium primary"[31m
+        [36m/>[31m
+        [36m<p[31m
+          [33mclass[31m=[32m"text"[31m
+        [36m>[31m
+          [0mLoading admin dashboard...[0m
+        [36m</p>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</div>[31m
+[36m</body>[31m
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"fullScreen"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinnerContainer"[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"spinner medium primary"[31m
+          [36m/>[31m
+          [36m<p[31m
+            [33mclass[31m=[32m"text"[31m
+          [36m>[31m
+            [0mLoading admin dashboard...[0m
+          [36m</p>[31m
+        [36m</div>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+[31m   [33mΓ¥»[31m src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx[2m > [22mAdminPage - Comprehensive Integration Tests[2m > [22mEnrollment Management Tab[2m > [22mshould search users by name[39m
+[31m     ΓåÆ Unable to find role="table"
+
+Ignored nodes: comments, script, style
+[36m<body>[31m
+  [36m<div>[31m
+    [36m<div[31m
+      [33mclass[31m=[32m"fullScreen"[31m
+    [36m>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"spinnerContainer"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinner medium primary"[31m
+        [36m/>[31m
+        [36m<p[31m
+          [33mclass[31m=[32m"text"[31m
+        [36m>[31m
+          [0mLoading admin dashboard...[0m
+        [36m</p>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</div>[31m
+[36m</body>[31m
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"fullScreen"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinnerContainer"[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"spinner medium primary"[31m
+          [36m/>[31m
+          [36m<p[31m
+            [33mclass[31m=[32m"text"[31m
+          [36m>[31m
+            [0mLoading admin dashboard...[0m
+          [36m</p>[31m
+        [36m</div>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+[31m   [33mΓ¥»[31m src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx[2m > [22mAdminPage - Comprehensive Integration Tests[2m > [22mEnrollment Management Tab[2m > [22mshould search users by email[39m
+[31m     ΓåÆ Unable to find role="table"
+
+Ignored nodes: comments, script, style
+[36m<body>[31m
+  [36m<div>[31m
+    [36m<div[31m
+      [33mclass[31m=[32m"fullScreen"[31m
+    [36m>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"spinnerContainer"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinner medium primary"[31m
+        [36m/>[31m
+        [36m<p[31m
+          [33mclass[31m=[32m"text"[31m
+        [36m>[31m
+          [0mLoading admin dashboard...[0m
+        [36m</p>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</div>[31m
+[36m</body>[31m
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"fullScreen"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinnerContainer"[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"spinner medium primary"[31m
+          [36m/>[31m
+          [36m<p[31m
+            [33mclass[31m=[32m"text"[31m
+          [36m>[31m
+            [0mLoading admin dashboard...[0m
+          [36m</p>[31m
+        [36m</div>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+[31m   [33mΓ¥»[31m src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx[2m > [22mAdminPage - Comprehensive Integration Tests[2m > [22mEnrollment Management Tab[2m > [22mshould reset single enrollment[39m
+[31m     ΓåÆ Unable to find role="table"
+
+Ignored nodes: comments, script, style
+[36m<body>[31m
+  [36m<div>[31m
+    [36m<div[31m
+      [33mclass[31m=[32m"fullScreen"[31m
+    [36m>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"spinnerContainer"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinner medium primary"[31m
+        [36m/>[31m
+        [36m<p[31m
+          [33mclass[31m=[32m"text"[31m
+        [36m>[31m
+          [0mLoading admin dashboard...[0m
+        [36m</p>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</div>[31m
+[36m</body>[31m
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"fullScreen"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinnerContainer"[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"spinner medium primary"[31m
+          [36m/>[31m
+          [36m<p[31m
+            [33mclass[31m=[32m"text"[31m
+          [36m>[31m
+            [0mLoading admin dashboard...[0m
+          [36m</p>[31m
+        [36m</div>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+[31m   [33mΓ¥»[31m src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx[2m > [22mAdminPage - Comprehensive Integration Tests[2m > [22mEnrollment Management Tab[2m > [22mshould reset all user enrollments[39m
+[31m     ΓåÆ Unable to find role="table"
+
+Ignored nodes: comments, script, style
+[36m<body>[31m
+  [36m<div>[31m
+    [36m<div[31m
+      [33mclass[31m=[32m"fullScreen"[31m
+    [36m>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"spinnerContainer"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinner medium primary"[31m
+        [36m/>[31m
+        [36m<p[31m
+          [33mclass[31m=[32m"text"[31m
+        [36m>[31m
+          [0mLoading admin dashboard...[0m
+        [36m</p>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</div>[31m
+[36m</body>[31m
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"fullScreen"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinnerContainer"[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"spinner medium primary"[31m
+          [36m/>[31m
+          [36m<p[31m
+            [33mclass[31m=[32m"text"[31m
+          [36m>[31m
+            [0mLoading admin dashboard...[0m
+          [36m</p>[31m
+        [36m</div>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+[31m   [33mΓ¥»[31m src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx[2m > [22mAdminPage - Comprehensive Integration Tests[2m > [22mEnrollment Management Tab[2m > [22mshould handle reset enrollment error[39m
+[31m     ΓåÆ Unable to find role="table"
+
+Ignored nodes: comments, script, style
+[36m<body>[31m
+  [36m<div>[31m
+    [36m<div[31m
+      [33mclass[31m=[32m"fullScreen"[31m
+    [36m>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"spinnerContainer"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinner medium primary"[31m
+        [36m/>[31m
+        [36m<p[31m
+          [33mclass[31m=[32m"text"[31m
+        [36m>[31m
+          [0mLoading admin dashboard...[0m
+        [36m</p>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</div>[31m
+[36m</body>[31m
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"fullScreen"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinnerContainer"[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"spinner medium primary"[31m
+          [36m/>[31m
+          [36m<p[31m
+            [33mclass[31m=[32m"text"[31m
+          [36m>[31m
+            [0mLoading admin dashboard...[0m
+          [36m</p>[31m
+        [36m</div>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+[31m   [33mΓ¥»[31m src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx[2m > [22mAdminPage - Comprehensive Integration Tests[2m > [22mEnrollment Management Tab[2m > [22mshould display payment status badges[39m
+[31m     ΓåÆ Unable to find role="table"
+
+Ignored nodes: comments, script, style
+[36m<body>[31m
+  [36m<div>[31m
+    [36m<div[31m
+      [33mclass[31m=[32m"fullScreen"[31m
+    [36m>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"spinnerContainer"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinner medium primary"[31m
+        [36m/>[31m
+        [36m<p[31m
+          [33mclass[31m=[32m"text"[31m
+        [36m>[31m
+          [0mLoading admin dashboard...[0m
+        [36m</p>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</div>[31m
+[36m</body>[31m
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"fullScreen"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinnerContainer"[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"spinner medium primary"[31m
+          [36m/>[31m
+          [36m<p[31m
+            [33mclass[31m=[32m"text"[31m
+          [36m>[31m
+            [0mLoading admin dashboard...[0m
+          [36m</p>[31m
+        [36m</div>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+[31m   [33mΓ¥»[31m src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx[2m > [22mAdminPage - Comprehensive Integration Tests[2m > [22mScheduling Management Tab[2m > [22mshould switch to scheduling tab[39m
+[31m     ΓåÆ Unable to find an element with the text: Enrollment Management. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+[36m<body>[31m
+  [36m<div>[31m
+    [36m<div[31m
+      [33mclass[31m=[32m"fullScreen"[31m
+    [36m>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"spinnerContainer"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinner medium primary"[31m
+        [36m/>[31m
+        [36m<p[31m
+          [33mclass[31m=[32m"text"[31m
+        [36m>[31m
+          [0mLoading admin dashboard...[0m
+        [36m</p>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</div>[31m
+[36m</body>[31m
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"fullScreen"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinnerContainer"[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"spinner medium primary"[31m
+          [36m/>[31m
+          [36m<p[31m
+            [33mclass[31m=[32m"text"[31m
+          [36m>[31m
+            [0mLoading admin dashboard...[0m
+          [36m</p>[31m
+        [36m</div>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+[31m   [33mΓ¥»[31m src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx[2m > [22mAdminPage - Comprehensive Integration Tests[2m > [22mScheduling Management Tab[2m > [22mshould load and display time slots[39m
+[31m     ΓåÆ Unable to find an element with the text: Enrollment Management. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+[36m<body>[31m
+  [36m<div>[31m
+    [36m<div[31m
+      [33mclass[31m=[32m"fullScreen"[31m
+    [36m>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"spinnerContainer"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinner medium primary"[31m
+        [36m/>[31m
+        [36m<p[31m
+          [33mclass[31m=[32m"text"[31m
+        [36m>[31m
+          [0mLoading admin dashboard...[0m
+        [36m</p>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</div>[31m
+[36m</body>[31m
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"fullScreen"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinnerContainer"[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"spinner medium primary"[31m
+          [36m/>[31m
+          [36m<p[31m
+            [33mclass[31m=[32m"text"[31m
+          [36m>[31m
+            [0mLoading admin dashboard...[0m
+          [36m</p>[31m
+        [36m</div>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+[31m   [33mΓ¥»[31m src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx[2m > [22mAdminPage - Comprehensive Integration Tests[2m > [22mScheduling Management Tab[2m > [22mshould handle scheduling API errors[39m
+[31m     ΓåÆ Unable to find an element with the text: Enrollment Management. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+[36m<body>[31m
+  [36m<div>[31m
+    [36m<div[31m
+      [33mclass[31m=[32m"fullScreen"[31m
+    [36m>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"spinnerContainer"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinner medium primary"[31m
+        [36m/>[31m
+        [36m<p[31m
+          [33mclass[31m=[32m"text"[31m
+        [36m>[31m
+          [0mLoading admin dashboard...[0m
+        [36m</p>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</div>[31m
+[36m</body>[31m
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"fullScreen"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinnerContainer"[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"spinner medium primary"[31m
+          [36m/>[31m
+          [36m<p[31m
+            [33mclass[31m=[32m"text"[31m
+          [36m>[31m
+            [0mLoading admin dashboard...[0m
+          [36m</p>[31m
+        [36m</div>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+[31m   [33mΓ¥»[31m src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx[2m > [22mAdminPage - Comprehensive Integration Tests[2m > [22mScheduling Management Tab[2m > [22mshould load students for scheduling[39m
+[31m     ΓåÆ Unable to find an element with the text: Enrollment Management. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+[36m<body>[31m
+  [36m<div>[31m
+    [36m<div[31m
+      [33mclass[31m=[32m"fullScreen"[31m
+    [36m>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"spinnerContainer"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinner medium primary"[31m
+        [36m/>[31m
+        [36m<p[31m
+          [33mclass[31m=[32m"text"[31m
+        [36m>[31m
+          [0mLoading admin dashboard...[0m
+        [36m</p>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</div>[31m
+[36m</body>[31m
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"fullScreen"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinnerContainer"[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"spinner medium primary"[31m
+          [36m/>[31m
+          [36m<p[31m
+            [33mclass[31m=[32m"text"[31m
+          [36m>[31m
+            [0mLoading admin dashboard...[0m
+          [36m</p>[31m
+        [36m</div>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+[31m   [33mΓ¥»[31m src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx[2m > [22mAdminPage - Comprehensive Integration Tests[2m > [22mTab Navigation[2m > [22mshould switch between tabs without errors[39m
+[31m     ΓåÆ Unable to find an element with the text: Enrollment Management. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+[36m<body>[31m
+  [36m<div>[31m
+    [36m<div[31m
+      [33mclass[31m=[32m"fullScreen"[31m
+    [36m>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"spinnerContainer"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinner medium primary"[31m
+        [36m/>[31m
+        [36m<p[31m
+          [33mclass[31m=[32m"text"[31m
+        [36m>[31m
+          [0mLoading admin dashboard...[0m
+        [36m</p>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</div>[31m
+[36m</body>[31m
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"fullScreen"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinnerContainer"[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"spinner medium primary"[31m
+          [36m/>[31m
+          [36m<p[31m
+            [33mclass[31m=[32m"text"[31m
+          [36m>[31m
+            [0mLoading admin dashboard...[0m
+          [36m</p>[31m
+        [36m</div>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+[31m   [33mΓ¥»[31m src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx[2m > [22mAdminPage - Comprehensive Integration Tests[2m > [22mTab Navigation[2m > [22mshould maintain active tab state[39m
+[31m     ΓåÆ Unable to find an element with the text: Enrollment Management. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+[36m<body>[31m
+  [36m<div>[31m
+    [36m<div[31m
+      [33mclass[31m=[32m"fullScreen"[31m
+    [36m>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"spinnerContainer"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinner medium primary"[31m
+        [36m/>[31m
+        [36m<p[31m
+          [33mclass[31m=[32m"text"[31m
+        [36m>[31m
+          [0mLoading admin dashboard...[0m
+        [36m</p>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</div>[31m
+[36m</body>[31m
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"fullScreen"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinnerContainer"[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"spinner medium primary"[31m
+          [36m/>[31m
+          [36m<p[31m
+            [33mclass[31m=[32m"text"[31m
+          [36m>[31m
+            [0mLoading admin dashboard...[0m
+          [36m</p>[31m
+        [36m</div>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+[31m   [33mΓ¥»[31m src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx[2m > [22mAdminPage - Comprehensive Integration Tests[2m > [22mTab Navigation[2m > [22mshould only load tab data once per tab switch[39m
+[31m     ΓåÆ expected "spy" to be called at least once
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"fullScreen"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinnerContainer"[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"spinner medium primary"[31m
+          [36m/>[31m
+          [36m<p[31m
+            [33mclass[31m=[32m"text"[31m
+          [36m>[31m
+            [0mLoading admin dashboard...[0m
+          [36m</p>[31m
+        [36m</div>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+[31m   [33mΓ¥»[31m src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx[2m > [22mAdminPage - Comprehensive Integration Tests[2m > [22mAnalytics Tab[2m > [22mshould render analytics tab[39m
+[31m     ΓåÆ Unable to find an element with the text: Enrollment Management. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+[36m<body>[31m
+  [36m<div>[31m
+    [36m<div[31m
+      [33mclass[31m=[32m"fullScreen"[31m
+    [36m>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"spinnerContainer"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinner medium primary"[31m
+        [36m/>[31m
+        [36m<p[31m
+          [33mclass[31m=[32m"text"[31m
+        [36m>[31m
+          [0mLoading admin dashboard...[0m
+        [36m</p>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</div>[31m
+[36m</body>[31m
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"fullScreen"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinnerContainer"[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"spinner medium primary"[31m
+          [36m/>[31m
+          [36m<p[31m
+            [33mclass[31m=[32m"text"[31m
+          [36m>[31m
+            [0mLoading admin dashboard...[0m
+          [36m</p>[31m
+        [36m</div>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+[31m   [33mΓ¥»[31m src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx[2m > [22mAdminPage - Comprehensive Integration Tests[2m > [22mAnalytics Tab[2m > [22mshould switch to analytics tab without errors[39m
+[31m     ΓåÆ Unable to find an element with the text: Enrollment Management. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+[36m<body>[31m
+  [36m<div>[31m
+    [36m<div[31m
+      [33mclass[31m=[32m"fullScreen"[31m
+    [36m>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"spinnerContainer"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinner medium primary"[31m
+        [36m/>[31m
+        [36m<p[31m
+          [33mclass[31m=[32m"text"[31m
+        [36m>[31m
+          [0mLoading admin dashboard...[0m
+        [36m</p>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</div>[31m
+[36m</body>[31m
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"fullScreen"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinnerContainer"[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"spinner medium primary"[31m
+          [36m/>[31m
+          [36m<p[31m
+            [33mclass[31m=[32m"text"[31m
+          [36m>[31m
+            [0mLoading admin dashboard...[0m
+          [36m</p>[31m
+        [36m</div>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+[31m   [33mΓ¥»[31m src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx[2m > [22mAdminPage - Comprehensive Integration Tests[2m > [22mCompliance Reporting Tab[2m > [22mshould render compliance reporting tab[39m
+[31m     ΓåÆ Unable to find an element with the text: Enrollment Management. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+[36m<body>[31m
+  [36m<div>[31m
+    [36m<div[31m
+      [33mclass[31m=[32m"fullScreen"[31m
+    [36m>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"spinnerContainer"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinner medium primary"[31m
+        [36m/>[31m
+        [36m<p[31m
+          [33mclass[31m=[32m"text"[31m
+        [36m>[31m
+          [0mLoading admin dashboard...[0m
+        [36m</p>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</div>[31m
+[36m</body>[31m
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"fullScreen"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinnerContainer"[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"spinner medium primary"[31m
+          [36m/>[31m
+          [36m<p[31m
+            [33mclass[31m=[32m"text"[31m
+          [36m>[31m
+            [0mLoading admin dashboard...[0m
+          [36m</p>[31m
+        [36m</div>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+[31m   [33mΓ¥»[31m src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx[2m > [22mAdminPage - Comprehensive Integration Tests[2m > [22mCompliance Reporting Tab[2m > [22mshould switch to compliance tab without errors[39m
+[31m     ΓåÆ Unable to find an element with the text: Enrollment Management. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+[36m<body>[31m
+  [36m<div>[31m
+    [36m<div[31m
+      [33mclass[31m=[32m"fullScreen"[31m
+    [36m>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"spinnerContainer"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinner medium primary"[31m
+        [36m/>[31m
+        [36m<p[31m
+          [33mclass[31m=[32m"text"[31m
+        [36m>[31m
+          [0mLoading admin dashboard...[0m
+        [36m</p>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</div>[31m
+[36m</body>[31m
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"fullScreen"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinnerContainer"[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"spinner medium primary"[31m
+          [36m/>[31m
+          [36m<p[31m
+            [33mclass[31m=[32m"text"[31m
+          [36m>[31m
+            [0mLoading admin dashboard...[0m
+          [36m</p>[31m
+        [36m</div>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+[31m   [33mΓ¥»[31m src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx[2m > [22mAdminPage - Comprehensive Integration Tests[2m > [22mError Handling[2m > [22mshould handle enrollment data load error[39m
+[31m     ΓåÆ expected "spy" to be called at least once
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"fullScreen"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinnerContainer"[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"spinner medium primary"[31m
+          [36m/>[31m
+          [36m<p[31m
+            [33mclass[31m=[32m"text"[31m
+          [36m>[31m
+            [0mLoading admin dashboard...[0m
+          [36m</p>[31m
+        [36m</div>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+[31m   [33mΓ¥»[31m src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx[2m > [22mAdminPage - Comprehensive Integration Tests[2m > [22mError Handling[2m > [22mshould show error message when API fails[39m
+[31m     ΓåÆ expected "spy" to be called at least once
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"fullScreen"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinnerContainer"[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"spinner medium primary"[31m
+          [36m/>[31m
+          [36m<p[31m
+            [33mclass[31m=[32m"text"[31m
+          [36m>[31m
+            [0mLoading admin dashboard...[0m
+          [36m</p>[31m
+        [36m</div>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+[31m   [33mΓ¥»[31m src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx[2m > [22mAdminPage - Comprehensive Integration Tests[2m > [22mError Handling[2m > [22mshould recover from error state[39m
+[31m     ΓåÆ expected "spy" to be called at least once
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"fullScreen"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinnerContainer"[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"spinner medium primary"[31m
+          [36m/>[31m
+          [36m<p[31m
+            [33mclass[31m=[32m"text"[31m
+          [36m>[31m
+            [0mLoading admin dashboard...[0m
+          [36m</p>[31m
+        [36m</div>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+[31m   [33mΓ¥»[31m src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx[2m > [22mAdminPage - Comprehensive Integration Tests[2m > [22mLoading States[2m > [22mshould show loading indicator while fetching data[39m
+[31m     ΓåÆ expected "spy" to be called at least once[39m
+[31m   [33mΓ¥»[31m src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx[2m > [22mAdminPage - Comprehensive Integration Tests[2m > [22mLoading States[2m > [22mshould show loading state on reset operations[39m
+[31m     ΓåÆ Unable to find role="table"
+
+Ignored nodes: comments, script, style
+[36m<body>[31m
+  [36m<div>[31m
+    [36m<div[31m
+      [33mclass[31m=[32m"fullScreen"[31m
+    [36m>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"spinnerContainer"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinner medium primary"[31m
+        [36m/>[31m
+        [36m<p[31m
+          [33mclass[31m=[32m"text"[31m
+        [36m>[31m
+          [0mLoading admin dashboard...[0m
+        [36m</p>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</div>[31m
+[36m</body>[31m
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"fullScreen"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinnerContainer"[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"spinner medium primary"[31m
+          [36m/>[31m
+          [36m<p[31m
+            [33mclass[31m=[32m"text"[31m
+          [36m>[31m
+            [0mLoading admin dashboard...[0m
+          [36m</p>[31m
+        [36m</div>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+[31m   [33mΓ¥»[31m src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx[2m > [22mAdminPage - Comprehensive Integration Tests[2m > [22mData Integrity[2m > [22mshould preserve user data after operations[39m
+[31m     ΓåÆ Unable to find role="table"
+
+Ignored nodes: comments, script, style
+[36m<body>[31m
+  [36m<div>[31m
+    [36m<div[31m
+      [33mclass[31m=[32m"fullScreen"[31m
+    [36m>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"spinnerContainer"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinner medium primary"[31m
+        [36m/>[31m
+        [36m<p[31m
+          [33mclass[31m=[32m"text"[31m
+        [36m>[31m
+          [0mLoading admin dashboard...[0m
+        [36m</p>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</div>[31m
+[36m</body>[31m
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"fullScreen"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinnerContainer"[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"spinner medium primary"[31m
+          [36m/>[31m
+          [36m<p[31m
+            [33mclass[31m=[32m"text"[31m
+          [36m>[31m
+            [0mLoading admin dashboard...[0m
+          [36m</p>[31m
+        [36m</div>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+[31m   [33mΓ¥»[31m src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx[2m > [22mAdminPage - Comprehensive Integration Tests[2m > [22mData Integrity[2m > [22mshould show correct enrollment counts in statistics[39m
+[31m     ΓåÆ Unable to find role="table"
+
+Ignored nodes: comments, script, style
+[36m<body>[31m
+  [36m<div>[31m
+    [36m<div[31m
+      [33mclass[31m=[32m"fullScreen"[31m
+    [36m>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"spinnerContainer"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinner medium primary"[31m
+        [36m/>[31m
+        [36m<p[31m
+          [33mclass[31m=[32m"text"[31m
+        [36m>[31m
+          [0mLoading admin dashboard...[0m
+        [36m</p>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</div>[31m
+[36m</body>[31m
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"fullScreen"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinnerContainer"[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"spinner medium primary"[31m
+          [36m/>[31m
+          [36m<p[31m
+            [33mclass[31m=[32m"text"[31m
+          [36m>[31m
+            [0mLoading admin dashboard...[0m
+          [36m</p>[31m
+        [36m</div>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+[31m   [33mΓ¥»[31m src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx[2m > [22mAdminPage - Comprehensive Integration Tests[2m > [22mUser Interactions[2m > [22mshould handle rapid tab switches[39m
+[31m     ΓåÆ Unable to find an element with the text: Enrollment Management. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+[36m<body>[31m
+  [36m<div>[31m
+    [36m<div[31m
+      [33mclass[31m=[32m"fullScreen"[31m
+    [36m>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"spinnerContainer"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinner medium primary"[31m
+        [36m/>[31m
+        [36m<p[31m
+          [33mclass[31m=[32m"text"[31m
+        [36m>[31m
+          [0mLoading admin dashboard...[0m
+        [36m</p>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</div>[31m
+[36m</body>[31m
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"fullScreen"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinnerContainer"[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"spinner medium primary"[31m
+          [36m/>[31m
+          [36m<p[31m
+            [33mclass[31m=[32m"text"[31m
+          [36m>[31m
+            [0mLoading admin dashboard...[0m
+          [36m</p>[31m
+        [36m</div>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+[31m   [33mΓ¥»[31m src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx[2m > [22mAdminPage - Comprehensive Integration Tests[2m > [22mUser Interactions[2m > [22mshould handle clearing search filter[39m
+[31m     ΓåÆ Unable to find role="table"
+
+Ignored nodes: comments, script, style
+[36m<body>[31m
+  [36m<div>[31m
+    [36m<div[31m
+      [33mclass[31m=[32m"fullScreen"[31m
+    [36m>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"spinnerContainer"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinner medium primary"[31m
+        [36m/>[31m
+        [36m<p[31m
+          [33mclass[31m=[32m"text"[31m
+        [36m>[31m
+          [0mLoading admin dashboard...[0m
+        [36m</p>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</div>[31m
+[36m</body>[31m
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"fullScreen"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinnerContainer"[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"spinner medium primary"[31m
+          [36m/>[31m
+          [36m<p[31m
+            [33mclass[31m=[32m"text"[31m
+          [36m>[31m
+            [0mLoading admin dashboard...[0m
+          [36m</p>[31m
+        [36m</div>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+[31m   [33mΓ¥»[31m src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx[2m > [22mAdminPage - Comprehensive Integration Tests[2m > [22mConcurrent Operations[2m > [22mshould handle multiple reset operations[39m
+[31m     ΓåÆ Unable to find role="table"
+
+Ignored nodes: comments, script, style
+[36m<body>[31m
+  [36m<div>[31m
+    [36m<div[31m
+      [33mclass[31m=[32m"fullScreen"[31m
+    [36m>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"spinnerContainer"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinner medium primary"[31m
+        [36m/>[31m
+        [36m<p[31m
+          [33mclass[31m=[32m"text"[31m
+        [36m>[31m
+          [0mLoading admin dashboard...[0m
+        [36m</p>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</div>[31m
+[36m</body>[31m
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"fullScreen"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinnerContainer"[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"spinner medium primary"[31m
+          [36m/>[31m
+          [36m<p[31m
+            [33mclass[31m=[32m"text"[31m
+          [36m>[31m
+            [0mLoading admin dashboard...[0m
+          [36m</p>[31m
+        [36m</div>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+[31m   [33mΓ¥»[31m src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx[2m > [22mAdminPage - Comprehensive Integration Tests[2m > [22mConcurrent Operations[2m > [22mshould not allow duplicate submissions during reset[39m
+[31m     ΓåÆ Unable to find role="table"
+
+Ignored nodes: comments, script, style
+[36m<body>[31m
+  [36m<div>[31m
+    [36m<div[31m
+      [33mclass[31m=[32m"fullScreen"[31m
+    [36m>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"spinnerContainer"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinner medium primary"[31m
+        [36m/>[31m
+        [36m<p[31m
+          [33mclass[31m=[32m"text"[31m
+        [36m>[31m
+          [0mLoading admin dashboard...[0m
+        [36m</p>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</div>[31m
+[36m</body>[31m
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"fullScreen"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinnerContainer"[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"spinner medium primary"[31m
+          [36m/>[31m
+          [36m<p[31m
+            [33mclass[31m=[32m"text"[31m
+          [36m>[31m
+            [0mLoading admin dashboard...[0m
+          [36m</p>[31m
+        [36m</div>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+[31m   [33mΓ¥»[31m src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx[2m > [22mAdminPage - Comprehensive Integration Tests[2m > [22mSuccess Messages[2m > [22mshould show success message after successful reset[39m
+[31m     ΓåÆ Unable to find an element with the text: Enrollment Management. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+[36m<body>[31m
+  [36m<div>[31m
+    [36m<div[31m
+      [33mclass[31m=[32m"fullScreen"[31m
+    [36m>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"spinnerContainer"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinner medium primary"[31m
+        [36m/>[31m
+        [36m<p[31m
+          [33mclass[31m=[32m"text"[31m
+        [36m>[31m
+          [0mLoading admin dashboard...[0m
+        [36m</p>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</div>[31m
+[36m</body>[31m
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"fullScreen"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"spinnerContainer"[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"spinner medium primary"[31m
+          [36m/>[31m
+          [36m<p[31m
+            [33mclass[31m=[32m"text"[31m
+          [36m>[31m
+            [0mLoading admin dashboard...[0m
+          [36m</p>[31m
+        [36m</div>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ» Failed Suites 1 ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»
+
+ FAIL  src/api/enrollment/__tests__/enrollmentServices.concurrent.test.js [ src/api/enrollment/__tests__/enrollmentServices.concurrent.test.js ]
+Error: [vitest] There was an error when mocking a module. If you are using "vi.mock" factory, make sure there are no top level variables inside, since this call is hoisted to top of the file. Read more: https://vitest.dev/api/vi.html#vi-mock
+ Γ¥» src/api/enrollment/enrollmentServices.js:3:31
+      1| import { doc, serverTimestamp, writeBatch, increment } from 'firebase/ΓÇª
+      2| import { db } from '../../config/firebase.js';
+      3| import { EnrollmentError, ValidationError } from '../errors/ApiError.jΓÇª
+       |                               ^
+      4| import ServiceBase from '../base/ServiceBase.js';
+      5| import { getFirestoreTimestamps } from '../../utils/api/timestampHelpeΓÇª
+
+Caused by: ReferenceError: Cannot access '__vi_import_1__' before initialization
+ Γ¥» src/api/enrollment/__tests__/enrollmentServices.concurrent.test.js:38:22
+ Γ¥» src/api/enrollment/enrollmentServices.js:3:31
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[1/37]ΓÄ»
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ» Failed Tests 36 ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»
+
+ FAIL  src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx > AdminPage - Comprehensive Integration Tests > Page Initialization > should render admin page with all tabs
+ FAIL  src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx > AdminPage - Comprehensive Integration Tests > Page Initialization > should load enrollment data on mount
+AssertionError: expected "spy" to be called at least once
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» __vi_import_2__.waitFor.timeout src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:131:61
+    129|     
+    130|     await waitFor(() => {
+    131|       expect(enrollmentServices.getAllUsersWithEnrollments).toHaveBeenΓÇª
+       |                                                             ^
+    132|     }, { timeout: 3000 });
+    133|     
+ Γ¥» runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
+ Γ¥» checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ Γ¥» Timeout.checkRealTimersCallback node_modules/@testing-library/dom/dist/wait-for.js:118:16
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[2/37]ΓÄ»
+
+ FAIL  src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx > AdminPage - Comprehensive Integration Tests > Page Initialization > should display loading state initially
+AssertionError: expected "spy" to be called at least once
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:165:63
+    163| 
+    164|       await waitFor(() => {
+    165|         expect(enrollmentServices.getAllUsersWithEnrollments).toHaveBeΓÇª
+       |                                                               ^
+    166|       });
+    167|     });
+ Γ¥» runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
+ Γ¥» checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ Γ¥» Timeout.checkRealTimersCallback node_modules/@testing-library/dom/dist/wait-for.js:118:16
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[3/37]ΓÄ»
+
+ FAIL  src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx > AdminPage - Comprehensive Integration Tests > Enrollment Management Tab > should display enrolled users list
+TestingLibraryElementError: Unable to find an element with the text: Enrollment Management. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      class="fullScreen"
+    >
+      <div
+        class="spinnerContainer"
+      >
+        <div
+          class="spinner medium primary"
+        />
+        <p
+          class="text"
+        >
+          Loading admin dashboard...
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ Γ¥» src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:174:13
+    172|       renderAdminPage();
+    173| 
+    174|       await waitFor(() => {
+       |             ^
+    175|         const enrollmentTab = screen.getByText('Enrollment Management'ΓÇª
+    176|         expect(enrollmentTab).toBeInTheDocument();
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[4/37]ΓÄ»
+
+ FAIL  src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx > AdminPage - Comprehensive Integration Tests > Enrollment Management Tab > should display user enrollment details when expanded
+TestingLibraryElementError: Unable to find role="table"
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      class="fullScreen"
+    >
+      <div
+        class="spinnerContainer"
+      >
+        <div
+          class="spinner medium primary"
+        />
+        <p
+          class="text"
+        >
+          Loading admin dashboard...
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ Γ¥» src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:186:13
+    184|       renderAdminPage();
+    185| 
+    186|       await waitFor(() => {
+       |             ^
+    187|         const table = screen.getByRole('table');
+    188|         expect(table.textContent).toContain('John Doe');
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[5/37]ΓÄ»
+
+ FAIL  src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx > AdminPage - Comprehensive Integration Tests > Enrollment Management Tab > should display statistics cards
+TestingLibraryElementError: Unable to find role="table"
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      class="fullScreen"
+    >
+      <div
+        class="spinnerContainer"
+      >
+        <div
+          class="spinner medium primary"
+        />
+        <p
+          class="text"
+        >
+          Loading admin dashboard...
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ Γ¥» src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:197:13
+    195|       renderAdminPage();
+    196| 
+    197|       await waitFor(() => {
+       |             ^
+    198|         const table = screen.getByRole('table');
+    199|         expect(table).toBeInTheDocument();
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[6/37]ΓÄ»
+
+ FAIL  src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx > AdminPage - Comprehensive Integration Tests > Enrollment Management Tab > should calculate statistics correctly
+TestingLibraryElementError: Unable to find role="table"
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      class="fullScreen"
+    >
+      <div
+        class="spinnerContainer"
+      >
+        <div
+          class="spinner medium primary"
+        />
+        <p
+          class="text"
+        >
+          Loading admin dashboard...
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ Γ¥» src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:209:13
+    207|       renderAdminPage();
+    208| 
+    209|       await waitFor(() => {
+       |             ^
+    210|         const table = screen.getByRole('table');
+    211|         expect(table.textContent).toContain('John Doe');
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[7/37]ΓÄ»
+
+ FAIL  src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx > AdminPage - Comprehensive Integration Tests > Enrollment Management Tab > should search users by name
+TestingLibraryElementError: Unable to find role="table"
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      class="fullScreen"
+    >
+      <div
+        class="spinnerContainer"
+      >
+        <div
+          class="spinner medium primary"
+        />
+        <p
+          class="text"
+        >
+          Loading admin dashboard...
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ Γ¥» src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:219:13
+    217|       renderAdminPage();
+    218| 
+    219|       await waitFor(() => {
+       |             ^
+    220|         const table = screen.getByRole('table');
+    221|         expect(table.textContent).toContain('John Doe');
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[8/37]ΓÄ»
+
+ FAIL  src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx > AdminPage - Comprehensive Integration Tests > Enrollment Management Tab > should search users by email
+TestingLibraryElementError: Unable to find role="table"
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      class="fullScreen"
+    >
+      <div
+        class="spinnerContainer"
+      >
+        <div
+          class="spinner medium primary"
+        />
+        <p
+          class="text"
+        >
+          Loading admin dashboard...
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ Γ¥» src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:236:13
+    234|       renderAdminPage();
+    235| 
+    236|       await waitFor(() => {
+       |             ^
+    237|         const table = screen.getByRole('table');
+    238|         expect(table.textContent).toContain('John Doe');
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[9/37]ΓÄ»
+
+ FAIL  src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx > AdminPage - Comprehensive Integration Tests > Enrollment Management Tab > should reset single enrollment
+TestingLibraryElementError: Unable to find role="table"
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      class="fullScreen"
+    >
+      <div
+        class="spinnerContainer"
+      >
+        <div
+          class="spinner medium primary"
+        />
+        <p
+          class="text"
+        >
+          Loading admin dashboard...
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ Γ¥» src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:253:13
+    251|       renderAdminPage();
+    252| 
+    253|       await waitFor(() => {
+       |             ^
+    254|         const table = screen.getByRole('table');
+    255|         expect(table.textContent).toContain('John Doe');
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[10/37]ΓÄ»
+
+ FAIL  src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx > AdminPage - Comprehensive Integration Tests > Enrollment Management Tab > should reset all user enrollments
+TestingLibraryElementError: Unable to find role="table"
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      class="fullScreen"
+    >
+      <div
+        class="spinnerContainer"
+      >
+        <div
+          class="spinner medium primary"
+        />
+        <p
+          class="text"
+        >
+          Loading admin dashboard...
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ Γ¥» src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:270:13
+    268|       renderAdminPage();
+    269| 
+    270|       await waitFor(() => {
+       |             ^
+    271|         const table = screen.getByRole('table');
+    272|         expect(table.textContent).toContain('John Doe');
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[11/37]ΓÄ»
+
+ FAIL  src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx > AdminPage - Comprehensive Integration Tests > Enrollment Management Tab > should handle reset enrollment error
+TestingLibraryElementError: Unable to find role="table"
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      class="fullScreen"
+    >
+      <div
+        class="spinnerContainer"
+      >
+        <div
+          class="spinner medium primary"
+        />
+        <p
+          class="text"
+        >
+          Loading admin dashboard...
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ Γ¥» src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:286:13
+    284|       renderAdminPage();
+    285| 
+    286|       await waitFor(() => {
+       |             ^
+    287|         const table = screen.getByRole('table');
+    288|         expect(table.textContent).toContain('John Doe');
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[12/37]ΓÄ»
+
+ FAIL  src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx > AdminPage - Comprehensive Integration Tests > Enrollment Management Tab > should display payment status badges
+TestingLibraryElementError: Unable to find role="table"
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      class="fullScreen"
+    >
+      <div
+        class="spinnerContainer"
+      >
+        <div
+          class="spinner medium primary"
+        />
+        <p
+          class="text"
+        >
+          Loading admin dashboard...
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ Γ¥» src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:303:13
+    301|       renderAdminPage();
+    302| 
+    303|       await waitFor(() => {
+       |             ^
+    304|         const table = screen.getByRole('table');
+    305|         expect(table.textContent).toContain('John Doe');
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[13/37]ΓÄ»
+
+ FAIL  src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx > AdminPage - Comprehensive Integration Tests > Scheduling Management Tab > should switch to scheduling tab
+TestingLibraryElementError: Unable to find an element with the text: Enrollment Management. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      class="fullScreen"
+    >
+      <div
+        class="spinnerContainer"
+      >
+        <div
+          class="spinner medium primary"
+        />
+        <p
+          class="text"
+        >
+          Loading admin dashboard...
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ Γ¥» src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:315:13
+    313|       renderAdminPage();
+    314| 
+    315|       await waitFor(() => {
+       |             ^
+    316|         expect(screen.getByText('Enrollment Management')).toBeInTheDocΓÇª
+    317|       });
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[14/37]ΓÄ»
+
+ FAIL  src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx > AdminPage - Comprehensive Integration Tests > Scheduling Management Tab > should load and display time slots
+TestingLibraryElementError: Unable to find an element with the text: Enrollment Management. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      class="fullScreen"
+    >
+      <div
+        class="spinnerContainer"
+      >
+        <div
+          class="spinner medium primary"
+        />
+        <p
+          class="text"
+        >
+          Loading admin dashboard...
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ Γ¥» src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:330:13
+    328|       renderAdminPage();
+    329| 
+    330|       await waitFor(() => {
+       |             ^
+    331|         expect(screen.getByText('Enrollment Management')).toBeInTheDocΓÇª
+    332|       });
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[15/37]ΓÄ»
+
+ FAIL  src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx > AdminPage - Comprehensive Integration Tests > Scheduling Management Tab > should handle scheduling API errors
+TestingLibraryElementError: Unable to find an element with the text: Enrollment Management. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      class="fullScreen"
+    >
+      <div
+        class="spinnerContainer"
+      >
+        <div
+          class="spinner medium primary"
+        />
+        <p
+          class="text"
+        >
+          Loading admin dashboard...
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ Γ¥» src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:349:13
+    347|       renderAdminPage();
+    348| 
+    349|       await waitFor(() => {
+       |             ^
+    350|         expect(screen.getByText('Enrollment Management')).toBeInTheDocΓÇª
+    351|       });
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[16/37]ΓÄ»
+
+ FAIL  src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx > AdminPage - Comprehensive Integration Tests > Scheduling Management Tab > should load students for scheduling
+TestingLibraryElementError: Unable to find an element with the text: Enrollment Management. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      class="fullScreen"
+    >
+      <div
+        class="spinnerContainer"
+      >
+        <div
+          class="spinner medium primary"
+        />
+        <p
+          class="text"
+        >
+          Loading admin dashboard...
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ Γ¥» src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:364:13
+    362|       renderAdminPage();
+    363| 
+    364|       await waitFor(() => {
+       |             ^
+    365|         expect(screen.getByText('Enrollment Management')).toBeInTheDocΓÇª
+    366|       });
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[17/37]ΓÄ»
+
+ FAIL  src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx > AdminPage - Comprehensive Integration Tests > Tab Navigation > should switch between tabs without errors
+TestingLibraryElementError: Unable to find an element with the text: Enrollment Management. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      class="fullScreen"
+    >
+      <div
+        class="spinnerContainer"
+      >
+        <div
+          class="spinner medium primary"
+        />
+        <p
+          class="text"
+        >
+          Loading admin dashboard...
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ Γ¥» src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:381:13
+    379|       renderAdminPage();
+    380| 
+    381|       await waitFor(() => {
+       |             ^
+    382|         expect(screen.getByText('Enrollment Management')).toBeInTheDocΓÇª
+    383|       });
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[18/37]ΓÄ»
+
+ FAIL  src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx > AdminPage - Comprehensive Integration Tests > Tab Navigation > should maintain active tab state
+TestingLibraryElementError: Unable to find an element with the text: Enrollment Management. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      class="fullScreen"
+    >
+      <div
+        class="spinnerContainer"
+      >
+        <div
+          class="spinner medium primary"
+        />
+        <p
+          class="text"
+        >
+          Loading admin dashboard...
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ Γ¥» src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:414:13
+    412|       renderAdminPage();
+    413| 
+    414|       await waitFor(() => {
+       |             ^
+    415|         expect(screen.getByText('Enrollment Management')).toBeInTheDocΓÇª
+    416|       });
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[19/37]ΓÄ»
+
+ FAIL  src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx > AdminPage - Comprehensive Integration Tests > Tab Navigation > should only load tab data once per tab switch
+AssertionError: expected "spy" to be called at least once
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:430:63
+    428| 
+    429|       await waitFor(() => {
+    430|         expect(enrollmentServices.getAllUsersWithEnrollments).toHaveBeΓÇª
+       |                                                               ^
+    431|       });
+    432| 
+ Γ¥» runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
+ Γ¥» checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ Γ¥» Timeout.checkRealTimersCallback node_modules/@testing-library/dom/dist/wait-for.js:118:16
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[20/37]ΓÄ»
+
+ FAIL  src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx > AdminPage - Comprehensive Integration Tests > Analytics Tab > should render analytics tab
+TestingLibraryElementError: Unable to find an element with the text: Enrollment Management. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      class="fullScreen"
+    >
+      <div
+        class="spinnerContainer"
+      >
+        <div
+          class="spinner medium primary"
+        />
+        <p
+          class="text"
+        >
+          Loading admin dashboard...
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ Γ¥» src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:457:13
+    455|       renderAdminPage();
+    456| 
+    457|       await waitFor(() => {
+       |             ^
+    458|         expect(screen.getByText('Enrollment Management')).toBeInTheDocΓÇª
+    459|       });
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[21/37]ΓÄ»
+
+ FAIL  src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx > AdminPage - Comprehensive Integration Tests > Analytics Tab > should switch to analytics tab without errors
+TestingLibraryElementError: Unable to find an element with the text: Enrollment Management. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      class="fullScreen"
+    >
+      <div
+        class="spinnerContainer"
+      >
+        <div
+          class="spinner medium primary"
+        />
+        <p
+          class="text"
+        >
+          Loading admin dashboard...
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ Γ¥» src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:472:13
+    470|       renderAdminPage();
+    471| 
+    472|       await waitFor(() => {
+       |             ^
+    473|         expect(screen.getByText('Enrollment Management')).toBeInTheDocΓÇª
+    474|       });
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[22/37]ΓÄ»
+
+ FAIL  src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx > AdminPage - Comprehensive Integration Tests > Compliance Reporting Tab > should render compliance reporting tab
+TestingLibraryElementError: Unable to find an element with the text: Enrollment Management. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      class="fullScreen"
+    >
+      <div
+        class="spinnerContainer"
+      >
+        <div
+          class="spinner medium primary"
+        />
+        <p
+          class="text"
+        >
+          Loading admin dashboard...
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ Γ¥» src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:489:13
+    487|       renderAdminPage();
+    488| 
+    489|       await waitFor(() => {
+       |             ^
+    490|         expect(screen.getByText('Enrollment Management')).toBeInTheDocΓÇª
+    491|       });
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[23/37]ΓÄ»
+
+ FAIL  src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx > AdminPage - Comprehensive Integration Tests > Compliance Reporting Tab > should switch to compliance tab without errors
+TestingLibraryElementError: Unable to find an element with the text: Enrollment Management. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      class="fullScreen"
+    >
+      <div
+        class="spinnerContainer"
+      >
+        <div
+          class="spinner medium primary"
+        />
+        <p
+          class="text"
+        >
+          Loading admin dashboard...
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ Γ¥» src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:504:13
+    502|       renderAdminPage();
+    503| 
+    504|       await waitFor(() => {
+       |             ^
+    505|         expect(screen.getByText('Enrollment Management')).toBeInTheDocΓÇª
+    506|       });
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[24/37]ΓÄ»
+
+ FAIL  src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx > AdminPage - Comprehensive Integration Tests > Error Handling > should handle enrollment data load error
+AssertionError: expected "spy" to be called at least once
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:526:63
+    524| 
+    525|       await waitFor(() => {
+    526|         expect(enrollmentServices.getAllUsersWithEnrollments).toHaveBeΓÇª
+       |                                                               ^
+    527|       });
+    528|     });
+ Γ¥» runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
+ Γ¥» checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ Γ¥» Timeout.checkRealTimersCallback node_modules/@testing-library/dom/dist/wait-for.js:118:16
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[25/37]ΓÄ»
+
+ FAIL  src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx > AdminPage - Comprehensive Integration Tests > Error Handling > should show error message when API fails
+AssertionError: expected "spy" to be called at least once
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:538:63
+    536| 
+    537|       await waitFor(() => {
+    538|         expect(enrollmentServices.getAllUsersWithEnrollments).toHaveBeΓÇª
+       |                                                               ^
+    539|       });
+    540|     });
+ Γ¥» runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
+ Γ¥» checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ Γ¥» Timeout.checkRealTimersCallback node_modules/@testing-library/dom/dist/wait-for.js:118:16
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[26/37]ΓÄ»
+
+ FAIL  src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx > AdminPage - Comprehensive Integration Tests > Error Handling > should recover from error state
+AssertionError: expected "spy" to be called at least once
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:555:63
+    553| 
+    554|       await waitFor(() => {
+    555|         expect(enrollmentServices.getAllUsersWithEnrollments).toHaveBeΓÇª
+       |                                                               ^
+    556|       });
+    557| 
+ Γ¥» runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
+ Γ¥» checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ Γ¥» Timeout.checkRealTimersCallback node_modules/@testing-library/dom/dist/wait-for.js:118:16
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[27/37]ΓÄ»
+
+ FAIL  src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx > AdminPage - Comprehensive Integration Tests > Loading States > should show loading indicator while fetching data
+AssertionError: expected "spy" to be called at least once
+ Γ¥» src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:570:61
+    568|       renderAdminPage();
+    569| 
+    570|       expect(enrollmentServices.getAllUsersWithEnrollments).toHaveBeenΓÇª
+       |                                                             ^
+    571| 
+    572|       await waitFor(() => {
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[28/37]ΓÄ»
+
+ FAIL  src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx > AdminPage - Comprehensive Integration Tests > Loading States > should show loading state on reset operations
+TestingLibraryElementError: Unable to find role="table"
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      class="fullScreen"
+    >
+      <div
+        class="spinnerContainer"
+      >
+        <div
+          class="spinner medium primary"
+        />
+        <p
+          class="text"
+        >
+          Loading admin dashboard...
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ Γ¥» src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:585:13
+    583|       renderAdminPage();
+    584| 
+    585|       await waitFor(() => {
+       |             ^
+    586|         const table = screen.getByRole('table');
+    587|         expect(table.textContent).toContain('John Doe');
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[29/37]ΓÄ»
+
+ FAIL  src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx > AdminPage - Comprehensive Integration Tests > Data Integrity > should preserve user data after operations
+TestingLibraryElementError: Unable to find role="table"
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      class="fullScreen"
+    >
+      <div
+        class="spinnerContainer"
+      >
+        <div
+          class="spinner medium primary"
+        />
+        <p
+          class="text"
+        >
+          Loading admin dashboard...
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ Γ¥» src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:604:13
+    602|       renderAdminPage();
+    603| 
+    604|       await waitFor(() => {
+       |             ^
+    605|         const table = screen.getByRole('table');
+    606|         expect(table.textContent).toContain('John Doe');
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[30/37]ΓÄ»
+
+ FAIL  src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx > AdminPage - Comprehensive Integration Tests > Data Integrity > should show correct enrollment counts in statistics
+TestingLibraryElementError: Unable to find role="table"
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      class="fullScreen"
+    >
+      <div
+        class="spinnerContainer"
+      >
+        <div
+          class="spinner medium primary"
+        />
+        <p
+          class="text"
+        >
+          Loading admin dashboard...
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ Γ¥» src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:615:13
+    613|       renderAdminPage();
+    614| 
+    615|       await waitFor(() => {
+       |             ^
+    616|         const table = screen.getByRole('table');
+    617|         expect(table).toBeInTheDocument();
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[31/37]ΓÄ»
+
+ FAIL  src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx > AdminPage - Comprehensive Integration Tests > User Interactions > should handle rapid tab switches
+TestingLibraryElementError: Unable to find an element with the text: Enrollment Management. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      class="fullScreen"
+    >
+      <div
+        class="spinnerContainer"
+      >
+        <div
+          class="spinner medium primary"
+        />
+        <p
+          class="text"
+        >
+          Loading admin dashboard...
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ Γ¥» src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:628:13
+    626|       renderAdminPage();
+    627| 
+    628|       await waitFor(() => {
+       |             ^
+    629|         expect(screen.getByText('Enrollment Management')).toBeInTheDocΓÇª
+    630|       });
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[32/37]ΓÄ»
+
+ FAIL  src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx > AdminPage - Comprehensive Integration Tests > User Interactions > should handle clearing search filter
+TestingLibraryElementError: Unable to find role="table"
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      class="fullScreen"
+    >
+      <div
+        class="spinnerContainer"
+      >
+        <div
+          class="spinner medium primary"
+        />
+        <p
+          class="text"
+        >
+          Loading admin dashboard...
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ Γ¥» src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:647:13
+    645|       renderAdminPage();
+    646| 
+    647|       await waitFor(() => {
+       |             ^
+    648|         const table = screen.getByRole('table');
+    649|         expect(table.textContent).toContain('John Doe');
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[33/37]ΓÄ»
+
+ FAIL  src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx > AdminPage - Comprehensive Integration Tests > Concurrent Operations > should handle multiple reset operations
+TestingLibraryElementError: Unable to find role="table"
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      class="fullScreen"
+    >
+      <div
+        class="spinnerContainer"
+      >
+        <div
+          class="spinner medium primary"
+        />
+        <p
+          class="text"
+        >
+          Loading admin dashboard...
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ Γ¥» src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:674:13
+    672|       renderAdminPage();
+    673| 
+    674|       await waitFor(() => {
+       |             ^
+    675|         const table = screen.getByRole('table');
+    676|         expect(table.textContent).toContain('John Doe');
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[34/37]ΓÄ»
+
+ FAIL  src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx > AdminPage - Comprehensive Integration Tests > Concurrent Operations > should not allow duplicate submissions during reset
+TestingLibraryElementError: Unable to find role="table"
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      class="fullScreen"
+    >
+      <div
+        class="spinnerContainer"
+      >
+        <div
+          class="spinner medium primary"
+        />
+        <p
+          class="text"
+        >
+          Loading admin dashboard...
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ Γ¥» src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:699:13
+    697|       renderAdminPage();
+    698| 
+    699|       await waitFor(() => {
+       |             ^
+    700|         const table = screen.getByRole('table');
+    701|         expect(table.textContent).toContain('John Doe');
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[35/37]ΓÄ»
+
+ FAIL  src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx > AdminPage - Comprehensive Integration Tests > Success Messages > should show success message after successful reset
+TestingLibraryElementError: Unable to find an element with the text: Enrollment Management. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      class="fullScreen"
+    >
+      <div
+        class="spinnerContainer"
+      >
+        <div
+          class="spinner medium primary"
+        />
+        <p
+          class="text"
+        >
+          Loading admin dashboard...
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ Γ¥» src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:721:13
+    719|       renderAdminPage();
+    720| 
+    721|       await waitFor(() => {
+       |             ^
+    722|         const enrollmentTab = screen.getByText('Enrollment Management'ΓÇª
+    723|         expect(enrollmentTab).toBeInTheDocument();
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[36/37]ΓÄ»
+
+[31mΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[1m[7m Unhandled Errors [27m[22mΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[39m
+[31m[1m
+Vitest caught 32 unhandled errors during the test run.
+This might cause false positive tests. Resolve unhandled errors to make sure your tests are not affected.[22m[39m
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ» Unhandled Rejection ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»
+AssertionError: expected "spy" to be called at least once
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:1276:13
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:800:17
+ Γ¥» Proxy.methodWrapper node_modules/chai/lib/chai/utils/addMethod.js:57:25
+ Γ¥» __vi_import_2__.waitFor.timeout src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:131:61
+    129|     
+    130|     await waitFor(() => {
+    131|       expect(enrollmentServices.getAllUsersWithEnrollments).toHaveBeenΓÇª
+       |                                                             ^
+    132|     }, { timeout: 3000 });
+    133|     
+ Γ¥» runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
+ Γ¥» checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ Γ¥» Timeout.checkRealTimersCallback node_modules/@testing-library/dom/dist/wait-for.js:118:16
+ Γ¥» listOnTimeout node:internal/timers:588:17
+ Γ¥» processTimers node:internal/timers:523:7
+
+This error originated in "src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The latest test that might've caused the error is "should display user enrollment details when expanded". It might mean one of the following:
+- The error was thrown, while Vitest was running this test.
+- If the error occurred after the test had been completed, this was the last documented test before it was thrown.
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ» Unhandled Rejection ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»
+AssertionError: expected "spy" to be called at least once
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:1276:13
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:800:17
+ Γ¥» Proxy.methodWrapper node_modules/chai/lib/chai/utils/addMethod.js:57:25
+ Γ¥» __vi_import_2__.waitFor.timeout src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:131:61
+    129|     
+    130|     await waitFor(() => {
+    131|       expect(enrollmentServices.getAllUsersWithEnrollments).toHaveBeenΓÇª
+       |                                                             ^
+    132|     }, { timeout: 3000 });
+    133|     
+ Γ¥» runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
+ Γ¥» checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ Γ¥» Timeout.checkRealTimersCallback node_modules/@testing-library/dom/dist/wait-for.js:118:16
+ Γ¥» listOnTimeout node:internal/timers:588:17
+ Γ¥» processTimers node:internal/timers:523:7
+
+This error originated in "src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The latest test that might've caused the error is "should display statistics cards". It might mean one of the following:
+- The error was thrown, while Vitest was running this test.
+- If the error occurred after the test had been completed, this was the last documented test before it was thrown.
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ» Unhandled Rejection ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»
+AssertionError: expected "spy" to be called at least once
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:1276:13
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:800:17
+ Γ¥» Proxy.methodWrapper node_modules/chai/lib/chai/utils/addMethod.js:57:25
+ Γ¥» __vi_import_2__.waitFor.timeout src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:131:61
+    129|     
+    130|     await waitFor(() => {
+    131|       expect(enrollmentServices.getAllUsersWithEnrollments).toHaveBeenΓÇª
+       |                                                             ^
+    132|     }, { timeout: 3000 });
+    133|     
+ Γ¥» runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
+ Γ¥» checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ Γ¥» Timeout.checkRealTimersCallback node_modules/@testing-library/dom/dist/wait-for.js:118:16
+ Γ¥» listOnTimeout node:internal/timers:588:17
+ Γ¥» processTimers node:internal/timers:523:7
+
+This error originated in "src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The latest test that might've caused the error is "should calculate statistics correctly". It might mean one of the following:
+- The error was thrown, while Vitest was running this test.
+- If the error occurred after the test had been completed, this was the last documented test before it was thrown.
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ» Unhandled Rejection ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»
+AssertionError: expected "spy" to be called at least once
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:1276:13
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:800:17
+ Γ¥» Proxy.methodWrapper node_modules/chai/lib/chai/utils/addMethod.js:57:25
+ Γ¥» __vi_import_2__.waitFor.timeout src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:131:61
+    129|     
+    130|     await waitFor(() => {
+    131|       expect(enrollmentServices.getAllUsersWithEnrollments).toHaveBeenΓÇª
+       |                                                             ^
+    132|     }, { timeout: 3000 });
+    133|     
+ Γ¥» runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
+ Γ¥» checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ Γ¥» Timeout.checkRealTimersCallback node_modules/@testing-library/dom/dist/wait-for.js:118:16
+ Γ¥» listOnTimeout node:internal/timers:588:17
+ Γ¥» processTimers node:internal/timers:523:7
+
+This error originated in "src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The latest test that might've caused the error is "should search users by name". It might mean one of the following:
+- The error was thrown, while Vitest was running this test.
+- If the error occurred after the test had been completed, this was the last documented test before it was thrown.
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ» Unhandled Rejection ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»
+AssertionError: expected "spy" to be called at least once
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:1276:13
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:800:17
+ Γ¥» Proxy.methodWrapper node_modules/chai/lib/chai/utils/addMethod.js:57:25
+ Γ¥» __vi_import_2__.waitFor.timeout src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:131:61
+    129|     
+    130|     await waitFor(() => {
+    131|       expect(enrollmentServices.getAllUsersWithEnrollments).toHaveBeenΓÇª
+       |                                                             ^
+    132|     }, { timeout: 3000 });
+    133|     
+ Γ¥» runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
+ Γ¥» checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ Γ¥» Timeout.checkRealTimersCallback node_modules/@testing-library/dom/dist/wait-for.js:118:16
+ Γ¥» listOnTimeout node:internal/timers:588:17
+ Γ¥» processTimers node:internal/timers:523:7
+
+This error originated in "src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The latest test that might've caused the error is "should search users by email". It might mean one of the following:
+- The error was thrown, while Vitest was running this test.
+- If the error occurred after the test had been completed, this was the last documented test before it was thrown.
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ» Unhandled Rejection ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»
+AssertionError: expected "spy" to be called at least once
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:1276:13
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:800:17
+ Γ¥» Proxy.methodWrapper node_modules/chai/lib/chai/utils/addMethod.js:57:25
+ Γ¥» __vi_import_2__.waitFor.timeout src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:131:61
+    129|     
+    130|     await waitFor(() => {
+    131|       expect(enrollmentServices.getAllUsersWithEnrollments).toHaveBeenΓÇª
+       |                                                             ^
+    132|     }, { timeout: 3000 });
+    133|     
+ Γ¥» runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
+ Γ¥» checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ Γ¥» Timeout.checkRealTimersCallback node_modules/@testing-library/dom/dist/wait-for.js:118:16
+ Γ¥» listOnTimeout node:internal/timers:588:17
+ Γ¥» processTimers node:internal/timers:523:7
+
+This error originated in "src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The latest test that might've caused the error is "should reset single enrollment". It might mean one of the following:
+- The error was thrown, while Vitest was running this test.
+- If the error occurred after the test had been completed, this was the last documented test before it was thrown.
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ» Unhandled Rejection ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»
+AssertionError: expected "spy" to be called at least once
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:1276:13
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:800:17
+ Γ¥» Proxy.methodWrapper node_modules/chai/lib/chai/utils/addMethod.js:57:25
+ Γ¥» __vi_import_2__.waitFor.timeout src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:131:61
+    129|     
+    130|     await waitFor(() => {
+    131|       expect(enrollmentServices.getAllUsersWithEnrollments).toHaveBeenΓÇª
+       |                                                             ^
+    132|     }, { timeout: 3000 });
+    133|     
+ Γ¥» runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
+ Γ¥» checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ Γ¥» Timeout.checkRealTimersCallback node_modules/@testing-library/dom/dist/wait-for.js:118:16
+ Γ¥» listOnTimeout node:internal/timers:588:17
+ Γ¥» processTimers node:internal/timers:523:7
+
+This error originated in "src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The latest test that might've caused the error is "should reset all user enrollments". It might mean one of the following:
+- The error was thrown, while Vitest was running this test.
+- If the error occurred after the test had been completed, this was the last documented test before it was thrown.
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ» Unhandled Rejection ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»
+AssertionError: expected "spy" to be called at least once
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:1276:13
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:800:17
+ Γ¥» Proxy.methodWrapper node_modules/chai/lib/chai/utils/addMethod.js:57:25
+ Γ¥» __vi_import_2__.waitFor.timeout src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:131:61
+    129|     
+    130|     await waitFor(() => {
+    131|       expect(enrollmentServices.getAllUsersWithEnrollments).toHaveBeenΓÇª
+       |                                                             ^
+    132|     }, { timeout: 3000 });
+    133|     
+ Γ¥» runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
+ Γ¥» checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ Γ¥» Timeout.checkRealTimersCallback node_modules/@testing-library/dom/dist/wait-for.js:118:16
+ Γ¥» listOnTimeout node:internal/timers:588:17
+ Γ¥» processTimers node:internal/timers:523:7
+
+This error originated in "src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The latest test that might've caused the error is "should handle reset enrollment error". It might mean one of the following:
+- The error was thrown, while Vitest was running this test.
+- If the error occurred after the test had been completed, this was the last documented test before it was thrown.
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ» Unhandled Rejection ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»
+AssertionError: expected "spy" to be called at least once
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:1276:13
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:800:17
+ Γ¥» Proxy.methodWrapper node_modules/chai/lib/chai/utils/addMethod.js:57:25
+ Γ¥» __vi_import_2__.waitFor.timeout src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:131:61
+    129|     
+    130|     await waitFor(() => {
+    131|       expect(enrollmentServices.getAllUsersWithEnrollments).toHaveBeenΓÇª
+       |                                                             ^
+    132|     }, { timeout: 3000 });
+    133|     
+ Γ¥» runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
+ Γ¥» checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ Γ¥» Timeout.checkRealTimersCallback node_modules/@testing-library/dom/dist/wait-for.js:118:16
+ Γ¥» listOnTimeout node:internal/timers:588:17
+ Γ¥» processTimers node:internal/timers:523:7
+
+This error originated in "src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The latest test that might've caused the error is "should display payment status badges". It might mean one of the following:
+- The error was thrown, while Vitest was running this test.
+- If the error occurred after the test had been completed, this was the last documented test before it was thrown.
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ» Unhandled Rejection ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»
+AssertionError: expected "spy" to be called at least once
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:1276:13
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:800:17
+ Γ¥» Proxy.methodWrapper node_modules/chai/lib/chai/utils/addMethod.js:57:25
+ Γ¥» __vi_import_2__.waitFor.timeout src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:131:61
+    129|     
+    130|     await waitFor(() => {
+    131|       expect(enrollmentServices.getAllUsersWithEnrollments).toHaveBeenΓÇª
+       |                                                             ^
+    132|     }, { timeout: 3000 });
+    133|     
+ Γ¥» runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
+ Γ¥» checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ Γ¥» Timeout.checkRealTimersCallback node_modules/@testing-library/dom/dist/wait-for.js:118:16
+ Γ¥» listOnTimeout node:internal/timers:588:17
+ Γ¥» processTimers node:internal/timers:523:7
+
+This error originated in "src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The latest test that might've caused the error is "should switch to scheduling tab". It might mean one of the following:
+- The error was thrown, while Vitest was running this test.
+- If the error occurred after the test had been completed, this was the last documented test before it was thrown.
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ» Unhandled Rejection ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»
+AssertionError: expected "spy" to be called at least once
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:1276:13
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:800:17
+ Γ¥» Proxy.methodWrapper node_modules/chai/lib/chai/utils/addMethod.js:57:25
+ Γ¥» __vi_import_2__.waitFor.timeout src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:131:61
+    129|     
+    130|     await waitFor(() => {
+    131|       expect(enrollmentServices.getAllUsersWithEnrollments).toHaveBeenΓÇª
+       |                                                             ^
+    132|     }, { timeout: 3000 });
+    133|     
+ Γ¥» runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
+ Γ¥» checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ Γ¥» Timeout.checkRealTimersCallback node_modules/@testing-library/dom/dist/wait-for.js:118:16
+ Γ¥» listOnTimeout node:internal/timers:588:17
+ Γ¥» processTimers node:internal/timers:523:7
+
+This error originated in "src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The latest test that might've caused the error is "should load and display time slots". It might mean one of the following:
+- The error was thrown, while Vitest was running this test.
+- If the error occurred after the test had been completed, this was the last documented test before it was thrown.
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ» Unhandled Rejection ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»
+AssertionError: expected "spy" to be called at least once
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:1276:13
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:800:17
+ Γ¥» Proxy.methodWrapper node_modules/chai/lib/chai/utils/addMethod.js:57:25
+ Γ¥» __vi_import_2__.waitFor.timeout src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:131:61
+    129|     
+    130|     await waitFor(() => {
+    131|       expect(enrollmentServices.getAllUsersWithEnrollments).toHaveBeenΓÇª
+       |                                                             ^
+    132|     }, { timeout: 3000 });
+    133|     
+ Γ¥» runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
+ Γ¥» checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ Γ¥» Timeout.checkRealTimersCallback node_modules/@testing-library/dom/dist/wait-for.js:118:16
+ Γ¥» listOnTimeout node:internal/timers:588:17
+ Γ¥» processTimers node:internal/timers:523:7
+
+This error originated in "src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The latest test that might've caused the error is "should handle scheduling API errors". It might mean one of the following:
+- The error was thrown, while Vitest was running this test.
+- If the error occurred after the test had been completed, this was the last documented test before it was thrown.
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ» Unhandled Rejection ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»
+AssertionError: expected "spy" to be called at least once
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:1276:13
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:800:17
+ Γ¥» Proxy.methodWrapper node_modules/chai/lib/chai/utils/addMethod.js:57:25
+ Γ¥» __vi_import_2__.waitFor.timeout src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:131:61
+    129|     
+    130|     await waitFor(() => {
+    131|       expect(enrollmentServices.getAllUsersWithEnrollments).toHaveBeenΓÇª
+       |                                                             ^
+    132|     }, { timeout: 3000 });
+    133|     
+ Γ¥» runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
+ Γ¥» checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ Γ¥» Timeout.checkRealTimersCallback node_modules/@testing-library/dom/dist/wait-for.js:118:16
+ Γ¥» listOnTimeout node:internal/timers:588:17
+ Γ¥» processTimers node:internal/timers:523:7
+
+This error originated in "src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The latest test that might've caused the error is "should load students for scheduling". It might mean one of the following:
+- The error was thrown, while Vitest was running this test.
+- If the error occurred after the test had been completed, this was the last documented test before it was thrown.
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ» Unhandled Rejection ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»
+AssertionError: expected "spy" to be called at least once
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:1276:13
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:800:17
+ Γ¥» Proxy.methodWrapper node_modules/chai/lib/chai/utils/addMethod.js:57:25
+ Γ¥» __vi_import_2__.waitFor.timeout src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:131:61
+    129|     
+    130|     await waitFor(() => {
+    131|       expect(enrollmentServices.getAllUsersWithEnrollments).toHaveBeenΓÇª
+       |                                                             ^
+    132|     }, { timeout: 3000 });
+    133|     
+ Γ¥» runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
+ Γ¥» checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ Γ¥» Timeout.checkRealTimersCallback node_modules/@testing-library/dom/dist/wait-for.js:118:16
+ Γ¥» listOnTimeout node:internal/timers:588:17
+ Γ¥» processTimers node:internal/timers:523:7
+
+This error originated in "src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The latest test that might've caused the error is "should switch between tabs without errors". It might mean one of the following:
+- The error was thrown, while Vitest was running this test.
+- If the error occurred after the test had been completed, this was the last documented test before it was thrown.
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ» Unhandled Rejection ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»
+AssertionError: expected "spy" to be called at least once
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:1276:13
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:800:17
+ Γ¥» Proxy.methodWrapper node_modules/chai/lib/chai/utils/addMethod.js:57:25
+ Γ¥» __vi_import_2__.waitFor.timeout src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:131:61
+    129|     
+    130|     await waitFor(() => {
+    131|       expect(enrollmentServices.getAllUsersWithEnrollments).toHaveBeenΓÇª
+       |                                                             ^
+    132|     }, { timeout: 3000 });
+    133|     
+ Γ¥» runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
+ Γ¥» checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ Γ¥» Timeout.checkRealTimersCallback node_modules/@testing-library/dom/dist/wait-for.js:118:16
+ Γ¥» listOnTimeout node:internal/timers:588:17
+ Γ¥» processTimers node:internal/timers:523:7
+
+This error originated in "src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The latest test that might've caused the error is "should maintain active tab state". It might mean one of the following:
+- The error was thrown, while Vitest was running this test.
+- If the error occurred after the test had been completed, this was the last documented test before it was thrown.
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ» Unhandled Rejection ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»
+AssertionError: expected "spy" to be called at least once
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:1276:13
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:800:17
+ Γ¥» Proxy.methodWrapper node_modules/chai/lib/chai/utils/addMethod.js:57:25
+ Γ¥» __vi_import_2__.waitFor.timeout src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:131:61
+    129|     
+    130|     await waitFor(() => {
+    131|       expect(enrollmentServices.getAllUsersWithEnrollments).toHaveBeenΓÇª
+       |                                                             ^
+    132|     }, { timeout: 3000 });
+    133|     
+ Γ¥» runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
+ Γ¥» checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ Γ¥» Timeout.checkRealTimersCallback node_modules/@testing-library/dom/dist/wait-for.js:118:16
+ Γ¥» listOnTimeout node:internal/timers:588:17
+ Γ¥» processTimers node:internal/timers:523:7
+
+This error originated in "src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The latest test that might've caused the error is "should only load tab data once per tab switch". It might mean one of the following:
+- The error was thrown, while Vitest was running this test.
+- If the error occurred after the test had been completed, this was the last documented test before it was thrown.
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ» Unhandled Rejection ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»
+AssertionError: expected "spy" to be called at least once
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:1276:13
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:800:17
+ Γ¥» Proxy.methodWrapper node_modules/chai/lib/chai/utils/addMethod.js:57:25
+ Γ¥» __vi_import_2__.waitFor.timeout src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:131:61
+    129|     
+    130|     await waitFor(() => {
+    131|       expect(enrollmentServices.getAllUsersWithEnrollments).toHaveBeenΓÇª
+       |                                                             ^
+    132|     }, { timeout: 3000 });
+    133|     
+ Γ¥» runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
+ Γ¥» checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ Γ¥» Timeout.checkRealTimersCallback node_modules/@testing-library/dom/dist/wait-for.js:118:16
+ Γ¥» listOnTimeout node:internal/timers:588:17
+ Γ¥» processTimers node:internal/timers:523:7
+
+This error originated in "src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The latest test that might've caused the error is "should render analytics tab". It might mean one of the following:
+- The error was thrown, while Vitest was running this test.
+- If the error occurred after the test had been completed, this was the last documented test before it was thrown.
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ» Unhandled Rejection ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»
+AssertionError: expected "spy" to be called at least once
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:1276:13
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:800:17
+ Γ¥» Proxy.methodWrapper node_modules/chai/lib/chai/utils/addMethod.js:57:25
+ Γ¥» __vi_import_2__.waitFor.timeout src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:131:61
+    129|     
+    130|     await waitFor(() => {
+    131|       expect(enrollmentServices.getAllUsersWithEnrollments).toHaveBeenΓÇª
+       |                                                             ^
+    132|     }, { timeout: 3000 });
+    133|     
+ Γ¥» runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
+ Γ¥» checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ Γ¥» Timeout.checkRealTimersCallback node_modules/@testing-library/dom/dist/wait-for.js:118:16
+ Γ¥» listOnTimeout node:internal/timers:588:17
+ Γ¥» processTimers node:internal/timers:523:7
+
+This error originated in "src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The latest test that might've caused the error is "should switch to analytics tab without errors". It might mean one of the following:
+- The error was thrown, while Vitest was running this test.
+- If the error occurred after the test had been completed, this was the last documented test before it was thrown.
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ» Unhandled Rejection ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»
+AssertionError: expected "spy" to be called at least once
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:1276:13
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:800:17
+ Γ¥» Proxy.methodWrapper node_modules/chai/lib/chai/utils/addMethod.js:57:25
+ Γ¥» __vi_import_2__.waitFor.timeout src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:131:61
+    129|     
+    130|     await waitFor(() => {
+    131|       expect(enrollmentServices.getAllUsersWithEnrollments).toHaveBeenΓÇª
+       |                                                             ^
+    132|     }, { timeout: 3000 });
+    133|     
+ Γ¥» runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
+ Γ¥» checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ Γ¥» Timeout.checkRealTimersCallback node_modules/@testing-library/dom/dist/wait-for.js:118:16
+ Γ¥» listOnTimeout node:internal/timers:588:17
+ Γ¥» processTimers node:internal/timers:523:7
+
+This error originated in "src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The latest test that might've caused the error is "should render compliance reporting tab". It might mean one of the following:
+- The error was thrown, while Vitest was running this test.
+- If the error occurred after the test had been completed, this was the last documented test before it was thrown.
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ» Unhandled Rejection ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»
+AssertionError: expected "spy" to be called at least once
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:1276:13
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:800:17
+ Γ¥» Proxy.methodWrapper node_modules/chai/lib/chai/utils/addMethod.js:57:25
+ Γ¥» __vi_import_2__.waitFor.timeout src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:131:61
+    129|     
+    130|     await waitFor(() => {
+    131|       expect(enrollmentServices.getAllUsersWithEnrollments).toHaveBeenΓÇª
+       |                                                             ^
+    132|     }, { timeout: 3000 });
+    133|     
+ Γ¥» runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
+ Γ¥» checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ Γ¥» Timeout.checkRealTimersCallback node_modules/@testing-library/dom/dist/wait-for.js:118:16
+ Γ¥» listOnTimeout node:internal/timers:588:17
+ Γ¥» processTimers node:internal/timers:523:7
+
+This error originated in "src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The latest test that might've caused the error is "should switch to compliance tab without errors". It might mean one of the following:
+- The error was thrown, while Vitest was running this test.
+- If the error occurred after the test had been completed, this was the last documented test before it was thrown.
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ» Unhandled Rejection ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»
+AssertionError: expected "spy" to be called at least once
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:1276:13
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:800:17
+ Γ¥» Proxy.methodWrapper node_modules/chai/lib/chai/utils/addMethod.js:57:25
+ Γ¥» __vi_import_2__.waitFor.timeout src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:131:61
+    129|     
+    130|     await waitFor(() => {
+    131|       expect(enrollmentServices.getAllUsersWithEnrollments).toHaveBeenΓÇª
+       |                                                             ^
+    132|     }, { timeout: 3000 });
+    133|     
+ Γ¥» runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
+ Γ¥» checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ Γ¥» Timeout.checkRealTimersCallback node_modules/@testing-library/dom/dist/wait-for.js:118:16
+ Γ¥» listOnTimeout node:internal/timers:588:17
+ Γ¥» processTimers node:internal/timers:523:7
+
+This error originated in "src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The latest test that might've caused the error is "should handle enrollment data load error". It might mean one of the following:
+- The error was thrown, while Vitest was running this test.
+- If the error occurred after the test had been completed, this was the last documented test before it was thrown.
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ» Unhandled Rejection ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»
+AssertionError: expected "spy" to be called at least once
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:1276:13
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:800:17
+ Γ¥» Proxy.methodWrapper node_modules/chai/lib/chai/utils/addMethod.js:57:25
+ Γ¥» __vi_import_2__.waitFor.timeout src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:131:61
+    129|     
+    130|     await waitFor(() => {
+    131|       expect(enrollmentServices.getAllUsersWithEnrollments).toHaveBeenΓÇª
+       |                                                             ^
+    132|     }, { timeout: 3000 });
+    133|     
+ Γ¥» runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
+ Γ¥» checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ Γ¥» Timeout.checkRealTimersCallback node_modules/@testing-library/dom/dist/wait-for.js:118:16
+ Γ¥» listOnTimeout node:internal/timers:588:17
+ Γ¥» processTimers node:internal/timers:523:7
+
+This error originated in "src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The latest test that might've caused the error is "should show error message when API fails". It might mean one of the following:
+- The error was thrown, while Vitest was running this test.
+- If the error occurred after the test had been completed, this was the last documented test before it was thrown.
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ» Unhandled Rejection ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»
+AssertionError: expected "spy" to be called at least once
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:1276:13
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:800:17
+ Γ¥» Proxy.methodWrapper node_modules/chai/lib/chai/utils/addMethod.js:57:25
+ Γ¥» __vi_import_2__.waitFor.timeout src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:131:61
+    129|     
+    130|     await waitFor(() => {
+    131|       expect(enrollmentServices.getAllUsersWithEnrollments).toHaveBeenΓÇª
+       |                                                             ^
+    132|     }, { timeout: 3000 });
+    133|     
+ Γ¥» runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
+ Γ¥» checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ Γ¥» Timeout.checkRealTimersCallback node_modules/@testing-library/dom/dist/wait-for.js:118:16
+ Γ¥» listOnTimeout node:internal/timers:588:17
+ Γ¥» processTimers node:internal/timers:523:7
+
+This error originated in "src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The latest test that might've caused the error is "should recover from error state". It might mean one of the following:
+- The error was thrown, while Vitest was running this test.
+- If the error occurred after the test had been completed, this was the last documented test before it was thrown.
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ» Unhandled Rejection ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»
+AssertionError: expected "spy" to be called at least once
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:1276:13
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:800:17
+ Γ¥» Proxy.methodWrapper node_modules/chai/lib/chai/utils/addMethod.js:57:25
+ Γ¥» __vi_import_2__.waitFor.timeout src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:131:61
+    129|     
+    130|     await waitFor(() => {
+    131|       expect(enrollmentServices.getAllUsersWithEnrollments).toHaveBeenΓÇª
+       |                                                             ^
+    132|     }, { timeout: 3000 });
+    133|     
+ Γ¥» runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
+ Γ¥» checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ Γ¥» Timeout.checkRealTimersCallback node_modules/@testing-library/dom/dist/wait-for.js:118:16
+ Γ¥» listOnTimeout node:internal/timers:588:17
+ Γ¥» processTimers node:internal/timers:523:7
+
+This error originated in "src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The latest test that might've caused the error is "should show loading state on reset operations". It might mean one of the following:
+- The error was thrown, while Vitest was running this test.
+- If the error occurred after the test had been completed, this was the last documented test before it was thrown.
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ» Unhandled Rejection ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»
+AssertionError: expected "spy" to be called at least once
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:1276:13
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:800:17
+ Γ¥» Proxy.methodWrapper node_modules/chai/lib/chai/utils/addMethod.js:57:25
+ Γ¥» __vi_import_2__.waitFor.timeout src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:131:61
+    129|     
+    130|     await waitFor(() => {
+    131|       expect(enrollmentServices.getAllUsersWithEnrollments).toHaveBeenΓÇª
+       |                                                             ^
+    132|     }, { timeout: 3000 });
+    133|     
+ Γ¥» runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
+ Γ¥» checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ Γ¥» Timeout.checkRealTimersCallback node_modules/@testing-library/dom/dist/wait-for.js:118:16
+ Γ¥» listOnTimeout node:internal/timers:588:17
+ Γ¥» processTimers node:internal/timers:523:7
+
+This error originated in "src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The latest test that might've caused the error is "should preserve user data after operations". It might mean one of the following:
+- The error was thrown, while Vitest was running this test.
+- If the error occurred after the test had been completed, this was the last documented test before it was thrown.
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ» Unhandled Rejection ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»
+AssertionError: expected "spy" to be called at least once
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:1276:13
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:800:17
+ Γ¥» Proxy.methodWrapper node_modules/chai/lib/chai/utils/addMethod.js:57:25
+ Γ¥» __vi_import_2__.waitFor.timeout src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:131:61
+    129|     
+    130|     await waitFor(() => {
+    131|       expect(enrollmentServices.getAllUsersWithEnrollments).toHaveBeenΓÇª
+       |                                                             ^
+    132|     }, { timeout: 3000 });
+    133|     
+ Γ¥» runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
+ Γ¥» checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ Γ¥» Timeout.checkRealTimersCallback node_modules/@testing-library/dom/dist/wait-for.js:118:16
+ Γ¥» listOnTimeout node:internal/timers:588:17
+ Γ¥» processTimers node:internal/timers:523:7
+
+This error originated in "src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The latest test that might've caused the error is "should show correct enrollment counts in statistics". It might mean one of the following:
+- The error was thrown, while Vitest was running this test.
+- If the error occurred after the test had been completed, this was the last documented test before it was thrown.
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ» Unhandled Rejection ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»
+AssertionError: expected "spy" to be called at least once
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:1276:13
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:800:17
+ Γ¥» Proxy.methodWrapper node_modules/chai/lib/chai/utils/addMethod.js:57:25
+ Γ¥» __vi_import_2__.waitFor.timeout src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:131:61
+    129|     
+    130|     await waitFor(() => {
+    131|       expect(enrollmentServices.getAllUsersWithEnrollments).toHaveBeenΓÇª
+       |                                                             ^
+    132|     }, { timeout: 3000 });
+    133|     
+ Γ¥» runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
+ Γ¥» checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ Γ¥» Timeout.checkRealTimersCallback node_modules/@testing-library/dom/dist/wait-for.js:118:16
+ Γ¥» listOnTimeout node:internal/timers:588:17
+ Γ¥» processTimers node:internal/timers:523:7
+
+This error originated in "src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The latest test that might've caused the error is "should show correct enrollment counts in statistics". It might mean one of the following:
+- The error was thrown, while Vitest was running this test.
+- If the error occurred after the test had been completed, this was the last documented test before it was thrown.
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ» Unhandled Rejection ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»
+AssertionError: expected "spy" to be called at least once
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:1276:13
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:800:17
+ Γ¥» Proxy.methodWrapper node_modules/chai/lib/chai/utils/addMethod.js:57:25
+ Γ¥» __vi_import_2__.waitFor.timeout src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:131:61
+    129|     
+    130|     await waitFor(() => {
+    131|       expect(enrollmentServices.getAllUsersWithEnrollments).toHaveBeenΓÇª
+       |                                                             ^
+    132|     }, { timeout: 3000 });
+    133|     
+ Γ¥» runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
+ Γ¥» checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ Γ¥» Timeout.checkRealTimersCallback node_modules/@testing-library/dom/dist/wait-for.js:118:16
+ Γ¥» listOnTimeout node:internal/timers:588:17
+ Γ¥» processTimers node:internal/timers:523:7
+
+This error originated in "src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The latest test that might've caused the error is "should handle rapid tab switches". It might mean one of the following:
+- The error was thrown, while Vitest was running this test.
+- If the error occurred after the test had been completed, this was the last documented test before it was thrown.
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ» Unhandled Rejection ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»
+AssertionError: expected "spy" to be called at least once
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:1276:13
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:800:17
+ Γ¥» Proxy.methodWrapper node_modules/chai/lib/chai/utils/addMethod.js:57:25
+ Γ¥» __vi_import_2__.waitFor.timeout src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:131:61
+    129|     
+    130|     await waitFor(() => {
+    131|       expect(enrollmentServices.getAllUsersWithEnrollments).toHaveBeenΓÇª
+       |                                                             ^
+    132|     }, { timeout: 3000 });
+    133|     
+ Γ¥» runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
+ Γ¥» checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ Γ¥» Timeout.checkRealTimersCallback node_modules/@testing-library/dom/dist/wait-for.js:118:16
+ Γ¥» listOnTimeout node:internal/timers:588:17
+ Γ¥» processTimers node:internal/timers:523:7
+
+This error originated in "src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The latest test that might've caused the error is "should handle clearing search filter". It might mean one of the following:
+- The error was thrown, while Vitest was running this test.
+- If the error occurred after the test had been completed, this was the last documented test before it was thrown.
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ» Unhandled Rejection ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»
+AssertionError: expected "spy" to be called at least once
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:1276:13
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:800:17
+ Γ¥» Proxy.methodWrapper node_modules/chai/lib/chai/utils/addMethod.js:57:25
+ Γ¥» __vi_import_2__.waitFor.timeout src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:131:61
+    129|     
+    130|     await waitFor(() => {
+    131|       expect(enrollmentServices.getAllUsersWithEnrollments).toHaveBeenΓÇª
+       |                                                             ^
+    132|     }, { timeout: 3000 });
+    133|     
+ Γ¥» runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
+ Γ¥» checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ Γ¥» Timeout.checkRealTimersCallback node_modules/@testing-library/dom/dist/wait-for.js:118:16
+ Γ¥» listOnTimeout node:internal/timers:588:17
+ Γ¥» processTimers node:internal/timers:523:7
+
+This error originated in "src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The latest test that might've caused the error is "should handle multiple reset operations". It might mean one of the following:
+- The error was thrown, while Vitest was running this test.
+- If the error occurred after the test had been completed, this was the last documented test before it was thrown.
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ» Unhandled Rejection ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»
+AssertionError: expected "spy" to be called at least once
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:1276:13
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:800:17
+ Γ¥» Proxy.methodWrapper node_modules/chai/lib/chai/utils/addMethod.js:57:25
+ Γ¥» __vi_import_2__.waitFor.timeout src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:131:61
+    129|     
+    130|     await waitFor(() => {
+    131|       expect(enrollmentServices.getAllUsersWithEnrollments).toHaveBeenΓÇª
+       |                                                             ^
+    132|     }, { timeout: 3000 });
+    133|     
+ Γ¥» runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
+ Γ¥» checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ Γ¥» Timeout.checkRealTimersCallback node_modules/@testing-library/dom/dist/wait-for.js:118:16
+ Γ¥» listOnTimeout node:internal/timers:588:17
+ Γ¥» processTimers node:internal/timers:523:7
+
+This error originated in "src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The latest test that might've caused the error is "should not allow duplicate submissions during reset". It might mean one of the following:
+- The error was thrown, while Vitest was running this test.
+- If the error occurred after the test had been completed, this was the last documented test before it was thrown.
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ» Unhandled Rejection ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»
+AssertionError: expected "spy" to be called at least once
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="fullScreen"
+      >
+        <div
+          class="spinnerContainer"
+        >
+          <div
+            class="spinner medium primary"
+          />
+          <p
+            class="text"
+          >
+            Loading admin dashboard...
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:1276:13
+ Γ¥» Proxy.<anonymous> ../../Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@vitest/expect/dist/index.js:800:17
+ Γ¥» Proxy.methodWrapper node_modules/chai/lib/chai/utils/addMethod.js:57:25
+ Γ¥» __vi_import_2__.waitFor.timeout src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx:131:61
+    129|     
+    130|     await waitFor(() => {
+[31mΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[39m
+    131|       expect(enrollmentServices.getAllUsersWithEnrollments).toHaveBeenΓÇª
+       |                                                             ^
+    132|     }, { timeout: 3000 });
+    133|     
+ Γ¥» runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
+ Γ¥» checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ Γ¥» Timeout.checkRealTimersCallback node_modules/@testing-library/dom/dist/wait-for.js:118:16
+ Γ¥» listOnTimeout node:internal/timers:588:17
+ Γ¥» processTimers node:internal/timers:523:7
+
+This error originated in "src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The latest test that might've caused the error is "should show success message after successful reset". It might mean one of the following:
+- The error was thrown, while Vitest was running this test.
+- If the error occurred after the test had been completed, this was the last documented test before it was thrown.
+
+[2m Test Files [22m [1m[31m2 failed[39m[22m[2m | [22m[1m[32m1 passed[39m[22m[90m (3)[39m
+[2m      Tests [22m [1m[31m36 failed[39m[22m[2m | [22m[1m[32m1 passed[39m[22m[90m (37)[39m
+[2m     Errors [22m [1m[31m32 errors[39m[22m
+[2m   Start at [22m 14:58:38
+[2m   Duration [22m 52.58s[2m (transform 3.16s, setup 1.60s, collect 7.67s, tests 40.18s, environment 7.74s, prepare 1.55s)[22m
+

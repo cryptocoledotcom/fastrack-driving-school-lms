@@ -2,6 +2,9 @@ let cachedDb = null;
 let cachedAuth = null;
 
 function getDb() {
+  if (global.TEST_FIREBASE_UTILS && global.TEST_FIREBASE_UTILS.getDb) {
+    return global.TEST_FIREBASE_UTILS.getDb();
+  }
   if (cachedDb) {
     return cachedDb;
   }
@@ -19,6 +22,9 @@ function resetDb() {
 }
 
 function getAuth() {
+  if (global.TEST_FIREBASE_UTILS && global.TEST_FIREBASE_UTILS.getAuth) {
+    return global.TEST_FIREBASE_UTILS.getAuth();
+  }
   if (cachedAuth) {
     return cachedAuth;
   }

@@ -57,13 +57,16 @@ const AUDIT_EVENT_TYPES = {
 
 const RETENTION_DAYS = 1095;
 
-async function logAuditEvent(userId, action, resource, resourceId, status, metadata = {}, context = null) {
+async function logAuditEvent(actorId, action, targetType, targetId, status, details = {}, request = null) {
+  if (global.TEST_AUDIT_LOGGER && global.TEST_AUDIT_LOGGER.logAuditEvent) {
+    return global.TEST_AUDIT_LOGGER.logAuditEvent(actorId, action, targetType, targetId, status, details, request);
+  }
   try {
     const timestamp = new Date();
     const iso8601Timestamp = timestamp.toISOString();
-    
+
     const cleanedMetadata = Object.fromEntries(
-      Object.entries(metadata).filter(([_, value]) => value !== undefined && value !== null)
+      Object.entries(details).filter(([_, value]) => value !== undefined && value !== null)
     );
 
     const auditEntry = {

@@ -1,43 +1,320 @@
 
 > test
-> vitest run
+> vitest run src/user/__tests__/userFunctions.test.js
 
+The CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.
 
-[7m[1m[36m RUN [39m[22m[27m [36mv1.6.1[39m [90mc:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System/functions[39m
+[7m[1m[36m RUN [39m[22m[27m [36mv1.6.1[39m [90mC:/Users/Cole/Documents/Antigravity Fastrack Workspace/Fastrack-Learning_Management-System/functions[39m
 
- [32m✓[39m src/certificate/__tests__/certificateFunctions.test.js [2m ([22m[2m8 tests[22m[2m)[22m[90m 44[2mms[22m[39m
- [32m✓[39m src/compliance/__tests__/videoQuestionFunctions.test.js [2m ([22m[2m36 tests[22m[2m)[22m[90m 51[2mms[22m[39m
- [33m❯[39m src/payment/__tests__/paymentFunctions.test.js [2m ([22m[2m21 tests[22m [2m|[22m [31m2 failed[39m[2m)[22m[90m 263[2mms[22m[39m
-[31m   [33m❯[31m src/payment/__tests__/paymentFunctions.test.js[2m > [22mPayment Functions[2m > [22mcreateCheckoutSession[2m > [22mshould create checkout session successfully[39m
-[31m     → Failed to create checkout session: Invalid API Key provided: sk_test_123[39m
-[31m   [33m❯[31m src/payment/__tests__/paymentFunctions.test.js[2m > [22mPayment Functions[2m > [22mcreatePaymentIntent[2m > [22mshould create payment intent successfully[39m
-[31m     → Failed to create payment intent: Invalid API Key provided: sk_test_123[39m
- [32m✓[39m src/compliance/sessionHeartbeat.test.js [2m ([22m[2m11 tests[22m[2m)[22m[90m 18[2mms[22m[39m
- [33m❯[39m src/user/__tests__/userFunctions.test.js [2m ([22m[2m11 tests[22m [2m|[22m [31m5 failed[39m[2m)[22m[33m 50047[2mms[22m[39m
-[31m   [33m❯[31m src/user/__tests__/userFunctions.test.js[2m > [22mUser Functions[2m > [22mcreateUser[2m > [22mshould create user with default role of student[39m
-[31m     → Test timed out in 10000ms.
-If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".[39m
-[31m   [33m❯[31m src/user/__tests__/userFunctions.test.js[2m > [22mUser Functions[2m > [22mcreateUser[2m > [22mshould create user with custom role[39m
-[31m     → Test timed out in 10000ms.
-If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".[39m
-[31m   [33m❯[31m src/user/__tests__/userFunctions.test.js[2m > [22mUser Functions[2m > [22mcreateUser[2m > [22mshould call Firebase auth.createUser with correct parameters[39m
-[31m     → Test timed out in 10000ms.
-If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".[39m
-[31m   [33m❯[31m src/user/__tests__/userFunctions.test.js[2m > [22mUser Functions[2m > [22mcreateUser[2m > [22mshould log audit event on user creation[39m
-[31m     → Test timed out in 10000ms.
-If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".[39m
-[31m   [33m❯[31m src/user/__tests__/userFunctions.test.js[2m > [22mUser Functions[2m > [22mcreateUser[2m > [22mshould return user document in response[39m
-[31m     → Test timed out in 10000ms.
-If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".[39m
+stderr | src/user/__tests__/userFunctions.test.js > User Functions > createUser > should throw error if email missing
+Error creating user: Error: Missing required fields: email, password, displayName
+    at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\src\user\userFunctions.js:13:13
+    at Function.run (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-functions\lib\common\onInit.js:28:10)
+    at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\src\user\__tests__\userFunctions.test.js:132:26
+    at file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:135:14
+    at file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:60:26
+    at runTest (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:781:17)
+    at runSuite (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:909:15)
+    at runFiles (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:958:5)
 
-[31m⎯⎯⎯⎯⎯⎯[1m[7m Unhandled Errors [27m[22m⎯⎯⎯⎯⎯⎯[39m
-[31m[1m
-Vitest caught 5 unhandled errors during the test run.
-This might cause false positive tests. Resolve unhandled errors to make sure your tests are not affected.[22m[39m
-[31m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[39m
-[2m Test Files [22m [1m[31m2 failed[39m[22m[2m | [22m[1m[32m3 passed[39m[22m[90m (5)[39m
-[2m      Tests [22m [1m[31m7 failed[39m[22m[2m | [22m[1m[32m80 passed[39m[22m[90m (87)[39m
-[2m     Errors [22m [1m[31m5 errors[39m[22m
-[2m   Start at [22m 18:06:41
-[2m   Duration [22m 51.99s[2m (transform 325ms, setup 866ms, collect 3.74s, tests 50.42s, environment 2ms, prepare 1.83s)[22m
+stderr | src/user/__tests__/userFunctions.test.js > User Functions > createUser > should throw error if password missing
+Error creating user: Error: Missing required fields: email, password, displayName
+    at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\src\user\userFunctions.js:13:13
+    at Function.run (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-functions\lib\common\onInit.js:28:10)
+    at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\src\user\__tests__\userFunctions.test.js:146:26
+    at file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:135:14
+    at file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:60:26
+    at runTest (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:781:17)
+    at runSuite (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:909:15)
+    at runFiles (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:958:5)
+
+stderr | src/user/__tests__/userFunctions.test.js > User Functions > createUser > should throw error if displayName missing
+Error creating user: Error: Missing required fields: email, password, displayName
+    at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\src\user\userFunctions.js:13:13
+    at Function.run (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-functions\lib\common\onInit.js:28:10)
+    at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\src\user\__tests__\userFunctions.test.js:160:26
+    at file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:135:14
+    at file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:60:26
+    at runTest (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:781:17)
+    at runSuite (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:909:15)
+    at runFiles (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:958:5)
+
+stderr | src/user/__tests__/userFunctions.test.js > User Functions > createUser > should create user with default role of student
+Error creating user: FirebaseAppError: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.
+    at AppStore.getApp (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-admin\lib\app\lifecycle.js:79:19)
+    at FirebaseNamespaceInternals.app (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-admin\lib\app\firebase-namespace.js:54:35)
+    at FirebaseNamespace.app (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-admin\lib\app\firebase-namespace.js:256:30)
+    at FirebaseNamespace.ensureApp (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-admin\lib\app\firebase-namespace.js:266:24)
+    at FirebaseNamespace.fn (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-admin\lib\app\firebase-namespace.js:92:25)
+    at getAuth (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\src\common\firebaseUtils.js:26:22)
+    at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\src\user\userFunctions.js:16:30
+    at Function.run (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-functions\lib\common\onInit.js:28:10)
+    at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\src\user\__tests__\userFunctions.test.js:174:39
+    at file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:135:14 {
+  errorInfo: {
+    code: 'app/no-app',
+    message: 'The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.'
+  },
+  codePrefix: 'app'
+}
+
+stderr | src/user/__tests__/userFunctions.test.js > User Functions > createUser > should create user with custom role
+Error creating user: FirebaseAppError: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.
+    at AppStore.getApp (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-admin\lib\app\lifecycle.js:79:19)
+    at FirebaseNamespaceInternals.app (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-admin\lib\app\firebase-namespace.js:54:35)
+    at FirebaseNamespace.app (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-admin\lib\app\firebase-namespace.js:256:30)
+    at FirebaseNamespace.ensureApp (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-admin\lib\app\firebase-namespace.js:266:24)
+    at FirebaseNamespace.fn (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-admin\lib\app\firebase-namespace.js:92:25)
+    at getAuth (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\src\common\firebaseUtils.js:26:22)
+    at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\src\user\userFunctions.js:16:30
+    at Function.run (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-functions\lib\common\onInit.js:28:10)
+    at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\src\user\__tests__\userFunctions.test.js:188:39
+    at file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:135:14 {
+  errorInfo: {
+    code: 'app/no-app',
+    message: 'The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.'
+  },
+  codePrefix: 'app'
+}
+
+stderr | src/user/__tests__/userFunctions.test.js > User Functions > createUser > should call Firebase auth.createUser with correct parameters
+Error creating user: FirebaseAppError: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.
+    at AppStore.getApp (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-admin\lib\app\lifecycle.js:79:19)
+    at FirebaseNamespaceInternals.app (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-admin\lib\app\firebase-namespace.js:54:35)
+    at FirebaseNamespace.app (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-admin\lib\app\firebase-namespace.js:256:30)
+    at FirebaseNamespace.ensureApp (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-admin\lib\app\firebase-namespace.js:266:24)
+    at FirebaseNamespace.fn (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-admin\lib\app\firebase-namespace.js:92:25)
+    at getAuth (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\src\common\firebaseUtils.js:26:22)
+    at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\src\user\userFunctions.js:16:30
+    at Function.run (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-functions\lib\common\onInit.js:28:10)
+    at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\src\user\__tests__\userFunctions.test.js:200:24
+    at file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:135:14 {
+  errorInfo: {
+    code: 'app/no-app',
+    message: 'The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.'
+  },
+  codePrefix: 'app'
+}
+
+stderr | src/user/__tests__/userFunctions.test.js > User Functions > createUser > should save user document to Firestore
+Error creating user: FirebaseAppError: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.
+    at AppStore.getApp (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-admin\lib\app\lifecycle.js:79:19)
+    at FirebaseNamespaceInternals.app (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-admin\lib\app\firebase-namespace.js:54:35)
+    at FirebaseNamespace.app (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-admin\lib\app\firebase-namespace.js:256:30)
+    at FirebaseNamespace.ensureApp (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-admin\lib\app\firebase-namespace.js:266:24)
+    at FirebaseNamespace.fn (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-admin\lib\app\firebase-namespace.js:92:25)
+    at getAuth (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\src\common\firebaseUtils.js:26:22)
+    at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\src\user\userFunctions.js:16:30
+    at Function.run (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-functions\lib\common\onInit.js:28:10)
+    at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\src\user\__tests__\userFunctions.test.js:221:24
+    at file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:135:14 {
+  errorInfo: {
+    code: 'app/no-app',
+    message: 'The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.'
+  },
+  codePrefix: 'app'
+}
+
+stderr | src/user/__tests__/userFunctions.test.js > User Functions > createUser > should include createdAt timestamp
+Error creating user: FirebaseAppError: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.
+    at AppStore.getApp (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-admin\lib\app\lifecycle.js:79:19)
+    at FirebaseNamespaceInternals.app (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-admin\lib\app\firebase-namespace.js:54:35)
+    at FirebaseNamespace.app (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-admin\lib\app\firebase-namespace.js:256:30)
+    at FirebaseNamespace.ensureApp (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-admin\lib\app\firebase-namespace.js:266:24)
+    at FirebaseNamespace.fn (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-admin\lib\app\firebase-namespace.js:92:25)
+    at getAuth (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\src\common\firebaseUtils.js:26:22)
+    at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\src\user\userFunctions.js:16:30
+    at Function.run (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-functions\lib\common\onInit.js:28:10)
+    at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\src\user\__tests__\userFunctions.test.js:242:24
+    at file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:135:14 {
+  errorInfo: {
+    code: 'app/no-app',
+    message: 'The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.'
+  },
+  codePrefix: 'app'
+}
+
+stderr | src/user/__tests__/userFunctions.test.js > User Functions > createUser > should log audit event on user creation
+Error creating user: FirebaseAppError: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.
+    at AppStore.getApp (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-admin\lib\app\lifecycle.js:79:19)
+    at FirebaseNamespaceInternals.app (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-admin\lib\app\firebase-namespace.js:54:35)
+    at FirebaseNamespace.app (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-admin\lib\app\firebase-namespace.js:256:30)
+    at FirebaseNamespace.ensureApp (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-admin\lib\app\firebase-namespace.js:266:24)
+    at FirebaseNamespace.fn (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-admin\lib\app\firebase-namespace.js:92:25)
+    at getAuth (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\src\common\firebaseUtils.js:26:22)
+    at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\src\user\userFunctions.js:16:30
+    at Function.run (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-functions\lib\common\onInit.js:28:10)
+    at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\src\user\__tests__\userFunctions.test.js:260:24
+    at runTest (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:781:11) {
+  errorInfo: {
+    code: 'app/no-app',
+    message: 'The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.'
+  },
+  codePrefix: 'app'
+}
+
+stderr | src/user/__tests__/userFunctions.test.js > User Functions > createUser > should handle auth creation errors
+Error creating user: FirebaseAppError: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.
+    at AppStore.getApp (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-admin\lib\app\lifecycle.js:79:19)
+    at FirebaseNamespaceInternals.app (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-admin\lib\app\firebase-namespace.js:54:35)
+    at FirebaseNamespace.app (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-admin\lib\app\firebase-namespace.js:256:30)
+    at FirebaseNamespace.ensureApp (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-admin\lib\app\firebase-namespace.js:266:24)
+    at FirebaseNamespace.fn (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-admin\lib\app\firebase-namespace.js:92:25)
+    at getAuth (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\src\common\firebaseUtils.js:26:22)
+    at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\src\user\userFunctions.js:16:30
+    at Function.run (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-functions\lib\common\onInit.js:28:10)
+    at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\src\user\__tests__\userFunctions.test.js:276:26
+    at file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:135:14 {
+  errorInfo: {
+    code: 'app/no-app',
+    message: 'The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.'
+  },
+  codePrefix: 'app'
+}
+
+stderr | src/user/__tests__/userFunctions.test.js > User Functions > createUser > should return user document in response
+Error creating user: FirebaseAppError: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.
+    at AppStore.getApp (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-admin\lib\app\lifecycle.js:79:19)
+    at FirebaseNamespaceInternals.app (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-admin\lib\app\firebase-namespace.js:54:35)
+    at FirebaseNamespace.app (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-admin\lib\app\firebase-namespace.js:256:30)
+    at FirebaseNamespace.ensureApp (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-admin\lib\app\firebase-namespace.js:266:24)
+    at FirebaseNamespace.fn (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-admin\lib\app\firebase-namespace.js:92:25)
+    at getAuth (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\src\common\firebaseUtils.js:26:22)
+    at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\src\user\userFunctions.js:16:30
+    at Function.run (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-functions\lib\common\onInit.js:28:10)
+    at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\src\user\__tests__\userFunctions.test.js:290:39
+    at file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:135:14 {
+  errorInfo: {
+    code: 'app/no-app',
+    message: 'The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.'
+  },
+  codePrefix: 'app'
+}
+
+ [33mΓ¥»[39m src/user/__tests__/userFunctions.test.js [2m ([22m[2m11 tests[22m [2m|[22m [31m7 failed[39m[2m)[22m[90m 15[2mms[22m[39m
+[31m   [33mΓ¥»[31m src/user/__tests__/userFunctions.test.js[2m > [22mUser Functions[2m > [22mcreateUser[2m > [22mshould create user with default role of student[39m
+[31m     ΓåÆ Failed to create user: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.[39m
+[31m   [33mΓ¥»[31m src/user/__tests__/userFunctions.test.js[2m > [22mUser Functions[2m > [22mcreateUser[2m > [22mshould create user with custom role[39m
+[31m     ΓåÆ Failed to create user: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.[39m
+[31m   [33mΓ¥»[31m src/user/__tests__/userFunctions.test.js[2m > [22mUser Functions[2m > [22mcreateUser[2m > [22mshould call Firebase auth.createUser with correct parameters[39m
+[31m     ΓåÆ Failed to create user: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.[39m
+[31m   [33mΓ¥»[31m src/user/__tests__/userFunctions.test.js[2m > [22mUser Functions[2m > [22mcreateUser[2m > [22mshould save user document to Firestore[39m
+[31m     ΓåÆ Failed to create user: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.[39m
+[31m   [33mΓ¥»[31m src/user/__tests__/userFunctions.test.js[2m > [22mUser Functions[2m > [22mcreateUser[2m > [22mshould include createdAt timestamp[39m
+[31m     ΓåÆ Failed to create user: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.[39m
+[31m   [33mΓ¥»[31m src/user/__tests__/userFunctions.test.js[2m > [22mUser Functions[2m > [22mcreateUser[2m > [22mshould log audit event on user creation[39m
+[31m     ΓåÆ Failed to create user: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.[39m
+[31m   [33mΓ¥»[31m src/user/__tests__/userFunctions.test.js[2m > [22mUser Functions[2m > [22mcreateUser[2m > [22mshould return user document in response[39m
+[31m     ΓåÆ Failed to create user: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.[39m
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ» Failed Tests 7 ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»
+
+ FAIL  src/user/__tests__/userFunctions.test.js > User Functions > createUser > should create user with default role of student
+Error: Failed to create user: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.
+ Γ¥» src/user/userFunctions.js:45:11
+     43|   } catch (error) {
+     44|     console.error('Error creating user:', error);
+     45|     throw new Error(`Failed to create user: ${error.message}`);
+       |           ^
+     46|   }
+     47| });
+ Γ¥» Function.run node_modules/firebase-functions/lib/common/onInit.js:28:10
+ Γ¥» src/user/__tests__/userFunctions.test.js:174:39
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[1/7]ΓÄ»
+
+ FAIL  src/user/__tests__/userFunctions.test.js > User Functions > createUser > should create user with custom role
+Error: Failed to create user: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.
+ Γ¥» src/user/userFunctions.js:45:11
+     43|   } catch (error) {
+     44|     console.error('Error creating user:', error);
+     45|     throw new Error(`Failed to create user: ${error.message}`);
+       |           ^
+     46|   }
+     47| });
+ Γ¥» Function.run node_modules/firebase-functions/lib/common/onInit.js:28:10
+ Γ¥» src/user/__tests__/userFunctions.test.js:188:39
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[2/7]ΓÄ»
+
+ FAIL  src/user/__tests__/userFunctions.test.js > User Functions > createUser > should call Firebase auth.createUser with correct parameters
+Error: Failed to create user: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.
+ Γ¥» src/user/userFunctions.js:45:11
+     43|   } catch (error) {
+     44|     console.error('Error creating user:', error);
+     45|     throw new Error(`Failed to create user: ${error.message}`);
+       |           ^
+     46|   }
+     47| });
+ Γ¥» Function.run node_modules/firebase-functions/lib/common/onInit.js:28:10
+ Γ¥» src/user/__tests__/userFunctions.test.js:200:24
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[3/7]ΓÄ»
+
+ FAIL  src/user/__tests__/userFunctions.test.js > User Functions > createUser > should save user document to Firestore
+Error: Failed to create user: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.
+ Γ¥» src/user/userFunctions.js:45:11
+     43|   } catch (error) {
+     44|     console.error('Error creating user:', error);
+     45|     throw new Error(`Failed to create user: ${error.message}`);
+       |           ^
+     46|   }
+     47| });
+ Γ¥» Function.run node_modules/firebase-functions/lib/common/onInit.js:28:10
+ Γ¥» src/user/__tests__/userFunctions.test.js:221:24
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[4/7]ΓÄ»
+
+ FAIL  src/user/__tests__/userFunctions.test.js > User Functions > createUser > should include createdAt timestamp
+Error: Failed to create user: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.
+ Γ¥» src/user/userFunctions.js:45:11
+     43|   } catch (error) {
+     44|     console.error('Error creating user:', error);
+     45|     throw new Error(`Failed to create user: ${error.message}`);
+       |           ^
+     46|   }
+     47| });
+ Γ¥» Function.run node_modules/firebase-functions/lib/common/onInit.js:28:10
+ Γ¥» src/user/__tests__/userFunctions.test.js:242:24
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[5/7]ΓÄ»
+
+ FAIL  src/user/__tests__/userFunctions.test.js > User Functions > createUser > should log audit event on user creation
+Error: Failed to create user: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.
+ Γ¥» src/user/userFunctions.js:45:11
+     43|   } catch (error) {
+     44|     console.error('Error creating user:', error);
+     45|     throw new Error(`Failed to create user: ${error.message}`);
+       |           ^
+     46|   }
+     47| });
+ Γ¥» Function.run node_modules/firebase-functions/lib/common/onInit.js:28:10
+ Γ¥» src/user/__tests__/userFunctions.test.js:260:24
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[6/7]ΓÄ»
+
+ FAIL  src/user/__tests__/userFunctions.test.js > User Functions > createUser > should return user document in response
+Error: Failed to create user: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.
+ Γ¥» src/user/userFunctions.js:45:11
+     43|   } catch (error) {
+     44|     console.error('Error creating user:', error);
+     45|     throw new Error(`Failed to create user: ${error.message}`);
+       |           ^
+     46|   }
+     47| });
+ Γ¥» Function.run node_modules/firebase-functions/lib/common/onInit.js:28:10
+ Γ¥» src/user/__tests__/userFunctions.test.js:290:39
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[7/7]ΓÄ»
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m7 failed[39m[22m[2m | [22m[1m[32m4 passed[39m[22m[90m (11)[39m
+[2m   Start at [22m 10:41:55
+[2m   Duration [22m 1.06s[2m (transform 75ms, setup 33ms, collect 453ms, tests 15ms, environment 0ms, prepare 215ms)[22m
 

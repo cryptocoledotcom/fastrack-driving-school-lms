@@ -1,0 +1,1240 @@
+
+> fastrack-driving-school-lms@1.0.0 test
+> vitest run
+
+
+[7m[1m[36m RUN [39m[22m[27m [36mv1.6.1[39m [90mC:/Users/Cole/Documents/Antigravity Fastrack Workspace/Fastrack-Learning_Management-System[39m
+
+ [32mΓ£ô[39m src/__tests__/firestore-rules-production.test.js [2m ([22m[2m57 tests[22m[2m)[22m[90m 26[2mms[22m[39m
+ [33mΓ¥»[39m src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx [2m ([22m[2m0 test[22m[2m)[22m
+[90mstdout[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mexecute[2m > [22m[2mshould retry and eventually succeed[22m[39m
+Γ£à [test-operation] Succeeded on attempt 3/3
+
+[90mstdout[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mexecute[2m > [22m[2mshould handle async operations correctly[22m[39m
+Γ£à [async-operation] Succeeded on attempt 2/3
+
+[90mstdout[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mexecute[2m > [22m[2mshould use exponential backoff timing[22m[39m
+Γ£à [timed-operation] Succeeded on attempt 3/3
+
+[90mstdout[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mretryAsync convenience function[2m > [22m[2mshould work with default configuration[22m[39m
+Γ£à [test-operation] Succeeded on attempt 2/3
+
+ [33mΓ¥»[39m src/api/admin/__tests__/userManagementServices.test.js [2m ([22m[2m26 tests[22m [2m|[22m [31m2 failed[39m[2m)[22m[90m 110[2mms[22m[39m
+[31m   [33mΓ¥»[31m src/api/admin/__tests__/userManagementServices.test.js[2m > [22mUser Management Services[2m > [22mupdateUserRole[2m > [22mshould update user role and log activity[39m
+[31m     ΓåÆ Firebase: No Firebase App '[DEFAULT]' has been created - call initializeApp() first (app/no-app).[39m
+[31m   [33mΓ¥»[31m src/api/admin/__tests__/userManagementServices.test.js[2m > [22mUser Management Services[2m > [22mupdateUserRole[2m > [22mshould throw error if user not found[39m
+[31m     ΓåÆ expected [Function] to throw error including 'User not found' but got 'Firebase: No Firebase App \'[DEFAULT]ΓÇª'[39m
+[90mstdout[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mreal-world scenarios[2m > [22m[2mshould handle temporary network failure[22m[39m
+Γ£à [fetchData] Succeeded on attempt 3/3
+
+[90mstdout[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mreal-world scenarios[2m > [22m[2mshould recover from server temporarily unavailable[22m[39m
+Γ£à [submitForm] Succeeded on attempt 2/3
+
+ [32mΓ£ô[39m src/api/base/__tests__/RetryHandler.test.js [2m ([22m[2m31 tests[22m[2m)[22m[33m 944[2mms[22m[39m
+ [32mΓ£ô[39m src/api/base/__tests__/QueryHelper.test.js [2m ([22m[2m21 tests[22m[2m)[22m[90m 59[2mms[22m[39m
+ [33mΓ¥»[39m src/services/__tests__/loggingService.test.js [2m ([22m[2m50 tests[22m [2m|[22m [31m49 failed[39m[2m)[22m[90m 104[2mms[22m[39m
+[31m   [33mΓ¥»[31m src/services/__tests__/loggingService.test.js[2m > [22mLoggingService[2m > [22mlog() method[2m > [22mshould create a log entry with correct structure[39m
+[31m     ΓåÆ Cannot convert undefined or null to object[39m
+[31m   [33mΓ¥»[31m src/services/__tests__/loggingService.test.js[2m > [22mLoggingService[2m > [22mlog() method[2m > [22mshould normalize level to uppercase[39m
+[31m     ΓåÆ Cannot read properties of undefined (reading 'level')[39m
+[31m   [33mΓ¥»[31m src/services/__tests__/loggingService.test.js[2m > [22mLoggingService[2m > [22mlog() method[2m > [22mshould include provided message[39m
+[31m     ΓåÆ Cannot read properties of undefined (reading 'message')[39m
+[31m   [33mΓ¥»[31m src/services/__tests__/loggingService.test.js[2m > [22mLoggingService[2m > [22mlog() method[2m > [22mshould include provided data[39m
+[31m     ΓåÆ Cannot read properties of undefined (reading 'data')[39m
+[31m   [33mΓ¥»[31m src/services/__tests__/loggingService.test.js[2m > [22mLoggingService[2m > [22mlog() method[2m > [22mshould default data to empty object[39m
+[31m     ΓåÆ Cannot read properties of undefined (reading 'data')[39m
+[31m   [33mΓ¥»[31m src/services/__tests__/loggingService.test.js[2m > [22mLoggingService[2m > [22mlog() method[2m > [22mshould include ISO timestamp[39m
+[31m     ΓåÆ Cannot read properties of undefined (reading 'timestamp')[39m
+[31m   [33mΓ¥»[31m src/services/__tests__/loggingService.test.js[2m > [22mLoggingService[2m > [22mlog() method[2m > [22mshould include URL when in browser[39m
+[31m     ΓåÆ Cannot read properties of undefined (reading 'url')[39m
+[31m   [33mΓ¥»[31m src/services/__tests__/loggingService.test.js[2m > [22mLoggingService[2m > [22mlog() method[2m > [22mshould include user agent when in browser[39m
+[31m     ΓåÆ Cannot read properties of undefined (reading 'userAgent')[39m
+[31m   [33mΓ¥»[31m src/services/__tests__/loggingService.test.js[2m > [22mLoggingService[2m > [22mlog() method[2m > [22mshould log to console in development[39m
+[31m     ΓåÆ expected "spy" to be called with arguments: [ 'Test message', { key: 'value' } ][90m
+
+Received: 
+
+[31m[90m
+
+Number of calls: [1m0[22m
+[31m[39m
+[31m   [33mΓ¥»[31m src/services/__tests__/loggingService.test.js[2m > [22mLoggingService[2m > [22mlog() method[2m > [22mshould use correct console method based on level[39m
+[31m     ΓåÆ expected "spy" to be called at least once[39m
+[31m   [33mΓ¥»[31m src/services/__tests__/loggingService.test.js[2m > [22mLoggingService[2m > [22mdebug() method[2m > [22mshould call log with DEBUG level[39m
+[31m     ΓåÆ Cannot read properties of undefined (reading 'level')[39m
+[31m   [33mΓ¥»[31m src/services/__tests__/loggingService.test.js[2m > [22mLoggingService[2m > [22mdebug() method[2m > [22mshould work without data parameter[39m
+[31m     ΓåÆ Cannot read properties of undefined (reading 'level')[39m
+[31m   [33mΓ¥»[31m src/services/__tests__/loggingService.test.js[2m > [22mLoggingService[2m > [22minfo() method[2m > [22mshould call log with INFO level[39m
+[31m     ΓåÆ Cannot read properties of undefined (reading 'level')[39m
+[31m   [33mΓ¥»[31m src/services/__tests__/loggingService.test.js[2m > [22mLoggingService[2m > [22minfo() method[2m > [22mshould work without data parameter[39m
+[31m     ΓåÆ Cannot read properties of undefined (reading 'level')[39m
+[31m   [33mΓ¥»[31m src/services/__tests__/loggingService.test.js[2m > [22mLoggingService[2m > [22mwarn() method[2m > [22mshould call log with WARN level[39m
+[31m     ΓåÆ Cannot read properties of undefined (reading 'level')[39m
+[31m   [33mΓ¥»[31m src/services/__tests__/loggingService.test.js[2m > [22mLoggingService[2m > [22mwarn() method[2m > [22mshould work without data parameter[39m
+[31m     ΓåÆ Cannot read properties of undefined (reading 'level')[39m
+[31m   [33mΓ¥»[31m src/services/__tests__/loggingService.test.js[2m > [22mLoggingService[2m > [22merror() method[2m > [22mshould handle Error objects[39m
+[31m     ΓåÆ Cannot read properties of undefined (reading 'level')[39m
+[31m   [33mΓ¥»[31m src/services/__tests__/loggingService.test.js[2m > [22mLoggingService[2m > [22merror() method[2m > [22mshould handle Error with custom properties[39m
+[31m     ΓåÆ Cannot read properties of undefined (reading 'data')[39m
+[31m   [33mΓ¥»[31m src/services/__tests__/loggingService.test.js[2m > [22mLoggingService[2m > [22merror() method[2m > [22mshould handle plain objects[39m
+[31m     ΓåÆ Cannot read properties of undefined (reading 'data')[39m
+[31m   [33mΓ¥»[31m src/services/__tests__/loggingService.test.js[2m > [22mLoggingService[2m > [22merror() method[2m > [22mshould handle string errors[39m
+[31m     ΓåÆ Cannot read properties of undefined (reading 'data')[39m
+[31m   [33mΓ¥»[31m src/services/__tests__/loggingService.test.js[2m > [22mLoggingService[2m > [22merror() method[2m > [22mshould handle null error[39m
+[31m     ΓåÆ Cannot read properties of undefined (reading 'data')[39m
+[31m   [33mΓ¥»[31m src/services/__tests__/loggingService.test.js[2m > [22mLoggingService[2m > [22merror() method[2m > [22mshould include context information[39m
+[31m     ΓåÆ Cannot read properties of undefined (reading 'data')[39m
+[31m   [33mΓ¥»[31m src/services/__tests__/loggingService.test.js[2m > [22mLoggingService[2m > [22merror() method[2m > [22mshould work without error parameter[39m
+[31m     ΓåÆ Cannot read properties of undefined (reading 'level')[39m
+[31m   [33mΓ¥»[31m src/services/__tests__/loggingService.test.js[2m > [22mLoggingService[2m > [22merror() method[2m > [22mshould work without context parameter[39m
+[31m     ΓåÆ Cannot read properties of undefined (reading 'data')[39m
+[31m   [33mΓ¥»[31m src/services/__tests__/loggingService.test.js[2m > [22mLoggingService[2m > [22merror() method - Error classes[2m > [22mshould handle TypeError[39m
+[31m     ΓåÆ Cannot read properties of undefined (reading 'data')[39m
+[31m   [33mΓ¥»[31m src/services/__tests__/loggingService.test.js[2m > [22mLoggingService[2m > [22merror() method - Error classes[2m > [22mshould handle ReferenceError[39m
+[31m     ΓåÆ Cannot read properties of undefined (reading 'data')[39m
+[31m   [33mΓ¥»[31m src/services/__tests__/loggingService.test.js[2m > [22mLoggingService[2m > [22merror() method - Error classes[2m > [22mshould handle SyntaxError[39m
+[31m     ΓåÆ Cannot read properties of undefined (reading 'data')[39m
+[31m   [33mΓ¥»[31m src/services/__tests__/loggingService.test.js[2m > [22mLoggingService[2m > [22merror() method - Error classes[2m > [22mshould handle custom error classes[39m
+[31m     ΓåÆ Cannot read properties of undefined (reading 'data')[39m
+[31m   [33mΓ¥»[31m src/services/__tests__/loggingService.test.js[2m > [22mLoggingService[2m > [22msendToCloudLogging() method[2m > [22mshould be an async function[39m
+[31m     ΓåÆ default.sendToCloudLogging is not a function[39m
+[31m   [33mΓ¥»[31m src/services/__tests__/loggingService.test.js[2m > [22mLoggingService[2m > [22msendToCloudLogging() method[2m > [22mshould resolve with buffered status when Cloud Logging disabled[39m
+[31m     ΓåÆ default.sendToCloudLogging is not a function[39m
+[31m   [33mΓ¥»[31m src/services/__tests__/loggingService.test.js[2m > [22mLoggingService[2m > [22msendToCloudLogging() method[2m > [22mshould be called but not break logging[39m
+[31m     ΓåÆ default.sendToCloudLogging is not a function[39m
+[31m   [33mΓ¥»[31m src/services/__tests__/loggingService.test.js[2m > [22mLoggingService[2m > [22mFull integration[2m > [22mshould handle a complete logging flow[39m
+[31m     ΓåÆ Cannot read properties of undefined (reading 'level')[39m
+[31m   [33mΓ¥»[31m src/services/__tests__/loggingService.test.js[2m > [22mLoggingService[2m > [22mFull integration[2m > [22mshould handle rapid consecutive logs[39m
+[31m     ΓåÆ Cannot read properties of undefined (reading 'message')[39m
+[31m   [33mΓ¥»[31m src/services/__tests__/loggingService.test.js[2m > [22mLoggingService[2m > [22mFull integration[2m > [22mshould handle deeply nested data structures[39m
+[31m     ΓåÆ Cannot read properties of undefined (reading 'data')[39m
+[31m   [33mΓ¥»[31m src/services/__tests__/loggingService.test.js[2m > [22mLoggingService[2m > [22mThread safety / Concurrent calls[2m > [22mshould handle concurrent logging calls[39m
+[31m     ΓåÆ Cannot convert undefined or null to object[39m
+[31m   [33mΓ¥»[31m src/services/__tests__/loggingService.test.js[2m > [22mLoggingService[2m > [22mCloud Logging Integration (Phase 3)[2m > [22mshould have sendToCloudLogging method[39m
+[31m     ΓåÆ expected 'undefined' to be 'function' // Object.is equality[39m
+[31m   [33mΓ¥»[31m src/services/__tests__/loggingService.test.js[2m > [22mLoggingService[2m > [22mCloud Logging Integration (Phase 3)[2m > [22mshould accept a log entry object[39m
+[31m     ΓåÆ default.sendToCloudLogging is not a function[39m
+[31m   [33mΓ¥»[31m src/services/__tests__/loggingService.test.js[2m > [22mLoggingService[2m > [22mCloud Logging Integration (Phase 3)[2m > [22mshould be async and return a Promise[39m
+[31m     ΓåÆ default.sendToCloudLogging is not a function[39m
+[31m   [33mΓ¥»[31m src/services/__tests__/loggingService.test.js[2m > [22mLoggingService[2m > [22mCloud Logging Integration (Phase 3)[2m > [22mshould include method for setting Cloud Logging credentials[39m
+[31m     ΓåÆ expected { error: [Function spy], ΓÇª(4) } to have property "setCloudLoggingCredentials"[39m
+[31m   [33mΓ¥»[31m src/services/__tests__/loggingService.test.js[2m > [22mLoggingService[2m > [22mCloud Logging Integration (Phase 3)[2m > [22mshould have getCloudLoggingStatus method[39m
+[31m     ΓåÆ expected { error: [Function spy], ΓÇª(4) } to have property "getCloudLoggingStatus"[39m
+[31m   [33mΓ¥»[31m src/services/__tests__/loggingService.test.js[2m > [22mLoggingService[2m > [22mCloud Logging Integration (Phase 3)[2m > [22mshould track Cloud Logging availability status[39m
+[31m     ΓåÆ default.getCloudLoggingStatus is not a function[39m
+[31m   [33mΓ¥»[31m src/services/__tests__/loggingService.test.js[2m > [22mLoggingService[2m > [22mCloud Logging Integration (Phase 3)[2m > [22mshould handle Cloud Logging failures gracefully[39m
+[31m     ΓåÆ default.sendToCloudLogging is not a function[39m
+[31m   [33mΓ¥»[31m src/services/__tests__/loggingService.test.js[2m > [22mLoggingService[2m > [22mCloud Logging Integration (Phase 3)[2m > [22mshould include retry capability for failed sends[39m
+[31m     ΓåÆ expected { error: [Function spy], ΓÇª(4) } to have property "retryCloudLogging"[39m
+[31m   [33mΓ¥»[31m src/services/__tests__/loggingService.test.js[2m > [22mLoggingService[2m > [22mCloud Logging Integration (Phase 3)[2m > [22mshould buffer logs when Cloud Logging is unavailable[39m
+[31m     ΓåÆ expected { error: [Function spy], ΓÇª(4) } to have property "getLogBuffer"[39m
+[31m   [33mΓ¥»[31m src/services/__tests__/loggingService.test.js[2m > [22mLoggingService[2m > [22mCloud Logging Integration (Phase 3)[2m > [22mshould flush buffered logs when Cloud Logging becomes available[39m
+[31m     ΓåÆ expected { error: [Function spy], ΓÇª(4) } to have property "flushLogBuffer"[39m
+[31m   [33mΓ¥»[31m src/services/__tests__/loggingService.test.js[2m > [22mLoggingService[2m > [22mEdge cases[2m > [22mshould handle very long messages[39m
+[31m     ΓåÆ Cannot read properties of undefined (reading 'message')[39m
+[31m   [33mΓ¥»[31m src/services/__tests__/loggingService.test.js[2m > [22mLoggingService[2m > [22mEdge cases[2m > [22mshould handle special characters in messages[39m
+[31m     ΓåÆ Cannot read properties of undefined (reading 'message')[39m
+[31m   [33mΓ¥»[31m src/services/__tests__/loggingService.test.js[2m > [22mLoggingService[2m > [22mEdge cases[2m > [22mshould handle undefined in data objects[39m
+[31m     ΓåÆ Cannot read properties of undefined (reading 'data')[39m
+[31m   [33mΓ¥»[31m src/services/__tests__/loggingService.test.js[2m > [22mLoggingService[2m > [22mEdge cases[2m > [22mshould handle circular reference attempts gracefully[39m
+[31m     ΓåÆ Cannot read properties of undefined (reading 'data')[39m
+ [32mΓ£ô[39m src/hooks/useSessionData.test.js [2m ([22m[2m45 tests[22m[2m)[22m[90m 103[2mms[22m[39m
+ [32mΓ£ô[39m src/api/errors/__tests__/ApiError.test.js [2m ([22m[2m38 tests[22m[2m)[22m[90m 194[2mms[22m[39m
+ [32mΓ£ô[39m src/hooks/useBreakManagement.test.js [2m ([22m[2m42 tests[22m[2m)[22m[90m 148[2mms[22m[39m
+ [32mΓ£ô[39m src/hooks/usePVQTrigger.test.js [2m ([22m[2m42 tests[22m[2m)[22m[90m 212[2mms[22m[39m
+ [32mΓ£ô[39m src/api/base/__tests__/ServiceBase.test.js [2m ([22m[2m25 tests[22m[2m)[22m[90m 247[2mms[22m[39m
+ [32mΓ£ô[39m src/components/common/ErrorBoundary/ErrorBoundary.test.jsx [2m ([22m[2m32 tests[22m[2m)[22m[33m 1800[2mms[22m[39m
+ [32mΓ£ô[39m src/api/admin/__tests__/analyticsServices.test.js [2m ([22m[2m35 tests[22m[2m)[22m[90m 77[2mms[22m[39m
+ [32mΓ£ô[39m src/context/ModalContext.test.jsx [2m ([22m[2m19 tests[22m[2m)[22m[90m 244[2mms[22m[39m
+ [33mΓ¥»[39m src/api/enrollment/__tests__/enrollmentServices.concurrent.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [32mΓ£ô[39m src/components/admin/tabs/__tests__/UserManagementTab.test.jsx [2m ([22m[2m28 tests[22m[2m)[22m[33m 2335[2mms[22m[39m
+ [32mΓ£ô[39m functions/src/compliance/__tests__/videoQuestionFunctions.test.js [2m ([22m[2m36 tests[22m[2m)[22m[90m 138[2mms[22m[39m
+ [33mΓ¥»[39m src/components/common/Quiz/Quiz.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33mΓ¥»[39m src/context/ModalContext.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33mΓ¥»[39m src/context/CourseContext.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [32mΓ£ô[39m src/components/admin/tabs/__tests__/AnalyticsTab.test.jsx [2m ([22m[2m30 tests[22m[2m)[22m[33m 1418[2mms[22m[39m
+ [33mΓ¥»[39m src/pages/Admin/__tests__/AdminPage.userManagement.integration.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [32mΓ£ô[39m src/hooks/useSessionTimer.test.js [2m ([22m[2m26 tests[22m[2m)[22m[90m 68[2mms[22m[39m
+ [32mΓ£ô[39m src/api/enrollment/__tests__/enrollmentServices.refactor.test.js [2m ([22m[2m13 tests[22m[2m)[22m[90m 23[2mms[22m[39m
+ [33mΓ¥»[39m functions/src/payment/__tests__/paymentFunctions.test.js [2m ([22m[2m21 tests[22m [2m|[22m [31m8 failed[39m [2m|[22m [33m2 skipped[39m[2m)[22m[90m 263[2mms[22m[39m
+[31m   [33mΓ¥»[31m functions/src/payment/__tests__/paymentFunctions.test.js[2m > [22mPayment Functions[2m > [22mcreateCheckoutSession[2m > [22mshould throw error if user not authenticated[39m
+[31m     ΓåÆ expected 'Failed to create checkout session: NeΓÇª' to contain 'Authentication required'[39m
+[31m   [33mΓ¥»[31m functions/src/payment/__tests__/paymentFunctions.test.js[2m > [22mPayment Functions[2m > [22mcreateCheckoutSession[2m > [22mshould throw error if courseId missing[39m
+[31m     ΓåÆ expected 'Failed to create checkout session: NeΓÇª' to contain 'Missing required parameters'[39m
+[31m   [33mΓ¥»[31m functions/src/payment/__tests__/paymentFunctions.test.js[2m > [22mPayment Functions[2m > [22mcreateCheckoutSession[2m > [22mshould throw error if amount missing[39m
+[31m     ΓåÆ expected 'Failed to create checkout session: NeΓÇª' to contain 'Missing required parameters'[39m
+[31m   [33mΓ¥»[31m functions/src/payment/__tests__/paymentFunctions.test.js[2m > [22mPayment Functions[2m > [22mcreateCheckoutSession[2m > [22mshould throw error if paymentType missing[39m
+[31m     ΓåÆ expected 'Failed to create checkout session: NeΓÇª' to contain 'Missing required parameters'[39m
+[31m   [33mΓ¥»[31m functions/src/payment/__tests__/paymentFunctions.test.js[2m > [22mPayment Functions[2m > [22mcreatePaymentIntent[2m > [22mshould throw error if user not authenticated[39m
+[31m     ΓåÆ expected 'Failed to create payment intent: NeitΓÇª' to contain 'Authentication required'[39m
+[31m   [33mΓ¥»[31m functions/src/payment/__tests__/paymentFunctions.test.js[2m > [22mPayment Functions[2m > [22mcreatePaymentIntent[2m > [22mshould throw error if courseId missing[39m
+[31m     ΓåÆ expected 'Failed to create payment intent: NeitΓÇª' to contain 'Missing required parameters'[39m
+[31m   [33mΓ¥»[31m functions/src/payment/__tests__/paymentFunctions.test.js[2m > [22mPayment Functions[2m > [22mcreatePaymentIntent[2m > [22mshould throw error if amount missing[39m
+[31m     ΓåÆ expected 'Failed to create payment intent: NeitΓÇª' to contain 'Missing required parameters'[39m
+[31m   [33mΓ¥»[31m functions/src/payment/__tests__/paymentFunctions.test.js[2m > [22mPayment Functions[2m > [22mcreatePaymentIntent[2m > [22mshould throw error if paymentType missing[39m
+[31m     ΓåÆ expected 'Failed to create payment intent: NeitΓÇª' to contain 'Missing required parameters'[39m
+ [33mΓ¥»[39m src/components/admin/__tests__/SchedulingManagement.loadingIndicators.test.jsx [2m ([22m[2m16 tests[22m [2m|[22m [31m3 failed[39m[2m)[22m[33m 6694[2mms[22m[39m
+[31m   [33mΓ¥»[31m src/components/admin/__tests__/SchedulingManagement.loadingIndicators.test.jsx[2m > [22mSchedulingManagement - Loading Indicators[2m > [22mDelete button loading state[2m > [22mshould clear loading state after successful deletion[39m
+[31m     ΓåÆ [2mexpect([22m[31melement[31m[2m).not.toHaveAttribute([22m[32m[32m"disabled"[32m[31m[2m) // element.hasAttribute("disabled")[22m
+
+Expected the element not to have attribute:
+[32m  disabled[31m
+Received:
+[31m  disabled=""[31m
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"schedulingManagement"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"successMessage "[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"iconWrapper"[31m
+          [36m>[31m
+            [36m<svg[31m
+              [33mclass[31m=[32m"icon"[31m
+              [33mfill[31m=[32m"none"[31m
+              [33mstroke[31m=[32m"currentColor"[31m
+              [33mviewBox[31m=[32m"0 0 24 24"[31m
+            [36m>[31m
+              [36m<path[31m
+                [33md[31m=[32m"M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"[31m
+                [33mstroke-linecap[31m=[32m"round"[31m
+                [33mstroke-linejoin[31m=[32m"round"[31m
+                [33mstroke-width[31m=[32m"2"[31m
+              [36m/>[31m
+            [36m</svg>[31m
+          [36m</div>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"content"[31m
+          [36m>[31m
+            [36m<h3[31m
+              [33mclass[31m=[32m"title"[31m
+            [36m>[31m
+              [0mSuccess[0m
+            [36m</h3>[31m
+            [36m<p[31m
+              [33mclass[31m=[32m"message"[31m
+            [36m>[31m
+              [0mTime slot deleted successfully![0m
+            [36m</p>[31m
+          [36m</div>[31m
+          [36m<button[31m
+            [33mclass[31m=[32m"dismissButton"[31m
+          [36m>[31m
+            [36m<svg[31m
+              [33mclass[31m=[32m"dismissIcon"[31m
+              [33mfill[31m=[32m"none"[31m
+              [33mstroke[31m=[32m"currentColor"[31m
+              [33mviewBox[31m=[32m"0 0 24 24"[31m
+            [36m>[31m
+              [36m<path[31m
+                [33md[31m=[32m"M6 18L18 6M6 6l12 12"[31m
+                [33mstroke-linecap[31m=[32m"round"[31m
+                [33mstroke-linejoin[31m=[32m"round"[31m
+                [33mstroke-width[31m=[32m"2"[31m
+              [36m/>[31m
+            [36m</svg>[31m
+          [36m</button>[31m
+        [36m</div>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"header"[31m
+        [36m>[31m
+          [36m<h2>[31m
+            [0mLesson Time Slot Management[0m
+          [36m</h2>[31m
+          [36m<button[31m
+            [33mclass[31m=[32m"button primary medium"[31m
+            [33mtype[31m=[32m"button"[31m
+          [36m>[31m
+            [0m+ Add New Time Slot[0m
+          [36m</button>[31m
+        [36m</div>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"slotsList"[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"card default padding-medium slotCard"[31m
+          [36m>[31m
+            [36m<div[31m
+              [33mclass[31m=[32m"slotHeader"[31m
+            [36m>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"slotDateTime"[31m
+              [36m>[31m
+                [36m<span[31m
+                  [33mclass[31m=[32m"date"[31m
+                [36m>[31m
+                  [0mMon, Dec 15[0m
+                [36m</span>[31m
+                [36m<span[31m
+                  [33mclass[31m=[32m"time"[31m
+                [36m>[31m
+                  [0m9:00 AM[0m
+                  [0m - [0m
+                  [0m10:00 AM[0m
+                [36m</span>[31m
+              [36m</div>[31m
+              [36m<span[31m
+                [33mclass[31m=[32m"status available"[31m
+              [36m>[31m
+                [0mAvailable[0m
+              [36m</span>[31m
+            [36m</div>[31m
+            [36m<div[31m
+              [33mclass[31m=[32m"slotDetails"[31m
+            [36m>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"detail"[31m
+              [36m>[31m
+                [36m<span[31m
+                  [33mclass[31m=[32m"label"[31m
+                [36m>[31m
+                  [0mLocation:[0m
+                [36m</span>[31m
+                [36m<span>[31m
+                  [0mTest Location[0m
+                [36m</span>[31m
+              [36m</div>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"detail"[31m
+              [36m>[31m
+                [36m<span[31m
+                  [33mclass[31m=[32m"label"[31m
+                [36m>[31m
+                  [0mInstructor:[0m
+                [36m</span>[31m
+                [36m<span>[31m
+                  [0mTest Instructor[0m
+                [36m</span>[31m
+              [36m</div>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"detail"[31m
+              [36m>[31m
+                [36m<span[31m
+                  [33mclass[31m=[32m"label"[31m
+                [36m>[31m
+                  [0mNotes:[0m
+                [36m</span>[31m
+                [36m<span>[31m
+                  [0mTest slot[0m
+                [36m</span>[31m
+              [36m</div>[31m
+            [36m</div>[31m
+            [36m<div[31m
+              [33mclass[31m=[32m"slotActions"[31m
+            [36m>[31m
+              [36m<button[31m
+                [33mclass[31m=[32m"button primary small"[31m
+                [33mtype[31m=[32m"button"[31m
+              [36m>[31m
+                [0mAssign Student[0m
+              [36m</button>[31m
+              [36m<button[31m
+                [33mclass[31m=[32m"button outline small"[31m
+                [33mtype[31m=[32m"button"[31m
+              [36m>[31m
+                [0mEdit[0m
+              [36m</button>[31m
+              [36m<button[31m
+                [33mclass[31m=[32m"button danger small"[31m
+                [33mtype[31m=[32m"button"[31m
+              [36m>[31m
+                [0mDelete[0m
+              [36m</button>[31m
+            [36m</div>[31m
+          [36m</div>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"card default padding-medium slotCard"[31m
+          [36m>[31m
+            [36m<div[31m
+              [33mclass[31m=[32m"slotHeader"[31m
+            [36m>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"slotDateTime"[31m
+              [36m>[31m
+                [36m<span[31m
+                  [33mclass[31m=[32m"date"[31m
+                [36m>[31m
+                  [0mMon, Dec 15[0m
+                [36m</span>[31m
+                [36m<span[31m
+                  [33mclass[31m=[32m"time"[31m
+                [36m>[31m
+                  [0m10:00 AM[0m
+                  [0m - [0m
+                  [0m11:00 AM[0m
+                [36m</span>[31m
+              [36m</div>[31m
+              [36m<span[31m
+                [33mclass[31m=[32m"status assigned"[31m
+              [36m>[31m
+                [0mAssigned[0m
+              [36m</span>[31m
+            [36m</div>[31m
+            [36m<div[31m
+              [33mclass[31m=[32m"slotDetails"[31m
+            [36m>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"detail"[31m
+              [36m>[31m
+                [36m<span[31m
+                  [33mclass[31m=[32m"label"[31m
+                [36m>[31m
+                  [0mLocation:[0m
+                [36m</span>[31m
+                [36m<span>[31m
+                  [0mTest Location 2[0m
+                [36m</span>[31m
+              [36m</div>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"detail"[31m
+              [36m>[31m
+                [36m<span[31m
+                  [33mclass[31m=[32m"label"[31m
+                [36m>[31m
+                  [0mInstructor:[0m
+                [36m</span>[31m
+                [36m<span>[31m
+                  [0mTest Instructor 2[0m
+                [36m</span>[31m
+              [36m</div>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"detail"[31m
+              [36m>[31m
+                [36m<span[31m
+                  [33mclass[31m=[32m"label"[31m
+                [36m>[31m
+                  [0mAssigned to:[0m
+                [36m</span>[31m
+                [36m<span>[31m
+                  [0mstudent-123[0m
+                [36m</span>[31m
+              [36m</div>[31m
+            [36m</div>[31m
+            [36m<div[31m
+              [33mclass[31m=[32m"slotActions"[31m
+            [36m>[31m
+              [36m<button[31m
+                [33mclass[31m=[32m"button secondary small"[31m
+                [33mtype[31m=[32m"button"[31m
+              [36m>[31m
+                [0mUnassign[0m
+              [36m</button>[31m
+              [36m<button[31m
+                [33mclass[31m=[32m"button outline small"[31m
+                [33mtype[31m=[32m"button"[31m
+              [36m>[31m
+                [0mEdit[0m
+              [36m</button>[31m
+              [36m<button[31m
+                [33mclass[31m=[32m"button danger small"[31m
+                [33mtype[31m=[32m"button"[31m
+              [36m>[31m
+                [0mDelete[0m
+              [36m</button>[31m
+            [36m</div>[31m
+          [36m</div>[31m
+        [36m</div>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+[31m   [33mΓ¥»[31m src/components/admin/__tests__/SchedulingManagement.loadingIndicators.test.jsx[2m > [22mSchedulingManagement - Loading Indicators[2m > [22mUnassign button loading state[2m > [22mshould clear loading state after successful unassignment[39m
+[31m     ΓåÆ [2mexpect([22m[31melement[31m[2m).not.toHaveAttribute([22m[32m[32m"disabled"[32m[31m[2m) // element.hasAttribute("disabled")[22m
+
+Expected the element not to have attribute:
+[32m  disabled[31m
+Received:
+[31m  disabled=""[31m
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"schedulingManagement"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"successMessage "[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"iconWrapper"[31m
+          [36m>[31m
+            [36m<svg[31m
+              [33mclass[31m=[32m"icon"[31m
+              [33mfill[31m=[32m"none"[31m
+              [33mstroke[31m=[32m"currentColor"[31m
+              [33mviewBox[31m=[32m"0 0 24 24"[31m
+            [36m>[31m
+              [36m<path[31m
+                [33md[31m=[32m"M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"[31m
+                [33mstroke-linecap[31m=[32m"round"[31m
+                [33mstroke-linejoin[31m=[32m"round"[31m
+                [33mstroke-width[31m=[32m"2"[31m
+              [36m/>[31m
+            [36m</svg>[31m
+          [36m</div>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"content"[31m
+          [36m>[31m
+            [36m<h3[31m
+              [33mclass[31m=[32m"title"[31m
+            [36m>[31m
+              [0mSuccess[0m
+            [36m</h3>[31m
+            [36m<p[31m
+              [33mclass[31m=[32m"message"[31m
+            [36m>[31m
+              [0mLesson unassigned successfully![0m
+            [36m</p>[31m
+          [36m</div>[31m
+          [36m<button[31m
+            [33mclass[31m=[32m"dismissButton"[31m
+          [36m>[31m
+            [36m<svg[31m
+              [33mclass[31m=[32m"dismissIcon"[31m
+              [33mfill[31m=[32m"none"[31m
+              [33mstroke[31m=[32m"currentColor"[31m
+              [33mviewBox[31m=[32m"0 0 24 24"[31m
+            [36m>[31m
+              [36m<path[31m
+                [33md[31m=[32m"M6 18L18 6M6 6l12 12"[31m
+                [33mstroke-linecap[31m=[32m"round"[31m
+                [33mstroke-linejoin[31m=[32m"round"[31m
+                [33mstroke-width[31m=[32m"2"[31m
+              [36m/>[31m
+            [36m</svg>[31m
+          [36m</button>[31m
+        [36m</div>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"header"[31m
+        [36m>[31m
+          [36m<h2>[31m
+            [0mLesson Time Slot Management[0m
+          [36m</h2>[31m
+          [36m<button[31m
+            [33mclass[31m=[32m"button primary medium"[31m
+            [33mtype[31m=[32m"button"[31m
+          [36m>[31m
+            [0m+ Add New Time Slot[0m
+          [36m</button>[31m
+        [36m</div>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"slotsList"[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"card default padding-medium slotCard"[31m
+          [36m>[31m
+            [36m<div[31m
+              [33mclass[31m=[32m"slotHeader"[31m
+            [36m>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"slotDateTime"[31m
+              [36m>[31m
+                [36m<span[31m
+                  [33mclass[31m=[32m"date"[31m
+                [36m>[31m
+                  [0mMon, Dec 15[0m
+                [36m</span>[31m
+                [36m<span[31m
+                  [33mclass[31m=[32m"time"[31m
+                [36m>[31m
+                  [0m9:00 AM[0m
+                  [0m - [0m
+                  [0m10:00 AM[0m
+                [36m</span>[31m
+              [36m</div>[31m
+              [36m<span[31m
+                [33mclass[31m=[32m"status available"[31m
+              [36m>[31m
+                [0mAvailable[0m
+              [36m</span>[31m
+            [36m</div>[31m
+            [36m<div[31m
+              [33mclass[31m=[32m"slotDetails"[31m
+            [36m>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"detail"[31m
+              [36m>[31m
+                [36m<span[31m
+                  [33mclass[31m=[32m"label"[31m
+                [36m>[31m
+                  [0mLocation:[0m
+                [36m</span>[31m
+                [36m<span>[31m
+                  [0mTest Location[0m
+                [36m</span>[31m
+              [36m</div>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"detail"[31m
+              [36m>[31m
+                [36m<span[31m
+                  [33mclass[31m=[32m"label"[31m
+                [36m>[31m
+                  [0mInstructor:[0m
+                [36m</span>[31m
+                [36m<span>[31m
+                  [0mTest Instructor[0m
+                [36m</span>[31m
+              [36m</div>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"detail"[31m
+              [36m>[31m
+                [36m<span[31m
+                  [33mclass[31m=[32m"label"[31m
+                [36m>[31m
+                  [0mNotes:[0m
+                [36m</span>[31m
+                [36m<span>[31m
+                  [0mTest slot[0m
+                [36m</span>[31m
+              [36m</div>[31m
+            [36m</div>[31m
+            [36m<div[31m
+              [33mclass[31m=[32m"slotActions"[31m
+            [36m>[31m
+              [36m<button[31m
+                [33mclass[31m=[32m"button primary small"[31m
+                [33mtype[31m=[32m"button"[31m
+              [36m>[31m
+                [0mAssign Student[0m
+              [36m</button>[31m
+              [36m<button[31m
+                [33mclass[31m=[32m"button outline small"[31m
+                [33mtype[31m=[32m"button"[31m
+              [36m>[31m
+                [0mEdit[0m
+              [36m</button>[31m
+              [36m<button[31m
+                [33mclass[31m=[32m"button danger small"[31m
+                [33mtype[31m=[32m"button"[31m
+              [36m>[31m
+                [0mDelete[0m
+              [36m</button>[31m
+            [36m</div>[31m
+          [36m</div>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"card default padding-medium slotCard"[31m
+          [36m>[31m
+            [36m<div[31m
+              [33mclass[31m=[32m"slotHeader"[31m
+            [36m>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"slotDateTime"[31m
+              [36m>[31m
+                [36m<span[31m
+                  [33mclass[31m=[32m"date"[31m
+                [36m>[31m
+                  [0mMon, Dec 15[0m
+                [36m</span>[31m
+                [36m<span[31m
+                  [33mclass[31m=[32m"time"[31m
+                [36m>[31m
+                  [0m10:00 AM[0m
+                  [0m - [0m
+                  [0m11:00 AM[0m
+                [36m</span>[31m
+              [36m</div>[31m
+              [36m<span[31m
+                [33mclass[31m=[32m"status assigned"[31m
+              [36m>[31m
+                [0mAssigned[0m
+              [36m</span>[31m
+            [36m</div>[31m
+            [36m<div[31m
+              [33mclass[31m=[32m"slotDetails"[31m
+            [36m>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"detail"[31m
+              [36m>[31m
+                [36m<span[31m
+                  [33mclass[31m=[32m"label"[31m
+                [36m>[31m
+                  [0mLocation:[0m
+                [36m</span>[31m
+                [36m<span>[31m
+                  [0mTest Location 2[0m
+                [36m</span>[31m
+              [36m</div>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"detail"[31m
+              [36m>[31m
+                [36m<span[31m
+                  [33mclass[31m=[32m"label"[31m
+                [36m>[31m
+                  [0mInstructor:[0m
+                [36m</span>[31m
+                [36m<span>[31m
+                  [0mTest Instructor 2[0m
+                [36m</span>[31m
+              [36m</div>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"detail"[31m
+              [36m>[31m
+                [36m<span[31m
+                  [33mclass[31m=[32m"label"[31m
+                [36m>[31m
+                  [0mAssigned to:[0m
+                [36m</span>[31m
+                [36m<span>[31m
+                  [0mstudent-123[0m
+                [36m</span>[31m
+              [36m</div>[31m
+            [36m</div>[31m
+            [36m<div[31m
+              [33mclass[31m=[32m"slotActions"[31m
+            [36m>[31m
+              [36m<button[31m
+                [33mclass[31m=[32m"button secondary small"[31m
+                [33mtype[31m=[32m"button"[31m
+              [36m>[31m
+                [0mUnassign[0m
+              [36m</button>[31m
+              [36m<button[31m
+                [33mclass[31m=[32m"button outline small"[31m
+                [33mtype[31m=[32m"button"[31m
+              [36m>[31m
+                [0mEdit[0m
+              [36m</button>[31m
+              [36m<button[31m
+                [33mclass[31m=[32m"button danger small"[31m
+                [33mtype[31m=[32m"button"[31m
+              [36m>[31m
+                [0mDelete[0m
+              [36m</button>[31m
+            [36m</div>[31m
+          [36m</div>[31m
+        [36m</div>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+[31m   [33mΓ¥»[31m src/components/admin/__tests__/SchedulingManagement.loadingIndicators.test.jsx[2m > [22mSchedulingManagement - Loading Indicators[2m > [22mLoading state persistence[2m > [22mshould clear loading state when operations complete[39m
+[31m     ΓåÆ [2mexpect([22m[31melement[31m[2m).not.toHaveAttribute([22m[32m[32m"disabled"[32m[31m[2m) // element.hasAttribute("disabled")[22m
+
+Expected the element not to have attribute:
+[32m  disabled[31m
+Received:
+[31m  disabled=""[31m
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"schedulingManagement"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"successMessage "[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"iconWrapper"[31m
+          [36m>[31m
+            [36m<svg[31m
+              [33mclass[31m=[32m"icon"[31m
+              [33mfill[31m=[32m"none"[31m
+              [33mstroke[31m=[32m"currentColor"[31m
+              [33mviewBox[31m=[32m"0 0 24 24"[31m
+            [36m>[31m
+              [36m<path[31m
+                [33md[31m=[32m"M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"[31m
+                [33mstroke-linecap[31m=[32m"round"[31m
+                [33mstroke-linejoin[31m=[32m"round"[31m
+                [33mstroke-width[31m=[32m"2"[31m
+              [36m/>[31m
+            [36m</svg>[31m
+          [36m</div>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"content"[31m
+          [36m>[31m
+            [36m<h3[31m
+              [33mclass[31m=[32m"title"[31m
+            [36m>[31m
+              [0mSuccess[0m
+            [36m</h3>[31m
+            [36m<p[31m
+              [33mclass[31m=[32m"message"[31m
+            [36m>[31m
+              [0mLesson unassigned successfully![0m
+            [36m</p>[31m
+          [36m</div>[31m
+          [36m<button[31m
+            [33mclass[31m=[32m"dismissButton"[31m
+          [36m>[31m
+            [36m<svg[31m
+              [33mclass[31m=[32m"dismissIcon"[31m
+              [33mfill[31m=[32m"none"[31m
+              [33mstroke[31m=[32m"currentColor"[31m
+              [33mviewBox[31m=[32m"0 0 24 24"[31m
+            [36m>[31m
+              [36m<path[31m
+                [33md[31m=[32m"M6 18L18 6M6 6l12 12"[31m
+                [33mstroke-linecap[31m=[32m"round"[31m
+                [33mstroke-linejoin[31m=[32m"round"[31m
+                [33mstroke-width[31m=[32m"2"[31m
+              [36m/>[31m
+            [36m</svg>[31m
+          [36m</button>[31m
+        [36m</div>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"header"[31m
+        [36m>[31m
+          [36m<h2>[31m
+            [0mLesson Time Slot Management[0m
+          [36m</h2>[31m
+          [36m<button[31m
+            [33mclass[31m=[32m"button primary medium"[31m
+            [33mtype[31m=[32m"button"[31m
+          [36m>[31m
+            [0m+ Add New Time Slot[0m
+          [36m</button>[31m
+        [36m</div>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"slotsList"[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"card default padding-medium slotCard"[31m
+          [36m>[31m
+            [36m<div[31m
+              [33mclass[31m=[32m"slotHeader"[31m
+            [36m>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"slotDateTime"[31m
+              [36m>[31m
+                [36m<span[31m
+                  [33mclass[31m=[32m"date"[31m
+                [36m>[31m
+                  [0mMon, Dec 15[0m
+                [36m</span>[31m
+                [36m<span[31m
+                  [33mclass[31m=[32m"time"[31m
+                [36m>[31m
+                  [0m9:00 AM[0m
+                  [0m - [0m
+                  [0m10:00 AM[0m
+                [36m</span>[31m
+              [36m</div>[31m
+              [36m<span[31m
+                [33mclass[31m=[32m"status available"[31m
+              [36m>[31m
+                [0mAvailable[0m
+              [36m</span>[31m
+            [36m</div>[31m
+            [36m<div[31m
+              [33mclass[31m=[32m"slotDetails"[31m
+            [36m>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"detail"[31m
+              [36m>[31m
+                [36m<span[31m
+                  [33mclass[31m=[32m"label"[31m
+                [36m>[31m
+                  [0mLocation:[0m
+                [36m</span>[31m
+                [36m<span>[31m
+                  [0mTest Location[0m
+                [36m</span>[31m
+              [36m</div>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"detail"[31m
+              [36m>[31m
+                [36m<span[31m
+                  [33mclass[31m=[32m"label"[31m
+                [36m>[31m
+                  [0mInstructor:[0m
+                [36m</span>[31m
+                [36m<span>[31m
+                  [0mTest Instructor[0m
+                [36m</span>[31m
+              [36m</div>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"detail"[31m
+              [36m>[31m
+                [36m<span[31m
+                  [33mclass[31m=[32m"label"[31m
+                [36m>[31m
+                  [0mNotes:[0m
+                [36m</span>[31m
+                [36m<span>[31m
+                  [0mTest slot[0m
+                [36m</span>[31m
+              [36m</div>[31m
+            [36m</div>[31m
+            [36m<div[31m
+              [33mclass[31m=[32m"slotActions"[31m
+            [36m>[31m
+              [36m<button[31m
+                [33mclass[31m=[32m"button primary small"[31m
+                [33mtype[31m=[32m"button"[31m
+              [36m>[31m
+                [0mAssign Student[0m
+              [36m</button>[31m
+              [36m<button[31m
+                [33mclass[31m=[32m"button outline small"[31m
+                [33mtype[31m=[32m"button"[31m
+              [36m>[31m
+                [0mEdit[0m
+              [36m</button>[31m
+              [36m<button[31m
+                [33mclass[31m=[32m"button danger small"[31m
+                [33mtype[31m=[32m"button"[31m
+              [36m>[31m
+                [0mDelete[0m
+              [36m</button>[31m
+            [36m</div>[31m
+          [36m</div>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"card default padding-medium slotCard"[31m
+          [36m>[31m
+            [36m<div[31m
+              [33mclass[31m=[32m"slotHeader"[31m
+            [36m>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"slotDateTime"[31m
+              [36m>[31m
+                [36m<span[31m
+                  [33mclass[31m=[32m"date"[31m
+                [36m>[31m
+                  [0mMon, Dec 15[0m
+                [36m</span>[31m
+                [36m<span[31m
+                  [33mclass[31m=[32m"time"[31m
+                [36m>[31m
+                  [0m10:00 AM[0m
+                  [0m - [0m
+                  [0m11:00 AM[0m
+                [36m</span>[31m
+              [36m</div>[31m
+              [36m<span[31m
+                [33mclass[31m=[32m"status assigned"[31m
+              [36m>[31m
+                [0mAssigned[0m
+              [36m</span>[31m
+            [36m</div>[31m
+            [36m<div[31m
+              [33mclass[31m=[32m"slotDetails"[31m
+            [36m>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"detail"[31m
+              [36m>[31m
+                [36m<span[31m
+                  [33mclass[31m=[32m"label"[31m
+                [36m>[31m
+                  [0mLocation:[0m
+                [36m</span>[31m
+                [36m<span>[31m
+                  [0mTest Location 2[0m
+                [36m</span>[31m
+              [36m</div>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"detail"[31m
+              [36m>[31m
+                [36m<span[31m
+                  [33mclass[31m=[32m"label"[31m
+                [36m>[31m
+                  [0mInstructor:[0m
+                [36m</span>[31m
+                [36m<span>[31m
+                  [0mTest Instructor 2[0m
+                [36m</span>[31m
+              [36m</div>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"detail"[31m
+              [36m>[31m
+                [36m<span[31m
+                  [33mclass[31m=[32m"label"[31m
+                [36m>[31m
+                  [0mAssigned to:[0m
+                [36m</span>[31m
+                [36m<span>[31m
+                  [0mstudent-123[0m
+                [36m</span>[31m
+              [36m</div>[31m
+            [36m</div>[31m
+            [36m<div[31m
+              [33mclass[31m=[32m"slotActions"[31m
+            [36m>[31m
+              [36m<button[31m
+                [33mclass[31m=[32m"button secondary small"[31m
+                [33mtype[31m=[32m"button"[31m
+              [36m>[31m
+                [0mUnassign[0m
+              [36m</button>[31m
+              [36m<button[31m
+                [33mclass[31m=[32m"button outline small"[31m
+                [33mtype[31m=[32m"button"[31m
+              [36m>[31m
+                [0mEdit[0m
+              [36m</button>[31m
+              [36m<button[31m
+                [33mclass[31m=[32m"button danger small"[31m
+                [33mtype[31m=[32m"button"[31m
+              [36m>[31m
+                [0mDelete[0m
+              [36m</button>[31m
+            [36m</div>[31m
+          [36m</div>[31m
+        [36m</div>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+ [32mΓ£ô[39m src/context/CourseContext.test.jsx [2m ([22m[2m18 tests[22m[2m)[22m[90m 290[2mms[22m[39m
+ [33mΓ¥»[39m src/components/admin/tabs/__tests__/UserManagementTab.createUser.integration.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [32mΓ£ô[39m src/api/base/__tests__/CacheService.test.js [2m ([22m[2m32 tests[22m[2m)[22m[90m 74[2mms[22m[39m
+ [33mΓ¥»[39m src/context/AuthContext.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [32mΓ£ô[39m src/__tests__/firestore.rules.test.js [2m ([22m[2m25 tests[22m[2m)[22m[90m 118[2mms[22m[39m
+ [32mΓ£ô[39m src/api/enrollment/__tests__/enrollmentServices.reset.test.js [2m ([22m[2m19 tests[22m[2m)[22m[90m 61[2mms[22m[39m
+ [32mΓ£ô[39m src/constants/__tests__/userRoles.assignment.test.js [2m ([22m[2m35 tests[22m[2m)[22m[90m 18[2mms[22m[39m
+ [32mΓ£ô[39m src/api/student/__tests__/userServices.getAllStudents.test.js [2m ([22m[2m6 tests[22m[2m)[22m[90m 22[2mms[22m[39m
+ [32mΓ£ô[39m src/context/AuthContext.test.jsx [2m ([22m[2m14 tests[22m[2m)[22m[33m 347[2mms[22m[39m
+ [33mΓ¥»[39m src/components/auth/__tests__/ForcePasswordChangeModal.integration.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [32mΓ£ô[39m src/api/enrollment/__tests__/enrollmentServices.checkCourseAccess.test.js [2m ([22m[2m9 tests[22m[2m)[22m[90m 34[2mms[22m[39m
+ [32mΓ£ô[39m src/context/TimerContext.test.jsx [2m ([22m[2m30 tests[22m[2m)[22m[90m 278[2mms[22m[39m
+ [32mΓ£ô[39m src/hooks/__tests__/useAdminPanel.test.js [2m ([22m[2m6 tests[22m[2m)[22m[90m 109[2mms[22m[39m
+ [32mΓ£ô[39m functions/src/certificate/__tests__/certificateFunctions.test.js [2m ([22m[2m8 tests[22m[2m)[22m[90m 223[2mms[22m[39m
+ [32mΓ£ô[39m src/pages/Admin/__tests__/AuditLogsPage.test.jsx [2m ([22m[2m5 tests[22m[2m)[22m[33m 556[2mms[22m[39m
+ [32mΓ£ô[39m functions/src/compliance/sessionHeartbeat.test.js [2m ([22m[2m11 tests[22m[2m)[22m[90m 52[2mms[22m[39m
+ [33mΓ¥»[39m src/pages/CoursePlayer/CoursePlayerPage.quiz.integration.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33mΓ¥»[39m src/pages/Admin/__tests__/EnrollmentManagementPage.test.jsx [2m ([22m[2m0 test[22m[2m)[22m
+ [33mΓ¥»[39m src/components/admin/__tests__/SchedulingManagement.assignment.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33mΓ¥»[39m src/hooks/useComplianceHeartbeat.test.js [2m ([22m[2m6 tests[22m [2m|[22m [31m6 failed[39m[2m)[22m[90m 70[2mms[22m[39m
+[31m   [33mΓ¥»[31m src/hooks/useComplianceHeartbeat.test.js[2m > [22museComplianceHeartbeat[2m > [22mshould call heartbeat function every 60 seconds[39m
+[31m     ΓåÆ vi.mocked(...).mockReturnValue is not a function[39m
+[31m   [33mΓ¥»[31m src/hooks/useComplianceHeartbeat.test.js[2m > [22museComplianceHeartbeat[2m > [22mshould call onHeartbeatSuccess callback on successful heartbeat[39m
+[31m     ΓåÆ vi.mocked(...).mockReturnValue is not a function[39m
+[31m   [33mΓ¥»[31m src/hooks/useComplianceHeartbeat.test.js[2m > [22museComplianceHeartbeat[2m > [22mshould call onLimitReached when daily limit is exceeded[39m
+[31m     ΓåÆ vi.mocked(...).mockReturnValue is not a function[39m
+[31m   [33mΓ¥»[31m src/hooks/useComplianceHeartbeat.test.js[2m > [22museComplianceHeartbeat[2m > [22mshould not send heartbeat when disabled[39m
+[31m     ΓåÆ vi.mocked(...).mockReturnValue is not a function[39m
+[31m   [33mΓ¥»[31m src/hooks/useComplianceHeartbeat.test.js[2m > [22museComplianceHeartbeat[2m > [22mshould not send heartbeat without required parameters[39m
+[31m     ΓåÆ vi.mocked(...).mockReturnValue is not a function[39m
+[31m   [33mΓ¥»[31m src/hooks/useComplianceHeartbeat.test.js[2m > [22museComplianceHeartbeat[2m > [22mshould call onHeartbeatError callback on error[39m
+[31m     ΓåÆ vi.mocked(...).mockReturnValue is not a function[39m
+ [32mΓ£ô[39m src/api/admin/__tests__/userManagementServices.createUserFunction.test.js [2m ([22m[2m9 tests[22m[2m)[22m[90m 58[2mms[22m[39m
+ [32mΓ£ô[39m src/hooks/admin/__tests__/useDashboardStats.test.js [2m ([22m[2m3 tests[22m[2m)[22m[90m 283[2mms[22m[39m
+ [32mΓ£ô[39m src/components/layout/Header/__tests__/Header.test.jsx [2m ([22m[2m4 tests[22m[2m)[22m[90m 201[2mms[22m[39m
+ [32mΓ£ô[39m src/pages/Admin/__tests__/AdminDashboard.test.jsx [2m ([22m[2m3 tests[22m[2m)[22m[90m 164[2mms[22m[39m
+ [32mΓ£ô[39m src/api/enrollment/__tests__/paymentServices.test.js [2m ([22m[2m3 tests[22m[2m)[22m[90m 22[2mms[22m[39m
+ [32mΓ£ô[39m src/utils/__tests__/dateTimeFormatter.test.js [2m ([22m[2m11 tests[22m[2m)[22m[90m 19[2mms[22m[39m
+ [32mΓ£ô[39m src/api/admin/__tests__/auditLogServices.test.js [2m ([22m[2m2 tests[22m[2m)[22m[90m 18[2mms[22m[39m
+ [33mΓ¥»[39m src/components/admin/dashboard/__tests__/CertificatesWidget.test.jsx [2m ([22m[2m3 tests[22m [2m|[22m [31m1 failed[39m[2m)[22m[90m 154[2mms[22m[39m
+[31m   [33mΓ¥»[31m src/components/admin/dashboard/__tests__/CertificatesWidget.test.jsx[2m > [22mCertificatesWidget[2m > [22mnavigates to certificates page on click[39m
+[31m     ΓåÆ expected "spy" to be called with arguments: [ '/admin/certificates' ][90m
+
+Received: 
+
+[31m[90m
+
+Number of calls: [1m0[22m
+[31m[39m
+ [32mΓ£ô[39m src/services/__tests__/errorTrackingService.test.js [2m ([22m[2m6 tests[22m[2m)[22m[33m 1374[2mms[22m[39m
+ [32mΓ£ô[39m src/api/admin/__tests__/detsServices.test.js [2m ([22m[2m2 tests[22m[2m)[22m[90m 14[2mms[22m[39m
+ [32mΓ£ô[39m src/components/admin/dashboard/__tests__/ActivityWidget.test.jsx [2m ([22m[2m3 tests[22m[2m)[22m[90m 109[2mms[22m[39m
+ [33mΓ¥»[39m src/pages/Admin/__tests__/AdminPlaceholderPages.test.jsx [2m ([22m[2m5 tests[22m [2m|[22m [31m3 failed[39m[2m)[22m[33m 830[2mms[22m[39m
+[31m   [33mΓ¥»[31m src/pages/Admin/__tests__/AdminPlaceholderPages.test.jsx[2m > [22mAdmin Placeholder Pages[2m > [22mAdminCoursesPage[2m > [22mrenders correctly[39m
+[31m     ΓåÆ Unable to find an element by: [data-testid="mock-card"]
+
+Ignored nodes: comments, script, style
+[36m<body>[31m
+  [36m<div>[31m
+    [36m<div[31m
+      [33mstyle[31m=[32m"padding: 2rem;"[31m
+    [36m>[31m
+      [36m<h1>[31m
+        [0mManage Courses[0m
+      [36m</h1>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"card default padding-medium"[31m
+      [36m>[31m
+        [36m<p>[31m
+          [0mCourse management features coming soon.[0m
+        [36m</p>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</div>[31m
+[36m</body>[31m[39m
+[31m   [33mΓ¥»[31m src/pages/Admin/__tests__/AdminPlaceholderPages.test.jsx[2m > [22mAdmin Placeholder Pages[2m > [22mUsersPage[2m > [22mrenders correctly[39m
+[31m     ΓåÆ useAuth must be used within an AuthProvider[39m
+[31m   [33mΓ¥»[31m src/pages/Admin/__tests__/AdminPlaceholderPages.test.jsx[2m > [22mAdmin Placeholder Pages[2m > [22mComplianceReportsPage[2m > [22mrenders correctly[39m
+[31m     ΓåÆ Unable to find an element by: [data-testid="mock-compliance-reporting"]
+
+Ignored nodes: comments, script, style
+[36m<body>[31m
+  [36m<div>[31m
+    [36m<div[31m
+      [33mstyle[31m=[32m"padding: 2rem;"[31m
+    [36m>[31m
+      [36m<h1>[31m
+        [0mCompliance Reports[0m
+      [36m</h1>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"container"[31m
+      [36m>[31m
+        [36m<h2[31m
+          [33mclass[31m=[32m"title"[31m
+        [36m>[31m
+          [0mCompliance Report Export[0m
+        [36m</h2>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"form"[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"formGroup"[31m
+          [36m>[31m
+            [36m<label[31m
+              [33mclass[31m=[32m"label"[31m
+            [36m>[31m
+              [0mExport Type[0m
+            [36m</label>[31m
+            [36m<select[31m
+              [33mclass[31m=[32m"select"[31m
+            [36m>[31m
+              [36m<option[31m
+                [33mvalue[31m=[32m"course"[31m
+              [36m>[31m
+                [0mCourse-Wide Export[0m
+              [36m</option>[31m
+              [36m<option[31m
+                [33mvalue[31m=[32m"student"[31m
+              [36m>[31m
+                [0mPer-Student Export[0m
+              [36m</option>[31m
+            [36m</select>[31m
+          [36m</div>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"formGroup"[31m
+          [36m>[31m
+            [36m<label[31m
+              [33mclass[31m=[32m"label"[31m
+            [36m>[31m
+              [0mCourse ID[0m
+            [36m</label>[31m
+            [36m<div[31m
+              [33mclass[31m=[32m"inputWrapper "[31m
+            [36m>[31m
+              [36m<input[31m
+                [33maria-invalid[31m=[32m"false"[31m
+                [33mclass[31m=[32m"input"[31m
+                [33mplaceholder[31m=[32m"e.g., fastrack-online"[31m
+                [33mtype[31m=[32m"text"[31m
+                [33mvalue[31m=[32m""[31m
+              [36m/>[31m
+            [36m</div>[31m
+          [36m</div>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"formGroup"[31m
+          [36m>[31m
+            [36m<label[31m
+              [33mclass[31m=[32m"label"[31m
+            [36m>[31m
+              [0mExport Format[0m
+            [36m</label>[31m
+            [36m<div[31m
+              [33mclass[31m=[32m"formatOptions"[31m
+            [36m>[31m
+              [36m<label[31m
+                [33mclass[31m=[32m"radioLabel"[31m
+              [36m>[31m
+                [36m<input[31m
+                  [33mchecked[31m=[32m""[31m
+                  [33mname[31m=[32m"format"[31m
+                  [33mtype[31m=[32m"radio"[31m
+                  [33mvalue[31m=[32m"csv"[31m
+                [36m/>[31m
+                [36m<span>[31m
+                  [0mCSV[0m
+                [36m</span>[31m
+              [36m</label>[31m
+              [36m<label[31m
+                [33mclass[31m=[32m"radioLabel"[31m
+              [36m>[31m
+                [36m<input[31m
+                  [33mname[31m=[32m"format"[31m
+                  [33mtype[31m=[32m"radio"[31m
+                  [33mvalue[31m=[32m"json"[31m
+                [36m/>[31m
+                [36m<span>[31m
+                  [0mJSON[0m
+                [36m</span>[31m
+              [36m</label>[31m
+              [36m<label[31m
+                [33mclass[31m=[32m"radioLabel"[31m
+              [36m>[31m
+                [36m<input[31m
+                  [33mname[31m=[32m"format"[31m
+                  [33mtype[31m=[32m"radio"[31m
+                  [33mvalue[31m=[32m"pdf"[31m
+                [36m/>[31m
+                [36m<span>[31m
+                  [0mPDF[0m
+                [36m</span>[31m
+              [36m</label>[31m
+            [36m</div>[31m
+          [36m</div>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"info"[31m
+          [36m>[31m
+            [36m<p>[31m
+              [36m<strong>[31m
+                [0mReport Contents:[0m
+              [36m</strong>[31m
+              [0m Session history, quiz attempts, PVQ verification records, and certificate status.[0m
+            [36m</p>[31m
+            [36m<p>[31m
+              [36m<strong>[31m
+                [0mDownload Link:[0m
+              [36m</strong>[31m
+              [0m Valid for 7 days. Downloaded reports are logged for compliance audits.[0m
+            [36m</p>[31m
+          [36m</div>[31m
+          [36m<button[31m
+            [33mclass[31m=[32m"button primary medium disabled"[31m
+            [33mdisabled[31m=[32m""[31m
+            [33mstyle[31m=[32m"width: 100%;"[31m
+            [33mtype[31m=[32m"button"[31m
+          [36m>[31m
+            [0mGenerate & Download Report[0m
+          [36m</button>[31m
+        [36m</div>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</div>[31m
+[36m</body>[31m[39m
+ [32mΓ£ô[39m src/components/common/Button/__tests__/Button.test.jsx [2m ([22m[2m5 tests[22m[2m)[22m[33m 761[2mms[22m[39m
+ [32mΓ£ô[39m src/components/common/Input/__tests__/Input.test.jsx [2m ([22m[2m5 tests[22m[2m)[22m[90m 251[2mms[22m[39m
+ [32mΓ£ô[39m src/hooks/__tests__/useAdminNavigation.test.js [2m ([22m[2m3 tests[22m[2m)[22m[90m 78[2mms[22m[39m
+ [33mΓ¥»[39m src/components/layout/AdminSidebar/__tests__/AdminSidebar.test.jsx [2m ([22m[2m0 test[22m[2m)[22m
+ [32mΓ£ô[39m src/api/compliance/__tests__/schedulingServices.assignment.test.js [2m ([22m[2m3 tests[22m[2m)[22m[90m 8[2mms[22m[39m
+ [32mΓ£ô[39m src/components/common/Badge/__tests__/Badge.test.jsx [2m ([22m[2m3 tests[22m[2m)[22m[90m 75[2mms[22m[39m
+ [32mΓ£ô[39m src/components/common/Card/__tests__/Card.test.jsx [2m ([22m[2m3 tests[22m[2m)[22m[33m 420[2mms[22m[39m
+ [32mΓ£ô[39m src/simple.test.js [2m ([22m[2m1 test[22m[2m)[22m[90m 4[2mms[22m[39m
+ [32mΓ£ô[39m src/components/admin/dashboard/__tests__/RevenueWidget.test.jsx [2m ([22m[2m3 tests[22m[2m)[22m[90m 63[2mms[22m[39m
+ [32mΓ£ô[39m src/components/layout/Sidebar/__tests__/Sidebar.test.jsx [2m ([22m[2m2 tests[22m[2m)[22m[90m 83[2mms[22m[39m
+ [33mΓ¥»[39m functions/src/user/__tests__/userFunctions.test.js [2m ([22m[2m11 tests[22m [2m|[22m [31m2 failed[39m [2m|[22m [33m5 skipped[39m[2m)[22m[33m 20089[2mms[22m[39m
+[31m   [33mΓ¥»[31m functions/src/user/__tests__/userFunctions.test.js[2m > [22mUser Functions[2m > [22mcreateUser[2m > [22mshould log audit event on user creation[39m
+[31m     ΓåÆ Test timed out in 10000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".[39m
+[31m   [33mΓ¥»[31m functions/src/user/__tests__/userFunctions.test.js[2m > [22mUser Functions[2m > [22mcreateUser[2m > [22mshould return user document in response[39m
+[31m     ΓåÆ Test timed out in 10000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".[39m
+
+[31mΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[1m[7m Unhandled Errors [27m[22mΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[39m
+[31m[1m
+Vitest caught 2 unhandled errors during the test run.
+This might cause false positive tests. Resolve unhandled errors to make sure your tests are not affected.[22m[39m
+[31mΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[39m
+[2m Test Files [22m [1m[31m21 failed[39m[22m[2m | [22m[1m[32m48 passed[39m[22m[90m (69)[39m
+[2m      Tests [22m [1m[31m74 failed[39m[22m[2m | [22m[1m[32m869 passed[39m[22m[2m | [22m[33m7 skipped[39m[90m (950)[39m
+[2m     Errors [22m [1m[31m2 errors[39m[22m
+[2m   Start at [22m 14:15:40
+[2m   Duration [22m 43.47s[2m (transform 13.92s, setup 40.61s, collect 55.12s, tests 42.54s, environment 233.54s, prepare 51.92s)[22m
+

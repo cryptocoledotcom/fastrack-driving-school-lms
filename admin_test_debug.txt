@@ -1,0 +1,20 @@
+
+> fastrack-driving-school-lms@1.0.0 test
+> vitest run src/pages/Admin/__tests__/AdminPage.userManagement.integration.test.jsx
+
+
+[7m[1m[36m RUN [39m[22m[27m [36mv1.6.1[39m [90mC:/Users/Cole/Documents/Antigravity Fastrack Workspace/Fastrack-Learning_Management-System[39m
+
+ [33mΓ¥»[39m src/pages/Admin/__tests__/AdminPage.userManagement.integration.test.jsx [2m ([22m[2m0 test[22m[2m)[22m
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ» Failed Suites 1 ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»
+
+ FAIL  src/pages/Admin/__tests__/AdminPage.userManagement.integration.test.jsx [ src/pages/Admin/__tests__/AdminPage.userManagement.integration.test.jsx ]
+Error: [vitest] vi.mock("../../../components/admin/tabs/EnrollmentManagementTab", factory?: () => unknown) is not returning an object. Did you mean to return an object with a "default" key?
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [2mno tests[22m
+[2m   Start at [22m 15:41:07
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[1/1]ΓÄ»
+
+[2m   Duration [22m 8.14s[2m (transform 1.02s, setup 672ms, collect 0ms, tests 0ms, environment 3.05s, prepare 644ms)[22m
+

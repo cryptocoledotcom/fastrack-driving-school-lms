@@ -1,0 +1,274 @@
+
+> fastrack-driving-school-lms@1.0.0 test
+> vitest run src/hooks/useComplianceHeartbeat.test.js
+
+
+[7m[1m[36m RUN [39m[22m[27m [36mv1.6.1[39m [90mC:/Users/Cole/Documents/Antigravity Fastrack Workspace/Fastrack-Learning_Management-System[39m
+
+stderr | src/hooks/useComplianceHeartbeat.test.js > useComplianceHeartbeat > should call heartbeat function every 60 seconds
+Heartbeat error: FirebaseError: Firebase: No Firebase App '[DEFAULT]' has been created - call initializeApp() first (app/no-app).
+    at Module.getApp (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@firebase/app/dist/esm/index.esm.js:726:29)
+    at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\src\hooks\useComplianceHeartbeat.js:29:38
+    at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\src\hooks\useComplianceHeartbeat.js:79:7
+    at callTimer (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/vitest/dist/vendor/vi.YFlodzP_.js:1976:24)
+    at doTickInner (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/vitest/dist/vendor/vi.YFlodzP_.js:2562:29)
+    at doTick (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/vitest/dist/vendor/vi.YFlodzP_.js:2643:20)
+    at Object.tick (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/vitest/dist/vendor/vi.YFlodzP_.js:2651:20)
+    at FakeTimers.advanceTimersByTime (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/vitest/dist/vendor/vi.YFlodzP_.js:3116:19)
+    at Object.advanceTimersByTime (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/vitest/dist/vendor/vi.YFlodzP_.js:3393:16)
+    at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\src\hooks\useComplianceHeartbeat.test.js:50:8 {
+  code: 'app/no-app',
+  customData: { appName: '[DEFAULT]' }
+}
+
+stderr | src/hooks/useComplianceHeartbeat.test.js > useComplianceHeartbeat > should call onHeartbeatSuccess callback on successful heartbeat
+Heartbeat error: FirebaseError: Firebase: No Firebase App '[DEFAULT]' has been created - call initializeApp() first (app/no-app).
+    at Module.getApp (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@firebase/app/dist/esm/index.esm.js:726:29)
+    at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\src\hooks\useComplianceHeartbeat.js:29:38
+    at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\src\hooks\useComplianceHeartbeat.js:79:7
+    at callTimer (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/vitest/dist/vendor/vi.YFlodzP_.js:1976:24)
+    at doTickInner (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/vitest/dist/vendor/vi.YFlodzP_.js:2562:29)
+    at doTick (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/vitest/dist/vendor/vi.YFlodzP_.js:2643:20)
+    at Immediate._onImmediate (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/vitest/dist/vendor/vi.YFlodzP_.js:2663:29)
+    at processImmediate (node:internal/timers:485:21) {
+  code: 'app/no-app',
+  customData: { appName: '[DEFAULT]' }
+}
+
+stderr | src/hooks/useComplianceHeartbeat.test.js > useComplianceHeartbeat > should call onLimitReached when daily limit is exceeded
+Heartbeat error: FirebaseError: Firebase: No Firebase App '[DEFAULT]' has been created - call initializeApp() first (app/no-app).
+    at Module.getApp (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@firebase/app/dist/esm/index.esm.js:726:29)
+    at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\src\hooks\useComplianceHeartbeat.js:29:38
+    at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\src\hooks\useComplianceHeartbeat.js:79:7
+    at callTimer (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/vitest/dist/vendor/vi.YFlodzP_.js:1976:24)
+    at doTickInner (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/vitest/dist/vendor/vi.YFlodzP_.js:2562:29)
+    at doTick (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/vitest/dist/vendor/vi.YFlodzP_.js:2643:20)
+    at Immediate._onImmediate (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/vitest/dist/vendor/vi.YFlodzP_.js:2663:29)
+    at processImmediate (node:internal/timers:485:21) {
+  code: 'app/no-app',
+  customData: { appName: '[DEFAULT]' }
+}
+
+stderr | src/hooks/useComplianceHeartbeat.test.js > useComplianceHeartbeat > should call onHeartbeatError callback on error
+Heartbeat error: FirebaseError: Firebase: No Firebase App '[DEFAULT]' has been created - call initializeApp() first (app/no-app).
+    at Module.getApp (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/@firebase/app/dist/esm/index.esm.js:726:29)
+    at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\src\hooks\useComplianceHeartbeat.js:29:38
+    at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\src\hooks\useComplianceHeartbeat.js:79:7
+    at callTimer (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/vitest/dist/vendor/vi.YFlodzP_.js:1976:24)
+    at doTickInner (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/vitest/dist/vendor/vi.YFlodzP_.js:2562:29)
+    at doTick (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/vitest/dist/vendor/vi.YFlodzP_.js:2643:20)
+    at Immediate._onImmediate (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/node_modules/vitest/dist/vendor/vi.YFlodzP_.js:2663:29)
+    at processImmediate (node:internal/timers:485:21) {
+  code: 'app/no-app',
+  customData: { appName: '[DEFAULT]' }
+}
+
+ [33mΓ¥»[39m src/hooks/useComplianceHeartbeat.test.js [2m ([22m[2m6 tests[22m [2m|[22m [31m4 failed[39m[2m)[22m[90m 283[2mms[22m[39m
+[31m   [33mΓ¥»[31m src/hooks/useComplianceHeartbeat.test.js[2m > [22museComplianceHeartbeat[2m > [22mshould call heartbeat function every 60 seconds[39m
+[31m     ΓåÆ expected "spy" to be called with arguments: [ { userId: 'test-user-123', ΓÇª(2) } ][90m
+
+Received: 
+
+[31m[90m
+
+Number of calls: [1m0[22m
+[31m
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div />[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+[31m   [33mΓ¥»[31m src/hooks/useComplianceHeartbeat.test.js[2m > [22museComplianceHeartbeat[2m > [22mshould call onHeartbeatSuccess callback on successful heartbeat[39m
+[31m     ΓåÆ expected "spy" to be called with arguments: [ { success: true, ΓÇª(2) } ][90m
+
+Received: 
+
+[31m[90m
+
+Number of calls: [1m0[22m
+[31m
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div />[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+[31m   [33mΓ¥»[31m src/hooks/useComplianceHeartbeat.test.js[2m > [22museComplianceHeartbeat[2m > [22mshould call onLimitReached when daily limit is exceeded[39m
+[31m     ΓåÆ expected "spy" to be called with arguments: [ { ΓÇª(2) } ][90m
+
+Received: 
+
+[31m[90m
+
+Number of calls: [1m0[22m
+[31m
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div />[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+[31m   [33mΓ¥»[31m src/hooks/useComplianceHeartbeat.test.js[2m > [22museComplianceHeartbeat[2m > [22mshould call onHeartbeatError callback on error[39m
+[31m     ΓåÆ expected "spy" to be called with arguments: [ Error: Network error ][90m
+
+Received: 
+
+[1m  1st spy call:
+
+[22m[2m  Array [[22m
+[32m-   [Error: Network error],[90m
+[31m+   [FirebaseError: Firebase: No Firebase App '[DEFAULT]' has been created - call initializeApp() first (app/no-app).],[90m
+[2m  ][22m
+[31m[90m
+
+Number of calls: [1m1[22m
+[31m
+
+Ignored nodes: comments, script, style
+[36m<html>[31m
+  [36m<head />[31m
+  [36m<body>[31m
+    [36m<div />[31m
+  [36m</body>[31m
+[36m</html>[31m[39m
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ» Failed Tests 4 ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»
+
+ FAIL  src/hooks/useComplianceHeartbeat.test.js > useComplianceHeartbeat > should call heartbeat function every 60 seconds
+AssertionError: expected "spy" to be called with arguments: [ { userId: 'test-user-123', ΓÇª(2) } ]
+
+Received: 
+
+
+
+Number of calls: 0
+
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div />
+  </body>
+</html>
+ Γ¥» src/hooks/useComplianceHeartbeat.test.js:53:31
+     51| 
+     52|     await waitFor(() => {
+     53|       expect(mockHeartbeatFn).toHaveBeenCalledWith({
+       |                               ^
+     54|         userId,
+     55|         courseId,
+ Γ¥» runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
+ Γ¥» checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ Γ¥» node_modules/@testing-library/dom/dist/wait-for.js:82:9
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[1/4]ΓÄ»
+
+ FAIL  src/hooks/useComplianceHeartbeat.test.js > useComplianceHeartbeat > should call onHeartbeatSuccess callback on successful heartbeat
+AssertionError: expected "spy" to be called with arguments: [ { success: true, ΓÇª(2) } ]
+
+Received: 
+
+
+
+Number of calls: 0
+
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div />
+  </body>
+</html>
+ Γ¥» src/hooks/useComplianceHeartbeat.test.js:90:34
+     88| 
+     89|     await waitFor(() => {
+     90|       expect(onHeartbeatSuccess).toHaveBeenCalledWith(mockResponse);
+       |                                  ^
+     91|     });
+     92|   });
+ Γ¥» runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
+ Γ¥» checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ Γ¥» node_modules/@testing-library/dom/dist/wait-for.js:82:9
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[2/4]ΓÄ»
+
+ FAIL  src/hooks/useComplianceHeartbeat.test.js > useComplianceHeartbeat > should call onLimitReached when daily limit is exceeded
+AssertionError: expected "spy" to be called with arguments: [ { ΓÇª(2) } ]
+
+Received: 
+
+
+
+Number of calls: 0
+
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div />
+  </body>
+</html>
+ Γ¥» src/hooks/useComplianceHeartbeat.test.js:118:30
+    116| 
+    117|     await waitFor(() => {
+    118|       expect(onLimitReached).toHaveBeenCalledWith({
+       |                              ^
+    119|         message: 'You have reached the 4-hour daily training limit',
+    120|         minutesCompleted: 240
+ Γ¥» runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
+ Γ¥» checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ Γ¥» node_modules/@testing-library/dom/dist/wait-for.js:82:9
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[3/4]ΓÄ»
+
+ FAIL  src/hooks/useComplianceHeartbeat.test.js > useComplianceHeartbeat > should call onHeartbeatError callback on error
+AssertionError: expected "spy" to be called with arguments: [ Error: Network error ]
+
+Received: 
+
+  1st spy call:
+
+  Array [
+-   [Error: Network error],
++   [FirebaseError: Firebase: No Firebase App '[DEFAULT]' has been created - call initializeApp() first (app/no-app).],
+  ]
+
+
+Number of calls: 1
+
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div />
+  </body>
+</html>
+ Γ¥» src/hooks/useComplianceHeartbeat.test.js:193:32
+    191| 
+    192|     await waitFor(() => {
+    193|       expect(onHeartbeatError).toHaveBeenCalledWith(error);
+       |                                ^
+    194|     });
+    195|   });
+ Γ¥» runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
+ Γ¥» checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ Γ¥» node_modules/@testing-library/dom/dist/wait-for.js:82:9
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[4/4]ΓÄ»
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m4 failed[39m[22m[2m | [22m[1m[32m2 passed[39m[22m[90m (6)[39m
+[2m   Start at [22m 16:00:53
+[2m   Duration [22m 5.89s[2m (transform 214ms, setup 485ms, collect 730ms, tests 283ms, environment 2.42s, prepare 519ms)[22m
+

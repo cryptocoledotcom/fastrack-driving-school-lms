@@ -1,5 +1,10 @@
-import LoggingService from '../loggingService';
 import { vi } from 'vitest';
+
+// Unmock the service to test its implementation
+vi.unmock('../loggingService');
+vi.mock('../config/firebase'); // unrelated but good practice to ensure
+
+import LoggingService from '../loggingService';
 
 // Mock console methods
 const consoleMethods = ['debug', 'info', 'warn', 'error', 'log'];

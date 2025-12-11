@@ -3,6 +3,7 @@
 
 import React from 'react';
 import styles from './Button.module.css';
+// const styles = {}; // Mock styles locally
 
 const Button = ({
   children,

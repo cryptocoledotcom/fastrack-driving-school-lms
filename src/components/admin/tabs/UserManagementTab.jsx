@@ -155,7 +155,7 @@ const UserManagementTab = () => {
       setSuccess('');
 
       await userManagementServices.updateUserRole(userId, newRole, userProfile.uid);
-      
+
       setSuccess(`User role changed to ${getRoleDisplayName(newRole)}`);
       await loadUsers();
       await loadUserStats();
@@ -185,7 +185,7 @@ const UserManagementTab = () => {
         setSuccess('');
 
         await userManagementServices.deleteUser(userId, userProfile.uid);
-        
+
         setSuccess(`${userName} has been deleted`);
         await loadUsers();
         await loadUserStats();
@@ -206,7 +206,7 @@ const UserManagementTab = () => {
       setSuccess('');
 
       await userManagementServices.restoreUser(userId, userProfile.uid);
-      
+
       setSuccess(`${userName} has been restored`);
       await loadUsers();
       await loadUserStats();
@@ -220,12 +220,12 @@ const UserManagementTab = () => {
   };
 
   const filteredUsers = users.filter(user => {
-    const matchesSearch = 
+    const matchesSearch =
       user.displayName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       user.email?.toLowerCase().includes(searchTerm.toLowerCase());
-    
+
     const matchesRole = !roleFilter || user.role === roleFilter;
-    
+
     return matchesSearch && matchesRole;
   });
 
@@ -369,7 +369,7 @@ const UserManagementTab = () => {
                           {expandedUser === user.uid ? 'Collapse' : 'Manage'}
                         </Button>
                       </div>
-                      
+
                       {expandedUser === user.uid && (
                         <div className={styles.expandedContent}>
                           <div className={styles.roleChangeSection}>
