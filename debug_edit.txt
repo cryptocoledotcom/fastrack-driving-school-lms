@@ -1,0 +1,48 @@
+
+Running 1 test using 1 worker
+
+[1A[2K[1/1] [chromium] ΓÇ║ tests\e2e\admin-workflows.spec.ts:66:5 ΓÇ║ Admin Workflows ΓÇ║ should edit an existing course
+[1A[2K  1) [chromium] ΓÇ║ tests\e2e\admin-workflows.spec.ts:66:5 ΓÇ║ Admin Workflows ΓÇ║ should edit an existing course 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: locator('text=Edit Course')
+    Expected: visible
+    Error: strict mode violation: locator('text=Edit Course') resolved to 20 elements:
+        1) <div class="_courseTitle_1evjg_83">Edit Course 1765564725782</div> aka getByText('Edit Course 1765564725782')
+        2) <div class="_courseTitle_1evjg_83">Edit Course 1765564660346</div> aka getByText('Edit Course 1765564660346')
+        3) <div class="_courseTitle_1evjg_83">Edit Course 1765564544495</div> aka getByText('Edit Course 1765564544495')
+        4) <div class="_courseTitle_1evjg_83">Edit Course 1765564455059</div> aka getByText('Edit Course 1765564455059')
+        5) <div class="_courseTitle_1evjg_83">Edit Course 1765564376637</div> aka getByText('Edit Course 1765564376637')
+        6) <div class="_courseTitle_1evjg_83">Edit Course 1765564337490</div> aka getByText('Edit Course 1765564337490')
+        7) <div class="_courseTitle_1evjg_83">Edit Course 1765564308320</div> aka getByText('Edit Course 1765564308320')
+        8) <div class="_courseTitle_1evjg_83">Edit Course 1765564240352</div> aka getByText('Edit Course 1765564240352')
+        9) <div class="_courseTitle_1evjg_83">Edit Course 1765564195211</div> aka getByText('Edit Course 1765564195211')
+        10) <div class="_courseTitle_1evjg_83">Edit Course 1765564147786</div> aka getByText('Edit Course 1765564147786')
+        ...
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for locator('text=Edit Course')[22m
+
+
+      84 |
+      85 |         // 3. Update
+    > 86 |         await expect(page.locator('text=Edit Course')).toBeVisible();
+         |                                                        ^
+      87 |         await page.fill('input[name="title"]', editTitle);
+      88 |         await page.fill('input[name="price"]', '199');
+      89 |         await page.click('button:has-text("Update Course")');
+        at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\tests\e2e\admin-workflows.spec.ts:86:56
+
+    attachment #1: screenshot (image/png) ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    test-results\admin-workflows-Admin-Work-284e4-uld-edit-an-existing-course-chromium\test-failed-1.png
+    ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+    Error Context: test-results\admin-workflows-Admin-Work-284e4-uld-edit-an-existing-course-chromium\error-context.md
+
+
+[1A[2K  1 failed
+    [chromium] ΓÇ║ tests\e2e\admin-workflows.spec.ts:66:5 ΓÇ║ Admin Workflows ΓÇ║ should edit an existing course 
+
+[36m  Serving HTML report at http://localhost:54182. Press Ctrl+C to quit.[39m

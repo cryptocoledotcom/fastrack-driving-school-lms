@@ -15,6 +15,18 @@ export const ADMIN_SIDEBAR_ITEMS = [
     requiredRoles: [USER_ROLES.SUPER_ADMIN]
   },
   {
+    path: ADMIN_ROUTES.MANAGE_COURSES,
+    label: 'Courses',
+    icon: '📚',
+    requiredRoles: [USER_ROLES.SUPER_ADMIN, USER_ROLES.DMV_ADMIN]
+  },
+  {
+    path: ADMIN_ROUTES.MANAGE_LESSONS,
+    label: 'Lessons',
+    icon: '📝',
+    requiredRoles: [USER_ROLES.SUPER_ADMIN, USER_ROLES.DMV_ADMIN]
+  },
+  {
     path: ADMIN_ROUTES.MANAGE_ENROLLMENTS,
     label: 'Enrollments',
     icon: '🎓',

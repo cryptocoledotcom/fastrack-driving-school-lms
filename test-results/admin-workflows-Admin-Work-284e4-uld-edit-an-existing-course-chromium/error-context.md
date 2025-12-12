@@ -1,0 +1,1001 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - generic [ref=e5]:
+        - generic [ref=e6]:
+          - heading "Fastrack Admin" [level=1] [ref=e7]
+          - paragraph [ref=e8]: Learning Management System
+        - generic [ref=e10]:
+          - generic [ref=e11]:
+            - paragraph [ref=e12]: Cole Bowersock
+            - paragraph [ref=e13]:
+              - generic [ref=e14]: 👤
+              - generic [ref=e15]: super_admin
+          - button "User menu" [ref=e17] [cursor=pointer]:
+            - img [ref=e18]
+    - generic [ref=e20]:
+      - complementary [ref=e21]:
+        - heading "Admin" [level=2] [ref=e23]
+        - navigation [ref=e24]:
+          - link "📊 Dashboard" [ref=e25] [cursor=pointer]:
+            - /url: /admin
+            - generic [ref=e26]: 📊
+            - generic [ref=e27]: Dashboard
+          - link "👥 Users" [ref=e28] [cursor=pointer]:
+            - /url: /admin/users
+            - generic [ref=e29]: 👥
+            - generic [ref=e30]: Users
+          - link "📚 Courses" [ref=e31] [cursor=pointer]:
+            - /url: /admin/courses
+            - generic [ref=e32]: 📚
+            - generic [ref=e33]: Courses
+          - link "📝 Lessons" [ref=e34] [cursor=pointer]:
+            - /url: /admin/lessons
+            - generic [ref=e35]: 📝
+            - generic [ref=e36]: Lessons
+          - link "🎓 Enrollments" [ref=e37] [cursor=pointer]:
+            - /url: /admin/enrollments
+            - generic [ref=e38]: 🎓
+            - generic [ref=e39]: Enrollments
+          - link "📅 Scheduling" [ref=e40] [cursor=pointer]:
+            - /url: /admin/scheduling
+            - generic [ref=e41]: 📅
+            - generic [ref=e42]: Scheduling
+          - link "📈 Analytics" [ref=e43] [cursor=pointer]:
+            - /url: /admin/analytics
+            - generic [ref=e44]: 📈
+            - generic [ref=e45]: Analytics
+          - link "✅ Compliance" [ref=e46] [cursor=pointer]:
+            - /url: /admin/compliance
+            - generic [ref=e47]: ✅
+            - generic [ref=e48]: Compliance
+          - link "📤 DETS Export" [ref=e49] [cursor=pointer]:
+            - /url: /admin/dets-export
+            - generic [ref=e50]: 📤
+            - generic [ref=e51]: DETS Export
+          - link "📋 Audit Logs" [ref=e52] [cursor=pointer]:
+            - /url: /admin/audit-logs
+            - generic [ref=e53]: 📋
+            - generic [ref=e54]: Audit Logs
+          - link "⚙️ Settings" [ref=e55] [cursor=pointer]:
+            - /url: /admin/settings
+            - generic [ref=e56]: ⚙️
+            - generic [ref=e57]: Settings
+      - main [ref=e58]:
+        - generic [ref=e59]:
+          - generic [ref=e60]:
+            - heading "Manage Courses" [level=1] [ref=e61]
+            - button "+ Add Course" [ref=e62] [cursor=pointer]
+          - generic [ref=e63]:
+            - img [ref=e65]
+            - generic [ref=e67]:
+              - heading "Success" [level=3] [ref=e68]
+              - paragraph [ref=e69]: Course updated successfully
+            - button [ref=e70] [cursor=pointer]:
+              - img [ref=e71]
+          - table [ref=e75]:
+            - rowgroup [ref=e76]:
+              - row "Title Category Difficulty Price Students Status Actions" [ref=e77]:
+                - columnheader "Title" [ref=e78]
+                - columnheader "Category" [ref=e79]
+                - columnheader "Difficulty" [ref=e80]
+                - columnheader "Price" [ref=e81]
+                - columnheader "Students" [ref=e82]
+                - columnheader "Status" [ref=e83]
+                - columnheader "Actions" [ref=e84]
+            - rowgroup [ref=e85]:
+              - row "Edited Course 1765565111352 rVvXhbT5zfXpKwQRQZ2a Adult Remedial beginner $199 0 Standard Edit Delete" [ref=e86]:
+                - cell "Edited Course 1765565111352 rVvXhbT5zfXpKwQRQZ2a" [ref=e87]:
+                  - generic [ref=e88]: Edited Course 1765565111352
+                  - generic [ref=e89]: rVvXhbT5zfXpKwQRQZ2a
+                - cell "Adult Remedial" [ref=e90]
+                - cell "beginner" [ref=e91]
+                - cell "$199" [ref=e92]
+                - cell "0" [ref=e93]
+                - cell "Standard" [ref=e94]
+                - cell "Edit Delete" [ref=e95]:
+                  - generic [ref=e96]:
+                    - button "Edit" [ref=e97] [cursor=pointer]
+                    - button "Delete" [ref=e98] [cursor=pointer]
+              - row "Automated Course 1765565100873 wtfayQKluRwjXXY4lX87 Adult Remedial beginner $49.99 0 Standard Edit Delete" [ref=e99]:
+                - cell "Automated Course 1765565100873 wtfayQKluRwjXXY4lX87" [ref=e100]:
+                  - generic [ref=e101]: Automated Course 1765565100873
+                  - generic [ref=e102]: wtfayQKluRwjXXY4lX87
+                - cell "Adult Remedial" [ref=e103]
+                - cell "beginner" [ref=e104]
+                - cell "$49.99" [ref=e105]
+                - cell "0" [ref=e106]
+                - cell "Standard" [ref=e107]
+                - cell "Edit Delete" [ref=e108]:
+                  - generic [ref=e109]:
+                    - button "Edit" [ref=e110] [cursor=pointer]
+                    - button "Delete" [ref=e111] [cursor=pointer]
+              - row "Edited Course 1765565061033 N3xlWZzQkgnJxoVU0Lgc Adult Remedial beginner $199 0 Standard Edit Delete" [ref=e112]:
+                - cell "Edited Course 1765565061033 N3xlWZzQkgnJxoVU0Lgc" [ref=e113]:
+                  - generic [ref=e114]: Edited Course 1765565061033
+                  - generic [ref=e115]: N3xlWZzQkgnJxoVU0Lgc
+                - cell "Adult Remedial" [ref=e116]
+                - cell "beginner" [ref=e117]
+                - cell "$199" [ref=e118]
+                - cell "0" [ref=e119]
+                - cell "Standard" [ref=e120]
+                - cell "Edit Delete" [ref=e121]:
+                  - generic [ref=e122]:
+                    - button "Edit" [ref=e123] [cursor=pointer]
+                    - button "Delete" [ref=e124] [cursor=pointer]
+              - row "Edited Course 1765564955598 HjTxHFwi32G0ABwBXsp3 Adult Remedial beginner $199 0 Standard Edit Delete" [ref=e125]:
+                - cell "Edited Course 1765564955598 HjTxHFwi32G0ABwBXsp3" [ref=e126]:
+                  - generic [ref=e127]: Edited Course 1765564955598
+                  - generic [ref=e128]: HjTxHFwi32G0ABwBXsp3
+                - cell "Adult Remedial" [ref=e129]
+                - cell "beginner" [ref=e130]
+                - cell "$199" [ref=e131]
+                - cell "0" [ref=e132]
+                - cell "Standard" [ref=e133]
+                - cell "Edit Delete" [ref=e134]:
+                  - generic [ref=e135]:
+                    - button "Edit" [ref=e136] [cursor=pointer]
+                    - button "Delete" [ref=e137] [cursor=pointer]
+              - row "Automated Course 1765564943627 ZpRDYwBGNnn2wbFJDcV1 Adult Remedial beginner $49.99 0 Standard Edit Delete" [ref=e138]:
+                - cell "Automated Course 1765564943627 ZpRDYwBGNnn2wbFJDcV1" [ref=e139]:
+                  - generic [ref=e140]: Automated Course 1765564943627
+                  - generic [ref=e141]: ZpRDYwBGNnn2wbFJDcV1
+                - cell "Adult Remedial" [ref=e142]
+                - cell "beginner" [ref=e143]
+                - cell "$49.99" [ref=e144]
+                - cell "0" [ref=e145]
+                - cell "Standard" [ref=e146]
+                - cell "Edit Delete" [ref=e147]:
+                  - generic [ref=e148]:
+                    - button "Edit" [ref=e149] [cursor=pointer]
+                    - button "Delete" [ref=e150] [cursor=pointer]
+              - row "Edited Course 1765564797419 WYXOFz1xX3JJkHLUnDYS Adult Remedial beginner $199 0 Standard Edit Delete" [ref=e151]:
+                - cell "Edited Course 1765564797419 WYXOFz1xX3JJkHLUnDYS" [ref=e152]:
+                  - generic [ref=e153]: Edited Course 1765564797419
+                  - generic [ref=e154]: WYXOFz1xX3JJkHLUnDYS
+                - cell "Adult Remedial" [ref=e155]
+                - cell "beginner" [ref=e156]
+                - cell "$199" [ref=e157]
+                - cell "0" [ref=e158]
+                - cell "Standard" [ref=e159]
+                - cell "Edit Delete" [ref=e160]:
+                  - generic [ref=e161]:
+                    - button "Edit" [ref=e162] [cursor=pointer]
+                    - button "Delete" [ref=e163] [cursor=pointer]
+              - row "Automated Course 1765564779257 p6KPZqhg6JpEaJxki3oU Adult Remedial beginner $49.99 0 Standard Edit Delete" [ref=e164]:
+                - cell "Automated Course 1765564779257 p6KPZqhg6JpEaJxki3oU" [ref=e165]:
+                  - generic [ref=e166]: Automated Course 1765564779257
+                  - generic [ref=e167]: p6KPZqhg6JpEaJxki3oU
+                - cell "Adult Remedial" [ref=e168]
+                - cell "beginner" [ref=e169]
+                - cell "$49.99" [ref=e170]
+                - cell "0" [ref=e171]
+                - cell "Standard" [ref=e172]
+                - cell "Edit Delete" [ref=e173]:
+                  - generic [ref=e174]:
+                    - button "Edit" [ref=e175] [cursor=pointer]
+                    - button "Delete" [ref=e176] [cursor=pointer]
+              - row "Edit Course 1765564725782 tqCia1LYEL4pg1LKxeOK Adult Remedial beginner $100 0 Standard Edit Delete" [ref=e177]:
+                - cell "Edit Course 1765564725782 tqCia1LYEL4pg1LKxeOK" [ref=e178]:
+                  - generic [ref=e179]: Edit Course 1765564725782
+                  - generic [ref=e180]: tqCia1LYEL4pg1LKxeOK
+                - cell "Adult Remedial" [ref=e181]
+                - cell "beginner" [ref=e182]
+                - cell "$100" [ref=e183]
+                - cell "0" [ref=e184]
+                - cell "Standard" [ref=e185]
+                - cell "Edit Delete" [ref=e186]:
+                  - generic [ref=e187]:
+                    - button "Edit" [ref=e188] [cursor=pointer]
+                    - button "Delete" [ref=e189] [cursor=pointer]
+              - row "Edit Course 1765564660346 CD1z15LL5ralUse4ckdE Adult Remedial beginner $100 0 Standard Edit Delete" [ref=e190]:
+                - cell "Edit Course 1765564660346 CD1z15LL5ralUse4ckdE" [ref=e191]:
+                  - generic [ref=e192]: Edit Course 1765564660346
+                  - generic [ref=e193]: CD1z15LL5ralUse4ckdE
+                - cell "Adult Remedial" [ref=e194]
+                - cell "beginner" [ref=e195]
+                - cell "$100" [ref=e196]
+                - cell "0" [ref=e197]
+                - cell "Standard" [ref=e198]
+                - cell "Edit Delete" [ref=e199]:
+                  - generic [ref=e200]:
+                    - button "Edit" [ref=e201] [cursor=pointer]
+                    - button "Delete" [ref=e202] [cursor=pointer]
+              - row "Automated Course 1765564641722 1Yd2rB3RQJ5vNjTmjQDC Adult Remedial beginner $49.99 0 Standard Edit Delete" [ref=e203]:
+                - cell "Automated Course 1765564641722 1Yd2rB3RQJ5vNjTmjQDC" [ref=e204]:
+                  - generic [ref=e205]: Automated Course 1765564641722
+                  - generic [ref=e206]: 1Yd2rB3RQJ5vNjTmjQDC
+                - cell "Adult Remedial" [ref=e207]
+                - cell "beginner" [ref=e208]
+                - cell "$49.99" [ref=e209]
+                - cell "0" [ref=e210]
+                - cell "Standard" [ref=e211]
+                - cell "Edit Delete" [ref=e212]:
+                  - generic [ref=e213]:
+                    - button "Edit" [ref=e214] [cursor=pointer]
+                    - button "Delete" [ref=e215] [cursor=pointer]
+              - row "Edit Course 1765564544495 cooyD5R01n6yeKaq6TCK Adult Remedial beginner $100 0 Standard Edit Delete" [ref=e216]:
+                - cell "Edit Course 1765564544495 cooyD5R01n6yeKaq6TCK" [ref=e217]:
+                  - generic [ref=e218]: Edit Course 1765564544495
+                  - generic [ref=e219]: cooyD5R01n6yeKaq6TCK
+                - cell "Adult Remedial" [ref=e220]
+                - cell "beginner" [ref=e221]
+                - cell "$100" [ref=e222]
+                - cell "0" [ref=e223]
+                - cell "Standard" [ref=e224]
+                - cell "Edit Delete" [ref=e225]:
+                  - generic [ref=e226]:
+                    - button "Edit" [ref=e227] [cursor=pointer]
+                    - button "Delete" [ref=e228] [cursor=pointer]
+              - row "Automated Course 1765564521767 P7JaYXZPJHiDZvcAxAwq Adult Remedial beginner $49.99 0 Standard Edit Delete" [ref=e229]:
+                - cell "Automated Course 1765564521767 P7JaYXZPJHiDZvcAxAwq" [ref=e230]:
+                  - generic [ref=e231]: Automated Course 1765564521767
+                  - generic [ref=e232]: P7JaYXZPJHiDZvcAxAwq
+                - cell "Adult Remedial" [ref=e233]
+                - cell "beginner" [ref=e234]
+                - cell "$49.99" [ref=e235]
+                - cell "0" [ref=e236]
+                - cell "Standard" [ref=e237]
+                - cell "Edit Delete" [ref=e238]:
+                  - generic [ref=e239]:
+                    - button "Edit" [ref=e240] [cursor=pointer]
+                    - button "Delete" [ref=e241] [cursor=pointer]
+              - row "Edit Course 1765564455059 Sg3CbZrTZ6gtikWIHWDS Adult Remedial beginner $100 0 Standard Edit Delete" [ref=e242]:
+                - cell "Edit Course 1765564455059 Sg3CbZrTZ6gtikWIHWDS" [ref=e243]:
+                  - generic [ref=e244]: Edit Course 1765564455059
+                  - generic [ref=e245]: Sg3CbZrTZ6gtikWIHWDS
+                - cell "Adult Remedial" [ref=e246]
+                - cell "beginner" [ref=e247]
+                - cell "$100" [ref=e248]
+                - cell "0" [ref=e249]
+                - cell "Standard" [ref=e250]
+                - cell "Edit Delete" [ref=e251]:
+                  - generic [ref=e252]:
+                    - button "Edit" [ref=e253] [cursor=pointer]
+                    - button "Delete" [ref=e254] [cursor=pointer]
+              - row "Automated Course 1765564423566 uzRevTU1oH8GdrwO2Rht Adult Remedial beginner $49.99 0 Standard Edit Delete" [ref=e255]:
+                - cell "Automated Course 1765564423566 uzRevTU1oH8GdrwO2Rht" [ref=e256]:
+                  - generic [ref=e257]: Automated Course 1765564423566
+                  - generic [ref=e258]: uzRevTU1oH8GdrwO2Rht
+                - cell "Adult Remedial" [ref=e259]
+                - cell "beginner" [ref=e260]
+                - cell "$49.99" [ref=e261]
+                - cell "0" [ref=e262]
+                - cell "Standard" [ref=e263]
+                - cell "Edit Delete" [ref=e264]:
+                  - generic [ref=e265]:
+                    - button "Edit" [ref=e266] [cursor=pointer]
+                    - button "Delete" [ref=e267] [cursor=pointer]
+              - row "Edit Course 1765564376637 QH2UIXzQRjIRCThSMstp Adult Remedial beginner $100 0 Standard Edit Delete" [ref=e268]:
+                - cell "Edit Course 1765564376637 QH2UIXzQRjIRCThSMstp" [ref=e269]:
+                  - generic [ref=e270]: Edit Course 1765564376637
+                  - generic [ref=e271]: QH2UIXzQRjIRCThSMstp
+                - cell "Adult Remedial" [ref=e272]
+                - cell "beginner" [ref=e273]
+                - cell "$100" [ref=e274]
+                - cell "0" [ref=e275]
+                - cell "Standard" [ref=e276]
+                - cell "Edit Delete" [ref=e277]:
+                  - generic [ref=e278]:
+                    - button "Edit" [ref=e279] [cursor=pointer]
+                    - button "Delete" [ref=e280] [cursor=pointer]
+              - row "Automated Course 1765564355983 YgfuQ8SM7Efm5Q9pUVR0 Adult Remedial beginner $49.99 0 Standard Edit Delete" [ref=e281]:
+                - cell "Automated Course 1765564355983 YgfuQ8SM7Efm5Q9pUVR0" [ref=e282]:
+                  - generic [ref=e283]: Automated Course 1765564355983
+                  - generic [ref=e284]: YgfuQ8SM7Efm5Q9pUVR0
+                - cell "Adult Remedial" [ref=e285]
+                - cell "beginner" [ref=e286]
+                - cell "$49.99" [ref=e287]
+                - cell "0" [ref=e288]
+                - cell "Standard" [ref=e289]
+                - cell "Edit Delete" [ref=e290]:
+                  - generic [ref=e291]:
+                    - button "Edit" [ref=e292] [cursor=pointer]
+                    - button "Delete" [ref=e293] [cursor=pointer]
+              - row "Edit Course 1765564337490 bkpKnCC4BT4wKukcmAxu Adult Remedial beginner $100 0 Standard Edit Delete" [ref=e294]:
+                - cell "Edit Course 1765564337490 bkpKnCC4BT4wKukcmAxu" [ref=e295]:
+                  - generic [ref=e296]: Edit Course 1765564337490
+                  - generic [ref=e297]: bkpKnCC4BT4wKukcmAxu
+                - cell "Adult Remedial" [ref=e298]
+                - cell "beginner" [ref=e299]
+                - cell "$100" [ref=e300]
+                - cell "0" [ref=e301]
+                - cell "Standard" [ref=e302]
+                - cell "Edit Delete" [ref=e303]:
+                  - generic [ref=e304]:
+                    - button "Edit" [ref=e305] [cursor=pointer]
+                    - button "Delete" [ref=e306] [cursor=pointer]
+              - row "Automated Course 1765564315139 SelIbpVcgbHaBgP3Q7TH Adult Remedial beginner $49.99 0 Standard Edit Delete" [ref=e307]:
+                - cell "Automated Course 1765564315139 SelIbpVcgbHaBgP3Q7TH" [ref=e308]:
+                  - generic [ref=e309]: Automated Course 1765564315139
+                  - generic [ref=e310]: SelIbpVcgbHaBgP3Q7TH
+                - cell "Adult Remedial" [ref=e311]
+                - cell "beginner" [ref=e312]
+                - cell "$49.99" [ref=e313]
+                - cell "0" [ref=e314]
+                - cell "Standard" [ref=e315]
+                - cell "Edit Delete" [ref=e316]:
+                  - generic [ref=e317]:
+                    - button "Edit" [ref=e318] [cursor=pointer]
+                    - button "Delete" [ref=e319] [cursor=pointer]
+              - row "Edit Course 1765564308320 S0uCTdNsFZe0jYqvyGLv Adult Remedial beginner $100 0 Standard Edit Delete" [ref=e320]:
+                - cell "Edit Course 1765564308320 S0uCTdNsFZe0jYqvyGLv" [ref=e321]:
+                  - generic [ref=e322]: Edit Course 1765564308320
+                  - generic [ref=e323]: S0uCTdNsFZe0jYqvyGLv
+                - cell "Adult Remedial" [ref=e324]
+                - cell "beginner" [ref=e325]
+                - cell "$100" [ref=e326]
+                - cell "0" [ref=e327]
+                - cell "Standard" [ref=e328]
+                - cell "Edit Delete" [ref=e329]:
+                  - generic [ref=e330]:
+                    - button "Edit" [ref=e331] [cursor=pointer]
+                    - button "Delete" [ref=e332] [cursor=pointer]
+              - row "Automated Course 1765564285379 EhglWdzmJegGu6EflUIA Adult Remedial beginner $49.99 0 Standard Edit Delete" [ref=e333]:
+                - cell "Automated Course 1765564285379 EhglWdzmJegGu6EflUIA" [ref=e334]:
+                  - generic [ref=e335]: Automated Course 1765564285379
+                  - generic [ref=e336]: EhglWdzmJegGu6EflUIA
+                - cell "Adult Remedial" [ref=e337]
+                - cell "beginner" [ref=e338]
+                - cell "$49.99" [ref=e339]
+                - cell "0" [ref=e340]
+                - cell "Standard" [ref=e341]
+                - cell "Edit Delete" [ref=e342]:
+                  - generic [ref=e343]:
+                    - button "Edit" [ref=e344] [cursor=pointer]
+                    - button "Delete" [ref=e345] [cursor=pointer]
+              - row "Edit Course 1765564240352 OOlwTUlQrjE20fhtgUQ1 Adult Remedial beginner $100 0 Standard Edit Delete" [ref=e346]:
+                - cell "Edit Course 1765564240352 OOlwTUlQrjE20fhtgUQ1" [ref=e347]:
+                  - generic [ref=e348]: Edit Course 1765564240352
+                  - generic [ref=e349]: OOlwTUlQrjE20fhtgUQ1
+                - cell "Adult Remedial" [ref=e350]
+                - cell "beginner" [ref=e351]
+                - cell "$100" [ref=e352]
+                - cell "0" [ref=e353]
+                - cell "Standard" [ref=e354]
+                - cell "Edit Delete" [ref=e355]:
+                  - generic [ref=e356]:
+                    - button "Edit" [ref=e357] [cursor=pointer]
+                    - button "Delete" [ref=e358] [cursor=pointer]
+              - row "Edit Course 1765564195211 yS79mK8NVf3HUFV8YsFf Adult Remedial beginner $100 0 Standard Edit Delete" [ref=e359]:
+                - cell "Edit Course 1765564195211 yS79mK8NVf3HUFV8YsFf" [ref=e360]:
+                  - generic [ref=e361]: Edit Course 1765564195211
+                  - generic [ref=e362]: yS79mK8NVf3HUFV8YsFf
+                - cell "Adult Remedial" [ref=e363]
+                - cell "beginner" [ref=e364]
+                - cell "$100" [ref=e365]
+                - cell "0" [ref=e366]
+                - cell "Standard" [ref=e367]
+                - cell "Edit Delete" [ref=e368]:
+                  - generic [ref=e369]:
+                    - button "Edit" [ref=e370] [cursor=pointer]
+                    - button "Delete" [ref=e371] [cursor=pointer]
+              - row "Automated Course 1765564195520 hAU8LHRNGmbbqVM5feEI Adult Remedial beginner $49.99 0 Standard Edit Delete" [ref=e372]:
+                - cell "Automated Course 1765564195520 hAU8LHRNGmbbqVM5feEI" [ref=e373]:
+                  - generic [ref=e374]: Automated Course 1765564195520
+                  - generic [ref=e375]: hAU8LHRNGmbbqVM5feEI
+                - cell "Adult Remedial" [ref=e376]
+                - cell "beginner" [ref=e377]
+                - cell "$49.99" [ref=e378]
+                - cell "0" [ref=e379]
+                - cell "Standard" [ref=e380]
+                - cell "Edit Delete" [ref=e381]:
+                  - generic [ref=e382]:
+                    - button "Edit" [ref=e383] [cursor=pointer]
+                    - button "Delete" [ref=e384] [cursor=pointer]
+              - row "Automated Course 1765564158246 zWPTabu9ZoNpv2RMcdjP Adult Remedial beginner $49.99 0 Standard Edit Delete" [ref=e385]:
+                - cell "Automated Course 1765564158246 zWPTabu9ZoNpv2RMcdjP" [ref=e386]:
+                  - generic [ref=e387]: Automated Course 1765564158246
+                  - generic [ref=e388]: zWPTabu9ZoNpv2RMcdjP
+                - cell "Adult Remedial" [ref=e389]
+                - cell "beginner" [ref=e390]
+                - cell "$49.99" [ref=e391]
+                - cell "0" [ref=e392]
+                - cell "Standard" [ref=e393]
+                - cell "Edit Delete" [ref=e394]:
+                  - generic [ref=e395]:
+                    - button "Edit" [ref=e396] [cursor=pointer]
+                    - button "Delete" [ref=e397] [cursor=pointer]
+              - row "Edit Course 1765564147786 D8gT6pbyRBbNTwIQ2VCt Adult Remedial beginner $100 0 Standard Edit Delete" [ref=e398]:
+                - cell "Edit Course 1765564147786 D8gT6pbyRBbNTwIQ2VCt" [ref=e399]:
+                  - generic [ref=e400]: Edit Course 1765564147786
+                  - generic [ref=e401]: D8gT6pbyRBbNTwIQ2VCt
+                - cell "Adult Remedial" [ref=e402]
+                - cell "beginner" [ref=e403]
+                - cell "$100" [ref=e404]
+                - cell "0" [ref=e405]
+                - cell "Standard" [ref=e406]
+                - cell "Edit Delete" [ref=e407]:
+                  - generic [ref=e408]:
+                    - button "Edit" [ref=e409] [cursor=pointer]
+                    - button "Delete" [ref=e410] [cursor=pointer]
+              - row "Edit Course 1765564138308 0QRKzpDL6H3NS2AjJRCy Adult Remedial beginner $100 0 Standard Edit Delete" [ref=e411]:
+                - cell "Edit Course 1765564138308 0QRKzpDL6H3NS2AjJRCy" [ref=e412]:
+                  - generic [ref=e413]: Edit Course 1765564138308
+                  - generic [ref=e414]: 0QRKzpDL6H3NS2AjJRCy
+                - cell "Adult Remedial" [ref=e415]
+                - cell "beginner" [ref=e416]
+                - cell "$100" [ref=e417]
+                - cell "0" [ref=e418]
+                - cell "Standard" [ref=e419]
+                - cell "Edit Delete" [ref=e420]:
+                  - generic [ref=e421]:
+                    - button "Edit" [ref=e422] [cursor=pointer]
+                    - button "Delete" [ref=e423] [cursor=pointer]
+              - row "Automated Course 1765564125060 piBKKtV3VU2cYsp4Jm7x Adult Remedial beginner $49.99 0 Standard Edit Delete" [ref=e424]:
+                - cell "Automated Course 1765564125060 piBKKtV3VU2cYsp4Jm7x" [ref=e425]:
+                  - generic [ref=e426]: Automated Course 1765564125060
+                  - generic [ref=e427]: piBKKtV3VU2cYsp4Jm7x
+                - cell "Adult Remedial" [ref=e428]
+                - cell "beginner" [ref=e429]
+                - cell "$49.99" [ref=e430]
+                - cell "0" [ref=e431]
+                - cell "Standard" [ref=e432]
+                - cell "Edit Delete" [ref=e433]:
+                  - generic [ref=e434]:
+                    - button "Edit" [ref=e435] [cursor=pointer]
+                    - button "Delete" [ref=e436] [cursor=pointer]
+              - row "Automated Course 1765564117452 Kbw2pAXTT5wCWa2MpvI5 Adult Remedial beginner $49.99 0 Standard Edit Delete" [ref=e437]:
+                - cell "Automated Course 1765564117452 Kbw2pAXTT5wCWa2MpvI5" [ref=e438]:
+                  - generic [ref=e439]: Automated Course 1765564117452
+                  - generic [ref=e440]: Kbw2pAXTT5wCWa2MpvI5
+                - cell "Adult Remedial" [ref=e441]
+                - cell "beginner" [ref=e442]
+                - cell "$49.99" [ref=e443]
+                - cell "0" [ref=e444]
+                - cell "Standard" [ref=e445]
+                - cell "Edit Delete" [ref=e446]:
+                  - generic [ref=e447]:
+                    - button "Edit" [ref=e448] [cursor=pointer]
+                    - button "Delete" [ref=e449] [cursor=pointer]
+              - row "Edit Course 1765564106129 Oc35IsrrVv5f1Do8gOR4 Adult Remedial beginner $100 0 Standard Edit Delete" [ref=e450]:
+                - cell "Edit Course 1765564106129 Oc35IsrrVv5f1Do8gOR4" [ref=e451]:
+                  - generic [ref=e452]: Edit Course 1765564106129
+                  - generic [ref=e453]: Oc35IsrrVv5f1Do8gOR4
+                - cell "Adult Remedial" [ref=e454]
+                - cell "beginner" [ref=e455]
+                - cell "$100" [ref=e456]
+                - cell "0" [ref=e457]
+                - cell "Standard" [ref=e458]
+                - cell "Edit Delete" [ref=e459]:
+                  - generic [ref=e460]:
+                    - button "Edit" [ref=e461] [cursor=pointer]
+                    - button "Delete" [ref=e462] [cursor=pointer]
+              - row "Automated Course 1765564086965 vAaAZkxVSAfQEdNI4ogH Adult Remedial beginner $49.99 0 Standard Edit Delete" [ref=e463]:
+                - cell "Automated Course 1765564086965 vAaAZkxVSAfQEdNI4ogH" [ref=e464]:
+                  - generic [ref=e465]: Automated Course 1765564086965
+                  - generic [ref=e466]: vAaAZkxVSAfQEdNI4ogH
+                - cell "Adult Remedial" [ref=e467]
+                - cell "beginner" [ref=e468]
+                - cell "$49.99" [ref=e469]
+                - cell "0" [ref=e470]
+                - cell "Standard" [ref=e471]
+                - cell "Edit Delete" [ref=e472]:
+                  - generic [ref=e473]:
+                    - button "Edit" [ref=e474] [cursor=pointer]
+                    - button "Delete" [ref=e475] [cursor=pointer]
+              - row "Edit Course 1765564056498 JHeV7MBtvcMx0Qy7H9ZP Adult Remedial beginner $100 0 Standard Edit Delete" [ref=e476]:
+                - cell "Edit Course 1765564056498 JHeV7MBtvcMx0Qy7H9ZP" [ref=e477]:
+                  - generic [ref=e478]: Edit Course 1765564056498
+                  - generic [ref=e479]: JHeV7MBtvcMx0Qy7H9ZP
+                - cell "Adult Remedial" [ref=e480]
+                - cell "beginner" [ref=e481]
+                - cell "$100" [ref=e482]
+                - cell "0" [ref=e483]
+                - cell "Standard" [ref=e484]
+                - cell "Edit Delete" [ref=e485]:
+                  - generic [ref=e486]:
+                    - button "Edit" [ref=e487] [cursor=pointer]
+                    - button "Delete" [ref=e488] [cursor=pointer]
+              - row "Automated Course 1765564024893 LsmCW6am8Th1jvIhlUVa Adult Remedial beginner $49.99 0 Standard Edit Delete" [ref=e489]:
+                - cell "Automated Course 1765564024893 LsmCW6am8Th1jvIhlUVa" [ref=e490]:
+                  - generic [ref=e491]: Automated Course 1765564024893
+                  - generic [ref=e492]: LsmCW6am8Th1jvIhlUVa
+                - cell "Adult Remedial" [ref=e493]
+                - cell "beginner" [ref=e494]
+                - cell "$49.99" [ref=e495]
+                - cell "0" [ref=e496]
+                - cell "Standard" [ref=e497]
+                - cell "Edit Delete" [ref=e498]:
+                  - generic [ref=e499]:
+                    - button "Edit" [ref=e500] [cursor=pointer]
+                    - button "Delete" [ref=e501] [cursor=pointer]
+              - row "Edit Course 1765563979256 Ft31ADXgO7OPTmgsMZYZ Adult Remedial beginner $100 0 Standard Edit Delete" [ref=e502]:
+                - cell "Edit Course 1765563979256 Ft31ADXgO7OPTmgsMZYZ" [ref=e503]:
+                  - generic [ref=e504]: Edit Course 1765563979256
+                  - generic [ref=e505]: Ft31ADXgO7OPTmgsMZYZ
+                - cell "Adult Remedial" [ref=e506]
+                - cell "beginner" [ref=e507]
+                - cell "$100" [ref=e508]
+                - cell "0" [ref=e509]
+                - cell "Standard" [ref=e510]
+                - cell "Edit Delete" [ref=e511]:
+                  - generic [ref=e512]:
+                    - button "Edit" [ref=e513] [cursor=pointer]
+                    - button "Delete" [ref=e514] [cursor=pointer]
+              - row "Automated Course 1765563961225 La33EMXz5ATcbzY5XM0Z Adult Remedial beginner $49.99 0 Standard Edit Delete" [ref=e515]:
+                - cell "Automated Course 1765563961225 La33EMXz5ATcbzY5XM0Z" [ref=e516]:
+                  - generic [ref=e517]: Automated Course 1765563961225
+                  - generic [ref=e518]: La33EMXz5ATcbzY5XM0Z
+                - cell "Adult Remedial" [ref=e519]
+                - cell "beginner" [ref=e520]
+                - cell "$49.99" [ref=e521]
+                - cell "0" [ref=e522]
+                - cell "Standard" [ref=e523]
+                - cell "Edit Delete" [ref=e524]:
+                  - generic [ref=e525]:
+                    - button "Edit" [ref=e526] [cursor=pointer]
+                    - button "Delete" [ref=e527] [cursor=pointer]
+              - row "Edit Course 1765563847877 83rI9M0YRlECktPxlv8v Adult Remedial beginner $100 0 Standard Edit Delete" [ref=e528]:
+                - cell "Edit Course 1765563847877 83rI9M0YRlECktPxlv8v" [ref=e529]:
+                  - generic [ref=e530]: Edit Course 1765563847877
+                  - generic [ref=e531]: 83rI9M0YRlECktPxlv8v
+                - cell "Adult Remedial" [ref=e532]
+                - cell "beginner" [ref=e533]
+                - cell "$100" [ref=e534]
+                - cell "0" [ref=e535]
+                - cell "Standard" [ref=e536]
+                - cell "Edit Delete" [ref=e537]:
+                  - generic [ref=e538]:
+                    - button "Edit" [ref=e539] [cursor=pointer]
+                    - button "Delete" [ref=e540] [cursor=pointer]
+              - row "Edit Course 1765563825338 AUzarZe3hux5Vhq5Nbd8 Adult Remedial beginner $100 0 Standard Edit Delete" [ref=e541]:
+                - cell "Edit Course 1765563825338 AUzarZe3hux5Vhq5Nbd8" [ref=e542]:
+                  - generic [ref=e543]: Edit Course 1765563825338
+                  - generic [ref=e544]: AUzarZe3hux5Vhq5Nbd8
+                - cell "Adult Remedial" [ref=e545]
+                - cell "beginner" [ref=e546]
+                - cell "$100" [ref=e547]
+                - cell "0" [ref=e548]
+                - cell "Standard" [ref=e549]
+                - cell "Edit Delete" [ref=e550]:
+                  - generic [ref=e551]:
+                    - button "Edit" [ref=e552] [cursor=pointer]
+                    - button "Delete" [ref=e553] [cursor=pointer]
+              - row "Automated Course 1765563826549 WnMhjfxzbvkeuCzZAclr Adult Remedial beginner $49.99 0 Standard Edit Delete" [ref=e554]:
+                - cell "Automated Course 1765563826549 WnMhjfxzbvkeuCzZAclr" [ref=e555]:
+                  - generic [ref=e556]: Automated Course 1765563826549
+                  - generic [ref=e557]: WnMhjfxzbvkeuCzZAclr
+                - cell "Adult Remedial" [ref=e558]
+                - cell "beginner" [ref=e559]
+                - cell "$49.99" [ref=e560]
+                - cell "0" [ref=e561]
+                - cell "Standard" [ref=e562]
+                - cell "Edit Delete" [ref=e563]:
+                  - generic [ref=e564]:
+                    - button "Edit" [ref=e565] [cursor=pointer]
+                    - button "Delete" [ref=e566] [cursor=pointer]
+              - row "Automated Course 1765563800934 nULTCYbEjNvgxLURKUBZ Adult Remedial beginner $49.99 0 Standard Edit Delete" [ref=e567]:
+                - cell "Automated Course 1765563800934 nULTCYbEjNvgxLURKUBZ" [ref=e568]:
+                  - generic [ref=e569]: Automated Course 1765563800934
+                  - generic [ref=e570]: nULTCYbEjNvgxLURKUBZ
+                - cell "Adult Remedial" [ref=e571]
+                - cell "beginner" [ref=e572]
+                - cell "$49.99" [ref=e573]
+                - cell "0" [ref=e574]
+                - cell "Standard" [ref=e575]
+                - cell "Edit Delete" [ref=e576]:
+                  - generic [ref=e577]:
+                    - button "Edit" [ref=e578] [cursor=pointer]
+                    - button "Delete" [ref=e579] [cursor=pointer]
+              - row "Edit Course 1765563755199 b7XpztKH7cZNpTAMI4Sz Adult Remedial beginner $100 0 Standard Edit Delete" [ref=e580]:
+                - cell "Edit Course 1765563755199 b7XpztKH7cZNpTAMI4Sz" [ref=e581]:
+                  - generic [ref=e582]: Edit Course 1765563755199
+                  - generic [ref=e583]: b7XpztKH7cZNpTAMI4Sz
+                - cell "Adult Remedial" [ref=e584]
+                - cell "beginner" [ref=e585]
+                - cell "$100" [ref=e586]
+                - cell "0" [ref=e587]
+                - cell "Standard" [ref=e588]
+                - cell "Edit Delete" [ref=e589]:
+                  - generic [ref=e590]:
+                    - button "Edit" [ref=e591] [cursor=pointer]
+                    - button "Delete" [ref=e592] [cursor=pointer]
+              - row "Edit Course 1765563719262 SXYkSNjM5NDzlM5eup01 Adult Remedial beginner $100 0 Standard Edit Delete" [ref=e593]:
+                - cell "Edit Course 1765563719262 SXYkSNjM5NDzlM5eup01" [ref=e594]:
+                  - generic [ref=e595]: Edit Course 1765563719262
+                  - generic [ref=e596]: SXYkSNjM5NDzlM5eup01
+                - cell "Adult Remedial" [ref=e597]
+                - cell "beginner" [ref=e598]
+                - cell "$100" [ref=e599]
+                - cell "0" [ref=e600]
+                - cell "Standard" [ref=e601]
+                - cell "Edit Delete" [ref=e602]:
+                  - generic [ref=e603]:
+                    - button "Edit" [ref=e604] [cursor=pointer]
+                    - button "Delete" [ref=e605] [cursor=pointer]
+              - row "Automated Course 1765563713245 UL5JcyOETsSumPzdUcSv Adult Remedial beginner $49.99 0 Standard Edit Delete" [ref=e606]:
+                - cell "Automated Course 1765563713245 UL5JcyOETsSumPzdUcSv" [ref=e607]:
+                  - generic [ref=e608]: Automated Course 1765563713245
+                  - generic [ref=e609]: UL5JcyOETsSumPzdUcSv
+                - cell "Adult Remedial" [ref=e610]
+                - cell "beginner" [ref=e611]
+                - cell "$49.99" [ref=e612]
+                - cell "0" [ref=e613]
+                - cell "Standard" [ref=e614]
+                - cell "Edit Delete" [ref=e615]:
+                  - generic [ref=e616]:
+                    - button "Edit" [ref=e617] [cursor=pointer]
+                    - button "Delete" [ref=e618] [cursor=pointer]
+              - row "Automated Course 1765563685244 dPNdPYZuymCIuFLYgb0J Adult Remedial beginner $49.99 0 Standard Edit Delete" [ref=e619]:
+                - cell "Automated Course 1765563685244 dPNdPYZuymCIuFLYgb0J" [ref=e620]:
+                  - generic [ref=e621]: Automated Course 1765563685244
+                  - generic [ref=e622]: dPNdPYZuymCIuFLYgb0J
+                - cell "Adult Remedial" [ref=e623]
+                - cell "beginner" [ref=e624]
+                - cell "$49.99" [ref=e625]
+                - cell "0" [ref=e626]
+                - cell "Standard" [ref=e627]
+                - cell "Edit Delete" [ref=e628]:
+                  - generic [ref=e629]:
+                    - button "Edit" [ref=e630] [cursor=pointer]
+                    - button "Delete" [ref=e631] [cursor=pointer]
+              - row "Edit Course 1765563664354 CqiCl6G1E8xNPBTCGYha Adult Remedial beginner $100 0 Standard Edit Delete" [ref=e632]:
+                - cell "Edit Course 1765563664354 CqiCl6G1E8xNPBTCGYha" [ref=e633]:
+                  - generic [ref=e634]: Edit Course 1765563664354
+                  - generic [ref=e635]: CqiCl6G1E8xNPBTCGYha
+                - cell "Adult Remedial" [ref=e636]
+                - cell "beginner" [ref=e637]
+                - cell "$100" [ref=e638]
+                - cell "0" [ref=e639]
+                - cell "Standard" [ref=e640]
+                - cell "Edit Delete" [ref=e641]:
+                  - generic [ref=e642]:
+                    - button "Edit" [ref=e643] [cursor=pointer]
+                    - button "Delete" [ref=e644] [cursor=pointer]
+              - row "Automated Course 1765563644216 vEhmTiVr3jMlcEWPPQnK Adult Remedial beginner $49.99 0 Standard Edit Delete" [ref=e645]:
+                - cell "Automated Course 1765563644216 vEhmTiVr3jMlcEWPPQnK" [ref=e646]:
+                  - generic [ref=e647]: Automated Course 1765563644216
+                  - generic [ref=e648]: vEhmTiVr3jMlcEWPPQnK
+                - cell "Adult Remedial" [ref=e649]
+                - cell "beginner" [ref=e650]
+                - cell "$49.99" [ref=e651]
+                - cell "0" [ref=e652]
+                - cell "Standard" [ref=e653]
+                - cell "Edit Delete" [ref=e654]:
+                  - generic [ref=e655]:
+                    - button "Edit" [ref=e656] [cursor=pointer]
+                    - button "Delete" [ref=e657] [cursor=pointer]
+              - row "Course Edited Successfully K4aNJCNg9PbJ29L8wQC9 Adult Remedial beginner $199 0 Standard Edit Delete" [ref=e658]:
+                - cell "Course Edited Successfully K4aNJCNg9PbJ29L8wQC9" [ref=e659]:
+                  - generic [ref=e660]: Course Edited Successfully
+                  - generic [ref=e661]: K4aNJCNg9PbJ29L8wQC9
+                - cell "Adult Remedial" [ref=e662]
+                - cell "beginner" [ref=e663]
+                - cell "$199" [ref=e664]
+                - cell "0" [ref=e665]
+                - cell "Standard" [ref=e666]
+                - cell "Edit Delete" [ref=e667]:
+                  - generic [ref=e668]:
+                    - button "Edit" [ref=e669] [cursor=pointer]
+                    - button "Delete" [ref=e670] [cursor=pointer]
+              - row "Automated Test Course jjUk5Qv8xLdlgOP3pGlQ Adult Remedial beginner $49.99 0 Standard Edit Delete" [ref=e671]:
+                - cell "Automated Test Course jjUk5Qv8xLdlgOP3pGlQ" [ref=e672]:
+                  - generic [ref=e673]: Automated Test Course
+                  - generic [ref=e674]: jjUk5Qv8xLdlgOP3pGlQ
+                - cell "Adult Remedial" [ref=e675]
+                - cell "beginner" [ref=e676]
+                - cell "$49.99" [ref=e677]
+                - cell "0" [ref=e678]
+                - cell "Standard" [ref=e679]
+                - cell "Edit Delete" [ref=e680]:
+                  - generic [ref=e681]:
+                    - button "Edit" [ref=e682] [cursor=pointer]
+                    - button "Delete" [ref=e683] [cursor=pointer]
+              - row "Automated Test Course N7ttOwrnDPBgGKE6Wkeb Adult Remedial beginner $49.99 0 Standard Edit Delete" [ref=e684]:
+                - cell "Automated Test Course N7ttOwrnDPBgGKE6Wkeb" [ref=e685]:
+                  - generic [ref=e686]: Automated Test Course
+                  - generic [ref=e687]: N7ttOwrnDPBgGKE6Wkeb
+                - cell "Adult Remedial" [ref=e688]
+                - cell "beginner" [ref=e689]
+                - cell "$49.99" [ref=e690]
+                - cell "0" [ref=e691]
+                - cell "Standard" [ref=e692]
+                - cell "Edit Delete" [ref=e693]:
+                  - generic [ref=e694]:
+                    - button "Edit" [ref=e695] [cursor=pointer]
+                    - button "Delete" [ref=e696] [cursor=pointer]
+              - row "Automated Test Course jNqwr8fsob86aGDesxml Adult Remedial beginner $49.99 0 Standard Edit Delete" [ref=e697]:
+                - cell "Automated Test Course jNqwr8fsob86aGDesxml" [ref=e698]:
+                  - generic [ref=e699]: Automated Test Course
+                  - generic [ref=e700]: jNqwr8fsob86aGDesxml
+                - cell "Adult Remedial" [ref=e701]
+                - cell "beginner" [ref=e702]
+                - cell "$49.99" [ref=e703]
+                - cell "0" [ref=e704]
+                - cell "Standard" [ref=e705]
+                - cell "Edit Delete" [ref=e706]:
+                  - generic [ref=e707]:
+                    - button "Edit" [ref=e708] [cursor=pointer]
+                    - button "Delete" [ref=e709] [cursor=pointer]
+              - row "Automated Test Course 9BYKTS7b531nnNQFvSRU Adult Remedial beginner $49.99 0 Standard Edit Delete" [ref=e710]:
+                - cell "Automated Test Course 9BYKTS7b531nnNQFvSRU" [ref=e711]:
+                  - generic [ref=e712]: Automated Test Course
+                  - generic [ref=e713]: 9BYKTS7b531nnNQFvSRU
+                - cell "Adult Remedial" [ref=e714]
+                - cell "beginner" [ref=e715]
+                - cell "$49.99" [ref=e716]
+                - cell "0" [ref=e717]
+                - cell "Standard" [ref=e718]
+                - cell "Edit Delete" [ref=e719]:
+                  - generic [ref=e720]:
+                    - button "Edit" [ref=e721] [cursor=pointer]
+                    - button "Delete" [ref=e722] [cursor=pointer]
+              - row "Course Edited Successfully 0BtYz2cDmJIbCN387ZLX Adult Remedial beginner $199 0 Standard Edit Delete" [ref=e723]:
+                - cell "Course Edited Successfully 0BtYz2cDmJIbCN387ZLX" [ref=e724]:
+                  - generic [ref=e725]: Course Edited Successfully
+                  - generic [ref=e726]: 0BtYz2cDmJIbCN387ZLX
+                - cell "Adult Remedial" [ref=e727]
+                - cell "beginner" [ref=e728]
+                - cell "$199" [ref=e729]
+                - cell "0" [ref=e730]
+                - cell "Standard" [ref=e731]
+                - cell "Edit Delete" [ref=e732]:
+                  - generic [ref=e733]:
+                    - button "Edit" [ref=e734] [cursor=pointer]
+                    - button "Delete" [ref=e735] [cursor=pointer]
+              - row "Automated Test Course U3y935yFsURVVg4Ft4Bo Adult Remedial beginner $49.99 0 Standard Edit Delete" [ref=e736]:
+                - cell "Automated Test Course U3y935yFsURVVg4Ft4Bo" [ref=e737]:
+                  - generic [ref=e738]: Automated Test Course
+                  - generic [ref=e739]: U3y935yFsURVVg4Ft4Bo
+                - cell "Adult Remedial" [ref=e740]
+                - cell "beginner" [ref=e741]
+                - cell "$49.99" [ref=e742]
+                - cell "0" [ref=e743]
+                - cell "Standard" [ref=e744]
+                - cell "Edit Delete" [ref=e745]:
+                  - generic [ref=e746]:
+                    - button "Edit" [ref=e747] [cursor=pointer]
+                    - button "Delete" [ref=e748] [cursor=pointer]
+              - row "Course Edited Successfully 6h7A8jYyjgxdopShDP4r Adult Remedial beginner $199 0 Standard Edit Delete" [ref=e749]:
+                - cell "Course Edited Successfully 6h7A8jYyjgxdopShDP4r" [ref=e750]:
+                  - generic [ref=e751]: Course Edited Successfully
+                  - generic [ref=e752]: 6h7A8jYyjgxdopShDP4r
+                - cell "Adult Remedial" [ref=e753]
+                - cell "beginner" [ref=e754]
+                - cell "$199" [ref=e755]
+                - cell "0" [ref=e756]
+                - cell "Standard" [ref=e757]
+                - cell "Edit Delete" [ref=e758]:
+                  - generic [ref=e759]:
+                    - button "Edit" [ref=e760] [cursor=pointer]
+                    - button "Delete" [ref=e761] [cursor=pointer]
+              - row "Automated Test Course gYFuCGs9oaXAzG7bph78 Adult Remedial beginner $49.99 0 Standard Edit Delete" [ref=e762]:
+                - cell "Automated Test Course gYFuCGs9oaXAzG7bph78" [ref=e763]:
+                  - generic [ref=e764]: Automated Test Course
+                  - generic [ref=e765]: gYFuCGs9oaXAzG7bph78
+                - cell "Adult Remedial" [ref=e766]
+                - cell "beginner" [ref=e767]
+                - cell "$49.99" [ref=e768]
+                - cell "0" [ref=e769]
+                - cell "Standard" [ref=e770]
+                - cell "Edit Delete" [ref=e771]:
+                  - generic [ref=e772]:
+                    - button "Edit" [ref=e773] [cursor=pointer]
+                    - button "Delete" [ref=e774] [cursor=pointer]
+              - row "Course Edited Successfully FfMG09FPy3wFSYGnFF7o Adult Remedial beginner $199 0 Standard Edit Delete" [ref=e775]:
+                - cell "Course Edited Successfully FfMG09FPy3wFSYGnFF7o" [ref=e776]:
+                  - generic [ref=e777]: Course Edited Successfully
+                  - generic [ref=e778]: FfMG09FPy3wFSYGnFF7o
+                - cell "Adult Remedial" [ref=e779]
+                - cell "beginner" [ref=e780]
+                - cell "$199" [ref=e781]
+                - cell "0" [ref=e782]
+                - cell "Standard" [ref=e783]
+                - cell "Edit Delete" [ref=e784]:
+                  - generic [ref=e785]:
+                    - button "Edit" [ref=e786] [cursor=pointer]
+                    - button "Delete" [ref=e787] [cursor=pointer]
+              - row "Automated Test Course 0dSbl8e5Zg9rcwJqpdqq Adult Remedial beginner $49.99 0 Standard Edit Delete" [ref=e788]:
+                - cell "Automated Test Course 0dSbl8e5Zg9rcwJqpdqq" [ref=e789]:
+                  - generic [ref=e790]: Automated Test Course
+                  - generic [ref=e791]: 0dSbl8e5Zg9rcwJqpdqq
+                - cell "Adult Remedial" [ref=e792]
+                - cell "beginner" [ref=e793]
+                - cell "$49.99" [ref=e794]
+                - cell "0" [ref=e795]
+                - cell "Standard" [ref=e796]
+                - cell "Edit Delete" [ref=e797]:
+                  - generic [ref=e798]:
+                    - button "Edit" [ref=e799] [cursor=pointer]
+                    - button "Delete" [ref=e800] [cursor=pointer]
+              - row "Course Edited Successfully WSNpEMcecBZ1m5T2xw2s Adult Remedial beginner $199 0 Standard Edit Delete" [ref=e801]:
+                - cell "Course Edited Successfully WSNpEMcecBZ1m5T2xw2s" [ref=e802]:
+                  - generic [ref=e803]: Course Edited Successfully
+                  - generic [ref=e804]: WSNpEMcecBZ1m5T2xw2s
+                - cell "Adult Remedial" [ref=e805]
+                - cell "beginner" [ref=e806]
+                - cell "$199" [ref=e807]
+                - cell "0" [ref=e808]
+                - cell "Standard" [ref=e809]
+                - cell "Edit Delete" [ref=e810]:
+                  - generic [ref=e811]:
+                    - button "Edit" [ref=e812] [cursor=pointer]
+                    - button "Delete" [ref=e813] [cursor=pointer]
+              - row "Automated Test Course TdERw288tEhQzSVlP5sE Adult Remedial beginner $49.99 0 Standard Edit Delete" [ref=e814]:
+                - cell "Automated Test Course TdERw288tEhQzSVlP5sE" [ref=e815]:
+                  - generic [ref=e816]: Automated Test Course
+                  - generic [ref=e817]: TdERw288tEhQzSVlP5sE
+                - cell "Adult Remedial" [ref=e818]
+                - cell "beginner" [ref=e819]
+                - cell "$49.99" [ref=e820]
+                - cell "0" [ref=e821]
+                - cell "Standard" [ref=e822]
+                - cell "Edit Delete" [ref=e823]:
+                  - generic [ref=e824]:
+                    - button "Edit" [ref=e825] [cursor=pointer]
+                    - button "Delete" [ref=e826] [cursor=pointer]
+              - row "Automated Test Course Omq5NYk5lxZ3ErdJYPu9 Adult Remedial beginner $49.99 0 Standard Edit Delete" [ref=e827]:
+                - cell "Automated Test Course Omq5NYk5lxZ3ErdJYPu9" [ref=e828]:
+                  - generic [ref=e829]: Automated Test Course
+                  - generic [ref=e830]: Omq5NYk5lxZ3ErdJYPu9
+                - cell "Adult Remedial" [ref=e831]
+                - cell "beginner" [ref=e832]
+                - cell "$49.99" [ref=e833]
+                - cell "0" [ref=e834]
+                - cell "Standard" [ref=e835]
+                - cell "Edit Delete" [ref=e836]:
+                  - generic [ref=e837]:
+                    - button "Edit" [ref=e838] [cursor=pointer]
+                    - button "Delete" [ref=e839] [cursor=pointer]
+              - row "Automated Test Course b0tvdeyeUtp2PCMH8n9G Adult Remedial beginner $49.99 0 Standard Edit Delete" [ref=e840]:
+                - cell "Automated Test Course b0tvdeyeUtp2PCMH8n9G" [ref=e841]:
+                  - generic [ref=e842]: Automated Test Course
+                  - generic [ref=e843]: b0tvdeyeUtp2PCMH8n9G
+                - cell "Adult Remedial" [ref=e844]
+                - cell "beginner" [ref=e845]
+                - cell "$49.99" [ref=e846]
+                - cell "0" [ref=e847]
+                - cell "Standard" [ref=e848]
+                - cell "Edit Delete" [ref=e849]:
+                  - generic [ref=e850]:
+                    - button "Edit" [ref=e851] [cursor=pointer]
+                    - button "Delete" [ref=e852] [cursor=pointer]
+              - row "Automated Test Course UPqJZnkMJH4pz10Om41F Adult Remedial beginner $49.99 0 Standard Edit Delete" [ref=e853]:
+                - cell "Automated Test Course UPqJZnkMJH4pz10Om41F" [ref=e854]:
+                  - generic [ref=e855]: Automated Test Course
+                  - generic [ref=e856]: UPqJZnkMJH4pz10Om41F
+                - cell "Adult Remedial" [ref=e857]
+                - cell "beginner" [ref=e858]
+                - cell "$49.99" [ref=e859]
+                - cell "0" [ref=e860]
+                - cell "Standard" [ref=e861]
+                - cell "Edit Delete" [ref=e862]:
+                  - generic [ref=e863]:
+                    - button "Edit" [ref=e864] [cursor=pointer]
+                    - button "Delete" [ref=e865] [cursor=pointer]
+              - row "Automated Test Course WdKsAfOol2IaN87NIL8n Adult Remedial beginner $49.99 0 Standard Edit Delete" [ref=e866]:
+                - cell "Automated Test Course WdKsAfOol2IaN87NIL8n" [ref=e867]:
+                  - generic [ref=e868]: Automated Test Course
+                  - generic [ref=e869]: WdKsAfOol2IaN87NIL8n
+                - cell "Adult Remedial" [ref=e870]
+                - cell "beginner" [ref=e871]
+                - cell "$49.99" [ref=e872]
+                - cell "0" [ref=e873]
+                - cell "Standard" [ref=e874]
+                - cell "Edit Delete" [ref=e875]:
+                  - generic [ref=e876]:
+                    - button "Edit" [ref=e877] [cursor=pointer]
+                    - button "Delete" [ref=e878] [cursor=pointer]
+              - row "Automated Test Course i7vayOWiSTUfxXe7qZMx Adult Remedial beginner $49.99 0 Standard Edit Delete" [ref=e879]:
+                - cell "Automated Test Course i7vayOWiSTUfxXe7qZMx" [ref=e880]:
+                  - generic [ref=e881]: Automated Test Course
+                  - generic [ref=e882]: i7vayOWiSTUfxXe7qZMx
+                - cell "Adult Remedial" [ref=e883]
+                - cell "beginner" [ref=e884]
+                - cell "$49.99" [ref=e885]
+                - cell "0" [ref=e886]
+                - cell "Standard" [ref=e887]
+                - cell "Edit Delete" [ref=e888]:
+                  - generic [ref=e889]:
+                    - button "Edit" [ref=e890] [cursor=pointer]
+                    - button "Delete" [ref=e891] [cursor=pointer]
+              - row "Automated Test Course sP44Um0HeC6CeVp4inrw Adult Remedial beginner $49.99 0 Standard Edit Delete" [ref=e892]:
+                - cell "Automated Test Course sP44Um0HeC6CeVp4inrw" [ref=e893]:
+                  - generic [ref=e894]: Automated Test Course
+                  - generic [ref=e895]: sP44Um0HeC6CeVp4inrw
+                - cell "Adult Remedial" [ref=e896]
+                - cell "beginner" [ref=e897]
+                - cell "$49.99" [ref=e898]
+                - cell "0" [ref=e899]
+                - cell "Standard" [ref=e900]
+                - cell "Edit Delete" [ref=e901]:
+                  - generic [ref=e902]:
+                    - button "Edit" [ref=e903] [cursor=pointer]
+                    - button "Delete" [ref=e904] [cursor=pointer]
+              - row "Automated Test Course WebA436Kjv9vTTB3Jl1P Adult Remedial beginner $49.99 0 Standard Edit Delete" [ref=e905]:
+                - cell "Automated Test Course WebA436Kjv9vTTB3Jl1P" [ref=e906]:
+                  - generic [ref=e907]: Automated Test Course
+                  - generic [ref=e908]: WebA436Kjv9vTTB3Jl1P
+                - cell "Adult Remedial" [ref=e909]
+                - cell "beginner" [ref=e910]
+                - cell "$49.99" [ref=e911]
+                - cell "0" [ref=e912]
+                - cell "Standard" [ref=e913]
+                - cell "Edit Delete" [ref=e914]:
+                  - generic [ref=e915]:
+                    - button "Edit" [ref=e916] [cursor=pointer]
+                    - button "Delete" [ref=e917] [cursor=pointer]
+              - row "Automated Test Course TfhFCbkXfK7pfxQalqlE Adult Remedial beginner $49.99 0 Standard Edit Delete" [ref=e918]:
+                - cell "Automated Test Course TfhFCbkXfK7pfxQalqlE" [ref=e919]:
+                  - generic [ref=e920]: Automated Test Course
+                  - generic [ref=e921]: TfhFCbkXfK7pfxQalqlE
+                - cell "Adult Remedial" [ref=e922]
+                - cell "beginner" [ref=e923]
+                - cell "$49.99" [ref=e924]
+                - cell "0" [ref=e925]
+                - cell "Standard" [ref=e926]
+                - cell "Edit Delete" [ref=e927]:
+                  - generic [ref=e928]:
+                    - button "Edit" [ref=e929] [cursor=pointer]
+                    - button "Delete" [ref=e930] [cursor=pointer]
+              - row "Automated Test Course q8ISahd8SJ2ijMoDiPtS Adult Remedial beginner $49.99 0 Standard Edit Delete" [ref=e931]:
+                - cell "Automated Test Course q8ISahd8SJ2ijMoDiPtS" [ref=e932]:
+                  - generic [ref=e933]: Automated Test Course
+                  - generic [ref=e934]: q8ISahd8SJ2ijMoDiPtS
+                - cell "Adult Remedial" [ref=e935]
+                - cell "beginner" [ref=e936]
+                - cell "$49.99" [ref=e937]
+                - cell "0" [ref=e938]
+                - cell "Standard" [ref=e939]
+                - cell "Edit Delete" [ref=e940]:
+                  - generic [ref=e941]:
+                    - button "Edit" [ref=e942] [cursor=pointer]
+                    - button "Delete" [ref=e943] [cursor=pointer]
+              - row "Automated Test Course BIYkyCmMrJWOgSyG5iKG Adult Remedial beginner $49.99 0 Standard Edit Delete" [ref=e944]:
+                - cell "Automated Test Course BIYkyCmMrJWOgSyG5iKG" [ref=e945]:
+                  - generic [ref=e946]: Automated Test Course
+                  - generic [ref=e947]: BIYkyCmMrJWOgSyG5iKG
+                - cell "Adult Remedial" [ref=e948]
+                - cell "beginner" [ref=e949]
+                - cell "$49.99" [ref=e950]
+                - cell "0" [ref=e951]
+                - cell "Standard" [ref=e952]
+                - cell "Edit Delete" [ref=e953]:
+                  - generic [ref=e954]:
+                    - button "Edit" [ref=e955] [cursor=pointer]
+                    - button "Delete" [ref=e956] [cursor=pointer]
+              - row "Automated Test Course OfMZl4fhR81V0wTNfc44 Adult Remedial beginner $49.99 0 Standard Edit Delete" [ref=e957]:
+                - cell "Automated Test Course OfMZl4fhR81V0wTNfc44" [ref=e958]:
+                  - generic [ref=e959]: Automated Test Course
+                  - generic [ref=e960]: OfMZl4fhR81V0wTNfc44
+                - cell "Adult Remedial" [ref=e961]
+                - cell "beginner" [ref=e962]
+                - cell "$49.99" [ref=e963]
+                - cell "0" [ref=e964]
+                - cell "Standard" [ref=e965]
+                - cell "Edit Delete" [ref=e966]:
+                  - generic [ref=e967]:
+                    - button "Edit" [ref=e968] [cursor=pointer]
+                    - button "Delete" [ref=e969] [cursor=pointer]
+              - row "Automated Test Course PKXng3xXUrilI4FKzCVd Adult Remedial beginner $49.99 0 Standard Edit Delete" [ref=e970]:
+                - cell "Automated Test Course PKXng3xXUrilI4FKzCVd" [ref=e971]:
+                  - generic [ref=e972]: Automated Test Course
+                  - generic [ref=e973]: PKXng3xXUrilI4FKzCVd
+                - cell "Adult Remedial" [ref=e974]
+                - cell "beginner" [ref=e975]
+                - cell "$49.99" [ref=e976]
+                - cell "0" [ref=e977]
+                - cell "Standard" [ref=e978]
+                - cell "Edit Delete" [ref=e979]:
+                  - generic [ref=e980]:
+                    - button "Edit" [ref=e981] [cursor=pointer]
+                    - button "Delete" [ref=e982] [cursor=pointer]
+              - row "Fastrack Online Driving Course fastrack-online Juvenile Driver beginner $0 0 Featured Edit Delete" [ref=e983]:
+                - cell "Fastrack Online Driving Course fastrack-online" [ref=e984]:
+                  - generic [ref=e985]: Fastrack Online Driving Course
+                  - generic [ref=e986]: fastrack-online
+                - cell "Juvenile Driver" [ref=e987]
+                - cell "beginner" [ref=e988]
+                - cell "$0" [ref=e989]
+                - cell "0" [ref=e990]
+                - cell "Featured" [ref=e991]
+                - cell "Edit Delete" [ref=e992]:
+                  - generic [ref=e993]:
+                    - button "Edit" [ref=e994] [cursor=pointer]
+                    - button "Delete" [ref=e995] [cursor=pointer]
+  - paragraph [ref=e996]: Running in emulator mode. Do not use with production credentials.
+```

@@ -1,0 +1,40 @@
+
+Running 1 test using 1 worker
+
+[1A[2K[1/1] [chromium] ΓÇ║ tests\e2e\admin-workflows.spec.ts:123:5 ΓÇ║ Admin Workflows ΓÇ║ should edit an existing lesson
+[1A[2K  1) [chromium] ΓÇ║ tests\e2e\admin-workflows.spec.ts:123:5 ΓÇ║ Admin Workflows ΓÇ║ should edit an existing lesson 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeEnabled[2m([22m[2m)[22m failed
+
+    Locator:  locator('button:has-text("Add Lesson")')
+    Expected: enabled
+    Received: disabled
+    Timeout:  10000ms
+
+    Call log:
+    [2m  - Expect "toBeEnabled" with timeout 10000ms[22m
+    [2m  - waiting for locator('button:has-text("Add Lesson")')[22m
+    [2m    14 ├ù locator resolved to <button disabled type="button" class="_button_220av_3 _primary_220av_45 _medium_220av_32 _disabled_220av_114">+ Add Lesson</button>[22m
+    [2m       - unexpected value "disabled"[22m
+
+
+      127 |         await page.goto('/admin/lessons');
+      128 |         const addLessonBtn = page.locator('button:has-text("Add Lesson")');
+    > 129 |         await expect(addLessonBtn).toBeEnabled({ timeout: 10000 });
+          |                                    ^
+      130 |
+      131 |         await addLessonBtn.click();
+      132 |         await expect(page.locator('select[name="courseId"]')).toBeVisible();
+        at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\tests\e2e\admin-workflows.spec.ts:129:36
+
+    attachment #1: screenshot (image/png) ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    test-results\admin-workflows-Admin-Work-11a39-uld-edit-an-existing-lesson-chromium\test-failed-1.png
+    ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+    Error Context: test-results\admin-workflows-Admin-Work-11a39-uld-edit-an-existing-lesson-chromium\error-context.md
+
+
+[1A[2K  1 failed
+    [chromium] ΓÇ║ tests\e2e\admin-workflows.spec.ts:123:5 ΓÇ║ Admin Workflows ΓÇ║ should edit an existing lesson 
+
+[36m  Serving HTML report at http://localhost:52666. Press Ctrl+C to quit.[39m

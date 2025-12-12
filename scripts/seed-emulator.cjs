@@ -73,7 +73,7 @@ async function seed() {
 
     // Seed Instructor
     const instructorId = "instructor-seed-1";
-    const instructorEmail = "instructor@fastrack.com";
+    const instructorEmail = "instructor@fastrackdrive.com";
     const instructorPassword = "password123";
 
     try {
@@ -105,6 +105,78 @@ async function seed() {
         updatedAt: new Date().toISOString()
     }, { merge: true });
     console.log(`Queued Firestore profile for: ${instructorId}`);
+
+    // Seed Super Admin (Generic)
+    const adminId = "super-admin-seed-1";
+    const adminEmail = "admin@fastrackdrive.com";
+    const adminPassword = "password123";
+
+    try {
+        await admin.auth().getUser(adminId);
+        console.log(`Admin ${adminId} already exists in Auth.`);
+    } catch (e) {
+        if (e.code === 'auth/user-not-found') {
+            await admin.auth().createUser({
+                uid: adminId,
+                email: adminEmail,
+                password: adminPassword,
+                displayName: "Super Admin",
+                emailVerified: true
+            });
+            console.log(`Created Auth user: ${adminId}`);
+        }
+    }
+
+    await admin.auth().setCustomUserClaims(adminId, { role: 'super_admin' });
+    console.log(`Set 'super_admin' claim for: ${adminId}`);
+
+    const adminRef = db.collection('users').doc(adminId);
+    batch.set(adminRef, {
+        uid: adminId,
+        email: adminEmail,
+        displayName: "Super Admin",
+        role: "super_admin",
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+    }, { merge: true });
+    console.log(`Queued Firestore profile for: ${adminId}`);
+
+
+    // Seed Super Admin (Cole)
+    // Seeding this as an email/password user so it can be used locally even without Google Sign-In working
+    const coleId = "cole-admin-seed";
+    const coleEmail = "colebowersock@gmail.com";
+    const colePassword = "password123";
+
+    try {
+        await admin.auth().getUser(coleId);
+        console.log(`Admin ${coleId} already exists in Auth.`);
+    } catch (e) {
+        if (e.code === 'auth/user-not-found') {
+            await admin.auth().createUser({
+                uid: coleId,
+                email: coleEmail,
+                password: colePassword,
+                displayName: "Cole Bowersock",
+                emailVerified: true
+            });
+            console.log(`Created Auth user: ${coleId}`);
+        }
+    }
+
+    await admin.auth().setCustomUserClaims(coleId, { role: 'super_admin' });
+    console.log(`Set 'super_admin' claim for: ${coleId}`);
+
+    const coleRef = db.collection('users').doc(coleId);
+    batch.set(coleRef, {
+        uid: coleId,
+        email: coleEmail,
+        displayName: "Cole Bowersock",
+        role: "super_admin",
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+    }, { merge: true });
+    console.log(`Queued Firestore profile for: ${coleId}`);
 
     await batch.commit();
     console.log('Seeding Complete.');
