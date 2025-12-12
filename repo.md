@@ -79,7 +79,7 @@ npm run test:e2e:debug
 ## Tech Stack
 
 ### Frontend
-- **React 19.2.1** with Hooks
+- **React 18.3.1** with Hooks
 - **React Router 7.10.0** for routing and navigation
 - **Vite 5.4.21** for building (4.7x faster than Create React App)
 - **Firebase 12.6.0** for authentication & Firestore database

@@ -1,4 +1,0 @@
-
-Running 2 tests using 1 worker
-
-[1A[2K[1/2] [chromium] ΓÇ║ tests\e2e\payment-integration.spec.ts:79:5 ΓÇ║ Payment Integration ΓÇ║ should allow enrollment in free course without payment

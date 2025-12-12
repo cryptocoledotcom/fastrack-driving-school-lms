@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-**Fastrack Learning Management System** is a comprehensive web application for managing driving school courses, student progress, instructor assignments, and compliance tracking. Built with React 19, Vite, and Firebase 12, with Node.js 20 Cloud Functions backend using Firebase Functions v2 API. Fully compliant with Ohio OAC Chapter 4501-7 driver education requirements.
+**Fastrack Learning Management System** is a comprehensive web application for managing driving school courses, student progress, instructor assignments, and compliance tracking. Built with React 18, Vite, and Firebase 12, with Node.js 20 Cloud Functions backend using Firebase Functions v2 API. Fully compliant with Ohio OAC Chapter 4501-7 driver education requirements.
 
 **Current Status**: 
 - ✅ **Admin Dashboard** - Phase 4.2 Complete (Certificates, Revenue, Activity widgets)
@@ -19,7 +19,7 @@
 ## Architecture Overview
 
 ### Tech Stack
-- **Frontend**: React 19 + Vite 5 + React Router 7 + Firebase 12
+- **Frontend**: React 18 + Vite 5 + React Router 6 + Firebase 12
 - **Backend**: Node.js 20 + Firebase Cloud Functions v2 + Stripe API
 - **Database**: Firestore with role-based security rules
 - **Testing**: Vitest (frontend), Jest (Cloud Functions), Playwright (E2E)
