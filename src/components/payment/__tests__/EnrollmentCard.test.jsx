@@ -1,5 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { vi, describe, it, expect, beforeEach } from 'vitest';
+import React from 'react';
 import EnrollmentCard from '../EnrollmentCard';
 
 // Using mocks for constants to avoid potential module resolution issues with spaces in path
@@ -62,8 +63,7 @@ describe('EnrollmentCard', () => {
     });
 
     it('should render course details', () => {
-        const { container } = render(<EnrollmentCard {...defaultProps} />);
-        console.log('Rendered HTML:', container.innerHTML);
+        render(<EnrollmentCard {...defaultProps} />);
         expect(screen.getByText('Test Course')).toBeInTheDocument();
         expect(screen.getByText('Description')).toBeInTheDocument();
         expect(screen.getByText('Fully Paid')).toBeInTheDocument();

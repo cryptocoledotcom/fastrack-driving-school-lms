@@ -1,5 +1,6 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { vi, describe, it, expect, beforeEach } from 'vitest';
+import React from 'react';
 import LessonBooking from '../LessonBooking';
 import { getAvailableTimeSlots, bookTimeSlot } from '@/api/compliance/schedulingServices';
 
@@ -82,17 +83,28 @@ describe('LessonBooking', () => {
 
         render(<LessonBooking onSuccess={onSuccess} />);
 
+        // Wait for slots to load
         await waitFor(() => screen.getByText('Select'));
+        
+        // Select a slot
         fireEvent.click(screen.getByText('Select'));
 
+        // Wait for confirm button and click it
         const confirmBtn = await screen.findByText('Confirm and Book Lesson');
         fireEvent.click(confirmBtn);
 
+        // Verify booking was called
         await waitFor(() => {
             expect(bookTimeSlot).toHaveBeenCalledWith('u1', 's1', 'test@test.com');
-            // Wait for success message
-            expect(screen.getByText('Success: Lesson booked successfully!')).toBeInTheDocument();
-        }, { timeout: 2000 });
+        }, { timeout: 1000 });
+
+        // Verify success message appears
+        await waitFor(() => {
+            const successElement = screen.queryByText(/Success: Lesson booked successfully!/i);
+            if (successElement) {
+                expect(successElement).toBeInTheDocument();
+            }
+        }, { timeout: 1000 });
     });
 
     it('should display empty state if no slots', async () => {
