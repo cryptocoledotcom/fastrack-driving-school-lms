@@ -34,6 +34,7 @@ npm run serve
 npm test
 
 # E2E tests (Playwright - Chromium)
+# Automatically sets VITE_USE_EMULATORS=true and runs on port 3001
 npm run test:e2e -- --project=chromium
 
 # E2E interactive mode
@@ -290,6 +291,7 @@ VITE_FIREBASE_MESSAGING_SENDER_ID=...
 VITE_FIREBASE_APP_ID=...
 VITE_STRIPE_PUBLISHABLE_KEY=...
 VITE_APP_CHECK_DEBUG_TOKEN=... (dev only)
+VITE_USE_EMULATORS=true (optional, toggles emulator connection)
 ```
 
 ### Backend (functions/.env.local)

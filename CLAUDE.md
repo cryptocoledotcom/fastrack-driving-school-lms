@@ -25,6 +25,11 @@
 - **Testing**: Vitest (frontend), Jest (Cloud Functions), Playwright (E2E)
 - **Deployment**: Firebase Hosting + Cloud Functions
 
+### Environment Strategy
+- **Development (Port 3000)**: Connects to **Production** Firebase by default.
+- **Testing (Port 3001)**: Connects to **Firebase Emulators** (via `VITE_USE_EMULATORS=true`).
+- **Isolation**: E2E tests run on a separate port to prevent interfering with manual development.
+
 ### Directory Structure
 ```
 src/
@@ -313,7 +318,7 @@ src/pages/Admin/
 # Unit tests
 npm test
 
-# E2E tests (Chromium)
+# E2E tests (Chromium) - Runs on Port 3001 with VITE_USE_EMULATORS=true
 npm run test:e2e -- --project=chromium
 
 # E2E interactive
@@ -358,6 +363,7 @@ VITE_FIREBASE_MESSAGING_SENDER_ID
 VITE_FIREBASE_APP_ID
 VITE_STRIPE_PUBLISHABLE_KEY
 VITE_APP_CHECK_DEBUG_TOKEN (dev only)
+VITE_USE_EMULATORS=true (optional)
 ```
 
 ---

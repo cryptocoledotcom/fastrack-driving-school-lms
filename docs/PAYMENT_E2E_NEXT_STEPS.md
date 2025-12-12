@@ -192,6 +192,10 @@ window.MOCK_COURSES = [
 
 ### Running Tests During Development
 
+**NOTE**: We have implemented an environment toggle `VITE_USE_EMULATORS`.
+- `npm run dev` (default): Connects to **Production** Firebase (Port 3000). Use this for normal development and checking the real app.
+- Tests automatically set `VITE_USE_EMULATORS=true` and run on **Port 3001** to use Emulators.
+
 ```bash
 # Terminal 1: Start emulators
 npx firebase emulators:start --only auth,firestore,functions --project demo-test
@@ -199,11 +203,12 @@ npx firebase emulators:start --only auth,firestore,functions --project demo-test
 # Terminal 2: Seed data
 node scripts/seed-emulator.cjs
 
-# Terminal 3: Run tests
+# Terminal 3: Run tests (Playwright automatically starts server on port 3001)
 npx playwright test tests/e2e/payment-integration.spec.ts --project chromium
 
-# Or use UI mode for debugging
-npx playwright test tests/e2e/payment-integration.spec.ts --ui
+# OR if you want to inspect the emulator version manually:
+# npm run dev -- --port 3001
+# (Then check console to confirm "Connected to Emulators")
 ```
 
 ### Debugging Tips

@@ -45,7 +45,8 @@ const initializeFirebase = () => {
     };
 
     // Force Demo Project ID in Development to ensure Emulator compatibility
-    if (import.meta.env.DEV) {
+    // ONLY if VITE_USE_EMULATORS is set to 'true'
+    if (import.meta.env.DEV && import.meta.env.VITE_USE_EMULATORS === 'true') {
       firebaseConfig.projectId = 'demo-test';
     }
 
@@ -62,7 +63,8 @@ const initializeFirebase = () => {
     const auth = getAuth(app);
 
     let db;
-    if (import.meta.env.DEV) {
+    // Enable long polling only for emulators to fix connection issues
+    if (import.meta.env.DEV && import.meta.env.VITE_USE_EMULATORS === 'true') {
       db = initializeFirestore(app, { experimentalForceLongPolling: true });
     } else {
       db = getFirestore(app);
@@ -73,8 +75,8 @@ const initializeFirebase = () => {
 
     console.log('FIREBASE PROJECT ID:', firebaseConfig.projectId);
 
-    // Connect to emulators in development
-    if (import.meta.env.DEV) {
+    // Connect to emulators in development if toggle is enabled
+    if (import.meta.env.DEV && import.meta.env.VITE_USE_EMULATORS === 'true') {
       console.log('🔧 Connecting to Firebase Emulators...');
       connectAuthEmulator(auth, 'http://127.0.0.1:9099');
       connectFirestoreEmulator(db, '127.0.0.1', 8080);
