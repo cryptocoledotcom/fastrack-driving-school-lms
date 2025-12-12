@@ -1,0 +1,22 @@
+ReferenceError: require is not defined in ES module scope, you can use import instead
+
+   at payment-integration.spec.ts:3
+
+  1 |
+  2 | import { test, expect } from '@playwright/test';
+> 3 | const admin = require('firebase-admin');
+    |               ^
+  4 |
+  5 | // Ensure Firebase Admin is initialized for test setup
+  6 | if (admin.apps.length === 0) {
+    at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\tests\e2e\payment-integration.spec.ts:3:15
+
+Error: No tests found.
+Make sure that arguments are regular expressions matching test files.
+You may need to escape symbols like "$" or "*" and quote the arguments.
+
+[1A[2K
+To open last HTML report run:
+[36m[39m
+[36m  npx playwright show-report[39m
+[36m[39m

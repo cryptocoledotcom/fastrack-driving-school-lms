@@ -7,6 +7,7 @@ import {
 } from 'firebase/auth';
 import {
   getFirestore,
+  initializeFirestore,
   doc,
   getDoc,
   connectFirestoreEmulator
@@ -43,6 +44,11 @@ const initializeFirebase = () => {
       appId: import.meta.env.VITE_FIREBASE_APP_ID
     };
 
+    // Force Demo Project ID in Development to ensure Emulator compatibility
+    if (import.meta.env.DEV) {
+      firebaseConfig.projectId = 'demo-test';
+    }
+
     if (Object.values(firebaseConfig).some(v => !v)) {
       if (import.meta.env.MODE !== 'test') {
         console.error('Firebase configuration incomplete');
@@ -54,17 +60,26 @@ const initializeFirebase = () => {
 
     // Initialize services
     const auth = getAuth(app);
-    const db = getFirestore(app);
+
+    let db;
+    if (import.meta.env.DEV) {
+      db = initializeFirestore(app, { experimentalForceLongPolling: true });
+    } else {
+      db = getFirestore(app);
+    }
+
     const storage = getStorage(app);
     const functions = getFunctions(app);
+
+    console.log('FIREBASE PROJECT ID:', firebaseConfig.projectId);
 
     // Connect to emulators in development
     if (import.meta.env.DEV) {
       console.log('🔧 Connecting to Firebase Emulators...');
-      connectAuthEmulator(auth, 'http://localhost:9099');
-      connectFirestoreEmulator(db, 'localhost', 8080);
-      connectStorageEmulator(storage, 'localhost', 9199);
-      connectFunctionsEmulator(functions, 'localhost', 5001);
+      connectAuthEmulator(auth, 'http://127.0.0.1:9099');
+      connectFirestoreEmulator(db, '127.0.0.1', 8080);
+      // connectStorageEmulator(storage, '127.0.0.1', 9199); // Storage emulator not running
+      connectFunctionsEmulator(functions, '127.0.0.1', 5001);
       console.log('✅ Connected to Emulators');
     }
 
@@ -77,6 +92,12 @@ const initializeFirebase = () => {
 const initializeAppCheckConfig = () => {
   const firebaseApp = initializeFirebase();
   if (firebaseApp && import.meta.env.MODE !== 'test') {
+    // Skip App Check if using a demo project (Emulators)
+    if (firebaseApp.options.projectId?.startsWith('demo-')) {
+      console.log('⚠️ Skipping App Check initialization for demo project');
+      return;
+    }
+
     const siteKey = import.meta.env.VITE_FIREBASE_APP_CHECK_SITE_KEY;
     if (siteKey) {
       try {

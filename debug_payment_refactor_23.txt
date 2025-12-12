@@ -1,0 +1,64 @@
+
+Running 2 tests using 1 worker
+
+[1A[2K[1/2] [chromium] ΓÇ║ tests\e2e\payment-integration.spec.ts:84:5 ΓÇ║ Payment Integration ΓÇ║ should allow enrollment in free course without payment
+[1A[2K[chromium] ΓÇ║ tests\e2e\payment-integration.spec.ts:84:5 ΓÇ║ Payment Integration ΓÇ║ should allow enrollment in free course without payment
+ADMIN BROWSER: [vite] connecting...
+
+[1A[2KADMIN BROWSER: [vite] connected.
+
+[1A[2KADMIN BROWSER: %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold
+
+[1A[2KADMIN BROWSER: ≡ƒöº Connecting to Firebase Emulators...
+
+[1A[2KADMIN BROWSER: WARNING: You are using the Auth Emulator, which is intended for local testing only.  Do not use with production credentials.
+
+[1A[2KADMIN BROWSER: Γ£à Connected to Emulators
+
+[1A[2KADMIN BROWSER: Γ£ô Firebase App Check initialized with ReCaptcha provider
+
+[1A[2KADMIN BROWSER: App Check debug token: 550e8400-e29b-41d4-a716-446655440000. You will need to add it to your app's App Check settings in the Firebase console for it to work.
+
+[1A[2KADMIN BROWSER: ΓÜá∩╕Å React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+
+[1A[2KADMIN BROWSER: ΓÜá∩╕Å React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+
+[1A[2KADMIN BROWSER: You may test your Stripe.js integration over HTTP. However, live Stripe.js integrations must use HTTPS.
+
+[1A[2KADMIN BROWSER: Failed to load resource: the server responded with a status of 400 (Bad Request)
+
+[1A[2K  1) [chromium] ΓÇ║ tests\e2e\payment-integration.spec.ts:84:5 ΓÇ║ Payment Integration ΓÇ║ should allow enrollment in free course without payment 
+
+    Error: [2mexpect([22m[31mpage[39m[2m).[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Expected: [32m"http://localhost:3000/[7mdashboard[27m"[39m
+    Received: [31m"http://localhost:3000/[7mlogin[27m"[39m
+    Timeout:  5000ms
+
+    Call log:
+    [2m  - Expect "toHaveURL" with timeout 5000ms[22m
+    [2m    8 ├ù unexpected value "http://localhost:3000/login"[22m
+
+
+      21 |         await page.fill('input[name="password"]', 'password123');
+      22 |         await page.click('button[type="submit"]');
+    > 23 |         await expect(page).toHaveURL('/dashboard');
+         |                            ^
+      24 |
+      25 |         // 2. Create Paid Course
+      26 |         await page.goto('/admin/courses');
+        at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\tests\e2e\payment-integration.spec.ts:23:28
+
+    attachment #1: screenshot (image/png) ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    test-results\payment-integration-Paymen-3589e-free-course-without-payment-chromium\test-failed-1.png
+    ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+    Error Context: test-results\payment-integration-Paymen-3589e-free-course-without-payment-chromium\error-context.md
+
+
+[1A[2K[2/2] [chromium] ΓÇ║ tests\e2e\payment-integration.spec.ts:161:5 ΓÇ║ Payment Integration ΓÇ║ should process payment for paid course
+[1A[2K  1 failed
+    [chromium] ΓÇ║ tests\e2e\payment-integration.spec.ts:84:5 ΓÇ║ Payment Integration ΓÇ║ should allow enrollment in free course without payment 
+  1 did not run
+
+[36m  Serving HTML report at http://localhost:9323. Press Ctrl+C to quit.[39m

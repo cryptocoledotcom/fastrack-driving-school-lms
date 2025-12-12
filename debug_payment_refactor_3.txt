@@ -1,0 +1,44 @@
+
+Running 2 tests using 1 worker
+
+[1A[2K[1/2] [chromium] ΓÇ║ tests\e2e\payment-integration.spec.ts:82:5 ΓÇ║ Payment Integration ΓÇ║ should allow enrollment in free course without payment
+[1A[2K  1) [chromium] ΓÇ║ tests\e2e\payment-integration.spec.ts:82:5 ΓÇ║ Payment Integration ΓÇ║ should allow enrollment in free course without payment 
+
+    [31m"beforeAll" hook timeout of 60000ms exceeded.[39m
+
+      12 |     const studentPassword = 'password123';
+      13 |
+    > 14 |     test.beforeAll(async ({ browser }) => {
+         |          ^
+      15 |         const page = await browser.newPage();
+      16 |
+      17 |         // 1. Login as Admin
+        at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\tests\e2e\payment-integration.spec.ts:14:10
+
+    Error: page.click: Test ended.
+    Call log:
+    [2m  - waiting for locator('button:has-text("Create New Course")')[22m
+
+
+      24 |         // 2. Create Paid Course
+      25 |         await page.goto('/admin/courses');
+    > 26 |         await page.click('button:has-text("Create New Course")');
+         |                    ^
+      27 |         await page.fill('input[name="title"]', paidCourseTitle);
+      28 |         // Sometimes description is textarea or input
+      29 |         await page.fill('textarea[name="description"]', 'A paid course for E2E testing');
+        at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\tests\e2e\payment-integration.spec.ts:26:20
+
+    attachment #1: screenshot (image/png) ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    test-results\payment-integration-Paymen-3589e-free-course-without-payment-chromium\test-failed-1.png
+    ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+    Error Context: test-results\payment-integration-Paymen-3589e-free-course-without-payment-chromium\error-context.md
+
+
+[1A[2K[2/2] [chromium] ΓÇ║ tests\e2e\payment-integration.spec.ts:119:5 ΓÇ║ Payment Integration ΓÇ║ should process payment for paid course
+[1A[2K  1 failed
+    [chromium] ΓÇ║ tests\e2e\payment-integration.spec.ts:82:5 ΓÇ║ Payment Integration ΓÇ║ should allow enrollment in free course without payment 
+  1 did not run
+
+[36m  Serving HTML report at http://localhost:62708. Press Ctrl+C to quit.[39m

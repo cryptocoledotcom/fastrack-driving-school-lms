@@ -10,7 +10,7 @@ test.describe('Instructor Workflow', () => {
 
             // Log in as instructor
             await page.goto('/login');
-            await page.fill('input[name="email"]', 'instructor@fastrack.com');
+            await page.fill('input[name="email"]', 'instructor@fastrackdrive.com');
             await page.fill('input[name="password"]', 'password123');
             await page.getByRole('button', { name: 'Sign In', exact: true }).click();
             console.log('TEST: Login button clicked');

@@ -1,0 +1,46 @@
+
+Running 1 test using 1 worker
+
+[1A[2K[1/1] [chromium] ΓÇ║ tests\e2e\admin-workflows.spec.ts:69:5 ΓÇ║ Admin Workflows ΓÇ║ should edit an existing course
+[1A[2K  1) [chromium] ΓÇ║ tests\e2e\admin-workflows.spec.ts:69:5 ΓÇ║ Admin Workflows ΓÇ║ should edit an existing course 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: locator('text=$199')
+    Expected: visible
+    Error: strict mode violation: locator('text=$199') resolved to 9 elements:
+        1) <td>$199</td> aka getByRole('cell', { name: '$' }).first()
+        2) <td>$199</td> aka getByRole('cell', { name: '$' }).nth(2)
+        3) <td>$199</td> aka getByRole('cell', { name: '$' }).nth(3)
+        4) <td>$199</td> aka getByRole('cell', { name: '$' }).nth(5)
+        5) <td>$199</td> aka getByRole('cell', { name: '$199' }).nth(4)
+        6) <td>$199</td> aka getByRole('cell', { name: '$199' }).nth(5)
+        7) <td>$199</td> aka locator('tr:nth-child(52) > td:nth-child(4)')
+        8) <td>$199</td> aka locator('tr:nth-child(54) > td:nth-child(4)')
+        9) <td>$199</td> aka locator('tr:nth-child(56) > td:nth-child(4)')
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for locator('text=$199')[22m
+
+
+       95 |         await expect(page.locator('text=Course updated successfully').first()).toBeVisible({ timeout: 15000 });
+       96 |         await expect(page.locator(`text=${editTitle}`)).toBeVisible();
+    >  97 |         await expect(page.locator('text=$199')).toBeVisible();
+          |                                                 ^
+       98 |     });
+       99 |
+      100 |     test('should delete an existing course', async ({ page }) => {
+        at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\tests\e2e\admin-workflows.spec.ts:97:49
+
+    attachment #1: screenshot (image/png) ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    test-results\admin-workflows-Admin-Work-284e4-uld-edit-an-existing-course-chromium\test-failed-1.png
+    ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+    Error Context: test-results\admin-workflows-Admin-Work-284e4-uld-edit-an-existing-course-chromium\error-context.md
+
+
+[1A[2K  1 failed
+    [chromium] ΓÇ║ tests\e2e\admin-workflows.spec.ts:69:5 ΓÇ║ Admin Workflows ΓÇ║ should edit an existing course 
+
+[36m  Serving HTML report at http://localhost:53231. Press Ctrl+C to quit.[39m

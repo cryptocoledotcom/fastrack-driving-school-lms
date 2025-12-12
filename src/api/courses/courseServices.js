@@ -1,13 +1,13 @@
 // Course Services
 // Firestore course CRUD operations
 
-import { 
-  collection, 
-  doc, 
-  getDoc, 
-  getDocs, 
-  addDoc, 
-  updateDoc, 
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  addDoc,
+  updateDoc,
   deleteDoc,
   query,
   where,
@@ -25,10 +25,16 @@ const COURSES_COLLECTION = 'courses';
 // Get all courses
 export const getCourses = async () => {
   return executeService(async () => {
+    // E2E Test Mock Injection
+    if (typeof window !== 'undefined' && window.MOCK_COURSES) {
+      console.log('Returning MOCKED Courses for E2E testing');
+      return window.MOCK_COURSES;
+    }
+
     const coursesRef = collection(db, COURSES_COLLECTION);
     const q = query(coursesRef, orderBy('createdAt', 'desc'));
     const querySnapshot = await getDocs(q);
-    
+
     const courses = [];
     querySnapshot.forEach((doc) => {
       courses.push({
@@ -36,7 +42,7 @@ export const getCourses = async () => {
         ...doc.data()
       });
     });
-    
+
     return courses;
   }, 'getCourses');
 };
@@ -45,14 +51,23 @@ export const getCourses = async () => {
 export const getCourseById = async (courseId) => {
   return executeService(async () => {
     validateCourseId(courseId);
-    
+
+    // E2E Test Mock Injection
+    if (typeof window !== 'undefined' && window.MOCK_COURSES) {
+      const mockCourse = window.MOCK_COURSES.find(c => c.id === courseId);
+      if (mockCourse) {
+        console.log('Returning MOCKED Course by ID for E2E testing');
+        return mockCourse;
+      }
+    }
+
     const courseRef = doc(db, COURSES_COLLECTION, courseId);
     const courseDoc = await getDoc(courseRef);
-    
+
     if (!courseDoc.exists()) {
       throw new CourseError('Course not found', courseId);
     }
-    
+
     return {
       id: courseDoc.id,
       ...courseDoc.data()
@@ -69,13 +84,13 @@ export const getFeaturedCourses = async (limitCount = 6) => {
 
     const coursesRef = collection(db, COURSES_COLLECTION);
     const q = query(
-      coursesRef, 
+      coursesRef,
       where('featured', '==', true),
       orderBy('createdAt', 'desc'),
       limit(limitCount)
     );
     const querySnapshot = await getDocs(q);
-    
+
     const courses = [];
     querySnapshot.forEach((doc) => {
       courses.push({
@@ -83,7 +98,7 @@ export const getFeaturedCourses = async (limitCount = 6) => {
         ...doc.data()
       });
     });
-    
+
     return courses;
   }, 'getFeaturedCourses');
 };
@@ -102,7 +117,7 @@ export const getCoursesByCategory = async (category) => {
       orderBy('createdAt', 'desc')
     );
     const querySnapshot = await getDocs(q);
-    
+
     const courses = [];
     querySnapshot.forEach((doc) => {
       courses.push({
@@ -110,7 +125,7 @@ export const getCoursesByCategory = async (category) => {
         ...doc.data()
       });
     });
-    
+
     return courses;
   }, 'getCoursesByCategory');
 };
@@ -133,7 +148,7 @@ export const createCourse = async (courseData) => {
       ...courseData,
       ...getTimestamps()
     };
-    
+
     const docRef = await addDoc(coursesRef, newCourse);
     return {
       id: docRef.id,
@@ -155,9 +170,9 @@ export const updateCourse = async (courseId, updates) => {
       ...updates,
       ...getUpdatedTimestamp()
     };
-    
+
     await updateDoc(courseRef, updateData);
-    
+
     return await getCourseById(courseId);
   }, 'updateCourse');
 };
@@ -166,7 +181,7 @@ export const updateCourse = async (courseId, updates) => {
 export const deleteCourse = async (courseId) => {
   return executeService(async () => {
     validateCourseId(courseId);
-    
+
     const courseRef = doc(db, COURSES_COLLECTION, courseId);
     await deleteDoc(courseRef);
   }, 'deleteCourse');
@@ -181,12 +196,12 @@ export const searchCourses = async (searchTerm) => {
 
     const coursesRef = collection(db, COURSES_COLLECTION);
     const querySnapshot = await getDocs(coursesRef);
-    
+
     const courses = [];
     querySnapshot.forEach((doc) => {
       const courseData = doc.data();
       const searchString = `${courseData.title} ${courseData.description} ${courseData.category}`.toLowerCase();
-      
+
       if (searchString.includes(searchTerm.toLowerCase())) {
         courses.push({
           id: doc.id,
@@ -194,7 +209,7 @@ export const searchCourses = async (searchTerm) => {
         });
       }
     });
-    
+
     return courses;
   }, 'searchCourses');
 };
@@ -203,16 +218,16 @@ export const searchCourses = async (searchTerm) => {
 export const getCourseStats = async (courseId) => {
   return executeService(async () => {
     validateCourseId(courseId);
-    
+
     const courseRef = doc(db, COURSES_COLLECTION, courseId);
     const courseDoc = await getDoc(courseRef);
-    
+
     if (!courseDoc.exists()) {
       throw new CourseError('Course not found', courseId);
     }
-    
+
     const courseData = courseDoc.data();
-    
+
     return {
       totalStudents: courseData.enrolledStudents || 0,
       averageRating: courseData.averageRating || 0,

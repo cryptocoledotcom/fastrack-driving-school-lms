@@ -6,7 +6,7 @@ process.env.FIRESTORE_EMULATOR_HOST = 'localhost:8080';
 process.env.FIREBASE_AUTH_EMULATOR_HOST = 'localhost:9099';
 
 admin.initializeApp({
-    projectId: 'fastrack-driving-school-lms'
+    projectId: 'demo-test'
 });
 
 const db = admin.firestore();
@@ -78,7 +78,9 @@ async function seed() {
 
     try {
         await admin.auth().getUser(instructorId);
-        console.log(`Instructor ${instructorId} already exists in Auth.`);
+        // Ensure email is up to date (fix for legacy seeded data)
+        await admin.auth().updateUser(instructorId, { email: instructorEmail });
+        console.log(`Instructor ${instructorId} already exists in Auth. (Email synced)`);
     } catch (e) {
         if (e.code === 'auth/user-not-found') {
             await admin.auth().createUser({

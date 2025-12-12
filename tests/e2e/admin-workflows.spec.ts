@@ -93,8 +93,14 @@ test.describe('Admin Workflows', () => {
 
         // 4. Verify
         await expect(page.locator('text=Course updated successfully').first()).toBeVisible({ timeout: 15000 });
+        // Verify the unique title is visible
         await expect(page.locator(`text=${editTitle}`)).toBeVisible();
-        await expect(page.locator('text=$199')).toBeVisible();
+
+        // Scope verification to the specific row to avoid strict mode violations on price
+        // Scope verification to the specific row to avoid strict mode violations on price
+        const editedCourseRow = page.locator('tr').filter({ hasText: editTitle });
+        await expect(editedCourseRow).toBeVisible();
+        await expect(editedCourseRow).toContainText('$199');
     });
 
     test('should delete an existing course', async ({ page }) => {

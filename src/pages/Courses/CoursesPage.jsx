@@ -160,7 +160,8 @@ const CoursesPage = () => {
     }
 
     const pricing = COURSE_PRICING[course.id];
-    return `Enroll - $${(pricing.upfront).toFixed(2)}`;
+    const upfrontPrice = pricing ? pricing.upfront : course.price;
+    return `Enroll - $${(upfrontPrice || 0).toFixed(2)}`;
   };
 
   if (loading) {
@@ -266,7 +267,7 @@ const CoursesPage = () => {
             setShowPaymentModal(false);
             setSelectedCourse(null);
           }}
-          amount={COURSE_PRICING[selectedCourse].upfront}
+          amount={COURSE_PRICING[selectedCourse]?.upfront || courses.find(c => c.id === selectedCourse)?.price || 0}
           courseId={selectedCourse}
           courseName={courses.find(c => c.id === selectedCourse)?.title}
           paymentType="upfront"

@@ -1,0 +1,47 @@
+
+Running 2 tests using 1 worker
+
+[1A[2K[1/2] [chromium] ΓÇ║ tests\e2e\payment-integration.spec.ts:81:5 ΓÇ║ Payment Integration ΓÇ║ should allow enrollment in free course without payment
+[1A[2K[chromium] ΓÇ║ tests\e2e\payment-integration.spec.ts:81:5 ΓÇ║ Payment Integration ΓÇ║ should allow enrollment in free course without payment
+CURRENT URL: http://localhost:3000/register
+
+[1A[2KREGISTRATION ERROR (Component): [
+  [32m'Error'[39m,
+  [32m'Missing required fields for registration: middleName, tipicNumber'[39m
+]
+
+[1A[2K  1) [chromium] ΓÇ║ tests\e2e\payment-integration.spec.ts:81:5 ΓÇ║ Payment Integration ΓÇ║ should allow enrollment in free course without payment 
+
+    Error: [2mexpect([22m[31mpage[39m[2m).[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Expected: [32m"http://localhost:3000/[7mdashboard[27m"[39m
+    Received: [31m"http://localhost:3000/[7mregister[27m"[39m
+    Timeout:  5000ms
+
+    Call log:
+    [2m  - Expect "toHaveURL" with timeout 5000ms[22m
+    [2m    9 ├ù unexpected value "http://localhost:3000/register"[22m
+
+
+      132 |
+      133 |         // Expect Dashboard
+    > 134 |         await expect(page).toHaveURL('/dashboard');
+          |                            ^
+      135 |
+      136 |         // Go to Courses
+      137 |         await page.goto('/courses');
+        at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\tests\e2e\payment-integration.spec.ts:134:28
+
+    attachment #1: screenshot (image/png) ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    test-results\payment-integration-Paymen-3589e-free-course-without-payment-chromium\test-failed-1.png
+    ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+    Error Context: test-results\payment-integration-Paymen-3589e-free-course-without-payment-chromium\error-context.md
+
+
+[1A[2K[2/2] [chromium] ΓÇ║ tests\e2e\payment-integration.spec.ts:152:5 ΓÇ║ Payment Integration ΓÇ║ should process payment for paid course
+[1A[2K  1 failed
+    [chromium] ΓÇ║ tests\e2e\payment-integration.spec.ts:81:5 ΓÇ║ Payment Integration ΓÇ║ should allow enrollment in free course without payment 
+  1 did not run
+
+[36m  Serving HTML report at http://localhost:50536. Press Ctrl+C to quit.[39m
