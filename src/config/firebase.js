@@ -1,7 +1,24 @@
-import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
-import { getFirestore, doc, getDoc } from 'firebase/firestore';
-import { getStorage } from 'firebase/storage';
+import {
+  initializeApp
+} from 'firebase/app';
+import {
+  getAuth,
+  connectAuthEmulator
+} from 'firebase/auth';
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  connectFirestoreEmulator
+} from 'firebase/firestore';
+import {
+  getStorage,
+  connectStorageEmulator
+} from 'firebase/storage';
+import {
+  getFunctions,
+  connectFunctionsEmulator
+} from 'firebase/functions';
 import { initializeAppCheck, ReCaptchaV3Provider } from 'firebase/app-check';
 
 if (import.meta.env.DEV && typeof window !== 'undefined') {
@@ -34,6 +51,23 @@ const initializeFirebase = () => {
     }
 
     app = initializeApp(firebaseConfig);
+
+    // Initialize services
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const storage = getStorage(app);
+    const functions = getFunctions(app);
+
+    // Connect to emulators in development
+    if (import.meta.env.DEV) {
+      console.log('🔧 Connecting to Firebase Emulators...');
+      connectAuthEmulator(auth, 'http://localhost:9099');
+      connectFirestoreEmulator(db, 'localhost', 8080);
+      connectStorageEmulator(storage, 'localhost', 9199);
+      connectFunctionsEmulator(functions, 'localhost', 5001);
+      console.log('✅ Connected to Emulators');
+    }
+
   } catch (error) {
     console.error('Failed to initialize Firebase:', error);
   }
@@ -50,7 +84,7 @@ const initializeAppCheckConfig = () => {
           provider: new ReCaptchaV3Provider(siteKey),
           isTokenAutoRefreshEnabled: true
         });
-        
+
         if (import.meta.env.DEV) {
           console.log('✓ Firebase App Check initialized with ReCaptcha provider');
         }

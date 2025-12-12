@@ -87,6 +87,9 @@ const createCheckoutSession = onCall(
         throw new Error('Authentication required');
       }
 
+      // Initialize Stripe Client
+      const stripeClient = stripe(STRIPE_SECRET_KEY_SECRET.value());
+
       const { courseId, amount, paymentType, successUrl, cancelUrl } = data;
       const userId = context.auth.uid;
 
@@ -143,6 +146,9 @@ const createPaymentIntent = onCall(
       if (!context.auth) {
         throw new Error('Authentication required');
       }
+
+      // Initialize Stripe Client
+      const stripeClient = stripe(STRIPE_SECRET_KEY_SECRET.value());
 
       const { courseId, amount, paymentType } = data;
       const userId = context.auth.uid;

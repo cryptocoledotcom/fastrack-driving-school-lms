@@ -25,10 +25,11 @@ const AdminLayout = ({ children }) => {
       return;
     }
 
-    const isAdmin = userProfile.role === USER_ROLES.DMV_ADMIN || 
-                    userProfile.role === USER_ROLES.SUPER_ADMIN;
+    const canAccessAdmin = userProfile.role === USER_ROLES.DMV_ADMIN ||
+      userProfile.role === USER_ROLES.SUPER_ADMIN ||
+      userProfile.role === USER_ROLES.INSTRUCTOR;
 
-    if (!isAdmin) {
+    if (!canAccessAdmin) {
       navigate(PROTECTED_ROUTES.DASHBOARD, { replace: true });
     }
   }, [loading, user, userProfile, navigate]);
@@ -37,10 +38,11 @@ const AdminLayout = ({ children }) => {
     return <LoadingSpinner fullScreen text="Loading..." />;
   }
 
-  const isAdmin = userProfile && (userProfile.role === USER_ROLES.DMV_ADMIN || 
-                    userProfile.role === USER_ROLES.SUPER_ADMIN);
+  const canAccessAdmin = userProfile && (userProfile.role === USER_ROLES.DMV_ADMIN ||
+    userProfile.role === USER_ROLES.SUPER_ADMIN ||
+    userProfile.role === USER_ROLES.INSTRUCTOR);
 
-  if (!user || !userProfile || !isAdmin) {
+  if (!user || !userProfile || !canAccessAdmin) {
     return <LoadingSpinner fullScreen text="Loading..." />;
   }
 

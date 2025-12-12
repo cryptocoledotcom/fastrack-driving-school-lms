@@ -74,7 +74,7 @@ const MyCoursesPage = () => {
       setEnrolledCourses(validCourses);
 
       checkCertificateStatus(validCourses);
-      
+
       const bookings = await getUserBookings(user.uid);
       const futureBookings = bookings.filter(booking => {
         const bookingDate = new Date(`${booking.date}T${booking.startTime}`);
@@ -120,8 +120,8 @@ const MyCoursesPage = () => {
     setShowPaymentModal(false);
     setSelectedCourseForPayment(null);
     setTimeout(() => {
-      navigate('/payment-success', { 
-        state: { courseId: selectedCourseForPayment?.course.id } 
+      navigate('/payment-success', {
+        state: { courseId: selectedCourseForPayment?.course.id }
       });
     }, 500);
   };
@@ -168,7 +168,7 @@ const MyCoursesPage = () => {
     if (courseType === COURSE_TYPES.IN_PERSON) {
       const isComponentOfBundle = enrollment?.isComponentOfBundle;
       const onlineCertGenerated = certificateStatus[COURSE_IDS.ONLINE];
-      
+
       if (isComponentOfBundle && !onlineCertGenerated) {
         return true;
       }
@@ -228,7 +228,7 @@ const MyCoursesPage = () => {
           <div className={styles.emptyContent}>
             <h2>No Courses Yet</h2>
             <p>You haven't enrolled in any courses yet.</p>
-            <Button 
+            <Button
               variant="primary"
               onClick={() => navigate('/courses')}
             >
@@ -241,27 +241,27 @@ const MyCoursesPage = () => {
           {enrolledCourses
             .filter(item => item.course.category !== COURSE_TYPES.BUNDLE)
             .map((item) => (
-            <CourseCard
-              key={item.course.id}
-              course={item.course}
-              enrollment={item.enrollment}
-              onViewCourse={() => handleViewCourse(item.course.id)}
-              onPayRemaining={() => handlePayRemainingBalance(item.course, item.enrollment)}
-              onScheduleLesson={() => {
-                setSelectedCourseForBooking(item.course);
-                setShowBookingModal(true);
-              }}
-              onButtonClick={() => handleButtonClick(item.course, item.enrollment)}
-              getButtonLabel={() => getButtonLabel(item.course, item.enrollment)}
-              getButtonDisabled={() => getButtonDisabled(item.course, item.enrollment)}
-              onlineCertGenerated={certificateStatus[COURSE_IDS.ONLINE] || false}
-            />
-          ))}
+              <CourseCard
+                key={item.course.id}
+                course={item.course}
+                enrollment={item.enrollment}
+                onViewCourse={() => handleViewCourse(item.course.id)}
+                onPayRemaining={() => handlePayRemainingBalance(item.course, item.enrollment)}
+                onScheduleLesson={() => {
+                  setSelectedCourseForBooking(item.course);
+                  setShowBookingModal(true);
+                }}
+                onButtonClick={() => handleButtonClick(item.course, item.enrollment)}
+                getButtonLabel={() => getButtonLabel(item.course, item.enrollment)}
+                getButtonDisabled={() => getButtonDisabled(item.course, item.enrollment)}
+                onlineCertGenerated={certificateStatus[COURSE_IDS.ONLINE] || false}
+              />
+            ))}
         </div>
       )}
 
       {enrolledCourses.length > 0 && (
-        <UpcomingLessons 
+        <UpcomingLessons
           onBookingsChange={(hasBooking) => setHasExistingBooking(hasBooking)}
         />
       )}
@@ -400,7 +400,7 @@ const CourseCard = ({
   };
 
   return (
-    <Card className={styles.courseCard}>
+    <Card className={styles.courseCard} data-testid="my-course">
       {course.thumbnail && (
         <img src={course.thumbnail} alt={course.title} className={styles.thumbnail} />
       )}

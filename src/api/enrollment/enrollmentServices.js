@@ -3,10 +3,10 @@ import { db } from '../../config/firebase.js';
 import { EnrollmentError, ValidationError } from '../errors/ApiError.js';
 import ServiceBase from '../base/ServiceBase.js';
 import { getFirestoreTimestamps } from '../../utils/api/timestampHelper.js';
-import { 
-  COURSE_IDS, 
-  COURSE_PRICING, 
-  ENROLLMENT_STATUS, 
+import {
+  COURSE_IDS,
+  COURSE_PRICING,
+  ENROLLMENT_STATUS,
   PAYMENT_STATUS,
   ACCESS_STATUS,
   ADMIN_CONFIG
@@ -21,13 +21,13 @@ class EnrollmentService extends ServiceBase {
     try {
       this.validate.validateUserId(userId);
       this.validate.validateCourseId(courseId);
-      
+
       if (userEmail && typeof userEmail !== 'string') {
         throw new ValidationError('userEmail must be a string');
       }
 
       const existingEnrollment = await this.getDoc(`users/${userId}/courses`, courseId);
-      
+
       if (existingEnrollment) {
         return existingEnrollment;
       }
@@ -61,7 +61,7 @@ class EnrollmentService extends ServiceBase {
 
       await this.setDoc(`users/${userId}/courses`, courseId, enrollmentData);
       this.log(`Created enrollment for user ${userId} in course ${courseId}`);
-      
+
       return {
         id: courseId,
         ...enrollmentData
@@ -84,7 +84,7 @@ class EnrollmentService extends ServiceBase {
 
       const completeEnrollmentRef = doc(db, 'users', userId, 'courses', COURSE_IDS.COMPLETE);
       const completePricing = COURSE_PRICING[COURSE_IDS.COMPLETE];
-      
+
       const completeEnrollmentData = {
         userId,
         courseId: COURSE_IDS.COMPLETE,
@@ -172,7 +172,7 @@ class EnrollmentService extends ServiceBase {
       this.validate.validateCourseId(courseId);
 
       const enrollment = await this.getDoc(`users/${userId}/courses`, courseId);
-      
+
       if (!enrollment) {
         return null;
       }
@@ -198,7 +198,7 @@ class EnrollmentService extends ServiceBase {
     try {
       this.validate.validateUserId(userId);
       const enrollments = await this.getCollection(`users/${userId}/courses`);
-      
+
       return enrollments.map(enrollment => ({
         id: enrollment.id,
         ...enrollment,
@@ -244,7 +244,7 @@ class EnrollmentService extends ServiceBase {
       await batch.commit();
 
       this.log(`Updated enrollment after payment: user ${userId}, course ${courseId}, amount ${paymentAmount}`);
-      
+
       return {
         amountPaid,
         amountDue,
@@ -270,7 +270,7 @@ class EnrollmentService extends ServiceBase {
 
       await this.updateDoc(`users/${userId}/courses`, courseId, updates);
       this.log(`Updated certificate status for user ${userId} in course ${courseId}`);
-      
+
       return updates;
     } catch (error) {
       this.logError(error, { method: 'updateCertificateStatus', userId, courseId });
@@ -290,7 +290,7 @@ class EnrollmentService extends ServiceBase {
 
       const hasAccess = enrollment.accessStatus === ACCESS_STATUS.UNLOCKED;
       const isActive = enrollment.status === ENROLLMENT_STATUS.ACTIVE;
-      
+
       return {
         hasAccess: hasAccess && isActive,
         accessStatus: enrollment.accessStatus,
@@ -318,7 +318,7 @@ class EnrollmentService extends ServiceBase {
 
       await this.createCompletePackageEnrollment(userId, userEmail);
       this.log(`Auto-enrolled admin user ${userId}`);
-      
+
       return { enrolled: true };
     } catch (error) {
       this.logError(error, { method: 'autoEnrollAdmin', userId });
@@ -341,7 +341,7 @@ class EnrollmentService extends ServiceBase {
 
       await this.updateDoc(`users/${userId}/courses`, courseId, updates);
       this.log(`Reset enrollment to pending for user ${userId}, course ${courseId}`);
-      
+
       return updates;
     } catch (error) {
       this.logError(error, { method: 'resetEnrollmentToPending', userId, courseId });
@@ -371,7 +371,7 @@ class EnrollmentService extends ServiceBase {
 
       await batch.commit();
       this.log(`Reset all enrollments to pending for user ${userId}`);
-      
+
       return { updated: userEnrollments.length };
     } catch (error) {
       this.logError(error, { method: 'resetUserEnrollmentsToPending', userId });
@@ -408,8 +408,8 @@ class EnrollmentService extends ServiceBase {
     try {
       this.validate.validateUserId(userId);
       this.validate.validateCourseId(courseId);
-      if (typeof paidAmount !== 'number' || paidAmount <= 0) {
-        throw new ValidationError('paidAmount must be a positive number');
+      if (typeof paidAmount !== 'number' || paidAmount < 0) {
+        throw new ValidationError('paidAmount must be a non-negative number');
       }
 
       const pricing = COURSE_PRICING[courseId];
@@ -438,7 +438,7 @@ class EnrollmentService extends ServiceBase {
 
       await this.setDoc(`users/${userId}/courses`, courseId, enrollmentData);
       this.log(`Created paid enrollment for user ${userId} in course ${courseId}`);
-      
+
       return {
         id: courseId,
         ...enrollmentData
@@ -452,8 +452,8 @@ class EnrollmentService extends ServiceBase {
   async createPaidCompletePackageEnrollment(userId, paidAmount, userEmail = '') {
     try {
       this.validate.validateUserId(userId);
-      if (typeof paidAmount !== 'number' || paidAmount <= 0) {
-        throw new ValidationError('paidAmount must be a positive number');
+      if (typeof paidAmount !== 'number' || paidAmount < 0) {
+        throw new ValidationError('paidAmount must be a non-negative number');
       }
 
       const batch = writeBatch(db);
@@ -633,8 +633,8 @@ class EnrollmentService extends ServiceBase {
     try {
       this.validate.validateUserId(userId);
       this.validate.validateCourseId(courseId);
-      if (typeof amountPaid !== 'number' || amountPaid <= 0) {
-        throw new ValidationError('amountPaid must be a positive number');
+      if (typeof amountPaid !== 'number' || amountPaid < 0) {
+        throw new ValidationError('amountPaid must be a non-negative number');
       }
 
       const enrollment = await this.getEnrollment(userId, courseId);
@@ -664,7 +664,7 @@ class EnrollmentService extends ServiceBase {
       await batch.commit();
 
       this.log(`Paid remaining balance for user ${userId}, course ${courseId}, amount ${amountPaid}`);
-      
+
       return {
         amountPaid: amount,
         amountDue,

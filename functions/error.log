@@ -1,0 +1,81 @@
+
+> test
+> vitest run src/compliance/__tests__/complianceFunctions.edge.test.js
+
+The CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.
+
+[7m[1m[36m RUN [39m[22m[27m [36mv1.6.1[39m [90mC:/Users/Cole/Documents/Antigravity Fastrack Workspace/Fastrack-Learning_Management-System/functions[39m
+
+stderr | src/compliance/__tests__/complianceFunctions.edge.test.js > Compliance Functions - Edge Cases > generateComplianceReport > should handle empty data gracefully for JSON format
+Error generating compliance report: Error: Authentication required
+    at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\src\compliance\complianceFunctions.js:761:13
+    at Function.run (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-functions\lib\common\onInit.js:28:10)
+    at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\src\compliance\__tests__\complianceFunctions.edge.test.js:136:63
+    at file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:135:14
+    at file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:60:26
+    at runTest (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:781:17)
+    at runSuite (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:909:15)
+    at runFiles (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:958:5)
+TEST ERROR: Error: Failed to generate compliance report: Authentication required
+    at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\src\compliance\complianceFunctions.js:808:11
+    at Function.run (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-functions\lib\common\onInit.js:28:10)
+    at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\src\compliance\__tests__\complianceFunctions.edge.test.js:136:63
+    at file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:135:14
+    at file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:60:26
+    at runTest (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:781:17)
+    at runSuite (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:909:15)
+    at runFiles (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:958:5)
+
+stderr | src/compliance/__tests__/complianceFunctions.edge.test.js > Compliance Functions - Edge Cases > sessionHeartbeat > should throw error if session does not exist
+Error processing session heartbeat: Error: Authentication required
+    at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\src\compliance\complianceFunctions.js:147:15
+    at Function.run (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-functions\lib\common\onInit.js:28:10)
+    at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\src\compliance\__tests__\complianceFunctions.edge.test.js:189:40
+    at file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:135:14
+    at file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:60:26
+    at runTest (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:781:17)
+    at runSuite (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:909:15)
+    at runFiles (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:958:5)
+Failed to log audit event: ReferenceError: data is not defined
+    at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\src\compliance\complianceFunctions.js:304:49
+    at Function.run (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\node_modules\firebase-functions\lib\common\onInit.js:28:10)
+    at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\src\compliance\__tests__\complianceFunctions.edge.test.js:189:40
+    at file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:135:14
+    at file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:60:26
+    at runTest (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:781:17)
+    at runSuite (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:909:15)
+    at runFiles (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:958:5)
+
+ [33mΓ¥»[39m src/compliance/__tests__/complianceFunctions.edge.test.js [2m ([22m[2m2 tests[22m [2m|[22m [31m1 failed[39m[2m)[22m[90m 15[2mms[22m[39m
+[31m   [33mΓ¥»[31m src/compliance/__tests__/complianceFunctions.edge.test.js[2m > [22mCompliance Functions - Edge Cases[2m > [22mgenerateComplianceReport[2m > [22mshould handle empty data gracefully for JSON format[39m
+[31m     ΓåÆ Failed to generate compliance report: Authentication required[39m
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ» Failed Tests 1 ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»
+
+ FAIL  src/compliance/__tests__/complianceFunctions.edge.test.js > Compliance Functions - Edge Cases > generateComplianceReport > should handle empty data gracefully for JSON format
+Error: Failed to generate compliance report: Authentication required
+ Γ¥» src/compliance/complianceFunctions.js:808:11
+ Γ¥» Function.run node_modules/firebase-functions/lib/common/onInit.js:28:10
+ Γ¥» src/compliance/__tests__/complianceFunctions.edge.test.js:136:63
+    134| 
+    135|             try {
+    136|                 const result = await generateComplianceReport.run(dataΓÇª
+       |                                                               ^
+    137|                 expect(result.userId).toBe('user-123');
+    138|                 expect(result.totalSessions).toBe(0);
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[1/1]ΓÄ»
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m1 passed[39m[22m[90m (2)[39m
+[2m   Start at [22m 16:41:23
+[2m   Duration [22m 2.23s[2m (transform 117ms, setup 78ms, collect 833ms, tests 15ms, environment 2ms, prepare 567ms)[22m
+

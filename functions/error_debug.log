@@ -1,0 +1,95 @@
+
+> test
+> vitest run src/compliance/__tests__/complianceFunctions.edge.test.js
+
+The CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.
+
+[7m[1m[36m RUN [39m[22m[27m [36mv1.6.1[39m [90mC:/Users/Cole/Documents/Antigravity Fastrack Workspace/Fastrack-Learning_Management-System/functions[39m
+
+[90mstdout[2m | src/compliance/__tests__/complianceFunctions.edge.test.js[2m > [22m[2mCompliance Functions - Edge Cases[2m > [22m[2mgenerateComplianceReport[2m > [22m[2mshould handle empty data gracefully for JSON format[22m[39m
+DEBUG: mockContext.auth: { uid: [32m'user-123'[39m }
+DEBUG: request causing failure: {"data":{"courseId":"course_1","format":"json","studentId":"user-123"},"auth":{"uid":"user-123"}}
+
+stderr | src/compliance/__tests__/complianceFunctions.edge.test.js > Compliance Functions - Edge Cases > generateComplianceReport > should handle empty data gracefully for JSON format
+Failed to log audit event: ReferenceError: userId is not defined
+    at logAuditEvent (C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\src\common\auditLogger.js:73:7)
+    at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\src\compliance\complianceFunctions.js:799:11
+    at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\src\compliance\__tests__\complianceFunctions.edge.test.js:144:32
+    at runTest (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:781:11)
+    at runSuite (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:909:15)
+    at runFiles (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:958:5)
+    at startTests (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:967:3)
+    at file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/vitest/dist/chunks/runtime-runBaseTests.oAvMKtQC.js:116:7
+TEST ERROR: AssertionError: expected undefined to be 'user-123' // Object.is equality
+    at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\src\compliance\__tests__\complianceFunctions.edge.test.js:146:39
+    at runTest (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:781:11)
+    at runSuite (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:909:15)
+    at runFiles (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:958:5)
+    at startTests (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:967:3)
+    at file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/vitest/dist/chunks/runtime-runBaseTests.oAvMKtQC.js:116:7
+    at withEnv (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/vitest/dist/chunks/runtime-runBaseTests.oAvMKtQC.js:83:5)
+    at run (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/vitest/dist/chunks/runtime-runBaseTests.oAvMKtQC.js:105:3) {
+  showDiff: true,
+  actual: undefined,
+  expected: 'user-123',
+  operator: 'strictEqual'
+}
+
+stderr | src/compliance/__tests__/complianceFunctions.edge.test.js > Compliance Functions - Edge Cases > sessionHeartbeat > should throw error if session does not exist
+Error processing session heartbeat: Error: Session not found
+    at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\src\compliance\complianceFunctions.js:180:15
+    at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\src\compliance\__tests__\complianceFunctions.edge.test.js:202:17
+    at runTest (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:781:11)
+    at runSuite (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:909:15)
+    at runFiles (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:958:5)
+    at startTests (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:967:3)
+    at file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/vitest/dist/chunks/runtime-runBaseTests.oAvMKtQC.js:116:7
+    at withEnv (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/vitest/dist/chunks/runtime-runBaseTests.oAvMKtQC.js:83:5)
+Failed to log audit event: ReferenceError: data is not defined
+    at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\src\compliance\complianceFunctions.js:304:49
+    at C:\Users\Cole\Documents\Antigravity Fastrack Workspace\Fastrack-Learning_Management-System\functions\src\compliance\__tests__\complianceFunctions.edge.test.js:202:17
+    at runTest (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:781:11)
+    at runSuite (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:909:15)
+    at runSuite (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:909:15)
+    at runFiles (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:958:5)
+    at startTests (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/@vitest/runner/dist/index.js:967:3)
+    at file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/vitest/dist/chunks/runtime-runBaseTests.oAvMKtQC.js:116:7
+    at withEnv (file:///C:/Users/Cole/Documents/Antigravity%20Fastrack%20Workspace/Fastrack-Learning_Management-System/functions/node_modules/vitest/dist/chunks/runtime-runBaseTests.oAvMKtQC.js:83:5)
+
+ [33mΓ¥»[39m src/compliance/__tests__/complianceFunctions.edge.test.js [2m ([22m[2m2 tests[22m [2m|[22m [31m1 failed[39m[2m)[22m[90m 42[2mms[22m[39m
+[31m   [33mΓ¥»[31m src/compliance/__tests__/complianceFunctions.edge.test.js[2m > [22mCompliance Functions - Edge Cases[2m > [22mgenerateComplianceReport[2m > [22mshould handle empty data gracefully for JSON format[39m
+[31m     ΓåÆ expected undefined to be 'user-123' // Object.is equality[39m
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ» Failed Tests 1 ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»
+
+ FAIL  src/compliance/__tests__/complianceFunctions.edge.test.js > Compliance Functions - Edge Cases > generateComplianceReport > should handle empty data gracefully for JSON format
+AssertionError: expected undefined to be 'user-123' // Object.is equality
+
+- Expected: 
+"user-123"
+
++ Received: 
+undefined
+
+ Γ¥» src/compliance/__tests__/complianceFunctions.edge.test.js:146:39
+    144|                 const result = await generateComplianceReport.run(requΓÇª
+    145| 
+    146|                 expect(result.userId).toBe('user-123');
+       |                                       ^
+    147|                 expect(result.totalSessions).toBe(0);
+    148|                 expect(result.sessionData).toEqual([]);
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[1/1]ΓÄ»
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m1 passed[39m[22m[90m (2)[39m
+[2m   Start at [22m 16:43:25
+[2m   Duration [22m 1.68s[2m (transform 84ms, setup 51ms, collect 800ms, tests 42ms, environment 0ms, prepare 367ms)[22m
+

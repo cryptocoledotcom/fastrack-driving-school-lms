@@ -13,6 +13,13 @@ const createUser = onCall(async (data, context) => {
       throw new Error('Missing required fields: email, password, displayName');
     }
 
+    if (!VALID_ROLES.includes(role)) {
+      throw new Error(`Invalid role: ${role}. Valid roles: ${VALID_ROLES.join(', ')}`);
+    }
+
+    // Security: Public createUser should probably force 'student' or check auth for higher privileges
+    // For now, we just validate it is a known role.
+
     const userRecord = await getAuth().createUser({
       email,
       password,

@@ -9,7 +9,7 @@ import styles from './Sidebar.module.css';
 
 const Sidebar = () => {
   const location = useLocation();
-  const { isAdmin } = useAuth();
+  const { isAdmin, isInstructor } = useAuth();
 
   const navItems = [
     {
@@ -42,9 +42,9 @@ const Sidebar = () => {
       label: 'Settings',
       icon: '⚙️'
     },
-    ...(isAdmin ? [{
+    ...(isAdmin || isInstructor ? [{
       path: ADMIN_ROUTES.ADMIN_DASHBOARD,
-      label: 'Admin Panel',
+      label: 'Instructor Panel',
       icon: '🔧'
     }] : [])
   ];

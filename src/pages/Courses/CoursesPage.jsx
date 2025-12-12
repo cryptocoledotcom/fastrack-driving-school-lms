@@ -30,7 +30,7 @@ const CoursesPage = () => {
   const loadCourses = async () => {
     try {
       setLoading(true);
-      
+
       const coursesData = await getCourses();
       setCourses(coursesData);
 
@@ -93,6 +93,26 @@ const CoursesPage = () => {
       return;
     }
 
+    const course = courses.find(c => c.id === courseId);
+    // If course is free (price 0), enroll directly without payment modal
+    if (course && course.price === 0) {
+      try {
+        setLoading(true);
+        // Simulate payment success with 0 amount
+        await handlePaymentSuccess({
+          courseId,
+          amount: 0,
+          paymentOption: 'full', // Default to full for free
+          id: 'free_' + Date.now() // Dummy payment ID
+        });
+      } catch (error) {
+        console.error('Free enrollment failed:', error);
+      } finally {
+        setLoading(false);
+      }
+      return;
+    }
+
     // Show payment modal
     setSelectedCourse(courseId);
     setShowPaymentModal(true);
@@ -102,7 +122,7 @@ const CoursesPage = () => {
     try {
       const enrollmentServicesModule = await import('../../api/enrollment/enrollmentServices');
       const enrollmentSvc = enrollmentServicesModule.default;
-      
+
       // For Complete Package
       if (paymentData.courseId === COURSE_IDS.COMPLETE) {
         if (paymentData.paymentOption === 'split') {
@@ -163,7 +183,7 @@ const CoursesPage = () => {
               {course.popular && (
                 <div className={styles.popularBadge}>Most Popular</div>
               )}
-              
+
               <div className={styles.cardContent}>
                 <h3 className={styles.courseTitle}>{course.title}</h3>
                 <p className={styles.courseDescription}>{course.description}</p>

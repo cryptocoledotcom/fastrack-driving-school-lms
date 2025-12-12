@@ -60,14 +60,17 @@ const RegisterPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log('DEBUG: RegisterPage handleSubmit triggered');
     setError('');
 
     if (!validateCSRFToken(csrfToken, getCSRFToken())) {
+      console.log('DEBUG: CSRF validation failed');
       setError('Security validation failed. Please refresh and try again.');
       return;
     }
 
     if (!validators.isRequired(formData.firstName) || !validators.isRequired(formData.lastName)) {
+      console.log('DEBUG: Name validation failed');
       setError('First and last name are required');
       return;
     }
@@ -129,8 +132,9 @@ const RegisterPage = () => {
 
     setLoading(true);
     try {
+      console.log('DEBUG: Calling auth.register from Page');
       const displayName = `${formData.firstName} ${formData.lastName}`.trim();
-      
+
       await register(formData.email, formData.password, {
         displayName,
         firstName: formData.firstName,
@@ -179,7 +183,7 @@ const RegisterPage = () => {
 
       <form onSubmit={handleSubmit} className={styles.form}>
         <input type="hidden" name="csrf_token" value={csrfToken} />
-        
+
         <div className={styles.formSection}>
           <h3 className={styles.sectionTitle}>Student Information</h3>
           <Input

@@ -65,11 +65,11 @@ const CoursePlayerPageContent = () => {
   const [error, setError] = useState('');
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [showBreakModal, setShowBreakModal] = useState(false);
-  
+
   // Video tracking
   const videoRef = useRef(null);
   const progressSaveInterval = useRef(null);
-  
+
   // Post-video question tracking
   const [postVideoQuestion, setPostVideoQuestion] = useState(null);
   const [showPostVideoQuestion, setShowPostVideoQuestion] = useState(false);
@@ -132,7 +132,7 @@ const CoursePlayerPageContent = () => {
   useEffect(() => {
     loadCourseData();
     startTimer();
-    
+
     return () => {
       stopTimer();
       if (progressSaveInterval.current) {
@@ -148,7 +148,7 @@ const CoursePlayerPageContent = () => {
       progressSaveInterval.current = setInterval(() => {
         saveCurrentProgress();
       }, 30000);
-      
+
       return () => {
         if (progressSaveInterval.current) {
           clearInterval(progressSaveInterval.current);
@@ -194,7 +194,7 @@ const CoursePlayerPageContent = () => {
 
       // Load modules
       let modulesData = await getModules(courseId);
-      
+
       // Sort modules based on course's moduleOrder if it exists
       if (courseData?.moduleOrder && Array.isArray(courseData.moduleOrder)) {
         modulesData = modulesData.sort((a, b) => {
@@ -203,7 +203,7 @@ const CoursePlayerPageContent = () => {
           return indexA - indexB;
         });
       }
-      
+
       setModules(modulesData);
 
       // Calculate total lessons for all modules
@@ -238,7 +238,7 @@ const CoursePlayerPageContent = () => {
   const loadLessons = async (moduleId) => {
     try {
       let lessonsData = await getLessons(courseId, moduleId);
-      
+
       // Sort lessons based on module's lessonOrder if it exists
       const module = modules.find(m => m.id === moduleId);
       if (module?.lessonOrder && Array.isArray(module.lessonOrder)) {
@@ -248,9 +248,9 @@ const CoursePlayerPageContent = () => {
           return indexA - indexB;
         });
       }
-      
+
       setLessons(lessonsData);
-      
+
       if (lessonsData.length > 0 && !currentLesson) {
         setCurrentLesson(lessonsData[0]);
       }
@@ -298,16 +298,16 @@ const CoursePlayerPageContent = () => {
           moduleId: currentModule.id,
           moduleTitle: currentModule.title,
           sessionTime,
-          videoProgress: currentLesson.type === LESSON_TYPES.VIDEO && videoRef.current 
+          videoProgress: currentLesson.type === LESSON_TYPES.VIDEO && videoRef.current
             ? {
-                currentTime: videoRef.current.currentTime,
-                duration: videoRef.current.duration,
-                percentWatched: (videoRef.current.currentTime / videoRef.current.duration) * 100
-              }
+              currentTime: videoRef.current.currentTime,
+              duration: videoRef.current.duration,
+              percentWatched: (videoRef.current.currentTime / videoRef.current.duration) * 100
+            }
             : null
         }
       );
-      
+
       // Reload progress
       const updatedProgress = await getProgress(user.uid, courseId);
       setProgress(updatedProgress);
@@ -350,7 +350,7 @@ const CoursePlayerPageContent = () => {
   const getModuleProgress = (moduleId) => {
     const moduleLessons = lessons.filter(l => l.moduleId === moduleId);
     if (moduleLessons.length === 0) return 0;
-    
+
     const completedCount = moduleLessons.filter(l => isLessonCompleted(l.id)).length;
     return Math.round((completedCount / moduleLessons.length) * 100);
   };

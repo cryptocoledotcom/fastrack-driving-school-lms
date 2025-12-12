@@ -2,7 +2,7 @@
 // Manages user authentication state and provides auth methods throughout the app
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { 
+import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
@@ -63,7 +63,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const tokenResult = await firebaseUser.getIdTokenResult(true);
       const roleFromClaim = tokenResult.claims.role;
-      
+
       if (roleFromClaim) {
         console.debug(`JWT custom claim found for ${firebaseUser.uid}: ${roleFromClaim}`);
         return { role: roleFromClaim, source: 'JWT' };
@@ -80,17 +80,17 @@ export const AuthProvider = ({ children }) => {
       const timeoutPromise = new Promise((_, reject) =>
         setTimeout(() => reject(new Error('Firestore fetch timeout')), 5000)
       );
-      
+
       const fetchPromise = getDoc(doc(db, 'users', uid));
       const userDoc = await Promise.race([fetchPromise, timeoutPromise]);
-      
+
       const fetchTime = performance.now() - startTime;
       console.debug(`Profile fetch for ${uid} completed in ${fetchTime.toFixed(2)}ms`);
-      
+
       if (userDoc.exists()) {
         return userDoc.data();
       }
-      
+
       console.debug(`Profile document does not exist for uid: ${uid}`);
       return null;
     } catch (err) {
@@ -103,6 +103,7 @@ export const AuthProvider = ({ children }) => {
   // Create user profile in Firestore
   const createUserProfile = async (uid, data) => {
     try {
+      console.log('DEBUG: createUserProfile start', uid);
       const userRef = doc(db, 'users', uid);
       const profileData = {
         uid,
@@ -113,7 +114,9 @@ export const AuthProvider = ({ children }) => {
         updatedAt: new Date().toISOString(),
         ...data
       };
+      console.log('DEBUG: setDoc calling...');
       await setDoc(userRef, profileData);
+      console.log('DEBUG: setDoc complete');
       return profileData;
     } catch (err) {
       console.error('Error creating user profile:', err);
@@ -126,19 +129,19 @@ export const AuthProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       if (firebaseUser) {
         setUser(firebaseUser);
-        
+
         const jwtClaim = await extractJWTClaims(firebaseUser);
-        
+
         const defaultProfile = createFallbackProfile(
           firebaseUser.uid,
           firebaseUser.email || '',
           firebaseUser.displayName || ''
         );
-        
+
         if (jwtClaim?.role) {
           defaultProfile.role = jwtClaim.role;
         }
-        
+
         setUserProfile(defaultProfile);
         setLoading(false);
       } else {
@@ -157,23 +160,23 @@ export const AuthProvider = ({ children }) => {
   // Non-blocking profile update effect with JWT claim priority
   useEffect(() => {
     if (!user || !userProfile) return;
-    
+
     const updateProfileAsync = async () => {
       const jwtClaim = await extractJWTClaims(user);
-      
+
       const profile = await fetchUserProfile(
         user.uid,
         user.email || '',
         user.displayName || ''
       );
-      
+
       if (profile) {
         const finalProfile = {
           ...profile,
           role: jwtClaim?.role || profile.role
         };
         setUserProfile(finalProfile);
-        
+
         if (finalProfile?.requiresPasswordChange) {
           setRequiresPasswordChange(true);
           setShowPasswordChangeModal(true);
@@ -181,7 +184,7 @@ export const AuthProvider = ({ children }) => {
           setRequiresPasswordChange(false);
           setShowPasswordChangeModal(false);
         }
-        
+
         const settings = finalProfile?.settings || {
           darkMode: false,
           notifications: true,
@@ -190,8 +193,8 @@ export const AuthProvider = ({ children }) => {
         applyTheme(settings.darkMode);
       }
     };
-    
-    updateProfileAsync().catch(err => 
+
+    updateProfileAsync().catch(err =>
       console.warn('Background profile update failed:', err)
     );
   }, [user?.uid]);
@@ -217,7 +220,7 @@ export const AuthProvider = ({ children }) => {
       // Validate required fields for DTO 0201/0051 compliance
       const requiredFields = ['firstName', 'lastName', 'middleName', 'dateOfBirth', 'tipicNumber', 'address'];
       const missingFields = requiredFields.filter(field => !additionalData[field]);
-      
+
       if (missingFields.length > 0) {
         throw new Error(`Missing required fields for registration: ${missingFields.join(', ')}`);
       }
@@ -233,8 +236,10 @@ export const AuthProvider = ({ children }) => {
         }
       }
 
+      console.log('DEBUG: Calling createUserWithEmailAndPassword', { email });
       const result = await createUserWithEmailAndPassword(auth, email, password);
-      
+      console.log('DEBUG: Auth successful, uid:', result.user.uid);
+
       // Update display name if provided
       if (additionalData.displayName) {
         await updateProfile(result.user, {
@@ -243,14 +248,17 @@ export const AuthProvider = ({ children }) => {
       }
 
       // Create user profile in Firestore and await completion
+      console.log('DEBUG: Creating Firestore profile for', result.user.uid);
       await createUserProfile(result.user.uid, {
         email,
         displayName: additionalData.displayName || '',
         ...additionalData
       });
-      
+      console.log('DEBUG: Profile created successfully');
+
       return result.user;
     } catch (err) {
+      console.error('DEBUG: Register error:', err);
       // If profile creation fails, delete the Auth user to prevent orphaned accounts
       if (auth.currentUser) {
         await auth.currentUser.delete();
