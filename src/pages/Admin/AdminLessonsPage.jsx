@@ -14,6 +14,7 @@ import lessonServices from '../../api/courses/lessonServices';
 import courseServices from '../../api/courses/courseServices';
 import moduleServices from '../../api/courses/moduleServices';
 import quizServices from '../../api/courses/quizServices'; // Import quizServices
+import videoQuestionServices from '../../api/student/videoQuestionServices';
 import styles from './AdminLessonsPage.module.css';
 
 const AdminLessonsPage = () => {
@@ -53,6 +54,18 @@ const AdminLessonsPage = () => {
   const [gradingLesson, setGradingLesson] = useState(null);
   const [quizAttempts, setQuizAttempts] = useState([]);
   const [loadingAttempts, setLoadingAttempts] = useState(false);
+
+  // Post-Video Question Modal State
+  const [showVideoQuestionModal, setShowVideoQuestionModal] = useState(false);
+  const [videoQuestionLesson, setVideoQuestionLesson] = useState(null);
+  const [videoQuestion, setVideoQuestion] = useState(null);
+  const [questionFormData, setQuestionFormData] = useState({
+    question: '',
+    options: ['', '', '', ''],
+    correctAnswer: '',
+    explanation: ''
+  });
+  const [savingQuestion, setSavingQuestion] = useState(false);
 
   useEffect(() => {
     loadCourses();
@@ -217,6 +230,89 @@ const AdminLessonsPage = () => {
     }
   };
 
+  const handleOpenVideoQuestionModal = async (lesson) => {
+    setVideoQuestionLesson(lesson);
+    setQuestionFormData({
+      question: '',
+      options: ['', '', '', ''],
+      correctAnswer: '',
+      explanation: ''
+    });
+    
+    try {
+      const existingQuestion = await videoQuestionServices.getVideoQuestionByLesson(lesson.id);
+      if (existingQuestion) {
+        setVideoQuestion(existingQuestion);
+        setQuestionFormData({
+          question: existingQuestion.question,
+          options: existingQuestion.options || ['', '', '', ''],
+          correctAnswer: existingQuestion.correctAnswer,
+          explanation: existingQuestion.explanation || ''
+        });
+      } else {
+        setVideoQuestion(null);
+      }
+    } catch (err) {
+      console.error('Error loading video question:', err);
+    }
+    
+    setShowVideoQuestionModal(true);
+  };
+
+  const handleSaveVideoQuestion = async () => {
+    if (!questionFormData.question.trim()) {
+      setError('Question text is required');
+      return;
+    }
+    
+    if (questionFormData.options.some(opt => !opt.trim())) {
+      setError('All options are required');
+      return;
+    }
+    
+    if (!questionFormData.correctAnswer) {
+      setError('Correct answer is required');
+      return;
+    }
+
+    setSavingQuestion(true);
+    try {
+      if (videoQuestion?.id) {
+        await videoQuestionServices.updateVideoQuestion(videoQuestion.id, questionFormData);
+        setSuccess('Video question updated successfully');
+      } else {
+        await videoQuestionServices.createVideoQuestion(videoQuestionLesson.id, questionFormData);
+        setSuccess('Video question created successfully');
+      }
+      setShowVideoQuestionModal(false);
+      setVideoQuestion(null);
+    } catch (err) {
+      console.error('Error saving video question:', err);
+      setError('Failed to save video question');
+    } finally {
+      setSavingQuestion(false);
+    }
+  };
+
+  const handleDeleteVideoQuestion = async () => {
+    if (!videoQuestion?.id) return;
+    
+    if (!window.confirm('Are you sure you want to delete this video question?')) return;
+
+    setSavingQuestion(true);
+    try {
+      await videoQuestionServices.deleteVideoQuestion(videoQuestion.id);
+      setSuccess('Video question deleted successfully');
+      setShowVideoQuestionModal(false);
+      setVideoQuestion(null);
+    } catch (err) {
+      console.error('Error deleting video question:', err);
+      setError('Failed to delete video question');
+    } finally {
+      setSavingQuestion(false);
+    }
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -276,6 +372,9 @@ const AdminLessonsPage = () => {
                     <div className={styles.actions}>
                       {lesson.type === 'quiz' && (
                         <Button size="small" variant="primary" onClick={() => handleOpenGrading(lesson)}>Grade</Button>
+                      )}
+                      {lesson.type === 'video' && (
+                        <Button size="small" variant="primary" onClick={() => handleOpenVideoQuestionModal(lesson)}>Post-Q</Button>
                       )}
                       <Button size="small" variant="secondary" onClick={() => handleOpenModal(lesson)}>Edit</Button>
                       <Button size="small" variant="danger" onClick={() => handleDelete(lesson.id)}>Delete</Button>
@@ -435,6 +534,81 @@ const AdminLessonsPage = () => {
               </tbody>
             </table>
           )}
+        </div>
+      </BaseModal>
+
+      {/* Post-Video Question Modal */}
+      <BaseModal
+        isOpen={showVideoQuestionModal}
+        onClose={() => setShowVideoQuestionModal(false)}
+        title={`Post-Video Question: ${videoQuestionLesson?.title}`}
+        size="large"
+      >
+        <div className={styles.formGrid}>
+          <div className={styles.fullWidth}>
+            <TextArea
+              label="Question"
+              value={questionFormData.question}
+              onChange={e => setQuestionFormData({ ...questionFormData, question: e.target.value })}
+              rows={3}
+              placeholder="Enter the comprehension question..."
+              required
+            />
+          </div>
+
+          <div className={styles.fullWidth}>
+            <label>Answer Options</label>
+            {questionFormData.options.map((option, idx) => (
+              <Input
+                key={idx}
+                label={`Option ${idx + 1}`}
+                value={option}
+                onChange={e => {
+                  const newOptions = [...questionFormData.options];
+                  newOptions[idx] = e.target.value;
+                  setQuestionFormData({ ...questionFormData, options: newOptions });
+                }}
+                placeholder={`Enter option ${idx + 1}...`}
+                style={{ marginBottom: '8px' }}
+              />
+            ))}
+          </div>
+
+          <div className={styles.fullWidth}>
+            <Select
+              label="Correct Answer"
+              value={questionFormData.options.indexOf(questionFormData.correctAnswer).toString()}
+              onChange={e => setQuestionFormData({ ...questionFormData, correctAnswer: questionFormData.options[parseInt(e.target.value)] })}
+              options={questionFormData.options.map((opt, idx) => ({ value: idx.toString(), label: opt || `Option ${idx + 1}` }))}
+              required
+            />
+          </div>
+
+          <div className={styles.fullWidth}>
+            <TextArea
+              label="Explanation (Optional)"
+              value={questionFormData.explanation}
+              onChange={e => setQuestionFormData({ ...questionFormData, explanation: e.target.value })}
+              rows={3}
+              placeholder="Explain the correct answer..."
+            />
+          </div>
+
+          <div className={styles.checkboxWrapper}>
+            <div className={styles.modalActions}>
+              {videoQuestion?.id && (
+                <Button variant="danger" onClick={handleDeleteVideoQuestion} loading={savingQuestion}>
+                  Delete Question
+                </Button>
+              )}
+              <div>
+                <Button variant="secondary" onClick={() => setShowVideoQuestionModal(false)}>Cancel</Button>
+                <Button variant="primary" onClick={handleSaveVideoQuestion} loading={savingQuestion} style={{ marginLeft: '8px' }}>
+                  {videoQuestion?.id ? 'Update Question' : 'Create Question'}
+                </Button>
+              </div>
+            </div>
+          </div>
         </div>
       </BaseModal>
     </div>

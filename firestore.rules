@@ -219,5 +219,21 @@ service cloud.firestore {
       allow update: if canViewProgress(resource.data);
       allow delete: if false;
     }
+
+    // --- Video Questions Rules ---
+    match /video_post_questions/{questionId} {
+      allow read: if isAuthenticated();
+      allow create: if isAdmin();
+      allow update: if isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // --- Video Question Responses Rules ---
+    match /video_question_responses/{responseId} {
+      allow read: if isOwnProfile(resource.data.userId) || isAdmin();
+      allow create: if isOwnProfile(request.resource.data.userId);
+      allow update: if isOwnProfile(resource.data.userId);
+      allow delete: if false;
+    }
   }
 }

@@ -62,10 +62,9 @@ export const AuthProvider = ({ children }) => {
     if (!firebaseUser) return null;
     try {
       const tokenResult = await firebaseUser.getIdTokenResult(true);
-      const roleFromClaim = tokenResult.claims.role;
+      const roleFromClaim = tokenResult.claims?.role;
 
       if (roleFromClaim) {
-        console.debug(`JWT custom claim found for ${firebaseUser.uid}: ${roleFromClaim}`);
         return { role: roleFromClaim, source: 'JWT' };
       }
     } catch (err) {

@@ -72,18 +72,18 @@ const PostVideoQuestionModal = ({
 
           {!canProceed && (
             <div className={styles.answersContainer}>
-              {question.answers?.map((answer, index) => (
+              {question.options?.map((option, index) => (
                 <label key={index} className={styles.answerOption}>
                   <input
                     type="radio"
                     name="answer"
-                    value={answer}
-                    checked={selectedAnswer === answer}
-                    onChange={() => setSelectedAnswer(answer)}
+                    value={option}
+                    checked={selectedAnswer === option}
+                    onChange={() => setSelectedAnswer(option)}
                     disabled={submitted || loading}
                     className={styles.radioInput}
                   />
-                  <span className={styles.answerLabel}>{answer}</span>
+                  <span className={styles.answerLabel}>{option}</span>
                 </label>
               ))}
             </div>

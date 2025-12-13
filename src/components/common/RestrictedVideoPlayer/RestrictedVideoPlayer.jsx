@@ -50,12 +50,7 @@ const RestrictedVideoPlayer = ({
     onEnded?.();
   };
 
-  const handleSeek = (e) => {
-    e.preventDefault();
-    if (videoRef.current) {
-      videoRef.current.currentTime = currentTime;
-    }
-  };
+
 
   const formatTime = (seconds) => {
     if (!seconds || isNaN(seconds)) return '0:00';
@@ -115,7 +110,6 @@ const RestrictedVideoPlayer = ({
               onTimeUpdate={handleTimeUpdate}
               onLoadedMetadata={handleLoadedMetadata}
               onEnded={handleVideoEnded}
-              onSeek={handleSeek}
               className={styles.video}
               controlsList="nodownload nofullscreen"
             />

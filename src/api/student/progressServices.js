@@ -221,18 +221,19 @@ export const markLessonCompleteWithCompliance = async (
     
     // Update 2: Compliance session - append to completionEvents array (SUBCOLLECTION)
     const sessionRef = doc(db, 'users', userId, 'sessions', complianceData.sessionId);
+    const completionEvent = {
+      type: 'lesson_completion',
+      lessonId,
+      lessonTitle: complianceData.lessonTitle,
+      moduleId: complianceData.moduleId,
+      moduleTitle: complianceData.moduleTitle,
+      sessionTime: complianceData.sessionTime,
+      videoProgress: complianceData.videoProgress || null,
+      completedAt: new Date().toISOString(),
+      timestamp: new Date().toISOString()
+    };
     batch.update(sessionRef, {
-      completionEvents: arrayUnion({
-        type: 'lesson_completion',
-        lessonId,
-        lessonTitle: complianceData.lessonTitle,
-        moduleId: complianceData.moduleId,
-        moduleTitle: complianceData.moduleTitle,
-        sessionTime: complianceData.sessionTime,
-        videoProgress: complianceData.videoProgress || null,
-        completedAt: serverTimestamp(),
-        timestamp: serverTimestamp()
-      })
+      completionEvents: arrayUnion(completionEvent)
     });
     
     // ATOMIC COMMIT: Both succeed or both fail
@@ -301,15 +302,16 @@ export const markModuleCompleteWithCompliance = async (
     
     // Update 2: Compliance session - append to completionEvents array (SUBCOLLECTION)
     const sessionRef = doc(db, 'users', userId, 'sessions', complianceData.sessionId);
+    const completionEvent = {
+      type: 'module_completion',
+      moduleId,
+      moduleTitle: complianceData.moduleTitle,
+      sessionTime: complianceData.sessionTime,
+      completedAt: new Date().toISOString(),
+      timestamp: new Date().toISOString()
+    };
     batch.update(sessionRef, {
-      completionEvents: arrayUnion({
-        type: 'module_completion',
-        moduleId,
-        moduleTitle: complianceData.moduleTitle,
-        sessionTime: complianceData.sessionTime,
-        completedAt: serverTimestamp(),
-        timestamp: serverTimestamp()
-      })
+      completionEvents: arrayUnion(completionEvent)
     });
     
     // ATOMIC COMMIT

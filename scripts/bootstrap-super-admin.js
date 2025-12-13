@@ -23,7 +23,7 @@ import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const SUPER_ADMIN_UID = 'z98CPNDVUTfVIUIfq76mp05E2yP2';
+const SUPER_ADMIN_UID = 'DF0sczbZtKZ8Bclm1cvoIh1hNAg1';
 const SUPER_ADMIN_EMAIL = 'colebowersock@gmail.com';
 const PROJECT_ID = 'fastrack-driving-school-lms';
 

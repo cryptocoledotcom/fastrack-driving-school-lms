@@ -52,9 +52,9 @@ const Select = forwardRef(({
         <option value="" disabled>
           {placeholder}
         </option>
-        {options.map((option) => (
+        {options.map((option, index) => (
           <option 
-            key={option.value} 
+            key={option.value ? option.value : `option-${index}`} 
             value={option.value}
             disabled={option.disabled}
           >

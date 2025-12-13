@@ -387,7 +387,8 @@ const CoursePlayerPageContent = () => {
         currentLesson.id,
         courseId,
         postVideoQuestion.id,
-        selectedAnswer
+        selectedAnswer,
+        user
       );
 
       await recordVideoQuestionResponse(
