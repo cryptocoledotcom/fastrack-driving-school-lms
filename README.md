@@ -28,13 +28,32 @@ A comprehensive Learning Management System built with React 19, Vite 5, Firebase
 ### Installation
 ```bash
 npm install
-npm run dev                    # Start dev server (localhost:5173)
+cd functions && npm install && cd ..
 ```
+
+### Development
+
+**Option 1: Production Firebase (Default - Port 3000)**
+```bash
+npm run dev                    # Start dev server on localhost:3000
+```
+Connects to Production Firebase for testing real integrations.
+
+**Option 2: Firebase Emulators (Port 3001)**
+```bash
+# Terminal 1: Start Firebase Emulators
+firebase emulators:start
+
+# Terminal 2: Start dev server with emulators
+VITE_USE_EMULATORS=true npm run dev  # macOS/Linux
+set VITE_USE_EMULATORS=true && npm run dev  # Windows
+```
+Connects to local emulators for isolated testing without production data.
 
 ### Testing
 ```bash
 npm test                       # Unit tests (Vitest)
-npm run test:e2e             # E2E tests (Playwright)
+npm run test:e2e             # E2E tests (Playwright - uses Port 3001 with emulators)
 npm run test:e2e:ui          # Interactive E2E test runner
 ```
 
@@ -44,7 +63,7 @@ npm run build                 # Production build
 npm run preview              # Preview build locally
 ```
 
-For detailed setup instructions, see [`repo.md`](./repo.md#quick-start).
+For detailed setup instructions, see [`AI_AGENT_INSTRUCTIONS.md`](./AI_AGENT_INSTRUCTIONS.md#10-development-environment-setup).
 
 ---
 
