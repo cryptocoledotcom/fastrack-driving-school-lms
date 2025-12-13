@@ -444,12 +444,25 @@ npm test -- courseServices.test.js --watch
 
 **5. Ensure Tests Pass**
 ```bash
-npm test                          # All tests must pass
+npm test                          # All unit tests must pass
 npm run lint                      # No linting errors
+npm run test:e2e                  # E2E tests (uses emulators)
 npm run build                     # Build must succeed
 ```
 
-**6. Commit with Meaningful Message**
+**6. Manual Testing on Port 3000 (Production Build)**
+```bash
+# Test against Production Firebase to verify integration
+npm run dev
+
+# Verify:
+# - App loads on localhost:3000
+# - All features work as expected
+# - No console errors
+# - Responsive design works on mobile
+```
+
+**7. Commit with Meaningful Message**
 ```
 feature(courses): add course search with filters
 
@@ -458,7 +471,7 @@ feature(courses): add course search with filters
 - Add 8 unit tests covering all paths
 ```
 
-**7. Update Documentation**
+**8. Update Documentation**
 Update relevant doc files:
 - `CLAUDE.md` - if architecture changed
 - `docs/reference/API.md` - if API changed
@@ -488,6 +501,27 @@ utilityFunction.js         → utilityFunction.test.js
 ---
 
 ## 5. Testing Guidelines
+
+### 5.0 Testing Environments
+
+**Unit & Component Tests** (Vitest)
+- Run with `npm test`
+- Use Firebase Emulators via `VITE_USE_EMULATORS=true` (optional but recommended)
+- Fast feedback loop (100+ tests per second)
+- Perfect for development
+
+**E2E Tests** (Playwright)
+- Run with `npm run test:e2e`
+- Automatically uses Firebase Emulators (Port 3001)
+- Tests complete user workflows
+- Runs on Chromium, Firefox, and WebKit
+- Important for critical user flows before commit
+
+**Production Manual Testing** (Port 3000)
+- Run `npm run dev` (connects to Production Firebase)
+- Verify integration with real backend services
+- Required before final commit/deployment
+- Test real payment flows (with test Stripe keys)
 
 ### 5.1 Unit Tests (Vitest)
 
@@ -1036,19 +1070,26 @@ export const ADMIN_ROUTES = {
 ### 10.1 Required Tools
 
 ```bash
-# Node.js 20+
-node --version
+# Node.js 20+ (LTS)
+node --version  # Should be v20+
 
 # npm 8+
 npm --version
 
-# Firebase CLI
+# Firebase CLI (required for emulators and deployment)
 npm install -g firebase-tools
 firebase --version
+
+# Java 11+ (required for Firebase Emulators only)
+java -version  # Only needed if running firebase emulators:start
 
 # Git
 git --version
 ```
+
+**Optional Tools**:
+- **Chrome/Chromium**: For Playwright E2E tests
+- **Docker**: For alternative emulator setup (not required)
 
 ### 10.2 Initial Setup
 
@@ -1064,26 +1105,110 @@ cd functions && npm install && cd ..
 # Create .env file
 cp .env.example .env
 # Edit .env with your Firebase credentials
-
-# Start development
-npm run dev          # Frontend: localhost:5173
-npm run dev:functions  # Cloud Functions: localhost:5001
 ```
 
-### 10.3 Environment Variables
+### 10.3 Development Environment Strategy
+
+The Fastrack LMS supports two development environments with automatic switching:
+
+#### Port 3000: Production Build (Default)
+Connects to **Production Firebase** for testing against real backend services.
+
+```bash
+# Start development on Port 3000 (default, connects to Production Firebase)
+npm run dev
+```
+
+**Environment**: 
+- **Port**: 3000
+- **Firebase**: Production Firebase (uses VITE_FIREBASE_PROJECT_ID)
+- **Use Case**: Testing integration with production services, staging changes, manual QA
+- **Environment Variable**: `VITE_USE_EMULATORS=false` (or omitted - this is the default)
+
+#### Port 3001: Emulator Build
+Connects to **Firebase Emulators** for isolated testing without affecting production data.
+
+```bash
+# Start development on Port 3001 (with Firebase Emulators)
+VITE_USE_EMULATORS=true npm run dev
+```
+
+**Environment**:
+- **Port**: 3001 (automatically assigned if 3000 is occupied)
+- **Firebase**: Local Firebase Emulators (Auth, Firestore, Cloud Functions on localhost:9099, 8080, 5001)
+- **Project ID**: Overridden to 'demo-test' for emulator compatibility
+- **Use Case**: Unit/integration testing, E2E tests, development without production data concerns
+- **Environment Variable**: `VITE_USE_EMULATORS=true`
+
+#### How to Switch Between Environments
+
+**On Windows**:
+```bash
+# Production Firebase (Port 3000)
+npm run dev
+
+# Firebase Emulators (Port 3001)
+set VITE_USE_EMULATORS=true && npm run dev
+```
+
+**On macOS/Linux**:
+```bash
+# Production Firebase (Port 3000)
+npm run dev
+
+# Firebase Emulators (Port 3001)
+VITE_USE_EMULATORS=true npm run dev
+```
+
+#### Running Firebase Emulators Locally
+
+If using the emulator build, start the Firebase Emulators in a separate terminal:
+
+```bash
+# Terminal 1: Start Firebase Emulators (Auth, Firestore, Cloud Functions)
+firebase emulators:start
+
+# Terminal 2: Start development server with emulators enabled
+VITE_USE_EMULATORS=true npm run dev
+```
+
+**Emulator Services**:
+- **Auth Emulator**: http://127.0.0.1:9099
+- **Firestore Emulator**: http://127.0.0.1:8080
+- **Cloud Functions Emulator**: http://127.0.0.1:5001
+- **Firestore UI**: http://127.0.0.1:4000
+
+### 10.4 Environment Variables
 
 Required in `.env`:
 
 ```
+# Firebase Configuration (Production)
 VITE_FIREBASE_API_KEY=xxx
 VITE_FIREBASE_AUTH_DOMAIN=xxx
 VITE_FIREBASE_PROJECT_ID=xxx
 VITE_FIREBASE_STORAGE_BUCKET=xxx
 VITE_FIREBASE_MESSAGING_SENDER_ID=xxx
 VITE_FIREBASE_APP_ID=xxx
+
+# Stripe Configuration
 VITE_STRIPE_PUBLISHABLE_KEY=xxx
-VITE_APP_CHECK_DEBUG_TOKEN=xxx (dev only)
+
+# Sentry Error Tracking
 VITE_SENTRY_DSN=xxx
+
+# App Check (Development Token - Optional)
+VITE_APP_CHECK_DEBUG_TOKEN=xxx (dev only)
+
+# Firebase Emulator Toggle (Optional)
+# Set to 'true' to use Firebase Emulators instead of Production Firebase
+# Default: 'false' (uses Production Firebase)
+VITE_USE_EMULATORS=false
+```
+
+**Note**: You can override `VITE_USE_EMULATORS` at runtime without adding it to `.env`:
+```bash
+VITE_USE_EMULATORS=true npm run dev
 ```
 
 ---
@@ -1170,31 +1295,58 @@ When completing a phase:
 
 ## 13. Quick Reference Commands
 
-```bash
-# Development
-npm run dev              # Start dev server (localhost:5173)
-npm run dev:functions   # Start Cloud Functions emulator
+### Development Environment
 
-# Testing
-npm test                # Run all tests
-npm test -- --watch    # Watch mode
+```bash
+# Production Firebase (Port 3000) - DEFAULT
+npm run dev              # Start dev server on localhost:3000
+
+# Firebase Emulators (Port 3001)
+VITE_USE_EMULATORS=true npm run dev  # Linux/macOS
+set VITE_USE_EMULATORS=true && npm run dev  # Windows
+
+# Firebase Emulators (separate terminal)
+firebase emulators:start # Start Auth, Firestore, Cloud Functions emulators
+```
+
+### Testing
+
+```bash
+npm test                # Run all unit tests
+npm test -- --watch    # Watch mode (reruns on file changes)
 npm test -- --coverage # With coverage report
-npm run test:e2e        # E2E tests
-npm run test:e2e:ui    # E2E interactive
 npm run test:ui        # Vitest UI dashboard
 
-# Building & Deployment
-npm run build           # Production build
-npm run preview         # Preview built version
-npm run lint            # ESLint check
-npm run lint --fix      # Auto-fix issues
+# E2E Tests (runs against Port 3001 with Emulators by default)
+npm run test:e2e        # Run all E2E tests (headless)
+npm run test:e2e:ui    # E2E interactive mode
+npm run test:e2e:debug  # E2E debug mode
+```
 
-# Firebase
-firebase deploy         # Deploy everything
-firebase deploy --only hosting  # Deploy frontend only
-firebase deploy --only functions  # Deploy Cloud Functions only
-firebase functions:list  # List deployed functions
-firebase emulators:start # Start local emulators
+### Building & Deployment
+
+```bash
+npm run build           # Production build (optimized)
+npm run preview         # Preview production build locally
+npm run lint            # ESLint check
+npm run lint --fix      # Auto-fix linting issues
+```
+
+### Firebase CLI
+
+```bash
+# Deployment
+firebase deploy                      # Deploy everything (hosting + functions)
+firebase deploy --only hosting       # Deploy frontend only
+firebase deploy --only functions     # Deploy Cloud Functions only
+
+# Verification
+firebase functions:list              # List deployed functions
+firebase logs read -n 50             # View function logs
+
+# Local Emulation
+firebase emulators:start             # Start all emulators
+firebase emulators:start --only auth,firestore  # Start specific emulators
 ```
 
 ---
