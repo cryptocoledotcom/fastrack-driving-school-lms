@@ -24,6 +24,16 @@ import { initializeProgress, getProgress, markLessonCompleteWithCompliance, upda
 import { getPostVideoQuestion, recordVideoQuestionResponse, checkVideoQuestionAnswer } from '../../api/student/videoQuestionServices';
 import { createQuizAttempt, submitQuizAttempt } from '../../api/courses/quizServices';
 import { generateEnrollmentCertificate, hasEnrollmentCertificate } from '../../api/student/certificateServices';
+import {
+  PlayCircle,
+  CheckCircle,
+  FileText,
+  HelpCircle,
+  ChevronLeft,
+  ChevronRight,
+  ChevronUp,
+  ChevronDown
+} from 'lucide-react';
 import { LESSON_TYPES } from '../../constants/lessonTypes';
 import OHIO_COMPLIANCE from '../../constants/compliance';
 import styles from './CoursePlayerPage.module.css';
@@ -32,6 +42,19 @@ const CoursePlayerPageContent = () => {
   const { courseId } = useParams();
   const { user } = useAuth();
   const navigate = useNavigate();
+
+  // Responsive state - Define this EARLY
+  const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' ? window.innerWidth <= 768 : false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const {
     startTimer,
     stopTimer,
@@ -235,7 +258,7 @@ const CoursePlayerPageContent = () => {
     }
   };
 
-  const loadLessons = async (moduleId) => {
+  const loadLessons = async (moduleId, activateFirst = false) => {
     try {
       let lessonsData = await getLessons(courseId, moduleId);
 
@@ -251,7 +274,7 @@ const CoursePlayerPageContent = () => {
 
       setLessons(lessonsData);
 
-      if (lessonsData.length > 0 && !currentLesson) {
+      if (lessonsData.length > 0 && (!currentLesson || activateFirst)) {
         setCurrentLesson(lessonsData[0]);
       }
     } catch (err) {
@@ -318,8 +341,9 @@ const CoursePlayerPageContent = () => {
       const updatedProgress = await getProgress(user.uid, courseId);
       setProgress(updatedProgress);
 
-      // Move to next lesson
       const currentIndex = lessons.findIndex(l => l.id === currentLesson.id);
+
+      // Move to next lesson
       if (currentIndex < lessons.length - 1) {
         setCurrentLesson(lessons[currentIndex + 1]);
       } else {
@@ -328,7 +352,7 @@ const CoursePlayerPageContent = () => {
         if (moduleIndex < modules.length - 1) {
           const nextModule = modules[moduleIndex + 1];
           setCurrentModule(nextModule);
-          await loadLessons(nextModule.id);
+          await loadLessons(nextModule.id, true);
         }
       }
     } catch (err) {
@@ -658,16 +682,33 @@ const CoursePlayerPageContent = () => {
                   </div>
                   {currentModule?.id === module.id && (
                     <div className={styles.lessonsList}>
-                      {lessons.map((lesson) => (
-                        <div
-                          key={lesson.id}
-                          className={`${styles.lessonItem} ${currentLesson?.id === lesson.id ? styles.activeLesson : ''}`}
-                          onClick={() => handleLessonSelect(lesson)}
-                        >
-                          <span className={styles.lessonIcon}>{isLessonCompleted(lesson.id) ? '✅' : '⭕'}</span>
-                          <span className={styles.lessonName}>{lesson.title}</span>
-                        </div>
-                      ))}
+                      {lessons.map((lesson) => {
+                        const isActive = currentLesson?.id === lesson.id;
+                        const isCompleted = isLessonCompleted(lesson.id);
+                        const isLocked = !isCompleted && !isActive && lesson.order > (currentLesson?.order || 0); // Simplified locking logic
+                        return (
+                          <div
+                            key={lesson.id}
+                            className={`
+                              ${styles.lessonItem}
+                              ${isActive ? styles.active : ''}
+                              ${isCompleted ? styles.completed : ''}
+                              ${isLocked ? styles.locked : ''}
+                            `}
+                            onClick={() => !isLocked && handleLessonSelect(lesson)}
+                          >
+                            <span className={styles.lessonIcon}>
+                              {isCompleted ? <CheckCircle size={14} /> : (
+                                lesson.type === LESSON_TYPES.VIDEO ? <PlayCircle size={14} /> :
+                                  lesson.type === LESSON_TYPES.QUIZ ? <HelpCircle size={14} /> :
+                                    <FileText size={14} />
+                              )}
+                            </span>
+                            <span className={styles.lessonName}>{lesson.title}</span>
+                            {isActive && <span className={styles.nowPlaying}>Now Playing</span>}
+                          </div>
+                        );
+                      })}
                     </div>
                   )}
                 </Card>
@@ -679,7 +720,11 @@ const CoursePlayerPageContent = () => {
         {/* Collapse Handle */}
         <div className={styles.collapseHandle} onClick={() => setSidebarOpen(!sidebarOpen)}>
           <div className={styles.collapseIcon}>
-            {sidebarOpen ? '‹' : '›'}
+            {isMobile ? (
+              sidebarOpen ? <ChevronUp size={24} /> : <ChevronDown size={24} />
+            ) : (
+              sidebarOpen ? <ChevronLeft size={24} /> : <ChevronRight size={24} />
+            )}
           </div>
         </div>
 
@@ -701,7 +746,7 @@ const CoursePlayerPageContent = () => {
             {renderLessonContent()}
           </div>
 
-          {currentLesson && !isLessonCompleted(currentLesson.id) && (
+          {currentLesson && !isLessonCompleted(currentLesson.id) && currentLesson.type !== LESSON_TYPES.VIDEO && (
             <div className={styles.lessonActions}>
               <Button variant="primary" onClick={handleLessonComplete}>
                 Mark as Complete

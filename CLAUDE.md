@@ -433,6 +433,31 @@ VITE_USE_EMULATORS=true (optional)
 
 ## Development Sessions & Reflections
 
+### Session: December 14, 2025 - Course Player UI & Flow Refinement
+
+**Duration**: ~1.5 hours
+**Objective**: Fix responsive sidebar layout, upgrade to Lucide icons, and automate lesson completion flow.
+
+#### Key Accomplishments
+1.  **✅ Responsive Sidebar Fixed**
+    *   Implemented `isMobile` logic to switch between Horizontal (Desktop) and Vertical (Mobile) collapse modes.
+    *   Updated CSS transitions (`width` vs `max-height`) and button positioning.
+
+2.  **✅ UI Polish with Lucide Icons**
+    *   Installed `lucide-react` to replace placeholder text characters.
+    *   Standardized icons for Sidebar Toggles (Chevrons) and Lesson Status (CheckCircle, PlayCircle).
+
+3.  **✅ Automated Workflow**
+    *   **Removed** manual "Mark Complete" button for Video lessons to reduce user friction.
+    *   **Automated** completion trigger via Post-Video Question modal success.
+    *   **Fixed** module auto-advance logic (`loadLessons` now accepts `activateFirst` param) to prevent "locked lesson" state when switching modules.
+
+#### Technical Lessons Learned
+*   **Responsive State**: Mixing generic "collapse" logic for both width (desktop) and height (mobile) requires careful CSS separation and state management.
+*   **Module Switching**: When auto-advancing to a new collection (Module), you must explicitly force the selection of the first item, otherwise React state might persist the *old* item ID, causing the new items to appear locked.
+
+---
+
 ### Session: December 14, 2025 - Post Video Question Debugging
 
 **Duration**: ~1 hour

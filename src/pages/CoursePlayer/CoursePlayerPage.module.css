@@ -196,10 +196,10 @@
   justify-content: center;
   z-index: 10;
   transition: left 0.3s ease-in-out;
-  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
-.sidebarCollapsed + .collapseHandle {
+.sidebarCollapsed+.collapseHandle {
   left: 0;
   border-radius: 0 6px 6px 0;
 }
@@ -329,7 +329,34 @@
     width: 100%;
     border-left: none;
     border-top: 1px solid #E5E7EB;
-    max-height: 50vh;
+    /* Transition max-height for vertical collapse */
+    transition: max-height 0.3s ease-in-out;
+    max-height: 80vh;
+    /* Arbitrary large height for expanded state */
+    position: relative;
+    overflow: hidden;
+    /* Essential for max-height transition */
+  }
+
+  .sidebar.sidebarCollapsed {
+    width: 100%;
+    /* Maintain full width */
+    max-height: 60px;
+    /* Collapsed height (approx header height) */
+    padding-bottom: 0;
+  }
+
+  /* Hide the list content when collapsed */
+  .sidebar.sidebarCollapsed .sidebarContent {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s 0.3s, opacity 0.3s ease-in-out;
+  }
+
+  .sidebarContent {
+    transition: opacity 0.3s ease-in-out;
+    opacity: 1;
+    visibility: visible;
   }
 
   .mainContent {
@@ -338,6 +365,46 @@
 
   .contentArea {
     padding: 1rem;
+  }
+
+  /* Reposition the collapse handle for mobile */
+  .collapseHandle {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    left: auto;
+    transform: none;
+    width: 32px;
+    /* Square button for corner */
+    height: 32px;
+    border-radius: 6px;
+    /* Consistent rounding */
+    background-color: var(--brand-action);
+    /* Restore brand color */
+    color: var(--color-white);
+    /* Restore white icon */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Ensure handle stays visible even when collapsed */
+  .sidebarCollapsed+.collapseHandle {
+    /* logic relies on structure, if handle is child of sidebar, it moves with it.
+         If handle is sibling, we need different logic.
+         In JSX, handle IS a child of sidebar. */
+    left: auto;
+    /* Reset desktop override */
+    top: 10px;
+    border-radius: 6px;
+    /* Keep consistent shape */
+  }
+
+  .collapseIcon {
+    color: var(--color-white);
+    /* Ensure icon is white */
   }
 }
 
