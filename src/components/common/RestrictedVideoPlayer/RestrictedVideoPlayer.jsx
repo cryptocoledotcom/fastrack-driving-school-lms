@@ -1,14 +1,18 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useImperativeHandle } from 'react';
 import styles from './RestrictedVideoPlayer.module.css';
 
-const RestrictedVideoPlayer = ({
+const RestrictedVideoPlayer = React.forwardRef(({
   src,
   onEnded,
   onTimeUpdate,
   onLoadedMetadata,
   duration
-}) => {
+}, ref) => {
   const videoRef = useRef(null);
+
+  // Expose the video element to the parent component
+  useImperativeHandle(ref, () => videoRef.current);
+
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [videoDuration, setVideoDuration] = useState(0);
@@ -151,6 +155,8 @@ const RestrictedVideoPlayer = ({
       )}
     </div>
   );
-};
+});
+
+RestrictedVideoPlayer.displayName = 'RestrictedVideoPlayer';
 
 export default RestrictedVideoPlayer;

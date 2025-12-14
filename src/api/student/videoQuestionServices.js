@@ -86,20 +86,26 @@ export const checkVideoQuestionAnswer = async (
       throw new Error('User must be authenticated');
     }
 
-    await firebaseUser.getIdToken(true);
+    // Attempt to refresh the token
+    // Attempt to refresh the token
+    const token = await firebaseUser.getIdToken(true);
+    // Small delay to allow token propagation
     await new Promise(resolve => setTimeout(resolve, 300));
+
+    const payload = {
+      userId,
+      lessonId,
+      courseId,
+      questionId,
+      selectedAnswer,
+      authToken: token // Send as authToken to avoid collision
+    };
 
     const functions = getFunctions(getApp());
     const checkAnswerFn = httpsCallable(functions, 'checkVideoQuestionAnswer');
 
     try {
-      const result = await checkAnswerFn({
-        userId,
-        lessonId,
-        courseId,
-        questionId,
-        selectedAnswer
-      });
+      const result = await checkAnswerFn(payload);
 
       return result.data;
     } catch (error) {
@@ -149,7 +155,7 @@ export const hasAnsweredVideoQuestion = async (userId, lessonId, courseId) => {
 export const createVideoQuestion = async (lessonId, questionData) => {
   return executeService(async () => {
     const questionsRef = collection(db, VIDEO_QUESTIONS_COLLECTION);
-    
+
     const questionDoc = {
       lessonId,
       question: questionData.question,
@@ -173,7 +179,7 @@ export const createVideoQuestion = async (lessonId, questionData) => {
 export const updateVideoQuestion = async (questionId, questionData) => {
   return executeService(async () => {
     const questionRef = doc(db, VIDEO_QUESTIONS_COLLECTION, questionId);
-    
+
     const updateData = {
       question: questionData.question,
       options: questionData.options || [],

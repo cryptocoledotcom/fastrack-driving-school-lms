@@ -433,6 +433,31 @@ VITE_USE_EMULATORS=true (optional)
 
 ## Development Sessions & Reflections
 
+### Session: December 14, 2025 - Post Video Question Debugging
+
+**Duration**: ~1 hour
+**Objective**: Resolve 401 Unauthorized error in Post Video Question Modal and fix React Ref warning.
+
+#### Key Accomplishments
+1.  **✅ 401 Unauthorized Issue Resolved**
+    *   **Root Cause**: Cloud Function `checkVideoQuestionAnswer` was running as **Gen 2** but using **Gen 1** signature `(data, context)`. This caused the payload access to fail.
+    *   **Fix**: Refactored function signature to `(request)` and updated logic to extract `data` and `auth` from the request object.
+    *   **Enhancement**: Implemented manual token verification fallback by sending `authToken` explicitly from the client.
+
+2.  **✅ RestrictedVideoPlayer Ref Warning Fixed**
+    *   **Issue**: Functional component was not accepting ref, causing console warnings and potential access issues.
+    *   **Fix**: Wrapped component with `React.forwardRef` and used `useImperativeHandle` to expose the video element.
+
+3.  **✅ Safegaurded Video Progress Saving**
+    *   **Issue**: `currentTime` could be undefined, causing execution errors.
+    *   **Fix**: Added rigorous checks for `videoRef.current` and `currentTime` numeric validity before Firestore writes.
+
+#### Technical Lessons Learned
+*   **Firebase Gen 1 vs Gen 2**: Gen 2 functions use a single `request` argument. Mixing signatures leads to silent failures or misleading "Unauthenticated" errors because payload data is not where expected.
+*   **Debugging**: Echoing back received keys in error messages is a powerful way to diagnose payload stripping or malformation issues.
+
+---
+
 ### Session: December 11, 2025 - E2E Test Infrastructure & Debugging
 
 **Duration**: ~4 hours  
@@ -596,67 +621,5 @@ if (course.price === 0) {
 
 ## Known Issues & Blocking Work
 
-### Post-Video Question Submission: 401 Unauthorized (UNRESOLVED)
 
-**Issue**: Students receive 401 (Unauthorized) errors when submitting post-video question answers via Cloud Function `checkVideoQuestionAnswer`
-
-**Error Location**: `videoQuestionServices.js:95` - HTTP POST to Cloud Function fails with 401
-
-**Error Message**: User must be authenticated (Cloud Function context.auth is null)
-
-**Status**: BLOCKING - Post-video question feature completely non-functional for students
-
-**Attempts Made** (December 13, 2025):
-
-1. **Attempt 1: Token Refresh in CoursePlayerPage**
-   - Added `await user.getIdToken(true)` before function call
-   - Added 100ms delay for token propagation
-   - Result: FAILED - 401 persists
-
-2. **Attempt 2: Increased Delay**
-   - Extended delay from 100ms to 500ms
-   - Result: FAILED - 401 persists
-
-3. **Attempt 3: Move Token Refresh to Service Layer**
-   - Moved `getIdToken(true)` call from CoursePlayerPage to videoQuestionServices.js
-   - Added 300ms delay in service layer before Cloud Function call
-   - Result: FAILED - 401 persists
-
-4. **Attempt 4: Pass Firebase User Object Directly**
-   - Changed `checkVideoQuestionAnswer()` to accept firebaseUser as parameter
-   - Pass user object from CoursePlayerPage via useAuth hook
-   - Call `getIdToken(true)` on user object in service layer
-   - Result: FAILED - 401 persists
-
-**Root Cause Analysis**:
-- Certificate functions (`generateEnrollmentCertificate`, `generateCompletionCertificate`) use identical httpsCallable pattern and work correctly
-- Video question function uses exact same pattern but fails with 401
-- Issue is NOT related to:
-  - Auth instance singleton (tried centralized and passed-in user objects)
-  - Token refresh timing (tried 100ms, 300ms, 500ms delays)
-  - Token staleness (using `getIdToken(true)` with force refresh)
-  - Function signature (matches working certificate functions exactly)
-
-**Possible Root Causes** (Unconfirmed):
-- Cloud Function `checkVideoQuestionAnswer` authentication check in `context.auth` may be broken
-- Firestore rules may be blocking token propagation to Cloud Function
-- CORS or security headers preventing token attachment on this specific endpoint
-- Emulator-specific issue if testing locally against production Cloud Functions
-
-**Files Affected**:
-- src/api/student/videoQuestionServices.js (checkVideoQuestionAnswer function)
-- src/pages/CoursePlayer/CoursePlayerPage.jsx (handlePostVideoAnswerSubmit method)
-
-**Tests**: All unit tests pass (1,039/1,039), but E2E test skipped due to missing student test account
-
-**Recommended Next Steps**:
-1. Verify Cloud Function `checkVideoQuestionAnswer` in Firebase Console - check if auth context is being populated
-2. Compare raw HTTP headers between working (certificates) and failing (video question) Cloud Function calls
-3. Check if video question Cloud Function has different security rules or App Check configuration
-4. Test with production deployment after launch to rule out local dev server issues
-5. Add explicit error logging in Cloud Function to diagnose where auth is being lost
-
-**Workaround**: N/A - blocking issue, no workaround available
-
----
 

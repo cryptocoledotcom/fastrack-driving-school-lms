@@ -271,11 +271,17 @@ const CoursePlayerPageContent = () => {
 
       // If video, save current time
       if (currentLesson.type === LESSON_TYPES.VIDEO && videoRef.current) {
-        progressData.videoProgress = {
-          currentTime: videoRef.current.currentTime,
-          duration: videoRef.current.duration,
-          percentWatched: (videoRef.current.currentTime / videoRef.current.duration) * 100
-        };
+        const currentTime = videoRef.current.currentTime;
+        // Ensure we have valid numeric values before saving
+        if (typeof currentTime === 'number' && !isNaN(currentTime)) {
+          progressData.videoProgress = {
+            currentTime: currentTime,
+            duration: videoRef.current.duration || 0,
+            percentWatched: videoRef.current.duration > 0
+              ? (currentTime / videoRef.current.duration) * 100
+              : 0
+          };
+        }
       }
 
       await updateLessonProgress(user.uid, courseId, currentLesson.id, progressData);

@@ -8,13 +8,62 @@ const VIDEO_QUESTION_RESPONSES_COLLECTION = 'video_question_responses';
 const AUDIT_LOGS_COLLECTION = 'audit_logs';
 
 exports.checkVideoQuestionAnswer = functions.https.onCall(
-  async (data, context) => {
-    if (!context.auth) {
+  async (request) => {
+    // Gen 2 signature: request contains .data and .auth
+    const data = request.data || {};
+    const auth = request.auth;
+
+    // DEBUG: Log authentication details
+    logger.info('checkVideoQuestionAnswer called', {
+      authenticated: !!auth,
+      uid: auth?.uid,
+      token: auth?.token,
+      dataKeys: Object.keys(data)
+    });
+
+    // Fallback: Check for token in data if auth is missing
+    let effectiveAuth = auth;
+
+    if (!effectiveAuth) {
+      if (!data.authToken) {
+        const receivedKeys = Object.keys(data || {}).join(', ');
+        logger.error('Unauthenticated request: No auth and no data.authToken', {
+          headers: request.rawRequest?.headers,
+          dataKeys: Object.keys(data || {})
+        });
+        throw new functions.https.HttpsError(
+          'unauthenticated',
+          `User must be authenticated (No authToken provided). Received keys in data: [${receivedKeys}]`
+        );
+      }
+
+      try {
+        const decodedToken = await admin.auth().verifyIdToken(data.authToken);
+        effectiveAuth = {
+          uid: decodedToken.uid,
+          token: decodedToken
+        };
+        logger.info('Successfully manually verified token from payload', { uid: decodedToken.uid });
+      } catch (verifyError) {
+        logger.error('Failed to manually verify token', verifyError);
+        throw new functions.https.HttpsError(
+          'unauthenticated',
+          `Token verification failed: ${verifyError.message}`
+        );
+      }
+    }
+
+    // Double check
+    if (!effectiveAuth) {
       throw new functions.https.HttpsError(
         'unauthenticated',
-        'User must be authenticated'
+        'User must be authenticated (Auth context missing after checks)'
       );
     }
+
+    // Use effectiveAuth for context-dependent logic if needed, or just proceed
+    // The rest of the code likely uses `userId` from data, which we have.
+    // Ensure we don't rely on 'context' variable below this block.
 
     const { userId, lessonId, courseId, questionId, selectedAnswer } = data;
 
@@ -25,7 +74,8 @@ exports.checkVideoQuestionAnswer = functions.https.onCall(
       );
     }
 
-    if (context.auth.uid !== userId) {
+    // Use effectiveAuth which we populated earlier
+    if (effectiveAuth.uid !== userId) {
       throw new functions.https.HttpsError(
         'permission-denied',
         'Cannot check answers for other users'
@@ -59,8 +109,8 @@ exports.checkVideoQuestionAnswer = functions.https.onCall(
           selectedAnswer,
           isCorrect,
           timestamp: admin.firestore.FieldValue.serverTimestamp(),
-          ipAddress: context.rawRequest?.ip || null,
-          userAgent: context.rawRequest?.headers?.['user-agent'] || null
+          ipAddress: request.rawRequest?.ip || null,
+          userAgent: request.rawRequest?.headers?.['user-agent'] || null
         });
 
       return {
@@ -78,7 +128,7 @@ exports.checkVideoQuestionAnswer = functions.https.onCall(
 
       throw new functions.https.HttpsError(
         'internal',
-        'Failed to check answer'
+        `Failed to check answer: ${error.message}`
       );
     }
   }

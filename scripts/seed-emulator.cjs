@@ -143,6 +143,41 @@ async function seed() {
     }, { merge: true });
     console.log(`Queued Firestore profile for: ${adminId}`);
 
+    // Seed Student User
+    const studentId = "student-seed-1";
+    const studentEmail = "student@example.com";
+    const studentPassword = "password123";
+
+    try {
+        await admin.auth().getUser(studentId);
+        console.log(`Student ${studentId} already exists in Auth.`);
+    } catch (e) {
+        if (e.code === 'auth/user-not-found') {
+            await admin.auth().createUser({
+                uid: studentId,
+                email: studentEmail,
+                password: studentPassword,
+                displayName: "Test Student",
+                emailVerified: true
+            });
+            console.log(`Created Auth user: ${studentId}`);
+        }
+    }
+
+    await admin.auth().setCustomUserClaims(studentId, { role: 'student' });
+    console.log(`Set 'student' claim for: ${studentId}`);
+
+    const studentRef = db.collection('users').doc(studentId);
+    batch.set(studentRef, {
+        uid: studentId,
+        email: studentEmail,
+        displayName: "Test Student",
+        role: "student",
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+    }, { merge: true });
+    console.log(`Queued Firestore profile for: ${studentId}`);
+
 
     // Seed Super Admin (Cole)
     // Seeding this as an email/password user so it can be used locally even without Google Sign-In working
