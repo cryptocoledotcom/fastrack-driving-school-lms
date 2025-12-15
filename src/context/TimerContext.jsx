@@ -16,9 +16,12 @@ import {
   logBreakEnd
 } from '../api/compliance/complianceServices';
 import {
-  getRandomPVQQuestion as getRandomPVQQuestionPVQ,
   logIdentityVerification as logIdentityVerificationPVQ
 } from '../api/student/pvqServices';
+import {
+  getRandomPersonalSecurityQuestion,
+  verifySecurityAnswer
+} from '../api/security/securityServices';
 
 const TimerContext = createContext();
 
@@ -60,7 +63,7 @@ export const TimerProvider = ({ children, courseId, lessonId, ipAddress }) => {
 
   const pvqTrigger = usePVQTrigger({
     sessionTime: sessionTimer.sessionTime,
-    getRandomQuestion: () => getRandomPVQQuestionPVQ(),
+    getRandomQuestion: user ? () => getRandomPersonalSecurityQuestion(user.uid) : null,
     onPVQTriggered: null,
     onPVQSubmitted: null
   });
@@ -315,6 +318,15 @@ export const TimerProvider = ({ children, courseId, lessonId, ipAddress }) => {
 
     try {
       const timeToAnswer = pvqResponse.timeToAnswer;
+      const questionNumber = pvqTrigger.currentPVQQuestion.questionNumber;
+      
+      const verificationResult = await verifySecurityAnswer(user.uid, questionNumber, pvqResponse.answer);
+      
+      if (!verificationResult.verified) {
+        setPVQError('Incorrect answer. Please try again.');
+        return;
+      }
+
       const functions = getFunctions(getApp());
       const trackPVQAttemptFn = httpsCallable(functions, 'trackPVQAttempt');
 
@@ -326,7 +338,7 @@ export const TimerProvider = ({ children, courseId, lessonId, ipAddress }) => {
       });
 
       await logIdentityVerificationPVQ(user.uid, courseId, sessionData.currentSessionId, {
-        questionId: pvqTrigger.currentPVQQuestion.id,
+        questionId: pvqTrigger.currentPVQQuestion.questionKey,
         question: pvqTrigger.currentPVQQuestion.question,
         answer: pvqResponse.answer,
         isCorrect: true,

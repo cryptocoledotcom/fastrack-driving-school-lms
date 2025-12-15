@@ -202,10 +202,12 @@ const SettingsPage = () => {
       }
       
       const questionsData = {
-        questions: securityQuestions.map(q => ({
-          id: q.questionId,
-          answer: q.answer.trim()
-        }))
+        question1: securityQuestions[0].questionId,
+        answer1: securityQuestions[0].answer.trim(),
+        question2: securityQuestions[1].questionId,
+        answer2: securityQuestions[1].answer.trim(),
+        question3: securityQuestions[2].questionId,
+        answer3: securityQuestions[2].answer.trim()
       };
       
       await setSecurityQuestions(user.uid, questionsData);

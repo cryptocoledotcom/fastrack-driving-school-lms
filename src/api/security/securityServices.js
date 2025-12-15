@@ -13,6 +13,7 @@ import { executeService } from '../base/ServiceWrapper';
 import { ValidationError } from '../errors/ApiError';
 import { validateUserId } from '../../utils/api/validators.js';
 import { getFirestoreTimestamps } from '../../utils/api/timestampHelper.js';
+import { hashAnswer, compareAnswerHash } from '../../utils/security/answerHasher';
 
 export const getSecurityProfile = async (userId) => {
   return executeService(async () => {
@@ -38,15 +39,19 @@ export const setSecurityQuestions = async (userId, securityData) => {
       throw new ValidationError('Security data must be a valid object');
     }
     
+    const hash1 = await hashAnswer(securityData.answer1);
+    const hash2 = await hashAnswer(securityData.answer2);
+    const hash3 = await hashAnswer(securityData.answer3);
+
     const securityRef = doc(db, 'users', userId, 'securityProfile', 'questions');
     
     const data = {
-      question1: securityData.question1 || '',
-      answer1: securityData.answer1 || '',
-      question2: securityData.question2 || '',
-      answer2: securityData.answer2 || '',
-      question3: securityData.question3 || '',
-      answer3: securityData.answer3 || '',
+      question1: securityData.question1,
+      answerHash1: hash1,
+      question2: securityData.question2,
+      answerHash2: hash2,
+      question3: securityData.question3,
+      answerHash3: hash3,
       ...getFirestoreTimestamps()
     };
 
@@ -101,11 +106,17 @@ export const verifySecurityAnswer = async (userId, questionNumber, providedAnswe
       };
     }
 
-    const answerKey = `answer${questionNumber}`;
-    const storedAnswer = securityProfile[answerKey];
+    const hashKey = `answerHash${questionNumber}`;
+    const storedHash = securityProfile[hashKey];
 
-    const isMatch = storedAnswer && 
-                   storedAnswer.toLowerCase().trim() === providedAnswer.toLowerCase().trim();
+    if (!storedHash) {
+      return {
+        verified: false,
+        message: 'Security question not found'
+      };
+    }
+
+    const isMatch = await compareAnswerHash(providedAnswer, storedHash);
 
     return {
       verified: isMatch,
@@ -120,7 +131,7 @@ export const hasSecurityQuestions = async (userId) => {
     const securityProfile = await getSecurityProfile(userId);
     return securityProfile !== null && 
            securityProfile.question1 && 
-           securityProfile.answer1;
+           securityProfile.answerHash1;
   }, 'hasSecurityQuestions');
 };
 
@@ -162,11 +173,13 @@ export const verifySecurityAnswers = async (userId, answers) => {
 
     for (let i = 1; i <= 3; i++) {
       const answerKey = `answer${i}`;
-      const providedAnswer = answers[`answer${i}`];
-      const storedAnswer = securityProfile[answerKey];
+      const hashKey = `answerHash${i}`;
+      const providedAnswer = answers[answerKey];
+      const storedHash = securityProfile[hashKey];
 
-      if (providedAnswer && storedAnswer) {
-        if (storedAnswer.toLowerCase().trim() === providedAnswer.toLowerCase().trim()) {
+      if (providedAnswer && storedHash) {
+        const isMatch = await compareAnswerHash(providedAnswer, storedHash);
+        if (isMatch) {
           correctAnswers++;
         }
       }
@@ -185,6 +198,38 @@ export const verifySecurityAnswers = async (userId, answers) => {
   }, 'verifySecurityAnswers');
 };
 
+export const getRandomPersonalSecurityQuestion = async (userId) => {
+  return executeService(async () => {
+    validateUserId(userId);
+    
+    const securityProfile = await getSecurityProfile(userId);
+    
+    if (!securityProfile) {
+      throw new ValidationError('No security questions set for this user');
+    }
+
+    const questions = [];
+    for (let i = 1; i <= 3; i++) {
+      const questionKey = `question${i}`;
+      const hashKey = `answerHash${i}`;
+      
+      if (securityProfile[questionKey] && securityProfile[hashKey]) {
+        questions.push({
+          questionNumber: i,
+          question: securityProfile[questionKey]
+        });
+      }
+    }
+
+    if (questions.length === 0) {
+      throw new ValidationError('No valid security questions found');
+    }
+
+    const randomIndex = Math.floor(Math.random() * questions.length);
+    return questions[randomIndex];
+  }, 'getRandomPersonalSecurityQuestion');
+};
+
 const securityServices = {
   getSecurityProfile,
   setSecurityQuestions,
@@ -192,7 +237,8 @@ const securityServices = {
   verifySecurityAnswer,
   hasSecurityQuestions,
   getSecurityQuestionsForRecovery,
-  verifySecurityAnswers
+  verifySecurityAnswers,
+  getRandomPersonalSecurityQuestion
 };
 
 export default securityServices;

@@ -70,17 +70,17 @@ async function logAuditEvent(actorId, action, targetType, targetId, status, deta
     );
 
     const auditEntry = {
-      userId,
+      userId: actorId,
       action,
-      resource,
-      resourceId,
+      resource: targetType,
+      resourceId: targetId,
       status,
       timestamp: iso8601Timestamp,
       serverTimestamp: admin.firestore.FieldValue.serverTimestamp(),
       metadata: cleanedMetadata,
       retentionExpiresAt: new Date(timestamp.getTime() + RETENTION_DAYS * 24 * 60 * 60 * 1000).toISOString(),
-      ipAddress: context?.ipAddress || 'unknown',
-      userAgent: context?.userAgent || 'unknown'
+      ipAddress: request?.ipAddress || 'unknown',
+      userAgent: request?.userAgent || 'unknown'
     };
 
     await getDb().collection('auditLogs').add(auditEntry);
@@ -90,10 +90,10 @@ async function logAuditEvent(actorId, action, targetType, targetId, status, deta
       const log = logging.log('compliance-audit-trail');
       const severity = status === 'denied' ? 'WARNING' : status === 'error' || status === 'failure' ? 'ERROR' : 'INFO';
       const logEntry = log.entry({ severity }, {
-        userId,
+        userId: actorId,
         action,
-        resource,
-        resourceId,
+        resource: targetType,
+        resourceId: targetId,
         status,
         timestamp: iso8601Timestamp,
         metadata: cleanedMetadata
@@ -106,12 +106,12 @@ async function logAuditEvent(actorId, action, targetType, targetId, status, deta
   }
 }
 
-async function logAuditEventWithContext(userId, action, resource, resourceId, status, request, metadata = {}) {
+async function logAuditEventWithContext(actorId, action, targetType, targetId, status, request, metadata = {}) {
   const context = {
     ipAddress: request.ip || request.rawRequest?.headers?.['x-forwarded-for'] || 'unknown',
     userAgent: request.userAgent || request.rawRequest?.headers?.['user-agent'] || 'unknown'
   };
-  return logAuditEvent(userId, action, resource, resourceId, status, metadata, context);
+  return logAuditEvent(actorId, action, targetType, targetId, status, metadata, context);
 }
 
 async function deleteExpiredAuditLogs() {

@@ -580,14 +580,76 @@ deleteTimeSlot(slotId)
 
 ## 10. Security Services (`securityServices.js`)
 
-### Verify Course Access
+### Personal Security Questions (Identity Verification)
+
+#### Set Security Questions
+```javascript
+setSecurityQuestions(userId, securityData)
+// securityData: {
+//   question1: 'q1', answer1: 'answer',
+//   question2: 'q2', answer2: 'answer',
+//   question3: 'q3', answer3: 'answer'
+// }
+// Security: Answers are hashed with SHA-256 before storage
+// Returns: { success: true, message: 'Security questions set successfully' }
+```
+
+#### Verify Security Answer
+```javascript
+verifySecurityAnswer(userId, questionNumber, providedAnswer)
+// questionNumber: 1 | 2 | 3
+// providedAnswer: user's provided answer
+// Security: Compares SHA-256 hash, case-insensitive
+// Returns: { verified: boolean, message: string }
+```
+
+#### Get Random Personal Security Question
+```javascript
+getRandomPersonalSecurityQuestion(userId)
+// Returns: {
+//   questionNumber: 1-3,
+//   question: 'What was your first pet\'s name?'
+// }
+// Used by PersonalVerificationModal for 2-hour compliance checkpoint
+```
+
+#### Verify Multiple Security Answers
+```javascript
+verifySecurityAnswers(userId, answers)
+// answers: { answer1: 'ans', answer2: 'ans', answer3: 'ans' }
+// Returns: {
+//   verified: boolean (true if ≥2 of 3 correct),
+//   correctAnswers: number,
+//   requiredCorrect: 2,
+//   message: string
+// }
+```
+
+#### Check If Security Questions Set
+```javascript
+hasSecurityQuestions(userId)
+// Returns: boolean
+```
+
+#### Get Security Questions for Recovery
+```javascript
+getSecurityQuestionsForRecovery(userId)
+// Returns: {
+//   question1: 'text', question2: 'text', question3: 'text'
+// }
+// NOTE: Does NOT return answers (hashes only stored)
+```
+
+### Access Control
+
+#### Verify Course Access
 ```javascript
 verifyCourseAccess(uid, courseId)
 // Returns: boolean
 // Checks: user is enrolled AND enrollment is ACTIVE or COMPLETED
 ```
 
-### Verify User Role
+#### Verify User Role
 ```javascript
 verifyUserRole(uid, requiredRole)
 // requiredRole: 'STUDENT' | 'INSTRUCTOR' | 'ADMIN'
@@ -595,14 +657,14 @@ verifyUserRole(uid, requiredRole)
 // Throws: PermissionError if insufficient permissions
 ```
 
-### Verify Payment Verified
+#### Verify Payment Verified
 ```javascript
 verifyPaymentVerified(uid, courseId)
 // Returns: boolean
 // Checks if user has made at least initial payment
 ```
 
-### Check Admin Permission
+#### Check Admin Permission
 ```javascript
 checkAdminPermission(uid)
 // Returns: boolean
