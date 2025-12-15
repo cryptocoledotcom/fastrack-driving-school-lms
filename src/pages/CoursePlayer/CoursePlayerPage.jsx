@@ -13,7 +13,7 @@ import ProgressBar from '../../components/common/ProgressBar/ProgressBar';
 import Badge from '../../components/common/Badge/Badge';
 import LoadingSpinner from '../../components/common/LoadingSpinner/LoadingSpinner';
 import ErrorMessage from '../../components/common/ErrorMessage/ErrorMessage';
-import PVQModal from '../../components/common/Modals/PVQModal';
+import PersonalVerificationModal from '../../components/common/Modals/PersonalVerificationModal';
 import RestrictedVideoPlayer from '../../components/common/RestrictedVideoPlayer/RestrictedVideoPlayer';
 import PostVideoQuestionModal from '../../components/common/Modals/PostVideoQuestionModal';
 import Quiz from '../../components/common/Quiz/Quiz';
@@ -836,8 +836,8 @@ const CoursePlayerPageContent = () => {
         </div>
       )}
 
-      {/* PVQ Modal */}
-      <PVQModal
+      {/* Personal Verification Modal */}
+      <PersonalVerificationModal
         isOpen={showPVQModal}
         onClose={closePVQModal}
         pvqQuestion={currentPVQQuestion}
