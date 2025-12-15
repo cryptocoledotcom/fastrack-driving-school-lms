@@ -685,7 +685,15 @@ const CoursePlayerPageContent = () => {
                       {lessons.map((lesson) => {
                         const isActive = currentLesson?.id === lesson.id;
                         const isCompleted = isLessonCompleted(lesson.id);
-                        const isLocked = !isCompleted && !isActive && lesson.order > (currentLesson?.order || 0); // Simplified locking logic
+                        const isLocked = (() => {
+                          if (isCompleted || isActive) return false;
+                          // If it's the first lesson of the module
+                          if (lesson.order === 1) return false;
+                          // Find previous lesson
+                          const prevLesson = lessons.find(l => l.order === lesson.order - 1);
+                          // If previous lesson exists and is not completed, then this one is locked
+                          return prevLesson ? !isLessonCompleted(prevLesson.id) : false;
+                        })();
                         return (
                           <div
                             key={lesson.id}
