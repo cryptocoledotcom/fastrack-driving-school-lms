@@ -206,6 +206,30 @@ const CoursePlayerPageContent = () => {
     }
   }, [progress?.cumulativeMinutes, progress?.unit1_complete, progress?.unit2_complete, checkEnrollmentCertificateEligibility, progress]);
 
+  const findNextIncompleteLesson = async (modulesData, progressData) => {
+    for (const module of modulesData) {
+      let lessonsData = await getLessons(courseId, module.id);
+
+      const moduleObj = modulesData.find(m => m.id === module.id);
+      if (moduleObj?.lessonOrder && Array.isArray(moduleObj.lessonOrder)) {
+        lessonsData = lessonsData.sort((a, b) => {
+          const indexA = moduleObj.lessonOrder.indexOf(a.id);
+          const indexB = moduleObj.lessonOrder.indexOf(b.id);
+          return indexA - indexB;
+        });
+      }
+
+      for (const lesson of lessonsData) {
+        const lessonCompleted = progressData?.lessonProgress?.[lesson.id]?.completed || false;
+        if (!lessonCompleted) {
+          return { module, lesson, lessons: lessonsData };
+        }
+      }
+    }
+
+    return null;
+  };
+
   const loadCourseData = async () => {
     try {
       setLoading(true);
@@ -243,11 +267,20 @@ const CoursePlayerPageContent = () => {
       const progressData = await getProgress(user.uid, courseId);
       setProgress(progressData);
 
-      // Load first module and lesson
+      // Find and load next incomplete lesson
       if (modulesData.length > 0) {
-        const firstModule = modulesData[0];
-        setCurrentModule(firstModule);
-        await loadLessons(firstModule.id);
+        const nextLessonData = await findNextIncompleteLesson(modulesData, progressData);
+        
+        if (nextLessonData) {
+          setCurrentModule(nextLessonData.module);
+          setLessons(nextLessonData.lessons);
+          setCurrentLesson(nextLessonData.lesson);
+        } else {
+          // All lessons completed, load first module and lesson
+          const firstModule = modulesData[0];
+          setCurrentModule(firstModule);
+          await loadLessons(firstModule.id);
+        }
       }
 
     } catch (err) {
