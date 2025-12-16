@@ -5,15 +5,16 @@ import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-export default defineConfig(({ mode }) => {
-  // Port 3001 for emulators mode, 3000 for production (default)
-  const port = mode === 'emulators' ? 3001 : 3000;
+export default defineConfig(({ mode, command }) => {
+  // Development always uses 3001 (for Firebase emulators)
+  // Production build uses 3000
+  const port = command === 'serve' ? 3001 : 3000;
 
   return {
     plugins: [react()],
     server: {
       port,
-      strictPort: false,
+      strictPort: true,
       open: true,
     },
     build: {

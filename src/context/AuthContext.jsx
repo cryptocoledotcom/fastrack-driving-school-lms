@@ -204,6 +204,11 @@ export const AuthProvider = ({ children }) => {
       setError(null);
       const result = await signInWithEmailAndPassword(auth, email, password);
       await extractJWTClaims(result.user);
+      
+      // Explicitly set user state
+      setUser(result.user);
+      setLoading(false);
+      
       return result.user;
     } catch (err) {
       setError(err);
@@ -248,12 +253,17 @@ export const AuthProvider = ({ children }) => {
 
       // Create user profile in Firestore and await completion
       console.log('DEBUG: Creating Firestore profile for', result.user.uid);
-      await createUserProfile(result.user.uid, {
+      const profileData = await createUserProfile(result.user.uid, {
         email,
         displayName: additionalData.displayName || '',
         ...additionalData
       });
       console.log('DEBUG: Profile created successfully');
+
+      // Explicitly set user and profile state to prevent race condition with onAuthStateChanged
+      setUser(result.user);
+      setUserProfile(profileData);
+      setLoading(false);
 
       return result.user;
     } catch (err) {
@@ -274,6 +284,11 @@ export const AuthProvider = ({ children }) => {
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
       await extractJWTClaims(result.user);
+      
+      // Explicitly set user state
+      setUser(result.user);
+      setLoading(false);
+      
       return result.user;
     } catch (err) {
       setError(err);

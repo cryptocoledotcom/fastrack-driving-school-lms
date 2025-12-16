@@ -32,11 +32,12 @@ Fastrack LMS is a **comprehensive learning management system for driving school 
 
 | Metric | Value |
 |--------|-------|
-| **Test Coverage** | 1,093 tests (109.3% of 1,000+ target) |
-| **Tests Passing** | 100% (all 1,093 tests pass) |
+| **Test Coverage** | 1,044 tests (104.4% of 1,000+ target) |
+| **Tests Passing** | 100% (all 1,044 tests pass) |
 | **Cloud Functions** | 24 deployed (Firebase Functions v2 API) |
 | **Compliance** | 50/50 Ohio OAC requirements (100%) |
 | **Production Status** | ✅ Live with Sentry error tracking |
+| **E2E Infrastructure** | ✅ Playwright setup complete, all 3 browsers passing |
 
 ### Architecture at a Glance
 
@@ -1396,7 +1397,46 @@ firebase emulators:start --only auth,firestore  # Start specific emulators
 
 ---
 
-## 14. Key Principles
+## 14. Known Patterns & Common Pitfalls
+
+### Authentication State Management Pattern
+
+**Pitfall**: Authentication functions (register, login) often have race conditions where navigation happens before the auth context state updates.
+
+**Root Cause**: Firebase `onAuthStateChanged()` is asynchronous. If you call `navigate()` immediately after `await register()`, the `user` state may still be null because the listener hasn't fired yet.
+
+**Solution**: Explicitly set user/profile state in the auth function itself after successful authentication, rather than relying on the async listener.
+
+```javascript
+// ✅ CORRECT PATTERN - in AuthContext.jsx
+const register = async (email, password, additionalData) => {
+  // ... validation and auth creation ...
+  const result = await createUserWithEmailAndPassword(auth, email, password);
+  
+  // Create profile in Firestore
+  const profileData = await createUserProfile(result.user.uid, {...data});
+  
+  // IMMEDIATELY set state - don't wait for onAuthStateChanged listener
+  setUser(result.user);
+  setUserProfile(profileData);
+  setLoading(false);
+  
+  return result.user;
+};
+
+// In RegisterPage.jsx - now safe to navigate
+await register(email, password, data);
+navigate('/dashboard'); // user state is already set
+```
+
+**Files Using This Pattern**:
+- `src/context/AuthContext.jsx`: Lines 209-210 (login), 259-261 (register), 284-285 (loginWithGoogle)
+
+**Related**: This pattern is essential for ProtectedRoute to work correctly, as it checks `user` state to determine redirect.
+
+---
+
+## 15. Key Principles
 
 **When Developing for Fastrack LMS, Remember**:
 
@@ -1413,6 +1453,7 @@ firebase emulators:start --only auth,firestore  # Start specific emulators
 
 ---
 
-**Last Updated**: December 12, 2025  
+**Last Updated**: December 16, 2025  
 **For**: AI Agent Guidance (Claude, etc.)  
 **Purpose**: Consistent development style across all contributors
+**Latest Session**: Fixed registration race condition, E2E test infrastructure verified (all 3 browsers passing)

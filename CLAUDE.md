@@ -16,6 +16,7 @@
 - ✅ **Production ready** - Sentry active, Playwright E2E verified, Landing Page live
 - ✅ **Session 6 Security**: Personal Verification system hardened with SHA-256 answer hashing
 - ✅ **Session 6 Gen 2 Migration**: Complete Cloud Functions Gen 2 standardization (23 tests fixed)
+- ✅ **Session 7 Registration Fix**: Registration race condition fixed, E2E test infra improved
 
 ---
 
@@ -367,18 +368,39 @@ const result = await myFunction.run(
 
 **Status**: Researched & Ready to Implement
 
-#### Current Progress (December 11, 2025)
-- ✅ Student Complete Journey E2E Test - **PASSING**
-- 🟡 Instructor Workflows E2E Test - In Progress (auth debugging)
+#### Current Progress (December 16, 2025)
+- ✅ Student Complete Journey E2E Test - **ALL 3 BROWSERS PASSING** (Chromium, Firefox, WebKit)
+- ✅ Registration Race Condition Fixed - Explicit state setting in auth functions
+- ✅ E2E Mock Courses Injection - Proper setup for course discovery tests
+- ✅ Enrollment Flow Verified - Free course enrollment & My Courses display working
+- 🟡 Instructor Workflows E2E Test - Ready after registration fix
 - ✅ Java 21 LTS installed for Firebase Emulators
-- **Current**: 937+ tests (93.7% of 1,000+ target)
+- **Current**: 1,044 tests (104.4% of 1,000+ target) ✅ GOAL MET
+
+#### Session 7 Fix: Registration Redirect Race Condition
+
+**Problem**: After successful registration, users remained on `/register` instead of redirecting to `/dashboard`. Root cause was a race condition: `RegisterPage.navigate()` executed before `onAuthStateChanged()` listener set the `user` state, so `ProtectedRoute` would redirect to login.
+
+**Solution**: Explicitly set `user` and `userProfile` state in auth functions after successful authentication (register, login, loginWithGoogle), rather than relying on async listener.
+
+**Files Modified**:
+- `src/context/AuthContext.jsx`:
+  - Line 259-261: Set user/profile state in `register()` after profile creation
+  - Line 209-210: Set user state in `login()` after JWT extraction
+  - Line 284-285: Set user state in `loginWithGoogle()` after JWT extraction
+
+**Test Results**: 
+- ✅ All 3 browsers passing (Chromium, Firefox, WebKit)
+- ✅ Student journey: Register → Dashboard → Courses → Enroll → My Courses
+- ✅ No regressions (1,044 unit tests still 100% passing)
 
 #### Key Goals
-- Expand from 936+ to 1,000+ total tests
-- Identify and test all untested code paths
-- Achieve >90% coverage on API services
-- Achieve >85% coverage on React components
-- Add comprehensive E2E tests for all user journeys
+- ✅ Expand from 936+ to 1,000+ total tests → **ACHIEVED (1,044 tests)**
+- ✅ E2E test infrastructure working → **ACHIEVED (Student journey verified)**
+- 🔄 Identify and test all untested code paths
+- 🔄 Achieve >90% coverage on API services
+- 🔄 Achieve >85% coverage on React components
+- 🔄 Add comprehensive E2E tests for all user journeys
 
 #### Coverage Targets
 | Module | Current | Target |
