@@ -1,0 +1,17 @@
+
+> fastrack-driving-school-lms@1.0.0 test
+> vitest paymentFunctions.test.js
+
+
+[7m[1m[34m DEV [39m[22m[27m [34mv1.6.1[39m [90mc:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System[39m
+
+ [32m✓[39m functions/src/payment/__tests__/paymentFunctions.test.js [2m ([22m[2m21 tests[22m [2m|[22m [33m2 skipped[39m[2m)[22m[90m 20[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m19 passed[39m[22m[2m | [22m[33m2 skipped[39m[90m (21)[39m
+[2m   Start at [22m 14:49:23
+[2m   Duration [22m 2.21s[2m (transform 77ms, setup 262ms, collect 408ms, tests 20ms, environment 842ms, prepare 315ms)[22m
+
+
+[1m[7m[32m PASS [39m[27m[22m[32m Waiting for file changes...[39m
+       [2mpress [22m[1mh[22m[2m to show help[22m[2m, [22m[2mpress [22m[1mq[22m[2m to quit[22m

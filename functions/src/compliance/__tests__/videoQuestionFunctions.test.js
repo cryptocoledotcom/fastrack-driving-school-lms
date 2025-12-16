@@ -60,7 +60,7 @@ describe('Video Question Functions', () => {
       };
 
       try {
-        await checkVideoQuestionAnswer.run(data, { auth: null });
+        await checkVideoQuestionAnswer.run({ data, auth: null });
         expect(true).toBe(false);
       } catch (error) {
         expect(error.code).toBe('unauthenticated');
@@ -77,7 +77,7 @@ describe('Video Question Functions', () => {
       };
 
       try {
-        await checkVideoQuestionAnswer.run(data, mockContext);
+        await checkVideoQuestionAnswer.run({ data, auth: mockContext.auth });
         expect(true).toBe(false);
       } catch (error) {
         expect(error.code).toBe('invalid-argument');
@@ -94,7 +94,7 @@ describe('Video Question Functions', () => {
       };
 
       try {
-        await checkVideoQuestionAnswer.run(data, mockContext);
+        await checkVideoQuestionAnswer.run({ data, auth: mockContext.auth });
         expect(true).toBe(false);
       } catch (error) {
         expect(error.code).toBe('invalid-argument');
@@ -110,7 +110,7 @@ describe('Video Question Functions', () => {
       };
 
       try {
-        await checkVideoQuestionAnswer.run(data, mockContext);
+        await checkVideoQuestionAnswer.run({ data, auth: mockContext.auth });
         expect(true).toBe(false);
       } catch (error) {
         expect(error.code).toBe('invalid-argument');
@@ -126,7 +126,7 @@ describe('Video Question Functions', () => {
       };
 
       try {
-        await checkVideoQuestionAnswer.run(data, mockContext);
+        await checkVideoQuestionAnswer.run({ data, auth: mockContext.auth });
         expect(true).toBe(false);
       } catch (error) {
         expect(error.code).toBe('invalid-argument');
@@ -142,7 +142,7 @@ describe('Video Question Functions', () => {
       };
 
       try {
-        await checkVideoQuestionAnswer.run(data, mockContext);
+        await checkVideoQuestionAnswer.run({ data, auth: mockContext.auth });
         expect(true).toBe(false);
       } catch (error) {
         expect(error.code).toBe('invalid-argument');
@@ -159,7 +159,7 @@ describe('Video Question Functions', () => {
       };
 
       try {
-        await checkVideoQuestionAnswer.run(data, mockContext);
+        await checkVideoQuestionAnswer.run({ data, auth: mockContext.auth });
         expect(true).toBe(false);
       } catch (error) {
         expect(error.code).toBe('permission-denied');
@@ -186,7 +186,7 @@ describe('Video Question Functions', () => {
       };
 
       try {
-        await checkVideoQuestionAnswer.run(data, mockContext);
+        await checkVideoQuestionAnswer.run({ data, auth: mockContext.auth });
         expect(true).toBe(false);
       } catch (error) {
         expect(error.code).toBe('not-found');
@@ -234,7 +234,7 @@ describe('Video Question Functions', () => {
         selectedAnswer: 'A',
       };
 
-      const result = await checkVideoQuestionAnswer.run(data, mockContext);
+      const result = await checkVideoQuestionAnswer.run({ data, auth: mockContext.auth });
       expect(result.isCorrect).toBe(true);
       expect(result.correctAnswer).toBe(null);
       expect(result.question).toBe('What is 2+2?');
@@ -281,7 +281,7 @@ describe('Video Question Functions', () => {
         selectedAnswer: 'B',
       };
 
-      const result = await checkVideoQuestionAnswer.run(data, mockContext);
+      const result = await checkVideoQuestionAnswer.run({ data, auth: mockContext.auth });
       expect(result.isCorrect).toBe(false);
       expect(result.correctAnswer).toBe('A');
       expect(result.question).toBe('What is 2+2?');
@@ -322,7 +322,7 @@ describe('Video Question Functions', () => {
         selectedAnswer: 'A',
       };
 
-      await checkVideoQuestionAnswer.run(data, mockContext);
+      await checkVideoQuestionAnswer.run({ data, auth: mockContext.auth });
       expect(addMock).toHaveBeenCalled();
       const auditEntry = addMock.mock.calls[0][0];
       expect(auditEntry.eventType).toBe('VIDEO_QUESTION_ANSWERED');
@@ -366,7 +366,7 @@ describe('Video Question Functions', () => {
         selectedAnswer: 'B',
       };
 
-      const result = await checkVideoQuestionAnswer.run(data, mockContext);
+      const result = await checkVideoQuestionAnswer.run({ data, auth: mockContext.auth });
       expect(result.explanation).toBe('The sum of two and two is four');
     });
 
@@ -404,7 +404,7 @@ describe('Video Question Functions', () => {
         selectedAnswer: 'A',
       };
 
-      const result = await checkVideoQuestionAnswer.run(data, mockContext);
+      const result = await checkVideoQuestionAnswer.run({ data, auth: mockContext.auth });
       expect(result.explanation).toBe(null);
     });
   });
@@ -414,7 +414,7 @@ describe('Video Question Functions', () => {
       const data = { lessonId: 'lesson-456' };
 
       try {
-        await getVideoQuestion.run(data, { auth: null });
+        await getVideoQuestion.run({ data, auth: null });
         expect(true).toBe(false);
       } catch (error) {
         expect(error.code).toBe('unauthenticated');
@@ -426,7 +426,7 @@ describe('Video Question Functions', () => {
       const data = {};
 
       try {
-        await getVideoQuestion.run(data, mockContext);
+        await getVideoQuestion.run({ data, auth: mockContext.auth });
         expect(true).toBe(false);
       } catch (error) {
         expect(error.code).toBe('invalid-argument');
@@ -448,7 +448,7 @@ describe('Video Question Functions', () => {
       setDb(mockDb);
 
       const data = { lessonId: 'lesson-456' };
-      const result = await getVideoQuestion.run(data, mockContext);
+      const result = await getVideoQuestion.run({ data, auth: mockContext.auth });
       expect(result.question).toBe(null);
     });
 
@@ -478,7 +478,7 @@ describe('Video Question Functions', () => {
       setDb(mockDb);
 
       const data = { lessonId: 'lesson-456' };
-      const result = await getVideoQuestion.run(data, mockContext);
+      const result = await getVideoQuestion.run({ data, auth: mockContext.auth });
       expect(result.id).toBe('question-1');
       expect(result.question).toBe('What is 2+2?');
       expect(result.answers).toEqual(['A', 'B', 'C', 'D']);
@@ -510,7 +510,7 @@ describe('Video Question Functions', () => {
       setDb(mockDb);
 
       const data = { lessonId: 'lesson-456' };
-      const result = await getVideoQuestion.run(data, mockContext);
+      const result = await getVideoQuestion.run({ data, auth: mockContext.auth });
       expect(result.correctAnswer).toBeUndefined();
     });
 
@@ -537,7 +537,7 @@ describe('Video Question Functions', () => {
       setDb(mockDb);
 
       const data = { lessonId: 'lesson-456' };
-      const result = await getVideoQuestion.run(data, mockContext);
+      const result = await getVideoQuestion.run({ data, auth: mockContext.auth });
       expect(result.answers).toEqual([]);
     });
 
@@ -565,7 +565,7 @@ describe('Video Question Functions', () => {
       setDb(mockDb);
 
       const data = { lessonId: 'lesson-456' };
-      const result = await getVideoQuestion.run(data, mockContext);
+      const result = await getVideoQuestion.run({ data, auth: mockContext.auth });
       expect(result.explanation).toBe(null);
     });
 
@@ -602,7 +602,7 @@ describe('Video Question Functions', () => {
       setDb(mockDb);
 
       const data = { lessonId: 'lesson-456' };
-      const result = await getVideoQuestion.run(data, mockContext);
+      const result = await getVideoQuestion.run({ data, auth: mockContext.auth });
       expect(result.question).toBe('First question');
     });
 
@@ -617,7 +617,7 @@ describe('Video Question Functions', () => {
       const data = { lessonId: 'lesson-456' };
 
       try {
-        await getVideoQuestion.run(data, mockContext);
+        await getVideoQuestion.run({ data, auth: mockContext.auth });
         expect(true).toBe(false);
       } catch (error) {
         expect(error.code).toBe('internal');
@@ -638,7 +638,7 @@ describe('Video Question Functions', () => {
       };
 
       try {
-        await recordVideoQuestionResponse.run(data, { auth: null });
+        await recordVideoQuestionResponse.run({ data, auth: null });
         expect(true).toBe(false);
       } catch (error) {
         expect(error.code).toBe('unauthenticated');
@@ -656,7 +656,7 @@ describe('Video Question Functions', () => {
       };
 
       try {
-        await recordVideoQuestionResponse.run(data, mockContext);
+        await recordVideoQuestionResponse.run({ data, auth: mockContext.auth });
         expect(true).toBe(false);
       } catch (error) {
         expect(error.code).toBe('invalid-argument');
@@ -674,7 +674,7 @@ describe('Video Question Functions', () => {
       };
 
       try {
-        await recordVideoQuestionResponse.run(data, mockContext);
+        await recordVideoQuestionResponse.run({ data, auth: mockContext.auth });
         expect(true).toBe(false);
       } catch (error) {
         expect(error.code).toBe('invalid-argument');
@@ -691,7 +691,7 @@ describe('Video Question Functions', () => {
       };
 
       try {
-        await recordVideoQuestionResponse.run(data, mockContext);
+        await recordVideoQuestionResponse.run({ data, auth: mockContext.auth });
         expect(true).toBe(false);
       } catch (error) {
         expect(error.code).toBe('invalid-argument');
@@ -708,7 +708,7 @@ describe('Video Question Functions', () => {
       };
 
       try {
-        await recordVideoQuestionResponse.run(data, mockContext);
+        await recordVideoQuestionResponse.run({ data, auth: mockContext.auth });
         expect(true).toBe(false);
       } catch (error) {
         expect(error.code).toBe('invalid-argument');
@@ -725,7 +725,7 @@ describe('Video Question Functions', () => {
       };
 
       try {
-        await recordVideoQuestionResponse.run(data, mockContext);
+        await recordVideoQuestionResponse.run({ data, auth: mockContext.auth });
         expect(true).toBe(false);
       } catch (error) {
         expect(error.code).toBe('invalid-argument');
@@ -742,7 +742,7 @@ describe('Video Question Functions', () => {
       };
 
       try {
-        await recordVideoQuestionResponse.run(data, mockContext);
+        await recordVideoQuestionResponse.run({ data, auth: mockContext.auth });
         expect(true).toBe(false);
       } catch (error) {
         expect(error.code).toBe('invalid-argument');
@@ -760,7 +760,7 @@ describe('Video Question Functions', () => {
       };
 
       try {
-        await recordVideoQuestionResponse.run(data, mockContext);
+        await recordVideoQuestionResponse.run({ data, auth: mockContext.auth });
         expect(true).toBe(false);
       } catch (error) {
         expect(error.code).toBe('permission-denied');
@@ -786,10 +786,7 @@ describe('Video Question Functions', () => {
         isCorrect: true,
       };
 
-      const result = await recordVideoQuestionResponse.run(
-        data,
-        mockContext
-      );
+      const result = await recordVideoQuestionResponse.run({ data, auth: mockContext.auth });
       expect(result.id).toBe('response-123');
       expect(result.recorded).toBe(true);
       expect(addMock).toHaveBeenCalled();
@@ -820,10 +817,7 @@ describe('Video Question Functions', () => {
         isCorrect: false,
       };
 
-      const result = await recordVideoQuestionResponse.run(
-        data,
-        mockContext
-      );
+      const result = await recordVideoQuestionResponse.run({ data, auth: mockContext.auth });
       expect(result.recorded).toBe(true);
       const responseData = addMock.mock.calls[0][0];
       expect(responseData.isCorrect).toBe(false);
@@ -848,7 +842,7 @@ describe('Video Question Functions', () => {
         isCorrect: true,
       };
 
-      await recordVideoQuestionResponse.run(data, mockContext);
+      await recordVideoQuestionResponse.run({ data, auth: mockContext.auth });
       const responseData = addMock.mock.calls[0][0];
       expect(responseData.respondedAt).toBeDefined();
     });
@@ -871,7 +865,7 @@ describe('Video Question Functions', () => {
         isCorrect: true,
       };
 
-      await recordVideoQuestionResponse.run(data, mockContext);
+      await recordVideoQuestionResponse.run({ data, auth: mockContext.auth, rawRequest: mockContext.rawRequest });
       const responseData = addMock.mock.calls[0][0];
       expect(responseData.ipAddress).toBe('127.0.0.1');
       expect(responseData.userAgent).toBe('test-agent');
@@ -902,7 +896,7 @@ describe('Video Question Functions', () => {
         isCorrect: true,
       };
 
-      await recordVideoQuestionResponse.run(data, contextWithoutIp);
+      await recordVideoQuestionResponse.run({ data, auth: contextWithoutIp.auth, rawRequest: contextWithoutIp.rawRequest });
       const responseData = addMock.mock.calls[0][0];
       expect(responseData.ipAddress).toBe(null);
       expect(responseData.userAgent).toBe('test-agent');
@@ -924,7 +918,7 @@ describe('Video Question Functions', () => {
       };
 
       try {
-        await recordVideoQuestionResponse.run(data, mockContext);
+        await recordVideoQuestionResponse.run({ data, auth: mockContext.auth });
         expect(true).toBe(false);
       } catch (error) {
         expect(error.code).toBe('internal');

@@ -8,7 +8,7 @@ vi.mock('../../../../context/AuthContext');
 
 describe('Sidebar', () => {
     it('renders standard navigation items', () => {
-        useAuth.mockReturnValue({ isAdmin: false });
+        useAuth.mockReturnValue({ isAdmin: false, isInstructor: false });
         render(
             <MemoryRouter>
                 <Sidebar />
@@ -17,11 +17,11 @@ describe('Sidebar', () => {
 
         expect(screen.getByText('Dashboard')).toBeInTheDocument();
         expect(screen.getByText('My Courses')).toBeInTheDocument();
-        expect(screen.queryByText('Admin Panel')).not.toBeInTheDocument();
+        expect(screen.queryByText('Instructor Panel')).not.toBeInTheDocument();
     });
 
-    it('renders admin panel when user is admin', () => {
-        useAuth.mockReturnValue({ isAdmin: true });
+    it('renders instructor panel when user is admin', () => {
+        useAuth.mockReturnValue({ isAdmin: true, isInstructor: false });
         render(
             <MemoryRouter>
                 <Sidebar />
@@ -29,6 +29,6 @@ describe('Sidebar', () => {
         );
 
         expect(screen.getByText('Dashboard')).toBeInTheDocument();
-        expect(screen.getByText('Admin Panel')).toBeInTheDocument();
+        expect(screen.getByText('Instructor Panel')).toBeInTheDocument();
     });
 });

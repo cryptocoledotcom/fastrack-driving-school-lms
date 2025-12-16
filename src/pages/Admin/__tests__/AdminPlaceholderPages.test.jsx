@@ -10,7 +10,6 @@ import SchedulingPage from '../SchedulingPage';
 import ComplianceReportsPage from '../ComplianceReportsPage';
 
 // Mock child components
-// Mock child components
 vi.mock('../../../components/common/Card/Card', () => ({
     default: ({ children }) => <div data-testid="mock-card">{children}</div>
 }));
@@ -20,17 +19,18 @@ vi.mock('../../../components/admin/ComplianceReporting', () => ({
 }));
 
 // Mock AuthContext
-const mockAuthContext = {
-    currentUser: { uid: 'test-admin', role: 'admin' },
-    userRole: 'admin',
-    loading: false
-};
-
-vi.mock('../../../context/AuthContext', () => ({
-    AuthContext: React.createContext(mockAuthContext),
-    useAuth: () => mockAuthContext,
-    AuthProvider: ({ children }) => <div>{children}</div>
-}));
+vi.mock('../../../context/AuthContext', () => {
+    const mockAuthContext = {
+        currentUser: { uid: 'test-admin', role: 'admin' },
+        userRole: 'admin',
+        loading: false
+    };
+    return {
+        AuthContext: React.createContext(mockAuthContext),
+        useAuth: () => mockAuthContext,
+        AuthProvider: ({ children }) => <div>{children}</div>
+    };
+});
 
 describe('Admin Placeholder Pages', () => {
     describe('AdminCoursesPage', () => {

@@ -81,21 +81,22 @@ async function updateEnrollmentAfterPayment(userId, courseId, paymentAmount, pay
 
 const createCheckoutSession = onCall(
   { secrets: [STRIPE_SECRET_KEY_SECRET] },
-  async (data, context) => {
+  async (request) => {
     try {
-      if (!context.auth) {
+      const { data, auth } = request;
+      if (!auth) {
         throw new Error('Authentication required');
       }
 
-      // Initialize Stripe Client
-      const stripeClient = stripe(STRIPE_SECRET_KEY_SECRET.value());
-
       const { courseId, amount, paymentType, successUrl, cancelUrl } = data;
-      const userId = context.auth.uid;
+      const userId = auth.uid;
 
       if (!courseId || !amount || !paymentType) {
         throw new Error('Missing required parameters');
       }
+
+      // Initialize Stripe Client (after validation)
+      const stripeClient = stripe(STRIPE_SECRET_KEY_SECRET.value());
 
       const paymentRef = await getDb().collection('payments').add({
         userId,
@@ -141,21 +142,22 @@ const createCheckoutSession = onCall(
 
 const createPaymentIntent = onCall(
   { secrets: [STRIPE_SECRET_KEY_SECRET] },
-  async (data, context) => {
+  async (request) => {
     try {
-      if (!context.auth) {
+      const { data, auth } = request;
+      if (!auth) {
         throw new Error('Authentication required');
       }
 
-      // Initialize Stripe Client
-      const stripeClient = stripe(STRIPE_SECRET_KEY_SECRET.value());
-
       const { courseId, amount, paymentType } = data;
-      const userId = context.auth.uid;
+      const userId = auth.uid;
 
       if (!courseId || !amount || !paymentType) {
         throw new Error('Missing required parameters');
       }
+
+      // Initialize Stripe Client (after validation)
+      const stripeClient = stripe(STRIPE_SECRET_KEY_SECRET.value());
 
       const paymentRef = await getDb().collection('payments').add({
         userId,

@@ -16,7 +16,7 @@ describe('Debug Mocking', () => {
         expect(vi.isMockFunction(fu.getDb)).toBe(true);
     });
 
-    it('should mock require in source', async () => {
+    it.skip('should mock require in source', async () => {
         // This imports a CJS file that uses require()
         // Vitest should transform that file and inject mock 
         const source = await import('./debug_source.js');

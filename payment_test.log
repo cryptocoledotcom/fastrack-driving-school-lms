@@ -1,0 +1,29 @@
+
+> fastrack-driving-school-lms@1.0.0 test
+> vitest paymentFunctions.test.js
+
+
+[7m[1m[34m DEV [39m[22m[27m [34mv1.6.1[39m [90mc:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System[39m
+
+ [33m❯[39m functions/src/payment/__tests__/paymentFunctions.test.js [2m ([22m[2m21 tests[22m [2m|[22m [31m6 failed[39m [2m|[22m [33m2 skipped[39m[2m)[22m[90m 29[2mms[22m[39m
+[31m   [33m❯[31m functions/src/payment/__tests__/paymentFunctions.test.js[2m > [22mPayment Functions[2m > [22mcreateCheckoutSession[2m > [22mshould throw error if courseId missing[39m
+[31m     → expected 'Failed to create checkout session: Ne…' to contain 'Missing required parameters'[39m
+[31m   [33m❯[31m functions/src/payment/__tests__/paymentFunctions.test.js[2m > [22mPayment Functions[2m > [22mcreateCheckoutSession[2m > [22mshould throw error if amount missing[39m
+[31m     → expected 'Failed to create checkout session: Ne…' to contain 'Missing required parameters'[39m
+[31m   [33m❯[31m functions/src/payment/__tests__/paymentFunctions.test.js[2m > [22mPayment Functions[2m > [22mcreateCheckoutSession[2m > [22mshould throw error if paymentType missing[39m
+[31m     → expected 'Failed to create checkout session: Ne…' to contain 'Missing required parameters'[39m
+[31m   [33m❯[31m functions/src/payment/__tests__/paymentFunctions.test.js[2m > [22mPayment Functions[2m > [22mcreatePaymentIntent[2m > [22mshould throw error if courseId missing[39m
+[31m     → expected 'Failed to create payment intent: Neit…' to contain 'Missing required parameters'[39m
+[31m   [33m❯[31m functions/src/payment/__tests__/paymentFunctions.test.js[2m > [22mPayment Functions[2m > [22mcreatePaymentIntent[2m > [22mshould throw error if amount missing[39m
+[31m     → expected 'Failed to create payment intent: Neit…' to contain 'Missing required parameters'[39m
+[31m   [33m❯[31m functions/src/payment/__tests__/paymentFunctions.test.js[2m > [22mPayment Functions[2m > [22mcreatePaymentIntent[2m > [22mshould throw error if paymentType missing[39m
+[31m     → expected 'Failed to create payment intent: Neit…' to contain 'Missing required parameters'[39m
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m6 failed[39m[22m[2m | [22m[1m[32m13 passed[39m[22m[2m | [22m[33m2 skipped[39m[90m (21)[39m
+[2m   Start at [22m 14:46:37
+[2m   Duration [22m 2.12s[2m (transform 88ms, setup 241ms, collect 392ms, tests 29ms, environment 741ms, prepare 337ms)[22m
+
+
+[1m[7m[31m FAIL [39m[27m[22m[31m Tests failed. Watching for file changes...[39m
+       [2mpress [22m[1mh[22m[2m to show help[22m[2m, [22m[2mpress [22m[1mq[22m[2m to quit[22m

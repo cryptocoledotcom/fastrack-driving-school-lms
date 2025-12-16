@@ -135,8 +135,9 @@ exports.checkVideoQuestionAnswer = functions.https.onCall(
 );
 
 exports.getVideoQuestion = functions.https.onCall(
-  async (data, context) => {
-    if (!context.auth) {
+  async (request) => {
+    const { data, auth } = request;
+    if (!auth) {
       throw new functions.https.HttpsError(
         'unauthenticated',
         'User must be authenticated'
@@ -184,8 +185,9 @@ exports.getVideoQuestion = functions.https.onCall(
 );
 
 exports.recordVideoQuestionResponse = functions.https.onCall(
-  async (data, context) => {
-    if (!context.auth) {
+  async (request) => {
+    const { data, auth } = request;
+    if (!auth) {
       throw new functions.https.HttpsError(
         'unauthenticated',
         'User must be authenticated'
@@ -201,7 +203,7 @@ exports.recordVideoQuestionResponse = functions.https.onCall(
       );
     }
 
-    if (context.auth.uid !== userId) {
+    if (auth.uid !== userId) {
       throw new functions.https.HttpsError(
         'permission-denied',
         'Cannot record responses for other users'
@@ -219,8 +221,8 @@ exports.recordVideoQuestionResponse = functions.https.onCall(
           selectedAnswer,
           isCorrect,
           respondedAt: admin.firestore.FieldValue.serverTimestamp(),
-          ipAddress: context.rawRequest?.ip || null,
-          userAgent: context.rawRequest?.headers?.['user-agent'] || null
+          ipAddress: request.rawRequest?.ip || null,
+          userAgent: request.rawRequest?.headers?.['user-agent'] || null
         });
 
       return {

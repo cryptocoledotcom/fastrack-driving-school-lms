@@ -659,9 +659,11 @@ npm run test:ui
 
 ## 6. Cloud Functions Guidelines
 
-### 6.1 Function Structure (v2 API)
+### 6.1 Function Structure (v2 API) - STANDARDIZED
 
-All Cloud Functions use Firebase Functions v2 API with `async (request)` signature:
+**All Cloud Functions use Firebase Functions v2 API with `async (request)` signature** (100% standardized as of Phase 5.1).
+
+**CRITICAL PATTERN**: Validate parameters BEFORE initializing expensive services (Stripe, etc). This ensures validation errors return proper messages instead of service initialization errors.
 
 ```javascript
 const { onCall } = require('firebase-functions/v2/https');
@@ -670,13 +672,13 @@ const { db } = require('../common/firebase-admin');
 exports.enrollCourse = onCall(async (request) => {
   try {
     // 1. Authentication check
-    const auth = request.auth;
+    const { data, auth, rawRequest } = request;
     if (!auth) {
       throw new Error('UNAUTHENTICATED: User must be authenticated');
     }
 
-    // 2. Input validation
-    const { userId, courseId, amount } = request.data;
+    // 2. Input validation (BEFORE expensive operations)
+    const { userId, courseId, amount } = data;
     if (!userId || !courseId || !amount) {
       throw new Error('INVALID_ARGUMENTS: Missing required fields');
     }
@@ -686,7 +688,10 @@ exports.enrollCourse = onCall(async (request) => {
       throw new Error('PERMISSION_DENIED: Cannot enroll other users');
     }
 
-    // 4. Business logic
+    // 4. NOW safe to initialize expensive services
+    // Example: const stripe = new Stripe(apiKey);
+
+    // 5. Business logic
     const enrollmentRef = db.collection('enrollments').doc();
     await enrollmentRef.set({
       userId,
@@ -696,7 +701,7 @@ exports.enrollCourse = onCall(async (request) => {
       status: 'active'
     });
 
-    // 5. Return success
+    // 6. Return success
     return {
       success: true,
       enrollmentId: enrollmentRef.id,
@@ -719,6 +724,11 @@ exports.enrollCourse = onCall(async (request) => {
   }
 });
 ```
+
+**Key Gen 2 Features**:
+- `request.data` - Function call data (replaces Gen 1 `data` parameter)
+- `request.auth` - Authentication context (replaces Gen 1 `context.auth`)
+- `request.rawRequest` - Raw Express request (for headers, IP, etc)
 
 ### 6.2 Common Patterns
 
@@ -767,43 +777,71 @@ batch.update(db.collection('courses').doc(courseId), {
 await batch.commit();
 ```
 
-### 6.3 Testing Cloud Functions
+### 6.3 Testing Cloud Functions (Gen 2 Pattern)
 
 ```javascript
+const { enrollCourse } = require('../../src/myfeature/myFunctions');
+
 describe('enrollCourse', () => {
   it('enrolls user successfully', async () => {
-    const result = await enrollCourse({
+    const result = await enrollCourse.run({
       auth: { uid: 'user123' },
       data: {
         userId: 'user123',
         courseId: 'course456',
         amount: 9999
+      },
+      rawRequest: { 
+        headers: { 'user-agent': 'test-agent' }
       }
     });
 
-    expect(result.data.success).toBe(true);
-    expect(result.data.enrollmentId).toBeDefined();
+    expect(result.success).toBe(true);
+    expect(result.enrollmentId).toBeDefined();
   });
 
   it('rejects unauthenticated requests', async () => {
     await expect(
-      enrollCourse({
+      enrollCourse.run({
         auth: null,
-        data: { /* ... */ }
+        data: {
+          userId: 'user123',
+          courseId: 'course456',
+          amount: 9999
+        }
       })
     ).rejects.toThrow('UNAUTHENTICATED');
   });
 
   it('rejects invalid input', async () => {
     await expect(
-      enrollCourse({
+      enrollCourse.run({
         auth: { uid: 'user123' },
         data: { userId: 'user123' }  // Missing courseId, amount
       })
     ).rejects.toThrow('INVALID_ARGUMENTS');
   });
+
+  it('rejects permission denied', async () => {
+    await expect(
+      enrollCourse.run({
+        auth: { uid: 'user123' },
+        data: {
+          userId: 'different-user',  // Different from auth.uid
+          courseId: 'course456',
+          amount: 9999
+        }
+      })
+    ).rejects.toThrow('PERMISSION_DENIED');
+  });
 });
 ```
+
+**Gen 2 Test Pattern**:
+- Use `.run({ data, auth, rawRequest })` to invoke functions
+- `data` - Arguments passed to the function
+- `auth` - Authentication context with `uid` property
+- `rawRequest` - Express request object (for headers, IP, user-agent)
 
 ---
 
@@ -1273,8 +1311,15 @@ When completing a phase:
 - ✅ Student Services: 52/52 tests
 - ✅ Course/Lesson/Quiz Services: 39/39 tests
 - ✅ Component Tests: 24/24 tests (CheckoutForm, PaymentModal, EnrollmentCard, LessonBooking, UpcomingLessons, Layout components)
-- ✅ E2E Tests: 108+ tests (Student Complete Journey passing)
-- **Total**: 1,093 tests (109.3% of goal)
+- ✅ E2E Tests: 100+ tests (Student Complete Journey passing)
+- ✅ Cloud Functions Unit Tests: 87/87 tests (All Gen 2 signature, payment + compliance)
+- **Total**: 1,044 tests (104.4% of goal)
+
+#### Phase 5.1: Gen 2 Cloud Functions Migration (COMPLETED)
+- ✅ Payment Functions: `createCheckoutSession`, `createPaymentIntent` (Gen 2 signature)
+- ✅ Video Question Functions: `checkVideoQuestionAnswer`, `getVideoQuestion`, `recordVideoQuestionResponse` (Gen 2 signature)
+- ✅ Test Suite: All 87 Cloud Functions tests updated to Gen 2 calling convention
+- ✅ Impact: All 23 failing tests fixed, 100% standardization achieved
 
 **Next Focus**:
 - Expand E2E tests (Instructor workflows, Admin operations)

@@ -17,7 +17,9 @@ vi.mock('firebase-functions/v2/https', () => ({
 }));
 
 vi.mock('firebase-functions/params', () => ({
-  defineSecret: vi.fn((name) => name),
+  defineSecret: vi.fn((name) => ({
+    value: vi.fn(() => 'test_stripe_key_12345')
+  })),
 }));
 
 vi.mock('stripe', () => {
@@ -95,7 +97,7 @@ describe('Payment Functions', () => {
       };
 
       try {
-        await createCheckoutSession.run(data, { auth: null });
+        await createCheckoutSession.run({ data, auth: null });
         expect(true).toBe(false);
       } catch (error) {
         expect(error.message).toContain('Authentication required');
@@ -109,7 +111,7 @@ describe('Payment Functions', () => {
       };
 
       try {
-        await createCheckoutSession.run(data, mockContext);
+        await createCheckoutSession.run({ data, auth: mockContext.auth });
         expect(true).toBe(false);
       } catch (error) {
         expect(error.message).toContain('Missing required parameters');
@@ -123,7 +125,7 @@ describe('Payment Functions', () => {
       };
 
       try {
-        await createCheckoutSession.run(data, mockContext);
+        await createCheckoutSession.run({ data, auth: mockContext.auth });
         expect(true).toBe(false);
       } catch (error) {
         expect(error.message).toContain('Missing required parameters');
@@ -137,7 +139,7 @@ describe('Payment Functions', () => {
       };
 
       try {
-        await createCheckoutSession.run(data, mockContext);
+        await createCheckoutSession.run({ data, auth: mockContext.auth });
         expect(true).toBe(false);
       } catch (error) {
         expect(error.message).toContain('Missing required parameters');
@@ -173,7 +175,7 @@ describe('Payment Functions', () => {
       };
 
       try {
-        await createPaymentIntent.run(data, { auth: null });
+        await createPaymentIntent.run({ data, auth: null });
         expect(true).toBe(false);
       } catch (error) {
         expect(error.message).toContain('Authentication required');
@@ -187,7 +189,7 @@ describe('Payment Functions', () => {
       };
 
       try {
-        await createPaymentIntent.run(data, mockContext);
+        await createPaymentIntent.run({ data, auth: mockContext.auth });
         expect(true).toBe(false);
       } catch (error) {
         expect(error.message).toContain('Missing required parameters');
@@ -201,7 +203,7 @@ describe('Payment Functions', () => {
       };
 
       try {
-        await createPaymentIntent.run(data, mockContext);
+        await createPaymentIntent.run({ data, auth: mockContext.auth });
         expect(true).toBe(false);
       } catch (error) {
         expect(error.message).toContain('Missing required parameters');
@@ -215,7 +217,7 @@ describe('Payment Functions', () => {
       };
 
       try {
-        await createPaymentIntent.run(data, mockContext);
+        await createPaymentIntent.run({ data, auth: mockContext.auth });
         expect(true).toBe(false);
       } catch (error) {
         expect(error.message).toContain('Missing required parameters');

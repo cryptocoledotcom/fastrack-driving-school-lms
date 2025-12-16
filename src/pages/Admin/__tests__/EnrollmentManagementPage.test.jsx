@@ -1,11 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import EnrollmentManagementPage from '../EnrollmentManagementPage';
-import { useAdminPanel } from '../../hooks/useAdminPanel';
+import { useAdminPanel } from '../../../hooks/useAdminPanel';
 
 // Mock dependencies
-vi.mock('../../hooks/useAdminPanel');
-vi.mock('../../components/admin/tabs/EnrollmentManagementTab', () => ({
+vi.mock('../../../hooks/useAdminPanel');
+vi.mock('../../../components/admin/tabs/EnrollmentManagementTab', () => ({
     default: (props) => (
         <div data-testid="mock-enrollment-tab">
             Enrollment Tab
@@ -13,7 +13,7 @@ vi.mock('../../components/admin/tabs/EnrollmentManagementTab', () => ({
         </div>
     )
 }));
-vi.mock('../../components/common/LoadingSpinner/LoadingSpinner', () => ({
+vi.mock('../../../components/common/LoadingSpinner/LoadingSpinner', () => ({
     default: ({ text }) => <div data-testid="loading-spinner">{text}</div>
 }));
 

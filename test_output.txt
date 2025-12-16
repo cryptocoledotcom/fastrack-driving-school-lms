@@ -1,24 +1,74 @@
 
 > fastrack-driving-school-lms@1.0.0 test
-> vitest --run
+> vitest
 
 
-[7m[1m[36m RUN [39m[22m[27m [36mv1.6.1[39m [90mc:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System[39m
+[7m[1m[34m DEV [39m[22m[27m [34mv1.6.1[39m [90mc:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System[39m
 
- [32m✓[39m src/__tests__/firestore-rules-production.test.js [2m ([22m[2m57 tests[22m[2m)[22m[90m 25[2mms[22m[39m
- [32m✓[39m src/hooks/useBreakManagement.test.js [2m ([22m[2m42 tests[22m[2m)[22m[90m 59[2mms[22m[39m
- [32m✓[39m src/hooks/usePVQTrigger.test.js [2m ([22m[2m42 tests[22m[2m)[22m[90m 77[2mms[22m[39m
- [32m✓[39m src/hooks/useSessionData.test.js [2m ([22m[2m45 tests[22m[2m)[22m[90m 79[2mms[22m[39m
- [32m✓[39m src/api/student/__tests__/studentServices.test.js [2m ([22m[2m52 tests[22m[2m)[22m[90m 163[2mms[22m[39m
+ [32m✓[39m src/__tests__/firestore-rules-production.test.js [2m ([22m[2m57 tests[22m[2m)[22m[90m 12[2mms[22m[39m
+ [32m✓[39m src/api/base/__tests__/QueryHelper.test.js [2m ([22m[2m21 tests[22m[2m)[22m[90m 29[2mms[22m[39m
+ [32m✓[39m src/services/__tests__/loggingService.test.js [2m ([22m[2m50 tests[22m[2m)[22m[90m 49[2mms[22m[39m
+ [32m✓[39m src/hooks/useSessionData.test.js [2m ([22m[2m45 tests[22m[2m)[22m[90m 46[2mms[22m[39m
+ [32m✓[39m src/api/auth/__tests__/authServices.test.js [2m ([22m[2m38 tests[22m[2m)[22m[90m 90[2mms[22m[39m
+ [32m✓[39m src/api/student/__tests__/studentServices.test.js [2m ([22m[2m52 tests[22m[2m)[22m[90m 115[2mms[22m[39m
+ [33m❯[39m functions/src/compliance/__tests__/videoQuestionFunctions.test.js [2m ([22m[2m36 tests[22m [2m|[22m [31m5 failed[39m[2m)[22m[90m 71[2mms[22m[39m
+[31m   [33m❯[31m functions/src/compliance/__tests__/videoQuestionFunctions.test.js[2m > [22mVideo Question Functions[2m > [22mcheckVideoQuestionAnswer[2m > [22mshould return correct answer is true when answer matches[39m
+[31m     → User must be authenticated (No authToken provided). Received keys in data: [][39m
+[31m   [33m❯[31m functions/src/compliance/__tests__/videoQuestionFunctions.test.js[2m > [22mVideo Question Functions[2m > [22mcheckVideoQuestionAnswer[2m > [22mshould return correct answer is false when answer does not match[39m
+[31m     → User must be authenticated (No authToken provided). Received keys in data: [][39m
+[31m   [33m❯[31m functions/src/compliance/__tests__/videoQuestionFunctions.test.js[2m > [22mVideo Question Functions[2m > [22mcheckVideoQuestionAnswer[2m > [22mshould log audit event when answer is checked[39m
+[31m     → User must be authenticated (No authToken provided). Received keys in data: [][39m
+[31m   [33m❯[31m functions/src/compliance/__tests__/videoQuestionFunctions.test.js[2m > [22mVideo Question Functions[2m > [22mcheckVideoQuestionAnswer[2m > [22mshould include explanation when provided[39m
+[31m     → User must be authenticated (No authToken provided). Received keys in data: [][39m
+[31m   [33m❯[31m functions/src/compliance/__tests__/videoQuestionFunctions.test.js[2m > [22mVideo Question Functions[2m > [22mcheckVideoQuestionAnswer[2m > [22mshould not include explanation when not provided[39m
+[31m     → User must be authenticated (No authToken provided). Received keys in data: [][39m
+[90mstdout[2m | functions/src/compliance/__tests__/videoQuestionFunctions.test.js[2m > [22m[2mVideo Question Functions[2m > [22m[2mcheckVideoQuestionAnswer[2m > [22m[2mshould throw error if user not authenticated[22m[39m
+{"authenticated":false,"dataKeys":["userId","lessonId","courseId","questionId","selectedAnswer"],"severity":"INFO","message":"checkVideoQuestionAnswer called"}
+
+[90mstdout[2m | functions/src/compliance/__tests__/videoQuestionFunctions.test.js[2m > [22m[2mVideo Question Functions[2m > [22m[2mcheckVideoQuestionAnswer[2m > [22m[2mshould throw error if userId missing[22m[39m
+{"authenticated":true,"uid":"user-123","dataKeys":["lessonId","courseId","questionId","selectedAnswer"],"severity":"INFO","message":"checkVideoQuestionAnswer called"}
+
+[90mstdout[2m | functions/src/compliance/__tests__/videoQuestionFunctions.test.js[2m > [22m[2mVideo Question Functions[2m > [22m[2mcheckVideoQuestionAnswer[2m > [22m[2mshould throw error if lessonId missing[22m[39m
+{"authenticated":true,"uid":"user-123","dataKeys":["userId","courseId","questionId","selectedAnswer"],"severity":"INFO","message":"checkVideoQuestionAnswer called"}
+
+[90mstdout[2m | functions/src/compliance/__tests__/videoQuestionFunctions.test.js[2m > [22m[2mVideo Question Functions[2m > [22m[2mcheckVideoQuestionAnswer[2m > [22m[2mshould throw error if courseId missing[22m[39m
+{"authenticated":true,"uid":"user-123","dataKeys":["userId","lessonId","questionId","selectedAnswer"],"severity":"INFO","message":"checkVideoQuestionAnswer called"}
+
+[90mstdout[2m | functions/src/compliance/__tests__/videoQuestionFunctions.test.js[2m > [22m[2mVideo Question Functions[2m > [22m[2mcheckVideoQuestionAnswer[2m > [22m[2mshould throw error if questionId missing[22m[39m
+{"authenticated":true,"uid":"user-123","dataKeys":["userId","lessonId","courseId","selectedAnswer"],"severity":"INFO","message":"checkVideoQuestionAnswer called"}
+
+[90mstdout[2m | functions/src/compliance/__tests__/videoQuestionFunctions.test.js[2m > [22m[2mVideo Question Functions[2m > [22m[2mcheckVideoQuestionAnswer[2m > [22m[2mshould throw error if selectedAnswer missing[22m[39m
+{"authenticated":true,"uid":"user-123","dataKeys":["userId","lessonId","courseId","questionId"],"severity":"INFO","message":"checkVideoQuestionAnswer called"}
+
+[90mstdout[2m | functions/src/compliance/__tests__/videoQuestionFunctions.test.js[2m > [22m[2mVideo Question Functions[2m > [22m[2mcheckVideoQuestionAnswer[2m > [22m[2mshould throw error if userId does not match authenticated user[22m[39m
+{"authenticated":true,"uid":"user-123","dataKeys":["userId","lessonId","courseId","questionId","selectedAnswer"],"severity":"INFO","message":"checkVideoQuestionAnswer called"}
+
+[90mstdout[2m | functions/src/compliance/__tests__/videoQuestionFunctions.test.js[2m > [22m[2mVideo Question Functions[2m > [22m[2mcheckVideoQuestionAnswer[2m > [22m[2mshould throw error if question not found[22m[39m
+{"authenticated":true,"uid":"user-123","dataKeys":["userId","lessonId","courseId","questionId","selectedAnswer"],"severity":"INFO","message":"checkVideoQuestionAnswer called"}
+
+[90mstdout[2m | functions/src/compliance/__tests__/videoQuestionFunctions.test.js[2m > [22m[2mVideo Question Functions[2m > [22m[2mcheckVideoQuestionAnswer[2m > [22m[2mshould return correct answer is true when answer matches[22m[39m
+{"authenticated":false,"dataKeys":[],"severity":"INFO","message":"checkVideoQuestionAnswer called"}
+
+[90mstdout[2m | functions/src/compliance/__tests__/videoQuestionFunctions.test.js[2m > [22m[2mVideo Question Functions[2m > [22m[2mcheckVideoQuestionAnswer[2m > [22m[2mshould return correct answer is false when answer does not match[22m[39m
+{"authenticated":false,"dataKeys":[],"severity":"INFO","message":"checkVideoQuestionAnswer called"}
+
+[90mstdout[2m | functions/src/compliance/__tests__/videoQuestionFunctions.test.js[2m > [22m[2mVideo Question Functions[2m > [22m[2mcheckVideoQuestionAnswer[2m > [22m[2mshould log audit event when answer is checked[22m[39m
+{"authenticated":false,"dataKeys":[],"severity":"INFO","message":"checkVideoQuestionAnswer called"}
+
+[90mstdout[2m | functions/src/compliance/__tests__/videoQuestionFunctions.test.js[2m > [22m[2mVideo Question Functions[2m > [22m[2mcheckVideoQuestionAnswer[2m > [22m[2mshould include explanation when provided[22m[39m
+{"authenticated":false,"dataKeys":[],"severity":"INFO","message":"checkVideoQuestionAnswer called"}
+
+[90mstdout[2m | functions/src/compliance/__tests__/videoQuestionFunctions.test.js[2m > [22m[2mVideo Question Functions[2m > [22m[2mcheckVideoQuestionAnswer[2m > [22m[2mshould not include explanation when not provided[22m[39m
+{"authenticated":false,"dataKeys":[],"severity":"INFO","message":"checkVideoQuestionAnswer called"}
+
+ [32m✓[39m src/components/admin/tabs/__tests__/UserManagementTab.test.jsx [2m ([22m[2m28 tests[22m[2m)[22m[33m 2356[2mms[22m[39m
  [33m❯[39m src/api/courses/__tests__/courseServices.test.js [2m ([22m[2m0 test[22m[2m)[22m
- [32m✓[39m src/api/base/__tests__/ServiceBase.test.js [2m ([22m[2m25 tests[22m[2m)[22m[90m 58[2mms[22m[39m
- [32m✓[39m src/services/__tests__/loggingService.test.js [2m ([22m[2m50 tests[22m[2m)[22m[90m 87[2mms[22m[39m
- [32m✓[39m src/api/admin/__tests__/userManagementServices.test.js [2m ([22m[2m26 tests[22m[2m)[22m[90m 128[2mms[22m[39m
- [32m✓[39m src/api/auth/__tests__/authServices.test.js [2m ([22m[2m38 tests[22m[2m)[22m[90m 144[2mms[22m[39m
- [32m✓[39m functions/src/compliance/__tests__/videoQuestionFunctions.test.js [2m ([22m[2m36 tests[22m[2m)[22m[90m 79[2mms[22m[39m
- [32m✓[39m src/api/base/__tests__/QueryHelper.test.js [2m ([22m[2m21 tests[22m[2m)[22m[90m 68[2mms[22m[39m
- [32m✓[39m src/components/common/ErrorBoundary/ErrorBoundary.test.jsx [2m ([22m[2m32 tests[22m[2m)[22m[33m 1156[2mms[22m[39m
- [32m✓[39m src/api/errors/__tests__/ApiError.test.js [2m ([22m[2m38 tests[22m[2m)[22m[90m 31[2mms[22m[39m
+ [32m✓[39m src/hooks/usePVQTrigger.test.js [2m ([22m[2m42 tests[22m[2m)[22m[90m 62[2mms[22m[39m
+ [32m✓[39m src/hooks/useBreakManagement.test.js [2m ([22m[2m42 tests[22m[2m)[22m[90m 78[2mms[22m[39m
+ [32m✓[39m src/api/admin/__tests__/userManagementServices.test.js [2m ([22m[2m26 tests[22m[2m)[22m[90m 76[2mms[22m[39m
+ [32m✓[39m src/api/base/__tests__/ServiceBase.test.js [2m ([22m[2m25 tests[22m[2m)[22m[90m 68[2mms[22m[39m
+ [32m✓[39m src/components/common/ErrorBoundary/ErrorBoundary.test.jsx [2m ([22m[2m32 tests[22m[2m)[22m[33m 1316[2mms[22m[39m
+ [32m✓[39m src/api/errors/__tests__/ApiError.test.js [2m ([22m[2m38 tests[22m[2m)[22m[90m 35[2mms[22m[39m
 [90mstdout[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mexecute[2m > [22m[2mshould retry and eventually succeed[22m[39m
 ✅ [test-operation] Succeeded on attempt 3/3
 
@@ -28,17 +78,12 @@
 [90mstdout[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mexecute[2m > [22m[2mshould use exponential backoff timing[22m[39m
 ✅ [timed-operation] Succeeded on attempt 3/3
 
+ [32m✓[39m src/context/ModalContext.test.jsx [2m ([22m[2m19 tests[22m[2m)[22m[90m 162[2mms[22m[39m
+ [32m✓[39m src/api/admin/__tests__/analyticsServices.test.js [2m ([22m[2m35 tests[22m[2m)[22m[90m 19[2mms[22m[39m
 [90mstdout[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mretryAsync convenience function[2m > [22m[2mshould work with default configuration[22m[39m
 ✅ [test-operation] Succeeded on attempt 2/3
 
-[90mstdout[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mreal-world scenarios[2m > [22m[2mshould handle temporary network failure[22m[39m
-✅ [fetchData] Succeeded on attempt 3/3
-
-[90mstdout[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mreal-world scenarios[2m > [22m[2mshould recover from server temporarily unavailable[22m[39m
-✅ [submitForm] Succeeded on attempt 2/3
-
- [32m✓[39m src/api/base/__tests__/RetryHandler.test.js [2m ([22m[2m31 tests[22m[2m)[22m[33m 1025[2mms[22m[39m
- [33m❯[39m functions/src/payment/__tests__/paymentFunctions.test.js [2m ([22m[2m21 tests[22m [2m|[22m [31m6 failed[39m [2m|[22m [33m2 skipped[39m[2m)[22m[90m 96[2mms[22m[39m
+ [33m❯[39m functions/src/payment/__tests__/paymentFunctions.test.js [2m ([22m[2m21 tests[22m [2m|[22m [31m6 failed[39m [2m|[22m [33m2 skipped[39m[2m)[22m[90m 70[2mms[22m[39m
 [31m   [33m❯[31m functions/src/payment/__tests__/paymentFunctions.test.js[2m > [22mPayment Functions[2m > [22mcreateCheckoutSession[2m > [22mshould throw error if courseId missing[39m
 [31m     → expected 'Failed to create checkout session: Ne…' to contain 'Missing required parameters'[39m
 [31m   [33m❯[31m functions/src/payment/__tests__/paymentFunctions.test.js[2m > [22mPayment Functions[2m > [22mcreateCheckoutSession[2m > [22mshould throw error if amount missing[39m
@@ -51,76 +96,83 @@
 [31m     → expected 'Failed to create payment intent: Neit…' to contain 'Missing required parameters'[39m
 [31m   [33m❯[31m functions/src/payment/__tests__/paymentFunctions.test.js[2m > [22mPayment Functions[2m > [22mcreatePaymentIntent[2m > [22mshould throw error if paymentType missing[39m
 [31m     → expected 'Failed to create payment intent: Neit…' to contain 'Missing required parameters'[39m
- [32m✓[39m src/api/admin/__tests__/analyticsServices.test.js [2m ([22m[2m35 tests[22m[2m)[22m[90m 25[2mms[22m[39m
- [32m✓[39m src/api/enrollment/__tests__/enrollmentServices.reset.test.js [2m ([22m[2m19 tests[22m[2m)[22m[90m 74[2mms[22m[39m
- [32m✓[39m src/context/ModalContext.test.jsx [2m ([22m[2m19 tests[22m[2m)[22m[33m 364[2mms[22m[39m
- [32m✓[39m src/api/base/__tests__/CacheService.test.js [2m ([22m[2m32 tests[22m[2m)[22m[90m 124[2mms[22m[39m
- [32m✓[39m src/hooks/useSessionTimer.test.js [2m ([22m[2m26 tests[22m[2m)[22m[90m 88[2mms[22m[39m
- [32m✓[39m src/__tests__/firestore.rules.test.js [2m ([22m[2m25 tests[22m[2m)[22m[90m 36[2mms[22m[39m
- [32m✓[39m src/components/admin/__tests__/SchedulingManagement.loadingIndicators.test.jsx [2m ([22m[2m16 tests[22m[2m)[22m[33m 3016[2mms[22m[39m
- [32m✓[39m src/components/admin/tabs/__tests__/UserManagementTab.test.jsx [2m ([22m[2m28 tests[22m[2m)[22m[33m 3181[2mms[22m[39m
- [32m✓[39m src/context/CourseContext.test.jsx [2m ([22m[2m18 tests[22m[2m)[22m[33m 505[2mms[22m[39m
- [32m✓[39m src/pages/Admin/__tests__/AdminPage.userManagement.integration.test.jsx [2m ([22m[2m12 tests[22m [2m|[22m [33m1 skipped[39m[2m)[22m[33m 445[2mms[22m[39m
- [32m✓[39m src/components/admin/tabs/__tests__/AnalyticsTab.test.jsx [2m ([22m[2m30 tests[22m[2m)[22m[33m 2088[2mms[22m[39m
- [32m✓[39m src/components/common/Quiz/Quiz.test.jsx [2m ([22m[2m12 tests[22m[2m)[22m[33m 1432[2mms[22m[39m
- [32m✓[39m src/api/enrollment/__tests__/enrollmentServices.refactor.test.js [2m ([22m[2m13 tests[22m[2m)[22m[90m 47[2mms[22m[39m
- [32m✓[39m functions/src/certificate/__tests__/certificateFunctions.test.js [2m ([22m[2m8 tests[22m[2m)[22m[90m 47[2mms[22m[39m
- [32m✓[39m functions/src/compliance/__tests__/complianceFunctions.edge.test.js [2m ([22m[2m2 tests[22m[2m)[22m[90m 58[2mms[22m[39m
- [32m✓[39m src/constants/__tests__/userRoles.assignment.test.js [2m ([22m[2m35 tests[22m[2m)[22m[90m 23[2mms[22m[39m
- [32m✓[39m functions/src/user/__tests__/userFunctions.test.js [2m ([22m[2m11 tests[22m[2m)[22m[90m 269[2mms[22m[39m
- [32m✓[39m src/components/admin/tabs/__tests__/UserManagementTab.createUser.integration.test.jsx [2m ([22m[2m10 tests[22m[2m)[22m[33m 1660[2mms[22m[39m
- [32m✓[39m src/api/student/__tests__/userServices.getAllStudents.test.js [2m ([22m[2m6 tests[22m[2m)[22m[90m 32[2mms[22m[39m
- [32m✓[39m src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx [2m ([22m[2m14 tests[22m[2m)[22m[33m 1906[2mms[22m[39m
- [32m✓[39m src/api/enrollment/__tests__/enrollmentServices.checkCourseAccess.test.js [2m ([22m[2m9 tests[22m[2m)[22m[90m 40[2mms[22m[39m
- [32m✓[39m src/context/AuthContext.test.jsx [2m ([22m[2m14 tests[22m[2m)[22m[33m 685[2mms[22m[39m
+[90mstdout[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mreal-world scenarios[2m > [22m[2mshould handle temporary network failure[22m[39m
+✅ [fetchData] Succeeded on attempt 3/3
+
+ [32m✓[39m src/components/admin/__tests__/SchedulingManagement.loadingIndicators.test.jsx [2m ([22m[2m16 tests[22m[2m)[22m[33m 3004[2mms[22m[39m
+[90mstdout[2m | src/api/base/__tests__/RetryHandler.test.js[2m > [22m[2mRetryHandler[2m > [22m[2mreal-world scenarios[2m > [22m[2mshould recover from server temporarily unavailable[22m[39m
+✅ [submitForm] Succeeded on attempt 2/3
+
+ [32m✓[39m src/api/base/__tests__/RetryHandler.test.js [2m ([22m[2m31 tests[22m[2m)[22m[33m 923[2mms[22m[39m
+ [32m✓[39m src/components/admin/tabs/__tests__/AnalyticsTab.test.jsx [2m ([22m[2m30 tests[22m[2m)[22m[33m 717[2mms[22m[39m
+ [32m✓[39m src/hooks/useSessionTimer.test.js [2m ([22m[2m26 tests[22m[2m)[22m[90m 40[2mms[22m[39m
+ [32m✓[39m src/api/base/__tests__/CacheService.test.js [2m ([22m[2m32 tests[22m[2m)[22m[90m 39[2mms[22m[39m
+ [32m✓[39m src/api/enrollment/__tests__/enrollmentServices.reset.test.js [2m ([22m[2m19 tests[22m[2m)[22m[90m 33[2mms[22m[39m
+ [32m✓[39m src/__tests__/firestore.rules.test.js [2m ([22m[2m25 tests[22m[2m)[22m[90m 12[2mms[22m[39m
+ [32m✓[39m src/context/CourseContext.test.jsx [2m ([22m[2m18 tests[22m[2m)[22m[90m 146[2mms[22m[39m
+ [32m✓[39m src/pages/Admin/__tests__/AdminPage.userManagement.integration.test.jsx [2m ([22m[2m12 tests[22m [2m|[22m [33m1 skipped[39m[2m)[22m[90m 299[2mms[22m[39m
+ [32m✓[39m src/pages/Admin/__tests__/AdminPage.comprehensive.test.jsx [2m ([22m[2m14 tests[22m[2m)[22m[33m 1462[2mms[22m[39m
+ [32m✓[39m src/components/common/Quiz/Quiz.test.jsx [2m ([22m[2m12 tests[22m[2m)[22m[33m 1310[2mms[22m[39m
+ [32m✓[39m src/api/enrollment/__tests__/enrollmentServices.refactor.test.js [2m ([22m[2m13 tests[22m[2m)[22m[90m 29[2mms[22m[39m
+ [32m✓[39m functions/src/user/__tests__/userFunctions.test.js [2m ([22m[2m11 tests[22m[2m)[22m[90m 42[2mms[22m[39m
+ [32m✓[39m src/context/AuthContext.test.jsx [2m ([22m[2m14 tests[22m[2m)[22m[90m 179[2mms[22m[39m
+ [32m✓[39m functions/src/certificate/__tests__/certificateFunctions.test.js [2m ([22m[2m8 tests[22m[2m)[22m[90m 39[2mms[22m[39m
+ [32m✓[39m src/constants/__tests__/userRoles.assignment.test.js [2m ([22m[2m35 tests[22m[2m)[22m[90m 22[2mms[22m[39m
+ [32m✓[39m src/components/admin/tabs/__tests__/UserManagementTab.createUser.integration.test.jsx [2m ([22m[2m10 tests[22m[2m)[22m[33m 1519[2mms[22m[39m
+ [32m✓[39m functions/src/compliance/__tests__/complianceFunctions.edge.test.js [2m ([22m[2m2 tests[22m [2m|[22m [33m1 skipped[39m[2m)[22m[90m 25[2mms[22m[39m
+ [32m✓[39m src/api/student/__tests__/userServices.getAllStudents.test.js [2m ([22m[2m6 tests[22m[2m)[22m[90m 12[2mms[22m[39m
+ [32m✓[39m src/api/enrollment/__tests__/enrollmentServices.checkCourseAccess.test.js [2m ([22m[2m9 tests[22m[2m)[22m[90m 22[2mms[22m[39m
  [33m❯[39m src/api/courses/__tests__/lessonServices.test.js [2m ([22m[2m0 test[22m[2m)[22m
- [32m✓[39m functions/src/compliance/sessionHeartbeat.test.js [2m ([22m[2m11 tests[22m[2m)[22m[90m 96[2mms[22m[39m
- [32m✓[39m src/hooks/useComplianceHeartbeat.test.js [2m ([22m[2m6 tests[22m[2m)[22m[90m 192[2mms[22m[39m
- [32m✓[39m src/pages/CoursePlayer/CoursePlayerPage.quiz.integration.test.jsx [2m ([22m[2m10 tests[22m[2m)[22m[90m 85[2mms[22m[39m
- [32m✓[39m src/context/TimerContext.test.jsx [2m ([22m[2m30 tests[22m[2m)[22m[33m 674[2mms[22m[39m
- [32m✓[39m src/components/auth/__tests__/ForcePasswordChangeModal.integration.test.jsx [2m ([22m[2m7 tests[22m[2m)[22m[90m 199[2mms[22m[39m
+ [32m✓[39m functions/src/compliance/sessionHeartbeat.test.js [2m ([22m[2m11 tests[22m[2m)[22m[90m 35[2mms[22m[39m
+ [32m✓[39m src/hooks/useComplianceHeartbeat.test.js [2m ([22m[2m6 tests[22m[2m)[22m[90m 131[2mms[22m[39m
+ [32m✓[39m src/pages/CoursePlayer/CoursePlayerPage.quiz.integration.test.jsx [2m ([22m[2m10 tests[22m[2m)[22m[90m 35[2mms[22m[39m
+ [32m✓[39m src/context/TimerContext.test.jsx [2m ([22m[2m30 tests[22m[2m)[22m[90m 193[2mms[22m[39m
  [33m❯[39m src/pages/Admin/__tests__/AuditLogsPage.test.jsx [2m ([22m[2m0 test[22m[2m)[22m
+ [32m✓[39m src/components/auth/__tests__/ForcePasswordChangeModal.integration.test.jsx [2m ([22m[2m7 tests[22m[2m)[22m[90m 124[2mms[22m[39m
+ [33m❯[39m src/api/courses/__tests__/quizServices.test.js [2m ([22m[2m0 test[22m[2m)[22m
  [33m❯[39m src/__tests__/integration/CourseEnrollmentFlow.test.jsx [2m ([22m[2m0 test[22m[2m)[22m
  [33m❯[39m src/components/scheduling/__tests__/LessonBooking.test.jsx [2m ([22m[2m0 test[22m[2m)[22m
  [33m❯[39m src/components/payment/__tests__/CheckoutForm.test.jsx [2m ([22m[2m0 test[22m[2m)[22m
- [33m❯[39m src/api/courses/__tests__/quizServices.test.js [2m ([22m[2m0 test[22m[2m)[22m
- [32m✓[39m src/api/admin/__tests__/userManagementServices.createUserFunction.test.js [2m ([22m[2m9 tests[22m[2m)[22m[90m 50[2mms[22m[39m
- [33m❯[39m src/hooks/__tests__/useAdminPanel.test.js [2m ([22m[2m0 test[22m[2m)[22m
- [32m✓[39m functions/src/payment/__tests__/paymentFunctions.error.test.js [2m ([22m[2m2 tests[22m[2m)[22m[90m 107[2mms[22m[39m
- [32m✓[39m functions/src/user/__tests__/userFunctions.advanced.test.js [2m ([22m[2m3 tests[22m[2m)[22m[90m 85[2mms[22m[39m
+ [32m✓[39m functions/src/user/__tests__/userFunctions.advanced.test.js [2m ([22m[2m3 tests[22m[2m)[22m[90m 20[2mms[22m[39m
+ [32m✓[39m src/api/admin/__tests__/userManagementServices.createUserFunction.test.js [2m ([22m[2m9 tests[22m[2m)[22m[90m 31[2mms[22m[39m
+ [32m✓[39m functions/src/payment/__tests__/paymentFunctions.error.test.js [2m ([22m[2m2 tests[22m[2m)[22m[90m 20[2mms[22m[39m
  [33m❯[39m src/components/payment/__tests__/PaymentModal.test.jsx [2m ([22m[2m0 test[22m[2m)[22m
- [33m❯[39m src/hooks/admin/__tests__/useDashboardStats.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/hooks/__tests__/useAdminPanel.test.js [2m ([22m[2m0 test[22m[2m)[22m
  [33m❯[39m src/components/payment/__tests__/EnrollmentCard.test.jsx [2m ([22m[2m0 test[22m[2m)[22m
- [33m❯[39m src/components/scheduling/__tests__/UpcomingLessons.test.jsx [2m ([22m[2m0 test[22m[2m)[22m
- [32m✓[39m src/utils/__tests__/dateTimeFormatter.test.js [2m ([22m[2m11 tests[22m[2m)[22m[90m 34[2mms[22m[39m
- [32m✓[39m src/components/admin/__tests__/SchedulingManagement.assignment.test.jsx [2m ([22m[2m6 tests[22m[2m)[22m[33m 360[2mms[22m[39m
- [33m❯[39m src/pages/Admin/__tests__/AdminPlaceholderPages.test.jsx [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/hooks/admin/__tests__/useDashboardStats.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [32m✓[39m src/utils/__tests__/dateTimeFormatter.test.js [2m ([22m[2m11 tests[22m[2m)[22m[90m 16[2mms[22m[39m
  [33m❯[39m src/pages/Admin/__tests__/AdminDashboard.test.jsx [2m ([22m[2m0 test[22m[2m)[22m
- [33m❯[39m src/pages/Admin/__tests__/EnrollmentManagementPage.test.jsx [2m ([22m[2m0 test[22m[2m)[22m
+ [32m✓[39m src/components/admin/__tests__/SchedulingManagement.assignment.test.jsx [2m ([22m[2m6 tests[22m[2m)[22m[90m 212[2mms[22m[39m
+ [33m❯[39m src/components/scheduling/__tests__/UpcomingLessons.test.jsx [2m ([22m[2m0 test[22m[2m)[22m
  [33m❯[39m src/services/__tests__/errorTrackingService.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/pages/Admin/__tests__/EnrollmentManagementPage.test.jsx [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/pages/Admin/__tests__/AdminPlaceholderPages.test.jsx [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/components/layout/Header/__tests__/Header.test.jsx [2m ([22m[2m0 test[22m[2m)[22m
  [33m❯[39m src/api/enrollment/__tests__/paymentServices.test.js [2m ([22m[2m0 test[22m[2m)[22m
  [33m❯[39m src/components/admin/dashboard/__tests__/CertificatesWidget.test.jsx [2m ([22m[2m0 test[22m[2m)[22m
  [33m❯[39m src/components/common/Button/__tests__/Button.test.jsx [2m ([22m[2m0 test[22m[2m)[22m
- [33m❯[39m src/components/layout/Header/__tests__/Header.test.jsx [2m ([22m[2m0 test[22m[2m)[22m
- [33m❯[39m src/api/admin/__tests__/auditLogServices.test.js [2m ([22m[2m0 test[22m[2m)[22m
- [33m❯[39m src/api/admin/__tests__/detsServices.test.js [2m ([22m[2m0 test[22m[2m)[22m
- [33m❯[39m src/components/common/Input/__tests__/Input.test.jsx [2m ([22m[2m0 test[22m[2m)[22m
- [33m❯[39m src/components/layout/__tests__/MainLayout.test.jsx [2m ([22m[2m0 test[22m[2m)[22m
  [33m❯[39m src/hooks/__tests__/useAdminNavigation.test.js [2m ([22m[2m0 test[22m[2m)[22m
- [33m❯[39m src/components/layout/__tests__/AuthLayout.test.jsx [2m ([22m[2m0 test[22m[2m)[22m
- [33m❯[39m src/components/layout/AdminSidebar/__tests__/AdminSidebar.test.jsx [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/api/admin/__tests__/auditLogServices.test.js [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/components/layout/__tests__/MainLayout.test.jsx [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/components/common/Input/__tests__/Input.test.jsx [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/api/admin/__tests__/detsServices.test.js [2m ([22m[2m0 test[22m[2m)[22m
  [33m❯[39m src/components/layout/__tests__/DashboardLayout.test.jsx [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/components/layout/__tests__/AuthLayout.test.jsx [2m ([22m[2m0 test[22m[2m)[22m
  [33m❯[39m src/components/admin/dashboard/__tests__/ActivityWidget.test.jsx [2m ([22m[2m0 test[22m[2m)[22m
- [33m❯[39m functions/src/user/__tests__/debug_mock.test.js [2m ([22m[2m0 test[22m[2m)[22m
  [33m❯[39m src/components/layout/Sidebar/__tests__/Sidebar.test.jsx [2m ([22m[2m0 test[22m[2m)[22m
- [33m❯[39m src/components/common/Badge/__tests__/Badge.test.jsx [2m ([22m[2m0 test[22m[2m)[22m
- [33m❯[39m src/components/common/Card/__tests__/Card.test.jsx [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/components/layout/AdminSidebar/__tests__/AdminSidebar.test.jsx [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m functions/src/user/__tests__/debug_mock.test.js [2m ([22m[2m0 test[22m[2m)[22m
  [33m❯[39m src/components/admin/dashboard/__tests__/RevenueWidget.test.jsx [2m ([22m[2m0 test[22m[2m)[22m
- [32m✓[39m src/api/compliance/__tests__/schedulingServices.assignment.test.js [2m ([22m[2m3 tests[22m[2m)[22m[90m 6[2mms[22m[39m
+ [33m❯[39m src/components/common/Card/__tests__/Card.test.jsx [2m ([22m[2m0 test[22m[2m)[22m
+ [33m❯[39m src/components/common/Badge/__tests__/Badge.test.jsx [2m ([22m[2m0 test[22m[2m)[22m
+ [32m✓[39m src/api/compliance/__tests__/schedulingServices.assignment.test.js [2m ([22m[2m3 tests[22m[2m)[22m[90m 5[2mms[22m[39m
  [33m❯[39m src/simple.test.js [2m ([22m[2m0 test[22m[2m)[22m
 
-[2m Test Files [22m [1m[31m36 failed[39m[22m[2m | [22m[1m[32m47 passed[39m[22m[90m (83)[39m
-[2m      Tests [22m [1m[31m6 failed[39m[22m[2m | [22m[1m[32m1039 passed[39m[22m[2m | [22m[33m3 skipped[39m[90m (1048)[39m
-[2m   Start at [22m 13:41:17
-[2m   Duration [22m 31.46s[2m (transform 9.56s, setup 68.08s, collect 71.23s, tests 21.31s, environment 192.75s, prepare 49.98s)[22m
+[2m Test Files [22m [1m[31m37 failed[39m[22m[2m | [22m[1m[32m46 passed[39m[22m[90m (83)[39m
+[2m      Tests [22m [1m[31m11 failed[39m[22m[2m | [22m[1m[32m1033 passed[39m[22m[2m | [22m[33m4 skipped[39m[90m (1048)[39m
+[2m   Start at [22m 14:41:21
+[2m   Duration [22m 35.99s[2m (transform 3.63s, setup 41.09s, collect 32.50s, tests 15.35s, environment 136.23s, prepare 29.41s)[22m
 
+
+[1m[7m[31m FAIL [39m[27m[22m[31m Tests failed. Watching for file changes...[39m
+       [2mpress [22m[1mh[22m[2m to show help[22m[2m, [22m[2mpress [22m[1mq[22m[2m to quit[22m

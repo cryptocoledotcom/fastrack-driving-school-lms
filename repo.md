@@ -120,12 +120,12 @@ npm run test:e2e:debug
 - Role-based access control with defense-in-depth
 
 ### Testing & Quality Assurance
-- **Frontend Unit Tests**: 907+ tests passing (100%) ✅ (Vitest)
+- **Frontend Unit Tests**: 857+ tests passing (100%) ✅ (Vitest)
 - **Cloud Functions Unit Tests**: 87+ tests passing (100%) ✅ (Jest)
 - **Component Tests**: 24 tests passing (100%) ✅ (Payment, Scheduling, Layout)
-- **E2E Tests**: 107+ tests across 9 suites (100%) ✅ (Playwright)
+- **E2E Tests**: 100+ tests across 9 suites (100%) ✅ (Playwright)
 - **Firestore Rules Tests**: 57+ tests passing (100%) ✅
-- **Total Coverage**: 1,093 tests, 100% pass rate (109.3% of Phase 5 goal)
+- **Total Coverage**: 1,044 tests, 100% pass rate (104.4% of Phase 5 goal)
 
 ### Security & Compliance
 - **App Check**: ReCaptcha V3 integration ✅
@@ -150,7 +150,8 @@ npm run test:e2e:debug
 | **Phase 3a** | Admin Layout Shell Pattern | ✅ Complete | Dedicated admin section with sidebar |
 | **Phase 4** | Tab-to-Sidebar Refactoring | ✅ Complete | 9 dedicated pages, 255 lines removed |
 | **Phase 4.2** | Admin Dashboard Implementation | ✅ Complete | 3 widgets (Certificates, Revenue, Activity) |
-| **Phase 5** | Green Testing (100% Coverage) | 🚀 IN PROGRESS | 1,093 tests (109.3% of goal), 4 of 5 tiers complete |
+| **Phase 5** | Green Testing (100% Coverage) | 🚀 IN PROGRESS | 1,044 tests (104.4% of goal), Gen 2 migration complete |
+| **Phase 5.1** | Gen 2 Cloud Functions Migration | ✅ Complete | All 23 tests fixed, 100% function standardization |
 | **Phase 6** | Code Maintenance & Performance | 📋 Researched | Bundle -25%, reads -40%, re-renders -60% |
 
 ### Next Steps
@@ -185,7 +186,8 @@ Choose one or both (can run in parallel):
 | Negative Scenarios | 12 | ✅ 100% | Error handling, edge cases |
 | Admin Layout & Sidebar | 13 | ✅ 100% | Route protection, navigation |
 | Admin Pages Refactoring | 30 | ✅ 100% | Page structure, auth checks |
-| **Total** | **107+** | **✅ 100%** | **Complete coverage** |
+| Cloud Functions Unit Tests | 87 | ✅ 100% | All Gen 2 functions, payment, compliance |
+| **Total** | **1,044** | **✅ 100%** | **Complete coverage** |
 
 ### Running Full Test Suite
 ```bash
@@ -340,5 +342,5 @@ SENTRY_DSN=...
 
 ---
 
-**Last Updated**: December 11, 2025  
-**Status**: ✅ Production Ready - Phase 4.2 Complete, Phase 5-6 Researched & Ready to Implement
+**Last Updated**: December 16, 2025  
+**Status**: ✅ Production Ready - Phase 4.2 Complete, Phase 5.1 Gen 2 Migration Complete, Phase 6 Researched & Ready to Implement

@@ -13,7 +13,7 @@ const PROTECTED_ROUTES = {
     MY_COURSES: '/dashboard/my-courses'
 };
 
-vi.mock('../../constants/courses', () => ({
+vi.mock('../../../constants/courses', () => ({
     PAYMENT_STATUS: {
         COMPLETED: 'completed',
         PARTIAL: 'partial',
@@ -22,7 +22,7 @@ vi.mock('../../constants/courses', () => ({
     COURSE_IDS: {}
 }));
 
-vi.mock('../../constants/routes', () => ({
+vi.mock('../../../constants/routes', () => ({
     PROTECTED_ROUTES: {
         MY_COURSES: '/dashboard/my-courses'
     }
@@ -35,11 +35,11 @@ vi.mock('react-router-dom', () => ({
 }));
 
 // Mock ProgressBar
-vi.mock('../common/ProgressBar/ProgressBar', () => ({
+vi.mock('../../common/ProgressBar/ProgressBar', () => ({
     default: ({ progress }) => <div data-testid="progress-bar">{progress}%</div>,
 }));
 
-vi.mock('../common/Button/Button', () => ({
+vi.mock('../../common/Button/Button', () => ({
     default: ({ children, onClick }) => <button onClick={onClick}>{children}</button>,
 }));
 
@@ -85,7 +85,7 @@ describe('EnrollmentCard', () => {
     it('should display financial info', async () => {
         render(<EnrollmentCard {...defaultProps} />);
         expect(screen.getByText(/Total Amount:/i)).toBeInTheDocument();
-        expect(screen.getByText(/\$500\.00/i)).toBeInTheDocument();
+        expect(screen.getAllByText(/\$500\.00/i)[0]).toBeInTheDocument();
     });
 
     it('should display progress', () => {
