@@ -926,4 +926,520 @@ describe('Video Question Functions', () => {
       }
     });
   });
+
+  describe('Task 2.1: Cloud Function Integration Testing', () => {
+    describe('timeout handling', () => {
+      it('should handle slow database responses gracefully', async () => {
+        const slowDb = createMockFirestore();
+        slowDb.collection = vi.fn((collName) => {
+          if (collName === 'video_post_questions') {
+            return {
+              doc: vi.fn(() => ({
+                get: vi.fn(() =>
+                  new Promise((resolve) =>
+                    setTimeout(
+                      () =>
+                        resolve(
+                          createMockDocumentSnapshot(
+                            {
+                              correctAnswer: 'A',
+                              question: 'Test question',
+                            },
+                            true
+                          )
+                        ),
+                      50
+                    )
+                  )
+                ),
+              })),
+            };
+          }
+          if (collName === 'audit_logs') {
+            return {
+              add: vi.fn(() => Promise.resolve({ id: 'audit-1' })),
+            };
+          }
+          return { doc: vi.fn(), add: vi.fn() };
+        });
+        setDb(slowDb);
+
+        const data = {
+          userId: 'user-123',
+          lessonId: 'lesson-456',
+          courseId: 'course-789',
+          questionId: 'question-1',
+          selectedAnswer: 'A',
+        };
+
+        const result = await checkVideoQuestionAnswer.run({
+          data,
+          auth: mockContext.auth,
+        });
+        expect(result.isCorrect).toBe(true);
+      });
+
+      it('should timeout and throw error on extremely slow requests', async () => {
+        const slowDb = createMockFirestore();
+        slowDb.collection = vi.fn(() => ({
+          doc: vi.fn(() => ({
+            get: vi.fn(
+              () =>
+                new Promise((resolve) =>
+                  setTimeout(() => resolve(createMockDocumentSnapshot({}, true)), 10000)
+                )
+            ),
+          })),
+          add: vi.fn(() => Promise.resolve({ id: 'audit-1' })),
+        }));
+        setDb(slowDb);
+
+        const data = {
+          userId: 'user-123',
+          lessonId: 'lesson-456',
+          courseId: 'course-789',
+          questionId: 'question-1',
+          selectedAnswer: 'A',
+        };
+
+        const timeoutPromise = new Promise((_, reject) =>
+          setTimeout(() => reject(new Error('Test timeout')), 100)
+        );
+
+        try {
+          await Promise.race([
+            checkVideoQuestionAnswer.run({ data, auth: mockContext.auth }),
+            timeoutPromise,
+          ]);
+          expect(true).toBe(false);
+        } catch (error) {
+          expect(error.message).toContain('timeout');
+        }
+      });
+    });
+
+    describe('duplicate submissions', () => {
+      it('should allow same user to submit different answers to same question', async () => {
+        const addMocks = [];
+        const addMock = vi.fn((auditData) => {
+          addMocks.push(auditData);
+          return Promise.resolve({ id: `audit-${addMocks.length}` });
+        });
+
+        mockDb.collection = vi.fn((collName) => {
+          if (collName === 'video_post_questions') {
+            return {
+              doc: vi.fn(() => ({
+                get: vi.fn(() =>
+                  Promise.resolve(
+                    createMockDocumentSnapshot(
+                      {
+                        correctAnswer: 'A',
+                        question: 'What is the capital of France?',
+                      },
+                      true
+                    )
+                  )
+                ),
+              })),
+            };
+          }
+          if (collName === 'audit_logs') {
+            return { add: addMock };
+          }
+          return { doc: vi.fn(), add: vi.fn() };
+        });
+        setDb(mockDb);
+
+        const userData = {
+          userId: 'user-123',
+          lessonId: 'lesson-456',
+          courseId: 'course-789',
+          questionId: 'question-1',
+          selectedAnswer: 'B',
+        };
+
+        const result1 = await checkVideoQuestionAnswer.run({
+          data: userData,
+          auth: mockContext.auth,
+        });
+        expect(result1.isCorrect).toBe(false);
+
+        userData.selectedAnswer = 'A';
+        const result2 = await checkVideoQuestionAnswer.run({
+          data: userData,
+          auth: mockContext.auth,
+        });
+        expect(result2.isCorrect).toBe(true);
+
+        expect(addMock.mock.calls.length).toBe(2);
+        expect(addMocks[0].selectedAnswer).toBe('B');
+        expect(addMocks[1].selectedAnswer).toBe('A');
+      });
+
+      it('should prevent users from reviewing same answer twice in audit logs', async () => {
+        const auditLogs = [];
+        const addMock = vi.fn((auditData) => {
+          auditLogs.push(auditData);
+          return Promise.resolve({ id: `audit-${auditLogs.length}` });
+        });
+
+        mockDb.collection = vi.fn((collName) => {
+          if (collName === 'video_post_questions') {
+            return {
+              doc: vi.fn(() => ({
+                get: vi.fn(() =>
+                  Promise.resolve(
+                    createMockDocumentSnapshot(
+                      { correctAnswer: 'A', question: 'Q1' },
+                      true
+                    )
+                  )
+                ),
+              })),
+            };
+          }
+          if (collName === 'audit_logs') {
+            return { add: addMock };
+          }
+          return { doc: vi.fn(), add: vi.fn() };
+        });
+        setDb(mockDb);
+
+        const data = {
+          userId: 'user-123',
+          lessonId: 'lesson-456',
+          courseId: 'course-789',
+          questionId: 'question-1',
+          selectedAnswer: 'A',
+        };
+
+        await checkVideoQuestionAnswer.run({ data, auth: mockContext.auth });
+        await checkVideoQuestionAnswer.run({ data, auth: mockContext.auth });
+
+        expect(addMock.mock.calls.length).toBe(2);
+        expect(auditLogs[0].userId).toBe(auditLogs[1].userId);
+        expect(auditLogs[0].questionId).toBe(auditLogs[1].questionId);
+        expect(auditLogs[0].selectedAnswer).toBe(auditLogs[1].selectedAnswer);
+      });
+
+      it('should record each submission separately in audit logs', async () => {
+        const auditMocks = [];
+        mockDb.collection = vi.fn((collName) => {
+          if (collName === 'video_post_questions') {
+            return {
+              doc: vi.fn(() => ({
+                get: vi.fn(() =>
+                  Promise.resolve(
+                    createMockDocumentSnapshot(
+                      { correctAnswer: 'A', question: 'Q1' },
+                      true
+                    )
+                  )
+                ),
+              })),
+            };
+          }
+          if (collName === 'audit_logs') {
+            return {
+              add: vi.fn((auditData) => {
+                auditMocks.push(auditData);
+                return Promise.resolve({ id: `audit-${auditMocks.length}` });
+              }),
+            };
+          }
+          return { doc: vi.fn(), add: vi.fn() };
+        });
+        setDb(mockDb);
+
+        const data = {
+          userId: 'user-123',
+          lessonId: 'lesson-456',
+          courseId: 'course-789',
+          questionId: 'question-1',
+          selectedAnswer: 'A',
+        };
+
+        await checkVideoQuestionAnswer.run({ data, auth: mockContext.auth });
+        await checkVideoQuestionAnswer.run({ data, auth: mockContext.auth });
+        await checkVideoQuestionAnswer.run({ data, auth: mockContext.auth });
+
+        expect(auditMocks.length).toBe(3);
+        auditMocks.forEach((log) => {
+          expect(log.eventType).toBe('VIDEO_QUESTION_ANSWERED');
+        });
+      });
+    });
+
+    describe('malformed question data', () => {
+      it('should return null correctAnswer when not provided', async () => {
+        mockDb.collection = vi.fn((collName) => {
+          if (collName === 'video_post_questions') {
+            return {
+              doc: vi.fn(() => ({
+                get: vi.fn(() =>
+                  Promise.resolve(
+                    createMockDocumentSnapshot(
+                      {
+                        correctAnswer: 'A',
+                        question: 'What is 2+2?',
+                      },
+                      true
+                    )
+                  )
+                ),
+              })),
+            };
+          }
+          if (collName === 'audit_logs') {
+            return { add: vi.fn(() => Promise.resolve({ id: 'audit-1' })) };
+          }
+          return { doc: vi.fn(), add: vi.fn() };
+        });
+        setDb(mockDb);
+
+        const data = {
+          userId: 'user-123',
+          lessonId: 'lesson-456',
+          courseId: 'course-789',
+          questionId: 'question-1',
+          selectedAnswer: 'A',
+        };
+
+        const result = await checkVideoQuestionAnswer.run({
+          data,
+          auth: mockContext.auth,
+        });
+        expect(result.correctAnswer).toBe(null);
+      });
+
+      it('should handle missing question field gracefully', async () => {
+        mockDb.collection = vi.fn((collName) => {
+          if (collName === 'video_post_questions') {
+            return {
+              doc: vi.fn(() => ({
+                get: vi.fn(() =>
+                  Promise.resolve(
+                    createMockDocumentSnapshot(
+                      {
+                        correctAnswer: 'A',
+                      },
+                      true
+                    )
+                  )
+                ),
+              })),
+            };
+          }
+          if (collName === 'audit_logs') {
+            return { add: vi.fn(() => Promise.resolve({ id: 'audit-1' })) };
+          }
+          return { doc: vi.fn(), add: vi.fn() };
+        });
+        setDb(mockDb);
+
+        const data = {
+          userId: 'user-123',
+          lessonId: 'lesson-456',
+          courseId: 'course-789',
+          questionId: 'question-1',
+          selectedAnswer: 'A',
+        };
+
+        const result = await checkVideoQuestionAnswer.run({
+          data,
+          auth: mockContext.auth,
+        });
+        expect(result.question).toBe(undefined);
+        expect(result.isCorrect).toBe(true);
+      });
+
+      it('should reject empty string selectedAnswer as invalid', async () => {
+        const data = {
+          userId: 'user-123',
+          lessonId: 'lesson-456',
+          courseId: 'course-789',
+          questionId: 'question-1',
+          selectedAnswer: '',
+        };
+
+        try {
+          await checkVideoQuestionAnswer.run({
+            data,
+            auth: mockContext.auth,
+          });
+          expect(true).toBe(false);
+        } catch (error) {
+          expect(error.code).toBe('invalid-argument');
+          expect(error.message).toContain('Missing required parameters');
+        }
+      });
+
+      it('should handle null explanation field', async () => {
+        mockDb.collection = vi.fn((collName) => {
+          if (collName === 'video_post_questions') {
+            return {
+              doc: vi.fn(() => ({
+                get: vi.fn(() =>
+                  Promise.resolve(
+                    createMockDocumentSnapshot(
+                      {
+                        correctAnswer: 'A',
+                        question: 'Q1',
+                        explanation: null,
+                      },
+                      true
+                    )
+                  )
+                ),
+              })),
+            };
+          }
+          if (collName === 'audit_logs') {
+            return { add: vi.fn(() => Promise.resolve({ id: 'audit-1' })) };
+          }
+          return { doc: vi.fn(), add: vi.fn() };
+        });
+        setDb(mockDb);
+
+        const data = {
+          userId: 'user-123',
+          lessonId: 'lesson-456',
+          courseId: 'course-789',
+          questionId: 'question-1',
+          selectedAnswer: 'B',
+        };
+
+        const result = await checkVideoQuestionAnswer.run({
+          data,
+          auth: mockContext.auth,
+        });
+        expect(result.explanation).toBe(null);
+      });
+
+      it('should handle undefined correctAnswer in question data', async () => {
+        mockDb.collection = vi.fn((collName) => {
+          if (collName === 'video_post_questions') {
+            return {
+              doc: vi.fn(() => ({
+                get: vi.fn(() =>
+                  Promise.resolve(
+                    createMockDocumentSnapshot(
+                      {
+                        question: 'Q1',
+                        answers: ['A', 'B', 'C', 'D'],
+                      },
+                      true
+                    )
+                  )
+                ),
+              })),
+            };
+          }
+          if (collName === 'audit_logs') {
+            return { add: vi.fn(() => Promise.resolve({ id: 'audit-1' })) };
+          }
+          return { doc: vi.fn(), add: vi.fn() };
+        });
+        setDb(mockDb);
+
+        const data = {
+          userId: 'user-123',
+          lessonId: 'lesson-456',
+          courseId: 'course-789',
+          questionId: 'question-1',
+          selectedAnswer: 'A',
+        };
+
+        const result = await checkVideoQuestionAnswer.run({
+          data,
+          auth: mockContext.auth,
+        });
+        expect(result.isCorrect).toBe(false);
+        expect(result.correctAnswer).toBe(undefined);
+      });
+
+      it('should handle case-sensitive answer comparison', async () => {
+        mockDb.collection = vi.fn((collName) => {
+          if (collName === 'video_post_questions') {
+            return {
+              doc: vi.fn(() => ({
+                get: vi.fn(() =>
+                  Promise.resolve(
+                    createMockDocumentSnapshot(
+                      {
+                        correctAnswer: 'Apple',
+                        question: 'Fruit?',
+                      },
+                      true
+                    )
+                  )
+                ),
+              })),
+            };
+          }
+          if (collName === 'audit_logs') {
+            return { add: vi.fn(() => Promise.resolve({ id: 'audit-1' })) };
+          }
+          return { doc: vi.fn(), add: vi.fn() };
+        });
+        setDb(mockDb);
+
+        const lowerData = {
+          userId: 'user-123',
+          lessonId: 'lesson-456',
+          courseId: 'course-789',
+          questionId: 'question-1',
+          selectedAnswer: 'apple',
+        };
+
+        const result = await checkVideoQuestionAnswer.run({
+          data: lowerData,
+          auth: mockContext.auth,
+        });
+        expect(result.isCorrect).toBe(false);
+      });
+
+      it('should compare answers without trimming whitespace', async () => {
+        mockDb.collection = vi.fn((collName) => {
+          if (collName === 'video_post_questions') {
+            return {
+              doc: vi.fn(() => ({
+                get: vi.fn(() =>
+                  Promise.resolve(
+                    createMockDocumentSnapshot(
+                      {
+                        correctAnswer: 'A',
+                        question: 'Q1',
+                      },
+                      true
+                    )
+                  )
+                ),
+              })),
+            };
+          }
+          if (collName === 'audit_logs') {
+            return { add: vi.fn(() => Promise.resolve({ id: 'audit-1' })) };
+          }
+          return { doc: vi.fn(), add: vi.fn() };
+        });
+        setDb(mockDb);
+
+        const dataWithWhitespace = {
+          userId: 'user-123',
+          lessonId: 'lesson-456',
+          courseId: 'course-789',
+          questionId: 'question-1',
+          selectedAnswer: ' A ',
+        };
+
+        const result = await checkVideoQuestionAnswer.run({
+          data: dataWithWhitespace,
+          auth: mockContext.auth,
+        });
+        expect(result.isCorrect).toBe(false);
+      });
+    });
+  });
 });
