@@ -44,10 +44,10 @@ const initializeFirebase = () => {
       appId: import.meta.env.VITE_FIREBASE_APP_ID
     };
 
-    // Force Demo Project ID in Development to ensure Emulator compatibility
+    // Force Emulator Project ID in Development to ensure Emulator compatibility
     // ONLY if VITE_USE_EMULATORS is set to 'true'
     if (import.meta.env.DEV && import.meta.env.VITE_USE_EMULATORS === 'true') {
-      firebaseConfig.projectId = 'demo-test';
+      firebaseConfig.projectId = 'fastrack-driving-school-lms';
     }
 
     if (Object.values(firebaseConfig).some(v => !v)) {
@@ -94,9 +94,9 @@ const initializeFirebase = () => {
 const initializeAppCheckConfig = () => {
   const firebaseApp = initializeFirebase();
   if (firebaseApp && import.meta.env.MODE !== 'test') {
-    // Skip App Check if using a demo project (Emulators)
-    if (firebaseApp.options.projectId?.startsWith('demo-')) {
-      console.log('⚠️ Skipping App Check initialization for demo project');
+    // Skip App Check if using emulator project
+    if (import.meta.env.VITE_USE_EMULATORS === 'true') {
+      console.log('⚠️ Skipping App Check initialization for emulator project');
       return;
     }
 

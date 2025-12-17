@@ -444,6 +444,110 @@ const result = await myFunction.run(
 
 ---
 
+### Phase 5.3: CoursePlayer Hardening & Feature Completeness 🎓
+
+**Objective**: Ensure CoursePlayer is production-grade with complete feature implementation and full compliance coverage.
+
+**Start Date**: December 17, 2025  
+**Status**: Planning
+
+**See**: 
+- [`COURSEPLAYER_OPTIMIZATION_PHASE.md`](./COURSEPLAYER_OPTIMIZATION_PHASE.md) - Detailed phase plan
+- [`COURSEPLAYER_IMPLEMENTATION_TRACKER.md`](./COURSEPLAYER_IMPLEMENTATION_TRACKER.md) - Task-by-task checklist
+
+#### Firebase Emulator Seeding (Testing Setup)
+
+**To test Phase 5.3 features locally with Firebase Emulators**:
+
+```bash
+# Terminal 1: Start Firebase Emulators
+firebase emulators:start
+
+# Terminal 2: Seed test data (in project root)
+node scripts/seed-emulator.cjs
+
+# Terminal 3: Start dev server with emulators enabled
+VITE_USE_EMULATORS=true npm run dev
+# App will be at http://localhost:3001
+```
+
+**Test Credentials** (created by seed script):
+- **Super Admin**: `colebowersock@gmail.com` / `B0w3r$0ckC013`
+- **Student**: `cole@fastrackdrive.com` / `B0w3r$0ckC013`
+
+**Available Test Content**:
+- 1 Course (Fastrack Online Driving Course)
+- 3 Modules (Introduction, Highway, License)
+- 5 Lessons with real video files
+- Student pre-enrolled with progress record
+
+**Emulator UIs**:
+- Firestore: http://127.0.0.1:4000
+- Auth: http://127.0.0.1:9099
+
+#### High Priority (Week 1-2, 40-60 hours)
+1. **RestrictedVideoPlayer Hardening** (12 hrs)
+   - ✅ **1.1 Seeking Prevention** (4/4 hrs) - COMPLETE
+     - Implemented seeking event handler to block DevTools seeks
+     - Added keyboard handler to block ArrowLeft/ArrowRight/j/f/l keys
+     - Enhanced CSS with touch-action: none, user-select: none
+     - Created comprehensive test suite with 20+ test cases
+     - All seeking methods blocked: drag, click, keyboard, DevTools, touch
+   - ✅ **1.2 Mobile Video Controls** (3/3 hrs) - COMPLETE
+     - WCAG 2.1 AA compliant button sizing (44x44px minimum)
+     - Fullscreen prevention via controlsList="nofullscreen"
+     - Mobile E2E tests for iPhone 12 and Android Pixel 5
+     - Fixed AbortError on rapid play/pause with proper Promise handling
+   - ✅ **1.3 Network Resilience** (3/3 hrs) - COMPLETE
+     - Buffering spinner with animated overlay
+     - Network error handling with retry button
+     - Auto-recovery on connection restoration
+     - 8 E2E tests + 8 manual test cases
+     - Play button disabled during buffering
+   - ✅ **1.4 Browser Compatibility** (2/2 hrs) - COMPLETE
+     - 5 E2E tests created in tests/e2e/video-player-browser-compatibility.spec.ts
+     - Tests cover Chrome, Firefox, Safari browsers (15 total tests: 5×3 browsers)
+     - Test coverage: Components, WCAG accessibility, seeking, error handling, console errors
+     - Status: ✅ All 15 tests passing (100%)
+2. **Post-Video Question Modal Robustness** (10 hrs) - Cloud Function integration, answer verification, modal state, accessibility
+3. **Progress Auto-Save & Recovery** (10 hrs) - Video progress persistence, lesson metadata tracking, fallback mechanisms
+4. **Compliance Heartbeat Verification** (8 hrs) - Daily limit enforcement, idle timeout, network scenarios
+5. **Quiz & Exam End-to-End Testing** (12 hrs) - Submission flow, three-strike rule, answer review, passing score
+
+#### Medium Priority (Week 2-3, 30-40 hours)
+6. **Closed Captions Implementation** (16 hrs) - VTT file format, video player integration, styling, testing
+7. **Text-to-Speech for Exam/Quiz** (12 hrs) - Web Speech API, UX implementation, accessibility, testing
+8. **Extended Time Accommodations** (12 hrs) - Admin configuration, timer integration, UI messaging
+9. **Completion Certificate** (8 hrs) - Eligibility verification, PDF generation, E2E testing
+
+#### Low Priority (Week 3-4, 20-30 hours)
+10. **WCAG Accessibility Improvements** (12 hrs) - Color contrast, keyboard navigation, alt text, form labels
+11. **PII Masking in UI** (8 hrs) - Identify PII fields, implement masking, testing
+12. **Error Recovery & Network Resilience** (10 hrs) - Network detection, retry logic, offline fallback
+13. **Responsive Design & Mobile Optimization** (10 hrs) - Mobile layout, touch controls, tablet optimization, performance
+
+#### Key Metrics
+- **140 total tasks** across 13 feature areas
+- **Week 1-2**: High priority video/compliance features
+- **Week 2-3**: Accessibility & caption support
+- **Week 3-4**: Polish and edge cases
+- **Week 5-6**: Final testing and deployment
+
+#### Success Criteria
+- ✅ Zero known bugs on CoursePlayer
+- ✅ 100% feature complete (all compliance requirements)
+- ✅ Full test coverage (unit + E2E)
+- ✅ WCAG 2.1 AA accessibility compliant
+- ✅ <2s page load, smooth video playback
+- ✅ Production-ready for launch
+
+#### Effort & Timeline
+- Effort: 150-200 hours (4-6 weeks)
+- Risk: 🟡 Medium
+- Can execute: **Parallel with Phase 5** or after
+
+---
+
 ### Phase 6: Code Maintenance & Performance Enhancements 📋
 
 **Objective**: Optimize performance, reduce technical debt, improve code quality.
@@ -632,8 +736,8 @@ VITE_USE_EMULATORS=true (optional)
 
 ---
 
-**Last Updated**: December 17, 2025 (Session 7 - Registration Fix, E2E Infrastructure, Security Incident Remediation)  
-**Status**: Production Ready - Personal Verification System Secured (SHA-256 hashing), 1,093 tests passing (100%)
+**Last Updated**: December 17, 2025 (Session 7 - Phase 5.3 Tasks 1.1-1.3 Complete)  
+**Status**: Production Ready - Phase 5.3: Seeking Prevention ✅, Mobile Controls ✅, Network Resilience ✅
 
 ---
 

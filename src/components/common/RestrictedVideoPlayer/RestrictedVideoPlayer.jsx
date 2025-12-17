@@ -9,23 +9,46 @@ const RestrictedVideoPlayer = React.forwardRef(({
   duration
 }, ref) => {
   const videoRef = useRef(null);
+  const lastValidTimeRef = useRef(0);
 
-  // Expose the video element to the parent component
   useImperativeHandle(ref, () => videoRef.current);
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [videoDuration, setVideoDuration] = useState(0);
   const [error, setError] = useState(null);
+  const [isBuffering, setIsBuffering] = useState(false);
+  const [networkError, setNetworkError] = useState(null);
 
   const handlePlayPause = () => {
     if (videoRef.current) {
       if (isPlaying) {
         videoRef.current.pause();
       } else {
-        videoRef.current.play();
+        const playPromise = videoRef.current.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(error => {
+            if (error.name !== 'AbortError') {
+              console.error('Play error:', error);
+            }
+          });
+        }
       }
       setIsPlaying(!isPlaying);
+    }
+  };
+
+  const handleRetry = () => {
+    setError(null);
+    setNetworkError(null);
+    setIsBuffering(false);
+    if (videoRef.current) {
+      videoRef.current.load();
+      videoRef.current.play().catch(err => {
+        if (err.name !== 'AbortError') {
+          console.error('Retry play error:', err);
+        }
+      });
     }
   };
 
@@ -69,20 +92,38 @@ const RestrictedVideoPlayer = React.forwardRef(({
     const videoElement = videoRef.current;
     if (!videoElement) return;
 
-    const handlePlay = () => setIsPlaying(true);
+    const handlePlay = () => {
+      setIsPlaying(true);
+      setNetworkError(null);
+    };
     const handlePause = () => setIsPlaying(false);
-    const handleError = () => {
-      setError('Failed to load video. Please check the URL and try again.');
+    const handleError = (e) => {
+      console.error('Video load error:', e);
+      const networkMsg = 'Network error: Unable to load video. Check your connection and try again.';
+      setNetworkError(networkMsg);
+      setError(networkMsg);
+    };
+    const handleWaiting = () => setIsBuffering(true);
+    const handleCanPlay = () => setIsBuffering(false);
+    const handleLoadedData = () => {
+      setIsBuffering(false);
+      setNetworkError(null);
     };
 
     videoElement.addEventListener('play', handlePlay);
     videoElement.addEventListener('pause', handlePause);
     videoElement.addEventListener('error', handleError);
+    videoElement.addEventListener('waiting', handleWaiting);
+    videoElement.addEventListener('canplay', handleCanPlay);
+    videoElement.addEventListener('loadeddata', handleLoadedData);
 
     return () => {
       videoElement.removeEventListener('play', handlePlay);
       videoElement.removeEventListener('pause', handlePause);
       videoElement.removeEventListener('error', handleError);
+      videoElement.removeEventListener('waiting', handleWaiting);
+      videoElement.removeEventListener('canplay', handleCanPlay);
+      videoElement.removeEventListener('loadeddata', handleLoadedData);
     };
   }, []);
 
@@ -101,13 +142,67 @@ const RestrictedVideoPlayer = React.forwardRef(({
     }
   }, []);
 
+  useEffect(() => {
+    const videoElement = videoRef.current;
+    if (!videoElement) return;
+
+    const handleSeeking = (e) => {
+      e.preventDefault();
+      videoElement.currentTime = lastValidTimeRef.current;
+    };
+
+    const handleKeyDown = (e) => {
+      const seekKeys = ['ArrowLeft', 'ArrowRight', 'j', 'f', 'l'];
+      if (seekKeys.includes(e.key)) {
+        e.preventDefault();
+        return false;
+      }
+    };
+
+    const handleProgress = (e) => {
+      lastValidTimeRef.current = videoElement.currentTime;
+    };
+
+    videoElement.addEventListener('seeking', handleSeeking);
+    videoElement.addEventListener('timeupdate', handleProgress);
+    videoElement.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      videoElement.removeEventListener('seeking', handleSeeking);
+      videoElement.removeEventListener('timeupdate', handleProgress);
+      videoElement.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
+
   return (
     <div className={styles.container}>
       {error ? (
-        <div className={styles.error}>{error}</div>
+        <div className={styles.error}>
+          <div className={styles.errorContent}>
+            <div className={styles.errorIcon}>⚠️</div>
+            <div className={styles.errorMessage}>{error}</div>
+            {networkError && (
+              <button
+                className={styles.retryButton}
+                onClick={handleRetry}
+                aria-label="Retry loading video"
+              >
+                🔄 Retry
+              </button>
+            )}
+          </div>
+        </div>
       ) : (
         <>
           <div className={styles.videoWrapper}>
+            {isBuffering && (
+              <div className={styles.bufferingOverlay}>
+                <div className={styles.spinner} />
+                <div className={styles.bufferingText}>Buffering...</div>
+              </div>
+            )}
             <video
               ref={videoRef}
               src={src}
@@ -116,6 +211,8 @@ const RestrictedVideoPlayer = React.forwardRef(({
               onEnded={handleVideoEnded}
               className={styles.video}
               controlsList="nodownload nofullscreen"
+              crossOrigin="anonymous"
+              controls={false}
             />
           </div>
 
@@ -132,6 +229,7 @@ const RestrictedVideoPlayer = React.forwardRef(({
                 className={styles.playButton}
                 onClick={handlePlayPause}
                 aria-label={isPlaying ? 'Pause' : 'Play'}
+                disabled={isBuffering}
               >
                 {isPlaying ? '⏸' : '▶'}
               </button>
@@ -143,7 +241,7 @@ const RestrictedVideoPlayer = React.forwardRef(({
               </div>
 
               <div className={styles.seekWarning}>
-                ⚠️ Seeking disabled (compliance requirement)
+                {isBuffering ? '⏳ Buffering...' : '⚠️ Seeking disabled (compliance requirement)'}
               </div>
             </div>
           </div>

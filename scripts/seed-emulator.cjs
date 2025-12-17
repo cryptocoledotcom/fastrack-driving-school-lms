@@ -6,7 +6,7 @@ process.env.FIRESTORE_EMULATOR_HOST = 'localhost:8080';
 process.env.FIREBASE_AUTH_EMULATOR_HOST = 'localhost:9099';
 
 admin.initializeApp({
-    projectId: 'demo-test'
+    projectId: 'fastrack-driving-school-lms'
 });
 
 const db = admin.firestore();
@@ -18,10 +18,11 @@ const coursesData = {
     "fastrack-online": {
         "id": "fastrack-online",
         "title": "Fastrack Online Driving Course",
-        "description": "Get Your Ohio Driver's Permit Online!",
+        "description": "Get Your Ohio Driver's Permit Online! Complete all modules to earn your certificate.",
         "category": "online",
         "price": 0,
-        "features": ["BMV Certified"],
+        "features": ["BMV Certified", "Ohio OAC Compliant", "Video-based Learning"],
+        "totalMinutes": 450,
         "createdAt": new Date().toISOString(),
         "updatedAt": new Date().toISOString()
     }
@@ -29,20 +30,102 @@ const coursesData = {
 
 const modulesData = {
     "module-intro": {
-        "title": "Introduction",
-        "durationMinutes": 30,
+        "id": "module-intro",
+        "title": "Introduction & Basics",
+        "description": "Learn the fundamentals of safe driving",
+        "durationMinutes": 120,
         "courseId": "fastrack-online",
-        "lessonOrder": ["lesson-intro-1"]
+        "lessonOrder": ["lesson-intro-1", "lesson-intro-2"],
+        "createdAt": new Date().toISOString(),
+        "updatedAt": new Date().toISOString()
+    },
+    "module-highway": {
+        "id": "module-highway",
+        "title": "Highway & Advanced Driving",
+        "description": "Master highway driving techniques",
+        "durationMinutes": 150,
+        "courseId": "fastrack-online",
+        "lessonOrder": ["lesson-highway-1", "lesson-highway-2"],
+        "createdAt": new Date().toISOString(),
+        "updatedAt": new Date().toISOString()
+    },
+    "module-license": {
+        "id": "module-license",
+        "title": "Getting Your License",
+        "description": "Final preparation for your driver's license",
+        "durationMinutes": 60,
+        "courseId": "fastrack-online",
+        "lessonOrder": ["lesson-license-1"],
+        "createdAt": new Date().toISOString(),
+        "updatedAt": new Date().toISOString()
     }
 };
 
 const lessonsData = {
     "lesson-intro-1": {
-        "title": "Introduction",
-        "content": "Welcome to the course!",
-        "videoUrl": "/assets/introduction.mp4",
+        "id": "lesson-intro-1",
+        "title": "Introduction to Safe Driving",
+        "description": "Get started with the fundamentals",
+        "type": "video",
+        "videoUrl": "/assets/videos/homepage-logo-video.mp4",
+        "durationSeconds": 10,
         "moduleId": "module-intro",
-        "courseId": "fastrack-online"
+        "courseId": "fastrack-online",
+        "lessonNumber": 1,
+        "createdAt": new Date().toISOString(),
+        "updatedAt": new Date().toISOString()
+    },
+    "lesson-intro-2": {
+        "id": "lesson-intro-2",
+        "title": "Driver Education Value",
+        "description": "Understand the importance of driver education",
+        "type": "video",
+        "videoUrl": "/assets/videos/homepage-logo-video.mp4",
+        "durationSeconds": 10,
+        "moduleId": "module-intro",
+        "courseId": "fastrack-online",
+        "lessonNumber": 2,
+        "createdAt": new Date().toISOString(),
+        "updatedAt": new Date().toISOString()
+    },
+    "lesson-highway-1": {
+        "id": "lesson-highway-1",
+        "title": "The Highway Transportation System",
+        "description": "Learn about highway systems and safe practices",
+        "type": "video",
+        "videoUrl": "/assets/videos/homepage-logo-video.mp4",
+        "durationSeconds": 10,
+        "moduleId": "module-highway",
+        "courseId": "fastrack-online",
+        "lessonNumber": 3,
+        "createdAt": new Date().toISOString(),
+        "updatedAt": new Date().toISOString()
+    },
+    "lesson-highway-2": {
+        "id": "lesson-highway-2",
+        "title": "Key Takeaways for Highway Driving",
+        "description": "Critical points to remember on the highway",
+        "type": "video",
+        "videoUrl": "/assets/videos/homepage-logo-video.mp4",
+        "durationSeconds": 10,
+        "moduleId": "module-highway",
+        "courseId": "fastrack-online",
+        "lessonNumber": 4,
+        "createdAt": new Date().toISOString(),
+        "updatedAt": new Date().toISOString()
+    },
+    "lesson-license-1": {
+        "id": "lesson-license-1",
+        "title": "Getting Your Driver's License",
+        "description": "Final steps to obtain your driver's license",
+        "type": "video",
+        "videoUrl": "/assets/videos/homepage-logo-video.mp4",
+        "durationSeconds": 10,
+        "moduleId": "module-license",
+        "courseId": "fastrack-online",
+        "lessonNumber": 5,
+        "createdAt": new Date().toISOString(),
+        "updatedAt": new Date().toISOString()
     }
 };
 
@@ -179,15 +262,16 @@ async function seed() {
     console.log(`Queued Firestore profile for: ${studentId}`);
 
 
-    // Seed Super Admin (Cole)
-    // Seeding this as an email/password user so it can be used locally even without Google Sign-In working
+    // Seed Super Admin (Cole) - with provided credentials
     const coleId = "cole-admin-seed";
     const coleEmail = "colebowersock@gmail.com";
-    const colePassword = "password123";
+    const colePassword = "B0w3r$0ckC013";
 
     try {
         await admin.auth().getUser(coleId);
         console.log(`Admin ${coleId} already exists in Auth.`);
+        // Update password to ensure it matches
+        await admin.auth().updateUser(coleId, { password: colePassword });
     } catch (e) {
         if (e.code === 'auth/user-not-found') {
             await admin.auth().createUser({
@@ -215,8 +299,78 @@ async function seed() {
     }, { merge: true });
     console.log(`Queued Firestore profile for: ${coleId}`);
 
+    // Seed Test Student (Cole) - with provided credentials
+    const testStudentId = "cole-student-seed";
+    const testStudentEmail = "cole@fastrackdrive.com";
+    const testStudentPassword = "B0w3r$0ckC013";
+
+    try {
+        await admin.auth().getUser(testStudentId);
+        console.log(`Student ${testStudentId} already exists in Auth.`);
+        // Update password to ensure it matches
+        await admin.auth().updateUser(testStudentId, { password: testStudentPassword });
+    } catch (e) {
+        if (e.code === 'auth/user-not-found') {
+            await admin.auth().createUser({
+                uid: testStudentId,
+                email: testStudentEmail,
+                password: testStudentPassword,
+                displayName: "Cole Test Student",
+                emailVerified: true
+            });
+            console.log(`Created Auth user: ${testStudentId}`);
+        }
+    }
+
+    await admin.auth().setCustomUserClaims(testStudentId, { role: 'student' });
+    console.log(`Set 'student' claim for: ${testStudentId}`);
+
+    const testStudentRef = db.collection('users').doc(testStudentId);
+    batch.set(testStudentRef, {
+        uid: testStudentId,
+        email: testStudentEmail,
+        displayName: "Cole Test Student",
+        role: "student",
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+    }, { merge: true });
+    console.log(`Queued Firestore profile for: ${testStudentId}`);
+
+    // Create enrollment for test student
+    const enrollmentRef = db.collection('enrollments').doc();
+    batch.set(enrollmentRef, {
+        userId: testStudentId,
+        courseId: "fastrack-online",
+        enrolledAt: new Date().toISOString(),
+        status: "active",
+        percentComplete: 0
+    });
+    console.log(`Queued enrollment for: ${testStudentId} in fastrack-online`);
+
+    // Create initial progress record
+    const progressRef = db.collection('progress').doc();
+    batch.set(progressRef, {
+        userId: testStudentId,
+        courseId: "fastrack-online",
+        currentLessonId: "lesson-intro-1",
+        currentModuleId: "module-intro",
+        lessonsCompleted: [],
+        videosWatched: [],
+        totalMinutesWatched: 0,
+        lastAccessedAt: new Date().toISOString(),
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+    });
+    console.log(`Queued progress record for: ${testStudentId}`);
+
     await batch.commit();
-    console.log('Seeding Complete.');
+    console.log('\n✅ Seeding Complete!\n');
+    console.log('🎓 Test Credentials:');
+    console.log('  Super Admin: colebowersock@gmail.com / B0w3r$0ckC013');
+    console.log('  Student:     cole@fastrackdrive.com / B0w3r$0ckC013');
+    console.log('\n📚 Available Content:');
+    console.log('  Course: Fastrack Online Driving Course (5 lessons, 3 modules)');
+    console.log('  Videos: Introduction, Driver Education, Highway, Key Takeaways, License');
 }
 
 seed().catch(console.error);
