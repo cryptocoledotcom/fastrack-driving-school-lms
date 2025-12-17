@@ -394,6 +394,32 @@ const result = await myFunction.run(
 - ✅ Student journey: Register → Dashboard → Courses → Enroll → My Courses
 - ✅ No regressions (1,044 unit tests still 100% passing)
 
+#### Session 7 Security Incident: Stripe Secret Key Rotation & Git History Cleanup
+
+**Incident**: During documentation updates, the old Stripe test secret key (`sk_test_51SUtdlFqT72Uaf78eyRTSooFdiEJbddmWPRHSYgnrDc1PCEvVgtrrrG1Y1PmDink3idKNUirz3mJAsMzEioClsDc00qF40fa7T`) was discovered committed in `.env.emulators` on line 17.
+
+**Detection**: GitHub's push protection blocked the commit attempt and flagged the secret.
+
+**Remediation Steps**:
+1. ✅ Rotated compromised Stripe test key (old key deactivated)
+2. ✅ Placed new secret key in `.env` and `functions/.env.local` (both in `.gitignore`)
+3. ✅ Used `git filter-repo --replace-text` to scrub old secret from entire git history
+4. ✅ Force-pushed cleaned history to main branch
+5. ✅ Verified Stripe MCP can authenticate with new key
+
+**Lessons Learned**:
+- Secret keys must NEVER be committed, even if GitHub allows override
+- `.env` and `.env.local` MUST be in `.gitignore`
+- Only publishable keys (like Stripe `pk_test_*`) can be safely in version control
+- Implement pre-commit hooks to scan for secrets before push
+- See **AI_AGENT_INSTRUCTIONS.md Section 15** for detailed secrets management guidelines
+
+**Files Updated**:
+- `.env`: Updated `STRIPE_SECRET_KEY` to new rotated key (not committed)
+- `functions/.env.local`: Added `STRIPE_SECRET_KEY` (not committed)
+- `.env.emulators`: Removed old secret, added explanatory comment
+- `AI_AGENT_INSTRUCTIONS.md`: Added Section 15 (Secrets Management & Security Best Practices)
+
 #### Key Goals
 - ✅ Expand from 936+ to 1,000+ total tests → **ACHIEVED (1,044 tests)**
 - ✅ E2E test infrastructure working → **ACHIEVED (Student journey verified)**
@@ -606,7 +632,7 @@ VITE_USE_EMULATORS=true (optional)
 
 ---
 
-**Last Updated**: December 15, 2025 (Session 6 - Security Hardening Complete)  
+**Last Updated**: December 17, 2025 (Session 7 - Registration Fix, E2E Infrastructure, Security Incident Remediation)  
 **Status**: Production Ready - Personal Verification System Secured (SHA-256 hashing), 1,093 tests passing (100%)
 
 ---

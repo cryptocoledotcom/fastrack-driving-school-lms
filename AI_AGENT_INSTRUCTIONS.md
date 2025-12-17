@@ -1436,7 +1436,83 @@ navigate('/dashboard'); // user state is already set
 
 ---
 
-## 15. Key Principles
+## 15. Secrets Management & Security Best Practices
+
+### Critical: Never Commit Secret Keys to Version Control
+
+**Rule**: API keys, database passwords, and secret tokens must NEVER be committed to Git, even with GitHub's override approval.
+
+### Where Secrets Go
+
+| Secret Type | Location | Committed? | Environment |
+|---|---|---|---|
+| Stripe Secret Key | `.env`, `functions/.env.local` | ❌ No (.gitignore) | Server-side only |
+| Stripe Publishable Key | `.env.example`, frontend code | ✅ Yes | Frontend (public) |
+| Firebase Admin Credentials | `serviceAccountKey.json` | ❌ No (.gitignore) | Deployment only |
+| Database Passwords | GitHub Secrets, deployment env vars | ❌ No | Deployment platform |
+| JWT Secrets | Environment variables | ❌ No | Server-side only |
+
+### Implementation Pattern
+
+**Frontend (.env - not committed)**:
+```bash
+VITE_STRIPE_PUBLISHABLE_KEY=pk_test_xxx  # Safe to commit to .env.example
+STRIPE_SECRET_KEY=sk_test_xxx            # NEVER COMMIT - server only
+```
+
+**Backend (functions/.env.local - not committed)**:
+```bash
+STRIPE_SECRET_KEY=sk_test_xxx            # Server reads this
+SENTRY_DSN=https://xxx                   # Backend error tracking
+```
+
+**Deployment (GitHub Secrets or platform)**:
+```
+Repository Settings → Secrets and Variables → Actions
+- STRIPE_SECRET_KEY
+- SENTRY_DSN_BACKEND
+- DATABASE_PASSWORD
+```
+
+### If a Secret is Accidentally Committed
+
+**IMMEDIATELY**:
+1. Rotate the compromised key in the service dashboard (Stripe, Firebase, etc.)
+2. Create replacement filter file:
+```bash
+echo 'old_secret_value==>REDACTED' > replace_secret.txt
+```
+3. Clean git history:
+```bash
+git filter-repo --replace-text replace_secret.txt --force
+git remote add origin <repo-url>
+git push origin main --force
+```
+4. Monitor service for unauthorized access during rotation window
+
+**Why This Matters**: Committed secrets cannot be un-published. They remain in git history forever, accessible to anyone with repo access. GitHub's secret scanning and push protection exist for this reason.
+
+### Pre-Commit Prevention
+
+Add to `.git/hooks/pre-commit`:
+```bash
+#!/bin/bash
+# Prevent committing secrets
+if git diff --cached | grep -iE 'sk_test|sk_live|password|api_key|secret'; then
+  echo 'ERROR: Potential secret detected in staged changes'
+  exit 1
+fi
+```
+
+### Files Using Secrets in This Project
+
+- **Frontend**: `src/config/firebase.js` reads `VITE_STRIPE_PUBLISHABLE_KEY` (safe)
+- **Backend**: `functions/src/payment/paymentFunctions.js` reads `STRIPE_SECRET_KEY` from `process.env` (safe)
+- **Tests**: Mock secrets used in `functions/src/__tests__/setup.js` (safe for tests)
+
+---
+
+## 16. Key Principles
 
 **When Developing for Fastrack LMS, Remember**:
 
@@ -1453,7 +1529,7 @@ navigate('/dashboard'); // user state is already set
 
 ---
 
-**Last Updated**: December 16, 2025  
+**Last Updated**: December 17, 2025  
 **For**: AI Agent Guidance (Claude, etc.)  
 **Purpose**: Consistent development style across all contributors
-**Latest Session**: Fixed registration race condition, E2E test infrastructure verified (all 3 browsers passing)
+**Latest Session**: Added Secrets Management best practices (Section 15), security incident remediation documentation
