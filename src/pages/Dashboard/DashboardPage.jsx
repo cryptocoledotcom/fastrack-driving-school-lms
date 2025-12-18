@@ -1,6 +1,6 @@
 // DashboardPage Component
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { collection, onSnapshot } from 'firebase/firestore';
 import { db } from '../../config/firebase';
 import { useAuth } from '../../context/AuthContext';
@@ -12,14 +12,19 @@ import UpcomingLessons from '../../components/scheduling/UpcomingLessons';
 import { PROTECTED_ROUTES } from '../../constants/routes';
 import { COURSE_IDS, ENROLLMENT_STATUS } from '../../constants/courses';
 import { getCourseById } from '../../api/courses/courseServices';
-import { getProgress } from '../../api/student/progressServices'; 
+import { getProgress } from '../../api/student/progressServices';
+import { getSecurityProfile } from '../../api/security/securityServices';
 import styles from './DashboardPage.module.css';
 
 const DashboardPage = () => {
   const { user, getUserFullName } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const [enrollments, setEnrollments] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [hasSecurityQuestions, setHasSecurityQuestions] = useState(false);
+  const [securityQuestionsLoading, setSecurityQuestionsLoading] = useState(true);
+  const [dismissedSecurityPrompt, setDismissedSecurityPrompt] = useState(false);
 
   useEffect(() => {
     if (!user) return;
@@ -90,6 +95,25 @@ const DashboardPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
+  useEffect(() => {
+    if (!user) return;
+
+    const checkSecurityQuestions = async () => {
+      try {
+        const securityProfile = await getSecurityProfile(user.uid);
+        setHasSecurityQuestions(!!securityProfile && !!securityProfile.question1);
+      } catch (error) {
+        console.error('Error checking security questions:', error);
+        setHasSecurityQuestions(false);
+      } finally {
+        setSecurityQuestionsLoading(false);
+      }
+    };
+
+    checkSecurityQuestions();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
+
   const handleContinueCourse = (courseId) => {
     navigate(`/course-player/${courseId}`);
   };
@@ -104,6 +128,37 @@ const DashboardPage = () => {
         <h1 className={styles.title}>Welcome back, {getUserFullName()}!</h1>
         <p className={styles.subtitle}>Continue your learning journey</p>
       </div>
+
+      {/* Security Questions Compliance Banner */}
+      {!securityQuestionsLoading && !hasSecurityQuestions && !dismissedSecurityPrompt && (
+        <div className={styles.complianceBanner}>
+          <Card>
+            <div className={styles.complianceContent}>
+              <div className={styles.complianceIcon}>🔐</div>
+              <div className={styles.complianceText}>
+                <h3 className={styles.complianceTitle}>Security Setup Required</h3>
+                <p className={styles.complianceDescription}>
+                  To comply with Ohio driving school requirements and protect your account, you must set up security questions. These will be used to verify your identity throughout the course.
+                </p>
+              </div>
+              <div className={styles.complianceActions}>
+                <Button 
+                  variant="primary"
+                  onClick={() => navigate('/dashboard/settings', { state: { tab: 'security' } })}
+                >
+                  Set Up Security Questions
+                </Button>
+                <Button 
+                  variant="ghost" 
+                  onClick={() => setDismissedSecurityPrompt(true)}
+                >
+                  Dismiss
+                </Button>
+              </div>
+            </div>
+          </Card>
+        </div>
+      )}
 
       {/* Stats Cards */}
       <div className={styles.statsGrid}>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import Card from '../../components/common/Card/Card';
 import Input from '../../components/common/Input/Input';
@@ -21,8 +22,8 @@ import styles from './SettingsPage.module.css';
 
 const SettingsPage = () => {
   const { user, userProfile, updateUserProfile } = useAuth();
+  const location = useLocation();
   
-  // Profile state
   const [profileData, setProfileData] = useState({
     displayName: '',
     phone: '',
@@ -32,14 +33,12 @@ const SettingsPage = () => {
     zipCode: ''
   });
   
-  // Settings state
   const [settings, setSettings] = useState({
     darkMode: false,
     notifications: true,
     emailNotifications: true
   });
   
-  // Security questions state
   const [securityQuestions, setSecurityQuestionsState] = useState([
     { questionId: '', answer: '' },
     { questionId: '', answer: '' },
@@ -61,12 +60,11 @@ const SettingsPage = () => {
     },
   ]);
   
-  // UI state
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-  const [activeTab, setActiveTab] = useState('profile');
+  const [activeTab, setActiveTab] = useState(location.state?.tab || 'profile');
 
   useEffect(() => {
     loadUserData();
@@ -79,7 +77,6 @@ const SettingsPage = () => {
     try {
       setLoading(true);
       
-      // Load profile data
       if (userProfile) {
         setProfileData({
           displayName: userProfile.displayName || '',
@@ -91,11 +88,9 @@ const SettingsPage = () => {
         });
       }
       
-      // Load settings
       const userSettings = await getUserSettings(user.uid);
       setSettings(userSettings);
       
-      // Apply theme
       if (userSettings.darkMode) {
         document.body.classList.add('dark-mode');
         document.body.classList.remove('light-mode');
@@ -104,13 +99,13 @@ const SettingsPage = () => {
         document.body.classList.add('light-mode');
       }
       
-      // Load security questions
       const securityData = await getSecurityProfile(user.uid);
-      if (securityData && securityData.questions) {
-        setSecurityQuestionsState(securityData.questions.map(q => ({
-          questionId: q.id,
-          answer: '' // Don't show existing answers for security
-        })));
+      if (securityData && securityData.question1) {
+        setSecurityQuestionsState([
+          { questionId: securityData.question1, answer: '' },
+          { questionId: securityData.question2 || '', answer: '' },
+          { questionId: securityData.question3 || '', answer: '' }
+        ]);
       }
       
     } catch (err) {
@@ -153,7 +148,6 @@ const SettingsPage = () => {
       
       await updateUserSettings(user.uid, newSettings);
       
-      // Apply theme immediately
       if (settingName === 'darkMode') {
         if (value) {
           document.body.classList.add('dark-mode');
@@ -184,7 +178,6 @@ const SettingsPage = () => {
       setError('');
       setSuccess('');
       
-      // Validate all questions are filled
       const isValid = securityQuestions.every(q => q.questionId && q.answer);
       if (!isValid) {
         setError('Please fill in all security questions and answers');
@@ -192,7 +185,6 @@ const SettingsPage = () => {
         return;
       }
       
-      // Check for duplicate questions
       const questionIds = securityQuestions.map(q => q.questionId);
       const hasDuplicates = questionIds.length !== new Set(questionIds).size;
       if (hasDuplicates) {
@@ -213,7 +205,6 @@ const SettingsPage = () => {
       await setSecurityQuestions(user.uid, questionsData);
       setSuccess('Security questions updated successfully!');
       
-      // Clear answers from display
       setSecurityQuestionsState(securityQuestions.map(q => ({
         ...q,
         answer: ''
@@ -238,7 +229,6 @@ const SettingsPage = () => {
       {error && <ErrorMessage message={error} onDismiss={() => setError('')} />}
       {success && <SuccessMessage message={success} onDismiss={() => setSuccess('')} />}
 
-      {/* Tabs */}
       <div className={styles.tabs}>
         <button
           className={`${styles.tab} ${activeTab === 'profile' ? styles.activeTab : ''}`}
@@ -260,7 +250,6 @@ const SettingsPage = () => {
         </button>
       </div>
 
-      {/* Profile Tab */}
       {activeTab === 'profile' && (
         <Card padding="large">
           <h2 className={styles.sectionTitle}>Profile Information</h2>
@@ -321,7 +310,6 @@ const SettingsPage = () => {
         </Card>
       )}
 
-      {/* Preferences Tab */}
       {activeTab === 'preferences' && (
         <Card padding="large">
           <h2 className={styles.sectionTitle}>Preferences</h2>
@@ -360,12 +348,11 @@ const SettingsPage = () => {
         </Card>
       )}
 
-      {/* Security Tab */}
       {activeTab === 'security' && (
         <Card padding="large">
           <h2 className={styles.sectionTitle}>Security Questions</h2>
           <p className={styles.description}>
-            Set up security questions to help recover your account if you forget your password.
+            Set up security questions to verify your identity during lessons. Required by Ohio compliance regulations.
           </p>
           <div className={styles.form}>
             {securityQuestions.map((question, index) => (

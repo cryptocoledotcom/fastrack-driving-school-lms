@@ -35,12 +35,14 @@ export const createComplianceSession = async (userId, courseId, data) => {
 
     const sessionsRef = getSessionsRef(userId);
     const sessionRef = doc(sessionsRef);
+    const nowMs = new Date().getTime();
     const sessionData = {
       userId,
       courseId,
       sessionId: sessionRef.id,
       startTime: serverTimestamp(),
-      startTimestamp: new Date().getTime(),
+      startTimestamp: nowMs,
+      lastHeartbeatTimestamp: nowMs,
       ipAddress: data.ipAddress || null,
       deviceInfo: data.deviceInfo || null,
       userAgent: data.userAgent || null,

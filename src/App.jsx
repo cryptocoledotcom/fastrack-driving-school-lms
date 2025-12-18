@@ -10,7 +10,7 @@ import { ModalProvider } from './context/ModalContext';
 import ErrorBoundary from './components/common/ErrorBoundary/ErrorBoundary';
 
 // Route Guards
-import { ProtectedRoute, PublicRoute, RoleBasedRoute, UserAccessGuard, AdminDashboardRoute, AdminOrInstructorRoute } from './components/guards';
+import { ProtectedRoute, PublicRoute, RoleBasedRoute, UserAccessGuard, AdminDashboardRoute, AdminOrInstructorRoute, ComplianceRequiredRoute } from './components/guards';
 
 // Layouts
 import { MainLayout, DashboardLayout, AuthLayout, AdminLayout } from './components/layout';
@@ -170,7 +170,9 @@ function AppRoutes() {
 
         <Route path="/course-player/:courseId" element={
           <ProtectedRoute>
-            <CoursePlayerPage />
+            <ComplianceRequiredRoute>
+              <CoursePlayerPage />
+            </ComplianceRequiredRoute>
           </ProtectedRoute>
         } />
 

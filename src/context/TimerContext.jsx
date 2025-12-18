@@ -126,6 +126,7 @@ export const TimerProvider = ({ children, courseId, lessonId, ipAddress }) => {
         try {
           await updateComplianceSession(user.uid, sessionId, {
             lastHeartbeat: new Date().toISOString(),
+            lastHeartbeatTimestamp: Date.now(),
             status: 'active'
           });
         } catch (error) {
