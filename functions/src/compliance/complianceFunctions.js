@@ -799,11 +799,16 @@ const enforceInactivityTimeout = onCall(async (request) => {
       lastHeartbeatTimestamp: sessionData.lastHeartbeatTimestamp
     });
 
-    const dailyLogKey = `${userId}_${new Date().toISOString().split('T')[0]}`;
+    const estDate = new Date(now.toLocaleString('en-US', { timeZone: TIMEZONE }));
+    const year = estDate.getFullYear();
+    const month = String(estDate.getMonth() + 1).padStart(2, '0');
+    const day = String(estDate.getDate()).padStart(2, '0');
+    const dateKey = `${year}-${month}-${day}`;
+    const dailyLogKey = `${userId}_${dateKey}`;
     const dailyLogRef = db.collection('daily_activity_logs').doc(dailyLogKey);
     const dailyLogDoc = await dailyLogRef.get();
 
-    if (dailyLogDoc.exists) {
+    if (dailyLogDoc.exists()) {
       const dailyData = dailyLogDoc.data();
       const currentMinutes = dailyData.minutes_completed || 0;
       const idleMinutes = Math.floor(idleDurationSeconds / 60);

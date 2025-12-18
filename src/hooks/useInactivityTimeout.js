@@ -40,6 +40,10 @@ export const useInactivityTimeout = (options = {}) => {
     ) {
       warningTriggeredRef.current = true;
       setShowWarning(true);
+      const remaining = Math.ceil(
+        (INACTIVITY_TIMEOUT_MS - timeSinceActivity) / 1000
+      );
+      setSecondsRemaining(Math.max(0, remaining));
 
       if (onWarning) {
         onWarning();
@@ -56,7 +60,6 @@ export const useInactivityTimeout = (options = {}) => {
       setSecondsRemaining(Math.max(0, remaining));
     }
   }, [enabled, lastActivityTime, hasTimedOut, showWarning, onWarning, onTimeout]);
-
   useEffect(() => {
     if (!enabled) {
       if (checkIntervalRef.current) {
