@@ -97,8 +97,4 @@
   .description {
     font-size: 0.95rem;
   }
-
-  .actions {
-    flex-direction: column;
-  }
 }

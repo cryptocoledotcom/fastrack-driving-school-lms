@@ -22,7 +22,12 @@ const ComplianceRequiredRoute = ({ children }) => {
     const checkCompliance = async () => {
       try {
         const securityProfile = await getSecurityProfile(user.uid);
-        setHasSecurityQuestions(!!securityProfile && !!securityProfile.question1);
+        setHasSecurityQuestions(
+          !!securityProfile && 
+          !!securityProfile.question1 && 
+          !!securityProfile.question2 && 
+          !!securityProfile.question3
+        );
       } catch (error) {
         console.error('Error checking security questions:', error);
         setHasSecurityQuestions(false);

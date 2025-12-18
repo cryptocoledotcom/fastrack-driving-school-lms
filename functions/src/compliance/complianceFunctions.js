@@ -767,6 +767,10 @@ const enforceInactivityTimeout = onCall(async (request) => {
       throw new Error('INVALID_ARGUMENTS: Missing required fields');
     }
 
+    if (typeof idleDurationSeconds !== 'number' || idleDurationSeconds <= 0 || idleDurationSeconds > 3600) {
+      throw new Error('INVALID_ARGUMENTS: idleDurationSeconds must be a positive number <= 3600');
+    }
+
     if (auth.uid !== userId) {
       throw new Error('PERMISSION_DENIED: Cannot timeout other users');
     }

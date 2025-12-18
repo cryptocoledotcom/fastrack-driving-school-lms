@@ -1,6 +1,6 @@
 // DashboardPage Component
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { collection, onSnapshot } from 'firebase/firestore';
 import { db } from '../../config/firebase';
 import { useAuth } from '../../context/AuthContext';
@@ -19,7 +19,6 @@ import styles from './DashboardPage.module.css';
 const DashboardPage = () => {
   const { user, getUserFullName } = useAuth();
   const navigate = useNavigate();
-  const location = useLocation();
   const [enrollments, setEnrollments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [hasSecurityQuestions, setHasSecurityQuestions] = useState(false);
