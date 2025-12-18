@@ -41,7 +41,9 @@
     - Removed unused `useLocation` import from `DashboardPage.jsx`
     - Removed redundant `flex-direction: column` CSS rule from `ComplianceRequiredRoute.module.css`
   - ✅ **Compliance Bug Fixes**:
-    - Fixed security questions validation in `ComplianceRequiredRoute.jsx` to check all 3 questions (not just question1)
+    - Fixed security questions validation to check all 3 questions (not just question1)
+      - `ComplianceRequiredRoute.jsx` - Route-level guard
+      - `DashboardPage.jsx` - Dashboard-level banner (consistent enforcement)
     - Prevents users from bypassing security setup with incomplete questionnaire
   - ✅ **API Validation Enhancement**:
     - Added range validation for `idleDurationSeconds` in `enforceInactivityTimeout()` Cloud Function
