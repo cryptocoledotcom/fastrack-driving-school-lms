@@ -14,6 +14,7 @@ import Badge from '../../components/common/Badge/Badge';
 import LoadingSpinner from '../../components/common/LoadingSpinner/LoadingSpinner';
 import ErrorMessage from '../../components/common/ErrorMessage/ErrorMessage';
 import PersonalVerificationModal from '../../components/common/Modals/PersonalVerificationModal';
+import InactivityWarningModal from '../../components/common/Modals/InactivityWarningModal';
 import RestrictedVideoPlayer from '../../components/common/RestrictedVideoPlayer/RestrictedVideoPlayer';
 import PostVideoQuestionModal from '../../components/common/Modals/PostVideoQuestionModal';
 import Quiz from '../../components/common/Quiz/Quiz';
@@ -74,7 +75,11 @@ const CoursePlayerPageContent = () => {
     handlePVQSubmit,
     closePVQModal,
     currentSessionId,
-    sessionTime
+    sessionTime,
+    showInactivityWarning,
+    inactivitySecondsRemaining,
+    handleInactivityContinue,
+    inactivityTimedOut
   } = useTimer();
 
   // State
@@ -653,6 +658,10 @@ const CoursePlayerPageContent = () => {
     );
   }
 
+  if (inactivityTimedOut) {
+    return null;
+  }
+
   return (
     <div className={styles.coursePlayer}>
       {/* Header */}
@@ -854,6 +863,13 @@ const CoursePlayerPageContent = () => {
         onComplete={handlePostVideoQuestionComplete}
         loading={checkingAnswer}
         error={videoQuestionError}
+      />
+
+      {/* Inactivity Warning Modal */}
+      <InactivityWarningModal
+        isOpen={showInactivityWarning}
+        secondsRemaining={inactivitySecondsRemaining}
+        onContinue={handleInactivityContinue}
       />
     </div>
   );

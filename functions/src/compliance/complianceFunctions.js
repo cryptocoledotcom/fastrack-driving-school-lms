@@ -754,6 +754,103 @@ const trackExamAttempt = onCall(
   }
 );
 
+const enforceInactivityTimeout = onCall(async (request) => {
+  try {
+    const auth = request.auth;
+    if (!auth) {
+      throw new Error('UNAUTHENTICATED: User must be authenticated');
+    }
+
+    const { userId, courseId, sessionId, idleDurationSeconds } = request.data;
+
+    if (!userId || !courseId || !sessionId || idleDurationSeconds === undefined) {
+      throw new Error('INVALID_ARGUMENTS: Missing required fields');
+    }
+
+    if (auth.uid !== userId) {
+      throw new Error('PERMISSION_DENIED: Cannot timeout other users');
+    }
+
+    const db = getDb();
+
+    const sessionRef = db.collection('users').doc(userId).collection('sessions').doc(sessionId);
+    const sessionDoc = await sessionRef.get();
+
+    if (!sessionDoc.exists) {
+      throw new Error('SESSION_NOT_FOUND: Session does not exist');
+    }
+
+    const sessionData = sessionDoc.data();
+    if (sessionData.status === 'idle_timeout') {
+      return {
+        success: false,
+        message: 'Session already marked as idle timeout'
+      };
+    }
+
+    const now = new Date().toISOString();
+    const idleDurationMs = idleDurationSeconds * 1000;
+
+    await sessionRef.update({
+      status: 'idle_timeout',
+      idleTimeoutAt: now,
+      idleDurationSeconds,
+      lastHeartbeat: sessionData.lastHeartbeat,
+      lastHeartbeatTimestamp: sessionData.lastHeartbeatTimestamp
+    });
+
+    const dailyLogKey = `${userId}_${new Date().toISOString().split('T')[0]}`;
+    const dailyLogRef = db.collection('daily_activity_logs').doc(dailyLogKey);
+    const dailyLogDoc = await dailyLogRef.get();
+
+    if (dailyLogDoc.exists) {
+      const dailyData = dailyLogDoc.data();
+      const currentMinutes = dailyData.minutes_completed || 0;
+      const idleMinutes = Math.floor(idleDurationSeconds / 60);
+
+      await dailyLogRef.update({
+        idle_logout_at: now,
+        idle_duration_seconds: idleDurationSeconds,
+        idle_duration_minutes: idleMinutes,
+        excluded_from_daily_limit: true,
+        adjusted_minutes_completed: Math.max(0, currentMinutes - idleMinutes)
+      });
+    }
+
+    await logAuditEvent(
+      userId,
+      'SESSION_IDLE_TIMEOUT_ENFORCED',
+      'compliance',
+      courseId,
+      'info',
+      {
+        sessionId,
+        idleDurationSeconds,
+        idleMinutes: Math.floor(idleDurationSeconds / 60),
+        timedOutAt: now
+      }
+    );
+
+    return {
+      success: true,
+      message: 'Inactivity timeout enforced',
+      sessionId,
+      idleDurationSeconds,
+      timedOutAt: now
+    };
+  } catch (error) {
+    console.error('Error enforcing inactivity timeout:', error);
+
+    if (error.message.startsWith('UNAUTHENTICATED:') || error.message.startsWith('PERMISSION_DENIED:')) {
+      const err = new Error(error.message);
+      err.code = error.message.startsWith('UNAUTHENTICATED:') ? 'unauthenticated' : 'permission-denied';
+      throw err;
+    }
+
+    throw new Error(`Failed to enforce inactivity timeout: ${error.message}`);
+  }
+});
+
 const generateComplianceReport = onCall({ enforceAppCheck: false }, async (request) => {
   try {
     const { auth, data } = request;
@@ -824,6 +921,7 @@ module.exports = {
   sessionHeartbeat,
   trackPVQAttempt,
   trackExamAttempt,
+  enforceInactivityTimeout,
   auditComplianceAccess,
   generateComplianceReport,
   auditLogRetentionPolicy,

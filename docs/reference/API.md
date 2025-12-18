@@ -790,6 +790,135 @@ await enrollmentServices.getUserEnrollments(user.uid);
 
 ---
 
+## 10. Inactivity Timeout & Activity Tracking
+
+### Activity Tracking Hook (`useActivityTracking`)
+Monitors user interactions and persists last activity timestamp to localStorage.
+
+```javascript
+const { lastActivity, getTimeSinceLastActivity, resetActivity } = useActivityTracking(enabled);
+
+// lastActivity: Timestamp (milliseconds) of last user interaction
+// getTimeSinceLastActivity(): Returns elapsed milliseconds since last activity
+// resetActivity(): Manually reset the activity timer
+
+// Detects: mousemove, mousedown, keydown, scroll events
+// Throttle: 30-60 seconds between updates (prevents spam logging)
+// Persistence: localStorage survives page refresh (real inactivity detection)
+```
+
+### Inactivity Timeout Hook (`useInactivityTimeout`)
+Manages a 15-minute idle timer with warning at 13 minutes.
+
+```javascript
+const {
+  showWarning,        // Boolean - true when warning modal should show
+  hasTimedOut,        // Boolean - true when 15 minutes reached
+  secondsRemaining,   // Number - countdown timer for display
+  handleContinueLesson,  // Function - reset timer when "Continue Lesson" clicked
+  resetTimeout        // Function - manually reset timeout
+} = useInactivityTimeout({
+  enabled: true,
+  lastActivityTime: activityTracking.lastActivity,
+  onWarning: () => {},    // Callback when 13 minutes reached
+  onTimeout: async () => {}, // Callback when 15 minutes reached (enforce logout)
+  onReset: () => {}       // Callback when timer reset
+});
+```
+
+### Inactivity Warning Modal (`InactivityWarningModal`)
+UI component displayed at 13-minute mark.
+
+```javascript
+<InactivityWarningModal
+  isOpen={showInactivityWarning}
+  secondsRemaining={inactivitySecondsRemaining}
+  onContinue={handleInactivityContinue}
+/>
+
+// Features:
+// - Cannot close via escape or overlay click (forced interaction)
+// - Live countdown timer with pulsing animation
+// - "Continue Lesson" button resets 15-minute timer
+// - "I'm Still Here" confirmation required for compliance
+```
+
+### Server-Side Enforcement (`enforceInactivityTimeout`)
+Cloud Function that marks session as idle and deducts idle time from daily limit.
+
+```javascript
+// Cloud Function v2 API
+enforceInactivityTimeout({
+  userId: string,
+  courseId: string,
+  sessionId: string,
+  idleDurationSeconds: number
+})
+
+// Returns:
+// {
+//   success: true,
+//   message: 'Inactivity timeout enforced',
+//   sessionId: string,
+//   idleDurationSeconds: number,
+//   timedOutAt: ISO8601 timestamp
+// }
+
+// Side Effects:
+// - Marks session.status = 'idle_timeout'
+// - Deducts idle minutes from adjusted_minutes_completed (4-hour daily limit)
+// - Sets excluded_from_daily_limit = true on daily_activity_logs
+// - Logs SESSION_IDLE_TIMEOUT_ENFORCED audit event
+```
+
+### Activity Tracking Service (`complianceServices.js`)
+Wrapper for calling the Cloud Function.
+
+```javascript
+enforceInactivityTimeout(userId, courseId, sessionId, idleDurationSeconds)
+// Returns: Promise<result>
+// Throws: ApiError on validation or Firebase errors
+```
+
+### Integration Points
+
+**TimerContext.jsx** (Activity Orchestration):
+- Initializes `useActivityTracking()` 
+- Initializes `useInactivityTimeout()` with callback handlers
+- `onTimeout` async function:
+  1. Calls `enforceInactivityTimeout()` Cloud Function
+  2. Clears localStorage of activity timestamp
+  3. Calls `signOut(auth)` to terminate session
+- Exports to context: `showInactivityWarning`, `inactivitySecondsRemaining`, `handleInactivityContinue`, `inactivityTimedOut`
+
+**CoursePlayerPage.jsx** (State Handling):
+- Destructures inactivity state from `useTimer()`
+- Renders `<InactivityWarningModal />` 
+- Checks `inactivityTimedOut` and returns `null` to prevent dashboard flash before redirect
+- After `signOut()` completes, ProtectedRoute redirects to login
+
+### Security Measures
+
+✅ **Inactivity Detection**:
+- localStorage persists timeout state (survives page refresh - real inactivity)
+- Server enforces timeout on Cloud Function (client cannot manipulate)
+- Stale timestamp detection (auto-clears >20 min old activity on re-login)
+
+✅ **Logout Flow**:
+- Clears `lastActivityTime` from localStorage on timeout
+- Blank page rendering prevents brief dashboard visibility
+- React hooks ordering ensures proper re-render behavior
+- PublicRoute guard prevents authenticated user redirect loop
+
+✅ **Compliance**:
+- Warning modal at exactly 13 minutes of inactivity
+- Auto-logout at exactly 15 minutes (no grace period)
+- Idle time mathematically deducted from 4-hour daily limit
+- Session marked `idle_timeout` prevents resumption
+- Audit event `SESSION_IDLE_TIMEOUT_ENFORCED` logged (3-year retention)
+
+---
+
 ## Common Parameters
 
 - **uid**: User ID (from Firebase Auth)

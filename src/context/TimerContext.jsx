@@ -5,15 +5,20 @@ import useSessionTimer from '../hooks/useSessionTimer';
 import useBreakManagement from '../hooks/useBreakManagement';
 import usePVQTrigger from '../hooks/usePVQTrigger';
 import useSessionData from '../hooks/useSessionData';
+import useActivityTracking from '../hooks/useActivityTracking';
+import useInactivityTimeout from '../hooks/useInactivityTimeout';
 import { httpsCallable, getFunctions } from 'firebase/functions';
 import { getApp } from 'firebase/app';
+import { signOut } from 'firebase/auth';
+import { auth } from '../config/firebase';
 import {
   createComplianceSession,
   updateComplianceSession,
   closeComplianceSession,
   getDailyTime,
   logBreak,
-  logBreakEnd
+  logBreakEnd,
+  enforceInactivityTimeout
 } from '../api/compliance/complianceServices';
 import {
   logIdentityVerification as logIdentityVerificationPVQ
@@ -72,6 +77,49 @@ export const TimerProvider = ({ children, courseId, lessonId, ipAddress }) => {
     onSessionCreated: null,
     onLessonAccessed: null,
     onSessionClosed: null
+  });
+
+  const activityTracking = useActivityTracking(sessionTimer.isActive);
+
+  const [inactivityTimedOut, setInactivityTimedOut] = useState(false);
+
+  const inactivityTimeout = useInactivityTimeout({
+    enabled: sessionTimer.isActive && !inactivityTimedOut,
+    lastActivityTime: activityTracking.lastActivity,
+    onWarning: () => {
+      console.log('Inactivity warning triggered');
+    },
+    onTimeout: async () => {
+      console.log('Inactivity timeout - enforcing logout');
+      setInactivityTimedOut(true);
+
+      if (user && courseId && sessionData.currentSessionId) {
+        try {
+          const idleDurationSeconds = Math.floor(
+            (Date.now() - activityTracking.lastActivity) / 1000
+          );
+
+          await enforceInactivityTimeout(
+            user.uid,
+            courseId,
+            sessionData.currentSessionId,
+            idleDurationSeconds
+          );
+
+          localStorage.removeItem('lastActivityTime');
+          await signOut(auth);
+        } catch (error) {
+          console.error('Error enforcing inactivity timeout:', error);
+          localStorage.removeItem('lastActivityTime');
+          await signOut(auth).catch(e => console.error('Error signing out:', e));
+        }
+      }
+    },
+    onReset: () => {
+      setInactivityTimedOut(false);
+      localStorage.setItem('lastActivityTime', Date.now().toString());
+      activityTracking.resetActivity();
+    }
   });
 
   useEffect(() => {
@@ -480,6 +528,10 @@ export const TimerProvider = ({ children, courseId, lessonId, ipAddress }) => {
     currentPVQQuestion: pvqTrigger.currentPVQQuestion,
     pvqSubmitting: pvqTrigger.pvqSubmitting,
     pvqError,
+    showInactivityWarning: inactivityTimeout.showWarning,
+    inactivitySecondsRemaining: inactivityTimeout.secondsRemaining,
+    handleInactivityContinue: inactivityTimeout.handleContinueLesson,
+    inactivityTimedOut,
     
     startTimer: startTimerComplianceWrapped,
     pauseTimer: pauseTimerComplianceWrapped,

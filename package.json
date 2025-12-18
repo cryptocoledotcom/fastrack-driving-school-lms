@@ -20,6 +20,7 @@
   "scripts": {
     "start": "vite",
     "dev": "vite",
+    "dev:emulators": "$env:VITE_USE_EMULATORS='true'; npm run dev",
     "build": "vite build",
     "preview": "vite preview",
     "test": "vitest",

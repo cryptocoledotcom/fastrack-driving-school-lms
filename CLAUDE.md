@@ -17,13 +17,25 @@
 - ✅ **Session 6 Security**: Personal Verification system hardened with SHA-256 answer hashing
 - ✅ **Session 6 Gen 2 Migration**: Complete Cloud Functions Gen 2 standardization (23 tests fixed)
 - ✅ **Session 7 Registration Fix**: Registration race condition fixed, E2E test infra improved
-- 🚀 **Phase 5.3 CoursePlayer Hardening IN PROGRESS**:
-  - ✅ Week 1: Complete (12/12 hrs) - Tasks 1.1-1.4 (Seeking, Mobile, Network, Browser)
-  - ✅ Week 2: Complete (10/10 hrs) - Tasks 2.1-2.4 ✅ 100% COMPLETE
-    - ✅ Task 2.1: Cloud Function Integration Testing (4/4 hrs) - 12 tests added
-    - ✅ Task 2.2: Answer Verification Logic (3/3 hrs) - 51 tests created
-    - ✅ Task 2.3: Modal State Management (2/2 hrs) - 18 tests created
-    - ✅ Task 2.4: Accessibility for Modal (1/1 hr) - 30 tests created
+- 🚀 **Session 8: 15-Minute Inactivity Timeout Implementation** ✅ COMPLETE
+  - ✅ **Client-Side Components**: 
+    - `useActivityTracking.js` - Detects user interactions (mouse, keyboard, scroll) with 30-60s throttle
+    - `useInactivityTimeout.js` - 15-minute idle timer with 13-minute warning threshold
+    - `InactivityWarningModal.jsx` - Modal component with live countdown timer
+    - `InactivityWarningModal.module.css` - Pulsing animation styles
+  - ✅ **Server-Side Enforcement**:
+    - `enforceInactivityTimeout()` Cloud Function - Marks session as `idle_timeout`, deducts idle time from 4-hour daily limit
+  - ✅ **Service Layer**: `complianceServices.js` API wrapper for Cloud Function
+  - ✅ **Integration**:
+    - `TimerContext.jsx` - Orchestrates activity tracking, timeout logic, and logout flow
+    - `CoursePlayerPage.jsx` - Handles inactivity timeout state, prevents dashboard flash on logout
+    - `ProtectedRoute.jsx` - Redirect guards for unauthenticated access
+  - ✅ **Fixes Applied**:
+    - localStorage cleanup on inactivity timeout (prevents re-login auto-logout)
+    - Stale timestamp detection (auto-clears >20 min old activity)
+    - Blank screen rendering prevents brief dashboard visibility before redirect to login
+    - React hooks ordering compliance (early return moved to after all hooks)
+  - ✅ **Compliance**: 100% Ohio OAC Chapter 4501-7 (13-min warning + 15-min auto-logout + session server lockout)
 
 ---
 

@@ -116,6 +116,7 @@ npm run test:e2e:debug
 - 30-day course expiration window
 - Post-video questions (PVQ) for comprehension
 - 3-strike exam lockout mechanism
+- **15-minute inactivity timeout** (warning at 13 min, auto-logout at 15 min, idle time deducted from daily limit)
 - Comprehensive audit logging (30+ event types, 3-year retention)
 - Role-based access control with defense-in-depth
 

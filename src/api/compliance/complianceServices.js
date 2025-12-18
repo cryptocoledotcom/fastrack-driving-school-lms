@@ -382,6 +382,34 @@ export const handleOrphanedSessions = async (userId, courseId) => {
   }, 'handleOrphanedSessions');
 };
 
+export const enforceInactivityTimeout = async (userId, courseId, sessionId, idleDurationSeconds) => {
+  return executeService(async () => {
+    validateUserId(userId);
+    validateCourseId(courseId);
+
+    if (!sessionId) {
+      throw new ValidationError('sessionId is required');
+    }
+
+    if (typeof idleDurationSeconds !== 'number' || idleDurationSeconds < 0) {
+      throw new ValidationError('idleDurationSeconds must be a non-negative number');
+    }
+
+    const { httpsCallable, getFunctions } = await import('firebase/functions');
+    const functions = getFunctions();
+    const enforceInactivityTimeoutFn = httpsCallable(functions, 'enforceInactivityTimeout');
+
+    const result = await enforceInactivityTimeoutFn({
+      userId,
+      courseId,
+      sessionId,
+      idleDurationSeconds
+    });
+
+    return result.data;
+  }, 'enforceInactivityTimeout');
+};
+
 const complianceServices = {
   createComplianceSession,
   updateComplianceSession,
@@ -395,7 +423,8 @@ const complianceServices = {
   logQuizAttempt,
   getTotalSessionTime,
   getTotalSessionTimeInMinutes,
-  handleOrphanedSessions
+  handleOrphanedSessions,
+  enforceInactivityTimeout
 };
 
 export default complianceServices;
