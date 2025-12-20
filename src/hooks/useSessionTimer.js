@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 
 const MAX_DAILY_HOURS = 4 * 3600;
-const BREAK_REQUIRED_AFTER = 60; // 1 minute for testing purposes
+const BREAK_REQUIRED_AFTER = 2 * 3600; // 2 hours for DMV compliance (Ohio OAC 4501-7)
 
 export const useSessionTimer = (options = {}) => {
   const {
