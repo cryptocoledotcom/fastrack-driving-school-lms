@@ -1,1 +1,0 @@
-const BREAK_REQUIRED_AFTER = 2 * 3600; // 2 hours for DMV compliance()const MIN_BREAK_DURATION = 10 * 60; // 10 minutes minimum break per Ohio OAC 4501-7  
