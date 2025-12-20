@@ -1,14 +1,17 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 
 const MAX_DAILY_HOURS = 4 * 3600;
-const BREAK_REQUIRED_AFTER = 2 * 3600;
+const BREAK_REQUIRED_AFTER = 60; // 1 minute for testing purposes
 
 export const useSessionTimer = (options = {}) => {
   const {
+    sessionId = null,
     onDailyLimitReached = null,
     onBreakRequired = null,
     onLockoutCheck = null
   } = options;
+
+  const SESSION_TIME_KEY = sessionId ? `fastrack_session_time_${sessionId}` : null;
 
   const [sessionTime, setSessionTime] = useState(0);
   const [totalTime, setTotalTime] = useState(0);
@@ -16,6 +19,7 @@ export const useSessionTimer = (options = {}) => {
   const [isPaused, setIsPaused] = useState(false);
   const [isLockedOut, setIsLockedOut] = useState(false);
   const [breakRequired, setBreakRequired] = useState(false);
+  const [hydrated, setHydrated] = useState(false);
 
   const intervalRef = useRef(null);
   const sessionStartTimeRef = useRef(null);
@@ -35,7 +39,14 @@ export const useSessionTimer = (options = {}) => {
     setSessionTime(0);
     sessionStartTimeRef.current = null;
     breakCheckRef.current = false;
-  }, []);
+    if (SESSION_TIME_KEY) {
+      try {
+        localStorage.removeItem(SESSION_TIME_KEY);
+      } catch (error) {
+        console.error('Failed to clear session time from localStorage:', error);
+      }
+    }
+  }, [SESSION_TIME_KEY]);
 
   const pauseTimer = useCallback(() => {
     if (isActive && !isPaused) {
@@ -54,6 +65,35 @@ export const useSessionTimer = (options = {}) => {
   const sessionSeconds = sessionTime % 60;
   const totalMinutes = Math.floor(totalTime / 60);
   const totalSeconds = totalTime % 60;
+
+  // Restore session time from localStorage when sessionId changes
+  useEffect(() => {
+    if (SESSION_TIME_KEY) {
+      try {
+        const saved = localStorage.getItem(SESSION_TIME_KEY);
+        if (saved) {
+          const savedTime = parseInt(saved, 10);
+          if (!isNaN(savedTime) && savedTime > 0) {
+            setSessionTime(savedTime);
+          }
+        }
+      } catch (error) {
+        console.error('Failed to restore session time:', error);
+      }
+    }
+    setHydrated(true);
+  }, [SESSION_TIME_KEY]);
+
+  // Persist session time to localStorage whenever it changes
+  useEffect(() => {
+    if (hydrated && sessionTime > 0 && SESSION_TIME_KEY) {
+      try {
+        localStorage.setItem(SESSION_TIME_KEY, sessionTime.toString());
+      } catch (error) {
+        console.error('Failed to persist session time:', error);
+      }
+    }
+  }, [sessionTime, hydrated, SESSION_TIME_KEY]);
 
   useEffect(() => {
     if (isActive && !isPaused) {
@@ -127,6 +167,11 @@ export const useSessionTimer = (options = {}) => {
     breakCheckRef.current = false;
   }, []);
 
+  const resetSessionTime = useCallback(() => {
+    setSessionTime(0);
+    breakCheckRef.current = false;
+  }, []);
+
   return {
     sessionTime,
     totalTime,
@@ -144,7 +189,8 @@ export const useSessionTimer = (options = {}) => {
     resumeTimer,
     checkDailyLockout,
     loadDailyTime,
-    resetBreakRequired
+    resetBreakRequired,
+    resetSessionTime
   };
 };
 

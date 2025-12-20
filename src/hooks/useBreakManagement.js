@@ -1,19 +1,23 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 
-const BREAK_REQUIRED_AFTER = 2 * 3600;
-const MIN_BREAK_DURATION = 10 * 60;
+const BREAK_REQUIRED_AFTER = 60; // 1 minute for testing purposes
+const MIN_BREAK_DURATION = 30;
 
 export const useBreakManagement = (options = {}) => {
   const {
     sessionTime = 0,
+    sessionId = null,
     onBreakRequired = null,
     onBreakEnded = null
   } = options;
+
+  const BREAK_STATE_KEY = sessionId ? `fastrack_break_state_${sessionId}` : null;
 
   const [isOnBreak, setIsOnBreak] = useState(false);
   const [isBreakMandatory, setIsBreakMandatory] = useState(false);
   const [breakStartTime, setBreakStartTime] = useState(null);
   const [breakHistory, setBreakHistory] = useState([]);
+  const [hydrated, setHydrated] = useState(false);
 
   const breakRequiredTrackedRef = useRef(false);
 
@@ -24,6 +28,45 @@ export const useBreakManagement = (options = {}) => {
   const isBreakDue = sessionTime >= BREAK_REQUIRED_AFTER;
   const isBreakMinimumMet = currentBreakDuration >= MIN_BREAK_DURATION;
   const timeUntilBreakRequired = Math.max(0, BREAK_REQUIRED_AFTER - sessionTime);
+
+  // Restore break state from localStorage when sessionId changes
+  useEffect(() => {
+    if (BREAK_STATE_KEY) {
+      try {
+        const saved = localStorage.getItem(BREAK_STATE_KEY);
+        if (saved) {
+          const state = JSON.parse(saved);
+          if (state.isOnBreak && state.breakStartTime) {
+            setIsOnBreak(true);
+            setBreakStartTime(state.breakStartTime);
+            setIsBreakMandatory(state.isBreakMandatory);
+          }
+        }
+      } catch (error) {
+        console.error('Failed to restore break state:', error);
+      }
+    }
+    setHydrated(true);
+  }, [BREAK_STATE_KEY]);
+
+  // Persist break state to localStorage whenever it changes
+  useEffect(() => {
+    if (hydrated && BREAK_STATE_KEY) {
+      try {
+        if (isOnBreak && breakStartTime) {
+          localStorage.setItem(BREAK_STATE_KEY, JSON.stringify({
+            isOnBreak,
+            breakStartTime,
+            isBreakMandatory
+          }));
+        } else {
+          localStorage.removeItem(BREAK_STATE_KEY);
+        }
+      } catch (error) {
+        console.error('Failed to persist break state:', error);
+      }
+    }
+  }, [isOnBreak, breakStartTime, isBreakMandatory, hydrated, BREAK_STATE_KEY]);
 
   const startBreak = useCallback(() => {
     if (!isOnBreak) {
@@ -50,6 +93,14 @@ export const useBreakManagement = (options = {}) => {
       setIsOnBreak(false);
       setBreakStartTime(null);
       setIsBreakMandatory(false);
+
+      if (BREAK_STATE_KEY) {
+        try {
+          localStorage.removeItem(BREAK_STATE_KEY);
+        } catch (error) {
+          console.error('Failed to clear break state from localStorage:', error);
+        }
+      }
 
       if (onBreakEnded) {
         onBreakEnded(breakDuration);

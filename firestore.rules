@@ -82,7 +82,19 @@ service cloud.firestore {
 
     // Compliance Sessions (user subcollection)
     match /users/{userId}/sessions/{sessionId} {
-      allow read, write: if isOwnProfile(userId) || isAdmin();
+      allow read: if isOwnProfile(userId) || isAdmin();
+      
+      // SECURITY: Strict validation for break operations
+      allow update: if isOwnProfile(userId) && 
+        // Can only update breaks array
+        request.resource.data.keys().hasOnly(['breaks']) &&
+        // Validate each break in array
+        request.resource.data.breaks.size() > 0 &&
+        // Last break must have server-calculated actualDuration >= 600 seconds
+        request.resource.data.breaks[request.resource.data.breaks.size() - 1].actualDuration >= 600 &&
+        // Must have validation timestamp
+        request.resource.data.breaks[request.resource.data.breaks.size() - 1].validatedByServer == true;
+      
       allow delete: if false;
     }
 

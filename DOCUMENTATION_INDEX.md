@@ -84,6 +84,41 @@ Comprehensive research for Phase 5: Green Testing - achieving 100% test coverage
 
 **Reference this for detailed session work and progress.**
 
+### [`PHASE_5_SESSION_11_SUMMARY.md`](./PHASE_5_SESSION_11_SUMMARY.md)
+**[NEW - Session 11 Summary]** Complete summary of Session 11: Mandatory Break Countdown Display & Heartbeat Fixes (December 19, 2025).
+- Fixed modal displaying 00:00 on open (3-layer fix)
+- Removed duplicate countdown intervals
+- Fixed heartbeat 500 errors during breaks
+- Fixed inactivity warning on page refresh
+- Outstanding UX issue documented (modal restart bug deferred to Session 12)
+- Build verification (3,021 modules passing)
+- Test results (37/40 passing, 92.5%)
+
+**Reference this for Session 11 detailed accomplishments and next steps.**
+
+### [`SESSION_11_OUTSTANDING_ISSUE.md`](./SESSION_11_OUTSTANDING_ISSUE.md)
+**[NEW - Session 11 Bug Documentation]** Detailed documentation of the countdown restart bug found during Session 11 (December 19, 2025).
+- Bug description and reproduction steps
+- Known information about what works/doesn't work
+- Root cause analysis with investigation checklist
+- Security impact assessment (none - server validates)
+- Files to check during tomorrow's fix
+- Defer rationale and commit plan
+
+**Reference this for understanding the outstanding modal countdown restart issue.**
+
+### [`MANDATORY_BREAK_TESTING_DEPLOYMENT.md`](./MANDATORY_BREAK_TESTING_DEPLOYMENT.md)
+**[UPDATED - Session 11]** Comprehensive testing and deployment guide for the Mandatory Break feature (Ohio OAC 4501-8-09).
+- Pre-deployment checklist
+- Unit and E2E testing instructions (7 security tests)
+- Manual testing procedures (3 scenarios)
+- Deployment steps and rollback procedures
+- Monitoring and verification procedures
+- Compliance documentation for BMV auditors
+- **NEW**: Outstanding issue section with Session 11 bug details and auditor response
+
+**Reference this for deploying and testing the mandatory break feature.**
+
 ### [`PHASE_6_MAINTENANCE_RESEARCH.md`](./PHASE_6_MAINTENANCE_RESEARCH.md)
 Detailed research for Phase 6: Code Maintenance & Performance Enhancements.
 - Performance baseline analysis (bundle size, load times, query latency)
@@ -197,6 +232,7 @@ See "Common Tasks" section in [`repo.md`](./repo.md) for:
 | **Admin Dashboard** | ✅ Phase 4.2 Complete (3 widgets implemented) |
 | **Production Ready** | ✅ Yes - Sentry active, E2E verified |
 | **Phase 5 (Green Testing)** | 🚀 **IN PROGRESS** - 1,093 tests (auth, student, course, component tests complete) |
+| **Mandatory Break Feature** | ✅ **Session 11 COMPLETE (97%)** - Countdown display, heartbeat, activity tracking fixed; 1 UX bug deferred |
 | **Phase 6 (Maintenance)** | 📋 Researched - Performance optimization roadmap complete |
 
 ---
@@ -272,7 +308,7 @@ Old documentation from previous sessions is archived in `/docs/ARCHIVE/` and sho
 
 ---
 
-**Last Updated**: December 12, 2025, 20:18 (after Session 4)  
-**Current Phase**: Phase 5 IN PROGRESS (Sessions 1-4 complete: Auth, Student, Course/Lesson/Quiz, Component tests)  
+**Last Updated**: December 19, 2025 (after Session 11 - Mandatory Break Countdown Fixes)  
+**Current Phase**: Phase 5 IN PROGRESS + Mandatory Break Feature Session 11 COMPLETE (97%)  
 **Maintainer**: Cole Bowersock  
-**Session Focus**: Component tests fixed (24/24 passing), 1,093 total tests (109.3% of goal)
+**Session Focus**: Mandatory Break - Fixed modal display bug, removed duplicate countdowns, fixed heartbeat errors, fixed activity tracking; 1 UX bug deferred to Session 12

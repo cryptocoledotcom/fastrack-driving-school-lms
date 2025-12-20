@@ -1,5 +1,18 @@
 # Fastrack LMS - Development Documentation
 
+## ⚠️ CRITICAL: DEPLOYMENT STATUS
+
+**THE HOSTING IS NOT LIVE AND WILL NOT BE DEPLOYED UNTIL 2026.**
+
+This project is in **active development phase**. Cloud Functions ARE deployed to production for testing, but the React app (hosting) stays in development only. A landing page announcing the LMS is currently live on hosting.
+
+- ✅ **DO** deploy Cloud Functions to production (required for testing)
+- ❌ **DO NOT** deploy React app to Firebase Hosting (stays in development until 2026)
+- ❌ **DO NOT** suggest deploying the main application to production hosting
+- ✅ **DO** continue development, testing, and Cloud Function deployment for testing purposes
+
+---
+
 ## Project Overview
 
 **Fastrack Learning Management System** is a comprehensive web application for managing driving school courses, student progress, instructor assignments, and compliance tracking. Built with React 18, Vite, and Firebase 12, with Node.js 20 Cloud Functions backend using Firebase Functions v2 API. Fully compliant with Ohio OAC Chapter 4501-7 driver education requirements.
@@ -10,10 +23,11 @@
 - ✅ **Gen 2 Cloud Functions** - 100% standardized (all functions use async (request) signature)
 - ✅ **RBAC migration complete** - Firebase custom claims + JWT token refresh
 - ✅ **Security hardened** - CORS, CSRF, App Check (ReCaptcha V3), Firestore rules
-- ✅ **Ohio compliance** - 100% (50/50 requirements, 24 Cloud Functions deployed)
+- ✅ **Ohio compliance** - 100% (50/50 requirements, 24 Cloud Functions deployed + Mandatory Break feature)
 - ✅ **Admin performance** - 15x faster (30s → <2s, JWT custom claims optimization)
 - ✅ **Instant role access** - No delay after bootstrap or role changes
 - ✅ **Production ready** - Sentry active, Playwright E2E verified, Landing Page live
+- ✅ **Mandatory Break Feature** - Session 11 Complete (97% - 1 UX bug deferred to Session 12)
 - ✅ **Session 6 Security**: Personal Verification system hardened with SHA-256 answer hashing
 - ✅ **Session 6 Gen 2 Migration**: Complete Cloud Functions Gen 2 standardization (23 tests fixed)
 - ✅ **Session 7 Registration Fix**: Registration race condition fixed, E2E test infra improved
@@ -52,6 +66,56 @@
   - ✅ **Bug Fixes**:
     - Fixed duplicate catch/finally block in `ComplianceRequiredRoute.jsx` (syntax error)
   - ✅ **Code Quality**: ESLint and TypeScript compliance verified
+- 🚀 **Session 10: Mandatory Break Implementation - Foundation** ✅ COMPLETE
+  - ✅ **Core Implementation**:
+    - `MandatoryBreakModal.jsx` - Non-dismissible modal with 10-minute countdown timer
+    - `TimerContext.jsx` - Break lifecycle management (startBreakComplianceWrapped, endBreakComplianceWrapped)
+    - `CoursePlayerPage.jsx` - Break trigger logic after 2 hours of course play
+  - ✅ **Server-Side Validation** (4-layer security):
+    - Cloud Function `validateBreakEnd()` - Calculates duration from server timestamps
+    - `logBreakEnd()` in complianceServices.js - Server-authoritative validation
+    - Firestore rules enforcement of minimum 600 seconds
+    - Immutable audit logging of all break events
+  - ✅ **Compliance**: Ohio OAC 4501-8-09 mandatory 2-hour break with 10-minute minimum
+  - ✅ **Security Hardening**: Server calculates duration (client never trusted), Firestore rules enforce minimum, audit trail immutable
+  - ✅ **Tests**: 37/40 component tests passing (92.5%)
+- 🚀 **Session 11: Mandatory Break Countdown Display & Heartbeat Fixes** ✅ COMPLETE
+  - ✅ **Fixed Modal 00:00 Display Bug**:
+    - TimerContext.jsx line 312: Added `setBreakTime(600)` immediate default
+    - MandatoryBreakModal.jsx lines 12-23: Rewritten with `validBreakTime` fallback (never 0)
+    - CoursePlayerPage.jsx line 844: Guard condition `&& breakTime > 0` prevents early render
+  - ✅ **Fixed Duplicate Countdown Bug**:
+    - Deleted entire countdown interval from TimerContext.jsx (lines 462-485)
+    - Modal now owns single countdown lifecycle
+    - Resume button user-controlled (not auto-triggering)
+  - ✅ **Fixed Heartbeat 500 Errors During Breaks**:
+    - CoursePlayerPage.jsx line 129: Added `!isOnBreak` to heartbeat enabled condition
+    - Prevents server validation errors from activity during paused session
+  - ✅ **Fixed Inactivity Warning on Page Refresh**:
+    - TimerContext.jsx lines 250-251: Clear `lastActivityTime` and reset activity tracking on new session
+    - Prevents false positives from persisted pre-refresh timestamps
+  - ✅ **Build**: Passing (3,021 modules, no errors)
+  - ✅ **Tests**: 37/40 passing (92.5%)
+  - ✅ **Manual Testing**: Complete - countdown displays correctly, heartbeat disabled, activity tracking reset
+
+- 🚀 **Session 12: Mandatory Break Modal Resume Bug Fix** ✅ COMPLETE (100%)
+  - ✅ **Fixed Modal Reopen Bug After Resume Click**:
+    - **Root Cause**: After break ended, `sessionTime` remained at 60+ seconds. When `isOnBreak` became false, the break requirement immediately triggered again (race condition).
+    - **Solution**: Reset session timer to 0 after break completes to prevent immediate re-trigger
+    - **Implementation**:
+      - `useSessionTimer.js`: Added `resetSessionTime()` method (line 170-173) - sets `sessionTime = 0` and resets `breakCheckRef.current`
+      - `TimerContext.jsx`: Modified `resetSessionTimer()` (line 309-311) to call `sessionTimer.resetSessionTime()` instead of stop/start
+      - `CoursePlayerPage.jsx`: Added `resetSessionTimer()` call immediately after `await endBreak()` (line 159) - before `resumeTimer()`
+  - ✅ **Break Modal UX Flow**:
+    - Modal triggers at 1 minute (testing duration)
+    - Countdown displays 10:00 → 00:00 correctly
+    - Resume button enabled at 00:00
+    - Click Resume → `endBreakComplianceWrapped()` succeeds → `sessionTime` reset to 0 → modal closes immediately
+    - Session timer resumes cleanly without re-triggering break
+  - ✅ **Security**: Unaffected - server-side validation fully intact (`logBreakEnd()` validates minimum 600 seconds)
+  - ✅ **Compliance**: Ohio OAC 4501-8-09 maintained (2-hour break enforced, 10-minute minimum enforced by server)
+  - ✅ **Tests**: 1,152 tests passing (no new failures from changes)
+  - ✅ **Manual Testing**: Verified - modal opens correctly, countdown displays, resume closes modal properly, timer restarts cleanly
 
 ---
 

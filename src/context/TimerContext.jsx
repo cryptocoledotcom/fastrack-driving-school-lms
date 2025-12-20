@@ -18,6 +18,7 @@ import {
   getDailyTime,
   logBreak,
   logBreakEnd,
+  getBreakTimeRemaining,
   enforceInactivityTimeout
 } from '../api/compliance/complianceServices';
 import {
@@ -42,7 +43,7 @@ export const TimerProvider = ({ children, courseId, lessonId, ipAddress }) => {
   const { user } = useAuth();
   
   const [videoProgress, setVideoProgress] = useState(null);
-  const [breakTime, setBreakTime] = useState(0);
+  const [breakTime, setBreakTime] = useState(600); // 10 minutes default for modal initialization
   const [pvqError, setPVQError] = useState(null);
 
   const intervalRef = useRef(null);
@@ -53,8 +54,14 @@ export const TimerProvider = ({ children, courseId, lessonId, ipAddress }) => {
   const beforeUnloadHandlerRef = useRef(null);
   const sessionCreationPromiseRef = useRef(null);
 
+  const sessionData = useSessionData({
+    onSessionCreated: null,
+    onLessonAccessed: null,
+    onSessionClosed: null
+  });
+
   const sessionTimer = useSessionTimer({
-    sessionTime: 0,
+    sessionId: sessionData.currentSessionId,
     onDailyLimitReached: null,
     onBreakRequired: null,
     onLockoutCheck: null
@@ -62,6 +69,7 @@ export const TimerProvider = ({ children, courseId, lessonId, ipAddress }) => {
 
   const breakManager = useBreakManagement({
     sessionTime: sessionTimer.sessionTime,
+    sessionId: sessionData.currentSessionId,
     onBreakRequired: null,
     onBreakEnded: null
   });
@@ -71,12 +79,6 @@ export const TimerProvider = ({ children, courseId, lessonId, ipAddress }) => {
     getRandomQuestion: user ? () => getRandomPersonalSecurityQuestion(user.uid) : null,
     onPVQTriggered: null,
     onPVQSubmitted: null
-  });
-
-  const sessionData = useSessionData({
-    onSessionCreated: null,
-    onLessonAccessed: null,
-    onSessionClosed: null
   });
 
   const activityTracking = useActivityTracking(sessionTimer.isActive);
@@ -245,6 +247,9 @@ export const TimerProvider = ({ children, courseId, lessonId, ipAddress }) => {
           startTime: now
         });
         
+        localStorage.removeItem('lastActivityTime');
+        activityTracking.resetActivity();
+        
         sessionTimer.startTimer();
         sessionData.createSession(sessionId, session);
         
@@ -302,43 +307,36 @@ export const TimerProvider = ({ children, courseId, lessonId, ipAddress }) => {
   };
 
   const resetSessionTimer = () => {
-    sessionTimer.stopTimer();
-    sessionTimer.startTimer();
+    sessionTimer.resetSessionTime();
   };
 
-  const startBreakComplianceWrapped = async (duration = APP_CONFIG.BREAK_INTERVALS?.SHORT_BREAK || 600) => {
+  const startBreakComplianceWrapped = async () => {
+    setBreakTime(600);
+
     if (sessionData.currentSessionId && user) {
       try {
         await logBreak(user.uid, sessionData.currentSessionId, {
-          duration,
-          type: 'mandatory',
-          startTime: new Date().toISOString()
+          reason: 'mandatory'
         });
+
+        const breakInfo = await getBreakTimeRemaining(user.uid, sessionData.currentSessionId);
+        setBreakTime(breakInfo.remainingSeconds);
       } catch (err) {
-        console.error('Error logging break:', err);
+        console.error('Error handling break:', err);
+        setBreakTime(600);
       }
     }
 
     breakManager.startBreak();
-    setBreakTime(duration);
     sessionTimer.pauseTimer();
   };
 
   const endBreakComplianceWrapped = async () => {
     try {
-      const breakDuration = breakManager.currentBreakDuration;
-      const minDuration = 10 * 60;
-      
-      if (breakDuration < minDuration) {
-        const minutesRemaining = Math.ceil((minDuration - breakDuration) / 60);
-        const error = new Error(`Break must be at least 10 minutes. ${minutesRemaining} minute(s) remaining.`);
-        error.code = 'BREAK_TOO_SHORT';
-        error.minutesRemaining = minutesRemaining;
-        throw error;
-      }
-
-      if (sessionData.currentSessionId) {
-        await logBreakEnd(user.uid, sessionData.currentSessionId, breakDuration);
+      // SECURITY: Don't calculate duration client-side. Server will validate from timestamps.
+      if (sessionData.currentSessionId && user) {
+        // Server will validate: time between break start and now >= 600 seconds
+        await logBreakEnd(user.uid, sessionData.currentSessionId);
       }
 
       breakManager.endBreak();
@@ -462,30 +460,7 @@ export const TimerProvider = ({ children, courseId, lessonId, ipAddress }) => {
     };
   }, [sessionTimer.isActive, sessionTimer.isPaused, breakManager.isOnBreak]);
 
-  useEffect(() => {
-    if (breakManager.isOnBreak && breakTime > 0) {
-      breakIntervalRef.current = setInterval(() => {
-        setBreakTime(prev => {
-          if (prev <= 1) {
-            endBreakComplianceWrapped();
-            return 0;
-          }
-          return prev - 1;
-        });
-      }, 1000);
-    } else {
-      if (breakIntervalRef.current) {
-        clearInterval(breakIntervalRef.current);
-      }
-    }
 
-    return () => {
-      if (breakIntervalRef.current) {
-        clearInterval(breakIntervalRef.current);
-      }
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [breakManager.isOnBreak, breakTime]);
 
   useEffect(() => {
     if (sessionTimer.isActive && !sessionTimer.isPaused) {

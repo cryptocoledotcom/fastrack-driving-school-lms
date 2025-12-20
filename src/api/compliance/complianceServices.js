@@ -174,7 +174,7 @@ export const getSessionHistory = async (userId, courseId, limit = 50) => {
   }, 'getSessionHistory');
 };
 
-// Log a break during a session
+// Log start of break (SECURITY: Server timestamps only, no client duration)
 export const logBreak = async (userId, sessionId, breakData) => {
   return executeService(async () => {
     if (!sessionId || typeof sessionId !== 'string') {
@@ -184,52 +184,104 @@ export const logBreak = async (userId, sessionId, breakData) => {
       throw new ValidationError('breakData must be a non-empty object');
     }
 
+    // SECURITY: Validate break reason
+    const validReasons = ['mandatory', 'user_initiated'];
+    const breakReason = breakData.reason || 'user_initiated';
+    if (!validReasons.includes(breakReason)) {
+      throw new ValidationError(`Invalid break reason: ${breakReason}`);
+    }
+
     const sessionsRef = getSessionsRef(userId);
     const sessionRef = doc(sessionsRef, sessionId);
+    const now = new Date().toISOString();
     
     await updateDoc(sessionRef, {
       breaks: arrayUnion({
-        startTime: serverTimestamp(),
-        duration: breakData.duration || 0,
-        reason: breakData.reason || 'user_initiated',
-        timestamp: serverTimestamp()
+        startTime: now,
+        // SECURITY: Do NOT store client-supplied duration. Duration calculated server-side at break end.
+        reason: breakReason,
+        status: 'active',  // Will be 'completed' after logBreakEnd() validates
+        initiatedAt: now
       })
     });
   }, 'logBreak');
 };
 
-// Log end of break and enforce minimum break duration
-export const logBreakEnd = async (userId, sessionId, actualDurationSeconds) => {
+// Log end of break - Server-side duration calculation (SECURITY: Not trusting client)
+export const logBreakEnd = async (userId, sessionId) => {
   return executeService(async () => {
     if (!sessionId || typeof sessionId !== 'string') {
       throw new ValidationError('sessionId must be a non-empty string');
-    }
-    if (typeof actualDurationSeconds !== 'number' || actualDurationSeconds < 0) {
-      throw new ValidationError('actualDurationSeconds must be a non-negative number');
-    }
-
-    if (actualDurationSeconds < MIN_BREAK_DURATION) {
-      throw new ValidationError(
-        `Break must be at least ${MIN_BREAK_DURATION / 60} minutes. Current: ${actualDurationSeconds / 60} minutes`
-      );
     }
 
     const sessionsRef = getSessionsRef(userId);
     const sessionRef = doc(sessionsRef, sessionId);
     const sessionDoc = await getDoc(sessionRef);
 
-    if (sessionDoc.exists()) {
-      const breaks = sessionDoc.data().breaks || [];
-      if (breaks.length > 0) {
-        const lastBreak = breaks[breaks.length - 1];
-        lastBreak.endTime = serverTimestamp();
-        lastBreak.actualDuration = actualDurationSeconds;
-
-        await updateDoc(sessionRef, {
-          breaks
-        });
-      }
+    if (!sessionDoc.exists()) {
+      throw new ValidationError('Session not found');
     }
+
+    const breaks = sessionDoc.data().breaks || [];
+    if (breaks.length === 0) {
+      throw new ValidationError('No active break found');
+    }
+
+    const lastBreak = breaks[breaks.length - 1];
+    
+    // SECURITY: Server calculates duration from server timestamps (not client claim)
+    let breakStartMs;
+    if (lastBreak.startTime?.toMillis?.()) {
+      // Firestore Timestamp object
+      breakStartMs = lastBreak.startTime.toMillis();
+    } else if (typeof lastBreak.startTime === 'string') {
+      // ISO string
+      breakStartMs = new Date(lastBreak.startTime).getTime();
+    } else if (lastBreak.startTime instanceof Date) {
+      // JavaScript Date
+      breakStartMs = lastBreak.startTime.getTime();
+    } else {
+      // Numeric timestamp
+      breakStartMs = lastBreak.startTime;
+    }
+    
+    if (!breakStartMs) {
+      throw new ValidationError('Break start time is invalid');
+    }
+
+    const breakEndMs = Date.now();  // Server's current time (not client time!)
+    const breakDurationSeconds = Math.floor((breakEndMs - breakStartMs) / 1000);
+
+    // SECURITY: Server enforces minimum break duration
+    if (breakDurationSeconds < MIN_BREAK_DURATION) {
+      const minutesRemaining = Math.ceil((MIN_BREAK_DURATION - breakDurationSeconds) / 60);
+      const error = new ValidationError(
+        `Break must be at least ${MIN_BREAK_DURATION / 60} minutes. ` +
+        `Current: ${Math.floor(breakDurationSeconds / 60)} minutes. ` +
+        `${minutesRemaining} minute(s) remaining.`
+      );
+      error.code = 'BREAK_TOO_SHORT';
+      error.minutesRemaining = minutesRemaining;
+      error.currentDurationSeconds = breakDurationSeconds;
+      throw error;
+    }
+
+    // SECURITY: Update with server-calculated values
+    const now = new Date().toISOString();
+    lastBreak.endTime = now;
+    lastBreak.actualDuration = breakDurationSeconds;  // Server calculated, not client supplied
+    lastBreak.validatedByServer = true;               // Audit flag
+    lastBreak.validationTimestamp = now;
+
+    await updateDoc(sessionRef, {
+      breaks
+    });
+
+    // Return actual duration for audit purposes
+    return {
+      actualDurationSeconds: breakDurationSeconds,
+      validated: true
+    };
   }, 'logBreakEnd');
 };
 
@@ -428,3 +480,55 @@ const complianceServices = {
 };
 
 export default complianceServices;
+
+// Get server-calculated remaining break time
+export const getBreakTimeRemaining = async (userId, sessionId) => {
+  return executeService(async () => {
+    if (!sessionId || typeof sessionId !== 'string') {
+      throw new ValidationError('sessionId must be a non-empty string');
+    }
+
+    const sessionsRef = getSessionsRef(userId);
+    const sessionRef = doc(sessionsRef, sessionId);
+    const sessionDoc = await getDoc(sessionRef);
+
+    if (!sessionDoc.exists()) {
+      throw new ValidationError('Session not found');
+    }
+
+    const breaks = sessionDoc.data().breaks || [];
+    if (breaks.length === 0) {
+      throw new ValidationError('No active break found');
+    }
+
+    const lastBreak = breaks[breaks.length - 1];
+    
+    // Parse break start time (supports multiple formats)
+    let breakStartMs;
+    if (lastBreak.startTime?.toMillis?.()) {
+      breakStartMs = lastBreak.startTime.toMillis();
+    } else if (typeof lastBreak.startTime === 'string') {
+      breakStartMs = new Date(lastBreak.startTime).getTime();
+    } else if (lastBreak.startTime instanceof Date) {
+      breakStartMs = lastBreak.startTime.getTime();
+    } else {
+      breakStartMs = lastBreak.startTime;
+    }
+
+    if (!breakStartMs) {
+      throw new ValidationError('Break start time is invalid');
+    }
+
+    const now = Date.now();
+    const elapsedSeconds = Math.floor((now - breakStartMs) / 1000);
+    const remainingSeconds = Math.max(0, MIN_BREAK_DURATION - elapsedSeconds);
+
+    return {
+      remainingSeconds,
+      elapsedSeconds,
+      breakStartTime: breakStartMs,
+      currentTime: now,
+      isBreakComplete: remainingSeconds === 0
+    };
+  }, 'getBreakTimeRemaining');
+};

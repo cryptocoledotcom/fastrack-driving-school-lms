@@ -897,6 +897,110 @@ enforceInactivityTimeout(userId, courseId, sessionId, idleDurationSeconds)
 - Checks `inactivityTimedOut` and returns `null` to prevent dashboard flash before redirect
 - After `signOut()` completes, ProtectedRoute redirects to login
 
+---
+
+## 11. Session Timer & Break Management
+
+### Session Timer Hook (`useSessionTimer`)
+Manages course session timing with break requirement tracking and daily limits.
+
+```javascript
+const {
+  sessionTime,           // Number - elapsed seconds in current session
+  totalTime,            // Number - total seconds today (4-hour limit)
+  isActive,             // Boolean - timer running
+  isPaused,             // Boolean - timer paused (during break)
+  isLockedOut,          // Boolean - exceeded 4-hour daily limit
+  breakRequired,        // Boolean - break needed
+  sessionMinutes,       // Number - formatted minutes
+  sessionSeconds,       // Number - formatted seconds (0-59)
+  totalMinutes,         // Number - daily total formatted
+  totalSeconds,         // Number - daily total seconds (0-59)
+  
+  startTimer,           // Function - start/resume timer
+  stopTimer,            // Function - stop and reset timer completely
+  pauseTimer,           // Function - pause timer (during break)
+  resumeTimer,          // Function - resume timer (after break)
+  resetSessionTime,     // Function - reset sessionTime to 0 (NEW - Session 12)
+  checkDailyLockout,    // Function - verify 4-hour limit reached
+  loadDailyTime,        // Function - set totalTime from server
+  resetBreakRequired    // Function - clear break required flag
+} = useSessionTimer({
+  sessionId: string,    // Session identifier
+  onBreakRequired: (sessionTime) => {},  // Callback when 60 seconds elapsed
+  onDailyLimitReached: (totalTime) => {} // Callback when 4 hours reached
+});
+
+// Break timing: Every 60 seconds (1 minute in testing, 2 hours in production)
+// Daily limit: 14400 seconds (4 hours) enforced with daily_activity_logs
+// Server enforcement: Break duration validated via logBreakEnd() Cloud Function
+```
+
+**Key Behaviors**:
+- `sessionTime` increments every second when `isActive && !isPaused`
+- `breakRequired` set to true when `sessionTime >= BREAK_REQUIRED_AFTER`
+- `resetSessionTime()` zeros session counter (prevents immediate re-trigger after break - Session 12 fix)
+- `totalTime` persists across sessions (daily rollover at midnight)
+- Server enforces maximum 14400 seconds (4 hours) per day
+
+### Break Management Hook (`useBreakManagement`)
+Tracks mandatory break state and duration.
+
+```javascript
+const {
+  isOnBreak,                 // Boolean - actively on break
+  isBreakMandatory,          // Boolean - break required
+  breakStartTime,            // Number - timestamp when break started
+  breakHistory,              // Array - all breaks taken this session
+  isBreakDue,                // Boolean - sessionTime >= BREAK_REQUIRED_AFTER
+  isBreakMinimumMet,         // Boolean - break duration >= 30 seconds
+  currentBreakDuration,      // Number - elapsed break seconds
+  timeUntilBreakRequired,    // Number - seconds remaining until break due
+  
+  startBreak,                // Function - initiate break
+  endBreak                   // Function - complete break
+} = useBreakManagement({
+  sessionTime: number,
+  sessionId: string,
+  onBreakRequired: (sessionTime) => {},  // Callback when break needed
+  onBreakEnded: (breakDuration) => {}    // Callback after break completes
+});
+
+// Break requirement: 60 seconds session time (testing), 7200 seconds production
+// Break minimum: 30 seconds for testing, 600 seconds (10 minutes) in production
+// Server validation: logBreakEnd() enforces minimum 600 seconds regardless of UI
+```
+
+**Mandatory Break Modal Integration**:
+- `isBreakMandatory === true` triggers `MandatoryBreakModal` display
+- Modal shows 10:00 countdown (from server `getBreakTimeRemaining()`)
+- `onBreakComplete()` calls `endBreakComplianceWrapped()` (TimerContext)
+- Server validates break duration via `logBreakEnd()` before permitting resume
+
+### Integration: TimerContext Reset Flow (Session 12 Fix)
+When user clicks "Resume Learning" on break modal:
+
+```javascript
+// CoursePlayerPage.jsx - handleBreakComplete()
+const handleBreakComplete = useCallback(async () => {
+  try {
+    await endBreak();                // Call server logBreakEnd()
+    setShowBreakModal(false);        // Close modal
+    resetSessionTime();              // NEW: Set sessionTime = 0
+    resumeTimer();                   // Resume session timer
+  } catch (error) {
+    // Handle BREAK_TOO_SHORT error (keep modal open)
+  }
+}, [endBreak, resetSessionTimer, resumeTimer]);
+```
+
+**Why `resetSessionTime()` is critical (Session 12)**:
+- Prevents `isBreakDue` from immediately becoming true again
+- Resets `breakCheckRef.current` to prevent re-trigger
+- Allows 60 more seconds to elapse before next break requirement
+- Prevents modal from reopening immediately after close
+- Fixes race condition: `endBreak()` → `isOnBreak = false` → break requirement check
+
 ### Security Measures
 
 ✅ **Inactivity Detection**:

@@ -926,6 +926,98 @@ const auditLogRetentionPolicy = onSchedule('every day 02:00', async (context) =>
   }
 });
 
+// SECURITY: Server-side validation of break end (enforces minimum 10-minute break)
+// This prevents client from bypassing or shortening breaks via DevTools manipulation
+const validateBreakEnd = onCall(async (request) => {
+  const MIN_BREAK_DURATION = 10 * 60; // 600 seconds
+
+  try {
+    // Authentication check
+    const auth = request.auth;
+    if (!auth) {
+      throw new functions.https.HttpsError('unauthenticated', 'User must be authenticated');
+    }
+
+    // Input validation
+    const { sessionId } = request.data;
+    if (!sessionId || typeof sessionId !== 'string') {
+      throw new functions.https.HttpsError('invalid-argument', 'sessionId must be a non-empty string');
+    }
+
+    const db = getDb();
+    const sessionRef = db.collection('users').doc(auth.uid).collection('sessions').doc(sessionId);
+    const sessionDoc = await sessionRef.get();
+
+    if (!sessionDoc.exists()) {
+      await logAuditEvent(auth.uid, 'BREAK_VALIDATION_FAILED', 'compliance', sessionId, 'failure', {
+        reason: 'Session not found'
+      });
+      throw new functions.https.HttpsError('not-found', 'Session not found');
+    }
+
+    const breaks = sessionDoc.data().breaks || [];
+    if (breaks.length === 0) {
+      await logAuditEvent(auth.uid, 'BREAK_VALIDATION_FAILED', 'compliance', sessionId, 'failure', {
+        reason: 'No active break found'
+      });
+      throw new functions.https.HttpsError('failed-precondition', 'No active break found');
+    }
+
+    const lastBreak = breaks[breaks.length - 1];
+    
+    // SECURITY: Server calculates duration from server timestamps
+    const breakStartMs = lastBreak.startTime?.toMillis?.() || lastBreak.startTime;
+    if (!breakStartMs) {
+      await logAuditEvent(auth.uid, 'BREAK_VALIDATION_FAILED', 'compliance', sessionId, 'failure', {
+        reason: 'Break start time is invalid'
+      });
+      throw new functions.https.HttpsError('failed-precondition', 'Break start time is invalid');
+    }
+
+    const breakEndMs = Date.now();  // Server's current time (authoritative)
+    const breakDurationSeconds = Math.floor((breakEndMs - breakStartMs) / 1000);
+
+    // SECURITY: Server enforces minimum break duration
+    if (breakDurationSeconds < MIN_BREAK_DURATION) {
+      const minutesRemaining = Math.ceil((MIN_BREAK_DURATION - breakDurationSeconds) / 60);
+      
+      await logAuditEvent(auth.uid, 'BREAK_VALIDATION_REJECTED', 'compliance', sessionId, 'failure', {
+        reason: 'Break duration too short',
+        actualDurationSeconds: breakDurationSeconds,
+        requiredDurationSeconds: MIN_BREAK_DURATION,
+        minutesRemaining
+      });
+
+      throw new functions.https.HttpsError('failed-precondition', 
+        `Break must be at least ${MIN_BREAK_DURATION / 60} minutes. Current: ${Math.floor(breakDurationSeconds / 60)} minutes. ${minutesRemaining} minute(s) remaining.`
+      );
+    }
+
+    // SECURITY: Validation successful - log audit event
+    await logAuditEvent(auth.uid, 'BREAK_VALIDATION_PASSED', 'compliance', sessionId, 'success', {
+      actualDurationSeconds: breakDurationSeconds,
+      requiredDurationSeconds: MIN_BREAK_DURATION
+    });
+
+    return {
+      success: true,
+      actualDurationSeconds: breakDurationSeconds,
+      validated: true,
+      timestamp: new Date().toISOString()
+    };
+  } catch (error) {
+    console.error('Error validating break end:', error);
+    
+    // Re-throw HTTP errors
+    if (error instanceof functions.https.HttpsError) {
+      throw error;
+    }
+    
+    // Wrap other errors
+    throw new functions.https.HttpsError('internal', 'Break validation failed');
+  }
+});
+
 module.exports = {
   sessionHeartbeat,
   trackPVQAttempt,
@@ -933,6 +1025,7 @@ module.exports = {
   enforceInactivityTimeout,
   auditComplianceAccess,
   generateComplianceReport,
+  validateBreakEnd,
   auditLogRetentionPolicy,
   getStudentIdByName,
   getComplianceDataForStudent,

@@ -15,6 +15,7 @@ import LoadingSpinner from '../../components/common/LoadingSpinner/LoadingSpinne
 import ErrorMessage from '../../components/common/ErrorMessage/ErrorMessage';
 import PersonalVerificationModal from '../../components/common/Modals/PersonalVerificationModal';
 import InactivityWarningModal from '../../components/common/Modals/InactivityWarningModal';
+import MandatoryBreakModal from '../../components/common/Modals/MandatoryBreakModal';
 import RestrictedVideoPlayer from '../../components/common/RestrictedVideoPlayer/RestrictedVideoPlayer';
 import PostVideoQuestionModal from '../../components/common/Modals/PostVideoQuestionModal';
 import Quiz from '../../components/common/Quiz/Quiz';
@@ -60,11 +61,15 @@ const CoursePlayerPageContent = () => {
     startTimer,
     stopTimer,
     pauseTimer,
+    resumeTimer,
+    resetSessionTimer,
     sessionTerminatedByUser,
 
     isActive,
     isLockedOut,
     isBreakMandatory,
+    isOnBreak,
+    breakTime,
     getFormattedSessionTime,
     updateVideoProgress,
     trackLessonAccess,
@@ -79,7 +84,10 @@ const CoursePlayerPageContent = () => {
     showInactivityWarning,
     inactivitySecondsRemaining,
     handleInactivityContinue,
-    inactivityTimedOut
+    inactivityTimedOut,
+    startBreak,
+    endBreak,
+    hasBreakMetMinimumDuration
   } = useTimer();
 
   // State
@@ -119,7 +127,7 @@ const CoursePlayerPageContent = () => {
     userId: user?.uid,
     courseId,
     sessionId: currentSessionId,
-    enabled: isActive && !!user && !!courseId,
+    enabled: isActive && !!user && !!courseId && !isOnBreak,
     onLimitReached: () => {
       setError('You have reached the 4-hour daily limit. Please try again tomorrow.');
       stopTimer();
@@ -143,13 +151,40 @@ const CoursePlayerPageContent = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLockedOut]);
 
-  // Show break modal when mandatory break is needed
+  const handleBreakComplete = useCallback(async () => {
+    try {
+      await endBreak();
+      // Only close modal and resume if break was accepted by server
+      setShowBreakModal(false);
+      resetSessionTimer();
+      resumeTimer();
+    } catch (error) {
+      // SECURITY: Server rejected break as too short (didn't meet 10-minute minimum)
+      if (error.code === 'BREAK_TOO_SHORT') {
+        setError(
+          `Break must be at least 10 minutes. ` +
+          `${error.minutesRemaining} minute(s) remaining. ` +
+          `Please continue your break.`
+        );
+        // Keep modal open until minimum time met
+        setShowBreakModal(true);
+      } else {
+        console.error('Error ending break:', error);
+        setError('Failed to end break. Please try again.');
+        // Keep modal open on error
+        setShowBreakModal(true);
+      }
+    }
+  }, [endBreak, resetSessionTimer, resumeTimer]);
+
   useEffect(() => {
-    if (isBreakMandatory && isActive) {
+    if (isBreakMandatory && isActive && !isOnBreak) {
+      // startBreak() will fetch server-calculated remaining break time
       setShowBreakModal(true);
       pauseTimer();
+      startBreak();
     }
-  }, [isBreakMandatory, isActive, pauseTimer]);
+  }, [isBreakMandatory, isActive, isOnBreak, pauseTimer, startBreak]);
 
   useEffect(() => {
     if (sessionTerminatedByUser) {
@@ -807,43 +842,12 @@ const CoursePlayerPageContent = () => {
       </div>
 
       {/* Mandatory Break Modal */}
-      {showBreakModal && (
-        <div style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.7)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          zIndex: 2000
-        }}>
-          <Card style={{
-            maxWidth: '500px',
-            width: '90%',
-            padding: '2rem',
-            textAlign: 'center'
-          }}>
-            <h2>⏸️ Mandatory Break Required</h2>
-            <p style={{ fontSize: '1.1rem', marginBottom: '1rem' }}>
-              You've been studying for 2 hours. State law requires a 10-minute break.
-            </p>
-            <p style={{ color: '#666', marginBottom: '2rem' }}>
-              Please take a break and return ready to continue learning.
-            </p>
-            <Button
-              variant="primary"
-              onClick={() => {
-                setShowBreakModal(false);
-              }}
-            >
-              I'm Taking a Break
-            </Button>
-          </Card>
-        </div>
-      )}
+      <MandatoryBreakModal
+        isOpen={showBreakModal && breakTime > 0}
+        breakTimeRemaining={breakTime}
+        onBreakComplete={handleBreakComplete}
+        error={error && showBreakModal ? error : null}
+      />
 
       {/* Personal Verification Modal */}
       <PersonalVerificationModal
