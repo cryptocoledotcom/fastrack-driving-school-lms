@@ -1,7 +1,8 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 
-const BREAK_REQUIRED_AFTER = 60; // 1 minute for testing purposes
-const MIN_BREAK_DURATION = 30;
+const BREAK_REQUIRED_AFTER = 2 * 3600; // 2 hours for DMV compliance (Ohio OAC 4501-7)
+const MIN_BREAK_DURATION = 10 * 60; // 10 minutes minimum per Ohio OAC 4501-7
+
 
 export const useBreakManagement = (options = {}) => {
   const {
