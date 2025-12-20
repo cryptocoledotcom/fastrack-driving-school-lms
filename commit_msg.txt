@@ -1,9 +1,0 @@
-security: remove Stripe secret key from environment file
-
-- Removed VITE_STRIPE_SECRET_KEY from .env.emulators
-- Secret keys must NEVER be committed to repositories
-- Only publishable keys should be in version control
-- Secret keys must be set via environment variables on server only
-- GitHub push protection caught this security violation
-
-IMPORTANT: The secret key (sk_test_...) must be rotated immediately on Stripe dashboard

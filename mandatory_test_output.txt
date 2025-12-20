@@ -5,7 +5,7 @@
 
 [7m[1m[36m RUN [39m[22m[27m [36mv1.6.1[39m [90mC:/Users/Cole/Documents/Fastrack/Fastrack-Learning_Management-System[39m
 
- [33m❯[39m src/components/common/Modals/__tests__/MandatoryBreakModal.test.jsx [2m ([22m[2m40 tests[22m [2m|[22m [31m2 failed[39m[2m)[22m[33m 459[2mms[22m[39m
+ [33m❯[39m src/components/common/Modals/__tests__/MandatoryBreakModal.test.jsx [2m ([22m[2m40 tests[22m [2m|[22m [31m2 failed[39m[2m)[22m[33m 468[2mms[22m[39m
 [31m   [33m❯[31m src/components/common/Modals/__tests__/MandatoryBreakModal.test.jsx[2m > [22mMandatoryBreakModal[2m > [22mNon-Dismissible Modal[2m > [22mcontains note about manual resume requirement[39m
 [31m     → Unable to find an element with the text: /You must manually click to resume/i. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
 
@@ -340,6 +340,6 @@ Ignored nodes: comments, script, style
 
 [2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
 [2m      Tests [22m [1m[31m2 failed[39m[22m[2m | [22m[1m[32m38 passed[39m[22m[90m (40)[39m
-[2m   Start at [22m 14:57:52
-[2m   Duration [22m 2.04s[2m (transform 104ms, setup 121ms, collect 161ms, tests 459ms, environment 667ms, prepare 232ms)[22m
+[2m   Start at [22m 14:57:43
+[2m   Duration [22m 2.24s[2m (transform 117ms, setup 130ms, collect 195ms, tests 468ms, environment 724ms, prepare 290ms)[22m
 

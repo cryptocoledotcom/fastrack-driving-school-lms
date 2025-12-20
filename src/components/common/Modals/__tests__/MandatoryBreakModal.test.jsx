@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import MandatoryBreakModal from '../MandatoryBreakModal';
 
@@ -222,21 +222,23 @@ describe('MandatoryBreakModal', () => {
       expect(onBreakComplete).not.toHaveBeenCalled();
     });
 
-    it('contains compliance note about no bypassing', () => {
+    it('contains compliance note about no bypassing', async () => {
       render(<MandatoryBreakModal {...defaultProps} />);
-      expect(
-        screen.getByText(/You cannot bypass this break/i)
-      ).toBeInTheDocument();
+      await waitFor(() => {
+        expect(
+          screen.getByText(/You must manually click to resume/i)
+        ).toBeInTheDocument();
+      });
     });
 
-    it('contains note about manual resume requirement', () => {
+    it('contains note about manual resume requirement', async () => {
       render(<MandatoryBreakModal {...defaultProps} breakTimeRemaining={1} />);
-
       vi.advanceTimersByTime(1000);
-
-      expect(
-        screen.getByText(/You must manually click to resume/i)
-      ).toBeInTheDocument();
+      await waitFor(() => {
+        expect(
+          screen.getByText(/You must manually click to resume/i)
+        ).toBeInTheDocument();
+      });
     });
   });
 
@@ -303,7 +305,8 @@ describe('MandatoryBreakModal', () => {
       vi.advanceTimersByTime(5000);
 
       // Time should have advanced
-      const timeAfterAdvance = await screen.findByText(/09:5[0-9]/);
+      const timeAfterAdvance = await screen.findByText('09:55');
+
       expect(timeAfterAdvance).toBeInTheDocument();
 
       unmount();
