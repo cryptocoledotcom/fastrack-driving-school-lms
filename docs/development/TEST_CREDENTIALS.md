@@ -20,24 +20,43 @@ Test credentials are **never hardcoded** in documentation, codebase, or version 
 - Reuse production credentials for testing
 - Leave credentials in public documentation
 
+## Setup Options Comparison
+
+| Option | Cost | Setup Time | Team Sharing | Local Only | Best For |
+|--------|------|-----------|--------------|-----------|----------|
+| **Google Password Manager** | Free | 2 min | No | ✅ Yes | Solo developers, simple setup |
+| **1Password/LastPass** | $3-5/mo | 10 min | ✅ Yes | Shared vault | Teams with shared credentials |
+| **Environment Variables** | Free | 5 min | No | ✅ Yes | Developers who prefer .env files |
+| **Firebase Emulator UI** | Free | 1 min | No | ✅ Yes | Testing without real credentials |
+
+**Recommendation for Solo Development**: Use Google Password Manager (Option 1) or Firebase Emulator (Option 3)
+
 ## Setup Options
 
 ### Option 1: Secure Credential Store (RECOMMENDED)
 
 **For team members:**
 
-1. **Ask team lead** for access to the team's credential management system
-2. **Supported services:**
-   - 1Password (recommended)
+1. **Use your preferred password manager:**
+   - **Google Password Manager** (free, integrated with Google account)
+   - 1Password
    - LastPass
    - Bitwarden
-   - Azure Key Vault
-   - GitHub Secrets (CI/CD only)
+   - KeePass (open source)
 
-3. **What to request:**
-   - Admin test account email & password
-   - Student test account email & password
-   - Instructor test account email & password
+2. **To store test credentials:**
+   - Log in to your password manager
+   - Create a new entry with:
+     - **Username**: test admin/student email
+     - **Password**: test password from team
+     - **Notes**: Fastrack LMS - Admin/Student Test Account
+   - Done! Credentials securely stored locally
+
+3. **To use in development:**
+   - Copy email from password manager
+   - Copy password from password manager
+   - Paste into login form
+   - Never hardcode or write down passwords
 
 ### Option 2: Environment Variables
 

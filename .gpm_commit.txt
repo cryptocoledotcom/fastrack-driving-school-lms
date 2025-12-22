@@ -1,0 +1,8 @@
+docs: add Google Password Manager as primary credential option 
+ 
+- Updated TEST_CREDENTIALS.md to recommend Google PM (free, built-in) 
+- Added comparison table for all credential options 
+- Updated CLAUDE.md and NETWORK_RESILIENCE_TESTING.md references 
+- Added setup time and recommendations 
+ 
+For solo developers: Google PM or Firebase Emulator UI are simplest

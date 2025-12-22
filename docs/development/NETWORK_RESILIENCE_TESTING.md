@@ -49,7 +49,7 @@
    ```
 
 2. Login with test student:
-   - Use credentials from secure credential store (1Password, LastPass, or team vault)
+   - Use Google Password Manager or your password manager to retrieve credentials
    - OR create a temporary test account via Firebase Emulator UI at http://localhost:4000
    - See `docs/development/TEST_CREDENTIALS.md` for detailed setup instructions
 
