@@ -49,9 +49,9 @@
    ```
 
 2. Login with test student:
-   - Use Google Password Manager or your password manager to retrieve credentials
-   - OR create a temporary test account via Firebase Emulator UI at http://localhost:4000
-   - See `docs/development/TEST_CREDENTIALS.md` for detailed setup instructions
+   - Chrome will auto-fill credentials from Settings → Passwords and passkeys
+   - OR create temporary account via Firebase Emulator UI at http://localhost:4000
+   - See `docs/development/TEST_CREDENTIALS.md` for all options
 
 3. Navigate to "Fastrack Online" course
 

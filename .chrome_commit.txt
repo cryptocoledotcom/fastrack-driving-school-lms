@@ -1,0 +1,8 @@
+docs: fix Google Password Manager instructions - use Chrome Settings instead 
+ 
+- Corrected: Google PM is for viewing passwords, not creating 
+- Added accurate Chrome Settings method (Settings > Passwords and passkeys > Add) 
+- Updated comparison table to list Chrome Settings as easiest option 
+- Updated CLAUDE.md and NETWORK_RESILIENCE_TESTING.md 
+ 
+Chrome Settings is the simplest approach: free, 1 min setup, auto-fill built-in

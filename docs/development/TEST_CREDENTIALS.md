@@ -22,14 +22,15 @@ Test credentials are **never hardcoded** in documentation, codebase, or version 
 
 ## Setup Options Comparison
 
-| Option | Cost | Setup Time | Team Sharing | Local Only | Best For |
-|--------|------|-----------|--------------|-----------|----------|
-| **Google Password Manager** | Free | 2 min | No | ✅ Yes | Solo developers, simple setup |
-| **1Password/LastPass** | $3-5/mo | 10 min | ✅ Yes | Shared vault | Teams with shared credentials |
-| **Environment Variables** | Free | 5 min | No | ✅ Yes | Developers who prefer .env files |
-| **Firebase Emulator UI** | Free | 1 min | No | ✅ Yes | Testing without real credentials |
+| Option | Cost | Setup Time | Auto-fill | Team Share | Best For |
+|--------|------|-----------|-----------|-----------|----------|
+| **Chrome Settings** | Free | 1 min | ✅ Yes | No | Easiest, solo developers |
+| **Google Password Manager** | Free | 2 min | ✅ Yes | No | Mobile + Chrome sync |
+| **1Password/LastPass** | $3-5/mo | 10 min | ✅ Yes | ✅ Yes | Teams with shared vault |
+| **Environment Variables** | Free | 5 min | No | No | Developers who prefer .env |
+| **Firebase Emulator UI** | Free | 1 min | No | No | Testing without credentials |
 
-**Recommendation for Solo Development**: Use Google Password Manager (Option 1) or Firebase Emulator (Option 3)
+**Recommendation for Solo Development**: Chrome Settings (Option 1) - built-in, no setup needed
 
 ## Setup Options
 
@@ -38,24 +39,28 @@ Test credentials are **never hardcoded** in documentation, codebase, or version 
 **For team members:**
 
 1. **Use your preferred password manager:**
-   - **Google Password Manager** (free, integrated with Google account)
+   - **Google Password Manager** (free, auto-saves with Chrome)
+   - **Chrome Settings** (built-in, easiest)
    - 1Password
    - LastPass
    - Bitwarden
    - KeePass (open source)
 
-2. **To store test credentials:**
-   - Log in to your password manager
-   - Create a new entry with:
+2. **To store test credentials (Google/Chrome method):**
+   - Open Chrome
+   - Go to `Settings` → `Passwords and passkeys`
+   - Click the `+` button (Add password)
+   - Fill in:
+     - **Website**: `https://localhost:3001` (or your dev URL)
      - **Username**: test admin/student email
      - **Password**: test password from team
-     - **Notes**: Fastrack LMS - Admin/Student Test Account
-   - Done! Credentials securely stored locally
+   - Click `Save`
+   - Done! Chrome will auto-fill on login page
 
 3. **To use in development:**
-   - Copy email from password manager
-   - Copy password from password manager
-   - Paste into login form
+   - Load login page at `localhost:3001`
+   - Chrome auto-fills email/password (blue dropdown)
+   - Press Enter to login
    - Never hardcode or write down passwords
 
 ### Option 2: Environment Variables

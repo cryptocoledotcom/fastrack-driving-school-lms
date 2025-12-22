@@ -596,9 +596,9 @@ VITE_USE_EMULATORS=true npm run dev
 ```
 
 **Test Credentials** (created by seed script):
-- **Super Admin**: Use Google Password Manager or your preferred password manager
-- **Student**: Use password manager or `.env.test` file
-- See `docs/development/TEST_CREDENTIALS.md` for setup instructions
+- **Super Admin**: Save in Chrome Settings (Settings → Passwords and passkeys → Add)
+- **Student**: Same method or `.env.test` file
+- See `docs/development/TEST_CREDENTIALS.md` for all options
 
 **Available Test Content**:
 - 1 Course (Fastrack Online Driving Course)
