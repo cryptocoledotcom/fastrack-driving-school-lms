@@ -49,8 +49,8 @@
    ```
 
 2. Login with test student:
-   - Email: `cole@fastrackdrive.com`
-   - Password: `B0w3r$0ckC013`
+   - Use credentials from secure credential store (1Password, LastPass, or team vault)
+   - OR create a temporary test account via Firebase Emulator UI at http://localhost:4000
 
 3. Navigate to "Fastrack Online" course
 

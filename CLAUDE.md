@@ -596,8 +596,9 @@ VITE_USE_EMULATORS=true npm run dev
 ```
 
 **Test Credentials** (created by seed script):
-- **Super Admin**: `colebowersock@gmail.com` / `B0w3r$0ckC013`
-- **Student**: `cole@fastrackdrive.com` / `B0w3r$0ckC013`
+- **Super Admin**: Use credentials from secure credential store (1Password, LastPass, etc.)
+- **Student**: Use credentials from secure credential store or `.env.test` file
+- See `docs/development/TEST_CREDENTIALS.md` for full setup instructions
 
 **Available Test Content**:
 - 1 Course (Fastrack Online Driving Course)
