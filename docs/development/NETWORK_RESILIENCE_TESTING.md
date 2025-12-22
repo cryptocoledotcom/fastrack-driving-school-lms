@@ -51,6 +51,7 @@
 2. Login with test student:
    - Use credentials from secure credential store (1Password, LastPass, or team vault)
    - OR create a temporary test account via Firebase Emulator UI at http://localhost:4000
+   - See `docs/development/TEST_CREDENTIALS.md` for detailed setup instructions
 
 3. Navigate to "Fastrack Online" course
 

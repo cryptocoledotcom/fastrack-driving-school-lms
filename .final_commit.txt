@@ -1,0 +1,5 @@
+docs: add TEST_CREDENTIALS reference to NETWORK_RESILIENCE_TESTING 
+ 
+- Added link to TEST_CREDENTIALS.md in manual testing setup section 
+- Ensures developers know where to find secure credential guidelines 
+- Completes the security credential management implementation
