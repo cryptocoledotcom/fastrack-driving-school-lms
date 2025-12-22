@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+
 import Card from '../common/Card/Card';
 import Button from '../common/Button/Button';
 import Input from '../common/Input/Input';
@@ -16,6 +17,7 @@ import {
 import { getAllStudents } from '../../api/student/userServices';
 import { formatTime24to12, parseLocalDate } from '../../utils/dateTimeFormatter';
 import { getCSRFToken, validateCSRFToken } from '../../utils/security/csrfToken';
+
 import styles from './SchedulingManagement.module.css';
 
 const SchedulingManagement = () => {

@@ -1,9 +1,6 @@
-const {
-    createMockFirestore,
-    createMockAuth,
-} = require('../../__tests__/mocks');
+/* eslint-disable import/order */
+const { createMockFirestore } = require('../../__tests__/mocks');
 
-// Mocks
 vi.mock('firebase-admin', () => {
     return {
         initializeApp: vi.fn(),
@@ -178,7 +175,7 @@ describe('Compliance Functions - Edge Cases', () => {
             // This is tricky with the simple mock above.
             // Let's refine the mockDb behavior for this test.
 
-            mockDb.collection = vi.fn((colName) => {
+            mockDb.collection = vi.fn((_colName) => {
                 return {
                     doc: vi.fn(() => {
                         // users -> doc -> sessions -> doc

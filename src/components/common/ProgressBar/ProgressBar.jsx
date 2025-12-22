@@ -1,7 +1,6 @@
 // ProgressBar Component
 // Progress indicator (0-100%)
 
-import React from 'react';
 import styles from './ProgressBar.module.css';
 
 const ProgressBar = ({

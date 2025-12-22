@@ -1,7 +1,7 @@
 // Authentication Context
 // Manages user authentication state and provides auth methods throughout the app
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
@@ -13,6 +13,7 @@ import {
   signInWithPopup
 } from 'firebase/auth';
 import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
+
 import { auth, db } from '../config/firebase';
 import { USER_ROLES } from '../constants/userRoles';
 import { validators } from '../constants/validationRules';
@@ -74,7 +75,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const fetchUserProfile = async (uid, email = '', displayName = '') => {
-    const startTime = performance.now();
+    const _startTime = performance.now();
     try {
       const timeoutPromise = new Promise((_, reject) =>
         setTimeout(() => reject(new Error('Firestore fetch timeout')), 5000)
@@ -83,18 +84,16 @@ export const AuthProvider = ({ children }) => {
       const fetchPromise = getDoc(doc(db, 'users', uid));
       const userDoc = await Promise.race([fetchPromise, timeoutPromise]);
 
-      const fetchTime = performance.now() - startTime;
-      console.debug(`Profile fetch for ${uid} completed in ${fetchTime.toFixed(2)}ms`);
+      const _fetchTime = performance.now() - _startTime;
 
       if (userDoc.exists()) {
         return userDoc.data();
       }
 
-      console.debug(`Profile document does not exist for uid: ${uid}`);
       return null;
     } catch (err) {
-      const fetchTime = performance.now() - startTime;
-      console.warn(`Profile fetch failed for ${uid} after ${fetchTime.toFixed(2)}ms:`, err.message);
+      const _fetchTime = performance.now() - _startTime;
+      console.warn(`Profile fetch failed for ${uid} after ${_fetchTime.toFixed(2)}ms:`, err.message);
       return createFallbackProfile(uid, email, displayName);
     }
   };
@@ -102,7 +101,7 @@ export const AuthProvider = ({ children }) => {
   // Create user profile in Firestore
   const createUserProfile = async (uid, data) => {
     try {
-      console.log('DEBUG: createUserProfile start', uid);
+      console.warn('DEBUG: createUserProfile start', uid);
       const userRef = doc(db, 'users', uid);
       const profileData = {
         uid,
@@ -113,9 +112,9 @@ export const AuthProvider = ({ children }) => {
         updatedAt: new Date().toISOString(),
         ...data
       };
-      console.log('DEBUG: setDoc calling...');
+      console.warn('DEBUG: setDoc calling...');
       await setDoc(userRef, profileData);
-      console.log('DEBUG: setDoc complete');
+      console.warn('DEBUG: setDoc complete');
       return profileData;
     } catch (err) {
       console.error('Error creating user profile:', err);
@@ -196,7 +195,8 @@ export const AuthProvider = ({ children }) => {
     updateProfileAsync().catch(err =>
       console.warn('Background profile update failed:', err)
     );
-  }, [user?.uid]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   // Login with email and password
   const login = async (email, password) => {
@@ -240,9 +240,9 @@ export const AuthProvider = ({ children }) => {
         }
       }
 
-      console.log('DEBUG: Calling createUserWithEmailAndPassword', { email });
+      console.warn('DEBUG: Calling createUserWithEmailAndPassword', { email });
       const result = await createUserWithEmailAndPassword(auth, email, password);
-      console.log('DEBUG: Auth successful, uid:', result.user.uid);
+      console.warn('DEBUG: Auth successful, uid:', result.user.uid);
 
       // Update display name if provided
       if (additionalData.displayName) {
@@ -252,13 +252,13 @@ export const AuthProvider = ({ children }) => {
       }
 
       // Create user profile in Firestore and await completion
-      console.log('DEBUG: Creating Firestore profile for', result.user.uid);
+      console.warn('DEBUG: Creating Firestore profile for', result.user.uid);
       const profileData = await createUserProfile(result.user.uid, {
         email,
         displayName: additionalData.displayName || '',
         ...additionalData
       });
-      console.log('DEBUG: Profile created successfully');
+      console.warn('DEBUG: Profile created successfully');
 
       // Explicitly set user and profile state to prevent race condition with onAuthStateChanged
       setUser(result.user);

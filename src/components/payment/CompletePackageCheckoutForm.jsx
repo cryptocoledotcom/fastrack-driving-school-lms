@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+
 import Button from '../common/Button/Button';
+
 import styles from './CheckoutForm.module.css';
 
 const CompletePackageCheckoutForm = ({ 
@@ -98,7 +100,7 @@ const CompletePackageCheckoutForm = ({
         throw new Error(stripeError.message);
       }
 
-      console.log('Payment Method Created:', paymentMethod);
+      console.warn('Payment Method Created:', paymentMethod);
       
       await new Promise(resolve => setTimeout(resolve, 2000));
 

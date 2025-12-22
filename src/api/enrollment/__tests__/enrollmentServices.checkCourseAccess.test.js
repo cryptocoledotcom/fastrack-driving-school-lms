@@ -1,6 +1,7 @@
+import { vi } from 'vitest';
+
 import enrollmentServices from '../enrollmentServices.js';
 import { COURSE_IDS, ENROLLMENT_STATUS, PAYMENT_STATUS, ACCESS_STATUS } from '../../../constants/courses.js';
-import { vi } from 'vitest';
 
 describe('enrollmentServices.checkCourseAccess()', () => {
   let mockGetEnrollment;
@@ -104,7 +105,7 @@ describe('enrollmentServices.checkCourseAccess()', () => {
 
       try {
         await enrollmentServices.checkCourseAccess('user123', COURSE_IDS.ONLINE);
-      } catch (e) {
+      } catch {
         // Expected
       }
 

@@ -1,5 +1,8 @@
-import React, { createContext, useContext, useState, useEffect, useRef } from 'react';
-import { useAuth } from './AuthContext';
+import { createContext, useContext, useState, useEffect, useRef } from 'react';
+import { httpsCallable, getFunctions } from 'firebase/functions';
+import { getApp } from 'firebase/app';
+import { signOut } from 'firebase/auth';
+
 import APP_CONFIG from '../constants/appConfig';
 import useSessionTimer from '../hooks/useSessionTimer';
 import useBreakManagement from '../hooks/useBreakManagement';
@@ -7,9 +10,6 @@ import usePVQTrigger from '../hooks/usePVQTrigger';
 import useSessionData from '../hooks/useSessionData';
 import useActivityTracking from '../hooks/useActivityTracking';
 import useInactivityTimeout from '../hooks/useInactivityTimeout';
-import { httpsCallable, getFunctions } from 'firebase/functions';
-import { getApp } from 'firebase/app';
-import { signOut } from 'firebase/auth';
 import { auth } from '../config/firebase';
 import {
   createComplianceSession,
@@ -29,6 +29,8 @@ import {
   verifySecurityAnswer
 } from '../api/security/securityServices';
 
+import { useAuth } from './AuthContext';
+
 const TimerContext = createContext();
 
 export const useTimer = () => {
@@ -47,7 +49,7 @@ export const TimerProvider = ({ children, courseId, lessonId, ipAddress }) => {
   const [pvqError, setPVQError] = useState(null);
 
   const intervalRef = useRef(null);
-  const breakIntervalRef = useRef(null);
+  const _breakIntervalRef = useRef(null);
   const saveIntervalRef = useRef(null);
   const lastSaveTimeRef = useRef(Date.now());
   const heartbeatIntervalRef = useRef(null);
@@ -89,10 +91,10 @@ export const TimerProvider = ({ children, courseId, lessonId, ipAddress }) => {
     enabled: sessionTimer.isActive && !inactivityTimedOut,
     lastActivityTime: activityTracking.lastActivity,
     onWarning: () => {
-      console.log('Inactivity warning triggered');
+      console.warn('Inactivity warning triggered');
     },
     onTimeout: async () => {
-      console.log('Inactivity timeout - enforcing logout');
+      console.warn('Inactivity timeout - enforcing logout');
       setInactivityTimedOut(true);
 
       if (user && courseId && sessionData.currentSessionId) {
@@ -194,7 +196,7 @@ export const TimerProvider = ({ children, courseId, lessonId, ipAddress }) => {
   };
 
   const setupPageUnloadHandler = (sessionId) => {
-    beforeUnloadHandlerRef.current = async (event) => {
+    beforeUnloadHandlerRef.current = async (_event) => {
       if (user && sessionId) {
         try {
           navigator.sendBeacon(

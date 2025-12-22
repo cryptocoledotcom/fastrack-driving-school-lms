@@ -1,10 +1,11 @@
 // PaymentModal Component
 // Modal wrapper for payment checkout
 
-import React from 'react';
 import { Elements } from '@stripe/react-stripe-js';
+
 import { stripePromise } from '../../config/stripe';
 import { COURSE_IDS } from '../../constants/courses';
+
 import CheckoutForm from './CheckoutForm';
 import CompletePackageCheckoutForm from './CompletePackageCheckoutForm';
 import RemainingPaymentCheckoutForm from './RemainingPaymentCheckoutForm';

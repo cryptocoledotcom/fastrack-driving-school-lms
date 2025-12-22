@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+
 import { useAuth } from '../../context/AuthContext';
 import Card from '../../components/common/Card/Card';
 import Button from '../../components/common/Button/Button';
 import Input from '../../components/common/Input/Input';
 import Select from '../../components/common/Select/Select';
 import TextArea from '../../components/common/Input/TextArea';
-import Checkbox from '../../components/common/Checkbox/Checkbox';
 import ErrorMessage from '../../components/common/ErrorMessage/ErrorMessage';
 import SuccessMessage from '../../components/common/SuccessMessage/SuccessMessage';
 import LoadingSpinner from '../../components/common/LoadingSpinner/LoadingSpinner';
@@ -13,8 +13,8 @@ import BaseModal from '../../components/common/Modals/BaseModal';
 import lessonServices from '../../api/courses/lessonServices';
 import courseServices from '../../api/courses/courseServices';
 import moduleServices from '../../api/courses/moduleServices';
-import quizServices from '../../api/courses/quizServices'; // Import quizServices
 import videoQuestionServices from '../../api/student/videoQuestionServices';
+
 import styles from './AdminLessonsPage.module.css';
 
 const AdminLessonsPage = () => {
@@ -22,7 +22,7 @@ const AdminLessonsPage = () => {
   const [lessons, setLessons] = useState([]);
   const [courses, setCourses] = useState([]);
   const [modules, setModules] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
@@ -193,7 +193,7 @@ const AdminLessonsPage = () => {
         await lessonServices.deleteLesson(lessonId);
         setSuccess('Lesson deleted successfully');
         loadLessonsAndModules(selectedCourseId);
-      } catch (err) {
+      } catch {
         setError('Failed to delete lesson');
       } finally {
         setLoading(false);

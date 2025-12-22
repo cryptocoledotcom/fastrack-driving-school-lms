@@ -1,5 +1,4 @@
 import { vi, describe, it, expect } from 'vitest';
-import { createRequire } from 'module';
 
 vi.mock('../../common/firebaseUtils', () => ({
     getDb: vi.fn(),

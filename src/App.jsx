@@ -1,21 +1,15 @@
 // Main App Component
 // Application routing and context providers
 
-import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 import { AuthProvider } from './context/AuthContext';
 import { CourseProvider } from './context/CourseContext';
 import { TimerProvider } from './context/TimerContext';
 import { ModalProvider } from './context/ModalContext';
 import ErrorBoundary from './components/common/ErrorBoundary/ErrorBoundary';
-
-// Route Guards
-import { ProtectedRoute, PublicRoute, RoleBasedRoute, UserAccessGuard, AdminDashboardRoute, AdminOrInstructorRoute, ComplianceRequiredRoute } from './components/guards';
-
-// Layouts
+import { ProtectedRoute, PublicRoute, UserAccessGuard, ComplianceRequiredRoute } from './components/guards';
 import { MainLayout, DashboardLayout, AuthLayout, AdminLayout } from './components/layout';
-
-// Public Pages
 import HomePage from './pages/Home/HomePage';
 import CoursesPage from './pages/Courses/CoursesPage';
 import AboutPage from './pages/About/AboutPage';
@@ -24,8 +18,6 @@ import PrivacyPolicy from './pages/PrivacyPolicy/PrivacyPolicy';
 import LoginPage from './pages/Auth/LoginPage';
 import RegisterPage from './pages/Auth/RegisterPage';
 import ForgotPasswordPage from './pages/Auth/ForgotPasswordPage';
-
-// Protected Pages
 import DashboardPage from './pages/Dashboard/DashboardPage';
 import MyCoursesPage from './pages/MyCourses/MyCoursesPage';
 import CourseDetailPage from './pages/CourseDetail/CourseDetailPage';
@@ -36,8 +28,6 @@ import ProfilePage from './pages/Profile/ProfilePage';
 import SettingsPage from './pages/Settings/SettingsPage';
 import CertificatesPage from './pages/Certificates/CertificatesPage';
 import PaymentSuccessPage from './pages/PaymentSuccess/PaymentSuccessPage';
-
-// Admin Pages
 import AdminDashboard from './pages/Admin/AdminDashboard';
 import AuditLogsPage from './pages/Admin/AuditLogsPage';
 import AnalyticsPage from './pages/Admin/AnalyticsPage';
@@ -48,26 +38,14 @@ import ComplianceReportsPage from './pages/Admin/ComplianceReportsPage';
 import DETSExportPage from './pages/Admin/DETSExportPage';
 import AdminCoursesPage from './pages/Admin/AdminCoursesPage';
 import AdminLessonsPage from './pages/Admin/AdminLessonsPage';
-
-// 404 Page
 import NotFoundPage from './pages/NotFound/NotFoundPage';
-
-// Landing Page (Coming Soon)
-import LandingPage from './pages/LandingPage/LandingPage';
-
-// Routes
 import { PUBLIC_ROUTES, PROTECTED_ROUTES, ADMIN_ROUTES } from './constants/routes';
-import { USER_ROLES } from './constants/userRoles';
-
-// Auth Components
 import { ForcePasswordChangeModal } from './components/auth';
+import { useAuth } from './context/AuthContext';
 
-// Styles
 import './assets/styles/global.css';
 import './assets/styles/theme.css';
 import './assets/styles/animations.css';
-
-import { useAuth } from './context/AuthContext';
 
 function AppRoutes() {
   const { showPasswordChangeModal, setShowPasswordChangeModal } = useAuth();

@@ -1,5 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
+
 import Button from '../Button/Button';
+
 import styles from './PostVideoQuestionModal.module.css';
 
 const PostVideoQuestionModal = ({
@@ -36,7 +38,7 @@ const PostVideoQuestionModal = ({
         }
       }
     }
-  }, [isOpen, question?.id, persistState, storageKey]);
+  }, [isOpen, question, persistState, storageKey]);
 
   useEffect(() => {
     setSelectedAnswer(null);

@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import { useAuth } from '../../../context/AuthContext';
-import Button from '../../common/Button/Button';
 import { PUBLIC_ROUTES } from '../../../constants/routes';
+
 import styles from './AdminHeader.module.css';
 
 const AdminHeader = () => {
-  const { user, userProfile, logout, getUserFullName } = useAuth();
+  const { _user, userProfile, logout, getUserFullName } = useAuth();
   const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState(false);
 

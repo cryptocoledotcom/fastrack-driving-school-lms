@@ -1,6 +1,7 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import Card from '../../common/Card/Card';
+
 import styles from './CertificatesWidget.module.css';
 
 const CertificatesWidget = ({ count, loading }) => {

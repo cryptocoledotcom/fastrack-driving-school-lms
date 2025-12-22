@@ -1,7 +1,8 @@
 // BaseModal Component
 // Base modal with overlay and close functionality
 
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
+
 import styles from './BaseModal.module.css';
 
 const BaseModal = ({

@@ -1,6 +1,7 @@
-import React from 'react';
+
 import Card from '../../components/common/Card/Card';
 import ProgressBar from '../../components/common/ProgressBar/ProgressBar';
+
 import styles from './ProgressPage.module.css';
 
 const ProgressPage = () => {

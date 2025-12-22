@@ -1,13 +1,14 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
+
 import * as courseServices from '../courseServices.js';
 
-let firestore;
-let db;
 let validateCourseId;
+let firestore;
+let _db;
+let _getTimestamps;
+let _getUpdatedTimestamp;
 let ValidationError;
-let CourseError;
-let getTimestamps;
-let getUpdatedTimestamp;
+let _CourseError;
 
 vi.mock('firebase/firestore', () => ({
   collection: vi.fn(),
@@ -62,11 +63,7 @@ vi.mock('../../errors/ApiError.js', () => ({
 
 vi.mock('../base/ServiceWrapper.js', () => ({
   executeService: vi.fn(async (operation) => {
-    try {
-      return await operation();
-    } catch (error) {
-      throw error;
-    }
+    return await operation();
   })
 }));
 
@@ -74,15 +71,15 @@ beforeEach(async () => {
   vi.clearAllMocks();
   firestore = vi.mocked(await import('firebase/firestore'));
   const configModule = await import('../../../config/firebase.js');
-  db = configModule.db;
+  _db = configModule.db;
   const validatorsModule = await import('../../../utils/api/validators.js');
   validateCourseId = validatorsModule.validateCourseId;
   const timestampModule = await import('../../../utils/api/timestampHelper.js');
-  getTimestamps = timestampModule.getTimestamps;
-  getUpdatedTimestamp = timestampModule.getUpdatedTimestamp;
+  _getTimestamps = timestampModule.getTimestamps;
+  _getUpdatedTimestamp = timestampModule.getUpdatedTimestamp;
   const errorModule = await import('../../errors/ApiError.js');
   ValidationError = errorModule.ValidationError;
-  CourseError = errorModule.CourseError;
+  _CourseError = errorModule.CourseError;
 });
 
 describe('Course Services', () => {
@@ -115,7 +112,7 @@ describe('Course Services', () => {
 
     it('should return empty array when no courses exist', async () => {
       const mockQuerySnapshot = {
-        forEach: (callback) => {}
+        forEach: (_callback) => {}
       };
       
       firestore.collection.mockReturnValue({});

@@ -1,4 +1,3 @@
-import React from 'react';
 import UserManagementTab from '../../components/admin/tabs/UserManagementTab';
 
 const UsersPage = () => {

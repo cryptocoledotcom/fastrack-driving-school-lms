@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { getFunctions, httpsCallable } from 'firebase/functions';
+
 import app from '../../config/firebase';
 import Button from '../common/Button/Button';
 import Input from '../common/Input/Input';
 import ErrorMessage from '../common/ErrorMessage/ErrorMessage';
 import SuccessMessage from '../common/SuccessMessage/SuccessMessage';
+
 import styles from './ComplianceReporting.module.css';
 
 const ComplianceReporting = () => {

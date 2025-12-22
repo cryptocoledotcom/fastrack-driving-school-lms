@@ -1,4 +1,5 @@
 import { doc, serverTimestamp, writeBatch, increment } from 'firebase/firestore';
+
 import { db } from '../../config/firebase.js';
 import { EnrollmentError, ValidationError } from '../errors/ApiError.js';
 import ServiceBase from '../base/ServiceBase.js';
@@ -212,7 +213,7 @@ class EnrollmentService extends ServiceBase {
     }
   }
 
-  async updateEnrollmentAfterPayment(userId, courseId, paymentAmount, paymentType = 'upfront') {
+  async updateEnrollmentAfterPayment(userId, courseId, paymentAmount, _paymentType = 'upfront') {
     try {
       this.validate.validateUserId(userId);
       this.validate.validateCourseId(courseId);
@@ -404,7 +405,7 @@ class EnrollmentService extends ServiceBase {
     }
   }
 
-  async createPaidEnrollment(userId, courseId, paidAmount, userEmail = '') {
+  async createPaidEnrollment(userId, courseId, paidAmount, _userEmail = '') {
     try {
       this.validate.validateUserId(userId);
       this.validate.validateCourseId(courseId);
@@ -457,7 +458,7 @@ class EnrollmentService extends ServiceBase {
     }
   }
 
-  async createPaidCompletePackageEnrollment(userId, paidAmount, userEmail = '') {
+  async createPaidCompletePackageEnrollment(userId, paidAmount, _userEmail = '') {
     try {
       this.validate.validateUserId(userId);
       if (typeof paidAmount !== 'number' || paidAmount < 0) {
@@ -546,7 +547,7 @@ class EnrollmentService extends ServiceBase {
     }
   }
 
-  async createPaidCompletePackageSplit(userId, upfrontAmount, userEmail = '') {
+  async createPaidCompletePackageSplit(userId, upfrontAmount, _userEmail = '') {
     try {
       this.validate.validateUserId(userId);
       if (typeof upfrontAmount !== 'number' || upfrontAmount <= 0) {
@@ -637,7 +638,7 @@ class EnrollmentService extends ServiceBase {
     }
   }
 
-  async payRemainingBalance(userId, courseId, amountPaid, userEmail = '') {
+  async payRemainingBalance(userId, courseId, amountPaid, _userEmail = '') {
     try {
       this.validate.validateUserId(userId);
       this.validate.validateCourseId(courseId);

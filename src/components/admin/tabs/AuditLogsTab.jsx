@@ -1,7 +1,9 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+
 import { auditLogServices } from '../../../api/admin';
 import LoadingSpinner from '../../common/LoadingSpinner/LoadingSpinner';
 import ErrorMessage from '../../common/ErrorMessage/ErrorMessage';
+
 import styles from './AuditLogsTab.module.css';
 
 const AuditLogsTab = () => {

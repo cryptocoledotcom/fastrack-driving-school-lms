@@ -1,3 +1,4 @@
+/* eslint-disable import/order */
 const {
   createMockFirestore,
   createMockDocumentSnapshot,
@@ -17,7 +18,7 @@ vi.mock('firebase-functions/v2/https', () => ({
 }));
 
 vi.mock('firebase-functions/params', () => ({
-  defineSecret: vi.fn((name) => ({
+  defineSecret: vi.fn((_name) => ({
     value: vi.fn(() => 'test_stripe_key_12345')
   })),
 }));
@@ -45,13 +46,11 @@ const {
   handlePaymentIntentFailed,
   updateEnrollmentAfterPayment
 } = require('../paymentFunctions');
-
 const { setDb } = require('../../common/firebaseUtils');
 
 describe('Payment Functions', () => {
   let mockContext;
   let mockDb;
-  let mockStripe;
 
   beforeEach(() => {
     vi.clearAllMocks();
@@ -63,28 +62,6 @@ describe('Payment Functions', () => {
       rawRequest: {
         ip: '127.0.0.1',
         headers: { 'user-agent': 'test-agent' }
-      }
-    };
-
-    mockStripe = {
-      checkout: {
-        sessions: {
-          create: vi.fn(() => Promise.resolve({
-            id: 'cs_test_123',
-          }))
-        }
-      },
-      paymentIntents: {
-        create: vi.fn(() => Promise.resolve({
-          id: 'pi_test_123',
-          client_secret: 'pi_test_123_secret'
-        }))
-      },
-      webhooks: {
-        constructEvent: vi.fn((body, sig, secret) => ({
-          type: 'checkout.session.completed',
-          data: { object: { id: 'cs_test_123' } }
-        }))
       }
     };
   });

@@ -30,7 +30,7 @@ describe('Firestore Security Rules - User Management', () => {
 
       it('should allow SUPER_ADMIN to read any user document', () => {
         const auth = { uid: 'super_admin123', role: 'super_admin' };
-        const resource = { data: { uid: 'other_user' } };
+        const _resource = { data: { uid: 'other_user' } };
 
         const isAdmin = () => {
           return auth && ['dmv_admin', 'super_admin'].includes(auth.role);
@@ -103,7 +103,7 @@ describe('Firestore Security Rules - User Management', () => {
 
       it('should allow DMV_ADMIN to read user subcollections', () => {
         const auth = { uid: 'dmv_admin123', role: 'dmv_admin' };
-        const resource = { data: { userId: 'other_user' } };
+        const _resource = { data: { userId: 'other_user' } };
 
         const isAdmin = () => auth?.role && ['dmv_admin', 'super_admin'].includes(auth.role);
 
@@ -246,7 +246,7 @@ describe('Firestore Security Rules - User Management', () => {
   describe('Cross-Document Rules', () => {
     it('should enforce role validation on user writes', () => {
       const auth = { uid: 'super_admin123', role: 'super_admin' };
-      const targetUserId = 'user123';
+      const _targetUserId = 'user123';
 
       const isSuperAdmin = () => auth?.role === 'super_admin';
       const canUpdateTargetUser = () => isSuperAdmin();

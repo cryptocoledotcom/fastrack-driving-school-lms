@@ -1,7 +1,9 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { vi, describe, it, expect, beforeEach } from 'vitest';
-import CheckoutForm from '../../components/payment/CheckoutForm';
+/* eslint-disable import/order */
 import { Elements } from '@stripe/react-stripe-js';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { vi, describe, it, expect } from 'vitest';
+
+import CheckoutForm from '../../components/payment/CheckoutForm';
 
 // MOCKS
 const mockUser = { uid: 'test-user', email: 'test@example.com' };

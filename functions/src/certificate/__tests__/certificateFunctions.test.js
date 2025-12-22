@@ -2,6 +2,8 @@ const {
   createMockFirestore,
   createMockDocumentSnapshot,
 } = require('../../__tests__/mocks');
+const { generateCertificate } = require('../certificateFunctions');
+const { setDb } = require('../../common/firebaseUtils');
 
 vi.mock('firebase-functions/v2/https', () => ({
   onCall: vi.fn((handler) => {
@@ -10,9 +12,6 @@ vi.mock('firebase-functions/v2/https', () => ({
     return fn;
   }),
 }));
-
-const { generateCertificate } = require('../certificateFunctions');
-const { setDb } = require('../../common/firebaseUtils');
 
 describe('Certificate Functions', () => {
   let mockContext;

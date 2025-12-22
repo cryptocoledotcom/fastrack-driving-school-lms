@@ -1,10 +1,12 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+
 import { useAuth } from '../../context/AuthContext';
 import Card from '../../components/common/Card/Card';
 import Button from '../../components/common/Button/Button';
 import LoadingSpinner from '../../components/common/LoadingSpinner/LoadingSpinner';
 import ErrorMessage from '../../components/common/ErrorMessage/ErrorMessage';
 import { getCertificatesByUserId } from '../../api/student/certificateServices';
+
 import styles from './CertificatesPage.module.css';
 
 const CertificatesPage = () => {
@@ -69,7 +71,7 @@ const CertificatesPage = () => {
         month: 'long',
         day: 'numeric'
       });
-    } catch (err) {
+    } catch {
       return 'Unknown date';
     }
   };

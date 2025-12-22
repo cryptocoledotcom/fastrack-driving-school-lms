@@ -1,4 +1,5 @@
 import { vi } from 'vitest';
+
 import QueryHelper from '../QueryHelper.js';
 
 let ApiError;

@@ -19,7 +19,7 @@ const captureMessage = (message, level = 'info') => {
   const dsn = import.meta.env.VITE_SENTRY_DSN;
 
   if (!dsn) {
-    console.log(`[${level.toUpperCase()}] ${message}`);
+    console.warn(`[${level.toUpperCase()}] ${message}`);
     return;
   }
 

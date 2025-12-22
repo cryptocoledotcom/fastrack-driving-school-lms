@@ -1,17 +1,11 @@
-const admin = require('firebase-admin');
-const { onCall, onRequest } = require('firebase-functions/v2/https');
 const { defineSecret } = require('firebase-functions/params');
-const { getDb } = require('../common/firebaseUtils');
-const corsOrigins = (process.env.CORS_ORIGINS || 'http://localhost:3000,https://fastrackdrive.com,https://www.fastrackdrive.com').split(',');
+const { onCall, onRequest } = require('firebase-functions/v2/https');
+const cors = require('cors');
+const stripe = require('stripe');
 
-const cors = require('cors')({
-  origin: corsOrigins,
-  credentials: true
-});
+const { getDb } = require('../common/firebaseUtils');
 
 const STRIPE_SECRET_KEY_SECRET = defineSecret("STRIPE_SECRET_KEY");
-
-const stripe = require('stripe');
 
 async function handleCheckoutSessionCompleted(session) {
   const metadata = session.metadata || {};

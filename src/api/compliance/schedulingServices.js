@@ -10,6 +10,7 @@ import {
   where,
   serverTimestamp
 } from 'firebase/firestore';
+
 import { db } from '../../config/firebase';
 import { COURSE_IDS } from '../../constants/courses';
 import { executeService } from '../base/ServiceWrapper';

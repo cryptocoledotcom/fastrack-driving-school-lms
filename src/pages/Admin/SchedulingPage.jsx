@@ -1,4 +1,3 @@
-import React from 'react';
 import SchedulingManagement from '../../components/admin/SchedulingManagement';
 import Card from '../../components/common/Card/Card';
 

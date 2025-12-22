@@ -1,9 +1,10 @@
 // AuthLayout Component
 // Layout wrapper for auth pages (centered, minimal)
 
-import React from 'react';
 import { Link } from 'react-router-dom';
+
 import { PUBLIC_ROUTES } from '../../constants/routes';
+
 import styles from './AuthLayout.module.css';
 
 const AuthLayout = ({ children }) => {

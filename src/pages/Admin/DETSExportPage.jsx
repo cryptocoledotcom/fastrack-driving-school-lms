@@ -1,4 +1,3 @@
-import React from 'react';
 import DETSExportTab from '../../components/admin/tabs/DETSExportTab';
 
 const DETSExportPage = () => {

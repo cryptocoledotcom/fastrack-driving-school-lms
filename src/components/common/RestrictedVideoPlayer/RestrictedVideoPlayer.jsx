@@ -1,12 +1,13 @@
-import React, { useRef, useEffect, useState, useImperativeHandle } from 'react';
+import { useRef, useEffect, useState, useImperativeHandle, forwardRef } from 'react';
+
 import styles from './RestrictedVideoPlayer.module.css';
 
-const RestrictedVideoPlayer = React.forwardRef(({
+const RestrictedVideoPlayer = forwardRef(({
   src,
   onEnded,
   onTimeUpdate,
   onLoadedMetadata,
-  duration
+  _duration
 }, ref) => {
   const videoRef = useRef(null);
   const lastValidTimeRef = useRef(0);
@@ -159,7 +160,7 @@ const RestrictedVideoPlayer = React.forwardRef(({
       }
     };
 
-    const handleProgress = (e) => {
+    const handleProgress = (_e) => {
       lastValidTimeRef.current = videoElement.currentTime;
     };
 

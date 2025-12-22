@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
+
 import EnrollmentManagementTab from '../../components/admin/tabs/EnrollmentManagementTab';
 import { useAdminPanel } from '../../hooks/useAdminPanel';
 import LoadingSpinner from '../../components/common/LoadingSpinner/LoadingSpinner';

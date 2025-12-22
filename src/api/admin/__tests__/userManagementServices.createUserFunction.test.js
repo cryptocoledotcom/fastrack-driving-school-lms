@@ -1,6 +1,7 @@
-import userManagementServices from '../userManagementServices';
-import { getFunctions, httpsCallable } from 'firebase/functions';
+import { httpsCallable } from 'firebase/functions';
 import { vi } from 'vitest';
+
+import userManagementServices from '../userManagementServices';
 
 vi.mock('firebase/functions');
 

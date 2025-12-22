@@ -1,7 +1,6 @@
 // SuccessMessage Component
 // Success notification component
 
-import React from 'react';
 import styles from './SuccessMessage.module.css';
 
 const SuccessMessage = ({

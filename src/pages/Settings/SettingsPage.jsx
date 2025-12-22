@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+
 import { useAuth } from '../../context/AuthContext';
 import Card from '../../components/common/Card/Card';
 import Input from '../../components/common/Input/Input';
@@ -18,6 +19,7 @@ import {
   getSecurityProfile, 
   setSecurityQuestions 
 } from '../../api/security/securityServices';
+
 import styles from './SettingsPage.module.css';
 
 const SettingsPage = () => {

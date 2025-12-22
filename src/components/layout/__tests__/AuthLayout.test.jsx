@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { vi, describe, it, expect } from 'vitest';
 import { MemoryRouter } from 'react-router-dom';
+
 import AuthLayout from '../AuthLayout';
 
 // Mock constants

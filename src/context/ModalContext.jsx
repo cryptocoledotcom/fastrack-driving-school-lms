@@ -1,7 +1,7 @@
 // Modal Context
 // Global modal management for the application
 
-import React, { createContext, useContext, useState, useCallback } from 'react';
+import { createContext, useContext, useState, useCallback } from 'react';
 
 const ModalContext = createContext();
 

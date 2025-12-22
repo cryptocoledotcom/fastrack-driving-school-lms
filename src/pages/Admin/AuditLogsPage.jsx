@@ -1,12 +1,14 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+
 import { useAuth } from '../../context/AuthContext';
 import { auditLogServices } from '../../api/admin';
 import LoadingSpinner from '../../components/common/LoadingSpinner/LoadingSpinner';
 import ErrorMessage from '../../components/common/ErrorMessage/ErrorMessage';
+
 import styles from './AuditLogsPage.module.css';
 
 const AuditLogsPage = () => {
-  const { user } = useAuth();
+  useAuth();
 
   const [logs, setLogs] = useState([]);
   const [loading, setLoading] = useState(true);

@@ -1,7 +1,8 @@
 import { renderHook, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { useDashboardStats } from '../useDashboardStats';
 import { getDocs } from 'firebase/firestore';
+
+import { useDashboardStats } from '../useDashboardStats';
 
 // Mock Firebase dependencies
 vi.mock('firebase/firestore', () => ({

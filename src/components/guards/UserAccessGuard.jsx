@@ -1,11 +1,12 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+
 import { useAuth } from '../../context/AuthContext';
 import LoadingSpinner from '../common/LoadingSpinner/LoadingSpinner';
 import { PROTECTED_ROUTES } from '../../constants/routes';
 import { USER_ROLES } from '../../constants/userRoles';
 
-const UserAccessGuard = ({ children, accessType = 'profile' }) => {
+const UserAccessGuard = ({ children, _accessType = 'profile' }) => {
   const { user, userProfile, loading } = useAuth();
   const navigate = useNavigate();
   const params = useParams();

@@ -1,9 +1,10 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import Button from '../common/Button/Button';
 import ProgressBar from '../common/ProgressBar/ProgressBar';
 import { PAYMENT_STATUS } from '../../constants/courses';
 import { PROTECTED_ROUTES } from '../../constants/routes';
+
 import styles from './EnrollmentCard.module.css';
 
 const EnrollmentCard = ({ enrollment, course }) => {

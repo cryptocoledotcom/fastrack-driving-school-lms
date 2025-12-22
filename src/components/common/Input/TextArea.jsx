@@ -1,7 +1,8 @@
 // TextArea Component
 // Multi-line text input with validation display
 
-import React, { forwardRef } from 'react';
+import { forwardRef } from 'react';
+
 import styles from './TextArea.module.css';
 
 const TextArea = forwardRef(({

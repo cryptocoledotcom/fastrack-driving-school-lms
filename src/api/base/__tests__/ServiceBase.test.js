@@ -1,4 +1,5 @@
 import { vi } from 'vitest';
+
 import ServiceBase from '../ServiceBase.js';
 import loggingService from '../../../services/loggingService.js';
 

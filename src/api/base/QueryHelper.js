@@ -8,13 +8,14 @@ import {
   getDocs,
   getCountFromServer
 } from 'firebase/firestore';
+
 import { db } from '../../config/firebase.js';
 import { ApiError } from '../errors/ApiError.js';
 
 class QueryHelper {
   static async paginate(collectionPath, pageSize = 10, filters = [], orderingField = null, orderingDirection = 'asc') {
     try {
-      let q = collection(db, collectionPath);
+      const q = collection(db, collectionPath);
       let constraints = [];
 
       if (filters && filters.length > 0) {
@@ -67,7 +68,7 @@ class QueryHelper {
         throw new ApiError('PAGINATION_ERROR', 'Invalid pagination cursor', null);
       }
 
-      let q = collection(db, collectionPath);
+      const q = collection(db, collectionPath);
       let constraints = [];
 
       if (filters && filters.length > 0) {
@@ -110,7 +111,7 @@ class QueryHelper {
       }
 
       const skipCount = (pageNumber - 1) * pageSize;
-      let q = collection(db, collectionPath);
+      const q = collection(db, collectionPath);
       let constraints = [];
 
       if (filters && filters.length > 0) {
@@ -152,7 +153,7 @@ class QueryHelper {
 
   static async getCollectionCount(collectionPath, filters = []) {
     try {
-      let q = collection(db, collectionPath);
+      const q = collection(db, collectionPath);
       let constraints = [];
 
       if (filters && filters.length > 0) {

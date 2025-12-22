@@ -1,9 +1,10 @@
-import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+
+import { render, screen, _fireEvent, waitFor } from '@testing-library/react';
 import { vi } from 'vitest';
-import { AuthProvider, useAuth } from './AuthContext';
 import * as firebase from 'firebase/auth';
-import * as firestore from 'firebase/firestore';
+'/firestore';
+
+import { AuthProvider, useAuth } from './AuthContext';
 
 vi.mock('firebase/auth');
 vi.mock('firebase/firestore');

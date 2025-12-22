@@ -1,7 +1,8 @@
 // DashboardPage Component
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { collection, onSnapshot } from 'firebase/firestore';
+
 import { db } from '../../config/firebase';
 import { useAuth } from '../../context/AuthContext';
 import Card from '../../components/common/Card/Card';
@@ -14,6 +15,7 @@ import { COURSE_IDS, ENROLLMENT_STATUS } from '../../constants/courses';
 import { getCourseById } from '../../api/courses/courseServices';
 import { getProgress } from '../../api/student/progressServices';
 import { getSecurityProfile } from '../../api/security/securityServices';
+
 import styles from './DashboardPage.module.css';
 
 const DashboardPage = () => {
@@ -91,7 +93,7 @@ const DashboardPage = () => {
     );
 
     return () => unsubscribe();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     
   }, [user]);
 
   useEffect(() => {
@@ -115,7 +117,7 @@ const DashboardPage = () => {
     };
 
     checkSecurityQuestions();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     
   }, [user]);
 
   const handleContinueCourse = (courseId) => {

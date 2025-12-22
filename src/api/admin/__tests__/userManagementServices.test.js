@@ -1,15 +1,14 @@
 import {
   collection,
-  query,
-  where,
   getDocs,
   doc,
   updateDoc,
   addDoc,
   getDoc,
-  serverTimestamp,
 } from 'firebase/firestore';
+import { httpsCallable } from 'firebase/functions';
 import { vi } from 'vitest';
+
 import { db } from '../../../config/firebase';
 import userManagementServices from '../userManagementServices';
 import { USER_ROLES } from '../../../constants/userRoles';
@@ -19,8 +18,6 @@ vi.mock('firebase/functions', () => ({
   getFunctions: vi.fn(),
   httpsCallable: vi.fn(),
 }));
-
-import { httpsCallable } from 'firebase/functions';
 
 describe('User Management Services', () => {
   beforeEach(() => {

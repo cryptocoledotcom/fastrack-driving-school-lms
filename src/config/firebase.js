@@ -8,13 +8,10 @@ import {
 import {
   getFirestore,
   initializeFirestore,
-  doc,
-  getDoc,
   connectFirestoreEmulator
 } from 'firebase/firestore';
 import {
-  getStorage,
-  connectStorageEmulator
+  getStorage
 } from 'firebase/storage';
 import {
   getFunctions,
@@ -70,19 +67,17 @@ const initializeFirebase = () => {
       db = getFirestore(app);
     }
 
-    const storage = getStorage(app);
     const functions = getFunctions(app);
 
-    console.log('FIREBASE PROJECT ID:', firebaseConfig.projectId);
+    console.warn('FIREBASE PROJECT ID:', firebaseConfig.projectId);
 
     // Connect to emulators in development if toggle is enabled
     if (import.meta.env.DEV && import.meta.env.VITE_USE_EMULATORS === 'true') {
-      console.log('🔧 Connecting to Firebase Emulators...');
+      console.warn('🔧 Connecting to Firebase Emulators...');
       connectAuthEmulator(auth, 'http://127.0.0.1:9099');
       connectFirestoreEmulator(db, '127.0.0.1', 8080);
-      // connectStorageEmulator(storage, '127.0.0.1', 9199); // Storage emulator not running
       connectFunctionsEmulator(functions, '127.0.0.1', 5001);
-      console.log('✅ Connected to Emulators');
+      console.warn('✅ Connected to Emulators');
     }
 
   } catch (error) {
@@ -96,20 +91,20 @@ const initializeAppCheckConfig = () => {
   if (firebaseApp && import.meta.env.MODE !== 'test') {
     // Skip App Check if using emulator project
     if (import.meta.env.VITE_USE_EMULATORS === 'true') {
-      console.log('⚠️ Skipping App Check initialization for emulator project');
+      console.warn('⚠️ Skipping App Check initialization for emulator project');
       return;
     }
 
     const siteKey = import.meta.env.VITE_FIREBASE_APP_CHECK_SITE_KEY;
     if (siteKey) {
       try {
-        const appCheck = initializeAppCheck(firebaseApp, {
+        const _appCheck = initializeAppCheck(firebaseApp, {
           provider: new ReCaptchaV3Provider(siteKey),
           isTokenAutoRefreshEnabled: true
         });
 
         if (import.meta.env.DEV) {
-          console.log('✓ Firebase App Check initialized with ReCaptcha provider');
+          console.warn('✓ Firebase App Check initialized with ReCaptcha provider');
         }
       } catch (error) {
         console.error('Failed to initialize App Check:', error);

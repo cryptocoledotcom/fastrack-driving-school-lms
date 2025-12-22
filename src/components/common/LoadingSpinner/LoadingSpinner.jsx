@@ -1,7 +1,6 @@
 // LoadingSpinner Component
 // Loading indicator with size variants
 
-import React from 'react';
 import styles from './LoadingSpinner.module.css';
 
 const LoadingSpinner = ({

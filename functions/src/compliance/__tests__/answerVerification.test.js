@@ -2,8 +2,7 @@ const {
   normalizeAnswer,
   verifyAnswer,
   formatFeedbackMessage,
-  generateDetailedFeedback,
-  MAX_ANSWER_LENGTH
+  generateDetailedFeedback
 } = require('../answerVerification');
 
 describe('Task 2.2: Answer Verification Logic', () => {

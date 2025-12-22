@@ -1,7 +1,8 @@
 // Checkbox Component
 // Checkbox with label
 
-import React, { forwardRef } from 'react';
+import { forwardRef } from 'react';
+
 import styles from './Checkbox.module.css';
 
 const Checkbox = forwardRef(({

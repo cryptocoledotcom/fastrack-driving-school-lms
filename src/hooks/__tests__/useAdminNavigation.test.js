@@ -1,14 +1,15 @@
 import { renderHook } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
+
 import useAdminNavigation from '../useAdminNavigation';
 import { useAuth } from '../../context/AuthContext';
-import { ADMIN_SIDEBAR_ITEMS } from '../../config/adminRoutes';
+import { _ADMIN_SIDEBAR_ITEMS } from '../../config/adminRoutes';
 
 vi.mock('../../context/AuthContext');
 
 // Mock config if needed, or assume standard structure
 vi.mock('../../config/adminRoutes', () => ({
-    ADMIN_SIDEBAR_ITEMS: [
+    _ADMIN_SIDEBAR_ITEMS: [
         { path: '/admin/dashboard', label: 'Dashboard', requiredRoles: ['admin', 'super_admin'] },
         { path: '/admin/settings', label: 'Settings', requiredRoles: ['super_admin'] }
     ]

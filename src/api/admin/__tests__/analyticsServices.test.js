@@ -1,5 +1,4 @@
 import analyticsServices from '../analyticsServices';
-import { vi } from 'vitest';
 
 describe('analyticsServices', () => {
   const mockUsers = [

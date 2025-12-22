@@ -7,6 +7,7 @@ const CHECK_INTERVAL_MS = 1000;
 export const useInactivityTimeout = (options = {}) => {
   const {
     enabled = true,
+    // eslint-disable-next-line react-hooks/purity
     lastActivityTime = Date.now(),
     onWarning = null,
     onTimeout = null,

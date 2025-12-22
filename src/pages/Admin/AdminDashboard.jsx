@@ -1,8 +1,8 @@
-import React from 'react';
 import { useDashboardStats } from '../../hooks/admin/useDashboardStats';
 import CertificatesWidget from '../../components/admin/dashboard/CertificatesWidget';
 import RevenueWidget from '../../components/admin/dashboard/RevenueWidget';
 import ActivityWidget from '../../components/admin/dashboard/ActivityWidget';
+
 import styles from './AdminDashboard.module.css';
 
 const AdminDashboard = () => {

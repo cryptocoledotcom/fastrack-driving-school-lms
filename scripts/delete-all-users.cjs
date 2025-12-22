@@ -1,6 +1,7 @@
-const admin = require('firebase-admin');
 const path = require('path');
 const fs = require('fs');
+
+const admin = require('firebase-admin');
 
 console.log('🔍 Script started...');
 console.log('📁 Current directory:', process.cwd());

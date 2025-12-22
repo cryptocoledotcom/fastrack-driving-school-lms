@@ -11,6 +11,7 @@ import {
   increment,
   arrayUnion
 } from 'firebase/firestore';
+
 import { db } from '../../config/firebase';
 import { executeService } from '../base/ServiceWrapper';
 import { ValidationError } from '../errors/ApiError';
@@ -189,7 +190,7 @@ export const markLessonCompleteWithCompliance = async (
     const progressRef = getUserProgressRef(userId);
     const progressDoc = await getDoc(progressRef);
     const progress = progressDoc.exists() ? progressDoc.data()[courseId] || {} : {};
-    const lessonProgress = { ...progress.lessonProgress } || {};
+    const lessonProgress = { ...(progress.lessonProgress || {}) };
     
     // Mark lesson as completed
     lessonProgress[lessonId] = {

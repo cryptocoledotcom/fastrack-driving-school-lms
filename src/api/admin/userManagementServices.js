@@ -1,4 +1,3 @@
-import { db } from '../../config/firebase';
 import { 
   collection, 
   query, 
@@ -14,6 +13,8 @@ import {
 } from 'firebase/firestore';
 import { httpsCallable } from 'firebase/functions';
 import { getFunctions } from 'firebase/functions';
+
+import { db } from '../../config/firebase';
 import { USER_ROLES } from '../../constants/userRoles';
 
 const ACTIVITY_LOG_COLLECTION = 'activityLogs';
@@ -258,7 +259,7 @@ class UserManagementService {
     }
   }
 
-  async createUser(email, temporaryPassword, displayName, performedByAdminId) {
+  async createUser(email, temporaryPassword, displayName, _performedByAdminId) {
     try {
       const functions = getFunctions();
       const createUserFunction = httpsCallable(functions, 'createUser');

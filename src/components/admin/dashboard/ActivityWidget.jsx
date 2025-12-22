@@ -1,5 +1,5 @@
-import React from 'react';
 import Card from '../../common/Card/Card';
+
 import styles from './ActivityWidget.module.css';
 
 const ActivityWidget = ({ activities, loading }) => {

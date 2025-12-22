@@ -1,15 +1,16 @@
 import { vi } from 'vitest';
+
 import * as userServices from '../userServices.js';
 import * as progressServices from '../progressServices.js';
 
 let firestore;
-let db;
+let _db;
 let validateUserId;
 let validateCourseId;
 let validateLessonId;
 let validateModuleId;
 let ValidationError;
-let NotFoundError;
+let _NotFoundError;
 
 vi.mock('firebase/firestore', () => ({
   doc: vi.fn(),
@@ -75,11 +76,7 @@ vi.mock('../../errors/ApiError.js', () => ({
 
 vi.mock('../base/ServiceWrapper.js', () => ({
   executeService: vi.fn(async (operation) => {
-    try {
-      return await operation();
-    } catch (error) {
-      throw error;
-    }
+    return await operation();
   })
 }));
 
@@ -87,7 +84,7 @@ beforeEach(async () => {
   vi.clearAllMocks();
   firestore = vi.mocked(await import('firebase/firestore'));
   const configModule = await import('../../../config/firebase.js');
-  db = configModule.db;
+  _db = configModule.db;
   const validatorsModule = await import('../../../utils/api/validators.js');
   validateUserId = validatorsModule.validateUserId;
   validateCourseId = validatorsModule.validateCourseId;
@@ -95,7 +92,7 @@ beforeEach(async () => {
   validateModuleId = validatorsModule.validateModuleId;
   const errorModule = await import('../../errors/ApiError.js');
   ValidationError = errorModule.ValidationError;
-  NotFoundError = errorModule.NotFoundError;
+  _NotFoundError = errorModule.NotFoundError;
 });
 
 describe('User Services', () => {

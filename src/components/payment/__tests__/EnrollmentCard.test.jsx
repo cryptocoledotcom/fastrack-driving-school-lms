@@ -1,6 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { vi, describe, it, expect, beforeEach } from 'vitest';
-import React from 'react';
+
+
 import EnrollmentCard from '../EnrollmentCard';
 
 // Using mocks for constants to avoid potential module resolution issues with spaces in path

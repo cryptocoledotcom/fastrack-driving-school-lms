@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+
 import { useAuth } from '../../context/AuthContext';
 import { useAdminPanel } from '../../hooks/useAdminPanel';
 import EnrollmentManagementTab from '../../components/admin/tabs/EnrollmentManagementTab';
@@ -9,17 +10,12 @@ import UserManagementTab from '../../components/admin/tabs/UserManagementTab';
 import LoadingSpinner from '../../components/common/LoadingSpinner/LoadingSpinner';
 import ErrorMessage from '../../components/common/ErrorMessage/ErrorMessage';
 import { USER_ROLES } from '../../constants/userRoles';
+
 import styles from './AdminPage.module.css';
 
 const AdminPage = () => {
     const { userProfile, isAdmin } = useAuth();
     const [activeTab, setActiveTab] = useState('enrollment');
-
-    // Check access control
-    if (!isAdmin && userProfile?.role !== USER_ROLES.SUPER_ADMIN && userProfile?.role !== USER_ROLES.DMV_ADMIN) {
-        return <ErrorMessage message="Access Denied" />;
-    }
-
     const {
         users,
         loading: loadingEnrollments,
@@ -28,6 +24,11 @@ const AdminPage = () => {
         handleResetEnrollment,
         handleResetAllUserEnrollments
     } = useAdminPanel();
+
+    // Check access control
+    if (!isAdmin && userProfile?.role !== USER_ROLES.SUPER_ADMIN && userProfile?.role !== USER_ROLES.DMV_ADMIN) {
+        return <ErrorMessage message="Access Denied" />;
+    }
 
     const getCourseName = (courseId) => {
         const names = {

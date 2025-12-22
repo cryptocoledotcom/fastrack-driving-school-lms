@@ -1,5 +1,6 @@
 const admin = require('firebase-admin');
 const { Logging } = require('@google-cloud/logging');
+
 const { getDb } = require('./firebaseUtils');
 
 let cachedLogging = null;

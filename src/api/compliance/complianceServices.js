@@ -10,6 +10,7 @@ import {
   serverTimestamp,
   arrayUnion
 } from 'firebase/firestore';
+
 import { db } from '../../config/firebase';
 import { executeService } from '../base/ServiceWrapper';
 import { validateUserId, validateCourseId } from '../../utils/api/validators.js';

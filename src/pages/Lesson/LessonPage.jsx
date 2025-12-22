@@ -1,6 +1,7 @@
-import React from 'react';
 import { useParams } from 'react-router-dom';
+
 import Card from '../../components/common/Card/Card';
+
 import styles from './LessonPage.module.css';
 
 const LessonPage = () => {

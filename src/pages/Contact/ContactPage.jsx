@@ -1,5 +1,6 @@
-import React from 'react';
+
 import Card from '../../components/common/Card/Card';
+
 import styles from './ContactPage.module.css';
 
 const ContactPage = () => {

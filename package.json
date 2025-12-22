@@ -23,6 +23,8 @@
     "dev:emulators": "cross-env VITE_USE_EMULATORS=true npm run dev",
     "build": "vite build",
     "preview": "vite preview",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "test": "vitest",
     "test:ui": "vitest --ui",
     "test:e2e": "playwright test",
@@ -31,6 +33,7 @@
     "load-test": "node load-test.js"
   },
   "devDependencies": {
+    "@eslint/js": "^9.39.2",
     "@playwright/test": "^1.44.1",
     "@testing-library/jest-dom": "^6.4.5",
     "@testing-library/react": "^15.0.7",
@@ -39,6 +42,11 @@
     "@vitest/coverage-v8": "^1.6.0",
     "@vitest/ui": "^1.6.0",
     "cross-env": "^10.1.0",
+    "eslint": "^9.39.2",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "globals": "^16.5.0",
     "happy-dom": "^20.0.11",
     "jsdom": "^27.3.0",
     "picocolors": "^1.1.1",

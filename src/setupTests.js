@@ -44,7 +44,6 @@ global.jest = {
   runOnlyPendingTimers: noop,
   runOnlyPendingTimersAsync: noop,
   runAllTimersAsync: noop,
-  clearAllTimers: vi.clearAllTimers,
   setSystemTime: vi.setSystemTime,
   getRealSystemTime: vi.getRealSystemTime,
 };

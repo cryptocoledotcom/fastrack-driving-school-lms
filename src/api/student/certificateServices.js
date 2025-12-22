@@ -8,10 +8,11 @@ import {
   updateDoc,
   serverTimestamp
 } from 'firebase/firestore';
-import { db } from '../../config/firebase';
-import { executeService } from '../base/ServiceWrapper';
 import { httpsCallable, getFunctions } from 'firebase/functions';
 import { getApp } from 'firebase/app';
+
+import { db } from '../../config/firebase';
+import { executeService } from '../base/ServiceWrapper';
 
 const CERTIFICATES_COLLECTION = 'certificates';
 

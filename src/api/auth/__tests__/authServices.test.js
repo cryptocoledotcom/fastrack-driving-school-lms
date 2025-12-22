@@ -1,4 +1,5 @@
 import { vi } from 'vitest';
+
 import * as authServices from '../authServices.js';
 
 let firebase;
@@ -56,11 +57,7 @@ vi.mock('../../errors/ApiError.js', () => ({
 
 vi.mock('../base/ServiceWrapper.js', () => ({
   executeService: vi.fn(async (operation) => {
-    try {
-      return await operation();
-    } catch (error) {
-      throw error;
-    }
+    return await operation();
   })
 }));
 

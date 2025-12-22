@@ -204,18 +204,77 @@ describe('UserManagementTab', () => {
 
 ### 5. Linting & Formatting
 
+#### ESLint
+
+Always ensure your code passes ESLint checks:
+
 ```bash
-# Check for linting issues
+# Check for linting issues (must be 0 errors, 0 warnings)
 npm run lint
 
-# Fix linting issues
-npm run lint --fix
+# Auto-fix most issues
+npm run lint -- --fix
 
-# Format code (if prettier configured)
-npm run format
+# Check specific file
+npx eslint src/components/MyComponent.jsx
 ```
 
-### 6. Commit Messages
+**ESLint is MANDATORY** - do not commit code with violations.
+
+#### ESLint Suppression Policy
+
+**Philosophy**: Fix code issues, not suppress them. ESLint violations are real problems 99% of the time.
+
+**WRONG** ❌ - Never suppress at file level:
+```javascript
+/* eslint-disable */  // ❌ NEVER DO THIS
+/* eslint-disable no-unused-vars */  // ❌ WRONG
+```
+
+**RIGHT** ✅ - Use inline comment ONLY when necessary:
+```javascript
+// eslint-disable-next-line react-hooks/exhaustive-deps
+}, [user]);  // Intentional: adding userProfile here causes infinite loop
+```
+
+**When suppression IS legitimate**:
+1. Adding a dependency would create an infinite loop or major performance issue
+2. The pattern is intentional and documented in a comment
+3. The code has been reviewed and understood by the team
+
+See `docs/development/ESLINT_GUIDE.md` for detailed guidelines and examples.
+
+#### Common ESLint Fixes
+
+| Issue | Solution |
+|-------|----------|
+| `'x' is assigned but never used` | Remove variable or prefix with `_` |
+| `Missing dependencies in effect` | Add variables to dependency array `[userId, fetchUser]` |
+| `Imports should be sorted` | Reorder: React → External → Internal → Styles |
+| `Unexpected console statement` | Use `console.warn()` or `console.error()` instead |
+| `Unexpected var` | Replace with `const` or `let` |
+
+---
+
+### 6. Code Quality Checklist
+
+Before submitting code, verify:
+
+**ESLint** 
+- [ ] `npm run lint` shows 0 errors, 0 warnings
+- [ ] No file-level eslint-disable comments
+- [ ] Any inline suppressions have explaining comments
+- [ ] Run `npm run lint -- --fix` to auto-fix common issues
+
+**Code Review**
+- [ ] Follow naming conventions (PascalCase components, camelCase functions)
+- [ ] Use service layer pattern (no direct Firebase calls from components)
+- [ ] Proper error handling with custom ApiError classes
+- [ ] No console.log in production code
+- [ ] No commented-out code blocks
+- [ ] No secrets or API keys hardcoded
+
+### 7. Commit Messages
 
 **Format**:
 ```
@@ -239,7 +298,7 @@ feature(payment): implement Stripe webhook handling
 Fixes #456
 ```
 
-### 7. Create Pull Request
+### 8. Create Pull Request
 
 **PR Description**:
 ```markdown
@@ -264,7 +323,7 @@ Brief explanation of changes
 - [ ] No breaking changes
 ```
 
-### 8. Code Review
+### 9. Code Review
 
 **Self-Review Before Requesting Review**:
 - [ ] Code follows project standards

@@ -16,12 +16,10 @@
  * - Creates immutable SUPER_ADMIN audit trail
  */
 
-import admin from 'firebase-admin';
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+const fs = require('fs');
+const path = require('path');
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const admin = require('firebase-admin');
 
 const SUPER_ADMIN_UID = 'DF0sczbZtKZ8Bclm1cvoIh1hNAg1';
 const SUPER_ADMIN_EMAIL = 'colebowersock@gmail.com';

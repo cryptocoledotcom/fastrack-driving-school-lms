@@ -1,9 +1,9 @@
 // ConfirmModal Component
 // Confirmation dialog (Yes/No actions)
 
-import React from 'react';
-import BaseModal from './BaseModal';
 import Button from '../Button/Button';
+
+import BaseModal from './BaseModal';
 import styles from './ConfirmModal.module.css';
 
 const ConfirmModal = ({

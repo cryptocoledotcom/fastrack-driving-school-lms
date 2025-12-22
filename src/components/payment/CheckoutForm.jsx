@@ -1,10 +1,12 @@
 // CheckoutForm Component
 // Stripe payment form for processing payments
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+
 import Button from '../common/Button/Button';
 import { getCSRFToken, validateCSRFToken } from '../../utils/security/csrfToken';
+
 import styles from './CheckoutForm.module.css';
 
 const CheckoutForm = ({ 
@@ -114,7 +116,7 @@ const CheckoutForm = ({
         throw new Error(stripeError.message);
       }
 
-      console.log('Payment Method Created:', paymentMethod);
+      console.warn('Payment Method Created:', paymentMethod);
       
       await new Promise(resolve => setTimeout(resolve, 2000));
 

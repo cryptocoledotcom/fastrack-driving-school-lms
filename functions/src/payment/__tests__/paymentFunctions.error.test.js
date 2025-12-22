@@ -1,9 +1,8 @@
+/* eslint-disable import/order */
 const {
-    createMockFirestore,
-    createMockAuth,
+    createMockFirestore
 } = require('../../__tests__/mocks');
 
-// Dependency Mocks
 vi.mock('firebase-admin', () => {
     return {
         initializeApp: vi.fn(),

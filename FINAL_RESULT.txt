@@ -1,0 +1,156 @@
+
+> fastrack-driving-school-lms@1.0.0 lint
+> eslint .
+
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\src\compliance\__tests__\complianceFunctions.edge.test.js
+  3:5  warning  There should be no empty line within import group  import/order
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\src\compliance\__tests__\videoQuestionFunctions.test.js
+  4:5  warning  There should be no empty line within import group  import/order
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\src\payment\__tests__\paymentFunctions.error.test.js
+  3:5  warning  There should be no empty line within import group  import/order
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\src\payment\__tests__\paymentFunctions.test.js
+  4:5  warning  There should be no empty line within import group  import/order
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\src\user\__tests__\userFunctions.advanced.test.js
+  4:5  warning  There should be no empty line within import group  import/order
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\src\user\__tests__\userFunctions.test.js
+  4:5  warning  There should be no empty line within import group  import/order
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\__tests__\integration\CourseEnrollmentFlow.test.jsx
+  5:1  warning  There should be no empty line within import group  import/order
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\common\Modals\PostVideoQuestionModal.jsx
+  41:6  warning  React Hook useEffect has a missing dependency: 'question'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\common\Modals\__tests__\PostVideoQuestionModal.accessibility.test.jsx
+   54:33  error    'radioEvent' is assigned a value but never used. Allowed unused vars must match /^_/u                                                                                                                                                             no-unused-vars
+  115:13  error    'onAnswerSubmit' is assigned a value but never used. Allowed unused vars must match /^_/u                                                                                                                                                         no-unused-vars
+  127:13  error    'user' is not defined                                                                                                                                                                                                                             no-undef
+  183:13  error    'onAnswerSubmit' is assigned a value but never used. Allowed unused vars must match /^_/u                                                                                                                                                         no-unused-vars
+  195:13  error    'user' is not defined                                                                                                                                                                                                                             no-undef
+  366:13  error    'user' is not defined                                                                                                                                                                                                                             no-undef
+  418:13  error    'onAnswerSubmit' is assigned a value but never used. Allowed unused vars must match /^_/u                                                                                                                                                         no-unused-vars
+  432:13  error    'user' is not defined                                                                                                                                                                                                                             no-undef
+  433:13  error    'user' is not defined                                                                                                                                                                                                                             no-undef
+  462:15  error    'rerender' is assigned a value but never used. Allowed unused vars must match /^_/u                                                                                                                                                               no-unused-vars
+  489:13  error    'user' is not defined                                                                                                                                                                                                                             no-undef
+  508:13  error    'user' is not defined                                                                                                                                                                                                                             no-undef
+  513:13  error    'user' is not defined                                                                                                                                                                                                                             no-undef
+  532:12  warning  React Hook React.useCallback has an unnecessary dependency: 'onComplete'. Either exclude it or remove the dependency array. Outer scope values like 'onComplete' aren't valid dependencies because mutating them doesn't re-render the component  react-hooks/exhaustive-deps
+  552:13  error    'user' is not defined                                                                                                                                                                                                                             no-undef
+  572:13  error    'user' is not defined                                                                                                                                                                                                                             no-undef
+  581:42  error    'question' is defined but never used. Allowed unused args must match /^_/u                                                                                                                                                                        no-unused-vars
+  743:13  error    'user' is not defined                                                                                                                                                                                                                             no-undef
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\common\Modals\__tests__\PostVideoQuestionModal.state.test.jsx
+   41:25  error  'question' is not defined                                                                     no-undef
+   89:32  error  'setSelectedAnswer' is assigned a value but never used. Allowed unused vars must match /^_/u  no-unused-vars
+  124:27  error  'setSubmitted' is assigned a value but never used. Allowed unused vars must match /^_/u       no-unused-vars
+  128:26  error  'setFeedback' is assigned a value but never used. Allowed unused vars must match /^_/u        no-unused-vars
+  262:13  error  'onAnswerSubmit' is assigned a value but never used. Allowed unused vars must match /^_/u     no-unused-vars
+  265:16  error  'isOpen' is assigned a value but never used. Allowed unused vars must match /^_/u             no-unused-vars
+  265:24  error  'setIsOpen' is assigned a value but never used. Allowed unused vars must match /^_/u          no-unused-vars
+  266:16  error  'question' is assigned a value but never used. Allowed unused vars must match /^_/u           no-unused-vars
+  267:27  error  'setSubmitted' is assigned a value but never used. Allowed unused vars must match /^_/u       no-unused-vars
+  380:11  error  'callCount' is assigned a value but never used. Allowed unused vars must match /^_/u          no-unused-vars
+  617:16  error  'isOpen' is assigned a value but never used. Allowed unused vars must match /^_/u             no-unused-vars
+  710:16  error  'feedback' is assigned a value but never used. Allowed unused vars must match /^_/u           no-unused-vars
+  732:15  error  'rerender' is assigned a value but never used. Allowed unused vars must match /^_/u           no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\payment\RemainingPaymentCheckoutForm.jsx
+  19:3  error  'courseName' is defined but never used. Allowed unused args must match /^_/u  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\context\AuthContext.jsx
+   88:7  warning  Unexpected console statement. Only these console methods are allowed: warn, error                                                                 no-console
+   94:7  warning  Unexpected console statement. Only these console methods are allowed: warn, error                                                                 no-console
+  200:6  warning  React Hook useEffect has missing dependencies: 'fetchUserProfile', 'user', and 'userProfile'. Either include them or remove the dependency array  react-hooks/exhaustive-deps
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\context\ModalContext.test.jsx
+   11:17  error  'modals' is assigned a value but never used. Allowed unused vars must match /^_/u  no-unused-vars
+   38:17  error  'modals' is assigned a value but never used. Allowed unused vars must match /^_/u  no-unused-vars
+   55:17  error  'modals' is assigned a value but never used. Allowed unused vars must match /^_/u  no-unused-vars
+  123:17  error  'modals' is assigned a value but never used. Allowed unused vars must match /^_/u  no-unused-vars
+  150:17  error  'modals' is assigned a value but never used. Allowed unused vars must match /^_/u  no-unused-vars
+  206:17  error  'modals' is assigned a value but never used. Allowed unused vars must match /^_/u  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\context\TimerContext.test.jsx
+  47:15  error  'render' is assigned a value but never used. Allowed unused vars must match /^_/u                             no-unused-vars
+  47:23  error  'screen' is assigned a value but never used. Allowed unused vars must match /^_/u                             no-unused-vars
+  50:52  error  Unsafe usage of optional chaining. If it short-circuits with 'undefined' the evaluation will throw TypeError  no-unsafe-optional-chaining
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\hooks\useBreakManagement.js
+  112:6  warning  React Hook useCallback has a missing dependency: 'BREAK_STATE_KEY'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\hooks\usePVQTrigger.test.js
+   82:13  error  'fs' is assigned a value but never used. Allowed unused vars must match /^_/u  no-unused-vars
+   84:23  error  '_fs' is not defined                                                           no-undef
+   95:13  error  'fs' is assigned a value but never used. Allowed unused vars must match /^_/u  no-unused-vars
+   97:23  error  '_fs' is not defined                                                           no-undef
+  105:13  error  'fs' is assigned a value but never used. Allowed unused vars must match /^_/u  no-unused-vars
+  107:23  error  '_fs' is not defined                                                           no-undef
+  113:13  error  'fs' is assigned a value but never used. Allowed unused vars must match /^_/u  no-unused-vars
+  115:23  error  '_fs' is not defined                                                           no-undef
+  120:13  error  'fs' is assigned a value but never used. Allowed unused vars must match /^_/u  no-unused-vars
+  122:23  error  '_fs' is not defined                                                           no-undef
+  126:13  error  'fs' is assigned a value but never used. Allowed unused vars must match /^_/u  no-unused-vars
+  128:23  error  '_fs' is not defined                                                           no-undef
+  135:13  error  'fs' is assigned a value but never used. Allowed unused vars must match /^_/u  no-unused-vars
+  137:23  error  '_fs' is not defined                                                           no-undef
+  141:13  error  'fs' is assigned a value but never used. Allowed unused vars must match /^_/u  no-unused-vars
+  143:23  error  '_fs' is not defined                                                           no-undef
+  147:13  error  'fs' is assigned a value but never used. Allowed unused vars must match /^_/u  no-unused-vars
+  149:23  error  '_fs' is not defined                                                           no-undef
+  153:13  error  'fs' is assigned a value but never used. Allowed unused vars must match /^_/u  no-unused-vars
+  155:23  error  '_fs' is not defined                                                           no-undef
+  159:13  error  'fs' is assigned a value but never used. Allowed unused vars must match /^_/u  no-unused-vars
+  161:23  error  '_fs' is not defined                                                           no-undef
+  167:13  error  'fs' is assigned a value but never used. Allowed unused vars must match /^_/u  no-unused-vars
+  169:23  error  '_fs' is not defined                                                           no-undef
+  174:13  error  'fs' is assigned a value but never used. Allowed unused vars must match /^_/u  no-unused-vars
+  176:23  error  '_fs' is not defined                                                           no-undef
+  180:13  error  'fs' is assigned a value but never used. Allowed unused vars must match /^_/u  no-unused-vars
+  182:23  error  '_fs' is not defined                                                           no-undef
+  188:13  error  'fs' is assigned a value but never used. Allowed unused vars must match /^_/u  no-unused-vars
+  190:23  error  '_fs' is not defined                                                           no-undef
+  198:13  error  'fs' is assigned a value but never used. Allowed unused vars must match /^_/u  no-unused-vars
+  200:23  error  '_fs' is not defined                                                           no-undef
+  204:13  error  'fs' is assigned a value but never used. Allowed unused vars must match /^_/u  no-unused-vars
+  206:23  error  '_fs' is not defined                                                           no-undef
+  212:13  error  'fs' is assigned a value but never used. Allowed unused vars must match /^_/u  no-unused-vars
+  214:23  error  '_fs' is not defined                                                           no-undef
+  221:13  error  'fs' is assigned a value but never used. Allowed unused vars must match /^_/u  no-unused-vars
+  223:23  error  '_fs' is not defined                                                           no-undef
+  229:13  error  'fs' is assigned a value but never used. Allowed unused vars must match /^_/u  no-unused-vars
+  231:23  error  '_fs' is not defined                                                           no-undef
+  249:13  error  'fs' is assigned a value but never used. Allowed unused vars must match /^_/u  no-unused-vars
+  251:23  error  '_fs' is not defined                                                           no-undef
+  255:13  error  'fs' is assigned a value but never used. Allowed unused vars must match /^_/u  no-unused-vars
+  257:23  error  '_fs' is not defined                                                           no-undef
+  261:13  error  'fs' is assigned a value but never used. Allowed unused vars must match /^_/u  no-unused-vars
+  263:23  error  '_fs' is not defined                                                           no-undef
+  267:13  error  'fs' is assigned a value but never used. Allowed unused vars must match /^_/u  no-unused-vars
+  269:23  error  '_fs' is not defined                                                           no-undef
+  273:13  error  'fs' is assigned a value but never used. Allowed unused vars must match /^_/u  no-unused-vars
+  275:23  error  '_fs' is not defined                                                           no-undef
+  281:13  error  'fs' is assigned a value but never used. Allowed unused vars must match /^_/u  no-unused-vars
+  283:23  error  '_fs' is not defined                                                           no-undef
+  296:13  error  'fs' is assigned a value but never used. Allowed unused vars must match /^_/u  no-unused-vars
+  298:23  error  '_fs' is not defined                                                           no-undef
+  309:13  error  'fs' is assigned a value but never used. Allowed unused vars must match /^_/u  no-unused-vars
+  311:23  error  '_fs' is not defined                                                           no-undef
+  318:13  error  'fs' is assigned a value but never used. Allowed unused vars must match /^_/u  no-unused-vars
+  321:28  error  '_fs' is not defined                                                           no-undef
+  326:13  error  'fs' is assigned a value but never used. Allowed unused vars must match /^_/u  no-unused-vars
+  329:19  error  '_fs' is not defined                                                           no-undef
+  336:13  error  'fs' is assigned a value but never used. Allowed unused vars must match /^_/u  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\pages\Admin\__tests__\AdminPage.userManagement.integration.test.jsx
+  6:1  warning  There should be no empty line within import group  import/order
+
+✖ 115 problems (101 errors, 14 warnings)
+

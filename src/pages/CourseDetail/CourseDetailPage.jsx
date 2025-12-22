@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+
 import { useAuth } from '../../context/AuthContext';
 import Card from '../../components/common/Card/Card';
 import Button from '../../components/common/Button/Button';
@@ -12,6 +13,7 @@ import { getCourseById } from '../../api/courses/courseServices';
 import { getModules } from '../../api/courses/moduleServices';
 import { getProgress } from '../../api/student/progressServices';
 import { enrollmentServices } from '../../api/enrollment';
+
 import styles from './CourseDetailPage.module.css';
 
 const CourseDetailPage = () => {

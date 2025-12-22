@@ -1,9 +1,9 @@
+/* eslint-disable import/order */
 const {
   createMockFirestore,
   createMockAuth,
 } = require('../../__tests__/mocks');
 
-// 1. Mock google-auth-library FIRST to catch any internal instantiations
 vi.mock('google-auth-library', () => {
   return {
     GoogleAuth: vi.fn().mockImplementation(() => ({

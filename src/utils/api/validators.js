@@ -89,7 +89,7 @@ export const validateEnrollmentData = (userId, courseId, userEmail) => {
 
   try {
     validateEmail(userEmail);
-  } catch (e) {
+  } catch {
     errors.push('userEmail must be valid');
   }
 

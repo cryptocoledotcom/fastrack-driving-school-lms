@@ -70,7 +70,7 @@ export class RetryHandler {
 
         // Log success (but only log multi-attempt success)
         if (attempt > 1) {
-          console.log(
+          console.warn(
             `✅ [${operationName}] Succeeded on attempt ${attempt}/${this.maxAttempts}`
           );
         }

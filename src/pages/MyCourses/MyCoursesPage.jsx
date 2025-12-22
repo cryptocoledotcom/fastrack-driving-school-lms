@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Elements } from '@stripe/react-stripe-js';
+
 import { useAuth } from '../../context/AuthContext';
 import Card from '../../components/common/Card/Card';
 import Button from '../../components/common/Button/Button';
@@ -9,15 +11,15 @@ import ErrorMessage from '../../components/common/ErrorMessage/ErrorMessage';
 import { enrollmentServices } from '../../api/enrollment';
 import { getCourseById } from '../../api/courses/courseServices';
 import { getProgress } from '../../api/student/progressServices';
-import { Elements } from '@stripe/react-stripe-js';
 import { stripePromise } from '../../config/stripe';
 import PaymentModal from '../../components/payment/PaymentModal';
 import RemainingPaymentCheckoutForm from '../../components/payment/RemainingPaymentCheckoutForm';
 import LessonBooking from '../../components/scheduling/LessonBooking';
 import UpcomingLessons from '../../components/scheduling/UpcomingLessons';
 import { getUserBookings } from '../../api/compliance/schedulingServices';
-import styles from './MyCoursesPage.module.css';
 import { COURSE_IDS, COURSE_TYPES, PAYMENT_STATUS } from '../../constants/courses';
+
+import styles from './MyCoursesPage.module.css';
 
 const MyCoursesPage = () => {
   const { user } = useAuth();

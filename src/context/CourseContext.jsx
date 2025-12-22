@@ -1,12 +1,14 @@
 // Course Context
 // Manages course data and current course state throughout the app
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { useAuth } from './AuthContext';
+import { createContext, useContext, useState, useEffect } from 'react';
+
 import { getCourses, getCourseById } from '../api/courses/courseServices';
 import { getModules } from '../api/courses/moduleServices';
 import { getLessons } from '../api/courses/lessonServices';
 import { getProgress } from '../api/student/progressServices';
+
+import { useAuth } from './AuthContext';
 
 const CourseContext = createContext();
 

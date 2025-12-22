@@ -10,6 +10,7 @@ import {
   where,
   getDocs
 } from 'firebase/firestore';
+
 import { db } from '../../config/firebase';
 import { executeService } from '../base/ServiceWrapper';
 import { ValidationError, NotFoundError } from '../errors/ApiError';

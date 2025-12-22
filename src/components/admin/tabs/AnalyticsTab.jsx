@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import {
   LineChart,
   Line,
@@ -14,9 +14,11 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts';
+
 import Card from '../../common/Card/Card';
 import analyticsServices from '../../../api/admin/analyticsServices';
 import { COURSE_IDS } from '../../../constants/courses';
+
 import styles from './AnalyticsTab.module.css';
 
 const defaultGetCourseName = (courseId) => courseId;

@@ -1,5 +1,7 @@
-import React from 'react';
+import fs from 'fs';
+
 import { vi } from 'vitest';
+
 import useBreakManagement from './useBreakManagement';
 
 const BREAK_REQUIRED_AFTER = 2 * 3600;
@@ -21,7 +23,7 @@ describe('useBreakManagement Hook', () => {
     });
 
     it('should be a valid React hook', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
       const content = fs.readFileSync(path.join(__dirname, 'useBreakManagement.js'), 'utf8');
 
@@ -56,7 +58,7 @@ describe('useBreakManagement Hook', () => {
 
   describe('Initial State', () => {
     it('should initialize with correct default state', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
       const content = fs.readFileSync(path.join(__dirname, 'useBreakManagement.js'), 'utf8');
 
@@ -70,7 +72,7 @@ describe('useBreakManagement Hook', () => {
 
   describe('Required State Properties', () => {
     it('should have all required state properties', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
       const content = fs.readFileSync(path.join(__dirname, 'useBreakManagement.js'), 'utf8');
 
@@ -89,7 +91,7 @@ describe('useBreakManagement Hook', () => {
 
   describe('Required Methods', () => {
     it('should have all required methods', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
       const content = fs.readFileSync(path.join(__dirname, 'useBreakManagement.js'), 'utf8');
 
@@ -104,7 +106,7 @@ describe('useBreakManagement Hook', () => {
     });
 
     it('should export methods as useCallback', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
       const content = fs.readFileSync(path.join(__dirname, 'useBreakManagement.js'), 'utf8');
 
@@ -116,7 +118,7 @@ describe('useBreakManagement Hook', () => {
 
   describe('Required Getters', () => {
     it('should have all required getter properties', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
       const content = fs.readFileSync(path.join(__dirname, 'useBreakManagement.js'), 'utf8');
 
@@ -135,7 +137,7 @@ describe('useBreakManagement Hook', () => {
 
   describe('Options Handling', () => {
     it('should accept sessionTime for break tracking', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
       const content = fs.readFileSync(path.join(__dirname, 'useBreakManagement.js'), 'utf8');
 
@@ -143,7 +145,7 @@ describe('useBreakManagement Hook', () => {
     });
 
     it('should accept onBreakRequired callback', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
       const content = fs.readFileSync(path.join(__dirname, 'useBreakManagement.js'), 'utf8');
 
@@ -151,7 +153,7 @@ describe('useBreakManagement Hook', () => {
     });
 
     it('should accept onBreakEnded callback', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
       const content = fs.readFileSync(path.join(__dirname, 'useBreakManagement.js'), 'utf8');
 
@@ -161,7 +163,7 @@ describe('useBreakManagement Hook', () => {
 
   describe('Break Tracking Logic', () => {
     it('should track break start time when break starts', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
       const content = fs.readFileSync(path.join(__dirname, 'useBreakManagement.js'), 'utf8');
 
@@ -170,7 +172,7 @@ describe('useBreakManagement Hook', () => {
     });
 
     it('should maintain break history array', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
       const content = fs.readFileSync(path.join(__dirname, 'useBreakManagement.js'), 'utf8');
 
@@ -179,7 +181,7 @@ describe('useBreakManagement Hook', () => {
     });
 
     it('should calculate current break duration', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
       const content = fs.readFileSync(path.join(__dirname, 'useBreakManagement.js'), 'utf8');
 
@@ -187,7 +189,7 @@ describe('useBreakManagement Hook', () => {
     });
 
     it('should identify when break is due', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
       const content = fs.readFileSync(path.join(__dirname, 'useBreakManagement.js'), 'utf8');
 
@@ -198,7 +200,7 @@ describe('useBreakManagement Hook', () => {
 
   describe('Break Duration Validation', () => {
     it('should enforce minimum break duration of 10 minutes', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
       const content = fs.readFileSync(path.join(__dirname, 'useBreakManagement.js'), 'utf8');
 
@@ -207,7 +209,7 @@ describe('useBreakManagement Hook', () => {
     });
 
     it('should check if minimum break is met', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
       const content = fs.readFileSync(path.join(__dirname, 'useBreakManagement.js'), 'utf8');
 
@@ -217,7 +219,7 @@ describe('useBreakManagement Hook', () => {
 
   describe('Break State Management', () => {
     it('should toggle isOnBreak state when starting break', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
       const content = fs.readFileSync(path.join(__dirname, 'useBreakManagement.js'), 'utf8');
 
@@ -225,7 +227,7 @@ describe('useBreakManagement Hook', () => {
     });
 
     it('should toggle isOnBreak state when ending break', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
       const content = fs.readFileSync(path.join(__dirname, 'useBreakManagement.js'), 'utf8');
 
@@ -233,7 +235,7 @@ describe('useBreakManagement Hook', () => {
     });
 
     it('should set isBreakMandatory when break is required', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
       const content = fs.readFileSync(path.join(__dirname, 'useBreakManagement.js'), 'utf8');
 
@@ -243,7 +245,7 @@ describe('useBreakManagement Hook', () => {
 
   describe('Break History Tracking', () => {
     it('should record breaks in history array', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
       const content = fs.readFileSync(path.join(__dirname, 'useBreakManagement.js'), 'utf8');
 
@@ -252,7 +254,7 @@ describe('useBreakManagement Hook', () => {
     });
 
     it('should include break duration in history', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
       const content = fs.readFileSync(path.join(__dirname, 'useBreakManagement.js'), 'utf8');
 
@@ -260,7 +262,7 @@ describe('useBreakManagement Hook', () => {
     });
 
     it('should include break timestamp in history', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
       const content = fs.readFileSync(path.join(__dirname, 'useBreakManagement.js'), 'utf8');
 
@@ -270,7 +272,7 @@ describe('useBreakManagement Hook', () => {
 
   describe('Callback Triggers', () => {
     it('should trigger onBreakRequired callback when break is due', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
       const content = fs.readFileSync(path.join(__dirname, 'useBreakManagement.js'), 'utf8');
 
@@ -278,7 +280,7 @@ describe('useBreakManagement Hook', () => {
     });
 
     it('should trigger onBreakEnded callback when break ends', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
       const content = fs.readFileSync(path.join(__dirname, 'useBreakManagement.js'), 'utf8');
 
@@ -288,7 +290,7 @@ describe('useBreakManagement Hook', () => {
 
   describe('Return Object Structure', () => {
     it('should return object with all state properties', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
       const content = fs.readFileSync(path.join(__dirname, 'useBreakManagement.js'), 'utf8');
 
@@ -313,7 +315,7 @@ describe('useBreakManagement Hook', () => {
 
   describe('React Hooks Usage', () => {
     it('should use useState hook', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
       const content = fs.readFileSync(path.join(__dirname, 'useBreakManagement.js'), 'utf8');
 
@@ -321,7 +323,7 @@ describe('useBreakManagement Hook', () => {
     });
 
     it('should use useCallback for methods', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
       const content = fs.readFileSync(path.join(__dirname, 'useBreakManagement.js'), 'utf8');
 
@@ -329,7 +331,7 @@ describe('useBreakManagement Hook', () => {
     });
 
     it('should use useEffect for break tracking', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
       const content = fs.readFileSync(path.join(__dirname, 'useBreakManagement.js'), 'utf8');
 
@@ -337,7 +339,7 @@ describe('useBreakManagement Hook', () => {
     });
 
     it('should use useRef for tracking', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
       const content = fs.readFileSync(path.join(__dirname, 'useBreakManagement.js'), 'utf8');
 
@@ -345,7 +347,7 @@ describe('useBreakManagement Hook', () => {
     });
 
     it('should import hooks from react', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
       const content = fs.readFileSync(path.join(__dirname, 'useBreakManagement.js'), 'utf8');
 
@@ -355,7 +357,7 @@ describe('useBreakManagement Hook', () => {
 
   describe('Compliance with Step 1.3.2 Requirements', () => {
     it('should have all required state properties', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
       const content = fs.readFileSync(path.join(__dirname, 'useBreakManagement.js'), 'utf8');
 
@@ -372,7 +374,7 @@ describe('useBreakManagement Hook', () => {
     });
 
     it('should have all required methods', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
       const content = fs.readFileSync(path.join(__dirname, 'useBreakManagement.js'), 'utf8');
 
@@ -387,7 +389,7 @@ describe('useBreakManagement Hook', () => {
     });
 
     it('should have all required getters', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
       const content = fs.readFileSync(path.join(__dirname, 'useBreakManagement.js'), 'utf8');
 
@@ -406,7 +408,7 @@ describe('useBreakManagement Hook', () => {
 
   describe('No Breaking Changes', () => {
     it('should not modify TimerContext', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
       const timerContextPath = path.join(__dirname, '../context/TimerContext.jsx');
       const timerContext = fs.readFileSync(timerContextPath, 'utf8');
@@ -416,7 +418,7 @@ describe('useBreakManagement Hook', () => {
     });
 
     it('should not break existing App.jsx integration', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
       const appPath = path.join(__dirname, '../App.jsx');
       const app = fs.readFileSync(appPath, 'utf8');
@@ -428,7 +430,7 @@ describe('useBreakManagement Hook', () => {
 
   describe('Syntax and Structure', () => {
     it('should have no syntax errors', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
       const filePath = path.join(__dirname, 'useBreakManagement.js');
 

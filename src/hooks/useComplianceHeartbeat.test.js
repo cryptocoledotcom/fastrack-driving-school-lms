@@ -1,12 +1,13 @@
 import { renderHook, waitFor } from '@testing-library/react';
 import { vi } from 'vitest';
+import { httpsCallable, _getFunctions } from 'firebase/functions';
+
 import { useComplianceHeartbeat } from './useComplianceHeartbeat';
-import { httpsCallable, getFunctions } from 'firebase/functions';
 
 
 
 vi.mock('firebase/functions', () => ({
-  getFunctions: vi.fn(() => ({})),
+  _getFunctions: vi.fn(() => ({})),
   httpsCallable: vi.fn(),
 }));
 

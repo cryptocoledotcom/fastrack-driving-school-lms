@@ -131,7 +131,7 @@ vi.mock('stripe', () => {
       })),
     },
     webhooks: {
-      constructEvent: vi.fn((body, sig, secret) => ({
+      constructEvent: vi.fn((_body, _sig, _secret) => ({
         type: 'checkout.session.completed',
         data: { object: { id: 'cs_test_123' } },
       })),

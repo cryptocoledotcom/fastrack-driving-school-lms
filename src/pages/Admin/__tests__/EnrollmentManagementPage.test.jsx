@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
+
 import EnrollmentManagementPage from '../EnrollmentManagementPage';
 import { useAdminPanel } from '../../../hooks/useAdminPanel';
 

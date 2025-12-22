@@ -1,6 +1,7 @@
-import React from 'react';
+
 import { useAuth } from '../../context/AuthContext';
 import Card from '../../components/common/Card/Card';
+
 import styles from './ProfilePage.module.css';
 
 const ProfilePage = () => {

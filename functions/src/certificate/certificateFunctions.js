@@ -1,6 +1,5 @@
-const admin = require('firebase-admin');
 const { onCall } = require('firebase-functions/v2/https');
-const PDFDocument = require('pdfkit');
+
 const { getDb } = require('../common/firebaseUtils');
 
 const generateCertificate = onCall(async (data, context) => {
@@ -10,7 +9,6 @@ const generateCertificate = onCall(async (data, context) => {
     }
 
     const { userId, courseId } = data;
-    const requestingUserId = context.auth.uid;
 
     if (!userId || !courseId) {
       throw new Error('Missing required parameters: userId, courseId');

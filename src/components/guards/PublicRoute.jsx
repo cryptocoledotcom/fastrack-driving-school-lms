@@ -1,8 +1,9 @@
 // PublicRoute Component
 // Route guard for unauthenticated users (redirects logged-in users)
 
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import { useAuth } from '../../context/AuthContext';
 import LoadingSpinner from '../common/LoadingSpinner/LoadingSpinner';
 import { PROTECTED_ROUTES } from '../../constants/routes';

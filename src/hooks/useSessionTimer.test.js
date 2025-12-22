@@ -1,6 +1,11 @@
+import fs from 'fs';
+
 import React from 'react';
 import { vi } from 'vitest';
+
 import useSessionTimer from './useSessionTimer';
+
+
 
 const MAX_DAILY_HOURS = 4 * 3600;
 const BREAK_REQUIRED_AFTER = 2 * 3600;
@@ -21,7 +26,7 @@ describe('useSessionTimer Hook', () => {
     });
 
     it('should be a valid React hook', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
       const content = fs.readFileSync(path.join(__dirname, 'useSessionTimer.js'), 'utf8');
 
@@ -101,7 +106,7 @@ describe('useSessionTimer Hook', () => {
 
   describe('Hook Methods Available', () => {
     it('should expose required method signatures', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
       const content = fs.readFileSync(path.join(__dirname, 'useSessionTimer.js'), 'utf8');
 
@@ -121,7 +126,7 @@ describe('useSessionTimer Hook', () => {
     });
 
     it('should return state properties', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
       const content = fs.readFileSync(path.join(__dirname, 'useSessionTimer.js'), 'utf8');
 
@@ -140,7 +145,7 @@ describe('useSessionTimer Hook', () => {
     });
 
     it('should return getter properties', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
       const content = fs.readFileSync(path.join(__dirname, 'useSessionTimer.js'), 'utf8');
 
@@ -159,7 +164,7 @@ describe('useSessionTimer Hook', () => {
 
   describe('No Breaking Changes', () => {
     it('should not modify TimerContext', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
       const timerContextPath = path.join(__dirname, '../context/TimerContext.jsx');
       const timerContext = fs.readFileSync(timerContextPath, 'utf8');
@@ -170,7 +175,7 @@ describe('useSessionTimer Hook', () => {
     });
 
     it('should not break existing App.jsx integration', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
       const appPath = path.join(__dirname, '../App.jsx');
       const app = fs.readFileSync(appPath, 'utf8');
@@ -182,7 +187,7 @@ describe('useSessionTimer Hook', () => {
 
   describe('Options Handling', () => {
     it('should accept optional callbacks', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
       const content = fs.readFileSync(path.join(__dirname, 'useSessionTimer.js'), 'utf8');
 
@@ -192,7 +197,7 @@ describe('useSessionTimer Hook', () => {
     });
 
     it('should handle missing options gracefully', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
       const content = fs.readFileSync(path.join(__dirname, 'useSessionTimer.js'), 'utf8');
 
@@ -202,7 +207,7 @@ describe('useSessionTimer Hook', () => {
 
   describe('Compliance with Step 1.3.1 Requirements', () => {
     it('should have all required state properties', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
       const content = fs.readFileSync(path.join(__dirname, 'useSessionTimer.js'), 'utf8');
 
@@ -220,7 +225,7 @@ describe('useSessionTimer Hook', () => {
     });
 
     it('should have all required methods', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
       const content = fs.readFileSync(path.join(__dirname, 'useSessionTimer.js'), 'utf8');
 
@@ -237,7 +242,7 @@ describe('useSessionTimer Hook', () => {
     });
 
     it('should have all required getters', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
       const content = fs.readFileSync(path.join(__dirname, 'useSessionTimer.js'), 'utf8');
 
@@ -247,7 +252,7 @@ describe('useSessionTimer Hook', () => {
     });
 
     it('should check daily lockout on demand', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
       const content = fs.readFileSync(path.join(__dirname, 'useSessionTimer.js'), 'utf8');
 
@@ -256,7 +261,7 @@ describe('useSessionTimer Hook', () => {
     });
 
     it('should increment timer every 1 second', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
       const content = fs.readFileSync(path.join(__dirname, 'useSessionTimer.js'), 'utf8');
 
@@ -281,7 +286,7 @@ describe('useSessionTimer Hook', () => {
 
   describe('Syntax and Structure', () => {
     it('should have no syntax errors', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
       const filePath = path.join(__dirname, 'useSessionTimer.js');
 
@@ -291,7 +296,7 @@ describe('useSessionTimer Hook', () => {
     });
 
     it('should use React hooks correctly', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
       const content = fs.readFileSync(path.join(__dirname, 'useSessionTimer.js'), 'utf8');
 
@@ -302,7 +307,7 @@ describe('useSessionTimer Hook', () => {
     });
 
     it('should import React hooks from react', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
       const content = fs.readFileSync(path.join(__dirname, 'useSessionTimer.js'), 'utf8');
 

@@ -1,8 +1,11 @@
 const admin = require('firebase-admin');
-const { onCall, onRequest } = require('firebase-functions/v2/https');
+const functions = require('firebase-functions');
+const { onCall } = require('firebase-functions/v2/https');
 const { onSchedule } = require('firebase-functions/v2/scheduler');
-const { logAuditEvent, deleteExpiredAuditLogs, AUDIT_EVENT_TYPES } = require('../common/auditLogger');
+
+const { logAuditEvent, deleteExpiredAuditLogs } = require('../common/auditLogger');
 const { getDb } = require('../common/firebaseUtils');
+const db = getDb();
 
 // Constants for compliance enforcement
 const MAX_DAILY_MINUTES = 240; // 4 hours
@@ -301,7 +304,7 @@ const sessionHeartbeat = onCall(
       
       // Audit failure
       try {
-        const { userId, courseId, sessionId } = data;
+        const { userId, courseId, sessionId } = request.data;
         if (userId && courseId) {
           await logAuditEvent(
             userId,
@@ -470,7 +473,7 @@ const trackPVQAttempt = onCall(
 
       // Log failure
       try {
-        const { userId, courseId, sessionId } = data;
+        const { userId, courseId, sessionId } = request.data;
         if (userId && courseId) {
           await logAuditEvent(
             userId,
@@ -638,7 +641,6 @@ const trackExamAttempt = onCall(
         if (totalInstructionMinutes >= MIN_INSTRUCTION_MINUTES && scorePercent >= 75) {
           try {
             // Auto-generate completion certificate
-            const { generateCompletionCertificate } = require('./enrollmentCertificateFunctions');
             const courseDoc = await getDb().collection('courses').doc(courseId).get();
             const courseName = courseDoc.exists() ? courseDoc.data().title : 'Course';
             
@@ -728,7 +730,7 @@ const trackExamAttempt = onCall(
 
       // Log failure
       try {
-        const { userId, courseId, sessionId } = data;
+        const { userId, courseId, sessionId } = request.data;
         if (userId && courseId) {
           await logAuditEvent(
             userId,
@@ -775,8 +777,6 @@ const enforceInactivityTimeout = onCall(async (request) => {
       throw new Error('PERMISSION_DENIED: Cannot timeout other users');
     }
 
-    const db = getDb();
-
     const sessionRef = db.collection('users').doc(userId).collection('sessions').doc(sessionId);
     const sessionDoc = await sessionRef.get();
 
@@ -793,7 +793,6 @@ const enforceInactivityTimeout = onCall(async (request) => {
     }
 
     const now = new Date().toISOString();
-    const idleDurationMs = idleDurationSeconds * 1000;
 
     await sessionRef.update({
       status: 'idle_timeout',
@@ -915,7 +914,7 @@ const generateComplianceReport = onCall({ enforceAppCheck: false }, async (reque
   }
 });
 
-const auditLogRetentionPolicy = onSchedule('every day 02:00', async (context) => {
+const auditLogRetentionPolicy = onSchedule('every day 02:00', async (_context) => {
   try {
     const deletedCount = await deleteExpiredAuditLogs();
     console.log(`Audit log retention policy executed. Deleted ${deletedCount} expired logs.`);
@@ -944,7 +943,6 @@ const validateBreakEnd = onCall(async (request) => {
       throw new functions.https.HttpsError('invalid-argument', 'sessionId must be a non-empty string');
     }
 
-    const db = getDb();
     const sessionRef = db.collection('users').doc(auth.uid).collection('sessions').doc(sessionId);
     const sessionDoc = await sessionRef.get();
 

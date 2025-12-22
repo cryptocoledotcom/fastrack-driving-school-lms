@@ -27,6 +27,7 @@ export const usePVQTrigger = (options = {}) => {
     return PVQ_TRIGGER_INTERVAL + randomOffset;
   }
 
+  // eslint-disable-next-line react-hooks/preserve-manual-memoization
   const triggerPVQ = useCallback(async () => {
     if (!showPVQModal && getRandomQuestion) {
       try {
@@ -47,6 +48,7 @@ export const usePVQTrigger = (options = {}) => {
     }
   }, [showPVQModal, getRandomQuestion, onPVQTriggered]);
 
+  // eslint-disable-next-line react-hooks/preserve-manual-memoization
   const closePVQModal = useCallback(() => {
     setShowPVQModal(false);
     setCurrentPVQQuestion(null);
@@ -56,6 +58,7 @@ export const usePVQTrigger = (options = {}) => {
     pvqTriggeredRef.current = false;
   }, []);
 
+  // eslint-disable-next-line react-hooks/preserve-manual-memoization
   const submitPVQAnswer = useCallback(async (answer) => {
     if (!currentPVQQuestion) return;
 
@@ -91,6 +94,7 @@ export const usePVQTrigger = (options = {}) => {
       !pvqTriggeredRef.current
     ) {
       pvqTriggeredRef.current = true;
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       triggerPVQ();
     }
   }, [sessionTime, nextPVQTriggerTime, showPVQModal, triggerPVQ]);

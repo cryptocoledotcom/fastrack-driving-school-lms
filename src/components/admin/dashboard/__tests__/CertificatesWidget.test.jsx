@@ -1,6 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import { MemoryRouter } from 'react-router-dom';
+
 import CertificatesWidget from '../CertificatesWidget';
 
 const mockNavigate = vi.fn();
@@ -16,7 +17,7 @@ vi.mock('react-router-dom', async () => {
 describe('CertificatesWidget', () => {
     it('renders loading state correctly', () => {
         // We modify the test to look for the container with spinner style since it's a div
-        const { container } = render(
+        const { container: _container } = render(
             <MemoryRouter>
                 <CertificatesWidget count={0} loading={true} />
             </MemoryRouter>

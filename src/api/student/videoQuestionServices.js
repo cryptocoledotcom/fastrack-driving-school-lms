@@ -5,13 +5,13 @@ import {
   getDocs,
   addDoc,
   doc,
-  setDoc,
   updateDoc,
   deleteDoc
 } from 'firebase/firestore';
+import { httpsCallable, getFunctions } from 'firebase/functions';
+
 import { db, getApp } from '../../config/firebase';
 import { executeService } from '../base/ServiceWrapper';
-import { httpsCallable, getFunctions } from 'firebase/functions';
 
 const VIDEO_QUESTIONS_COLLECTION = 'video_post_questions';
 const VIDEO_QUESTION_RESPONSES_COLLECTION = 'video_question_responses';

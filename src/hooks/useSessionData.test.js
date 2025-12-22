@@ -1,5 +1,5 @@
-import React from 'react';
 import { vi } from 'vitest';
+
 import useSessionData from './useSessionData';
 
 describe('useSessionData Hook', () => {
@@ -447,7 +447,6 @@ describe('useSessionData Hook', () => {
 
   describe('Syntax and Structure', () => {
     it('should have no syntax errors', () => {
-      const fs = require('fs');
       const path = require('path');
       const filePath = path.join(__dirname, 'useSessionData.js');
 

@@ -22,7 +22,9 @@ export const useBreakManagement = (options = {}) => {
 
   const breakRequiredTrackedRef = useRef(false);
 
+   
   const currentBreakDuration = breakStartTime
+    // eslint-disable-next-line react-hooks/purity
     ? Math.floor((Date.now() - breakStartTime) / 1000)
     : 0;
 
@@ -107,7 +109,7 @@ export const useBreakManagement = (options = {}) => {
         onBreakEnded(breakDuration);
       }
     }
-  }, [isOnBreak, breakStartTime, isBreakMandatory, onBreakEnded]);
+  }, [isOnBreak, breakStartTime, isBreakMandatory, onBreakEnded, BREAK_STATE_KEY]);
 
   useEffect(() => {
     if (isBreakDue && !isOnBreak && !breakRequiredTrackedRef.current) {

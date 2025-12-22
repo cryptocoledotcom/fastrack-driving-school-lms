@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+
 import { useAuth } from '../../context/AuthContext';
 import { getSecurityProfile } from '../../api/security/securityServices';
 import LoadingSpinner from '../common/LoadingSpinner/LoadingSpinner';
 import Card from '../common/Card/Card';
 import Button from '../common/Button/Button';
+
 import styles from './ComplianceRequiredRoute.module.css';
 
 const ComplianceRequiredRoute = ({ children }) => {

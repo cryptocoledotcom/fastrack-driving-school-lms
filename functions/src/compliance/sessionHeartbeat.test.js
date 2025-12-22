@@ -1,5 +1,4 @@
 const { sessionHeartbeat } = require('./complianceFunctions');
-const admin = require('firebase-admin');
 
 // Mock firebase-admin
 vi.mock('firebase-admin', () => ({

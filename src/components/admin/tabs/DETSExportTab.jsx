@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+
 import { detsServices } from '../../../api/admin/detsServices';
 import LoadingSpinner from '../../common/LoadingSpinner/LoadingSpinner';
 import ErrorMessage from '../../common/ErrorMessage/ErrorMessage';
@@ -7,6 +8,7 @@ import Card from '../../common/Card/Card';
 import Button from '../../common/Button/Button';
 import { COURSE_IDS } from '../../../constants/courses';
 import { getCSRFToken, validateCSRFToken } from '../../../utils/security/csrfToken';
+
 import styles from './DETSExportTab.module.css';
 
 const DETSExportTab = () => {

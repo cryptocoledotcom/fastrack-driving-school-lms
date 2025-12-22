@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { updatePassword, reauthenticateWithCredential, EmailAuthProvider } from 'firebase/auth';
-import { auth, db } from '../../config/firebase';
 import { doc, updateDoc } from 'firebase/firestore';
+
+import { auth, db } from '../../config/firebase';
 import BaseModal from '../common/Modals/BaseModal';
 import Button from '../common/Button/Button';
 import Input from '../common/Input/Input';
 import ErrorMessage from '../common/ErrorMessage/ErrorMessage';
 import SuccessMessage from '../common/SuccessMessage/SuccessMessage';
+
 import styles from './ForcePasswordChangeModal.module.css';
 
 const ForcePasswordChangeModal = ({ isOpen, onComplete, temporaryPassword }) => {

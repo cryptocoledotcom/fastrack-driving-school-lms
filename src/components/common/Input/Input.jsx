@@ -1,7 +1,8 @@
 // Input Component
 // Form input with validation display
 
-import React, { forwardRef } from 'react';
+import { forwardRef } from 'react';
+
 import styles from './Input.module.css';
 
 const Input = forwardRef(({

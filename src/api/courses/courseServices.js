@@ -14,6 +14,7 @@ import {
   orderBy,
   limit
 } from 'firebase/firestore';
+
 import { db } from '../../config/firebase';
 import { executeService } from '../base/ServiceWrapper';
 import { validateCourseId } from '../../utils/api/validators.js';
@@ -27,7 +28,7 @@ export const getCourses = async () => {
   return executeService(async () => {
     // E2E Test Mock Injection
     if (typeof window !== 'undefined' && window.MOCK_COURSES) {
-      console.log('Returning MOCKED Courses for E2E testing');
+      console.warn('Returning MOCKED Courses for E2E testing');
       return window.MOCK_COURSES;
     }
 
@@ -56,7 +57,7 @@ export const getCourseById = async (courseId) => {
     if (typeof window !== 'undefined' && window.MOCK_COURSES) {
       const mockCourse = window.MOCK_COURSES.find(c => c.id === courseId);
       if (mockCourse) {
-        console.log('Returning MOCKED Course by ID for E2E testing');
+        console.warn('Returning MOCKED Course by ID for E2E testing');
         return mockCourse;
       }
     }

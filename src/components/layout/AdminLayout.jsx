@@ -1,12 +1,14 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import { useAuth } from '../../context/AuthContext';
 import LoadingSpinner from '../common/LoadingSpinner/LoadingSpinner';
+import { PROTECTED_ROUTES } from '../../constants/routes';
+import { USER_ROLES } from '../../constants/userRoles';
+
 import AdminHeader from './AdminHeader/AdminHeader';
 import AdminSidebar from './AdminSidebar/AdminSidebar';
 import styles from './AdminLayout.module.css';
-import { PROTECTED_ROUTES } from '../../constants/routes';
-import { USER_ROLES } from '../../constants/userRoles';
 
 const AdminLayout = ({ children }) => {
   const { user, userProfile, loading } = useAuth();

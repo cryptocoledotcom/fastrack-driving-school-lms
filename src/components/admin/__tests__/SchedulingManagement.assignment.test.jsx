@@ -1,9 +1,9 @@
-import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
+import { vi } from 'vitest';
+
 import SchedulingManagement from '../SchedulingManagement';
 import * as schedulingServices from '../../../api/compliance/schedulingServices';
 import * as userServices from '../../../api/student/userServices';
-import { vi } from 'vitest';
 
 vi.mock('../../../api/compliance/schedulingServices');
 vi.mock('../../../api/student/userServices');

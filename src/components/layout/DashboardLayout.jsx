@@ -1,7 +1,6 @@
 // DashboardLayout Component
 // Layout wrapper for protected pages (Header + Sidebar)
 
-import React from 'react';
 import Header from './Header/Header';
 import Sidebar from './Sidebar/Sidebar';
 import styles from './DashboardLayout.module.css';

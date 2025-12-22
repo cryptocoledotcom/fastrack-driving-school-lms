@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import BaseModal from './BaseModal';
+import { useState, useEffect, useLayoutEffect } from 'react';
+
 import Button from '../Button/Button';
+
+import BaseModal from './BaseModal';
 import styles from './MandatoryBreakModal.module.css';
 
 const MandatoryBreakModal = ({
@@ -13,15 +15,21 @@ const MandatoryBreakModal = ({
   const [displayTime, setDisplayTime] = useState(validBreakTime);
   const [showResumeButton, setShowResumeButton] = useState(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!isOpen) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setDisplayTime(0);
+      setShowResumeButton(false);
+    } else {
       setDisplayTime(validBreakTime);
       setShowResumeButton(false);
+    }
+  }, [isOpen, validBreakTime]);
+
+  useEffect(() => {
+    if (!isOpen) {
       return;
     }
-
-    setDisplayTime(validBreakTime);
-    setShowResumeButton(false);
 
     const interval = setInterval(() => {
       setDisplayTime(prev => {

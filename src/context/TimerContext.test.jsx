@@ -1,8 +1,9 @@
-import React from 'react';
+
 import { vi } from 'vitest';
+
 import TimerContext, { useTimer } from './TimerContext.jsx';
 
-const TIMER_CONTEXT_FILE = '../TimerContext.jsx';
+const _TIMER_CONTEXT_FILE = '../TimerContext.jsx';
 
 describe('TimerContext Integration', () => {
   beforeEach(() => {
@@ -16,18 +17,18 @@ describe('TimerContext Integration', () => {
 
   describe('TimerContext Exports', () => {
     it('should export TimerContext', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
-      const content = fs.readFileSync(path.join(__dirname, 'TimerContext.jsx'), 'utf8');
+      const content = _fs.readFileSync(path.join(__dirname, 'TimerContext.jsx'), 'utf8');
 
       expect(content).toContain('const TimerContext = createContext()');
       expect(content).toContain('export default TimerContext');
     });
 
     it('should export useTimer hook', () => {
-      const fs = require('fs');
+      const _fs = require('fs');
       const path = require('path');
-      const content = fs.readFileSync(path.join(__dirname, 'TimerContext.jsx'), 'utf8');
+      const content = _fs.readFileSync(path.join(__dirname, 'TimerContext.jsx'), 'utf8');
 
       expect(content).toContain('export const useTimer = ()');
     });
@@ -43,10 +44,12 @@ describe('TimerContext Integration', () => {
 
   describe('useTimer hook functionality', () => {
     it('should start timer when startTimer is called', async () => {
-      const { render, screen, fireEvent, waitFor } = await import('@testing-library/react');
+      const { _render, _screen, fireEvent: _fireEvent, waitFor: _waitFor } = await import('@testing-library/react');
 
       const TestComponent = () => {
-        const { elapsed, isRunning, startTimer } = global.useTimer?.();
+        const timerContext = global.useTimer?.() || {};
+        const { elapsed, isRunning, startTimer } = timerContext;
+
         return (
           <div>
             <div>{elapsed}ms</div>

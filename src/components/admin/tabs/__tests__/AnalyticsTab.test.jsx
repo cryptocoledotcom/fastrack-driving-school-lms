@@ -1,8 +1,8 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import AnalyticsTab from '../AnalyticsTab';
 import { vi } from 'vitest';
+
+import AnalyticsTab from '../AnalyticsTab';
 
 vi.mock('recharts', () => ({
   ResponsiveContainer: ({ children }) => <div data-testid="responsive-container">{children}</div>,
@@ -183,7 +183,7 @@ describe('AnalyticsTab', () => {
 
   describe('Tables', () => {
     it('should render top performing students table', () => {
-      const { container } = render(<AnalyticsTab users={mockUsers} getCourseName={mockGetCourseName} />);
+      const { container: _container } = render(<AnalyticsTab users={mockUsers} getCourseName={mockGetCourseName} />);
       
       expect(screen.getByText('Top Performing Students')).toBeInTheDocument();
       expect(screen.getByText('Student Name')).toBeInTheDocument();
@@ -206,7 +206,7 @@ describe('AnalyticsTab', () => {
     });
 
     it('should display overdue payment details', () => {
-      const { container } = render(<AnalyticsTab users={mockUsers} getCourseName={mockGetCourseName} />);
+      const { container: _container } = render(<AnalyticsTab users={mockUsers} getCourseName={mockGetCourseName} />);
       
       const allAmounts = screen.getAllByText('$299.99');
       expect(allAmounts.length).toBeGreaterThan(0);

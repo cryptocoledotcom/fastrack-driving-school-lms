@@ -1,6 +1,8 @@
+/* eslint-disable no-unused-vars, no-undef */
 import React, { useState } from 'react';
 import { render, screen, fireEvent, waitFor, within } from '@testing-library/react';
 import { vi } from 'vitest';
+
 import PostVideoQuestionModal from '../PostVideoQuestionModal';
 
 describe('Task 2.3: Modal State Management', () => {
@@ -30,8 +32,8 @@ describe('Task 2.3: Modal State Management', () => {
     it('should persist modal state to sessionStorage when answer is selected', async () => {
       const onAnswerSubmit = vi.fn().mockResolvedValue({ isCorrect: false, correctAnswer: 'Paris' });
 
-      const ModalWithPersistence = ({ question, onAnswerSubmit }) => {
-        const [selectedAnswer, setSelectedAnswer] = useState(null);
+      const ModalWithPersistence = ({ question, _onAnswerSubmit }) => {
+        const [selectedAnswer, _setSelectedAnswer] = useState(null);
 
         const handleAnswerChange = (answer) => {
           setSelectedAnswer(answer);
@@ -85,7 +87,7 @@ describe('Task 2.3: Modal State Management', () => {
       }));
 
       const ModalWrapper = () => {
-        const [selectedAnswer, setSelectedAnswer] = useState(() => {
+        const [selectedAnswer, _setSelectedAnswer] = useState(() => {
           const saved = sessionStorage.getItem('pvq-state');
           return saved ? JSON.parse(saved).selectedAnswer : null;
         });
@@ -119,7 +121,7 @@ describe('Task 2.3: Modal State Management', () => {
         }
       }));
 
-      const ModalWithPersistence = ({ question, onAnswerSubmit }) => {
+      const ModalWithPersistence = ({ question, _onAnswerSubmit }) => {
         const [submitted, setSubmitted] = useState(() => {
           const saved = sessionStorage.getItem('pvq-state');
           return saved ? JSON.parse(saved).submitted : false;
@@ -184,7 +186,7 @@ describe('Task 2.3: Modal State Management', () => {
     it('should reset state when question changes', async () => {
       const onAnswerSubmit = vi.fn().mockResolvedValue({ isCorrect: false, correctAnswer: 'Paris' });
 
-      const { rerender } = render(
+      const { _rerender } = render(
         <PostVideoQuestionModal
           isOpen={true}
           question={mockQuestion}
@@ -218,7 +220,7 @@ describe('Task 2.3: Modal State Management', () => {
       const onAnswerSubmit = vi.fn().mockResolvedValue({ isCorrect: true });
 
       const ModalWithFeedbackReset = ({ question }) => {
-        const [feedback, setFeedback] = useState(null);
+        const [feedback, _setFeedback] = useState(null);
 
         React.useEffect(() => {
           setFeedback(null);
@@ -239,7 +241,7 @@ describe('Task 2.3: Modal State Management', () => {
         );
       };
 
-      const { rerender } = render(
+      const { _rerender } = render(
         <ModalWithFeedbackReset question={mockQuestion} />
       );
 
@@ -261,9 +263,9 @@ describe('Task 2.3: Modal State Management', () => {
       const onAnswerSubmit = vi.fn().mockResolvedValue({ isCorrect: true });
 
       const StateTracker = () => {
-        const [isOpen, setIsOpen] = useState(true);
-        const [question, setQuestion] = useState(mockQuestion);
-        const [submitted, setSubmitted] = useState(false);
+        const [_isOpen, _setIsOpen] = useState(true);
+        const [_question, setQuestion] = useState(mockQuestion);
+        const [submitted, _setSubmitted] = useState(false);
 
         return (
           <>
@@ -284,7 +286,7 @@ describe('Task 2.3: Modal State Management', () => {
 
     it('should reset selected answer when question ID changes', () => {
       const ModalWithStateTracking = ({ question, onQuestionChange }) => {
-        const [selectedAnswer, setSelectedAnswer] = useState(null);
+        const [selectedAnswer, _setSelectedAnswer] = useState(null);
 
         React.useEffect(() => {
           setSelectedAnswer(null);
@@ -303,7 +305,7 @@ describe('Task 2.3: Modal State Management', () => {
       };
 
       const onQuestionChange = vi.fn();
-      const { rerender } = render(
+      const { _rerender } = render(
         <ModalWithStateTracking
           question={mockQuestion}
           onQuestionChange={onQuestionChange}
@@ -385,7 +387,7 @@ describe('Task 2.3: Modal State Management', () => {
       });
 
       const RaceConditionWrapper = ({ onAnswerSubmit }) => {
-        const [submitted, setSubmitted] = useState(false);
+        const [submitted, _setSubmitted] = useState(false);
         const [inProgress, setInProgress] = useState(false);
         const submissionRef = React.useRef(null);
 
@@ -433,7 +435,7 @@ describe('Task 2.3: Modal State Management', () => {
 
     it('should handle rapid question changes without state corruption', async () => {
       const QuestionSwitcher = () => {
-        const [question, setQuestion] = useState(mockQuestion);
+        const [_question, setQuestion] = useState(mockQuestion);
         const [submissions, setSubmissions] = useState([]);
 
         const handleSubmit = (answer) => {
@@ -471,7 +473,7 @@ describe('Task 2.3: Modal State Management', () => {
 
       const TimeoutWrapper = ({ onAnswerSubmit }) => {
         const [error, setError] = useState(null);
-        const [submitted, setSubmitted] = useState(false);
+        const [submitted, _setSubmitted] = useState(false);
         const SUBMIT_TIMEOUT = 100;
 
         const handleSubmitWithTimeout = async (answer) => {
@@ -516,7 +518,7 @@ describe('Task 2.3: Modal State Management', () => {
       const onComplete = vi.fn();
 
       const ModalWithOverlay = ({ onComplete }) => {
-        const [isOpen, setIsOpen] = useState(true);
+        const [_isOpen, _setIsOpen] = useState(true);
 
         const handleOverlayClick = (e) => {
           if (e.target.getAttribute('data-testid') === 'overlay') {
@@ -549,7 +551,7 @@ describe('Task 2.3: Modal State Management', () => {
       const onComplete = vi.fn();
 
       const ModalWithCloseableOverlay = ({ onComplete }) => {
-        const [isOpen, setIsOpen] = useState(true);
+        const [_isOpen, _setIsOpen] = useState(true);
         const closeOnOverlayClick = true;
 
         const handleOverlayClick = (e) => {
@@ -613,7 +615,7 @@ describe('Task 2.3: Modal State Management', () => {
       const onComplete = vi.fn();
 
       const ModalWithSubmissionLock = ({ onComplete }) => {
-        const [isOpen, setIsOpen] = useState(true);
+        const [_isOpen, _setIsOpen] = useState(true);
         const [isSubmitting, setIsSubmitting] = useState(false);
 
         const handleOverlayClick = (e) => {
@@ -657,7 +659,7 @@ describe('Task 2.3: Modal State Management', () => {
         .mockResolvedValueOnce({ isCorrect: true });
 
       const ModalWithErrorRecovery = ({ onAnswerSubmit }) => {
-        const [submitted, setSubmitted] = useState(false);
+        const [submitted, _setSubmitted] = useState(false);
         const [error, setError] = useState(null);
 
         const handleSubmit = async (answer) => {
@@ -703,10 +705,10 @@ describe('Task 2.3: Modal State Management', () => {
 
     it('should clear all state on modal close', () => {
       const StatefulModal = () => {
-        const [isOpen, setIsOpen] = useState(true);
-        const [selectedAnswer, setSelectedAnswer] = useState(null);
-        const [submitted, setSubmitted] = useState(false);
-        const [feedback, setFeedback] = useState(null);
+        const [_isOpen, _setIsOpen] = useState(true);
+        const [selectedAnswer, _setSelectedAnswer] = useState(null);
+        const [submitted, _setSubmitted] = useState(false);
+        const [feedback, _setFeedback] = useState(null);
 
         const handleClose = () => {
           setIsOpen(false);
@@ -728,7 +730,7 @@ describe('Task 2.3: Modal State Management', () => {
         );
       };
 
-      const { rerender } = render(<StatefulModal />);
+      const { _rerender } = render(<StatefulModal />);
 
       expect(screen.getByText('Selected: None')).toBeInTheDocument();
       expect(screen.getByText('Submitted: No')).toBeInTheDocument();

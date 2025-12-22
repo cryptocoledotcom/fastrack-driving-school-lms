@@ -1,4 +1,3 @@
-import React from 'react';
 import ComplianceReporting from '../../components/admin/ComplianceReporting';
 
 const ComplianceReportsPage = () => {

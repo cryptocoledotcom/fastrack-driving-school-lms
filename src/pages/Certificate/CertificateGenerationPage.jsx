@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { useAuth } from '../../context/AuthContext';
+import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+import { useAuth } from '../../context/AuthContext';
 import Card from '../../components/common/Card/Card';
 import Button from '../../components/common/Button/Button';
 import LoadingSpinner from '../../components/common/LoadingSpinner/LoadingSpinner';
 import SuccessMessage from '../../components/common/SuccessMessage/SuccessMessage';
 import { enrollmentServices } from '../../api/enrollment';
-import { COURSE_IDS, ENROLLMENT_STATUS } from '../../constants/courses';
+import { COURSE_IDS } from '../../constants/courses';
+
 import styles from './CertificateGenerationPage.module.css';
 
 const CertificateGenerationPage = () => {
@@ -20,11 +22,7 @@ const CertificateGenerationPage = () => {
   const [enrollment, setEnrollment] = useState(null);
   const [certificateInfo, setCertificateInfo] = useState(null);
 
-  useEffect(() => {
-    loadEnrollmentData();
-  }, []);
-
-  const loadEnrollmentData = async () => {
+  const loadEnrollmentData = useCallback(async () => {
     try {
       setLoading(true);
       const onlineEnrollment = await enrollmentServices.getEnrollment(user.uid, COURSE_IDS.ONLINE);
@@ -52,7 +50,11 @@ const CertificateGenerationPage = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [user]);
+
+  useEffect(() => {
+    loadEnrollmentData();
+  }, [loadEnrollmentData]);
 
   const handleGenerateCertificate = async () => {
     if (!enrollment || !certificateInfo) return;

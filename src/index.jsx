@@ -3,6 +3,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import * as Sentry from '@sentry/react';
+
 import initSentry from './config/sentry';
 import App from './App';
 

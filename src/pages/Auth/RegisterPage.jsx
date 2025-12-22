@@ -1,7 +1,8 @@
 // RegisterPage Component
 // DTO 0051 Identity Verification & DTO 0201 Falsification Warning Compliance
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+
 import { useAuth } from '../../context/AuthContext';
 import Input from '../../components/common/Input/Input';
 import Checkbox from '../../components/common/Checkbox/Checkbox';
@@ -9,8 +10,9 @@ import Button from '../../components/common/Button/Button';
 import ErrorMessage from '../../components/common/ErrorMessage/ErrorMessage';
 import { PUBLIC_ROUTES, PROTECTED_ROUTES } from '../../constants/routes';
 import { getErrorMessage } from '../../constants/errorMessages';
-import { validators, VALIDATION_RULES } from '../../constants/validationRules';
+import { validators } from '../../constants/validationRules';
 import { getCSRFToken, validateCSRFToken } from '../../utils/security/csrfToken';
+
 import styles from './AuthPages.module.css';
 
 const RegisterPage = () => {
@@ -60,17 +62,14 @@ const RegisterPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('DEBUG: RegisterPage handleSubmit triggered');
     setError('');
 
     if (!validateCSRFToken(csrfToken, getCSRFToken())) {
-      console.log('DEBUG: CSRF validation failed');
       setError('Security validation failed. Please refresh and try again.');
       return;
     }
 
     if (!validators.isRequired(formData.firstName) || !validators.isRequired(formData.lastName)) {
-      console.log('DEBUG: Name validation failed');
       setError('First and last name are required');
       return;
     }
@@ -132,7 +131,6 @@ const RegisterPage = () => {
 
     setLoading(true);
     try {
-      console.log('DEBUG: Calling auth.register from Page');
       const displayName = `${formData.firstName} ${formData.lastName}`.trim();
 
       await register(formData.email, formData.password, {

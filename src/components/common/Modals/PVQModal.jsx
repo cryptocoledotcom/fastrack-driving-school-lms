@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import BaseModal from './BaseModal';
+import { useState, useLayoutEffect } from 'react';
+
 import Button from '../Button/Button';
 import Input from '../Input/Input';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
+
+import BaseModal from './BaseModal';
 import styles from './PVQModal.module.css';
 
 const PVQModal = ({
@@ -17,8 +19,9 @@ const PVQModal = ({
   const [timeStarted, setTimeStarted] = useState(null);
   const [submitError, setSubmitError] = useState(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (isOpen && pvqQuestion) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setTimeStarted(Date.now());
       setUserAnswer('');
       setSubmitError(null);

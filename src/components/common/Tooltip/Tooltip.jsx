@@ -1,7 +1,8 @@
 // Tooltip Component
 // Hover tooltip component
 
-import React, { useState } from 'react';
+import { useState } from 'react';
+
 import styles from './Tooltip.module.css';
 
 const Tooltip = ({

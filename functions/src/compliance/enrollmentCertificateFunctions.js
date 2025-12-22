@@ -1,11 +1,12 @@
 const admin = require('firebase-admin');
 const functions = require('firebase-functions');
+
 const { getDb } = require('../common/firebaseUtils');
 const logger = functions.logger;
+const db = getDb();
 
 const CERTIFICATES_COLLECTION = 'certificates';
 const AUDIT_LOGS_COLLECTION = 'audit_logs';
-const DAILY_ACTIVITY_COLLECTION = 'daily_activity_logs';
 
 exports.generateEnrollmentCertificate = functions.https.onCall(
   async (data, context) => {

@@ -1,7 +1,8 @@
+import { vi } from 'vitest';
+
 import enrollmentServices from '../enrollmentServices.js';
 import { ValidationError, EnrollmentError } from '../../errors/ApiError.js';
 import { COURSE_IDS, COURSE_PRICING, ENROLLMENT_STATUS, PAYMENT_STATUS, ACCESS_STATUS } from '../../../constants/courses.js';
-import { vi } from 'vitest';
 
 vi.mock('../../../utils/api/validators.js');
 vi.mock('../../../utils/api/timestampHelper.js', () => ({

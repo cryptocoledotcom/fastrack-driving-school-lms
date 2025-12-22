@@ -1,8 +1,19 @@
 // CoursePlayerPage Component
 // Full-featured course player with time tracking and progress
 
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import {
+  PlayCircle,
+  CheckCircle,
+  FileText,
+  HelpCircle,
+  ChevronLeft,
+  ChevronRight,
+  ChevronUp,
+  ChevronDown
+} from 'lucide-react';
+
 import { useAuth } from '../../context/AuthContext';
 import { useTimer } from '../../context/TimerContext';
 import { TimerProvider } from '../../context/TimerContext';
@@ -26,18 +37,9 @@ import { initializeProgress, getProgress, markLessonCompleteWithCompliance, upda
 import { getPostVideoQuestion, recordVideoQuestionResponse, checkVideoQuestionAnswer } from '../../api/student/videoQuestionServices';
 import { createQuizAttempt, submitQuizAttempt } from '../../api/courses/quizServices';
 import { generateEnrollmentCertificate, hasEnrollmentCertificate } from '../../api/student/certificateServices';
-import {
-  PlayCircle,
-  CheckCircle,
-  FileText,
-  HelpCircle,
-  ChevronLeft,
-  ChevronRight,
-  ChevronUp,
-  ChevronDown
-} from 'lucide-react';
 import { LESSON_TYPES } from '../../constants/lessonTypes';
 import OHIO_COMPLIANCE from '../../constants/compliance';
+
 import styles from './CoursePlayerPage.module.css';
 
 const CoursePlayerPageContent = () => {
@@ -86,8 +88,7 @@ const CoursePlayerPageContent = () => {
     handleInactivityContinue,
     inactivityTimedOut,
     startBreak,
-    endBreak,
-    hasBreakMetMinimumDuration
+    endBreak
   } = useTimer();
 
   // State

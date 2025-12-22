@@ -1,4 +1,5 @@
 import { httpsCallable, getFunctions } from 'firebase/functions';
+
 import { executeService } from '../base/ServiceWrapper';
 
 const getCallables = () => {

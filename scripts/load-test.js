@@ -10,9 +10,10 @@
  * - Atomic operations prevent race conditions
  */
 
-const admin = require('firebase-admin');
 const fs = require('fs');
 const path = require('path');
+
+const admin = require('firebase-admin');
 
 // Configuration
 const NUM_CONCURRENT_PAYMENTS = 100;
@@ -96,7 +97,7 @@ async function createTestEnrollment(db) {
 /**
  * Simulate a single payment using atomic batch operation
  */
-async function simulatePayment(db, paymentIndex) {
+async function simulatePayment(db, _paymentIndex) {
   const batch = db.batch();
   const enrollmentRef = db.doc(`users/${TEST_USER_ID}/courses/${TEST_COURSE_ID}`);
   

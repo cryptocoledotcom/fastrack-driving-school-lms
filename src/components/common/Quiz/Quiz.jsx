@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+
 import Button from '../Button/Button';
+
 import styles from './Quiz.module.css';
 
 const Quiz = ({

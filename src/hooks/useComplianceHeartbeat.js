@@ -88,6 +88,7 @@ export const useComplianceHeartbeat = (options = {}) => {
 
   return {
     sendHeartbeat,
+    // eslint-disable-next-line react-hooks/refs
     lastHeartbeatTime: lastHeartbeatRef.current
   };
 };

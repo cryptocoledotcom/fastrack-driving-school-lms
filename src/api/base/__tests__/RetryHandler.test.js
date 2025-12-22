@@ -1,6 +1,4 @@
 import { RetryHandler, retryAsync, createRetryHandler } from '../RetryHandler.js';
-import { ApiError } from '../../errors/ApiError.js';
-import { vi } from 'vitest';
 
 describe('RetryHandler', () => {
   let handler;

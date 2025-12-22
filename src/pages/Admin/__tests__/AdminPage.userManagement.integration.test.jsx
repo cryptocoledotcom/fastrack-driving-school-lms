@@ -1,11 +1,10 @@
-import React from 'react';
-import { render, screen, fireEvent, waitFor, cleanup } from '@testing-library/react';
+/* eslint-disable import/order */
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { vi } from 'vitest';
+
 import AdminPage from '../AdminPage';
 import { USER_ROLES } from '../../../constants/userRoles';
 import enrollmentServices from '../../../api/enrollment/enrollmentServices';
-import userManagementServices from '../../../api/admin/userManagementServices';
-import { vi } from 'vitest';
-
 vi.mock('../../../api/enrollment/enrollmentServices');
 vi.mock('../../../api/admin/userManagementServices');
 vi.mock('../../../context/AuthContext', () => ({
@@ -22,8 +21,7 @@ vi.mock('../../../hooks/useAdminPanel', () => ({
     setIsSidebarOpen: vi.fn(),
     stats: {},
     refreshData: vi.fn(),
-    users: [], // Ensure users is defined
-    loading: false,
+    users: [],
     resettingEnrollments: false,
     loadUsers: vi.fn(),
     handleResetEnrollment: vi.fn(),

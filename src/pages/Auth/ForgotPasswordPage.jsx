@@ -1,6 +1,7 @@
 // ForgotPasswordPage Component
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+
 import { useAuth } from '../../context/AuthContext';
 import Input from '../../components/common/Input/Input';
 import Button from '../../components/common/Button/Button';
@@ -8,6 +9,7 @@ import ErrorMessage from '../../components/common/ErrorMessage/ErrorMessage';
 import SuccessMessage from '../../components/common/SuccessMessage/SuccessMessage';
 import { PUBLIC_ROUTES } from '../../constants/routes';
 import { getErrorMessage } from '../../constants/errorMessages';
+
 import styles from './AuthPages.module.css';
 
 const ForgotPasswordPage = () => {

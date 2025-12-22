@@ -1,7 +1,8 @@
 // Select Component
 // Dropdown select component
 
-import React, { forwardRef } from 'react';
+import { forwardRef } from 'react';
+
 import styles from './Select.module.css';
 
 const Select = forwardRef(({

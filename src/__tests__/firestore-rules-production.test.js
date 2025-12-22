@@ -77,7 +77,7 @@ describe('Firestore Security Rules - Production Role-Based Access Control', () =
       it('should allow student to update own profile', () => {
         const userId = 'student123';
         const requestAuthUid = 'student123';
-        const role = 'student';
+        const _role = 'student';
 
         const canUpdate = requestAuthUid === userId;
         expect(canUpdate).toBe(true);
@@ -114,7 +114,7 @@ describe('Firestore Security Rules - Production Role-Based Access Control', () =
       it('should allow admin to update any user profile', () => {
         const role = 'dmv_admin';
 
-        const canUpdate = role === 'super_admin'; // Only super_admin can update others
+        const _canUpdate = role === 'super_admin'; // Only super_admin can update others
         // OR if updating own profile
         const userId = 'admin123';
         const requestAuthUid = 'admin123';
@@ -200,7 +200,7 @@ describe('Firestore Security Rules - Production Role-Based Access Control', () =
 
     describe('Admin Enrollment Access', () => {
       it('should allow admin to read any enrollment', () => {
-        const enrollmentData = { userId: 'anyuser' };
+        const _enrollmentData = { userId: 'anyuser' };
         const role = 'super_admin';
 
         const canRead = role === 'dmv_admin' || role === 'super_admin';
@@ -247,7 +247,7 @@ describe('Firestore Security Rules - Production Role-Based Access Control', () =
 
     describe('Admin Quiz Access', () => {
       it('should allow admin to read any quiz attempt', () => {
-        const quizAttemptData = { userId: 'anyuser' };
+        const _quizAttemptData = { userId: 'anyuser' };
         const role = 'super_admin';
 
         const canRead = (role === 'dmv_admin' || role === 'super_admin');
@@ -293,7 +293,7 @@ describe('Firestore Security Rules - Production Role-Based Access Control', () =
       });
 
       it('should allow admin to read all certificates', () => {
-        const certData = { userId: 'anyuser' };
+        const _certData = { userId: 'anyuser' };
         const role = 'super_admin';
 
         const canRead = (role === 'dmv_admin' || role === 'super_admin');
@@ -344,14 +344,14 @@ describe('Firestore Security Rules - Production Role-Based Access Control', () =
       });
 
       it('should allow authenticated student to read courses', () => {
-        const auth = { uid: 'student123' };
+        const _auth = { uid: 'student123' };
 
         const canRead = true; // Public content
         expect(canRead).toBe(true);
       });
 
       it('should allow admin to read courses', () => {
-        const auth = { uid: 'admin123' };
+        const _auth = { uid: 'admin123' };
 
         const canRead = true; // Public content
         expect(canRead).toBe(true);
@@ -421,7 +421,7 @@ describe('Firestore Security Rules - Production Role-Based Access Control', () =
       it('should use resource.data for update validation (existing document)', () => {
         // When updating, resource.data exists
         const resourceData = { userId: 'student123', status: 'active' };
-        const requestResourceData = { userId: 'student123', status: 'completed' };
+        const _requestResourceData = { userId: 'student123', status: 'completed' };
 
         const validationUsesExisting = resourceData !== undefined;
         expect(validationUsesExisting).toBe(true);
@@ -539,7 +539,7 @@ describe('Firestore Security Rules - Production Role-Based Access Control', () =
     it('should check instructor permission after admin but before student', () => {
       const studentData = { userId: 'student123', instructorId: 'instructor456' };
       const requestAuthUid = 'instructor456';
-      const role = 'instructor';
+      const _role = 'instructor';
 
       // Not admin
       const isAdmin = false;

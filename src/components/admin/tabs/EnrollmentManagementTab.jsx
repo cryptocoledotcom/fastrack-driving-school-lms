@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+
 import Card from '../../common/Card/Card';
 import Button from '../../common/Button/Button';
 import Input from '../../common/Input/Input';
@@ -7,7 +8,7 @@ import styles from '../../../pages/Admin/AdminPage.module.css';
 const EnrollmentManagementTab = ({
   users,
   onResetEnrollment,
-  onResetAllUserEnrollments,
+  _onResetAllUserEnrollments,
   resettingEnrollments,
   getCourseName,
   getStatusBadgeClass,

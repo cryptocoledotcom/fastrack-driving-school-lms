@@ -1,13 +1,13 @@
-import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
+import { vi } from 'vitest';
+
 import * as courseServices from '../../api/courses/courseServices';
 import * as moduleServices from '../../api/courses/moduleServices';
 import * as lessonServices from '../../api/courses/lessonServices';
 import * as progressServices from '../../api/student/progressServices';
 import * as quizServices from '../../api/courses/quizServices';
 import { LESSON_TYPES } from '../../constants/lessonTypes';
-import { vi } from 'vitest';
 
 vi.mock('../../api/courses/courseServices');
 vi.mock('../../api/courses/moduleServices');
@@ -21,7 +21,6 @@ vi.mock('../../hooks/useComplianceHeartbeat', () => ({
 
 describe('CoursePlayerPage - Quiz Integration', () => {
   const mockCourseId = 'course-1';
-  const mockUserId = 'user-1';
   const mockCourse = {
     id: mockCourseId,
     title: 'Driver Education Course',

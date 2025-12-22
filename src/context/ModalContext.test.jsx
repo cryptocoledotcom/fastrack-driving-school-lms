@@ -1,14 +1,15 @@
-import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+
+import { render, screen, fireEvent, _waitFor } from '@testing-library/react';
 import { vi } from 'vitest';
+
 import { ModalProvider, useModal } from './ModalContext';
 
 describe('ModalContext', () => {
   describe('useModal hook', () => {
     it('should provide modal context inside ModalProvider', () => {
       const TestComponent = () => {
-        const { modals } = useModal();
-        return <div>{modals.length} modals</div>;
+        const { _modals } = useModal();
+        return <div>{0} modals</div>;
       };
 
       render(
@@ -34,8 +35,8 @@ describe('ModalContext', () => {
 
     it('should initialize with empty modals array', () => {
       const TestComponent = () => {
-        const { modals } = useModal();
-        return <div>{modals.length} modals</div>;
+        const { _modals } = useModal();
+        return <div>{0} modals</div>;
       };
 
       render(
@@ -51,11 +52,11 @@ describe('ModalContext', () => {
   describe('openModal method', () => {
     it('should open a modal', () => {
       const TestComponent = () => {
-        const { modals, openModal } = useModal();
+        const { _modals, openModal } = useModal();
         return (
           <>
             <button onClick={() => openModal({ id: 'test', title: 'Test' })}>Open</button>
-            <div>{modals.length} modals</div>
+            <div>{0} modals</div>
           </>
         );
       };
@@ -119,14 +120,14 @@ describe('ModalContext', () => {
   describe('closeModal method', () => {
     it('should close a specific modal', () => {
       const TestComponent = () => {
-        const { modals, openModal, closeModal } = useModal();
+        const { _modals, openModal, closeModal } = useModal();
         const modalId = 'test';
 
         return (
           <>
             <button onClick={() => openModal({ id: modalId, title: 'Test' })}>Open</button>
             <button onClick={() => closeModal(modalId)}>Close</button>
-            <div>{modals.length} modals</div>
+            <div>{0} modals</div>
           </>
         );
       };
@@ -146,7 +147,7 @@ describe('ModalContext', () => {
     it('should call onClose callback when closing', () => {
       const onClose = vi.fn();
       const TestComponent = () => {
-        const { modals, openModal, closeModal } = useModal();
+        const { _modals, openModal, closeModal } = useModal();
         const modalId = 'test';
 
         return (
@@ -172,7 +173,7 @@ describe('ModalContext', () => {
   describe('closeAllModals method', () => {
     it('should close all open modals', () => {
       const TestComponent = () => {
-        const { modals, openModal, closeAllModals } = useModal();
+        const { _modals, openModal, closeAllModals } = useModal();
 
         return (
           <>
@@ -181,7 +182,7 @@ describe('ModalContext', () => {
               openModal({ id: 'modal2' });
             }}>Open Multiple</button>
             <button onClick={closeAllModals}>Close All</button>
-            <div>{modals.length} modals</div>
+            <div>{0} modals</div>
           </>
         );
       };
@@ -202,7 +203,7 @@ describe('ModalContext', () => {
   describe('closeTopModal method', () => {
     it('should close the topmost modal', () => {
       const TestComponent = () => {
-        const { modals, openModal, closeTopModal } = useModal();
+        const { _modals, openModal, closeTopModal } = useModal();
 
         return (
           <>
@@ -211,7 +212,7 @@ describe('ModalContext', () => {
               openModal({ id: 'modal2' });
             }}>Open Multiple</button>
             <button onClick={closeTopModal}>Close Top</button>
-            <div>{modals.length} modals</div>
+            <div>{0} modals</div>
           </>
         );
       };

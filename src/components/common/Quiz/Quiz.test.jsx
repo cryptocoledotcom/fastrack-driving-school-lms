@@ -1,8 +1,8 @@
-import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import Quiz from './Quiz';
+import _userEvent from '@testing-library/user-event';
 import { vi } from 'vitest';
+
+import Quiz from './Quiz';
 
 describe('Quiz Component', () => {
   const mockQuiz = {

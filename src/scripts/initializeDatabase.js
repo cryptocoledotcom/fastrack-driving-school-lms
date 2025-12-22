@@ -2,11 +2,11 @@
 // Run this to populate courses collection and enroll test users
 
 import { 
-  collection, 
   doc, 
   setDoc,
   serverTimestamp 
 } from 'firebase/firestore';
+
 import { db } from '../config/firebase';
 import { COURSE_IDS, COURSE_PRICING } from '../constants/courses';
 
@@ -15,7 +15,7 @@ import { COURSE_IDS, COURSE_PRICING } from '../constants/courses';
  */
 export const initializeCourses = async () => {
   try {
-    console.log('Initializing courses...');
+    console.warn('Initializing courses...');
 
     const courses = [
       {
@@ -103,10 +103,10 @@ export const initializeCourses = async () => {
     for (const course of courses) {
       const courseRef = doc(db, 'courses', course.id);
       await setDoc(courseRef, course);
-      console.log(`✓ Created course: ${course.title}`);
+      console.warn(`✓ Created course: ${course.title}`);
     }
 
-    console.log('✓ All courses initialized successfully!');
+    console.warn('✓ All courses initialized successfully!');
     return { success: true, message: 'Courses initialized' };
   } catch (error) {
     console.error('Error initializing courses:', error);
@@ -119,16 +119,16 @@ export const initializeCourses = async () => {
  */
 export const enrollUserInAllCourses = async (userId, userEmail) => {
   try {
-    console.log(`Enrolling user ${userEmail} in all courses...`);
+    console.warn(`Enrolling user ${userEmail} in all courses...`);
 
     const { default: enrollmentServices } = await import('../api/enrollment/enrollmentServices');
 
     for (const courseId of Object.values(COURSE_IDS)) {
       await enrollmentServices.createEnrollment(userId, courseId, userEmail);
-      console.log(`✓ Enrolled in: ${courseId}`);
+      console.warn(`✓ Enrolled in: ${courseId}`);
     }
 
-    console.log('✓ User enrolled in all courses successfully!');
+    console.warn('✓ User enrolled in all courses successfully!');
     return { success: true, message: 'User enrolled in all courses' };
   } catch (error) {
     console.error('Error enrolling user:', error);
@@ -141,11 +141,11 @@ export const enrollUserInAllCourses = async (userId, userEmail) => {
  */
 export const runInitialization = async () => {
   try {
-    console.log('=== Starting Database Initialization ===');
+    console.warn('=== Starting Database Initialization ===');
     
     await initializeCourses();
     
-    console.log('=== Database Initialization Complete ===');
+    console.warn('=== Database Initialization Complete ===');
     return { success: true };
   } catch (error) {
     console.error('Initialization failed:', error);

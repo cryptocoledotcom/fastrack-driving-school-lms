@@ -74,6 +74,7 @@ export const useSessionTimer = (options = {}) => {
         if (saved) {
           const savedTime = parseInt(saved, 10);
           if (!isNaN(savedTime) && savedTime > 0) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setSessionTime(savedTime);
           }
         }

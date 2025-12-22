@@ -1,5 +1,7 @@
 import React from 'react';
+
 import LoggingService from '../../../services/loggingService';
+
 import styles from './ErrorBoundary.module.css';
 
 class ErrorBoundary extends React.Component {
@@ -13,7 +15,7 @@ class ErrorBoundary extends React.Component {
     };
   }
 
-  static getDerivedStateFromError(error) {
+  static getDerivedStateFromError(_error) {
     return { hasError: true };
   }
 
@@ -62,7 +64,7 @@ class ErrorBoundary extends React.Component {
               notified.
             </p>
 
-            {process.env.NODE_ENV === 'development' && (
+            {import.meta.env.DEV && (
               <>
                 <button
                   onClick={this.toggleDetails}

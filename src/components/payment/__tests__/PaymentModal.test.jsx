@@ -1,5 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { vi, describe, it, expect, beforeEach } from 'vitest';
+
 import PaymentModal from '../PaymentModal';
 
 // Mock constants locally and module mock

@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+
 import { useAuth } from '../../context/AuthContext';
 import Card from '../../components/common/Card/Card';
 import Button from '../../components/common/Button/Button';
 import Input from '../../components/common/Input/Input';
 import Select from '../../components/common/Select/Select';
 import TextArea from '../../components/common/Input/TextArea';
-import Checkbox from '../../components/common/Checkbox/Checkbox'; // Assuming exists
 import ErrorMessage from '../../components/common/ErrorMessage/ErrorMessage';
 import SuccessMessage from '../../components/common/SuccessMessage/SuccessMessage';
 import LoadingSpinner from '../../components/common/LoadingSpinner/LoadingSpinner';
 import BaseModal from '../../components/common/Modals/BaseModal';
 import courseServices from '../../api/courses/courseServices';
+
 import styles from './AdminCoursesPage.module.css';
 
 const AdminCoursesPage = () => {
@@ -136,7 +137,7 @@ const AdminCoursesPage = () => {
         await courseServices.deleteCourse(courseId);
         setSuccess('Course deleted successfully');
         loadCourses();
-      } catch (err) {
+      } catch {
         setError('Failed to delete course');
       } finally {
         setLoading(false);

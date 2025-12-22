@@ -1,8 +1,10 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import ErrorBoundary from './ErrorBoundary';
-import LoggingService from '../../../services/loggingService';
 import { vi } from 'vitest';
+
+import LoggingService from '../../../services/loggingService';
+
+import ErrorBoundary from './ErrorBoundary';
 
 vi.mock('../../../services/loggingService', () => {
   const mockLogger = {
@@ -24,7 +26,7 @@ const TestComponent = ({ shouldError = false }) => {
   return <div data-testid="test-component">Test Component Rendered</div>;
 };
 
-const ThrowingComponentOnClick = () => {
+const _ThrowingComponentOnClick = () => {
   const handleClick = () => {
     throw new Error('Error on click');
   };
@@ -252,7 +254,7 @@ describe('ErrorBoundary', () => {
 
     it('should reset error state when Try Again is clicked', () => {
       const TestWrapper = () => {
-        const [shouldError, setShouldError] = React.useState(true);
+        const [shouldError, _setShouldError] = React.useState(true);
 
         return (
           <ErrorBoundary>

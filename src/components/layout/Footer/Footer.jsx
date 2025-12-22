@@ -1,9 +1,10 @@
 // Footer Component
 // Site footer with links
 
-import React from 'react';
 import { Link } from 'react-router-dom';
+
 import { PUBLIC_ROUTES } from '../../../constants/routes';
+
 import styles from './Footer.module.css';
 
 const Footer = () => {

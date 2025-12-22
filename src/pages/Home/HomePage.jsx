@@ -1,11 +1,12 @@
 // HomePage Component
 // Landing page with hero section and features
 
-import React from 'react';
 import { Link } from 'react-router-dom';
+
 import Button from '../../components/common/Button/Button';
 import Card from '../../components/common/Card/Card';
 import { PUBLIC_ROUTES } from '../../constants/routes';
+
 import styles from './HomePage.module.css';
 
 const HomePage = () => {

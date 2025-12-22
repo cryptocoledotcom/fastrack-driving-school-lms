@@ -1,10 +1,10 @@
-import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import _userEvent from '@testing-library/user-event';
+import { vi } from 'vitest';
+
 import UserManagementTab from '../UserManagementTab';
 import userManagementServices from '../../../../api/admin/userManagementServices';
 import { USER_ROLES } from '../../../../constants/userRoles';
-import { vi } from 'vitest';
 
 vi.mock('../../../../api/admin/userManagementServices');
 

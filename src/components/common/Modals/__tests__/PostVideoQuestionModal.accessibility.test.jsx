@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+/* eslint-disable import/order, react-hooks/exhaustive-deps */
+import React, { useState } from 'react';/* eslint-disable no-unused-vars */
+
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { vi } from 'vitest';

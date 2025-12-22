@@ -1,9 +1,9 @@
-import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { vi } from 'vitest';
+
 import UserManagementTab from '../UserManagementTab';
 import userManagementServices from '../../../../api/admin/userManagementServices';
 import { useAuth } from '../../../../context/AuthContext';
-import { vi } from 'vitest';
 
 vi.mock('../../../../api/admin/userManagementServices');
 vi.mock('../../../../context/AuthContext');

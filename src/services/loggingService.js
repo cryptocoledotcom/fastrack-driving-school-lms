@@ -23,13 +23,15 @@ class LoggingService {
       userAgent: typeof window !== 'undefined' ? window.navigator.userAgent : 'N/A'
     };
 
-    // Console logging in development
-    if (process.env.NODE_ENV === 'development') {
+    // Console logging in development and test environments
+    const isDevelopment = import.meta.env.MODE !== 'production';
+    if (isDevelopment) {
       const logMethod = level.toLowerCase();
-      if (typeof console[logMethod] === 'function') {
+      if (logMethod === 'error' || logMethod === 'warn') {
+        // eslint-disable-next-line no-console
         console[logMethod](message, data);
       } else {
-        console.log(message, data);
+        console.warn(message, data);
       }
     }
 

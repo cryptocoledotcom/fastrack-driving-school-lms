@@ -1,6 +1,7 @@
-import React from 'react';
-import { render, screen, fireEvent, waitFor, within } from '@testing-library/react';
+import { render, screen, fireEvent, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { vi } from 'vitest';
+
 import AdminPage from '../AdminPage';
 import enrollmentServices from '../../../api/enrollment/enrollmentServices';
 import schedulingServices from '../../../api/compliance/schedulingServices';
@@ -8,7 +9,6 @@ import userServices from '../../../api/student/userServices';
 import AuthContext from '../../../context/AuthContext';
 import { USER_ROLES } from '../../../constants/userRoles';
 import { useAdminPanel } from '../../../hooks/useAdminPanel'; // Import the hook
-import { vi } from 'vitest';
 
 // Mock services
 vi.mock('../../../api/enrollment/enrollmentServices');

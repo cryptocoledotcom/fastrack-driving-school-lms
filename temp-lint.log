@@ -1,0 +1,2087 @@
+
+> fastrack-driving-school-lms@1.0.0 lint
+> eslint .
+
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\index.js
+  1:7   error    'admin' is assigned a value but never used         no-unused-vars
+  4:24  warning  There should be no empty line within import group  import/order
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\src\__tests__\setup.js
+  134:30  error  'body' is defined but never used. Allowed unused args must match /^_/u    no-unused-vars
+  134:36  error  'sig' is defined but never used. Allowed unused args must match /^_/u     no-unused-vars
+  134:41  error  'secret' is defined but never used. Allowed unused args must match /^_/u  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\src\certificate\__tests__\certificateFunctions.test.js
+  4:5  warning  There should be no empty line within import group  import/order
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\src\certificate\certificateFunctions.js
+   1:7   error  'admin' is assigned a value but never used             no-unused-vars
+   3:7   error  'PDFDocument' is assigned a value but never used       no-unused-vars
+  14:11  error  'requestingUserId' is assigned a value but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\src\compliance\__tests__\answerVerification.test.js
+  6:3  error  'MAX_ANSWER_LENGTH' is assigned a value but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\src\compliance\__tests__\complianceFunctions.edge.test.js
+    3:5   error    'createMockAuth' is assigned a value but never used                        no-unused-vars
+    4:5   warning  There should be no empty line within import group                          import/order
+  181:40  error    'colName' is defined but never used. Allowed unused args must match /^_/u  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\src\compliance\__tests__\videoQuestionFunctions.test.js
+  4:5  warning  There should be no empty line within import group  import/order
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\src\compliance\auditFunctions.js
+  4:9  error  'AUDIT_EVENT_TYPES' is assigned a value but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\src\compliance\complianceFunctions.js
+     2:17  error  'onRequest' is assigned a value but never used                             no-unused-vars
+     5:48  error  'AUDIT_EVENT_TYPES' is assigned a value but never used                     no-unused-vars
+   305:49  error  'data' is not defined                                                      no-undef
+   474:49  error  'data' is not defined                                                      no-undef
+   642:21  error  'generateCompletionCertificate' is assigned a value but never used         no-unused-vars
+   732:49  error  'data' is not defined                                                      no-undef
+   797:11  error  'idleDurationMs' is assigned a value but never used                        no-unused-vars
+   919:70  error  'context' is defined but never used. Allowed unused args must match /^_/u  no-unused-vars
+   939:17  error  'functions' is not defined                                                 no-undef
+   945:17  error  'functions' is not defined                                                 no-undef
+   956:17  error  'functions' is not defined                                                 no-undef
+   964:17  error  'functions' is not defined                                                 no-undef
+   975:17  error  'functions' is not defined                                                 no-undef
+   992:17  error  'functions' is not defined                                                 no-undef
+  1013:26  error  'functions' is not defined                                                 no-undef
+  1018:15  error  'functions' is not defined                                                 no-undef
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\src\compliance\detsFunctions.js
+    9:7   error  'DETS_BATCH_SIZE' is assigned a value but never used                       no-unused-vars
+   12:66  error  'context' is defined but never used. Allowed unused args must match /^_/u  no-unused-vars
+  146:19  error  'context' is not defined                                                   no-undef
+  153:15  error  'context' is not defined                                                   no-undef
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\src\compliance\enrollmentCertificateFunctions.js
+    9:7   error  'DAILY_ACTIVITY_COLLECTION' is assigned a value but never used  no-unused-vars
+   73:39  error  'db' is not defined                                             no-undef
+  120:36  error  'db' is not defined                                             no-undef
+  124:13  error  'db' is not defined                                             no-undef
+  303:39  error  'db' is not defined                                             no-undef
+  350:36  error  'db' is not defined                                             no-undef
+  354:13  error  'db' is not defined                                             no-undef
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\src\compliance\sessionHeartbeat.test.js
+  1:7  error  'admin' is assigned a value but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\src\payment\__tests__\paymentFunctions.error.test.js
+  3:5  error    'createMockAuth' is assigned a value but never used  no-unused-vars
+  4:5  warning  There should be no empty line within import group    import/order
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\src\payment\__tests__\paymentFunctions.test.js
+   4:5   warning  There should be no empty line within import group                         import/order
+  20:24  error    'name' is defined but never used. Allowed unused args must match /^_/u    no-unused-vars
+  53:7   error    'mockStripe' is assigned a value but never used                           no-unused-vars
+  83:32  error    'body' is defined but never used. Allowed unused args must match /^_/u    no-unused-vars
+  83:38  error    'sig' is defined but never used. Allowed unused args must match /^_/u     no-unused-vars
+  83:43  error    'secret' is defined but never used. Allowed unused args must match /^_/u  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\src\payment\paymentFunctions.js
+  1:7   error    'admin' is assigned a value but never used                              no-unused-vars
+  5:19  warning  `../common/firebaseUtils` import should occur after import of `stripe`  import/order
+  8:14  warning  There should be no empty line within import group                       import/order
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\src\user\__tests__\debug_mock.test.js
+  1:10  error  'createRequire' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\src\user\__tests__\userFunctions.advanced.test.js
+  4:5  warning  There should be no empty line within import group  import/order
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\src\user\__tests__\userFunctions.test.js
+  4:5  warning  There should be no empty line within import group  import/order
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\functions\src\user\userFunctions.js
+  9:40  error  'context' is defined but never used. Allowed unused args must match /^_/u  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\scripts\bootstrap-super-admin.js
+   50:5  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+   54:5  error    'process' is not defined                                                           no-undef
+   71:5  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+   75:5  error    'process' is not defined                                                           no-undef
+   88:7  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+   96:7  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  116:5  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  146:5  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  178:5  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  191:5  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  193:5  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  194:5  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  195:5  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  196:5  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  207:7  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  208:7  error    'process' is not defined                                                           no-undef
+  220:5  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  221:5  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  222:5  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  223:5  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  224:5  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  226:5  error    'process' is not defined                                                           no-undef
+  229:5  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  230:5  error    'process' is not defined                                                           no-undef
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\scripts\delete-all-users.cjs
+   1:14  error    'require' is not defined                                                           no-undef
+   2:12  error    'require' is not defined                                                           no-undef
+   4:15  error    'require' is not defined                                                           no-undef
+   6:1   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+   7:1   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+   7:38  error    'process' is not defined                                                           no-undef
+  10:27  error    '__dirname' is not defined                                                         no-undef
+  11:1   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  12:1   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  18:3   error    'process' is not defined                                                           no-undef
+  23:26  error    'require' is not defined                                                           no-undef
+  24:3   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  30:3   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  33:3   error    'process' is not defined                                                           no-undef
+  41:5   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  44:7   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  46:7   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  49:9   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  54:7   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  63:7   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  66:5   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  67:5   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  68:5   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  70:5   error    'process' is not defined                                                           no-undef
+  74:5   error    'process' is not defined                                                           no-undef
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\scripts\load-test.js
+   13:12  error    'require' is not defined                                                           no-undef
+   14:14  error    'require' is not defined                                                           no-undef
+   16:15  error    'require' is not defined                                                           no-undef
+   36:18  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+   37:21  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+   38:19  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+   39:18  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+   40:21  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+   49:9   error    'process' is not defined                                                           no-undef
+   50:41  error    'process' is not defined                                                           no-undef
+   56:44  error    '__dirname' is not defined                                                         no-undef
+   58:32  error    'require' is not defined                                                           no-undef
+   70:5   error    'process' is not defined                                                           no-undef
+  100:36  error    'paymentIndex' is defined but never used. Allowed unused args must match /^_/u     no-unused-vars
+  231:3   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  282:5   error    'process' is not defined                                                           no-undef
+  286:5   error    'process' is not defined                                                           no-undef
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\scripts\seed-admin.js
+    1:15  error    'require' is not defined                                                           no-undef
+    4:24  error    'require' is not defined                                                           no-undef
+    7:1   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+   12:1   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+   40:3   error    'process' is not defined                                                           no-undef
+  475:5   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  477:5   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  479:5   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  484:9   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  486:5   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  490:5   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  496:9   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  498:5   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\scripts\seed-emulator.cjs
+    1:15  error    'require' is not defined                                                           no-undef
+    5:1   error    'process' is not defined                                                           no-undef
+    6:1   error    'process' is not defined                                                           no-undef
+  133:5   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  140:9   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  147:9   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  154:9   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  166:9   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  176:13  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  181:5   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  192:5   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  201:9   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  211:13  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  216:5   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  227:5   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  236:9   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  246:13  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  251:5   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  262:5   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  272:9   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  284:13  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  289:5   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  300:5   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  309:9   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  321:13  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  326:5   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  337:5   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  348:5   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  364:5   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  367:5   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  368:5   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  369:5   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  370:5   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  371:5   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  372:5   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  373:5   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\App.jsx
+   4:8   error    'React' is defined but never used                   no-unused-vars
+  11:1   warning  There should be no empty line within import group   import/order
+  14:1   warning  There should be no empty line within import group   import/order
+  14:39  error    'RoleBasedRoute' is defined but never used          no-unused-vars
+  14:72  error    'AdminDashboardRoute' is defined but never used     no-unused-vars
+  14:93  error    'AdminOrInstructorRoute' is defined but never used  no-unused-vars
+  17:1   warning  There should be no empty line within import group   import/order
+  27:1   warning  There should be no empty line within import group   import/order
+  39:1   warning  There should be no empty line within import group   import/order
+  51:1   warning  There should be no empty line within import group   import/order
+  54:1   warning  There should be no empty line within import group   import/order
+  57:1   warning  There should be no empty line within import group   import/order
+  57:8   error    'LandingPage' is defined but never used             no-unused-vars
+  61:1   warning  There should be no empty line within import group   import/order
+  61:10  error    'USER_ROLES' is defined but never used              no-unused-vars
+  64:1   warning  There should be no empty line within import group   import/order
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\__tests__\firestore-rules-production.test.js
+   80:15  error  'role' is assigned a value but never used                 no-unused-vars
+  117:15  error  'canUpdate' is assigned a value but never used            no-unused-vars
+  203:15  error  'enrollmentData' is assigned a value but never used       no-unused-vars
+  250:15  error  'quizAttemptData' is assigned a value but never used      no-unused-vars
+  296:15  error  'certData' is assigned a value but never used             no-unused-vars
+  347:15  error  'auth' is assigned a value but never used                 no-unused-vars
+  354:15  error  'auth' is assigned a value but never used                 no-unused-vars
+  424:15  error  'requestResourceData' is assigned a value but never used  no-unused-vars
+  542:13  error  'role' is assigned a value but never used                 no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\__tests__\firestore.rules.test.js
+   33:15  error  'resource' is assigned a value but never used      no-unused-vars
+  106:15  error  'resource' is assigned a value but never used      no-unused-vars
+  249:13  error  'targetUserId' is assigned a value but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\__tests__\integration\CourseEnrollmentFlow.test.jsx
+  2:36  error    'beforeEach' is defined but never used             no-unused-vars
+  5:1   warning  There should be no empty line within import group  import/order
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\api\admin\__tests__\analyticsServices.test.js
+  1:10  error  'vi' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\api\admin\__tests__\userManagementServices.createUserFunction.test.js
+  1:10  error  'getFunctions' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\api\admin\__tests__\userManagementServices.test.js
+   3:3  error    'query' is defined but never used                                                     no-unused-vars
+   4:3  error    'where' is defined but never used                                                     no-unused-vars
+  10:3  error    'serverTimestamp' is defined but never used                                           no-unused-vars
+  24:1  warning  `firebase/functions` import should occur before import of `../../../config/firebase`  import/order
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\api\admin\userManagementServices.js
+  262:59  error  'performedByAdminId' is defined but never used. Allowed unused args must match /^_/u  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\api\auth\__tests__\authServices.test.js
+  60:5  error  Unnecessary try/catch wrapper  no-useless-catch
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\api\auth\authServices.js
+  18:21  error  'ValidationError' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\api\base\RetryHandler.js
+  73:11  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\api\base\__tests__\CacheService.test.js
+  8:5  error  'jest' is not defined  no-undef
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\api\base\__tests__\QueryHelper.test.js
+  161:9  error  'fail' is not defined  no-undef
+  198:9  error  'fail' is not defined  no-undef
+  239:9  error  'fail' is not defined  no-undef
+  279:9  error  'fail' is not defined  no-undef
+  356:9  error  'fail' is not defined  no-undef
+  404:9  error  'fail' is not defined  no-undef
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\api\base\__tests__\RetryHandler.test.js
+    1:10  error  'vi' is defined but never used        no-unused-vars
+    4:10  error  'ApiError' is defined but never used  no-unused-vars
+  181:9   error  'fail' is not defined                 no-undef
+  196:9   error  'fail' is not defined                 no-undef
+  210:9   error  'fail' is not defined                 no-undef
+  221:9   error  'fail' is not defined                 no-undef
+  277:9   error  'fail' is not defined                 no-undef
+  293:9   error  'fail' is not defined                 no-undef
+  324:9   error  'fail' is not defined                 no-undef
+  350:9   error  'fail' is not defined                 no-undef
+  386:9   error  'fail' is not defined                 no-undef
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\api\base\__tests__\ServiceBase.test.js
+  126:9  error  'fail' is not defined  no-undef
+  183:9  error  'fail' is not defined  no-undef
+  196:9  error  'fail' is not defined  no-undef
+  227:9  error  'fail' is not defined  no-undef
+  283:9  error  'fail' is not defined  no-undef
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\api\compliance\__tests__\schedulingServices.assignment.test.js
+  11:19  error  'jest' is not defined  no-undef
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\api\courses\__tests__\courseServices.test.js
+    6:5   error  'db' is assigned a value but never used                                     no-unused-vars
+    9:5   error  'CourseError' is assigned a value but never used                            no-unused-vars
+   10:5   error  'getTimestamps' is assigned a value but never used                          no-unused-vars
+   11:5   error  'getUpdatedTimestamp' is assigned a value but never used                    no-unused-vars
+   66:5   error  Unnecessary try/catch wrapper                                               no-useless-catch
+  119:19  error  'callback' is defined but never used. Allowed unused args must match /^_/u  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\api\courses\__tests__\lessonServices.test.js
+  1:48  error  'afterEach' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\api\courses\__tests__\quizServices.test.js
+  1:48  error  'afterEach' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\api\courses\courseServices.js
+  31:7  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  60:9  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\api\enrollment\__tests__\enrollmentServices.checkCourseAccess.test.js
+  108:16  error  'e' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\api\enrollment\__tests__\enrollmentServices.refactor.test.js
+  9:27  error  'jest' is not defined  no-undef
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\api\enrollment\__tests__\enrollmentServices.reset.test.js
+    7:7   error  'firebaseFirestore' is assigned a value but never used  no-unused-vars
+    9:20  error  'jest' is not defined                                   no-undef
+   21:27  error  'jest' is not defined                                   no-undef
+   29:7   error  'mockBatchUpdate' is assigned a value but never used    no-unused-vars
+   30:7   error  'mockBatchCommit' is assigned a value but never used    no-unused-vars
+  244:18  error  'e' is defined but never used                           no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\api\enrollment\__tests__\paymentServices.test.js
+  2:26  error  'getDocs' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\api\enrollment\enrollmentServices.js
+  216:71  error  'paymentType' is assigned a value but never used. Allowed unused args must match /^_/u  no-unused-vars
+  408:60  error  'userEmail' is assigned a value but never used. Allowed unused args must match /^_/u    no-unused-vars
+  461:65  error  'userEmail' is assigned a value but never used. Allowed unused args must match /^_/u    no-unused-vars
+  550:63  error  'userEmail' is assigned a value but never used. Allowed unused args must match /^_/u    no-unused-vars
+  641:59  error  'userEmail' is assigned a value but never used. Allowed unused args must match /^_/u    no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\api\errors\__tests__\ApiError.test.js
+  1:10  error  'vi' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\api\student\__tests__\studentServices.test.js
+   7:5  error  'db' is assigned a value but never used             no-unused-vars
+  13:5  error  'NotFoundError' is assigned a value but never used  no-unused-vars
+  79:5  error  Unnecessary try/catch wrapper                       no-useless-catch
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\api\student\__tests__\userServices.getAllStudents.test.js
+   10:19  error  'jest' is not defined  no-undef
+   33:16  error  'jest' is not defined  no-undef
+   66:16  error  'jest' is not defined  no-undef
+   97:16  error  'jest' is not defined  no-undef
+  139:16  error  'jest' is not defined  no-undef
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\api\student\index.js
+  1:44  error  Unable to resolve path to module './studentServices.js'  import/no-unresolved
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\api\student\progressServices.js
+  193:28  error  Unexpected constant truthiness on the left-hand side of a `||` expression  no-constant-binary-expression
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\api\student\videoQuestionServices.js
+  8:3  error  'setDoc' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\admin\ComplianceReporting.jsx
+  1:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\admin\SchedulingManagement.jsx
+  1:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\admin\__tests__\SchedulingManagement.assignment.test.jsx
+   1:8   error  'React' is defined but never used      no-unused-vars
+   2:26  error  'fireEvent' is defined but never used  no-unused-vars
+  12:1   error  'describe' is not defined              no-undef
+  30:3   error  'beforeEach' is not defined            no-undef
+  36:3   error  'it' is not defined                    no-undef
+  40:7   error  'expect' is not defined                no-undef
+  46:3   error  'it' is not defined                    no-undef
+  50:7   error  'expect' is not defined                no-undef
+  54:7   error  'expect' is not defined                no-undef
+  58:3   error  'it' is not defined                    no-undef
+  62:7   error  'expect' is not defined                no-undef
+  66:3   error  'it' is not defined                    no-undef
+  71:7   error  'expect' is not defined                no-undef
+  75:3   error  'it' is not defined                    no-undef
+  80:7   error  'expect' is not defined                no-undef
+  84:3   error  'it' is not defined                    no-undef
+  89:7   error  'expect' is not defined                no-undef
+  90:7   error  'expect' is not defined                no-undef
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\admin\__tests__\SchedulingManagement.loadingIndicators.test.jsx
+    1:8   error  'React' is defined but never used      no-unused-vars
+    2:46  error  'within' is defined but never used     no-unused-vars
+    3:8   error  'userEvent' is defined but never used  no-unused-vars
+   13:1   error  'describe' is not defined              no-undef
+   54:3   error  'beforeEach' is not defined            no-undef
+   65:3   error  'describe' is not defined              no-undef
+   66:5   error  'test' is not defined                  no-undef
+   70:9   error  'expect' is not defined                no-undef
+   74:7   error  'expect' is not defined                no-undef
+   77:5   error  'test' is not defined                  no-undef
+   81:9   error  'expect' is not defined                no-undef
+   88:9   error  'expect' is not defined                no-undef
+   92:7   error  'expect' is not defined                no-undef
+   94:7   error  'expect' is not defined                no-undef
+   97:5   error  'test' is not defined                  no-undef
+  101:9   error  'expect' is not defined                no-undef
+  106:7   error  'expect' is not defined                no-undef
+  107:7   error  'expect' is not defined                no-undef
+  111:3   error  'describe' is not defined              no-undef
+  112:5   error  'test' is not defined                  no-undef
+  116:9   error  'expect' is not defined                no-undef
+  131:9   error  'expect' is not defined                no-undef
+  135:5   error  'test' is not defined                  no-undef
+  139:9   error  'expect' is not defined                no-undef
+  150:9   error  'expect' is not defined                no-undef
+  157:11  error  'expect' is not defined                no-undef
+  162:5   error  'test' is not defined                  no-undef
+  166:9   error  'expect' is not defined                no-undef
+  178:9   error  'expect' is not defined                no-undef
+  185:11  error  'expect' is not defined                no-undef
+  190:5   error  'test' is not defined                  no-undef
+  194:9   error  'expect' is not defined                no-undef
+  204:7   error  'expect' is not defined                no-undef
+  205:7   error  'expect' is not defined                no-undef
+  209:3   error  'describe' is not defined              no-undef
+  210:5   error  'test' is not defined                  no-undef
+  214:9   error  'expect' is not defined                no-undef
+  229:9   error  'expect' is not defined                no-undef
+  233:5   error  'test' is not defined                  no-undef
+  237:9   error  'expect' is not defined                no-undef
+  248:9   error  'expect' is not defined                no-undef
+  256:11  error  'expect' is not defined                no-undef
+  261:5   error  'test' is not defined                  no-undef
+  265:9   error  'expect' is not defined                no-undef
+  274:7   error  'expect' is not defined                no-undef
+  279:9   error  'expect' is not defined                no-undef
+  283:5   error  'test' is not defined                  no-undef
+  287:9   error  'expect' is not defined                no-undef
+  297:7   error  'expect' is not defined                no-undef
+  298:7   error  'expect' is not defined                no-undef
+  302:3   error  'describe' is not defined              no-undef
+  303:5   error  'test' is not defined                  no-undef
+  307:9   error  'expect' is not defined                no-undef
+  321:9   error  'expect' is not defined                no-undef
+  325:9   error  'expect' is not defined                no-undef
+  329:5   error  'test' is not defined                  no-undef
+  333:9   error  'expect' is not defined                no-undef
+  338:7   error  'expect' is not defined                no-undef
+  341:9   error  'expect' is not defined                no-undef
+  346:3   error  'describe' is not defined              no-undef
+  347:5   error  'test' is not defined                  no-undef
+  351:9   error  'expect' is not defined                no-undef
+  359:9   error  'expect' is not defined                no-undef
+  364:9   error  'expect' is not defined                no-undef
+  368:5   error  'test' is not defined                  no-undef
+  372:9   error  'expect' is not defined                no-undef
+  379:9   error  'expect' is not defined                no-undef
+  383:5   error  'test' is not defined                  no-undef
+  387:9   error  'expect' is not defined                no-undef
+  391:7   error  'expect' is not defined                no-undef
+  397:9   error  'expect' is not defined                no-undef
+  403:9   error  'expect' is not defined                no-undef
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\admin\dashboard\ActivityWidget.jsx
+  1:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\admin\dashboard\CertificatesWidget.jsx
+  1:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\admin\dashboard\RevenueWidget.jsx
+  1:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\admin\dashboard\__tests__\CertificatesWidget.test.jsx
+  20:17  error  'container' is assigned a value but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\admin\tabs\AnalyticsTab.jsx
+  1:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\admin\tabs\AuditLogsTab.jsx
+  1:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\admin\tabs\DETSExportTab.jsx
+  1:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\admin\tabs\EnrollmentManagementTab.jsx
+   1:8  error  'React' is defined but never used                                                            no-unused-vars
+  11:3  error  'onResetAllUserEnrollments' is defined but never used. Allowed unused args must match /^_/u  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\admin\tabs\UserManagementTab.jsx
+  1:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\admin\tabs\__tests__\AnalyticsTab.test.jsx
+    1:8   error    'React' is defined but never used                  no-unused-vars
+    2:1   warning  There should be no empty line within import group  import/order
+   85:1   error    'describe' is not defined                          no-undef
+   86:3   error    'describe' is not defined                          no-undef
+   87:5   error    'it' is not defined                                no-undef
+   90:7   error    'expect' is not defined                            no-undef
+   91:7   error    'expect' is not defined                            no-undef
+   94:5   error    'it' is not defined                                no-undef
+   97:7   error    'expect' is not defined                            no-undef
+   98:7   error    'expect' is not defined                            no-undef
+  101:5   error    'it' is not defined                                no-undef
+  104:7   error    'expect' is not defined                            no-undef
+  107:5   error    'it' is not defined                                no-undef
+  110:7   error    'expect' is not defined                            no-undef
+  112:7   error    'expect' is not defined                            no-undef
+  116:3   error    'describe' is not defined                          no-undef
+  117:5   error    'it' is not defined                                no-undef
+  120:7   error    'expect' is not defined                            no-undef
+  121:7   error    'expect' is not defined                            no-undef
+  124:5   error    'it' is not defined                                no-undef
+  127:7   error    'expect' is not defined                            no-undef
+  129:7   error    'expect' is not defined                            no-undef
+  132:5   error    'it' is not defined                                no-undef
+  135:7   error    'expect' is not defined                            no-undef
+  138:5   error    'it' is not defined                                no-undef
+  141:7   error    'expect' is not defined                            no-undef
+  142:7   error    'expect' is not defined                            no-undef
+  146:3   error    'describe' is not defined                          no-undef
+  147:5   error    'it' is not defined                                no-undef
+  150:7   error    'expect' is not defined                            no-undef
+  153:5   error    'it' is not defined                                no-undef
+  157:7   error    'expect' is not defined                            no-undef
+  160:5   error    'it' is not defined                                no-undef
+  164:7   error    'expect' is not defined                            no-undef
+  167:5   error    'it' is not defined                                no-undef
+  170:7   error    'expect' is not defined                            no-undef
+  173:5   error    'it' is not defined                                no-undef
+  176:7   error    'expect' is not defined                            no-undef
+  179:5   error    'it' is not defined                                no-undef
+  182:7   error    'expect' is not defined                            no-undef
+  186:3   error    'describe' is not defined                          no-undef
+  187:5   error    'it' is not defined                                no-undef
+  188:15  error    'container' is assigned a value but never used     no-unused-vars
+  190:7   error    'expect' is not defined                            no-undef
+  191:7   error    'expect' is not defined                            no-undef
+  193:7   error    'expect' is not defined                            no-undef
+  196:5   error    'it' is not defined                                no-undef
+  199:7   error    'expect' is not defined                            no-undef
+  202:5   error    'it' is not defined                                no-undef
+  205:7   error    'expect' is not defined                            no-undef
+  206:7   error    'expect' is not defined                            no-undef
+  207:7   error    'expect' is not defined                            no-undef
+  210:5   error    'it' is not defined                                no-undef
+  211:15  error    'container' is assigned a value but never used     no-unused-vars
+  214:7   error    'expect' is not defined                            no-undef
+  218:3   error    'describe' is not defined                          no-undef
+  219:5   error    'it' is not defined                                no-undef
+  222:7   error    'expect' is not defined                            no-undef
+  225:5   error    'it' is not defined                                no-undef
+  237:7   error    'expect' is not defined                            no-undef
+  241:3   error    'describe' is not defined                          no-undef
+  242:5   error    'it' is not defined                                no-undef
+  246:7   error    'expect' is not defined                            no-undef
+  249:5   error    'it' is not defined                                no-undef
+  253:7   error    'expect' is not defined                            no-undef
+  256:5   error    'it' is not defined                                no-undef
+  260:7   error    'expect' is not defined                            no-undef
+  264:3   error    'describe' is not defined                          no-undef
+  265:5   error    'it' is not defined                                no-undef
+  266:7   error    'global' is not defined                            no-undef
+  269:7   error    'expect' is not defined                            no-undef
+  272:5   error    'it' is not defined                                no-undef
+  273:7   error    'global' is not defined                            no-undef
+  276:7   error    'expect' is not defined                            no-undef
+  280:3   error    'describe' is not defined                          no-undef
+  281:5   error    'it' is not defined                                no-undef
+  284:7   error    'expect' is not defined                            no-undef
+  287:7   error    'expect' is not defined                            no-undef
+  290:5   error    'it' is not defined                                no-undef
+  295:7   error    'expect' is not defined                            no-undef
+  298:5   error    'it' is not defined                                no-undef
+  301:7   error    'expect' is not defined                            no-undef
+  305:3   error    'describe' is not defined                          no-undef
+  306:5   error    'it' is not defined                                no-undef
+  310:7   error    'expect' is not defined                            no-undef
+  313:5   error    'it' is not defined                                no-undef
+  316:7   error    'expect' is not defined                            no-undef
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\admin\tabs\__tests__\UserManagementTab.createUser.integration.test.jsx
+    1:8  error  'React' is defined but never used  no-unused-vars
+   12:1  error  'describe' is not defined          no-undef
+   20:3  error  'beforeEach' is not defined        no-undef
+   51:3  error  'it' is not defined                no-undef
+   55:7  error  'expect' is not defined            no-undef
+   59:3  error  'it' is not defined                no-undef
+   66:7  error  'expect' is not defined            no-undef
+   70:3  error  'it' is not defined                no-undef
+   78:7  error  'expect' is not defined            no-undef
+   82:3  error  'it' is not defined                no-undef
+   90:7  error  'expect' is not defined            no-undef
+   94:3  error  'it' is not defined                no-undef
+  101:7  error  'expect' is not defined            no-undef
+  105:3  error  'it' is not defined                no-undef
+  113:7  error  'expect' is not defined            no-undef
+  117:3  error  'it' is not defined                no-undef
+  131:7  error  'expect' is not defined            no-undef
+  144:9  error  'expect' is not defined            no-undef
+  149:3  error  'it' is not defined                no-undef
+  173:9  error  'expect' is not defined            no-undef
+  178:3  error  'it' is not defined                no-undef
+  203:9  error  'expect' is not defined            no-undef
+  208:3  error  'it' is not defined                no-undef
+  231:9  error  'expect' is not defined            no-undef
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\admin\tabs\__tests__\UserManagementTab.test.jsx
+    1:8  error  'React' is defined but never used      no-unused-vars
+    3:8  error  'userEvent' is defined but never used  no-unused-vars
+   77:1  error  'describe' is not defined              no-undef
+   78:3  error  'beforeEach' is not defined            no-undef
+   88:3  error  'describe' is not defined              no-undef
+   89:5  error  'it' is not defined                    no-undef
+   93:9  error  'expect' is not defined                no-undef
+   97:5  error  'it' is not defined                    no-undef
+  101:9  error  'expect' is not defined                no-undef
+  102:9  error  'expect' is not defined                no-undef
+  103:9  error  'expect' is not defined                no-undef
+  104:9  error  'expect' is not defined                no-undef
+  105:9  error  'expect' is not defined                no-undef
+  109:5  error  'it' is not defined                    no-undef
+  113:9  error  'expect' is not defined                no-undef
+  114:9  error  'expect' is not defined                no-undef
+  115:9  error  'expect' is not defined                no-undef
+  119:5  error  'it' is not defined                    no-undef
+  124:9  error  'expect' is not defined                no-undef
+  128:5  error  'it' is not defined                    no-undef
+  132:9  error  'expect' is not defined                no-undef
+  137:3  error  'describe' is not defined              no-undef
+  138:5  error  'it' is not defined                    no-undef
+  142:9  error  'expect' is not defined                no-undef
+  149:9  error  'expect' is not defined                no-undef
+  150:9  error  'expect' is not defined                no-undef
+  154:5  error  'it' is not defined                    no-undef
+  158:9  error  'expect' is not defined                no-undef
+  165:9  error  'expect' is not defined                no-undef
+  169:5  error  'it' is not defined                    no-undef
+  173:9  error  'expect' is not defined                no-undef
+  181:9  error  'expect' is not defined                no-undef
+  182:9  error  'expect' is not defined                no-undef
+  186:5  error  'it' is not defined                    no-undef
+  190:9  error  'expect' is not defined                no-undef
+  197:9  error  'expect' is not defined                no-undef
+  203:9  error  'expect' is not defined                no-undef
+  208:3  error  'describe' is not defined              no-undef
+  209:5  error  'it' is not defined                    no-undef
+  213:9  error  'expect' is not defined                no-undef
+  220:9  error  'expect' is not defined                no-undef
+  224:5  error  'it' is not defined                    no-undef
+  228:9  error  'expect' is not defined                no-undef
+  235:9  error  'expect' is not defined                no-undef
+  241:9  error  'expect' is not defined                no-undef
+  245:5  error  'it' is not defined                    no-undef
+  251:9  error  'expect' is not defined                no-undef
+  258:9  error  'expect' is not defined                no-undef
+  265:9  error  'expect' is not defined                no-undef
+  273:5  error  'it' is not defined                    no-undef
+  277:9  error  'expect' is not defined                no-undef
+  284:9  error  'expect' is not defined                no-undef
+  291:9  error  'expect' is not defined                no-undef
+  295:5  error  'it' is not defined                    no-undef
+  307:9  error  'expect' is not defined                no-undef
+  314:9  error  'expect' is not defined                no-undef
+  321:9  error  'expect' is not defined                no-undef
+  326:3  error  'describe' is not defined              no-undef
+  327:5  error  'it' is not defined                    no-undef
+  331:9  error  'expect' is not defined                no-undef
+  338:9  error  'expect' is not defined                no-undef
+  345:9  error  'expect' is not defined                no-undef
+  349:5  error  'it' is not defined                    no-undef
+  353:9  error  'expect' is not defined                no-undef
+  360:9  error  'expect' is not defined                no-undef
+  367:9  error  'expect' is not defined                no-undef
+  371:5  error  'it' is not defined                    no-undef
+  375:9  error  'expect' is not defined                no-undef
+  386:9  error  'expect' is not defined                no-undef
+  390:5  error  'it' is not defined                    no-undef
+  394:9  error  'expect' is not defined                no-undef
+  405:9  error  'expect' is not defined                no-undef
+  411:9  error  'expect' is not defined                no-undef
+  415:5  error  'it' is not defined                    no-undef
+  427:9  error  'expect' is not defined                no-undef
+  434:9  error  'expect' is not defined                no-undef
+  441:9  error  'expect' is not defined                no-undef
+  446:3  error  'describe' is not defined              no-undef
+  447:5  error  'it' is not defined                    no-undef
+  451:9  error  'expect' is not defined                no-undef
+  458:9  error  'expect' is not defined                no-undef
+  459:9  error  'expect' is not defined                no-undef
+  463:5  error  'it' is not defined                    no-undef
+  467:9  error  'expect' is not defined                no-undef
+  474:9  error  'expect' is not defined                no-undef
+  475:9  error  'expect' is not defined                no-undef
+  479:5  error  'it' is not defined                    no-undef
+  483:9  error  'expect' is not defined                no-undef
+  490:9  error  'expect' is not defined                no-undef
+  491:9  error  'expect' is not defined                no-undef
+  495:5  error  'it' is not defined                    no-undef
+  499:9  error  'expect' is not defined                no-undef
+  506:9  error  'expect' is not defined                no-undef
+  512:9  error  'expect' is not defined                no-undef
+  517:3  error  'describe' is not defined              no-undef
+  518:5  error  'it' is not defined                    no-undef
+  522:9  error  'expect' is not defined                no-undef
+  529:9  error  'expect' is not defined                no-undef
+  533:5  error  'it' is not defined                    no-undef
+  539:9  error  'expect' is not defined                no-undef
+  546:9  error  'expect' is not defined                no-undef
+  551:3  error  'describe' is not defined              no-undef
+  552:5  error  'it' is not defined                    no-undef
+  559:9  error  'expect' is not defined                no-undef
+  563:5  error  'it' is not defined                    no-undef
+  570:9  error  'expect' is not defined                no-undef
+  577:9  error  'expect' is not defined                no-undef
+  584:9  error  'expect' is not defined                no-undef
+  588:5  error  'it' is not defined                    no-undef
+  595:9  error  'expect' is not defined                no-undef
+  602:9  error  'expect' is not defined                no-undef
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\auth\ForcePasswordChangeModal.jsx
+  1:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\auth\__tests__\ForcePasswordChangeModal.integration.test.jsx
+    1:8   error  'React' is defined but never used                                             no-unused-vars
+    2:26  error  'fireEvent' is defined but never used                                         no-unused-vars
+    2:37  error  'waitFor' is defined but never used                                           no-unused-vars
+    4:13  error  'FirestoreModule' is defined but never used                                   no-unused-vars
+   11:61  error  'onComplete' is defined but never used. Allowed unused args must match /^_/u  no-unused-vars
+   48:1   error  'describe' is not defined                                                     no-undef
+   52:3   error  'beforeEach' is not defined                                                   no-undef
+   55:5   error  The members of 'AuthModule' are read-only                                     no-import-assign
+   62:5   error  The members of 'AuthModule' are read-only                                     no-import-assign
+   62:26  error  'jest' is not defined                                                         no-undef
+   65:3   error  'it' is not defined                                                           no-undef
+   76:5   error  'expect' is not defined                                                       no-undef
+   79:3   error  'it' is not defined                                                           no-undef
+   90:5   error  'expect' is not defined                                                       no-undef
+   91:5   error  'expect' is not defined                                                       no-undef
+   94:3   error  'it' is not defined                                                           no-undef
+  106:5   error  'expect' is not defined                                                       no-undef
+  109:3   error  'it' is not defined                                                           no-undef
+  120:5   error  'expect' is not defined                                                       no-undef
+  121:5   error  'expect' is not defined                                                       no-undef
+  122:5   error  'expect' is not defined                                                       no-undef
+  123:5   error  'expect' is not defined                                                       no-undef
+  126:3   error  'it' is not defined                                                           no-undef
+  137:5   error  'expect' is not defined                                                       no-undef
+  138:5   error  'expect' is not defined                                                       no-undef
+  139:5   error  'expect' is not defined                                                       no-undef
+  142:3   error  'it' is not defined                                                           no-undef
+  153:5   error  'expect' is not defined                                                       no-undef
+  156:3   error  'it' is not defined                                                           no-undef
+  167:5   error  'expect' is not defined                                                       no-undef
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\common\Badge\Badge.jsx
+  4:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\common\Button\Button.jsx
+  4:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\common\Card\Card.jsx
+  4:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\common\Checkbox\Checkbox.jsx
+  4:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\common\ErrorBoundary\ErrorBoundary.jsx
+  18:35  error  'error' is defined but never used. Allowed unused args must match /^_/u  no-unused-vars
+  67:14  error  'process' is not defined                                                 no-undef
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\common\ErrorBoundary\ErrorBoundary.test.jsx
+   29:7   error  'ThrowingComponentOnClick' is assigned a value but never used  no-unused-vars
+   40:1   error  'describe' is not defined                                      no-undef
+   43:3   error  'beforeEach' is not defined                                    no-undef
+   48:3   error  'afterEach' is not defined                                     no-undef
+   54:3   error  'describe' is not defined                                      no-undef
+   55:5   error  'it' is not defined                                            no-undef
+   62:7   error  'expect' is not defined                                        no-undef
+   63:7   error  'expect' is not defined                                        no-undef
+   66:5   error  'it' is not defined                                            no-undef
+   74:7   error  'expect' is not defined                                        no-undef
+   75:7   error  'expect' is not defined                                        no-undef
+   79:3   error  'describe' is not defined                                      no-undef
+   80:5   error  'it' is not defined                                            no-undef
+   87:7   error  'expect' is not defined                                        no-undef
+   90:5   error  'it' is not defined                                            no-undef
+   97:7   error  'expect' is not defined                                        no-undef
+  100:5   error  'it' is not defined                                            no-undef
+  107:7   error  'expect' is not defined                                        no-undef
+  109:7   error  'expect' is not defined                                        no-undef
+  110:7   error  'expect' is not defined                                        no-undef
+  113:5   error  'it' is not defined                                            no-undef
+  120:7   error  'expect' is not defined                                        no-undef
+  122:7   error  'expect' is not defined                                        no-undef
+  125:5   error  'it' is not defined                                            no-undef
+  133:7   error  'expect' is not defined                                        no-undef
+  134:7   error  'expect' is not defined                                        no-undef
+  138:3   error  'describe' is not defined                                      no-undef
+  139:5   error  'it' is not defined                                            no-undef
+  140:7   error  'process' is not defined                                       no-undef
+  149:7   error  'expect' is not defined                                        no-undef
+  152:5   error  'it' is not defined                                            no-undef
+  153:7   error  'process' is not defined                                       no-undef
+  162:7   error  'expect' is not defined                                        no-undef
+  166:7   error  'expect' is not defined                                        no-undef
+  167:7   error  'expect' is not defined                                        no-undef
+  170:5   error  'it' is not defined                                            no-undef
+  171:7   error  'process' is not defined                                       no-undef
+  179:7   error  'expect' is not defined                                        no-undef
+  182:5   error  'it' is not defined                                            no-undef
+  183:7   error  'process' is not defined                                       no-undef
+  195:7   error  'expect' is not defined                                        no-undef
+  198:7   error  'expect' is not defined                                        no-undef
+  202:3   error  'describe' is not defined                                      no-undef
+  203:5   error  'it' is not defined                                            no-undef
+  204:7   error  'process' is not defined                                       no-undef
+  212:7   error  'expect' is not defined                                        no-undef
+  213:7   error  'expect' is not defined                                        no-undef
+  216:5   error  'it' is not defined                                            no-undef
+  217:7   error  'process' is not defined                                       no-undef
+  225:7   error  'expect' is not defined                                        no-undef
+  226:7   error  'expect' is not defined                                        no-undef
+  229:5   error  'it' is not defined                                            no-undef
+  230:7   error  'process' is not defined                                       no-undef
+  238:7   error  'expect' is not defined                                        no-undef
+  239:7   error  'expect' is not defined                                        no-undef
+  243:3   error  'describe' is not defined                                      no-undef
+  244:5   error  'it' is not defined                                            no-undef
+  252:7   error  'expect' is not defined                                        no-undef
+  255:5   error  'it' is not defined                                            no-undef
+  257:29  error  'setShouldError' is assigned a value but never used            no-unused-vars
+  272:7   error  'expect' is not defined                                        no-undef
+  277:7   error  'expect' is not defined                                        no-undef
+  280:5   error  'it' is not defined                                            no-undef
+  281:7   error  'process' is not defined                                       no-undef
+  289:7   error  'expect' is not defined                                        no-undef
+  297:7   error  'expect' is not defined                                        no-undef
+  301:3   error  'describe' is not defined                                      no-undef
+  302:5   error  'it' is not defined                                            no-undef
+  303:7   error  'process' is not defined                                       no-undef
+  315:7   error  'expect' is not defined                                        no-undef
+  318:5   error  'it' is not defined                                            no-undef
+  319:7   error  'process' is not defined                                       no-undef
+  331:7   error  'expect' is not defined                                        no-undef
+  335:3   error  'describe' is not defined                                      no-undef
+  336:5   error  'it' is not defined                                            no-undef
+  347:7   error  'expect' is not defined                                        no-undef
+  350:5   error  'it' is not defined                                            no-undef
+  364:7   error  'expect' is not defined                                        no-undef
+  365:7   error  'expect' is not defined                                        no-undef
+  369:3   error  'describe' is not defined                                      no-undef
+  370:5   error  'it' is not defined                                            no-undef
+  389:7   error  'expect' is not defined                                        no-undef
+  392:5   error  'it' is not defined                                            no-undef
+  399:7   error  'expect' is not defined                                        no-undef
+  400:7   error  'expect' is not defined                                        no-undef
+  404:3   error  'describe' is not defined                                      no-undef
+  405:5   error  'it' is not defined                                            no-undef
+  412:7   error  'expect' is not defined                                        no-undef
+  415:5   error  'it' is not defined                                            no-undef
+  424:7   error  'expect' is not defined                                        no-undef
+  427:5   error  'it' is not defined                                            no-undef
+  436:7   error  'expect' is not defined                                        no-undef
+  437:7   error  'expect' is not defined                                        no-undef
+  441:3   error  'describe' is not defined                                      no-undef
+  442:5   error  'it' is not defined                                            no-undef
+  449:7   error  'expect' is not defined                                        no-undef
+  451:9   error  'expect' is not defined                                        no-undef
+  452:9   error  'expect' is not defined                                        no-undef
+  453:27  error  'expect' is not defined                                        no-undef
+  458:5   error  'it' is not defined                                            no-undef
+  468:7   error  'expect' is not defined                                        no-undef
+  469:7   error  'expect' is not defined                                        no-undef
+  473:3   error  'describe' is not defined                                      no-undef
+  474:5   error  'it' is not defined                                            no-undef
+  482:7   error  'expect' is not defined                                        no-undef
+  485:5   error  'it' is not defined                                            no-undef
+  486:7   error  'process' is not defined                                       no-undef
+  495:7   error  'expect' is not defined                                        no-undef
+  497:9   error  'expect' is not defined                                        no-undef
+  502:3   error  'describe' is not defined                                      no-undef
+  503:5   error  'it' is not defined                                            no-undef
+  511:7   error  'expect' is not defined                                        no-undef
+  514:5   error  'it' is not defined                                            no-undef
+  522:7   error  'expect' is not defined                                        no-undef
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\common\ErrorMessage\ErrorMessage.jsx
+  4:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\common\Input\Input.jsx
+  4:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\common\Input\TextArea.jsx
+  4:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\common\LoadingSpinner\LoadingSpinner.jsx
+  4:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\common\Modals\BaseModal.jsx
+  4:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\common\Modals\ConfirmModal.jsx
+  4:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\common\Modals\InactivityWarningModal.jsx
+  1:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\common\Modals\MandatoryBreakModal.jsx
+   1:8  error    'React' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               no-unused-vars
+  20:7  error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+  18 |   useEffect(() => {
+  19 |     if (!isOpen) {
+> 20 |       setDisplayTime(validBreakTime);
+     |       ^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  21 |       setShowResumeButton(false);
+  22 |       return;
+  23 |     }  react-hooks/set-state-in-effect
+  40:6  warning  React Hook useEffect has a missing dependency: 'validBreakTime'. Either include it or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               react-hooks/exhaustive-deps
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\common\Modals\NotificationModal.jsx
+  4:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\common\Modals\PVQModal.jsx
+   1:8  error  'React' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              no-unused-vars
+  24:7  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+  22 |   useEffect(() => {
+  23 |     if (isOpen && pvqQuestion) {
+> 24 |       setTimeStarted(Date.now());
+     |       ^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  25 |       setUserAnswer('');
+  26 |       setSubmitError(null);
+  27 |     }  react-hooks/set-state-in-effect
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\common\Modals\PersonalVerificationModal.jsx
+   1:8  error  'React' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              no-unused-vars
+  24:7  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+  22 |   useEffect(() => {
+  23 |     if (isOpen && pvqQuestion) {
+> 24 |       setTimeStarted(Date.now());
+     |       ^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  25 |       setUserAnswer('');
+  26 |       setSubmitError(null);
+  27 |     }  react-hooks/set-state-in-effect
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\common\Modals\PostVideoQuestionModal.jsx
+   1:8  error    'React' is defined but never used                                                                            no-unused-vars
+  41:6  warning  React Hook useEffect has a missing dependency: 'question'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\common\Modals\__tests__\PostVideoQuestionModal.accessibility.test.jsx
+    8:1   error    'describe' is not defined                                                                                                                                                                                                                         no-undef
+   16:3   error    'describe' is not defined                                                                                                                                                                                                                         no-undef
+   17:5   error    'it' is not defined                                                                                                                                                                                                                               no-undef
+   18:13  error    'user' is assigned a value but never used                                                                                                                                                                                                         no-unused-vars
+   34:7   error    'expect' is not defined                                                                                                                                                                                                                           no-undef
+   37:5   error    'it' is not defined                                                                                                                                                                                                                               no-undef
+   41:15  error    'container' is assigned a value but never used                                                                                                                                                                                                    no-unused-vars
+   52:7   error    'expect' is not defined                                                                                                                                                                                                                           no-undef
+   56:7   error    'expect' is not defined                                                                                                                                                                                                                           no-undef
+   59:5   error    'it' is not defined                                                                                                                                                                                                                               no-undef
+   60:13  error    'user' is assigned a value but never used                                                                                                                                                                                                         no-unused-vars
+   75:7   error    'expect' is not defined                                                                                                                                                                                                                           no-undef
+   76:7   error    'expect' is not defined                                                                                                                                                                                                                           no-undef
+   79:7   error    'expect' is not defined                                                                                                                                                                                                                           no-undef
+   82:5   error    'it' is not defined                                                                                                                                                                                                                               no-undef
+  109:9   error    'expect' is not defined                                                                                                                                                                                                                           no-undef
+  113:5   error    'it' is not defined                                                                                                                                                                                                                               no-undef
+  134:9   error    'expect' is not defined                                                                                                                                                                                                                           no-undef
+  139:3   error    'describe' is not defined                                                                                                                                                                                                                         no-undef
+  140:5   error    'it' is not defined                                                                                                                                                                                                                               no-undef
+  150:7   error    'expect' is not defined                                                                                                                                                                                                                           no-undef
+  153:5   error    'it' is not defined                                                                                                                                                                                                                               no-undef
+  163:7   error    'expect' is not defined                                                                                                                                                                                                                           no-undef
+  166:5   error    'it' is not defined                                                                                                                                                                                                                               no-undef
+  177:9   error    'expect' is not defined                                                                                                                                                                                                                           no-undef
+  181:5   error    'it' is not defined                                                                                                                                                                                                                               no-undef
+  185:15  error    'container' is assigned a value but never used                                                                                                                                                                                                    no-unused-vars
+  202:9   error    'expect' is not defined                                                                                                                                                                                                                           no-undef
+  206:5   error    'it' is not defined                                                                                                                                                                                                                               no-undef
+  207:45  error    'question' is defined but never used. Allowed unused args must match /^_/u                                                                                                                                                                        no-unused-vars
+  207:55  error    'onAnswerSubmit' is defined but never used. Allowed unused args must match /^_/u                                                                                                                                                                  no-unused-vars
+  235:7   error    'expect' is not defined                                                                                                                                                                                                                           no-undef
+  236:7   error    'expect' is not defined                                                                                                                                                                                                                           no-undef
+  239:5   error    'it' is not defined                                                                                                                                                                                                                               no-undef
+  250:7   error    'expect' is not defined                                                                                                                                                                                                                           no-undef
+  251:7   error    'expect' is not defined                                                                                                                                                                                                                           no-undef
+  254:5   error    'it' is not defined                                                                                                                                                                                                                               no-undef
+  269:7   error    'expect' is not defined                                                                                                                                                                                                                           no-undef
+  273:3   error    'describe' is not defined                                                                                                                                                                                                                         no-undef
+  274:5   error    'it' is not defined                                                                                                                                                                                                                               no-undef
+  275:13  error    'user' is assigned a value but never used                                                                                                                                                                                                         no-unused-vars
+  276:13  error    'onAnswerSubmit' is assigned a value but never used                                                                                                                                                                                               no-unused-vars
+  322:7   error    'expect' is not defined                                                                                                                                                                                                                           no-undef
+  325:5   error    'it' is not defined                                                                                                                                                                                                                               no-undef
+  364:7   error    'expect' is not defined                                                                                                                                                                                                                           no-undef
+  367:7   error    'expect' is not defined                                                                                                                                                                                                                           no-undef
+  370:5   error    'it' is not defined                                                                                                                                                                                                                               no-undef
+  371:13  error    'user' is assigned a value but never used                                                                                                                                                                                                         no-unused-vars
+  413:7   error    'expect' is not defined                                                                                                                                                                                                                           no-undef
+  416:5   error    'it' is not defined                                                                                                                                                                                                                               no-undef
+  437:9   error    'expect' is not defined                                                                                                                                                                                                                           no-undef
+  441:5   error    'it' is not defined                                                                                                                                                                                                                               no-undef
+  462:15  error    'rerender' is assigned a value but never used                                                                                                                                                                                                     no-unused-vars
+  469:7   error    'expect' is not defined                                                                                                                                                                                                                           no-undef
+  473:3   error    'describe' is not defined                                                                                                                                                                                                                         no-undef
+  474:5   error    'it' is not defined                                                                                                                                                                                                                               no-undef
+  491:7   error    'expect' is not defined                                                                                                                                                                                                                           no-undef
+  494:5   error    'it' is not defined                                                                                                                                                                                                                               no-undef
+  516:9   error    'expect' is not defined                                                                                                                                                                                                                           no-undef
+  520:5   error    'it' is not defined                                                                                                                                                                                                                               no-undef
+  532:12  warning  React Hook React.useCallback has an unnecessary dependency: 'onComplete'. Either exclude it or remove the dependency array. Outer scope values like 'onComplete' aren't valid dependencies because mutating them doesn't re-render the component  react-hooks/exhaustive-deps
+  550:7   error    'expect' is not defined                                                                                                                                                                                                                           no-undef
+  554:7   error    'expect' is not defined                                                                                                                                                                                                                           no-undef
+  557:5   error    'it' is not defined                                                                                                                                                                                                                               no-undef
+  575:7   error    'expect' is not defined                                                                                                                                                                                                                           no-undef
+  579:3   error    'describe' is not defined                                                                                                                                                                                                                         no-undef
+  580:5   error    'it' is not defined                                                                                                                                                                                                                               no-undef
+  581:42  error    'question' is defined but never used. Allowed unused args must match /^_/u                                                                                                                                                                        no-unused-vars
+  594:7   error    'expect' is not defined                                                                                                                                                                                                                           no-undef
+  597:5   error    'it' is not defined                                                                                                                                                                                                                               no-undef
+  616:7   error    'expect' is not defined                                                                                                                                                                                                                           no-undef
+  617:7   error    'expect' is not defined                                                                                                                                                                                                                           no-undef
+  620:5   error    'it' is not defined                                                                                                                                                                                                                               no-undef
+  631:7   error    'expect' is not defined                                                                                                                                                                                                                           no-undef
+  634:5   error    'it' is not defined                                                                                                                                                                                                                               no-undef
+  652:7   error    'expect' is not defined                                                                                                                                                                                                                           no-undef
+  656:3   error    'describe' is not defined                                                                                                                                                                                                                         no-undef
+  657:5   error    'it' is not defined                                                                                                                                                                                                                               no-undef
+  668:7   error    'expect' is not defined                                                                                                                                                                                                                           no-undef
+  669:7   error    'expect' is not defined                                                                                                                                                                                                                           no-undef
+  672:5   error    'it' is not defined                                                                                                                                                                                                                               no-undef
+  673:13  error    'user' is assigned a value but never used                                                                                                                                                                                                         no-unused-vars
+  685:7   error    'expect' is not defined                                                                                                                                                                                                                           no-undef
+  686:7   error    'expect' is not defined                                                                                                                                                                                                                           no-undef
+  689:7   error    'expect' is not defined                                                                                                                                                                                                                           no-undef
+  693:3   error    'describe' is not defined                                                                                                                                                                                                                         no-undef
+  694:5   error    'it' is not defined                                                                                                                                                                                                                               no-undef
+  706:9   error    'expect' is not defined                                                                                                                                                                                                                           no-undef
+  710:5   error    'it' is not defined                                                                                                                                                                                                                               no-undef
+  724:7   error    'expect' is not defined                                                                                                                                                                                                                           no-undef
+  727:5   error    'it' is not defined                                                                                                                                                                                                                               no-undef
+  740:7   error    'expect' is not defined                                                                                                                                                                                                                           no-undef
+  745:7   error    'expect' is not defined                                                                                                                                                                                                                           no-undef
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\common\Modals\__tests__\PostVideoQuestionModal.state.test.jsx
+    2:46  error  'within' is defined but never used                                                no-unused-vars
+    7:1   error  'describe' is not defined                                                         no-undef
+   22:3   error  'beforeEach' is not defined                                                       no-undef
+   26:3   error  'afterEach' is not defined                                                        no-undef
+   30:3   error  'describe' is not defined                                                         no-undef
+   31:5   error  'it' is not defined                                                               no-undef
+   34:49  error  'onAnswerSubmit' is defined but never used. Allowed unused args must match /^_/u  no-unused-vars
+   70:9   error  'expect' is not defined                                                           no-undef
+   74:7   error  'expect' is not defined                                                           no-undef
+   76:7   error  'expect' is not defined                                                           no-undef
+   77:7   error  'expect' is not defined                                                           no-undef
+   80:5   error  'it' is not defined                                                               no-undef
+   89:32  error  'setSelectedAnswer' is assigned a value but never used                            no-unused-vars
+  109:7   error  'expect' is not defined                                                           no-undef
+  112:5   error  'it' is not defined                                                               no-undef
+  123:39  error  'question' is defined but never used. Allowed unused args must match /^_/u        no-unused-vars
+  123:49  error  'onAnswerSubmit' is defined but never used. Allowed unused args must match /^_/u  no-unused-vars
+  124:27  error  'setSubmitted' is assigned a value but never used                                 no-unused-vars
+  128:26  error  'setFeedback' is assigned a value but never used                                  no-unused-vars
+  148:7   error  'expect' is not defined                                                           no-undef
+  149:7   error  'expect' is not defined                                                           no-undef
+  152:5   error  'it' is not defined                                                               no-undef
+  179:7   error  'expect' is not defined                                                           no-undef
+  180:7   error  'expect' is not defined                                                           no-undef
+  184:3   error  'describe' is not defined                                                         no-undef
+  185:5   error  'it' is not defined                                                               no-undef
+  201:9   error  'expect' is not defined                                                           no-undef
+  213:7   error  'expect' is not defined                                                           no-undef
+  214:7   error  'expect' is not defined                                                           no-undef
+  215:7   error  'expect' is not defined                                                           no-undef
+  218:5   error  'it' is not defined                                                               no-undef
+  251:9   error  'expect' is not defined                                                           no-undef
+  258:7   error  'expect' is not defined                                                           no-undef
+  261:5   error  'it' is not defined                                                               no-undef
+  262:13  error  'onAnswerSubmit' is assigned a value but never used                               no-unused-vars
+  265:16  error  'isOpen' is assigned a value but never used                                       no-unused-vars
+  265:24  error  'setIsOpen' is assigned a value but never used                                    no-unused-vars
+  266:16  error  'question' is assigned a value but never used                                     no-unused-vars
+  267:27  error  'setSubmitted' is assigned a value but never used                                 no-unused-vars
+  279:7   error  'expect' is not defined                                                           no-undef
+  283:7   error  'expect' is not defined                                                           no-undef
+  286:5   error  'it' is not defined                                                               no-undef
+  317:7   error  'expect' is not defined                                                           no-undef
+  326:7   error  'expect' is not defined                                                           no-undef
+  330:3   error  'describe' is not defined                                                         no-undef
+  331:5   error  'it' is not defined                                                               no-undef
+  374:9   error  'expect' is not defined                                                           no-undef
+  378:5   error  'it' is not defined                                                               no-undef
+  380:11  error  'callCount' is assigned a value but never used                                    no-unused-vars
+  429:9   error  'expect' is not defined                                                           no-undef
+  432:7   error  'expect' is not defined                                                           no-undef
+  435:5   error  'it' is not defined                                                               no-undef
+  463:7   error  'expect' is not defined                                                           no-undef
+  466:5   error  'it' is not defined                                                               no-undef
+  508:9   error  'expect' is not defined                                                           no-undef
+  511:7   error  'expect' is not defined                                                           no-undef
+  515:3   error  'describe' is not defined                                                         no-undef
+  516:5   error  'it' is not defined                                                               no-undef
+  545:7   error  'expect' is not defined                                                           no-undef
+  546:7   error  'expect' is not defined                                                           no-undef
+  549:5   error  'it' is not defined                                                               no-undef
+  583:7   error  'expect' is not defined                                                           no-undef
+  584:7   error  'expect' is not defined                                                           no-undef
+  587:5   error  'it' is not defined                                                               no-undef
+  609:7   error  'expect' is not defined                                                           no-undef
+  610:7   error  'expect' is not defined                                                           no-undef
+  613:5   error  'it' is not defined                                                               no-undef
+  617:16  error  'isOpen' is assigned a value but never used                                       no-unused-vars
+  649:7   error  'expect' is not defined                                                           no-undef
+  650:7   error  'expect' is not defined                                                           no-undef
+  654:3   error  'describe' is not defined                                                         no-undef
+  655:5   error  'it' is not defined                                                               no-undef
+  691:9   error  'expect' is not defined                                                           no-undef
+  694:7   error  'expect' is not defined                                                           no-undef
+  699:9   error  'expect' is not defined                                                           no-undef
+  702:7   error  'expect' is not defined                                                           no-undef
+  705:5   error  'it' is not defined                                                               no-undef
+  710:16  error  'feedback' is assigned a value but never used                                     no-unused-vars
+  732:15  error  'rerender' is assigned a value but never used                                     no-unused-vars
+  734:7   error  'expect' is not defined                                                           no-undef
+  735:7   error  'expect' is not defined                                                           no-undef
+  739:7   error  'expect' is not defined                                                           no-undef
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\common\ProgressBar\ProgressBar.jsx
+  4:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\common\Quiz\Quiz.jsx
+  1:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\common\Quiz\Quiz.test.jsx
+    1:8  error  'React' is defined but never used      no-unused-vars
+    3:8  error  'userEvent' is defined but never used  no-unused-vars
+    8:1  error  'describe' is not defined              no-undef
+   37:3  error  'beforeEach' is not defined            no-undef
+   42:3  error  'test' is not defined                  no-undef
+   51:5  error  'expect' is not defined                no-undef
+   52:5  error  'expect' is not defined                no-undef
+   53:5  error  'expect' is not defined                no-undef
+   54:5  error  'expect' is not defined                no-undef
+   57:3  error  'test' is not defined                  no-undef
+   68:7  error  'expect' is not defined                no-undef
+   71:5  error  'expect' is not defined                no-undef
+   72:5  error  'expect' is not defined                no-undef
+   75:3  error  'test' is not defined                  no-undef
+   89:7  error  'expect' is not defined                no-undef
+   93:3  error  'test' is not defined                  no-undef
+  103:5  error  'expect' is not defined                no-undef
+  109:7  error  'expect' is not defined                no-undef
+  116:7  error  'expect' is not defined                no-undef
+  120:3  error  'test' is not defined                  no-undef
+  144:7  error  'expect' is not defined                no-undef
+  146:7  error  'expect' is not defined                no-undef
+  147:7  error  'expect' is not defined                no-undef
+  154:3  error  'test' is not defined                  no-undef
+  178:7  error  'expect' is not defined                no-undef
+  179:7  error  'expect' is not defined                no-undef
+  180:7  error  'expect' is not defined                no-undef
+  184:3  error  'test' is not defined                  no-undef
+  224:7  error  'expect' is not defined                no-undef
+  225:7  error  'expect' is not defined                no-undef
+  229:3  error  'test' is not defined                  no-undef
+  253:7  error  'expect' is not defined                no-undef
+  256:7  error  'expect' is not defined                no-undef
+  257:7  error  'expect' is not defined                no-undef
+  261:3  error  'test' is not defined                  no-undef
+  285:7  error  'expect' is not defined                no-undef
+  292:7  error  'expect' is not defined                no-undef
+  293:7  error  'expect' is not defined                no-undef
+  297:3  error  'test' is not defined                  no-undef
+  309:5  error  'expect' is not defined                no-undef
+  314:3  error  'test' is not defined                  no-undef
+  325:5  error  'expect' is not defined                no-undef
+  328:3  error  'test' is not defined                  no-undef
+  340:5  error  'expect' is not defined                no-undef
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\common\RestrictedVideoPlayer\RestrictedVideoPlayer.jsx
+   10:3   error  'duration' is defined but never used. Allowed unused args must match /^_/u  no-unused-vars
+  163:29  error  'e' is defined but never used. Allowed unused args must match /^_/u         no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\common\Select\Select.jsx
+  4:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\common\SuccessMessage\SuccessMessage.jsx
+  4:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\common\ToggleSwitch\ToggleSwitch.jsx
+  1:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\common\Tooltip\Tooltip.jsx
+  4:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\guards\AdminDashboardRoute.jsx
+  1:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\guards\AdminOrInstructorRoute.jsx
+  1:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\guards\ComplianceRequiredRoute.jsx
+  1:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\guards\ProtectedRoute.jsx
+  4:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\guards\PublicRoute.jsx
+  4:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\guards\RoleBasedRoute.jsx
+  1:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\guards\UserAccessGuard.jsx
+  1:8   error  'React' is defined but never used                                                      no-unused-vars
+  9:38  error  'accessType' is assigned a value but never used. Allowed unused args must match /^_/u  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\layout\AdminHeader\AdminHeader.jsx
+   1:8   error  'React' is defined but never used          no-unused-vars
+   5:8   error  'Button' is defined but never used         no-unused-vars
+  11:11  error  'user' is assigned a value but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\layout\AdminLayout.jsx
+  1:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\layout\AdminSidebar\AdminSidebar.jsx
+  1:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\layout\AuthLayout.jsx
+  4:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\layout\DashboardLayout.jsx
+  4:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\layout\Footer\Footer.jsx
+  4:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\layout\Header\Header.jsx
+  4:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\layout\MainLayout.jsx
+  4:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\layout\Sidebar\Sidebar.jsx
+  4:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\payment\CheckoutForm.jsx
+    4:8  error    'React' is defined but never used                                                  no-unused-vars
+  119:7  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\payment\CompletePackageCheckoutForm.jsx
+    1:8  error    'React' is defined but never used                                                  no-unused-vars
+  103:7  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\payment\EnrollmentCard.jsx
+  1:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\payment\PaymentModal.jsx
+  4:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\payment\RemainingPaymentCheckoutForm.jsx
+   1:8  error  'React' is defined but never used                                             no-unused-vars
+  19:3  error  'courseName' is defined but never used. Allowed unused args must match /^_/u  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\payment\__tests__\CheckoutForm.test.jsx
+  3:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\payment\__tests__\EnrollmentCard.test.jsx
+  3:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\scheduling\LessonBooking.jsx
+  1:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\scheduling\UpcomingLessons.jsx
+  1:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\scheduling\__tests__\LessonBooking.test.jsx
+  3:8   error  'React' is defined but never used                                       no-unused-vars
+  7:53  error  Unable to resolve path to module '@/api/compliance/schedulingServices'  import/no-unresolved
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\components\scheduling\__tests__\UpcomingLessons.test.jsx
+  6:48  error  Unable to resolve path to module '@/api/compliance/schedulingServices'  import/no-unresolved
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\config\firebase.js
+   11:3   error    'doc' is defined but never used                                                    no-unused-vars
+   12:3   error    'getDoc' is defined but never used                                                 no-unused-vars
+   17:3   error    'connectStorageEmulator' is defined but never used                                 no-unused-vars
+   73:11  error    'storage' is assigned a value but never used                                       no-unused-vars
+   76:5   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+   80:7   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+   85:7   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+   99:7   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  106:15  error    'appCheck' is assigned a value but never used                                      no-unused-vars
+  112:11  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\constants\__tests__\userRoles.assignment.test.js
+  1:10  error  'vi' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\context\AuthContext.jsx
+    4:8  error    'React' is defined but never used                                                                                                                 no-unused-vars
+   88:7  warning  Unexpected console statement. Only these console methods are allowed: warn, error                                                                 no-console
+   94:7  warning  Unexpected console statement. Only these console methods are allowed: warn, error                                                                 no-console
+  106:7  warning  Unexpected console statement. Only these console methods are allowed: warn, error                                                                 no-console
+  117:7  warning  Unexpected console statement. Only these console methods are allowed: warn, error                                                                 no-console
+  119:7  warning  Unexpected console statement. Only these console methods are allowed: warn, error                                                                 no-console
+  200:6  warning  React Hook useEffect has missing dependencies: 'fetchUserProfile', 'user', and 'userProfile'. Either include them or remove the dependency array  react-hooks/exhaustive-deps
+  244:7  warning  Unexpected console statement. Only these console methods are allowed: warn, error                                                                 no-console
+  246:7  warning  Unexpected console statement. Only these console methods are allowed: warn, error                                                                 no-console
+  256:7  warning  Unexpected console statement. Only these console methods are allowed: warn, error                                                                 no-console
+  262:7  warning  Unexpected console statement. Only these console methods are allowed: warn, error                                                                 no-console
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\context\AuthContext.test.jsx
+    1:8   error  'React' is defined but never used      no-unused-vars
+    2:26  error  'fireEvent' is defined but never used  no-unused-vars
+    5:13  error  'firestore' is defined but never used  no-unused-vars
+   25:1   error  'describe' is not defined              no-undef
+   26:3   error  'beforeEach' is not defined            no-undef
+   34:3   error  'describe' is not defined              no-undef
+   35:5   error  'it' is not defined                    no-undef
+   47:7   error  'expect' is not defined                no-undef
+   51:3   error  'describe' is not defined              no-undef
+   52:5   error  'it' is not defined                    no-undef
+   59:7   error  'expect' is not defined                no-undef
+   62:5   error  'it' is not defined                    no-undef
+   76:9   error  'expect' is not defined                no-undef
+   81:3   error  'describe' is not defined              no-undef
+   82:5   error  'it' is not defined                    no-undef
+   95:9   error  'expect' is not defined                no-undef
+   99:5   error  'it' is not defined                    no-undef
+  112:9   error  'expect' is not defined                no-undef
+  116:5   error  'it' is not defined                    no-undef
+  129:9   error  'expect' is not defined                no-undef
+  133:5   error  'it' is not defined                    no-undef
+  146:9   error  'expect' is not defined                no-undef
+  151:3   error  'describe' is not defined              no-undef
+  152:5   error  'it' is not defined                    no-undef
+  164:7   error  'expect' is not defined                no-undef
+  167:5   error  'it' is not defined                    no-undef
+  179:7   error  'expect' is not defined                no-undef
+  183:3   error  'describe' is not defined              no-undef
+  184:5   error  'it' is not defined                    no-undef
+  197:7   error  'expect' is not defined                no-undef
+  201:3   error  'describe' is not defined              no-undef
+  202:5   error  'it' is not defined                    no-undef
+  216:7   error  'expect' is not defined                no-undef
+  220:3   error  'describe' is not defined              no-undef
+  221:5   error  'it' is not defined                    no-undef
+  233:7   error  'expect' is not defined                no-undef
+  237:3   error  'describe' is not defined              no-undef
+  238:5   error  'it' is not defined                    no-undef
+  250:7   error  'expect' is not defined                no-undef
+  253:5   error  'it' is not defined                    no-undef
+  267:7   error  'expect' is not defined                no-undef
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\context\CourseContext.jsx
+  4:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\context\CourseContext.test.jsx
+    1:8  error  'React' is defined but never used  no-unused-vars
+   24:1  error  'describe' is not defined          no-undef
+   43:3  error  'beforeEach' is not defined        no-undef
+   52:3  error  'describe' is not defined          no-undef
+   53:5  error  'it' is not defined                no-undef
+   65:7  error  'expect' is not defined            no-undef
+   69:3  error  'describe' is not defined          no-undef
+   70:5  error  'it' is not defined                no-undef
+   77:7  error  'expect' is not defined            no-undef
+   80:5  error  'it' is not defined                no-undef
+   93:9  error  'expect' is not defined            no-undef
+   98:3  error  'describe' is not defined          no-undef
+   99:5  error  'it' is not defined                no-undef
+  111:7  error  'expect' is not defined            no-undef
+  114:5  error  'it' is not defined                no-undef
+  126:7  error  'expect' is not defined            no-undef
+  129:5  error  'it' is not defined                no-undef
+  141:7  error  'expect' is not defined            no-undef
+  145:3  error  'describe' is not defined          no-undef
+  146:5  error  'it' is not defined                no-undef
+  158:7  error  'expect' is not defined            no-undef
+  162:3  error  'describe' is not defined          no-undef
+  163:5  error  'it' is not defined                no-undef
+  175:7  error  'expect' is not defined            no-undef
+  179:3  error  'describe' is not defined          no-undef
+  180:5  error  'it' is not defined                no-undef
+  193:7  error  'expect' is not defined            no-undef
+  197:3  error  'describe' is not defined          no-undef
+  198:5  error  'it' is not defined                no-undef
+  211:7  error  'expect' is not defined            no-undef
+  215:3  error  'describe' is not defined          no-undef
+  216:5  error  'it' is not defined                no-undef
+  229:7  error  'expect' is not defined            no-undef
+  233:3  error  'describe' is not defined          no-undef
+  234:5  error  'it' is not defined                no-undef
+  251:7  error  'expect' is not defined            no-undef
+  252:7  error  'expect' is not defined            no-undef
+  256:3  error  'describe' is not defined          no-undef
+  257:5  error  'it' is not defined                no-undef
+  271:7  error  'expect' is not defined            no-undef
+  275:3  error  'describe' is not defined          no-undef
+  276:5  error  'it' is not defined                no-undef
+  288:7  error  'expect' is not defined            no-undef
+  291:5  error  'it' is not defined                no-undef
+  303:7  error  'expect' is not defined            no-undef
+  307:3  error  'describe' is not defined          no-undef
+  308:5  error  'it' is not defined                no-undef
+  321:7  error  'expect' is not defined            no-undef
+  325:3  error  'describe' is not defined          no-undef
+  326:5  error  'it' is not defined                no-undef
+  339:7  error  'expect' is not defined            no-undef
+  343:3  error  'describe' is not defined          no-undef
+  344:5  error  'it' is not defined                no-undef
+  356:7  error  'expect' is not defined            no-undef
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\context\ModalContext.jsx
+  4:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\context\ModalContext.test.jsx
+    1:8   error  'React' is defined but never used            no-unused-vars
+    2:37  error  'waitFor' is defined but never used          no-unused-vars
+    7:1   error  'describe' is not defined                    no-undef
+    8:3   error  'describe' is not defined                    no-undef
+    9:5   error  'it' is not defined                          no-undef
+   21:7   error  'expect' is not defined                      no-undef
+   25:3   error  'describe' is not defined                    no-undef
+   26:5   error  'it' is not defined                          no-undef
+   33:7   error  'expect' is not defined                      no-undef
+   36:5   error  'it' is not defined                          no-undef
+   48:7   error  'expect' is not defined                      no-undef
+   52:3   error  'describe' is not defined                    no-undef
+   53:5   error  'it' is not defined                          no-undef
+   70:7   error  'expect' is not defined                      no-undef
+   72:7   error  'expect' is not defined                      no-undef
+   75:5   error  'it' is not defined                          no-undef
+   93:7   error  'expect' is not defined                      no-undef
+   96:5   error  'it' is not defined                          no-undef
+  116:7   error  'expect' is not defined                      no-undef
+  120:3   error  'describe' is not defined                    no-undef
+  121:5   error  'it' is not defined                          no-undef
+  142:7   error  'expect' is not defined                      no-undef
+  144:7   error  'expect' is not defined                      no-undef
+  147:5   error  'it' is not defined                          no-undef
+  150:17  error  'modals' is assigned a value but never used  no-unused-vars
+  169:7   error  'expect' is not defined                      no-undef
+  173:3   error  'describe' is not defined                    no-undef
+  174:5   error  'it' is not defined                          no-undef
+  197:7   error  'expect' is not defined                      no-undef
+  199:7   error  'expect' is not defined                      no-undef
+  203:3   error  'describe' is not defined                    no-undef
+  204:5   error  'it' is not defined                          no-undef
+  228:7   error  'expect' is not defined                      no-undef
+  232:3   error  'describe' is not defined                    no-undef
+  233:5   error  'it' is not defined                          no-undef
+  245:7   error  'expect' is not defined                      no-undef
+  248:5   error  'it' is not defined                          no-undef
+  266:7   error  'expect' is not defined                      no-undef
+  270:3   error  'describe' is not defined                    no-undef
+  271:5   error  'it' is not defined                          no-undef
+  291:7   error  'expect' is not defined                      no-undef
+  294:5   error  'it' is not defined                          no-undef
+  307:7   error  'expect' is not defined                      no-undef
+  311:3   error  'describe' is not defined                    no-undef
+  312:5   error  'it' is not defined                          no-undef
+  328:7   error  'expect' is not defined                      no-undef
+  332:3   error  'describe' is not defined                    no-undef
+  333:5   error  'it' is not defined                          no-undef
+  349:7   error  'expect' is not defined                      no-undef
+  353:3   error  'describe' is not defined                    no-undef
+  354:5   error  'it' is not defined                          no-undef
+  370:7   error  'expect' is not defined                      no-undef
+  374:3   error  'describe' is not defined                    no-undef
+  375:5   error  'it' is not defined                          no-undef
+  391:7   error  'expect' is not defined                      no-undef
+  395:3   error  'describe' is not defined                    no-undef
+  396:5   error  'it' is not defined                          no-undef
+  412:7   error  'expect' is not defined                      no-undef
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\context\TimerContext.jsx
+    1:8   error    'React' is defined but never used                                                  no-unused-vars
+   52:9   error    'breakIntervalRef' is assigned a value but never used                              no-unused-vars
+   94:7   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+   97:7   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  199:45  error    'event' is defined but never used. Allowed unused args must match /^_/u            no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\context\TimerContext.test.jsx
+    1:8   error  'React' is defined but never used                                                                             no-unused-vars
+    6:7   error  'TIMER_CONTEXT_FILE' is assigned a value but never used                                                       no-unused-vars
+    8:1   error  'describe' is not defined                                                                                     no-undef
+    9:3   error  'beforeEach' is not defined                                                                                   no-undef
+   13:3   error  'afterEach' is not defined                                                                                    no-undef
+   18:3   error  'describe' is not defined                                                                                     no-undef
+   19:5   error  'it' is not defined                                                                                           no-undef
+   20:18  error  'require' is not defined                                                                                      no-undef
+   21:20  error  'require' is not defined                                                                                      no-undef
+   22:49  error  '__dirname' is not defined                                                                                    no-undef
+   24:7   error  'expect' is not defined                                                                                       no-undef
+   25:7   error  'expect' is not defined                                                                                       no-undef
+   28:5   error  'it' is not defined                                                                                           no-undef
+   29:18  error  'require' is not defined                                                                                      no-undef
+   30:20  error  'require' is not defined                                                                                      no-undef
+   31:49  error  '__dirname' is not defined                                                                                    no-undef
+   33:7   error  'expect' is not defined                                                                                       no-undef
+   37:3   error  'describe' is not defined                                                                                     no-undef
+   38:5   error  'it' is not defined                                                                                           no-undef
+   39:7   error  'expect' is not defined                                                                                       no-undef
+   40:7   error  'expect' is not defined                                                                                       no-undef
+   41:7   error  'expect' is not defined                                                                                       no-undef
+   45:3   error  'describe' is not defined                                                                                     no-undef
+   46:5   error  'it' is not defined                                                                                           no-undef
+   47:15  error  'render' is assigned a value but never used                                                                   no-unused-vars
+   47:23  error  'screen' is assigned a value but never used                                                                   no-unused-vars
+   47:31  error  'fireEvent' is assigned a value but never used                                                                no-unused-vars
+   47:42  error  'waitFor' is assigned a value but never used                                                                  no-unused-vars
+   50:52  error  Unsafe usage of optional chaining. If it short-circuits with 'undefined' the evaluation will throw TypeError  no-unsafe-optional-chaining
+   50:52  error  'global' is not defined                                                                                       no-undef
+   60:7   error  'expect' is not defined                                                                                       no-undef
+   63:5   error  'it' is not defined                                                                                           no-undef
+   64:7   error  'expect' is not defined                                                                                       no-undef
+   67:5   error  'it' is not defined                                                                                           no-undef
+   68:7   error  'expect' is not defined                                                                                       no-undef
+   71:5   error  'it' is not defined                                                                                           no-undef
+   72:7   error  'expect' is not defined                                                                                       no-undef
+   76:3   error  'describe' is not defined                                                                                     no-undef
+   77:5   error  'it' is not defined                                                                                           no-undef
+   78:7   error  'expect' is not defined                                                                                       no-undef
+   81:5   error  'it' is not defined                                                                                           no-undef
+   82:7   error  'expect' is not defined                                                                                       no-undef
+   85:5   error  'it' is not defined                                                                                           no-undef
+   86:7   error  'expect' is not defined                                                                                       no-undef
+   89:5   error  'it' is not defined                                                                                           no-undef
+   90:7   error  'expect' is not defined                                                                                       no-undef
+   93:5   error  'it' is not defined                                                                                           no-undef
+   94:7   error  'expect' is not defined                                                                                       no-undef
+   98:3   error  'describe' is not defined                                                                                     no-undef
+   99:5   error  'it' is not defined                                                                                           no-undef
+  100:7   error  'expect' is not defined                                                                                       no-undef
+  103:5   error  'it' is not defined                                                                                           no-undef
+  104:7   error  'expect' is not defined                                                                                       no-undef
+  107:5   error  'it' is not defined                                                                                           no-undef
+  108:7   error  'expect' is not defined                                                                                       no-undef
+  111:5   error  'it' is not defined                                                                                           no-undef
+  112:7   error  'expect' is not defined                                                                                       no-undef
+  115:5   error  'it' is not defined                                                                                           no-undef
+  116:7   error  'expect' is not defined                                                                                       no-undef
+  119:5   error  'it' is not defined                                                                                           no-undef
+  120:7   error  'expect' is not defined                                                                                       no-undef
+  123:5   error  'it' is not defined                                                                                           no-undef
+  124:7   error  'expect' is not defined                                                                                       no-undef
+  127:5   error  'it' is not defined                                                                                           no-undef
+  128:7   error  'expect' is not defined                                                                                       no-undef
+  132:3   error  'describe' is not defined                                                                                     no-undef
+  133:5   error  'it' is not defined                                                                                           no-undef
+  134:7   error  'expect' is not defined                                                                                       no-undef
+  137:5   error  'it' is not defined                                                                                           no-undef
+  138:7   error  'expect' is not defined                                                                                       no-undef
+  141:5   error  'it' is not defined                                                                                           no-undef
+  142:7   error  'expect' is not defined                                                                                       no-undef
+  145:5   error  'it' is not defined                                                                                           no-undef
+  146:7   error  'expect' is not defined                                                                                       no-undef
+  150:3   error  'describe' is not defined                                                                                     no-undef
+  151:5   error  'it' is not defined                                                                                           no-undef
+  152:7   error  'expect' is not defined                                                                                       no-undef
+  155:5   error  'it' is not defined                                                                                           no-undef
+  156:7   error  'expect' is not defined                                                                                       no-undef
+  159:5   error  'it' is not defined                                                                                           no-undef
+  160:7   error  'expect' is not defined                                                                                       no-undef
+  164:3   error  'describe' is not defined                                                                                     no-undef
+  165:5   error  'it' is not defined                                                                                           no-undef
+  166:7   error  'expect' is not defined                                                                                       no-undef
+  169:5   error  'it' is not defined                                                                                           no-undef
+  170:7   error  'expect' is not defined                                                                                       no-undef
+  173:5   error  'it' is not defined                                                                                           no-undef
+  174:7   error  'expect' is not defined                                                                                       no-undef
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\hooks\__tests__\useAdminNavigation.test.js
+  6:10  error  'ADMIN_SIDEBAR_ITEMS' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\hooks\useBreakManagement.js
+   26:19  error    Error: Cannot call impure function during render
+
+`Date.now` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+  24 |
+  25 |   const currentBreakDuration = breakStartTime
+> 26 |     ? Math.floor((Date.now() - breakStartTime) / 1000)
+     |                   ^^^^^^^^^^ Cannot call impure function
+  27 |     : 0;
+  28 |
+  29 |   const isBreakDue = sessionTime >= BREAK_REQUIRED_AFTER;  react-hooks/purity
+  110:6   warning  React Hook useCallback has a missing dependency: 'BREAK_STATE_KEY'. Either include it or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              react-hooks/exhaustive-deps
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\hooks\useBreakManagement.test.js
+    1:8   error  'React' is defined but never used        no-unused-vars
+  432:13  error  'fs' is assigned a value but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\hooks\useComplianceHeartbeat.js
+  91:24  error  Error: Cannot access refs during render
+
+React refs are values that are not needed for rendering. Refs should only be accessed outside of render, such as in event handlers or effects. Accessing a ref value (the `current` property) during render can cause your component not to update as expected (https://react.dev/reference/react/useRef).
+
+  89 |   return {
+  90 |     sendHeartbeat,
+> 91 |     lastHeartbeatTime: lastHeartbeatRef.current
+     |                        ^^^^^^^^^^^^^^^^^^^^^^^^ Cannot access ref value during render
+  92 |   };
+  93 | };
+  94 |  react-hooks/refs
+  91:24  error  Error: Cannot access refs during render
+
+React refs are values that are not needed for rendering. Refs should only be accessed outside of render, such as in event handlers or effects. Accessing a ref value (the `current` property) during render can cause your component not to update as expected (https://react.dev/reference/react/useRef).
+
+  89 |   return {
+  90 |     sendHeartbeat,
+> 91 |     lastHeartbeatTime: lastHeartbeatRef.current
+     |                        ^^^^^^^^^^^^^^^^^^^^^^^^ Cannot access ref value during render
+  92 |   };
+  93 | };
+  94 |  react-hooks/refs
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\hooks\useComplianceHeartbeat.test.js
+  3:25  error  'getFunctions' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\hooks\useInactivityTimeout.js
+  10:24  error  Error: Cannot call impure function during render
+
+`Date.now` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+   8 |   const {
+   9 |     enabled = true,
+> 10 |     lastActivityTime = Date.now(),
+     |                        ^^^^^^^^^^ Cannot call impure function
+  11 |     onWarning = null,
+  12 |     onTimeout = null,
+  13 |     onReset = null  react-hooks/purity
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\hooks\usePVQTrigger.js
+  30:34  error  Compilation Skipped: Existing memoization could not be preserved
+
+React Compiler has skipped optimizing this component because the existing manual memoization could not be preserved. The inferred dependencies did not match the manually specified dependencies, which could cause the value to change more or less frequently than expected. The inferred dependency was `setPVQSubmitting`, but the source dependencies were [showPVQModal, getRandomQuestion, onPVQTriggered]. Inferred different dependency than source.
+
+  28 |   }
+  29 |
+> 30 |   const triggerPVQ = useCallback(async () => {
+     |                                  ^^^^^^^^^^^^^
+> 31 |     if (!showPVQModal && getRandomQuestion) {
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 32 |       try {
+     …
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 47 |     }
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 48 |   }, [showPVQModal, getRandomQuestion, onPVQTriggered]);
+     | ^^^^ Could not preserve existing manual memoization
+  49 |
+  50 |   const closePVQModal = useCallback(() => {
+  51 |     setShowPVQModal(false);                                                                                                                                                                                                    react-hooks/preserve-manual-memoization
+  50:37  error  Compilation Skipped: Existing memoization could not be preserved
+
+React Compiler has skipped optimizing this component because the existing manual memoization could not be preserved. The inferred dependencies did not match the manually specified dependencies, which could cause the value to change more or less frequently than expected. The inferred dependency was `setPVQSubmitting`, but the source dependencies were []. Inferred dependency not present in source.
+
+  48 |   }, [showPVQModal, getRandomQuestion, onPVQTriggered]);
+  49 |
+> 50 |   const closePVQModal = useCallback(() => {
+     |                                     ^^^^^^^
+> 51 |     setShowPVQModal(false);
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 52 |     setCurrentPVQQuestion(null);
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 53 |     setPVQStartTime(null);
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 54 |     setPVQSubmitting(false);
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 55 |     setNextPVQTriggerTime(calculateNextTriggerTime());
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 56 |     pvqTriggeredRef.current = false;
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 57 |   }, []);
+     | ^^^^ Could not preserve existing manual memoization
+  58 |
+  59 |   const submitPVQAnswer = useCallback(async (answer) => {
+  60 |     if (!currentPVQQuestion) return;          react-hooks/preserve-manual-memoization
+  50:37  error  Compilation Skipped: Existing memoization could not be preserved
+
+React Compiler has skipped optimizing this component because the existing manual memoization could not be preserved. The inferred dependencies did not match the manually specified dependencies, which could cause the value to change more or less frequently than expected. The inferred dependency was `calculateNextTriggerTime`, but the source dependencies were []. Inferred dependency not present in source.
+
+  48 |   }, [showPVQModal, getRandomQuestion, onPVQTriggered]);
+  49 |
+> 50 |   const closePVQModal = useCallback(() => {
+     |                                     ^^^^^^^
+> 51 |     setShowPVQModal(false);
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 52 |     setCurrentPVQQuestion(null);
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 53 |     setPVQStartTime(null);
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 54 |     setPVQSubmitting(false);
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 55 |     setNextPVQTriggerTime(calculateNextTriggerTime());
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 56 |     pvqTriggeredRef.current = false;
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 57 |   }, []);
+     | ^^^^ Could not preserve existing manual memoization
+  58 |
+  59 |   const submitPVQAnswer = useCallback(async (answer) => {
+  60 |     if (!currentPVQQuestion) return;  react-hooks/preserve-manual-memoization
+  50:37  error  Compilation Skipped: Existing memoization could not be preserved
+
+React Compiler has skipped optimizing this component because the existing manual memoization could not be preserved. The inferred dependencies did not match the manually specified dependencies, which could cause the value to change more or less frequently than expected. The inferred dependency was `setNextPVQTriggerTime`, but the source dependencies were []. Inferred dependency not present in source.
+
+  48 |   }, [showPVQModal, getRandomQuestion, onPVQTriggered]);
+  49 |
+> 50 |   const closePVQModal = useCallback(() => {
+     |                                     ^^^^^^^
+> 51 |     setShowPVQModal(false);
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 52 |     setCurrentPVQQuestion(null);
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 53 |     setPVQStartTime(null);
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 54 |     setPVQSubmitting(false);
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 55 |     setNextPVQTriggerTime(calculateNextTriggerTime());
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 56 |     pvqTriggeredRef.current = false;
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 57 |   }, []);
+     | ^^^^ Could not preserve existing manual memoization
+  58 |
+  59 |   const submitPVQAnswer = useCallback(async (answer) => {
+  60 |     if (!currentPVQQuestion) return;     react-hooks/preserve-manual-memoization
+  59:39  error  Compilation Skipped: Existing memoization could not be preserved
+
+React Compiler has skipped optimizing this component because the existing manual memoization could not be preserved. The inferred dependencies did not match the manually specified dependencies, which could cause the value to change more or less frequently than expected. The inferred dependency was `setPVQSubmitting`, but the source dependencies were [currentPVQQuestion, pvqStartTime, onPVQSubmitted]. Inferred different dependency than source.
+
+  57 |   }, []);
+  58 |
+> 59 |   const submitPVQAnswer = useCallback(async (answer) => {
+     |                                       ^^^^^^^^^^^^^^^^^^^
+> 60 |     if (!currentPVQQuestion) return;
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 61 |
+     …
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 84 |     }
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 85 |   }, [currentPVQQuestion, pvqStartTime, onPVQSubmitted]);
+     | ^^^^ Could not preserve existing manual memoization
+  86 |
+  87 |   useEffect(() => {
+  88 |     if (                                                                                                                                                                                                                                                                 react-hooks/preserve-manual-memoization
+  59:39  error  Compilation Skipped: Existing memoization could not be preserved
+
+React Compiler has skipped optimizing this component because the existing manual memoization could not be preserved. The inferred dependencies did not match the manually specified dependencies, which could cause the value to change more or less frequently than expected. The inferred dependency was `calculateNextTriggerTime`, but the source dependencies were [currentPVQQuestion, pvqStartTime, onPVQSubmitted]. Inferred different dependency than source.
+
+  57 |   }, []);
+  58 |
+> 59 |   const submitPVQAnswer = useCallback(async (answer) => {
+     |                                       ^^^^^^^^^^^^^^^^^^^
+> 60 |     if (!currentPVQQuestion) return;
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 61 |
+     …
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 84 |     }
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 85 |   }, [currentPVQQuestion, pvqStartTime, onPVQSubmitted]);
+     | ^^^^ Could not preserve existing manual memoization
+  86 |
+  87 |   useEffect(() => {
+  88 |     if (                                                                                                                                                                                                                                                         react-hooks/preserve-manual-memoization
+  59:39  error  Compilation Skipped: Existing memoization could not be preserved
+
+React Compiler has skipped optimizing this component because the existing manual memoization could not be preserved. The inferred dependencies did not match the manually specified dependencies, which could cause the value to change more or less frequently than expected. The inferred dependency was `setNextPVQTriggerTime`, but the source dependencies were [currentPVQQuestion, pvqStartTime, onPVQSubmitted]. Inferred different dependency than source.
+
+  57 |   }, []);
+  58 |
+> 59 |   const submitPVQAnswer = useCallback(async (answer) => {
+     |                                       ^^^^^^^^^^^^^^^^^^^
+> 60 |     if (!currentPVQQuestion) return;
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 61 |
+     …
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 84 |     }
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 85 |   }, [currentPVQQuestion, pvqStartTime, onPVQSubmitted]);
+     | ^^^^ Could not preserve existing manual memoization
+  86 |
+  87 |   useEffect(() => {
+  88 |     if (                                                                                                                                                                                                                                                            react-hooks/preserve-manual-memoization
+  94:7   error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+  92 |     ) {
+  93 |       pvqTriggeredRef.current = true;
+> 94 |       triggerPVQ();
+     |       ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  95 |     }
+  96 |   }, [sessionTime, nextPVQTriggerTime, showPVQModal, triggerPVQ]);
+  97 |                                                                                                                                                                                                                                                                                                                                                                   react-hooks/set-state-in-effect
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\hooks\usePVQTrigger.test.js
+    1:8   error  'React' is defined but never used        no-unused-vars
+  418:13  error  'fs' is assigned a value but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\hooks\useSessionData.test.js
+    1:8   error  'React' is defined but never used        no-unused-vars
+  451:13  error  'fs' is assigned a value but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\hooks\useSessionTimer.js
+  77:13  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+  75 |           const savedTime = parseInt(saved, 10);
+  76 |           if (!isNaN(savedTime) && savedTime > 0) {
+> 77 |             setSessionTime(savedTime);
+     |             ^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  78 |           }
+  79 |         }
+  80 |       } catch (error) {  react-hooks/set-state-in-effect
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\hooks\useSessionTimer.test.js
+   60:28  error  'jest' is not defined                    no-undef
+   61:29  error  'jest' is not defined                    no-undef
+   62:26  error  'jest' is not defined                    no-undef
+   63:31  error  'jest' is not defined                    no-undef
+  285:13  error  'fs' is assigned a value but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\pages\About\AboutPage.jsx
+  1:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\pages\Admin\AdminCoursesPage.jsx
+    1:8   error  'React' is defined but never used     no-unused-vars
+    9:8   error  'Checkbox' is defined but never used  no-unused-vars
+  141:16  error  'err' is defined but never used       no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\pages\Admin\AdminDashboard.jsx
+  1:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\pages\Admin\AdminLessonsPage.jsx
+    1:8   error  'React' is defined but never used             no-unused-vars
+    9:8   error  'Checkbox' is defined but never used          no-unused-vars
+   17:8   error  'quizServices' is defined but never used      no-unused-vars
+   27:10  error  'loading' is assigned a value but never used  no-unused-vars
+  198:16  error  'err' is defined but never used               no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\pages\Admin\AdminPage.jsx
+   1:8  error  'React' is defined but never used                                                                                                 no-unused-vars
+  32:9  error  React Hook "useAdminPanel" is called conditionally. React Hooks must be called in the exact same order in every component render  react-hooks/rules-of-hooks
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\pages\Admin\AnalyticsPage.jsx
+  1:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\pages\Admin\AuditLogsPage.jsx
+   1:8   error  'React' is defined but never used          no-unused-vars
+  11:11  error  'user' is assigned a value but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\pages\Admin\ComplianceReportsPage.jsx
+  1:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\pages\Admin\DETSExportPage.jsx
+  1:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\pages\Admin\EnrollmentManagementPage.jsx
+  1:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\pages\Admin\SchedulingPage.jsx
+  1:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\pages\Admin\UsersPage.jsx
+  1:8  error  'React' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\pages\Admin\__tests__\AdminPage.comprehensive.test.jsx
+    1:8   error  'React' is defined but never used    no-unused-vars
+    2:37  error  'waitFor' is defined but never used  no-unused-vars
+  111:1   error  'describe' is not defined            no-undef
+  114:3   error  'beforeEach' is not defined          no-undef
+  154:3   error  'describe' is not defined            no-undef
+  155:5   error  'test' is not defined                no-undef
+  157:7   error  'expect' is not defined              no-undef
+  158:7   error  'expect' is not defined              no-undef
+  159:7   error  'expect' is not defined              no-undef
+  160:7   error  'expect' is not defined              no-undef
+  163:5   error  'test' is not defined                no-undef
+  166:7   error  'expect' is not defined              no-undef
+  169:5   error  'test' is not defined                no-undef
+  177:7   error  'expect' is not defined              no-undef
+  181:3   error  'describe' is not defined            no-undef
+  182:5   error  'test' is not defined                no-undef
+  185:7   error  'expect' is not defined              no-undef
+  186:7   error  'expect' is not defined              no-undef
+  189:5   error  'test' is not defined                no-undef
+  192:7   error  'expect' is not defined              no-undef
+  193:7   error  'expect' is not defined              no-undef
+  196:5   error  'test' is not defined                no-undef
+  198:7   error  'expect' is not defined              no-undef
+  201:5   error  'test' is not defined                no-undef
+  205:7   error  'expect' is not defined              no-undef
+  208:5   error  'test' is not defined                no-undef
+  222:7   error  'expect' is not defined              no-undef
+  226:5   error  'test' is not defined                no-undef
+  231:7   error  'expect' is not defined              no-undef
+  234:5   error  'test' is not defined                no-undef
+  239:7   error  'expect' is not defined              no-undef
+  242:5   error  'test' is not defined                no-undef
+  248:7   error  'expect' is not defined              no-undef
+  251:5   error  'test' is not defined                no-undef
+  259:7   error  'expect' is not defined              no-undef
+  263:3   error  'describe' is not defined            no-undef
+  264:5   error  'beforeEach' is not defined          no-undef
+  270:5   error  'test' is not defined                no-undef
+  277:7   error  'expect' is not defined              no-undef
+  281:3   error  'describe' is not defined            no-undef
+  282:5   error  'test' is not defined                no-undef
+  291:7   error  'expect' is not defined              no-undef
+  294:7   error  'expect' is not defined              no-undef
+  297:7   error  'expect' is not defined              no-undef
+  300:7   error  'expect' is not defined              no-undef
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\pages\Admin\__tests__\AdminPage.userManagement.integration.test.jsx
+    1:8   error    'React' is defined but never used                   no-unused-vars
+    2:46  error    'cleanup' is defined but never used                 no-unused-vars
+    8:1   warning  There should be no empty line within import group   import/order
+    8:8   error    'userManagementServices' is defined but never used  no-unused-vars
+   27:5   error    Duplicate key 'loading'                             no-dupe-keys
+   63:1   error    'describe' is not defined                           no-undef
+   64:3   error    'beforeEach' is not defined                         no-undef
+   79:3   error    'describe' is not defined                           no-undef
+   80:5   error    'it' is not defined                                 no-undef
+   92:9   error    'expect' is not defined                             no-undef
+   95:7   error    'expect' is not defined                             no-undef
+   98:5   error    'it' is not defined                                 no-undef
+  110:9   error    'expect' is not defined                             no-undef
+  113:7   error    'expect' is not defined                             no-undef
+  116:5   error    'it' is not defined                                 no-undef
+  127:7   error    'expect' is not defined                             no-undef
+  130:5   error    'it' is not defined                                 no-undef
+  141:7   error    'expect' is not defined                             no-undef
+  145:3   error    'describe' is not defined                           no-undef
+  146:5   error    'beforeEach' is not defined                         no-undef
+  156:5   error    'it' is not defined                                 no-undef
+  160:9   error    'expect' is not defined                             no-undef
+  167:9   error    'expect' is not defined                             no-undef
+  171:5   error    'it' is not defined                                 no-undef
+  175:9   error    'expect' is not defined                             no-undef
+  178:7   error    'expect' is not defined                             no-undef
+  179:7   error    'expect' is not defined                             no-undef
+  180:7   error    'expect' is not defined                             no-undef
+  181:7   error    'expect' is not defined                             no-undef
+  184:5   error    'it' is not defined                                 no-undef
+  188:9   error    'expect' is not defined                             no-undef
+  195:9   error    'expect' is not defined                             no-undef
+  202:9   error    'expect' is not defined                             no-undef
+  207:3   error    'describe' is not defined                           no-undef
+  208:5   error    'it' is not defined                                 no-undef
+  220:9   error    'expect' is not defined                             no-undef
+  232:9   error    'expect' is not defined                             no-undef
+  236:5   error    'it' is not defined                                 no-undef
+  248:9   error    'expect' is not defined                             no-undef
+  259:9   error    'expect' is not defined                             no-undef
+  262:7   error    'expect' is not defined                             no-undef
+  266:3   error    'describe' is not defined                           no-undef
+  267:5   error    'it' is not defined                                 no-undef
+  279:9   error    'expect' is not defined                             no-undef
+  285:9   error    'expect' is not defined                             no-undef
+  290:3   error    'describe' is not defined                           no-undef
+  291:5   error    'it' is not defined                                 no-undef
+  303:9   error    'expect' is not defined                             no-undef
+  308:3   error    'describe' is not defined                           no-undef
+  309:5   error    'it' is not defined                                 no-undef
+  321:9   error    'expect' is not defined                             no-undef
+  327:9   error    'expect' is not defined                             no-undef
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\pages\Auth\RegisterPage.jsx
+   65:5  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+   69:7  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+   75:7  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  137:7  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\pages\Certificate\CertificateGenerationPage.jsx
+  27:6  warning  React Hook useEffect has a missing dependency: 'loadEnrollmentData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\pages\CoursePlayer\CoursePlayerPage.quiz.integration.test.jsx
+    1:8   error  'React' is defined but never used                no-unused-vars
+    2:18  error  'screen' is defined but never used               no-unused-vars
+    2:26  error  'fireEvent' is defined but never used            no-unused-vars
+    2:37  error  'waitFor' is defined but never used              no-unused-vars
+   23:1   error  'describe' is not defined                        no-undef
+   25:9   error  'mockUserId' is assigned a value but never used  no-unused-vars
+   67:3   error  'beforeEach' is not defined                      no-undef
+   85:3   error  'test' is not defined                            no-undef
+   93:3   error  'test' is not defined                            no-undef
+   95:5   error  'expect' is not defined                          no-undef
+   98:3   error  'test' is not defined                            no-undef
+  101:5   error  'expect' is not defined                          no-undef
+  104:3   error  'test' is not defined                            no-undef
+  106:5   error  'expect' is not defined                          no-undef
+  109:3   error  'test' is not defined                            no-undef
+  121:3   error  'test' is not defined                            no-undef
+  125:3   error  'test' is not defined                            no-undef
+  129:3   error  'test' is not defined                            no-undef
+  137:3   error  'test' is not defined                            no-undef
+  142:3   error  'test' is not defined                            no-undef
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\scripts\initializeDatabase.js
+    5:3  error    'collection' is defined but never used                                             no-unused-vars
+   19:5  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  107:7  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  110:5  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  123:5  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  129:7  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  132:5  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  145:5  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  149:5  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\services\__tests__\errorTrackingService.test.js
+  1:32  error  'vi' is defined but never used  no-unused-vars
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\services\errorTrackingService.js
+  22:5  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\services\loggingService.js
+  30:18  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  31:9   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  33:9   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+
+c:\Users\Cole\Documents\Fastrack\Fastrack-Learning_Management-System\src\utils\__tests__\dateTimeFormatter.test.js
+  1:10  error  'vi' is defined but never used  no-unused-vars
+
+✖ 1480 problems (1330 errors, 150 warnings)
+

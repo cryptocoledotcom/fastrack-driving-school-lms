@@ -1,9 +1,10 @@
+import { vi } from 'vitest';
+
 import {
   assignTimeSlot,
   unassignTimeSlot,
   getSlotsByAssignment
 } from '../schedulingServices';
-import { vi } from 'vitest';
 
 vi.mock('firebase/firestore');
 vi.mock('../../base/ServiceWrapper', () => ({

@@ -1,9 +1,10 @@
+import { vi } from 'vitest';
+
 import enrollmentServices from '../enrollmentServices.js';
 import { ValidationError } from '../../errors/ApiError.js';
 import { COURSE_IDS, ENROLLMENT_STATUS, PAYMENT_STATUS, ACCESS_STATUS } from '../../../constants/courses.js';
-import { vi } from 'vitest';
 
-const firebaseFirestore = vi.mock('firebase/firestore', () => ({
+const _firebaseFirestore = vi.mock('firebase/firestore', () => ({
   writeBatch: vi.fn(),
   serverTimestamp: jest.fn(() => ({ _type: 'serverTimestamp' })),
   doc: vi.fn(),
@@ -25,15 +26,15 @@ vi.mock('../../../utils/api/timestampHelper.js', () => ({
 
 describe('enrollmentServices - Reset Functionality', () => {
   let mockUpdateDoc;
-  let mockBatchUpdate;
-  let mockBatchCommit;
+  let _mockBatchUpdate;
+  let _mockBatchCommit;
 
   beforeEach(() => {
     vi.clearAllMocks();
 
     mockUpdateDoc = vi.fn().mockResolvedValue(true);
-    mockBatchUpdate = vi.fn();
-    mockBatchCommit = vi.fn().mockResolvedValue(true);
+    _mockBatchUpdate = vi.fn();
+    _mockBatchCommit = vi.fn().mockResolvedValue(true);
 
     enrollmentServices.updateDoc = mockUpdateDoc;
     enrollmentServices.validate.validateUserId.mockImplementation(() => {});
@@ -240,7 +241,7 @@ describe('enrollmentServices - Reset Functionality', () => {
 
         try {
           await enrollmentServices.resetUserEnrollmentsToPending(userId);
-        } catch (e) {
+        } catch {
           // Expected
         }
 

@@ -1,8 +1,9 @@
 // CoursesPage Component
 // Displays available courses with enrollment functionality
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import { useAuth } from '../../context/AuthContext';
 import Card from '../../components/common/Card/Card';
 import Button from '../../components/common/Button/Button';
@@ -11,6 +12,7 @@ import PaymentModal from '../../components/payment/PaymentModal';
 import { getCourses } from '../../api/courses/courseServices';
 import { enrollmentServices } from '../../api/enrollment';
 import { COURSE_IDS, COURSE_PRICING } from '../../constants/courses';
+
 import styles from './CoursesPage.module.css';
 
 const CoursesPage = () => {

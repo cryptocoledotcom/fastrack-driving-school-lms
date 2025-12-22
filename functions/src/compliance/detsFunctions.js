@@ -1,14 +1,14 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
+
 const { getDb } = require('../common/firebaseUtils');
 const { logAuditEvent } = require('../common/auditLogger');
 
 const DETS_API_ENDPOINT = process.env.DETS_API_ENDPOINT || 'https://dets.ohio.gov/api/v1';
 const DETS_API_KEY = process.env.DETS_API_KEY || '';
-const DETS_BATCH_SIZE = 500;
 const DETS_AUTO_SUBMIT = process.env.DETS_AUTO_SUBMIT === 'true';
 
-exports.validateDETSRecord = functions.https.onCall(async (data, context) => {
+exports.validateDETSRecord = functions.https.onCall(async (data, _context) => {
   try {
     const record = data;
     const errors = [];
@@ -142,14 +142,14 @@ exports.exportDETSReport = functions.https.onCall(async (request) => {
       errors,
       submissionAttempts: 0,
       detsResponse: null,
-      exportedBy: context.auth.uid,
+      exportedBy: request.auth.uid,
       exportedAt: new Date().toISOString()
     };
 
     await getDb().collection('dets_reports').doc(reportId).set(report);
 
     await logAuditEvent({
-      userId: context.auth.uid,
+      userId: request.auth.uid,
       action: 'DETS_REPORT_EXPORTED',
       resource: 'dets_reports',
       resourceId: reportId,

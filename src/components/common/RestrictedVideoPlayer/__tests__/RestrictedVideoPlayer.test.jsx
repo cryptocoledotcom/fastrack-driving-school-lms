@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
+
 import RestrictedVideoPlayer from '../RestrictedVideoPlayer';
 
 describe('RestrictedVideoPlayer - Seeking Prevention', () => {

@@ -1,6 +1,8 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { vi, describe, it, expect, beforeEach } from 'vitest';
+
 import UpcomingLessons from '../UpcomingLessons';
+
 import { getUserBookings, cancelBooking } from '@/api/compliance/schedulingServices';
 
 // Mock dependencies

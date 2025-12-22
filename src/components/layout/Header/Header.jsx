@@ -1,11 +1,13 @@
 // Header Component
 // Main navigation header
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+
 import { useAuth } from '../../../context/AuthContext';
 import Button from '../../common/Button/Button';
 import { PUBLIC_ROUTES, PROTECTED_ROUTES } from '../../../constants/routes';
+
 import styles from './Header.module.css';
 
 const Header = () => {

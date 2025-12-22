@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
+
 import { useAuth } from '../../context/AuthContext';
 import Button from '../common/Button/Button';
 import ErrorMessage from '../common/ErrorMessage/ErrorMessage';
 import SuccessMessage from '../common/SuccessMessage/SuccessMessage';
 import Input from '../common/Input/Input';
 import { enrollmentServices } from '../../api/enrollment';
+
 import styles from './CheckoutForm.module.css';
 
 const RemainingPaymentCheckoutForm = ({
@@ -14,7 +16,7 @@ const RemainingPaymentCheckoutForm = ({
   onCancel,
   courseId,
   enrollment,
-  courseName
+  _courseName
 }) => {
   const stripe = useStripe();
   const elements = useElements();

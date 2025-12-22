@@ -1,9 +1,9 @@
 // NotificationModal Component
 // Info/warning notifications
 
-import React from 'react';
-import BaseModal from './BaseModal';
 import Button from '../Button/Button';
+
+import BaseModal from './BaseModal';
 import styles from './NotificationModal.module.css';
 
 const NotificationModal = ({

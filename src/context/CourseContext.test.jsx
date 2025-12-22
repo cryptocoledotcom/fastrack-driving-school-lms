@@ -1,11 +1,13 @@
-import React from 'react';
+
 import { render, screen, waitFor } from '@testing-library/react';
 import { vi } from 'vitest';
-import { CourseProvider, useCourse } from './CourseContext';
+
 import * as courseServices from '../api/courses/courseServices';
 import * as moduleServices from '../api/courses/moduleServices';
 import * as lessonServices from '../api/courses/lessonServices';
 import * as progressServices from '../api/student/progressServices';
+
+import { CourseProvider, useCourse } from './CourseContext';
 
 vi.mock('./AuthContext', () => ({
   useAuth: () => ({

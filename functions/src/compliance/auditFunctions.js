@@ -1,6 +1,6 @@
 const admin = require('firebase-admin');
 const { onCall } = require('firebase-functions/v2/https');
-const { AUDIT_EVENT_TYPES } = require('../common/auditLogger');
+
 const { getDb } = require('../common/firebaseUtils');
 
 exports.getAuditLogs = onCall(async (request) => {

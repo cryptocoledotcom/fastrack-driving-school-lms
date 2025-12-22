@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import auditLogServices from '../auditLogServices';
 import { httpsCallable } from 'firebase/functions';
+
+import auditLogServices from '../auditLogServices';
 
 // Mock Firebase Functions
 vi.mock('firebase/functions', () => ({

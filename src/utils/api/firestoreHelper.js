@@ -1,4 +1,5 @@
 import { doc, updateDoc, setDoc, getDoc } from 'firebase/firestore';
+
 import { updateWithTimestamp } from './timestampHelper.js';
 
 export const mergeOrCreate = async (db, collectionPath, docId, data, merge = true) => {
