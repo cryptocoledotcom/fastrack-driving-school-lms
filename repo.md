@@ -1,15 +1,20 @@
-# Fastrack LMS - Repository Documentation
+# Fastrack LMS - Quick Start Guide
+
+⚠️ **For comprehensive documentation, see [`.zencoder/rules/repo.md`](.zencoder/rules/repo.md)** (auto-applied AI agent instructions).
 
 ## Code Quality Status
 
 | Metric | Status | Details |
 |--------|--------|---------|
 | **ESLint Issues** | ✅ ZERO | 0 errors, 0 warnings (Session 13 complete) |
-| **Test Pass Rate** | ✅ 100% | 1,093 tests passing |
+| **Test Pass Rate** | ✅ 100% | 1,093 tests passing (Phase 5 goal achieved) |
 | **Type Safety** | ✅ READY | React components following best practices |
 | **Security** | ✅ HARDENED | Firestore rules, CORS, App Check, RBAC |
 
-See `CLAUDE.md` for detailed session history and `docs/development/ESLINT_GUIDE.md` for code quality guidelines.
+📖 **Documentation Index**:
+- **Main Reference**: [`.zencoder/rules/repo.md`](.zencoder/rules/repo.md) ← Use this for architecture, phases, all details
+- **Development Guide**: [`CLAUDE.md`](./CLAUDE.md) ← Session history, current work, workflow
+- **Code Quality**: [`docs/development/ESLINT_GUIDE.md`](./docs/development/ESLINT_GUIDE.md) ← ESLint rules and standards
 
 ---
 
@@ -374,5 +379,18 @@ SENTRY_DSN=...
 
 ---
 
-**Last Updated**: December 16, 2025  
-**Status**: ✅ Production Ready - Phase 4.2 Complete, Phase 5.1 Gen 2 Complete, Phase 5.2 E2E Infrastructure Complete (Registration race condition fixed, Student journey verified), Phase 6 Researched
+**Last Updated**: December 17, 2025 (Session 8 complete)  
+**Status**: ✅ Production Ready - Phase 5 IN PROGRESS (1,093 tests, 100% pass rate)
+
+---
+
+## File Organization Guide
+
+| File | Purpose | Keep Updated By |
+|------|---------|-----------------|
+| **[`.zencoder/rules/repo.md`](.zencoder/rules/repo.md)** | **PRIMARY**: Comprehensive architecture, phases, all technical details | AI Agent (auto-applied) |
+| **[`repo.md`](./repo.md)** (this file) | Quick-start and navigation guide | When phases complete |
+| **[`CLAUDE.md`](./CLAUDE.md)** | Session history, current work, development workflows | After each session |
+| **[`DOCUMENTATION_INDEX.md`](./DOCUMENTATION_INDEX.md)** | Navigation hub for all documentation | When docs added |
+
+**Rule**: When in doubt, check **`.zencoder/rules/repo.md`** — it's the single source of truth.
